@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings"
+        app:showAsAction="ifRoom"
+        android:title="Configuracion"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Buscar"
+        app:showAsAction="ifRoom">
+        <menu >
+            <item android:id="@+id/reportUserItemMenu"
+                android:title="Por nombre" />
+            <item android:id="@+id/scannerFragment"
+                android:title="Con codigo de barras" />
+        </menu>
+    </item>
+
+</menu>
