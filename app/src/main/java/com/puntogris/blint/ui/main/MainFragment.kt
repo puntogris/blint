@@ -10,7 +10,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.show
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
@@ -31,8 +32,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun createNewBusiness(){
-        binding.button2.show()
-        binding.textView4.show()
+        binding.button2.visible()
+        binding.textView4.visible()
         binding.button2.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_registerBusiness)
         }
@@ -46,14 +47,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, businessesNames))
                 setText(businesses.first().name, false)
             }
-            binding.menu.show()
+            binding.menu.visible()
         }
         adapter = MainMenuAdapter{ onMenuCardClicked(it) }
         binding.recyclerView.apply {
             adapter = this@MainFragment.adapter
             layoutManager = GridLayoutManager(requireContext(),2)
             addItemDecoration(SpaceItemDecoration(30, true))
-            show()
+            visible()
         }
         adapter.submitList(test)
     }

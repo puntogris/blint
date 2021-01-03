@@ -7,6 +7,7 @@ import android.view.*
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -88,22 +89,22 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 preview.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 camera = cameraProvider.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
+                val parentFab = requireActivity().findViewById<FloatingActionButton>(R.id.addFav)
 
                 if (camera.cameraInfo.hasFlashUnit()) {
-                    binding.ivFlashControl.visibility = View.VISIBLE
-
-                    binding.ivFlashControl.setOnClickListener {
+                    parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_off_24))
+                    parentFab.setOnClickListener {
                         camera.cameraControl.enableTorch(!flashEnabled)
-                    }
 
+                    }
                     camera.cameraInfo.torchState.observe(viewLifecycleOwner) {
                         it?.let { torchState ->
                             if (torchState == TorchState.ON) {
                                 flashEnabled = true
-                                binding.ivFlashControl.setImageResource(R.drawable.ic_baseline_flash_on_24)
+                                parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_on_24))
                             } else {
                                 flashEnabled = false
-                                binding.ivFlashControl.setImageResource(R.drawable.ic_baseline_flash_off_24)
+                                parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_off_24))
                             }
                         }
                     }

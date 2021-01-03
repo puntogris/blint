@@ -14,12 +14,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 import timber.log.Timber
 
-fun View.hide(){
+fun View.gone(){
     visibility = View.GONE
 }
 
-fun View.show(){
+fun View.visible(){
     visibility = View.VISIBLE
+}
+fun View.invisible(){
+    visibility = View.INVISIBLE
 }
 
 fun AppCompatActivity.getNavController() =

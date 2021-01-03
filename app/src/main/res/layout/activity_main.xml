@@ -18,7 +18,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="?actionBarSize"
-            app:navGraph="@navigation/navigation" />
+            app:navGraph="@navigation/navigation" >
+
+        </androidx.fragment.app.FragmentContainerView>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
@@ -37,11 +39,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addFav"
+            android:visibility="visible"
             app:layout_anchor="@id/bottomAppBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            app:layout_anchorGravity="top|center_horizontal"
+            app:layout_anchor="@id/addFav"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addProductFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Theme.Blint.Fab.Child"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_baseline_library_add_24" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addClientFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                style="@style/Theme.Blint.Fab.Child"
+                app:layout_constraintBottom_toTopOf="@+id/addProductFab"
+                app:layout_constraintEnd_toEndOf="@+id/addProductFab"
+                app:layout_constraintStart_toStartOf="@+id/addProductFab"
+                app:srcCompat="@drawable/ic_baseline_person_add_24" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addSuplierFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Theme.Blint.Fab.Child"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/addClientFab"
+                app:layout_constraintEnd_toEndOf="@+id/addClientFab"
+                app:layout_constraintStart_toStartOf="@+id/addClientFab"
+                app:srcCompat="@drawable/ic_baseline_add_business_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
