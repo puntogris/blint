@@ -60,6 +60,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 setText(businesses.first().name, false)
             }
             binding.businessMenu.visible()
+            binding.syncSwitch.visible()
         }
     }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="Mi cuenta"
+        android:key="account"
+        android:icon="@drawable/ic_baseline_account_circle_24" />
+
+    <Preference
+        android:title="Editar tarjetas inicio"
+        android:key="card"
+        android:icon="@drawable/ic_baseline_edit_24" />
+
+</PreferenceScreen>

@@ -49,30 +49,21 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.scannerFragment)
                     true
                 }
-                else -> {
-                    false
+                R.id.preferencesFragment -> {
+                    navController.navigate(R.id.preferencesFragment)
+                    true
                 }
+                else -> false
             }
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.scannerFragment){
-
-            }else if(destination.id == R.id.createProductFragment ||
-                    destination.id == R.id.registerBusiness){
-              //  binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                binding.bottomAppBar.visibility = View.VISIBLE
-                binding.addFav.visibility = View.VISIBLE
-            }
-            else{
+            if (destination.id != R.id.createProductFragment ||
+                    destination.id != R.id.registerBusiness){
                 binding.addFav.setImageResource(R.drawable.ic_baseline_add_24)
-                binding.bottomAppBar.visibility = View.VISIBLE
-                binding.addFav.visibility = View.VISIBLE
-             //   binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 binding.addFav.setOnClickListener { onParentFabClicked() }
             }
         }
-
     }
 
     private fun onParentFabClicked(){

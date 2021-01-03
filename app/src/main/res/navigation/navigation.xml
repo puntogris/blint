@@ -28,4 +28,8 @@
         android:id="@+id/registerBusiness"
         android:name="com.puntogris.blint.ui.RegisterBusiness"
         android:label="Nuevo negocio" />
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="com.puntogris.blint.ui.settings.PreferencesFragment"
+        android:label="Configuracion" />
 </navigation>
