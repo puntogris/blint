@@ -1,18 +1,18 @@
 package com.puntogris.blint.ui
 
-import android.util.DisplayMetrics
-import android.util.Log
 import android.util.Size
 import android.view.*
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.BarcodeAnalyzer
+import com.puntogris.blint.utils.changeIconFromDrawable
+import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -44,7 +44,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             preview = Preview.Builder()
                     .build()
 
-            val metrics = DisplayMetrics().also { binding.viewFinder.display.getRealMetrics(it) }
+       //     val metrics = DisplayMetrics().also { binding.viewFinder.display.getRealMetrics(it) }
 
             val imageAnalysis = ImageAnalysis.Builder()
                     .setTargetRotation(rotation)
@@ -59,7 +59,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
 
             val orientationEventListener = object : OrientationEventListener(requireContext()) {
                 override fun onOrientationChanged(orientation : Int) {
-                    // Monitors orientation values to determine the target rotation value
                      when (orientation) {
                         in 45..134 -> Surface.ROTATION_270
                         in 135..224 -> Surface.ROTATION_180
@@ -89,10 +88,9 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 preview.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 camera = cameraProvider.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
-                val parentFab = requireActivity().findViewById<FloatingActionButton>(R.id.addFav)
-
+                val parentFab = getParentFab()
                 if (camera.cameraInfo.hasFlashUnit()) {
-                    parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_off_24))
+                    parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_off_24)
                     parentFab.setOnClickListener {
                         camera.cameraControl.enableTorch(!flashEnabled)
                     }
@@ -100,18 +98,16 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                         it?.let { torchState ->
                             if (torchState == TorchState.ON) {
                                 flashEnabled = true
-                                parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_on_24))
+                                parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_on_24)
                             } else {
                                 flashEnabled = false
-                                parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_off_24))
+                                parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_off_24)
                             }
                         }
                     }
                 }
 
-            } catch(exc: Exception) {
-                Log.e("CameraXBasic", "Use case binding failed", exc)
-            }
+            } catch(exc: Exception) { Timber.e(exc, "Use case binding failed") }
 
         }, ContextCompat.getMainExecutor(requireContext()))
     }
