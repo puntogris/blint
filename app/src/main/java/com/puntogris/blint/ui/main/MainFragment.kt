@@ -63,20 +63,25 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun setupRecyclerView(){
-        MainMenuAdapter{ onMenuCardClicked(it) }
-            .also {
-                it.submitList(testList)
-                binding.recyclerView.apply {
-                    adapter = it
-                    layoutManager = GridLayoutManager(requireContext(),2)
-                    addItemDecoration(SpaceItemDecoration(30, true))
-                    visible()
-                }
-            }
+    private fun changeBusinessListener(){
+        binding.businessMenuDropDown.setOnItemClickListener { adapterView, view, i, l ->
+            //get the info from database and update ui
+        }
     }
 
-    private fun onMenuCardClicked(menuCard: MenuCard){
+    private fun setupRecyclerView(){
+        mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
+        mainMenuAdapter.submitList(testList)
+        binding.recyclerView.apply {
+            adapter = mainMenuAdapter
+            layoutManager = GridLayoutManager(requireContext(),2)
+            addItemDecoration(SpaceItemDecoration(30, true))
+            visible()
+        }
+    }
 
+
+    private fun onMenuCardClicked(menuCard: MenuCard){
+        //
     }
 }

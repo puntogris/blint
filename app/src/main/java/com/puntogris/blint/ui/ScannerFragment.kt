@@ -5,6 +5,7 @@ import android.view.*
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -44,8 +45,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             preview = Preview.Builder()
                     .build()
 
-       //     val metrics = DisplayMetrics().also { binding.viewFinder.display.getRealMetrics(it) }
-
             val imageAnalysis = ImageAnalysis.Builder()
                     .setTargetRotation(rotation)
                     .setTargetResolution(Size(1280, 720))
@@ -73,13 +72,16 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 requireActivity().runOnUiThread {
                     imageAnalysis.clearAnalyzer()
                     cameraProvider.unbindAll()
-                    ScannerResultDialog
-                        .newInstance(it, object : ScannerResultDialog.DialogDismissListener {
-                            override fun onDismiss() {
-                                startCamera()
-                            }
-                        })
-                        .show(parentFragmentManager, ScannerResultDialog::class.java.simpleName)
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("key", it)
+                    findNavController().navigateUp()
+
+//                    ScannerResultDialog
+//                        .newInstance(it, object : ScannerResultDialog.DialogDismissListener {
+//                            override fun onDismiss() {
+//                                startCamera()
+//                            }
+//                        })
+//                        .show(parentFragmentManager, ScannerResultDialog::class.java.simpleName)
                 }
             }
 

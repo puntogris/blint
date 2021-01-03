@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/createProductFragment"
         android:name="com.puntogris.blint.ui.create_product.CreateProductFragment"
-        android:label="Nuevo articulo" />
+        android:label="Nuevo articulo" >
+        <action
+            android:id="@+id/action_createProductFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerBusiness"
         android:name="com.puntogris.blint.ui.RegisterBusiness"
