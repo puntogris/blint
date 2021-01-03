@@ -1,7 +1,8 @@
 package com.puntogris.blint.ui.main
 
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,13 +10,10 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.asd
-import com.puntogris.blint.utils.hide
 import com.puntogris.blint.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -43,7 +41,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private fun showCurrentBusiness(){
         lifecycleScope.launch {
             val businesses = viewModel.getBusiness()
-            binding.textView6.text = "Negocio: " + businesses.first().name
+            val businessesNames = businesses.map { it.name }
+            (binding.textField as? AutoCompleteTextView)?.apply {
+                setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, businessesNames))
+                setText(businesses.first().name, false)
+            }
+            binding.menu.show()
         }
         adapter = MainMenuAdapter{ onMenuCardClicked(it) }
         binding.recyclerView.apply {
