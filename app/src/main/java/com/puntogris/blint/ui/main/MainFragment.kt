@@ -31,6 +31,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun createNewBusiness(){
+        println("ee")
         binding.button2.show()
         binding.textView4.show()
         binding.button2.setOnClickListener {
