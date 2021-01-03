@@ -95,7 +95,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     parentFab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_flash_off_24))
                     parentFab.setOnClickListener {
                         camera.cameraControl.enableTorch(!flashEnabled)
-
                     }
                     camera.cameraInfo.torchState.observe(viewLifecycleOwner) {
                         it?.let { torchState ->

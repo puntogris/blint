@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
             }else if(destination.id == R.id.createProductFragment ||
                     destination.id == R.id.registerBusiness){
-                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+              //  binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
                 binding.bottomAppBar.visibility = View.VISIBLE
                 binding.addFav.visibility = View.VISIBLE
             }
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 binding.addFav.setImageResource(R.drawable.ic_baseline_add_24)
                 binding.bottomAppBar.visibility = View.VISIBLE
                 binding.addFav.visibility = View.VISIBLE
-                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+             //   binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 binding.addFav.setOnClickListener { onParentFabClicked() }
             }
         }
