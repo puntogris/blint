@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.create_product
 
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
+
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
