@@ -1,29 +1,56 @@
 package com.puntogris.blint.ui.main
 
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.hide
+import com.puntogris.blint.utils.show
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
+
     private lateinit var adapter: MainMenuAdapter
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun initializeViews() {
-        adapter = MainMenuAdapter{onMenuCardClicked(it)}
-        val manager = GridLayoutManager(requireContext(),2)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = manager
-        binding.recyclerView.addItemDecoration(SpaceItemDecoration(30, true))
-        adapter.submitList(test)
+        lifecycleScope.launchWhenStarted {
+            when(viewModel.getBusinessCount()){
+                0 -> createNewBusiness()
+                else -> showCurrentBusiness()
+            }
+        }
+    }
 
+    private fun createNewBusiness(){
+        binding.button2.show()
+        binding.textView4.show()
         binding.button2.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_registerBusiness)
         }
+    }
+
+    private fun showCurrentBusiness(){
+        lifecycleScope.launch {
+            val businesses = viewModel.getBusiness()
+            binding.textView6.text = "Negocio: " + businesses.first().name
+        }
+        adapter = MainMenuAdapter{ onMenuCardClicked(it) }
+        binding.recyclerView.apply {
+            adapter = this@MainFragment.adapter
+            layoutManager = GridLayoutManager(requireContext(),2)
+            addItemDecoration(SpaceItemDecoration(30, true))
+            show()
+        }
+        adapter.submitList(test)
     }
 
     val test  = mutableListOf(

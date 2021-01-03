@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomAppBar.visibility = View.GONE
                 binding.addFav.visibility = View.GONE
 
-            }else if(destination.id == R.id.createProductFragment){
+            }else if(destination.id == R.id.createProductFragment ||
+                    destination.id == R.id.registerBusiness){
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
                 binding.bottomAppBar.visibility = View.VISIBLE
                 binding.addFav.visibility = View.GONE

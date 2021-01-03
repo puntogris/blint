@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.puntogris.blint.ui.main.MainFragment"
-        android:label="Lukks" >
+        android:label="@string/app_name" >
         <action
             android:id="@+id/action_mainFragment_to_registerBusiness"
             app:destination="@id/registerBusiness" />
@@ -23,5 +23,5 @@
     <fragment
         android:id="@+id/registerBusiness"
         android:name="com.puntogris.blint.ui.RegisterBusiness"
-        android:label="RegisterBusiness" />
+        android:label="Nuevo negocio" />
 </navigation>

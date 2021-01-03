@@ -13,6 +13,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 
+fun View.hide(){
+    visibility = View.GONE
+}
+
+fun View.show(){
+    visibility = View.VISIBLE
+}
+
 fun AppCompatActivity.getNavController() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
 
