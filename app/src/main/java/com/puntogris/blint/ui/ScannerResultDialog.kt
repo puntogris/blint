@@ -31,7 +31,6 @@ class ScannerResultDialog(private val listener: DialogDismissListener) : BottomS
         }
     }
 
-
     companion object {
         fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultDialog =
             ScannerResultDialog(listener).apply {
