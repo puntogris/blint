@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
+import timber.log.Timber
 
 fun View.hide(){
     visibility = View.GONE

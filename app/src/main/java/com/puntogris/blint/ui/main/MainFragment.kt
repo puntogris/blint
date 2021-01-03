@@ -9,11 +9,13 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.asd
 import com.puntogris.blint.utils.hide
 import com.puntogris.blint.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {

@@ -96,4 +96,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     implementation 'me.farahani.spaceitemdecoration:spaceitemdecoration:1.0'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }
