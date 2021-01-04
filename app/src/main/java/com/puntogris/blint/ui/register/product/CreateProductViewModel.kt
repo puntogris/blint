@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.create_product
+package com.puntogris.blint.ui.register.product
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

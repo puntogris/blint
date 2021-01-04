@@ -1,8 +1,6 @@
-package com.puntogris.blint.ui.create_product
+package com.puntogris.blint.ui.register.product
 
 import android.content.Intent
-import android.graphics.Color
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nguyenhoanglam.imagepicker.model.Config

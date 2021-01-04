@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.create_product.CreateProductViewModel" />
+            type="com.puntogris.blint.ui.register.product.CreateProductViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.create_product.CreateProductFragment" />
+            type="com.puntogris.blint.ui.register.product.CreateProductFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.create_product.CreateProductFragment">
+            tools:context=".ui.register.product.CreateProductFragment">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/productName"

@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui
+package com.puntogris.blint.ui.register.business
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope

@@ -76,13 +76,27 @@ class MainActivity : AppCompatActivity() {
     private fun setVisibility(clicked: Boolean){
         binding.apply {
             if (!clicked){
-                addClientFab.visible()
-                addProductFab.visible()
-                addProductFab.setOnClickListener {
-                    navController.navigate(R.id.createProductFragment)
-                    onParentFabClicked()
+                addClientFab.apply {
+                    visible()
+                    setOnClickListener {
+                        navController.navigate(R.id.registerClientFragment)
+                        onParentFabClicked()
+                    }
                 }
-                addSuplierFab.visible()
+                addProductFab.apply {
+                    visible()
+                    setOnClickListener {
+                        navController.navigate(R.id.createProductFragment)
+                        onParentFabClicked()
+                    }
+                }
+                addSuplierFab.apply {
+                    visible()
+                    setOnClickListener {
+                        navController.navigate(R.id.registerSupplierFragment)
+                        onParentFabClicked()
+                    }
+                }
             }else{
                 addClientFab.invisible()
                 addProductFab.invisible()
