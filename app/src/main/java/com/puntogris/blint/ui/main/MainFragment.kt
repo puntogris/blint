@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.model.MenuCard.Companion.ALL_CLIENTS_CARD_CODE
+import com.puntogris.blint.model.MenuCard.Companion.ALL_PRODUCTS_CARD_CODE
+import com.puntogris.blint.model.MenuCard.Companion.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,11 +24,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
 
-    private val testList  = mutableListOf(
-        MenuCard(1,"Productos", R.drawable.ic_baseline_library_books_24,"1 / 40 stock","Ver todos", R.color.card1),
-        MenuCard(2,"Proveedores", R.drawable.ic_baseline_store_24," 1 proveedor","Ver todos", R.color.card2),
-        MenuCard(3,"Clientes", R.drawable.ic_baseline_people_alt_24,"4 clientes","Ver todos",R.color.card3),
-    )
+
+    //esta lista viene de la base de datos del usuario o shared pref donde guardo las tarjetas que habilito
+    private val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE)
+
+    val testList = cardList.map {
+        MenuCard.fromCardCode(it)
+    }
+
+    //ahora con estos codigos busco la informacion que necesito y armo la lista de menu para el adapter
 
     override fun initializeViews() {
         lifecycleScope.launchWhenStarted {
@@ -35,6 +42,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
     }
+
 
     private fun createNewBusiness(){
         binding.registerBusinessSummary.visible()

@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.local.clients.ClientsDao
 import com.puntogris.blint.data.local.products.ProductsDao
@@ -25,6 +26,7 @@ class MainViewModel @ViewModelInject constructor(
     // client listener db
 
     //supplier listener from db
+
 
     suspend fun registerNewBusiness(name: String){
         businessDao.insert(Business(name = name))

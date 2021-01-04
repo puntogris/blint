@@ -1,7 +1,6 @@
 package com.puntogris.blint.data.local.suppliers
 
 import androidx.room.*
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 
 @Dao

@@ -1,20 +1,14 @@
 package com.puntogris.blint.utils
 
-import android.graphics.Color
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
-import com.puntogris.blint.model.MenuCard
-import timber.log.Timber
 
 fun View.gone(){
     visibility = View.GONE
