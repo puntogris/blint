@@ -48,7 +48,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/clientName"
             app:layout_constraintTop_toTopOf="@+id/clientName"
-            app:srcCompat="@drawable/ic_baseline_search_24" />
+            app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/clientAddress"
@@ -86,7 +86,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/clientAddress"
             app:layout_constraintTop_toTopOf="@+id/clientAddress"
-            app:srcCompat="@drawable/ic_barcode" />
+            app:srcCompat="@drawable/ic_baseline_location_searching_24" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/clientEmail"
@@ -124,7 +124,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/clientEmail"
             app:layout_constraintTop_toTopOf="@+id/clientEmail"
-            app:srcCompat="@drawable/ic_barcode" />
+            app:srcCompat="@drawable/ic_baseline_email_24" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/clientPhoneNumber"
@@ -162,7 +162,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/clientPhoneNumber"
             app:layout_constraintTop_toTopOf="@+id/clientPhoneNumber"
-            app:srcCompat="@drawable/ic_barcode" />
+            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -201,7 +201,29 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/clientPaymentInfo"
             app:layout_constraintTop_toTopOf="@+id/clientPaymentInfo"
-            app:srcCompat="@drawable/ic_barcode" />
+            app:srcCompat="@drawable/ic_baseline_content_copy_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/clientDiscount"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Descuento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/clientDiscountText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
