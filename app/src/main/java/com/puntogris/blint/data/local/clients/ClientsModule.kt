@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.local.product
+package com.puntogris.blint.data.local.clients
 
 import android.content.Context
 import androidx.room.Room
@@ -11,22 +11,21 @@ import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
 @Module
-class ProductsModule {
+class ClientsModule {
     @Provides
-    fun providesProductsDao(productsDatabase: ProductsDatabase): ProductsDao {
-        return productsDatabase.productsDao()
+    fun providesClientDao(clientsDatabase: ClientsDatabase): ClientsDao {
+        return clientsDatabase.clientsDao()
     }
 
     @Provides
     @Singleton
-    fun provideProductsDatabase(@ApplicationContext appContext: Context): ProductsDatabase {
+    fun providesClientsDatabase(@ApplicationContext appContext: Context): ClientsDatabase {
         return Room
             .databaseBuilder(
                 appContext,
-                ProductsDatabase::class.java,
-                "products_table"
+                ClientsDatabase::class.java,
+                "clients_table"
             )
             .build()
     }
-
 }

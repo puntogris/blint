@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nguyenhoanglam.imagepicker.model.Image
-import com.puntogris.blint.data.local.product.ProductsDao
+import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.model.Product
 import kotlinx.coroutines.launch
 

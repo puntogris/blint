@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.local.business
+package com.puntogris.blint.data.local.businesses
 
 import androidx.room.*
 import com.puntogris.blint.model.Business
