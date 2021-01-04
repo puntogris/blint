@@ -16,6 +16,11 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxCornerRadiusTopEnd">2dp</item>
+        <item name="boxCornerRadiusTopStart">2dp</item>
+    </style>
+
     <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
     </style>

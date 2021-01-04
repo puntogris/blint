@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     private fun onParentFabClicked(){
         setAnimation(clicked)
         setVisibility(clicked)
+        setClickable(clicked)
         clicked = !clicked
     }
 
@@ -117,6 +118,19 @@ class MainActivity : AppCompatActivity() {
                 addClientFab.startAnimation(toBottom)
                 addProductFab.startAnimation(toBottom)
                 addSuplierFab.startAnimation(toBottom)
+            }
+        }
+    }
+    private fun setClickable(clicked: Boolean){
+        binding.apply {
+            if (!clicked){
+                addClientFab.isClickable = true
+                addProductFab.isClickable = true
+                addSuplierFab.isClickable = true
+            }else{
+                addClientFab.isClickable = false
+                addProductFab.isClickable = false
+                addSuplierFab.isClickable = false
             }
         }
     }

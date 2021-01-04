@@ -25,14 +25,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/productName"
+                style="@style/Theme.Blint.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:hint="Nombre"
-                app:boxCornerRadiusTopEnd="0dp"
-                app:boxCornerRadiusTopStart="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/searchNameButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -46,15 +45,31 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageButton
+                android:id="@+id/searchNameButton"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/purple_200"
+                android:onClick="@{()-> fragment.onSearchButtonClicked()}"
+                android:tint="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/productName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productName"
+                app:layout_constraintTop_toTopOf="@+id/productName"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/productBarcode"
+                style="@style/Theme.Blint.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:hint="Codigo de barras"
-                app:boxCornerRadiusTopEnd="0dp"
-                app:boxCornerRadiusTopStart="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -78,7 +93,6 @@
                 android:layout_marginEnd="32dp"
                 android:backgroundTint="@color/purple_200"
                 android:onClick="@{()-> fragment.onScanButtonClicked()}"
-                android:text="Escanear"
                 android:tint="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/productBarcode"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,14 +103,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/productDescription"
+                style="@style/Theme.Blint.TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:hint="Descripcion"
-                app:boxCornerRadiusTopEnd="0dp"
-                app:boxCornerRadiusTopStart="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productBarcode">
@@ -110,44 +123,100 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productBuyPrice"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Compra"
+                app:layout_constraintEnd_toStartOf="@+id/productSellPrice"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productBuyPriceText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productSellPrice"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Venta"
+                app:layout_constraintBottom_toBottomOf="@+id/productBuyPrice"
+                app:layout_constraintEnd_toStartOf="@+id/productSuggestedSellPrice"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/productBuyPrice"
+                app:layout_constraintTop_toTopOf="@+id/productBuyPrice">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productSellPriceText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productSuggestedSellPrice"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="32dp"
-                android:backgroundTint="@color/purple_200"
-                android:onClick="@{()-> fragment.onSearchButtonClicked()}"
-                android:tint="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/productName"
+                android:hint="Sugerido"
+                app:layout_constraintBottom_toBottomOf="@+id/productSellPrice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/productName"
-                app:layout_constraintTop_toTopOf="@+id/productName"
-                app:srcCompat="@drawable/ic_baseline_search_24" />
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/productSellPrice"
+                app:layout_constraintTop_toTopOf="@+id/productSellPrice">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productSuggestedSellPriceText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
 
             <Button
                 android:id="@+id/addProductImageButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                loadImageButtonText="@{viewModel.productImage}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:onClick="@{()-> fragment.onAddImageButtonClicked()}"
-                loadImageButtonText="@{viewModel.productImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
@@ -163,6 +232,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addProductImageButton" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Precios"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
