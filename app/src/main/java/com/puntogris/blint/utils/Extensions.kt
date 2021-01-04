@@ -2,6 +2,7 @@ package com.puntogris.blint.utils
 
 import android.graphics.Color
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -26,8 +27,10 @@ fun View.invisible(){
     visibility = View.INVISIBLE
 }
 
-fun Fragment.getParentFab() =
-    requireActivity().findViewById<FloatingActionButton>(R.id.addFav)
+fun EditText.getString() = text.toString()
+
+fun Fragment.getParentFab(): FloatingActionButton =
+    requireActivity().findViewById(R.id.addFav)
 
 fun FloatingActionButton.changeIconFromDrawable(icon: Int){
     setImageDrawable(ContextCompat.getDrawable(context, icon))
@@ -36,22 +39,21 @@ fun FloatingActionButton.changeIconFromDrawable(icon: Int){
 fun AppCompatActivity.getNavController() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
 
-fun Fragment.createSnackBar(message: String){
+fun Fragment.showSnackBarAboveFab(message: String){
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG).show()
+    Snackbar
+            .make(snackLayout, message, Snackbar.LENGTH_LONG)
+            .setAnchorView(getParentFab())
+            .show()
 }
 
-@BindingAdapter("menuCardColor")
-fun CardView.setBackgroundColor(menuCard: MenuCard){
-    setCardBackgroundColor(context.getColor(menuCard.color))
-    if (menuCard.id == 6) findViewById<ImageView>(R.id.imageView).visibility = View.GONE
+fun Fragment.createSnackBar(message: String): Snackbar{
+    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
+    return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
 }
 
-@BindingAdapter("menuCardIcon")
-fun ImageView.setMenuCardIcon(menuCard: MenuCard){
-    if (menuCard.id == 6) visibility = View.GONE
-    else{
-        setImageDrawable(ContextCompat.getDrawable(context, menuCard.icon))
-        setColorFilter(Color.WHITE)
-    }
+fun Fragment.showSnackBar(message: String){
+    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
+    Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
 }
+

@@ -33,7 +33,7 @@ class PreferencesFragment: PreferenceFragmentCompat() {
                     Option(R.drawable.ic_baseline_person_add_24, "Agregar Cliente").select(),
                     Option(R.drawable.ic_baseline_store_24, "Ver Proveedores"),
                     Option(R.drawable.ic_baseline_library_books_24, "Ver Productos"),
-                    Option(R.drawable.ic_baseline_people_alt_24, "Ver Clientes"),
+                    Option(R.drawable.ic_baseline_people_alt_24, "Ver Clientes")
                 )
                 onNegative("Cancelar")
                 onPositive("Guardar") { index: Int, option: Option ->

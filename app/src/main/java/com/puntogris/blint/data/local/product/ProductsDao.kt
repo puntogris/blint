@@ -1,4 +1,4 @@
-package com.puntogris.blint.data
+package com.puntogris.blint.data.local.product
 
 import androidx.room.*
 import com.puntogris.blint.model.Product

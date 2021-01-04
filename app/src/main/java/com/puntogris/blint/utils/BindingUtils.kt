@@ -1,0 +1,54 @@
+package com.puntogris.blint.utils
+
+import android.graphics.Color
+import android.os.Build
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.nguyenhoanglam.imagepicker.model.Image
+import com.puntogris.blint.R
+import com.puntogris.blint.model.MenuCard
+
+@BindingAdapter("imageFullSize")
+fun ImageView.setImageFullSize(image: Image?){
+    if(image != null){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            GlideApp.with(context)
+                    .load(image.uri)
+                    .transform(CenterCrop(), RoundedCorners(5))
+                    .into(this)
+        } else {
+            GlideApp.with(context)
+                    .load(image.path)
+                    .transform(CenterCrop(), RoundedCorners(5))
+                    .transform()
+                    .into(this)
+        }
+    }
+}
+
+@BindingAdapter("menuCardColor")
+fun CardView.setBackgroundColor(menuCard: MenuCard){
+    setCardBackgroundColor(context.getColor(menuCard.color))
+    if (menuCard.id == 6) findViewById<ImageView>(R.id.imageView).visibility = View.GONE
+}
+
+@BindingAdapter("menuCardIcon")
+fun ImageView.setMenuCardIcon(menuCard: MenuCard){
+    if (menuCard.id == 6) visibility = View.GONE
+    else{
+        setImageDrawable(ContextCompat.getDrawable(context, menuCard.icon))
+        setColorFilter(Color.WHITE)
+    }
+}
+
+@BindingAdapter("loadImageButtonText")
+fun Button.setLoadImageButtonText(image: Image?){
+    text = if (image == null) "Agregar imagen" else "Cambiar imagen"
+}

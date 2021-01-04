@@ -1,17 +1,30 @@
 package com.puntogris.blint.ui.create_product
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.ProductsDao
+import androidx.lifecycle.viewModelScope
+import com.nguyenhoanglam.imagepicker.model.Image
+import com.puntogris.blint.data.local.product.ProductsDao
 import com.puntogris.blint.model.Product
+import kotlinx.coroutines.launch
 
 class CreateProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao
 ):ViewModel() {
 
+    private val _productImage = MutableLiveData<Image>()
+    val productImage: LiveData<Image> = _productImage
 
-    fun saveProduct(){
-        //productsDao.insert()
+    fun saveProduct(product: Product){
+        viewModelScope.launch {
+            productsDao.insert(product)
+        }
     }
+
+    fun updateProductImage(image: Image){
+        _productImage.value = image
+    }
+
 }
