@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.main
 
+import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
@@ -9,10 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.MenuCard.Companion.ALL_CLIENTS_CARD_CODE
-import com.puntogris.blint.model.MenuCard.Companion.ALL_PRODUCTS_CARD_CODE
-import com.puntogris.blint.model.MenuCard.Companion.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,17 +24,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
-
-
-    //esta lista viene de la base de datos del usuario o shared pref donde guardo las tarjetas que habilito
-    private val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE)
-
-    val testList = cardList.map {
-        MenuCard.fromCardCode(it)
-    }
-
-    //ahora con estos codigos busco la informacion que necesito y armo la lista de menu para el adapter
-
+    
     override fun initializeViews() {
         lifecycleScope.launchWhenStarted {
             when(viewModel.getBusinessCount()){
@@ -42,7 +33,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
     }
-
 
     private fun createNewBusiness(){
         binding.registerBusinessSummary.visible()
@@ -80,7 +70,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun setupRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
-        mainMenuAdapter.submitList(testList)
+        val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE)
+        lifecycleScope.launch {
+            mainMenuAdapter.submitList(getMenuCardList(cardList))
+
+        }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
@@ -89,8 +83,38 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-
     private fun onMenuCardClicked(menuCard: MenuCard){
-        //
+        when(menuCard.code){
+            ALL_PRODUCTS_CARD_CODE -> findNavController()
+            ALL_CLIENTS_CARD_CODE -> findNavController()
+            ALL_SUPPLIERS_CARD_CODE -> findNavController()
+        }
+    }
+
+    private suspend fun getMenuCardList(codeList: List<Int>): List<MenuCard?>{
+        return codeList.map {
+            when(it){
+                ALL_PRODUCTS_CARD_CODE ->{
+                    val count = viewModel.getProductsCount()
+                    MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$count productos","Ver todos", R.color.card1)
+                }
+                ALL_CLIENTS_CARD_CODE -> {
+                    val count = viewModel.getClientsCount()
+                    MenuCard(
+                        it,
+                        "Proveedores",
+                        R.drawable.ic_baseline_store_24,
+                        "$count proveedores",
+                        "Ver todos",
+                        R.color.card2
+                    )
+                }
+                ALL_SUPPLIERS_CARD_CODE -> {
+                    val count = viewModel.getSuppliersCount()
+                    MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
+                }
+                else -> null
+            }
+        }
     }
 }

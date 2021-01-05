@@ -15,6 +15,6 @@ interface ProductsDao {
     suspend fun update(product: Product)
 
     @Query("SELECT COUNT(*) FROM product")
-    fun getCount(): Int
+    suspend fun getCount(): Int
 
 }

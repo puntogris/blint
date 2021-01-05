@@ -20,6 +20,13 @@ class MainViewModel @ViewModelInject constructor(
 
     suspend fun getBusinessCount() = businessDao.getCount()
 
+    suspend fun getProductsCount() = productsDao.getCount()
+
+    suspend fun getClientsCount() = clientsDao.getCount()
+
+    suspend fun getSuppliersCount() = suppliersDao.getCount()
+
+
     //create product listener db
     //then update ui
 
