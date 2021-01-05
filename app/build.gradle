@@ -125,5 +125,8 @@ dependencies {
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
+    //Leak detector
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
 
 }
