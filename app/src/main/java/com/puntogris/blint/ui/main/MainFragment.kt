@@ -84,9 +84,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun onMenuCardClicked(menuCard: MenuCard){
         when(menuCard.code){
-            ALL_PRODUCTS_CARD_CODE -> findNavController()
-            ALL_CLIENTS_CARD_CODE -> findNavController()
-            ALL_SUPPLIERS_CARD_CODE -> findNavController()
+            ALL_PRODUCTS_CARD_CODE -> findNavController().navigate(R.id.manageProductsFragment)
+            ALL_CLIENTS_CARD_CODE -> findNavController().navigate(R.id.manageClientsFragment)
+            ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
         }
     }
 
@@ -97,7 +97,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     val count = viewModel.getProductsCount()
                     MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$count productos","Ver todos", R.color.card1)
                 }
-                ALL_CLIENTS_CARD_CODE -> {
+                ALL_SUPPLIERS_CARD_CODE -> {
                     val count = viewModel.getClientsCount()
                     MenuCard(
                         it,
@@ -108,7 +108,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                         R.color.card2
                     )
                 }
-                ALL_SUPPLIERS_CARD_CODE -> {
+                ALL_CLIENTS_CARD_CODE -> {
                     val count = viewModel.getSuppliersCount()
                     MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
                 }

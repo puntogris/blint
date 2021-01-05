@@ -1,6 +1,7 @@
 package com.puntogris.blint.data.local.products
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Product
 import java.util.concurrent.Flow
@@ -16,5 +17,8 @@ interface ProductsDao {
 
     @Query("SELECT COUNT(*) FROM product")
     suspend fun getCount(): Int
+
+    @Query("SELECT * FROM product")
+    fun getAllPaged(): PagingSource<Int, Product>
 
 }

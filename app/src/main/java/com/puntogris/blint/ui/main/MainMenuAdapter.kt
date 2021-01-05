@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.MenuCardDiffCallback
 import com.puntogris.blint.model.MenuCard
 
-class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapter<MenuCard,MenuCardViewHolder>(MenuCardDiffCallback()) {
+class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapter<MenuCard, MenuCardViewHolder>(MenuCardDiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuCardViewHolder {

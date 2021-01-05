@@ -5,9 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.model.Product
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ProductViewModel @ViewModelInject constructor(
@@ -27,4 +31,13 @@ class ProductViewModel @ViewModelInject constructor(
         _productImage.value = image
     }
 
+    fun getAllProducts(): Flow<PagingData<Product>> {
+        return Pager(PagingConfig(
+            pageSize = 30,
+            enablePlaceholders = true,
+            maxSize = 200
+        )){
+            productsDao.getAllPaged()
+        }.flow
+    }
 }

@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id != R.id.createProductFragment ||
+            if (destination.id != R.id.productFragment ||
                     destination.id != R.id.registerBusiness){
                 binding.addFav.setImageResource(R.drawable.ic_baseline_add_24)
                 binding.addFav.setOnClickListener { onParentFabClicked() }
@@ -80,21 +80,21 @@ class MainActivity : AppCompatActivity() {
                 addClientFab.apply {
                     visible()
                     setOnClickListener {
-                        navController.navigate(R.id.registerClientFragment)
+                        navController.navigate(R.id.clientFragment)
                         onParentFabClicked()
                     }
                 }
                 addProductFab.apply {
                     visible()
                     setOnClickListener {
-                        navController.navigate(R.id.createProductFragment)
+                        navController.navigate(R.id.productFragment)
                         onParentFabClicked()
                     }
                 }
                 addSuplierFab.apply {
                     visible()
                     setOnClickListener {
-                        navController.navigate(R.id.registerSupplierFragment)
+                        navController.navigate(R.id.supplierFragment)
                         onParentFabClicked()
                     }
                 }

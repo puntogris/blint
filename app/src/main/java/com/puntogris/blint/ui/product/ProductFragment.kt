@@ -44,7 +44,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     }
 
     fun onScanButtonClicked(){
-        findNavController().navigate(R.id.action_createProductFragment_to_scannerFragment)
+        findNavController().navigate(R.id.action_productFragment_to_scannerFragment)
     }
 
     fun onAddImageButtonClicked(){

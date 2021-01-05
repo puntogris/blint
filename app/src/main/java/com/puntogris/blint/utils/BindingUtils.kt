@@ -35,16 +35,12 @@ fun ImageView.setImageFullSize(image: Image?){
 @BindingAdapter("menuCardColor")
 fun CardView.setBackgroundColor(menuCard: MenuCard){
     setCardBackgroundColor(context.getColor(menuCard.color))
-    if (menuCard.id == 6) findViewById<ImageView>(R.id.imageView).visibility = View.GONE
 }
 
 @BindingAdapter("menuCardIcon")
 fun ImageView.setMenuCardIcon(menuCard: MenuCard){
-    if (menuCard.id == 6) visibility = View.GONE
-    else{
-        setImageDrawable(ContextCompat.getDrawable(context, menuCard.icon))
-        setColorFilter(Color.WHITE)
-    }
+    setImageDrawable(ContextCompat.getDrawable(context, menuCard.icon))
+    setColorFilter(Color.WHITE)
 }
 
 @BindingAdapter("loadImageButtonText")
