@@ -23,15 +23,12 @@ class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.lay
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launchWhenStarted {
             viewModel.getAllProducts().collect {
-                it.map {
-                    println(it.name)
-                }
                 manageProductsAdapter.submitData(it)
             }
         }
     }
 
-    fun onProductClickListener(product:Product){
+    private fun onProductClickListener(product:Product){
 
     }
 }

@@ -10,7 +10,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.data.local.products.ProductsDao
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -40,4 +42,5 @@ class ProductViewModel @ViewModelInject constructor(
             productsDao.getAllPaged()
         }.flow
     }
+
 }

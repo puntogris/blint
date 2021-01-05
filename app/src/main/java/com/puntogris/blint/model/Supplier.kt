@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Supplier(
+data class Supplier(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 )

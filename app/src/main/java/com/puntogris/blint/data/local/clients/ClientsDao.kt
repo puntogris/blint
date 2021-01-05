@@ -1,7 +1,9 @@
 package com.puntogris.blint.data.local.clients
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.Product
 
 @Dao
 interface ClientsDao {
@@ -18,4 +20,6 @@ interface ClientsDao {
     @Query("SELECT COUNT(*) FROM client")
     suspend fun getCount(): Int
 
+    @Query("SELECT * FROM client")
+    fun getAllPaged(): PagingSource<Int, Client>
 }
