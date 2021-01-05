@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.register.business
+package com.puntogris.blint.ui.business
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterBusiness : BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
+class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
 
     private val viewModel: MainViewModel by activityViewModels()
 

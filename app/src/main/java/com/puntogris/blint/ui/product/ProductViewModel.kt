@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.register.product
+package com.puntogris.blint.ui.product
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -10,7 +10,7 @@ import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.model.Product
 import kotlinx.coroutines.launch
 
-class CreateProductViewModel @ViewModelInject constructor(
+class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao
 ):ViewModel() {
 

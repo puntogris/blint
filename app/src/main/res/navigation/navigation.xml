@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/createProductFragment"
-        android:name="com.puntogris.blint.ui.register.product.CreateProductFragment"
+        android:name="com.puntogris.blint.ui.product.ProductFragment"
         android:label="Nuevo articulo" >
         <action
             android:id="@+id/action_createProductFragment_to_scannerFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerBusiness"
-        android:name="com.puntogris.blint.ui.register.business.RegisterBusiness"
+        android:name="com.puntogris.blint.ui.business.RegisterBusinessFragment"
         android:label="Nuevo negocio" />
     <fragment
         android:id="@+id/preferencesFragment"
@@ -34,10 +34,10 @@
         android:label="Configuracion" />
     <fragment
         android:id="@+id/registerClientFragment"
-        android:name="com.puntogris.blint.ui.register.client.RegisterClientFragment"
+        android:name="com.puntogris.blint.ui.client.ClientFragment"
         android:label="Registrar cliente" />
     <fragment
         android:id="@+id/registerSupplierFragment"
-        android:name="com.puntogris.blint.ui.register.supplier.RegisterSupplierFragment"
+        android:name="com.puntogris.blint.ui.supplier.SupplierFragment"
         android:label="Registrar proveedor" />
 </navigation>

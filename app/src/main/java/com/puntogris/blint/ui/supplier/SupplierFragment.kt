@@ -1,12 +1,12 @@
-package com.puntogris.blint.ui.register.supplier
+package com.puntogris.blint.ui.supplier
 
 import com.puntogris.blint.R
-import com.puntogris.blint.databinding.FragmentRegisterSupplierBinding
+import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
 
-class RegisterSupplierFragment : BaseFragment<FragmentRegisterSupplierBinding>(R.layout.fragment_register_supplier) {
+class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
     override fun initializeViews() {
         getParentFab().apply {

@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.register.product
+package com.puntogris.blint.ui.product
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
@@ -6,16 +6,16 @@ import androidx.navigation.fragment.findNavController
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import com.puntogris.blint.R
-import com.puntogris.blint.databinding.FragmentCreateProductBinding
+import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateProductFragment : BaseFragment<FragmentCreateProductBinding>(R.layout.fragment_create_product) {
+class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_product) {
 
-    private val viewModel: CreateProductViewModel by viewModels()
+    private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this

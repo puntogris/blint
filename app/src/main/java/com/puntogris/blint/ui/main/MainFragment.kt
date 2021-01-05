@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.main
 
-import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
@@ -24,7 +23,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
-    
+
     override fun initializeViews() {
         lifecycleScope.launchWhenStarted {
             when(viewModel.getBusinessCount()){
