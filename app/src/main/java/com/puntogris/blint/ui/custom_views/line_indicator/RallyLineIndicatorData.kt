@@ -1,9 +1,9 @@
-package com.puntogris.blint.utils
+package com.puntogris.blint.ui.custom_views.line_indicator
 
 
 data class RallyLineIndicatorData(
-  val portions: List<RallyLineIndicatorPortion>,
-  val maxValue: Float? = null
+    val portions: List<RallyLineIndicatorPortion>,
+    val maxValue: Float? = null
 )
 
 data class RallyLineIndicatorPortion(

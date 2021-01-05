@@ -1,10 +1,13 @@
 package com.puntogris.blint.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Product(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
@@ -32,4 +35,4 @@ data class Product(
 
     @ColumnInfo
     val suggestedSellPrice: Int = 0
-)
+):Parcelable

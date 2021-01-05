@@ -21,6 +21,11 @@
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>
 
+    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+    </style>
+
     <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
     </style>

@@ -1,4 +1,4 @@
-package com.puntogris.blint.utils
+package com.puntogris.blint.ui.custom_views.line_indicator
 
 import android.content.Context
 import android.graphics.Canvas

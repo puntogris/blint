@@ -2,10 +2,8 @@ package com.puntogris.blint.utils
 
 import android.graphics.Color
 import android.os.Build
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -14,6 +12,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
+import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: Image?){

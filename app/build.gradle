@@ -4,6 +4,8 @@ plugins {
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -51,7 +53,6 @@ ext {
     imagePicker_version = "1.4.3"
     glide_version = "4.11.0"
     paging_version = "3.0.0-alpha11"
-
 }
 
 dependencies {

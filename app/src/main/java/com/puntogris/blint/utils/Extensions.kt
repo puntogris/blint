@@ -1,5 +1,8 @@
 package com.puntogris.blint.utils
 
+import android.content.Context
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
+import java.text.NumberFormat
+import java.util.*
 
 fun View.gone(){
     visibility = View.GONE
@@ -51,3 +56,20 @@ fun Fragment.showSnackBar(message: String){
     Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
 }
 
+/**
+ * Created by lin min phyo on 2019-08-17.
+ */
+fun Context.dpToPx(dp : Float) : Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
+    )
+}
+
+fun Context.pxToDp(px : Int) : Float {
+    val displayMetrics = resources.displayMetrics
+    return px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)
+}
+
+fun Float.toUSDFormatted() : String {
+    return NumberFormat.getCurrencyInstance(Locale.US).format(this)
+}

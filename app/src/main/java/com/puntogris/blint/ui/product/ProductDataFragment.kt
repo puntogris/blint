@@ -22,6 +22,12 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        arguments?.takeIf { it.containsKey("key") }?.apply {
+            getParcelable<Product>("key")?.let {
+                updateUiWithProduct(it)
+            }
+        }
+
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
             viewLifecycleOwner) { result ->
             binding.productBarcodeText.setText(result)
@@ -45,6 +51,17 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
     fun onScanButtonClicked(){
         findNavController().navigate(R.id.action_productDataFragment_to_scannerFragment)
+    }
+
+    private fun updateUiWithProduct(product: Product){
+        product.apply {
+            binding.productNameText.setText(name)
+            binding.productBarcodeText.setText(barcode)
+            binding.productBuyPriceText.setText(buyPrice.toString())
+            binding.productSellPriceText.setText(sellPrice.toString())
+            binding.productSuggestedSellPriceText.setText(suggestedSellPrice.toString())
+            binding.productDescriptionText.setText(description)
+        }
     }
 
     fun onAddImageButtonClicked(){

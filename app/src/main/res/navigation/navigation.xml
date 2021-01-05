@@ -43,7 +43,11 @@
     <fragment
         android:id="@+id/manageProductsFragment"
         android:name="com.puntogris.blint.ui.product.ManageProductsFragment"
-        android:label="Productos" />
+        android:label="Productos" >
+        <action
+            android:id="@+id/action_manageProductsFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
     <fragment
         android:id="@+id/manageSuppliersFragment"
         android:name="com.puntogris.blint.ui.supplier.ManageSuppliersFragment"
@@ -55,5 +59,9 @@
     <fragment
         android:id="@+id/productFragment"
         android:name="com.puntogris.blint.ui.product.ProductFragment"
-        android:label="Producto" />
+        android:label="Producto" >
+        <argument
+            android:name="product"
+            app:argType="com.puntogris.blint.model.Product" />
+    </fragment>
 </navigation>
