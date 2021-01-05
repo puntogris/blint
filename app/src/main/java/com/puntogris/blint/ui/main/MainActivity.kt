@@ -2,15 +2,15 @@ package com.puntogris.blint.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.*
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomAppBar.setNavigationOnClickListener {
             navController.navigate(R.id.mainFragment)
         }
+
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.scannerFragment -> {
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id != R.id.productFragment ||
+            if (destination.id != R.id.productDataFragment ||
                     destination.id != R.id.registerBusiness){
                 binding.addFav.setImageResource(R.drawable.ic_baseline_add_24)
                 binding.addFav.setOnClickListener { onParentFabClicked() }
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 addProductFab.apply {
                     visible()
                     setOnClickListener {
-                        navController.navigate(R.id.productFragment)
+                        navController.navigate(R.id.productDataFragment)
                         onParentFabClicked()
                     }
                 }
@@ -143,5 +144,9 @@ class MainActivity : AppCompatActivity() {
         navController = getNavController()
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 }

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.platform.MaterialArcMotion
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -22,6 +24,7 @@ class PreferencesFragment: PreferenceFragmentCompat() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         findPreference<Preference>("card")?.setOnPreferenceClickListener {
             OptionsSheet().show(requireParentFragment().requireContext()) {
                 title("Seleccionar tarjetas del inicio")

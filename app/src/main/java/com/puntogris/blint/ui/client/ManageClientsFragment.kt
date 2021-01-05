@@ -33,4 +33,9 @@ class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layou
     private fun onClientClickListener(client:Client){
 
     }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
+    }
 }

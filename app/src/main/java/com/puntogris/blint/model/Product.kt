@@ -22,5 +22,14 @@ data class Product(
     val amount: Int = 0,
 
     @ColumnInfo
-    val image: String = ""
+    val image: String = "",
+
+    @ColumnInfo
+    val sellPrice:Int = 0,
+
+    @ColumnInfo
+    val buyPrice:Int = 0,
+
+    @ColumnInfo
+    val suggestedSellPrice: Int = 0
 )

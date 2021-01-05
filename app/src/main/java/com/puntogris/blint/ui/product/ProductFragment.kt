@@ -1,71 +1,40 @@
 package com.puntogris.blint.ui.product
 
-import android.content.Intent
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.nguyenhoanglam.imagepicker.model.Config
-import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_product) {
 
-    private val viewModel: ProductViewModel by viewModels()
-
     override fun initializeViews() {
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) { result ->
-            binding.productBarcodeText.setText(result)
-        }
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
-                val name = binding.productNameText.getString()
-                val barcode = binding.productBarcodeText.getString()
-                val description = binding.productDescriptionText.getString()
-                val product = Product(name = name, barcode = barcode, description = description)
-                viewModel.saveProduct(product)
-                createSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+        // The pager adapter, which provides the pages to the view pager widget.
+        val pagerAdapter = ScreenSlidePagerAdapter(requireActivity())
+        binding.viewPager.adapter = pagerAdapter
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when(position){
+                0 -> "DATA"
+                else -> "HISTORIAL"
             }
+        }.attach()
+    }
+
+    private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
+
+        override fun createFragment(position: Int): Fragment {
+            return if (position == 0) ProductDataFragment()
+            else ProductHistoryFragment()
         }
     }
 
-    fun onSearchButtonClicked(){
-
+    override fun onDestroyView() {
+        binding.viewPager.adapter = null
+        super.onDestroyView()
     }
-
-    fun onScanButtonClicked(){
-        findNavController().navigate(R.id.action_productFragment_to_scannerFragment)
-    }
-
-    fun onAddImageButtonClicked(){
-        ImagePicker.with(this)
-            .setFolderMode(true)
-            .setFolderTitle("Imagenes")
-            .setStatusBarColor(resources.getString(0 + R.color.almostBlack))
-            .setMultipleMode(false)
-            .setRootDirectoryName(Config.ROOT_DIR_DCIM)
-            .setDirectoryName("Blint")
-            .setShowNumberIndicator(true)
-            .start()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (ImagePicker.shouldHandleResult(requestCode, resultCode, data)) {
-            ImagePicker.getImages(data).let {
-                if (it.isNotEmpty()) viewModel.updateProductImage(it.first())
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
 }

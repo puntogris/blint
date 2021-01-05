@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.product
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
@@ -29,6 +30,11 @@ class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.lay
     }
 
     private fun onProductClickListener(product:Product){
+        findNavController().navigate(R.id.productFragment)
+    }
 
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }

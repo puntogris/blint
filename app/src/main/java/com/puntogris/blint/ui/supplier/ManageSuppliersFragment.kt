@@ -32,4 +32,9 @@ class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.l
     private fun onSupplierClickListener(supplier: Supplier){
 
     }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
+    }
 }

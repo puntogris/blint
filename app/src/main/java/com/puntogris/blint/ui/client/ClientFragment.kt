@@ -1,5 +1,7 @@
 package com.puntogris.blint.ui.client
 
+import android.os.Bundle
+import com.google.android.material.transition.MaterialFadeThrough
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding

@@ -5,4 +5,20 @@
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
     <dimen name="ui_margin_medium">100dp</dimen>
+
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_x_large">32dp</dimen>
+    <dimen name="spacing_xxlarge">64dp</dimen>
+    <dimen name="spacing_xxxlarge">128dp</dimen>
+
+
+    <dimen name="spacing_keyline">16dp</dimen>
+
+    <dimen name="horizontal_gutters_half">8dp</dimen>
+    <dimen name="horizontal_gutters">16dp</dimen>
+
+    <dimen name="vertical_gutters_half">12dp</dimen>
+    <dimen name="vertical_gutters">24dp</dimen>
 </resources>

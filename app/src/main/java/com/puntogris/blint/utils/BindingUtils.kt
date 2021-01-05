@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -46,4 +47,10 @@ fun ImageView.setMenuCardIcon(menuCard: MenuCard){
 @BindingAdapter("loadImageButtonText")
 fun Button.setLoadImageButtonText(image: Image?){
     text = if (image == null) "Agregar imagen" else "Cambiar imagen"
+}
+
+@BindingAdapter("verticalIndicatorProgress")
+fun RallyVerticalBar.setVerticalIndicatorProgress(amount: Int){
+    val newAmount = if (amount >= 100) 100 else amount
+    this.renderData(RallyVerticalBarData(newAmount.toFloat(), 100F,R.color.teal_200))
 }

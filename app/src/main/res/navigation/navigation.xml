@@ -17,12 +17,11 @@
             app:destination="@id/registerBusiness" />
     </fragment>
     <fragment
-        android:id="@+id/productFragment"
-        android:name="com.puntogris.blint.ui.product.ProductFragment"
+        android:id="@+id/productDataFragment"
+        android:name="com.puntogris.blint.ui.product.ProductDataFragment"
         android:label="Nuevo articulo" >
-
         <action
-            android:id="@+id/action_productFragment_to_scannerFragment"
+            android:id="@+id/action_productDataFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
@@ -53,4 +52,8 @@
         android:id="@+id/manageClientsFragment"
         android:name="com.puntogris.blint.ui.client.ManageClientsFragment"
         android:label="Clientes" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.puntogris.blint.ui.product.ProductFragment"
+        android:label="Producto" />
 </navigation>

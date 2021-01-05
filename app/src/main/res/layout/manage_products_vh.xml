@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -10,14 +11,105 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground">
+
+        <View
+            android:id="@+id/shareView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.puntogris.blint.utils.RallyVerticalBar
+            android:id="@+id/bar"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            verticalIndicatorProgress="@{product.amount}"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvUsed"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/grey_80"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="@dimen/spacing_medium"/>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Coffee Shops"
+            android:text="@{product.name}"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bar"
+            app:layout_constraintEnd_toStartOf="@id/tvLeft"
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceSubtitle1"/>
+
+        <TextView
+            android:id="@+id/tvUsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{product.name}"
+            tools:text="$45.49"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bar"
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceBody2"/>
+
+        <TextView
+            android:id="@+id/tvTotal"
+            style="?attr/textAppearanceBody2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUsed"
+            app:layout_constraintStart_toEndOf="@id/tvUsed"
+            app:layout_constraintTop_toTopOf="@+id/tvUsed"
+            tools:text="/ $45.49" />
+
+
+        <TextView
+            android:id="@+id/text_view_dollar"
+            android:text="$"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias=".55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
+        <TextView
+            android:id="@+id/tvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1200.00"
+            android:text="@{String.valueOf(product.amount)}"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvUsed"
+            app:layout_constraintEnd_toStartOf="@id/ivArrow"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_small"/>
+
+        <TextView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvLeft"
+            app:layout_constraintBottom_toBottomOf="@id/tvLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:text="Stock"
+            style="?attr/textAppearanceCaption"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
