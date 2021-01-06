@@ -41,6 +41,12 @@ fun List<View>.setGroupAnimation(animation:Animation){
 
 fun EditText.getString() = text.toString()
 
+fun EditText.getInt(): Int{
+    val text = text.toString()
+    return if (text.isNotBlank()) text.toInt() else 0
+}
+
+
 fun Fragment.getParentFab(): FloatingActionButton =
     requireActivity().findViewById(R.id.addFav)
 
@@ -51,7 +57,7 @@ fun FloatingActionButton.changeIconFromDrawable(icon: Int){
 fun AppCompatActivity.getNavController() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
 
-fun Fragment.showSnackBarAboveFab(message: String){
+fun Fragment.showLongSnackBarAboveFab(message: String){
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     Snackbar
             .make(snackLayout, message, Snackbar.LENGTH_LONG)
@@ -59,19 +65,16 @@ fun Fragment.showSnackBarAboveFab(message: String){
             .show()
 }
 
-fun Fragment.createSnackBar(message: String): Snackbar{
+fun Fragment.createLongSnackBar(message: String): Snackbar{
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
 }
 
-fun Fragment.showSnackBar(message: String){
+fun Fragment.createShortSnackBar(message: String): Snackbar{
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
+    return Snackbar.make(snackLayout, message, Snackbar.LENGTH_SHORT)
 }
 
-/**
- * Created by lin min phyo on 2019-08-17.
- */
 fun Context.dpToPx(dp : Float) : Float {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics

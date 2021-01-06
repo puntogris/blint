@@ -27,7 +27,7 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
                             viewModel.registerNewBusiness(validator.value)
                             findNavController().navigate(R.id.mainFragment)
                     }
-                    is StringValidator.NotValid -> showSnackBarAboveFab(validator.error)
+                    is StringValidator.NotValid -> showLongSnackBarAboveFab(validator.error)
                 }
             }
         }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="product"
+            type="com.puntogris.blint.model.Product" />
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.ProductViewModel" />
@@ -41,6 +43,7 @@
                     android:id="@+id/productNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentProduct.name}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
@@ -82,6 +85,7 @@
                     android:id="@+id/productBarcodeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentProduct.barcode}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
@@ -122,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:text="@{viewModel.currentProduct.description}"
                     android:imeOptions="actionDone"
                     android:singleLine="true" />
 
@@ -147,6 +152,7 @@
                     android:id="@+id/productBuyPriceText"
                     android:layout_width="match_parent"
                     android:imeOptions="actionDone"
+                    emptyEditTextWithInt="@{viewModel.currentProduct.buyPrice}"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />
@@ -170,6 +176,7 @@
                     android:id="@+id/productSellPriceText"
                     android:layout_width="match_parent"
                     android:imeOptions="actionDone"
+                    emptyEditTextWithInt="@{viewModel.currentProduct.sellPrice}"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />
@@ -195,6 +202,7 @@
                     android:id="@+id/productSuggestedSellPriceText"
                     android:layout_width="match_parent"
                     android:imeOptions="actionDone"
+                    emptyEditTextWithInt="@{viewModel.currentProduct.suggestedSellPrice}"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />

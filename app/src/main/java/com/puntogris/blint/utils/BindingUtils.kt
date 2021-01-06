@@ -3,6 +3,7 @@ package com.puntogris.blint.utils
 import android.graphics.Color
 import android.os.Build
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -53,4 +54,9 @@ fun Button.setLoadImageButtonText(image: Image?){
 fun RallyVerticalBar.setVerticalIndicatorProgress(amount: Int){
     val newAmount = if (amount >= 100) 100 else amount
     this.renderData(RallyVerticalBarData(newAmount.toFloat(), 100F,R.color.teal_200))
+}
+
+@BindingAdapter("emptyEditTextWithInt")
+fun EditText.setEmptyEditTextWithInt(value: Int){
+    setText(if (value == 0) "" else value.toString())
 }

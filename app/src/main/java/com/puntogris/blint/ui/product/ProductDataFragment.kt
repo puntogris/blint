@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.product
 
 import android.content.Intent
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import com.puntogris.blint.R
@@ -25,7 +27,6 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
             getParcelable<Product>("data_key")?.let {
                 viewModel.setCurrentProductData(it)
-                updateUiWithProduct(it)
             }
         }
 
@@ -39,10 +40,20 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                 val name = binding.productNameText.getString()
                 val barcode = binding.productBarcodeText.getString()
                 val description = binding.productDescriptionText.getString()
-                val product = Product(name = name, barcode = barcode, description = description)
+                val buyPrice = binding.productBuyPriceText.getInt()
+                val sellPrice = binding.productSellPriceText.getInt()
+                val suggestedSellPrice = binding.productSuggestedSellPriceText.getInt()
+                val product = Product(
+                    name = name,
+                    barcode = barcode,
+                    description = description,
+                    buyPrice = buyPrice,
+                    sellPrice = sellPrice,
+                    suggestedSellPrice = suggestedSellPrice
+                )
                 viewModel.updateCurrentProductData(product)
                 viewModel.saveProduct()
-                createSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+                createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
             }
         }
     }
@@ -54,17 +65,6 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     fun onScanButtonClicked(){
         val productFragment = requireParentFragment() as ProductFragment
         productFragment.goToScannerFragment()
-    }
-
-    private fun updateUiWithProduct(product: Product){
-        product.apply {
-            binding.productNameText.setText(name)
-            binding.productBarcodeText.setText(barcode)
-            binding.productBuyPriceText.setText(buyPrice.toString())
-            binding.productSellPriceText.setText(sellPrice.toString())
-            binding.productSuggestedSellPriceText.setText(suggestedSellPrice.toString())
-            binding.productDescriptionText.setText(description)
-        }
     }
 
     fun onAddImageButtonClicked(){
@@ -82,8 +82,10 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (ImagePicker.shouldHandleResult(requestCode, resultCode, data)) {
             ImagePicker.getImages(data).let {
-                if (it.isNotEmpty()) viewModel.updateProductImage(it.first())
-                binding.productImage.visible()
+                if (it.isNotEmpty()) {
+                    viewModel.updateProductImage(it.first())
+                    binding.productImage.visible()
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
