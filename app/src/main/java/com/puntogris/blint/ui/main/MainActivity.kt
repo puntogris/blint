@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         supportActionBar?.elevation  = 0F
 
-        binding.addFav.setOnClickListener { onParentFabClicked() }
-
         binding.bottomAppBar.setNavigationOnClickListener {
             if (navController.currentDestination?.id != R.id.mainFragment){
                 navController.navigate(R.id.mainFragment)
@@ -61,11 +59,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.mainFragment){
-                binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-            }
+            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+            binding.addFav.setOnClickListener{ onParentFabClicked()}
+            binding.bottomAppBar.performShow()
             if (clicked) onParentFabClicked()
         }
     }

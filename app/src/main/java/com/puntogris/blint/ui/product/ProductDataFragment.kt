@@ -54,7 +54,6 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         productFragment.goToScannerFragment()
     }
 
-
     private fun updateUiWithProduct(product: Product){
         product.apply {
             binding.productNameText.setText(name)

@@ -24,6 +24,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     @Inject lateinit var barcodeAnalyzer: BarcodeAnalyzer
     private var preview: Preview? = null
     private var camera: Camera? = null
+    private lateinit var orientationEventListener: OrientationEventListener
     private lateinit var cameraExecutor: ExecutorService
     private var flashEnabled = false
 
@@ -56,7 +57,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                     .build()
 
-            val orientationEventListener = object : OrientationEventListener(requireContext()) {
+            orientationEventListener = object : OrientationEventListener(requireContext()) {
                 override fun onOrientationChanged(orientation : Int) {
                      when (orientation) {
                         in 45..134 -> Surface.ROTATION_270
@@ -109,6 +110,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     }
 
     override fun onDestroyView() {
+        orientationEventListener.disable()
         camera = null
         preview = null
         super.onDestroyView()
