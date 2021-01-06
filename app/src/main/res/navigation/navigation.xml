@@ -17,14 +17,6 @@
             app:destination="@id/registerBusiness" />
     </fragment>
     <fragment
-        android:id="@+id/productDataFragment"
-        android:name="com.puntogris.blint.ui.product.ProductDataFragment"
-        android:label="Nuevo articulo" >
-        <action
-            android:id="@+id/action_productDataFragment_to_scannerFragment"
-            app:destination="@id/scannerFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/registerBusiness"
         android:name="com.puntogris.blint.ui.business.RegisterBusinessFragment"
         android:label="Nuevo negocio" />
@@ -62,6 +54,11 @@
         android:label="Producto" >
         <argument
             android:name="product"
-            app:argType="com.puntogris.blint.model.Product" />
+            app:argType="com.puntogris.blint.model.Product"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_productFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
 </navigation>

@@ -22,8 +22,8 @@ import javax.inject.Inject
 class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_scanner) {
 
     @Inject lateinit var barcodeAnalyzer: BarcodeAnalyzer
-    private lateinit var preview: Preview
-    private lateinit var camera: Camera
+    private var preview: Preview? = null
+    private var camera: Camera? = null
     private lateinit var cameraExecutor: ExecutorService
     private var flashEnabled = false
 
@@ -72,31 +72,24 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 requireActivity().runOnUiThread {
                     imageAnalysis.clearAnalyzer()
                     cameraProvider.unbindAll()
-                    findNavController().previousBackStackEntry?.savedStateHandle?.set("key", it)
-                    findNavController().navigateUp()
-
-//                    ScannerResultDialog
-//                        .newInstance(it, object : ScannerResultDialog.DialogDismissListener {
-//                            override fun onDismiss() {
-//                                startCamera()
-//                            }
-//                        })
-//                        .show(parentFragmentManager, ScannerResultDialog::class.java.simpleName)
+                    findNavController().apply {
+                        previousBackStackEntry?.savedStateHandle?.set("key", it)
+                    }
                 }
             }
 
             try {
                 cameraProvider.unbindAll()
-                preview.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                preview!!.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 camera = cameraProvider.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
                 val parentFab = getParentFab()
-                if (camera.cameraInfo.hasFlashUnit()) {
+                if (camera!!.cameraInfo.hasFlashUnit()) {
                     parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_off_24)
                     parentFab.setOnClickListener {
-                        camera.cameraControl.enableTorch(!flashEnabled)
+                        camera!!.cameraControl.enableTorch(!flashEnabled)
                     }
-                    camera.cameraInfo.torchState.observe(viewLifecycleOwner) {
+                    camera!!.cameraInfo.torchState.observe(viewLifecycleOwner) {
                         it?.let { torchState ->
                             if (torchState == TorchState.ON) {
                                 flashEnabled = true
@@ -112,5 +105,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             } catch(exc: Exception) { Timber.e(exc, "Use case binding failed") }
 
         }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    override fun onDestroyView() {
+        camera = null
+        preview = null
+        super.onDestroyView()
     }
 }

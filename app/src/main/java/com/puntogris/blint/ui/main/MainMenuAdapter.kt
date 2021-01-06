@@ -11,10 +11,6 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
         return MenuCardViewHolder.from(parent)
     }
 
-    override fun getItemCount(): Int {
-        return currentList.size
-    }
-
     override fun onBindViewHolder(holder: MenuCardViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }

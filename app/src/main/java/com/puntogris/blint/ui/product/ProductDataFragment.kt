@@ -22,8 +22,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("key") }?.apply {
-            getParcelable<Product>("key")?.let {
+        arguments?.takeIf { it.containsKey("data_key") }?.apply {
+            getParcelable<Product>("data_key")?.let {
                 updateUiWithProduct(it)
             }
         }
@@ -50,8 +50,11 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     }
 
     fun onScanButtonClicked(){
-        findNavController().navigate(R.id.action_productDataFragment_to_scannerFragment)
+        val productFragment : ProductFragment = requireParentFragment() as ProductFragment
+        productFragment.openFragmentD()
+      //  findNavController().navigate(R.id.scannerFragment)
     }
+
 
     private fun updateUiWithProduct(product: Product){
         product.apply {
