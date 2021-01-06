@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.setPadding
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterOnlineBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -12,6 +13,6 @@ import com.puntogris.blint.ui.base.BaseFragment
 class RegisterOnlineBusinessFragment : BaseFragment<FragmentRegisterOnlineBusinessBinding>(R.layout.fragment_register_online_business) {
 
     override fun initializeViews() {
-
+        binding.animationView.setPadding(-400)
     }
 }

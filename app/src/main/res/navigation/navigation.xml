@@ -19,14 +19,7 @@
     <fragment
         android:id="@+id/registerBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterBusinessFragment"
-        android:label="Registrar Negocio" >
-        <action
-            android:id="@+id/action_registerBusinessFragment_to_registerOnlineBusinessFragment"
-            app:destination="@id/registerOnlineBusinessFragment" />
-        <action
-            android:id="@+id/action_registerBusinessFragment_to_registerLocalBusinessFragment"
-            app:destination="@id/registerLocalBusinessFragment" />
-    </fragment>
+        android:label="Registrar Negocio" />
     <fragment
         android:id="@+id/preferencesFragment"
         android:name="com.puntogris.blint.ui.settings.PreferencesFragment"
@@ -68,12 +61,4 @@
             android:id="@+id/action_productFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/registerOnlineBusinessFragment"
-        android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
-        android:label="RegisterOnlineBusinessFragment" />
-    <fragment
-        android:id="@+id/registerLocalBusinessFragment"
-        android:name="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment"
-        android:label="RegisterLocalBusinessFragment" />
 </navigation>

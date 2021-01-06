@@ -1,14 +1,18 @@
 package com.puntogris.blint.ui.main
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -38,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setupNavigation()
         supportActionBar?.elevation  = 0F
-
         binding.bottomAppBar.setNavigationOnClickListener {
             if (navController.currentDestination?.id != R.id.mainFragment){
                 navController.navigate(R.id.mainFragment)
@@ -59,13 +62,20 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-            binding.addFav.setOnClickListener{ onParentFabClicked()}
-            binding.bottomAppBar.performShow()
-            if (clicked) onParentFabClicked()
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+                R.id.registerBusinessFragment ->{
+                    hideBottomAppBar()
+                }
+            }
+//            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+//            binding.addFav.setOnClickListener{ onParentFabClicked()}
+//            binding.bottomAppBar.performShow()
+//            if (clicked) onParentFabClicked()
+
         }
     }
+
 
     private fun onParentFabClicked(){
         setAnimation(clicked)
@@ -125,4 +135,28 @@ class MainActivity : AppCompatActivity() {
         navController = getNavController()
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
+    private fun hideBottomAppBar() {
+        binding.run {
+            bottomAppBar.performHide()
+            // Get a handle on the animator that hides the bottom app bar so we can wait to hide
+            // the fab and bottom app bar until after it's exit animation finishes.
+            bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
+                var isCanceled = false
+                override fun onAnimationEnd(animation: Animator?) {
+                    if (isCanceled) return
+
+                    // Hide the BottomAppBar to avoid it showing above the keyboard
+                    // when composing a new email.
+                    bottomAppBar.visibility = View.GONE
+                    binding.addFav.visibility = View.INVISIBLE
+                }
+                override fun onAnimationCancel(animation: Animator?) {
+                    isCanceled = true
+                }
+            })
+        }
+    }
+
+
 }
