@@ -24,6 +24,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
             getParcelable<Product>("data_key")?.let {
+                viewModel.setCurrentProductData(it)
                 updateUiWithProduct(it)
             }
         }
@@ -39,7 +40,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                 val barcode = binding.productBarcodeText.getString()
                 val description = binding.productDescriptionText.getString()
                 val product = Product(name = name, barcode = barcode, description = description)
-                viewModel.saveProduct(product)
+                viewModel.updateCurrentProductData(product)
+                viewModel.saveProduct()
                 createSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
             }
         }

@@ -40,6 +40,7 @@
                     android:id="@+id/productNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
 
@@ -80,6 +81,7 @@
                     android:id="@+id/productBarcodeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
 
@@ -119,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:imeOptions="actionDone"
                     android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -142,6 +145,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productBuyPriceText"
                     android:layout_width="match_parent"
+                    android:imeOptions="actionDone"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />
@@ -164,6 +168,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSellPriceText"
                     android:layout_width="match_parent"
+                    android:imeOptions="actionDone"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />
@@ -188,6 +193,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSuggestedSellPriceText"
                     android:layout_width="match_parent"
+                    android:imeOptions="actionDone"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />

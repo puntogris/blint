@@ -1,19 +1,19 @@
 package com.puntogris.blint.ui.product
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.room.ColumnInfo
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class ProductViewModel @ViewModelInject constructor(
@@ -23,10 +23,22 @@ class ProductViewModel @ViewModelInject constructor(
     private val _productImage = MutableLiveData<Image>()
     val productImage: LiveData<Image> = _productImage
 
-    fun saveProduct(product: Product){
+    private val _currentProduct = MutableStateFlow(Product())
+    val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
+
+    fun saveProduct(){
         viewModelScope.launch {
-            productsDao.insert(product)
+            productsDao.insert(_currentProduct.value)
         }
+    }
+
+    fun updateCurrentProductData(product: Product){
+        product.id = _currentProduct.value.id
+        _currentProduct.value = product
+    }
+
+    fun setCurrentProductData(product: Product){
+        _currentProduct.value = product
     }
 
     fun updateProductImage(image: Image){
