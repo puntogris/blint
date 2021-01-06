@@ -14,12 +14,19 @@
         android:label="@string/app_name" >
         <action
             android:id="@+id/action_mainFragment_to_registerBusiness"
-            app:destination="@id/registerBusiness" />
+            app:destination="@id/registerBusinessFragment" />
     </fragment>
     <fragment
-        android:id="@+id/registerBusiness"
+        android:id="@+id/registerBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterBusinessFragment"
-        android:label="Nuevo negocio" />
+        android:label="Registrar Negocio" >
+        <action
+            android:id="@+id/action_registerBusinessFragment_to_registerOnlineBusinessFragment"
+            app:destination="@id/registerOnlineBusinessFragment" />
+        <action
+            android:id="@+id/action_registerBusinessFragment_to_registerLocalBusinessFragment"
+            app:destination="@id/registerLocalBusinessFragment" />
+    </fragment>
     <fragment
         android:id="@+id/preferencesFragment"
         android:name="com.puntogris.blint.ui.settings.PreferencesFragment"
@@ -61,4 +68,12 @@
             android:id="@+id/action_productFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registerOnlineBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
+        android:label="RegisterOnlineBusinessFragment" />
+    <fragment
+        android:id="@+id/registerLocalBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment"
+        android:label="RegisterLocalBusinessFragment" />
 </navigation>

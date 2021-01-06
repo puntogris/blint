@@ -1,10 +1,8 @@
 package com.puntogris.blint.data.local.products
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Product
-import java.util.concurrent.Flow
 
 @Dao
 interface ProductsDao {

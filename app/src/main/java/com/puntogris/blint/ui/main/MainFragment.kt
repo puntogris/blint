@@ -27,21 +27,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun initializeViews() {
         lifecycleScope.launchWhenStarted {
-            when(viewModel.getBusinessCount()){
-                0 -> createNewBusiness()
-                else -> showBusinessUI()
-            }
-        }
-    }
-
-    private fun createNewBusiness(){
-        getParentFab().isEnabled = false
-        binding.registerBusinessSummary.visible()
-        binding.registerBusinessButton.apply {
-            visible()
-            setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_registerBusiness)
-            }
+            if(viewModel.getBusinessCount() == 0)
+                findNavController().navigate(R.id.registerBusinessFragment)
+            else showBusinessUI()
         }
     }
 

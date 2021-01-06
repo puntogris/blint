@@ -117,8 +117,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation(){
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.mainFragment,
+            R.id.registerBusinessFragment,
+            R.id.preferencesFragment
+        ))
         navController = getNavController()
-        appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }
