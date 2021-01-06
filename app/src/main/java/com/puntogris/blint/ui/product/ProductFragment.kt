@@ -35,7 +35,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     private inner class ScreenSlidePagerAdapter(parentFragment: Fragment, val adapterSize: Int) : FragmentStateAdapter(parentFragment) {
 
         override fun getItemCount(): Int = adapterSize
-        
+
         override fun createFragment(position: Int): Fragment  =
             if (position == 0) {
                 if (args.product == null) ProductDataFragment()

@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
+import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun createNewBusiness(){
+        getParentFab().isEnabled = false
         binding.registerBusinessSummary.visible()
         binding.registerBusinessButton.apply {
             visible()
@@ -44,6 +46,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun showBusinessUI(){
+        getParentFab().isEnabled = true
         setupBusinessMenu()
         setupRecyclerView()
     }

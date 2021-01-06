@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
+import android.view.animation.Animation
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -24,6 +25,18 @@ fun View.visible(){
 }
 fun View.invisible(){
     visibility = View.INVISIBLE
+}
+
+fun List<View>.makeInvisible(){
+    forEach { it.invisible() }
+}
+
+fun List<View>.setGroupClickable(isClickable: Boolean){
+    forEach { it.isClickable = isClickable }
+}
+
+fun List<View>.setGroupAnimation(animation:Animation){
+    forEach { it.startAnimation(animation) }
 }
 
 fun EditText.getString() = text.toString()

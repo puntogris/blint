@@ -16,9 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
-import com.puntogris.blint.utils.getNavController
-import com.puntogris.blint.utils.invisible
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,8 +39,13 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         supportActionBar?.elevation  = 0F
 
+        binding.addFav.setOnClickListener { onParentFabClicked() }
+
         binding.bottomAppBar.setNavigationOnClickListener {
-            navController.navigate(R.id.mainFragment)
+            if (navController.currentDestination?.id != R.id.mainFragment){
+                navController.navigate(R.id.mainFragment)
+            }
+            if (clicked) onParentFabClicked()
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
@@ -60,12 +63,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (
-                //destination.id != R.id.productDataFragment ||
-                    destination.id != R.id.registerBusiness){
-                binding.addFav.setImageResource(R.drawable.ic_baseline_add_24)
-                binding.addFav.setOnClickListener { onParentFabClicked() }
+            if (destination.id == R.id.mainFragment){
+                binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
             }
+            if (clicked) onParentFabClicked()
         }
     }
 
@@ -81,59 +82,35 @@ class MainActivity : AppCompatActivity() {
             if (!clicked){
                 addClientFab.apply {
                     visible()
-                    setOnClickListener {
-                        navController.navigate(R.id.clientFragment)
-                        onParentFabClicked()
-                    }
+                    setOnClickListener { navController.navigate(R.id.clientFragment) }
                 }
                 addProductFab.apply {
                     visible()
-                    setOnClickListener {
-                        navController.navigate(R.id.productFragment)
-                        onParentFabClicked()
-                    }
+                    setOnClickListener { navController.navigate(R.id.productFragment) }
                 }
                 addSuplierFab.apply {
                     visible()
-                    setOnClickListener {
-                        navController.navigate(R.id.supplierFragment)
-                        onParentFabClicked()
-                    }
+                    setOnClickListener { navController.navigate(R.id.supplierFragment) }
                 }
-            }else{
-                addClientFab.invisible()
-                addProductFab.invisible()
-                addSuplierFab.invisible()
-            }
+            }else listOf(addClientFab, addProductFab, addSuplierFab).makeInvisible()
         }
     }
-
+    
     private fun setAnimation(clicked: Boolean){
         binding.apply {
             if (!clicked){
                 addFav.startAnimation(rotateOpen)
-                addClientFab.startAnimation(fromBottom)
-                addProductFab.startAnimation(fromBottom)
-                addSuplierFab.startAnimation(fromBottom)
+                listOf(addClientFab, addProductFab, addSuplierFab).setGroupAnimation(fromBottom)
             }else{
                 addFav.startAnimation(rotateClose)
-                addClientFab.startAnimation(toBottom)
-                addProductFab.startAnimation(toBottom)
-                addSuplierFab.startAnimation(toBottom)
+                listOf(addClientFab, addProductFab, addSuplierFab).setGroupAnimation(toBottom)
             }
         }
     }
     private fun setClickable(clicked: Boolean){
         binding.apply {
-            if (!clicked){
-                addClientFab.isClickable = true
-                addProductFab.isClickable = true
-                addSuplierFab.isClickable = true
-            }else{
-                addClientFab.isClickable = false
-                addProductFab.isClickable = false
-                addSuplierFab.isClickable = false
-            }
+            if (!clicked) listOf(addClientFab, addProductFab, addSuplierFab).setGroupClickable(true)
+            else listOf(addClientFab, addProductFab, addSuplierFab).setGroupClickable(false)
         }
     }
 
@@ -146,5 +123,4 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
-
 }

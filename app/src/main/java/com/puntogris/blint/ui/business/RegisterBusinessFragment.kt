@@ -19,6 +19,7 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
 
     override fun initializeViews() {
         getParentFab().apply {
+            isEnabled = true
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
                 lifecycleScope.launch {

@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/addFav"
             android:visibility="visible"
+            android:enabled="false"
             app:layout_anchor="@id/bottomAppBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
