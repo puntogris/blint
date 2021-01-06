@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             }else listOf(addClientFab, addProductFab, addSuplierFab).makeInvisible()
         }
     }
-    
+
     private fun setAnimation(clicked: Boolean){
         binding.apply {
             if (!clicked){
@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun setClickable(clicked: Boolean){
         binding.apply {
             if (!clicked) listOf(addClientFab, addProductFab, addSuplierFab).setGroupClickable(true)

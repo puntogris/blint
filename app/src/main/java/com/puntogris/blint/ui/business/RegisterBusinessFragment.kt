@@ -7,8 +7,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.main.MainViewModel
-import com.puntogris.blint.utils.changeIconFromDrawable
-import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,9 +21,13 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
             isEnabled = true
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                lifecycleScope.launch {
-                    viewModel.registerNewBusiness(binding.editTextTextPersonName.text.toString())
-                    findNavController().navigate(R.id.mainFragment)
+                when(val validator = StringValidator.from(binding.businessName.getString(), allowSpecialChars = false)){
+                    is StringValidator.Valid ->
+                        lifecycleScope.launch {
+                            viewModel.registerNewBusiness(validator.value)
+                            findNavController().navigate(R.id.mainFragment)
+                    }
+                    is StringValidator.NotValid -> showSnackBarAboveFab(validator.error)
                 }
             }
         }

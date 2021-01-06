@@ -13,7 +13,7 @@
         tools:context=".ui.business.RegisterBusinessFragment">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/businessName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="36dp"

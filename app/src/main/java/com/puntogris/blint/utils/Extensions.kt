@@ -86,3 +86,7 @@ fun Context.pxToDp(px : Int) : Float {
 fun Float.toUSDFormatted() : String {
     return NumberFormat.getCurrencyInstance(Locale.US).format(this)
 }
+
+fun String.containsInvalidCharacters() = !all { it.isLetter() }
+
+fun String.isLengthInvalid(validLength: Int) = length < validLength
