@@ -50,9 +50,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     }
 
     fun onScanButtonClicked(){
-        val productFragment : ProductFragment = requireParentFragment() as ProductFragment
-        productFragment.openFragmentD()
-      //  findNavController().navigate(R.id.scannerFragment)
+        val productFragment = requireParentFragment() as ProductFragment
+        productFragment.goToScannerFragment()
     }
 
 
@@ -83,6 +82,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         if (ImagePicker.shouldHandleResult(requestCode, resultCode, data)) {
             ImagePicker.getImages(data).let {
                 if (it.isNotEmpty()) viewModel.updateProductImage(it.first())
+                binding.productImage.visible()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

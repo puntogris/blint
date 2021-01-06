@@ -11,6 +11,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.invisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +21,8 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     private val args: ProductFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        val pagerAdapter = ScreenSlidePagerAdapter(this)
+        val adapterSize = if (args.product == null) 1 else 2
+        val pagerAdapter = ScreenSlidePagerAdapter(this, adapterSize)
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
@@ -29,31 +32,25 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
         }.attach()
     }
 
+    private inner class ScreenSlidePagerAdapter(parentFragment: Fragment, val adapterSize: Int) : FragmentStateAdapter(parentFragment) {
 
-    private inner class ScreenSlidePagerAdapter(parentFragment: Fragment) : FragmentStateAdapter(parentFragment) {
-        override fun getItemCount(): Int = 2
-
-        override fun createFragment(position: Int): Fragment {
-            return if (position == 0) {
-                ProductDataFragment()
-                if (args.product == null){
-                    ProductDataFragment()
-                }else{
-                    val fragment = ProductDataFragment()
-                    fragment.arguments = Bundle().apply {
+        override fun getItemCount(): Int = adapterSize
+        
+        override fun createFragment(position: Int): Fragment  =
+            if (position == 0) {
+                if (args.product == null) ProductDataFragment()
+                else ProductDataFragment().apply {
+                    arguments = Bundle().apply {
                         putParcelable("data_key", args.product)
                     }
-                    fragment
                 }
-            }
-            else ProductHistoryFragment()
+            } else ProductHistoryFragment()
         }
-    }
 
-    fun openFragmentD(){
+
+    fun goToScannerFragment(){
         findNavController().navigate(ProductFragmentDirections.actionProductFragmentToScannerFragment())
     }
-
 
     override fun onDestroyView() {
         binding.viewPager.adapter = null
