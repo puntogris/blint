@@ -13,6 +13,7 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layout: Int): Fra
 
     private var _binding : T? = null
     val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preInitializeViews()
@@ -27,7 +28,6 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layout: Int): Fra
     open fun initializeViews() {}
 
     open fun preInitializeViews() {}
-
 
     override fun onDestroyView() {
         super.onDestroyView()

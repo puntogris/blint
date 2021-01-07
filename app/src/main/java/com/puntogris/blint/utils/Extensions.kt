@@ -57,6 +57,9 @@ fun FloatingActionButton.changeIconFromDrawable(icon: Int){
 fun AppCompatActivity.getNavController() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
 
+fun AppCompatActivity.getNavHostFragment() =
+    (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
+
 fun Fragment.showLongSnackBarAboveFab(message: String){
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     Snackbar
