@@ -48,7 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.mainFragment,
             R.id.registerBusinessFragment,
-            R.id.preferencesFragment
+            R.id.preferencesFragment,
+            R.id.loginFragment,
+            R.id.alertRegisterBusinessFragment
         ))
 
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -82,11 +84,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                     visible()
                     setOnClickListener { navController.navigate(R.id.productFragment) }
                 }
-                addSuplierFab.apply {
+                addSupplierFab.apply {
                     visible()
                     setOnClickListener { navController.navigate(R.id.supplierFragment) }
                 }
-            }else listOf(addClientFab, addProductFab, addSuplierFab).makeInvisible()
+            }else listOf(addClientFab, addProductFab, addSupplierFab).makeInvisible()
         }
     }
 
@@ -94,18 +96,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.apply {
             if (!clicked){
                 addFav.startAnimation(rotateOpen)
-                listOf(addClientFab, addProductFab, addSuplierFab).setGroupAnimation(fromBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(fromBottom)
             }else{
                 addFav.startAnimation(rotateClose)
-                listOf(addClientFab, addProductFab, addSuplierFab).setGroupAnimation(toBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(toBottom)
             }
         }
     }
 
     private fun setClickable(clicked: Boolean){
         binding.apply {
-            if (!clicked) listOf(addClientFab, addProductFab, addSuplierFab).setGroupClickable(true)
-            else listOf(addClientFab, addProductFab, addSuplierFab).setGroupClickable(false)
+            if (!clicked) listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(true)
+            else listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(false)
         }
     }
 
@@ -136,10 +138,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        when(destination.id){
-            R.id.registerBusinessFragment ->{
-                hideBottomAppBar()
-            }
+        if (
+            destination.id == R.id.loginFragment ||
+            destination.id == R.id.alertRegisterBusinessFragment ||
+            destination.id == R.id.registerBusinessFragment){
+            binding.bottomAppBar.gone()
+            binding.addFav.hide()
+        }else{
+            binding.bottomAppBar.visible()
+            binding.addFav.show()
+            binding.bottomAppBar.performShow()
         }
 //        binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
 //        binding.addFav.setOnClickListener{ onParentFabClicked()}

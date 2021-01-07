@@ -1,5 +1,7 @@
 package com.puntogris.blint.utils
 
+import com.google.firebase.auth.FirebaseUser
+
 sealed class StringValidator{
     class Valid(val value: String): StringValidator()
     class NotValid(val error: String): StringValidator()
@@ -17,4 +19,10 @@ sealed class StringValidator{
             }
         }
     }
+}
+
+sealed class AuthResult{
+    class Success(val user: FirebaseUser) : AuthResult()
+    class Error(val exception: String): AuthResult()
+    object InProgress: AuthResult()
 }

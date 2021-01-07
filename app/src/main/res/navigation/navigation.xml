@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/scannerFragment"
@@ -19,7 +19,14 @@
     <fragment
         android:id="@+id/registerBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterBusinessFragment"
-        android:label="Registrar Negocio" />
+        android:label="Registrar Negocio" >
+        <action
+            android:id="@+id/action_registerBusinessFragment_to_registerOnlineBusinessFragment"
+            app:destination="@id/registerOnlineBusinessFragment" />
+        <action
+            android:id="@+id/action_registerBusinessFragment_to_registerLocalBusinessFragment"
+            app:destination="@id/registerLocalBusinessFragment" />
+    </fragment>
     <fragment
         android:id="@+id/preferencesFragment"
         android:name="com.puntogris.blint.ui.settings.PreferencesFragment"
@@ -61,4 +68,39 @@
             android:id="@+id/action_productFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.puntogris.blint.ui.login.LoginFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginProblemsFragment"
+            app:destination="@id/loginProblemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginProblemsFragment"
+        android:name="com.puntogris.blint.ui.login.LoginProblemsFragment"
+        android:label="Ayuda" >
+        <action
+            android:id="@+id/action_loginProblemsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/alertRegisterBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.AlertRegisterBusinessFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_alertRegisterBusinessFragment_to_registerBusinessFragment"
+            app:destination="@id/registerBusinessFragment" />
+        <action
+            android:id="@+id/action_alertRegisterBusinessFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerLocalBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment"
+        android:label="RegisterLocalBusinessFragment" />
+    <fragment
+        android:id="@+id/registerOnlineBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
+        android:label="RegisterOnlineBusinessFragment" />
 </navigation>

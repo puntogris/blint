@@ -55,6 +55,7 @@ ext {
     glide_version = "4.11.0"
     paging_version = "3.0.0-alpha11"
     lottieVersion = "3.6.0"
+    oneTapLogin_version = "19.0.0"
 }
 
 dependencies {
@@ -63,6 +64,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -70,6 +72,9 @@ dependencies {
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
 
     // Material design
     implementation "com.google.android.material:material:$material_version"
@@ -133,5 +138,7 @@ dependencies {
     //Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
+    //One tap login
+    implementation "com.google.android.gms:play-services-auth:$oneTapLogin_version"
 
 }

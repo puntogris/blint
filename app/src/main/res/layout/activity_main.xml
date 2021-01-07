@@ -39,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addFav"
-            android:visibility="visible"
             android:enabled="false"
             app:layout_anchor="@id/bottomAppBar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +82,7 @@
                 app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addSuplierFab"
+                android:id="@+id/addSupplierFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
