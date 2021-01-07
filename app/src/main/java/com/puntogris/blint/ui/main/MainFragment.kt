@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
+import com.puntogris.blint.utils.StringValidator
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,14 +27,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun initializeViews() {
-        lifecycleScope.launchWhenStarted {
-            if(viewModel.getBusinessCount() == 0)
-                findNavController().navigate(R.id.registerBusinessFragment)
-            else showBusinessUI()
-        }
-    }
-
-    private fun showBusinessUI(){
         getParentFab().isEnabled = true
         setupBusinessMenu()
         setupRecyclerView()

@@ -7,15 +7,23 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
@@ -24,23 +32,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var clicked = false
 
+    @Inject lateinit var sharedPref: SharedPref
+
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
     private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim) }
     private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
     private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun preInitViews() {
         setTheme(R.style.Theme_Blint)
     }
 
     override fun initializeViews() {
-        supportActionBar?.elevation  = 0F
         setUpNavigation()
+        supportActionBar?.elevation  = 0F
         delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
     }
 
     private fun setUpNavigation(){
         navController = getNavController()
+        val inflater = navController.navInflater
+        // Manually inflate the graph and set the start destination
+        val navGraph = inflater.inflate(R.navigation.navigation)
+        if (viewModel.isUserLoggedIn()) {
+                if (sharedPref.getUserHasBusinessRegisteredPref()) {
+                    navGraph.startDestination = R.id.mainFragment
+                }else navGraph.startDestination = R.id.alertRegisterBusinessFragment
+        } else {
+            navGraph.startDestination = R.id.loginFragment
+        }
+        // Set the manually created graph and args
+        navController.graph = navGraph
 
         binding.run {
             navController.addOnDestinationChangedListener(this@MainActivity)
@@ -143,7 +167,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             destination.id == R.id.alertRegisterBusinessFragment ||
             destination.id == R.id.registerBusinessFragment ||
             destination.id == R.id.registerLocalBusinessFragment ||
-            destination.id == R.id.registerOnlineBusinessFragment)
+            destination.id == R.id.registerOnlineBusinessFragment ||
+            destination.id == R.id.loginProblemsFragment)
             {
                 binding.bottomAppBar.gone()
                 binding.addFav.hide()
@@ -152,10 +177,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             binding.addFav.show()
             binding.bottomAppBar.performShow()
         }
-//        binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-//        binding.addFav.setOnClickListener{ onParentFabClicked()}
-//        binding.bottomAppBar.performShow()
-//        if (clicked) onParentFabClicked()
+        binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+        binding.addFav.setOnClickListener{ onParentFabClicked()}
+        if (clicked) onParentFabClicked()
     }
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {

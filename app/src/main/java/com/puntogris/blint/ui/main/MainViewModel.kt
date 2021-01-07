@@ -7,24 +7,28 @@ import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.local.clients.ClientsDao
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.data.local.suppliers.SuppliersDao
+import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Business
 
 class MainViewModel @ViewModelInject constructor(
-        private val businessDao: BusinessDao,
-        private val productsDao: ProductsDao,
-        private val clientsDao: ClientsDao,
-        private val suppliersDao: SuppliersDao
+    private val userRepository: UserRepository,
+    private val businessDao: BusinessDao,
+    private val productsDao: ProductsDao,
+    private val clientsDao: ClientsDao,
+    private val suppliersDao: SuppliersDao
 ):ViewModel() {
 
     suspend fun getBusiness() = businessDao.getBusinesses()
 
-    suspend fun getBusinessCount() = businessDao.getCount()
+    suspend fun userHasBusinessRegistered() = businessDao.getCount() > 1
 
     suspend fun getProductsCount() = productsDao.getCount()
 
     suspend fun getClientsCount() = clientsDao.getCount()
 
     suspend fun getSuppliersCount() = suppliersDao.getCount()
+
+    fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 
 
     //create product listener db

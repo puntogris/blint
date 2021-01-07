@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -27,7 +28,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private val viewModel: LoginViewModel by viewModels()
 
     override fun initializeViews() {
-        if (viewModel.isUserLoggedIn()) navigateToMainApp()
         binding.loginFragment = this
     }
 
