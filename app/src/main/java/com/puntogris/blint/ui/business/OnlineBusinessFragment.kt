@@ -8,6 +8,12 @@ import com.puntogris.blint.ui.base.BaseFragment
 class OnlineBusinessFragment : BaseFragment<FragmentOnlineBusinessBinding>(R.layout.fragment_online_business) {
 
     override fun initializeViews() {
+        binding.onlineBusinessFragment = this
         binding.animationView.setPadding(-400)
+    }
+
+    fun onRegisterBusinessButtonClicked(){
+        val registerBusinessFragment = requireParentFragment() as RegisterBusinessFragment
+        registerBusinessFragment.registerOnlineBusiness()
     }
 }

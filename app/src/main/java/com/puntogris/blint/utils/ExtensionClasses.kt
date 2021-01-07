@@ -7,7 +7,7 @@ sealed class StringValidator{
     class NotValid(val error: String): StringValidator()
 
     companion object{
-        fun from(text: String, validLength: Int = 3, allowSpecialChars: Boolean = true): StringValidator{
+        fun from(text: String, validLength: Int = 3, allowSpecialChars: Boolean = false): StringValidator{
             return when{
                 text.isBlank() ->
                     NotValid("El nombre no puede estar vacio.")

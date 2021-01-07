@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="localBusinessFragment"
+            type="com.puntogris.blint.ui.business.LocalBusinessFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -169,7 +171,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/registerLocalBusinessButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -178,6 +180,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:text="Registrar negocio local"
+            android:onClick="@{()-> localBusinessFragment.onRegisterBusinessButtonClicked()}"
             app:icon="@drawable/ic_baseline_navigate_next_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

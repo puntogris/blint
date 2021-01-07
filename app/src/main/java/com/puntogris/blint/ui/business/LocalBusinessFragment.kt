@@ -6,6 +6,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLocalBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.main.MainViewModel
+import com.puntogris.blint.ui.product.ProductFragment
 import com.puntogris.blint.utils.*
 
 class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layout.fragment_local_business) {
@@ -13,13 +14,12 @@ class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layou
     private val viewModel: MainViewModel by activityViewModels()
 
         override fun initializeViews() {
+            binding.localBusinessFragment = this
             binding.animationView.setPadding(-700)
-            getParentFab().apply {
-                isEnabled = true
-                changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-                setOnClickListener {
+        }
 
-                }
-            }
+        fun onRegisterBusinessButtonClicked(){
+            val registerBusinessFragment = requireParentFragment() as RegisterBusinessFragment
+            registerBusinessFragment.registerLocalBusiness()
         }
     }

@@ -98,9 +98,9 @@
     <fragment
         android:id="@+id/registerLocalBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment"
-        android:label="RegisterLocalBusinessFragment" />
+        android:label="Registrar negocio local" />
     <fragment
         android:id="@+id/registerOnlineBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
-        android:label="RegisterOnlineBusinessFragment" />
+        android:label="Registrar negocio online" />
 </navigation>

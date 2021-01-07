@@ -78,6 +78,11 @@ fun Fragment.createShortSnackBar(message: String): Snackbar{
     return Snackbar.make(snackLayout, message, Snackbar.LENGTH_SHORT)
 }
 
+fun Fragment.showShortSnackBar(message: String){
+    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
+    Snackbar.make(snackLayout, message, Snackbar.LENGTH_SHORT).show()
+}
+
 fun Context.dpToPx(dp : Float) : Float {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics

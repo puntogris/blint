@@ -141,9 +141,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (
             destination.id == R.id.loginFragment ||
             destination.id == R.id.alertRegisterBusinessFragment ||
-            destination.id == R.id.registerBusinessFragment){
-            binding.bottomAppBar.gone()
-            binding.addFav.hide()
+            destination.id == R.id.registerBusinessFragment ||
+            destination.id == R.id.registerLocalBusinessFragment ||
+            destination.id == R.id.registerOnlineBusinessFragment)
+            {
+                binding.bottomAppBar.gone()
+                binding.addFav.hide()
         }else{
             binding.bottomAppBar.visible()
             binding.addFav.show()
