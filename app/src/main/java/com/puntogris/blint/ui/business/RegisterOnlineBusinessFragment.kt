@@ -5,11 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterOnlineBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 
 class RegisterOnlineBusinessFragment : BaseFragment<FragmentRegisterOnlineBusinessBinding>(R.layout.fragment_register_online_business) {
+
 
     override fun initializeViews() {
 

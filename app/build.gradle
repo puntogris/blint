@@ -141,4 +141,7 @@ dependencies {
     //One tap login
     implementation "com.google.android.gms:play-services-auth:$oneTapLogin_version"
 
+    //Expandable Layout
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
 }

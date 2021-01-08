@@ -23,7 +23,6 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
             getParcelable<Product>("data_key")?.let {
                 viewModel.setCurrentProductData(it)
@@ -93,11 +92,15 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             ImagePicker.getImages(data).let {
                 if (it.isNotEmpty()) {
                     viewModel.updateProductImage(it.first())
-                    binding.productImage.visible()
+                   // binding.productImage.visible()
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun onPricesButtonClicked(){
+        binding.productPricesButton.toggleIcon()
     }
 
 }
