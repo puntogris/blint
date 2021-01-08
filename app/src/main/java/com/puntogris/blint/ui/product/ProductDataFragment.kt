@@ -31,18 +31,18 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
             viewLifecycleOwner) { result ->
-            binding.productBarcodeText.setText(result)
+            binding.productDescriptionLayout.productBarcodeText.setText(result)
         }
 
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                val name = binding.productNameText.getString()
-                val barcode = binding.productBarcodeText.getString()
-                val description = binding.productDescriptionText.getString()
-                val buyPrice = binding.productBuyPriceText.getInt()
-                val sellPrice = binding.productSellPriceText.getInt()
-                val suggestedSellPrice = binding.productSuggestedSellPriceText.getInt()
+                val name = binding.productDescriptionLayout.productNameText.getString()
+                val barcode = binding.productDescriptionLayout.productBarcodeText.getString()
+                val description = binding.productDescriptionLayout.productDescriptionText.getString()
+                val buyPrice = binding.productPricesLayout.productBuyPriceText.getInt()
+                val sellPrice = binding.productPricesLayout.productSellPriceText.getInt()
+                val suggestedSellPrice = binding.productPricesLayout.productSuggestedSellPriceText.getInt()
                 val product = Product(
                     name = name,
                     barcode = barcode,
@@ -59,9 +59,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                         findNavController().navigateUp()
                     }
                     is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
-
                 }
-
             }
         }
     }
@@ -92,7 +90,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             ImagePicker.getImages(data).let {
                 if (it.isNotEmpty()) {
                     viewModel.updateProductImage(it.first())
-                   // binding.productImage.visible()
+                    binding.productImagesLayout.productImage.visible()
                 }
             }
         }
@@ -101,6 +99,16 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
     fun onPricesButtonClicked(){
         binding.productPricesButton.toggleIcon()
+        binding.productPricesLayout.expandableLayout.toggle()
     }
 
+    fun onDescriptionButtonClicked(){
+        binding.productDescriptionButton.toggleIcon()
+        binding.productDescriptionLayout.expandableLayout.toggle()
+    }
+
+    fun onImageButtonClicked(){
+        binding.productImagesLayout.expandableLayout.toggle()
+        binding.productImageButton.toggleIcon()
+    }
 }

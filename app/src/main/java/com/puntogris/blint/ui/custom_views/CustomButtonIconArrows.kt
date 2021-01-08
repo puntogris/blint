@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.custom_views
 
 import android.content.Context
 import android.util.AttributeSet

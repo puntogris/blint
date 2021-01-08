@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.ProductViewModel" />
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.product.ProductDataFragment" />
+    </data>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="300"
+        app:el_expanded="true"
+        app:el_parallax="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productName"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:hint="Nombre"
+                app:helperTextEnabled="true"
+                app:helperText="*Requerido"
+                app:layout_constraintEnd_toStartOf="@+id/searchNameButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentProduct.name}"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/searchNameButton"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/purple_200"
+                android:onClick="@{()-> fragment.onSearchButtonClicked()}"
+                android:tint="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/productName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productName"
+                app:layout_constraintTop_toTopOf="@+id/productName"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productBarcode"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:hint="Codigo de barras"
+                app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productBarcodeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentProduct.barcode}"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/scanBarcodeButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/purple_200"
+                android:onClick="@{()-> fragment.onScanButtonClicked()}"
+                android:tint="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/productBarcode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productBarcode"
+                app:layout_constraintTop_toTopOf="@+id/productBarcode"
+                app:srcCompat="@drawable/ic_barcode" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/productDescription"
+                style="@style/Theme.Blint.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Descripcion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBarcode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productDescriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:text="@{viewModel.currentProduct.description}"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </net.cachapa.expandablelayout.ExpandableLayout>
+</layout>
