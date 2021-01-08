@@ -9,7 +9,7 @@ class OnlineBusinessFragment : BaseFragment<FragmentOnlineBusinessBinding>(R.lay
 
     override fun initializeViews() {
         binding.onlineBusinessFragment = this
-        binding.animationView.setPadding(-400)
+        binding.animationView.setPadding(-300)
     }
 
     fun onRegisterBusinessButtonClicked(){

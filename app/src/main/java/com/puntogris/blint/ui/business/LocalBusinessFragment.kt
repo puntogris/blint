@@ -15,7 +15,7 @@ class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layou
 
         override fun initializeViews() {
             binding.localBusinessFragment = this
-            binding.animationView.setPadding(-700)
+            binding.animationView.setPadding(-400)
         }
 
         fun onRegisterBusinessButtonClicked(){
