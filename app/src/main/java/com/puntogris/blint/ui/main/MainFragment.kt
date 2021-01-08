@@ -10,10 +10,10 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
-import com.puntogris.blint.utils.StringValidator
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +53,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun setupRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
-        val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE)
+        val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE,ACCOUNTING_CARD_CODE)
         lifecycleScope.launch {
             mainMenuAdapter.submitList(getMenuCardList(cardList))
 
@@ -95,6 +95,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 ALL_CLIENTS_CARD_CODE -> {
                     val count = viewModel.getSuppliersCount()
                     MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
+                }
+                ACCOUNTING_CARD_CODE -> {
+                    MenuCard(it, "Contabilidad", R.drawable.ic_baseline_account_balance_24, "","Balances", R.color.card5 )
                 }
                 else -> null
             }

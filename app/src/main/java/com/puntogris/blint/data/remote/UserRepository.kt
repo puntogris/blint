@@ -4,12 +4,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.local.user.UsersDao
+import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
+import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserRepository @Inject constructor() : IUserRepository {
+class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -30,7 +37,7 @@ class UserRepository @Inject constructor() : IUserRepository {
                 if (task.isSuccessful) {
                     result.value = AuthResult.Success(task.result.user!!)
                 } else {
-                    task.exception?.let {println(it.localizedMessage)
+                    task.exception?.let {
                         result.value = AuthResult.Error(it.message.toString())
                     }
                 }
@@ -39,10 +46,16 @@ class UserRepository @Inject constructor() : IUserRepository {
     }
 
 
-//    override suspend fun saveUserToDatabases(roomUser: RoomUser){
-//        userDao.insert(roomUser)
-//        firestore.collection(USERS_COLLECTION).document(roomUser.uid).set(roomUser)
-//    }
+    override suspend fun saveUserToDatabases(user: FirestoreUser){
+        firestore.collection(USERS_COLLECTION).document(user.uid).get().addOnSuccessListener {
+            if (!it.exists()){
+                firestore.collection(USERS_COLLECTION).document(user.uid).set(user)
+            }
+            else{
+                //we populate the room databse with the data
+            }
+        }
+    }
 //
 //    override suspend fun getCurrentUserFromDatabase() = userDao.getUser(auth.uid.toString())
 //

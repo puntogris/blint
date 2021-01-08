@@ -34,6 +34,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             viewLifecycleOwner) { result ->
             binding.productBarcodeText.setText(result)
         }
+
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
@@ -51,9 +52,17 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                     sellPrice = sellPrice,
                     suggestedSellPrice = suggestedSellPrice
                 )
-                viewModel.updateCurrentProductData(product)
-                viewModel.saveProduct()
-                createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+                when(val validator = StringValidator.from(name, allowSpecialChars = true)){
+                    is StringValidator.Valid -> {
+                        viewModel.updateCurrentProductData(product)
+                        viewModel.saveProduct()
+                        createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+                        findNavController().navigateUp()
+                    }
+                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
+
+                }
+
             }
         }
     }

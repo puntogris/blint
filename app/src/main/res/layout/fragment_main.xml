@@ -47,17 +47,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <Button
             android:id="@+id/syncSwitch"
-            android:layout_width="135dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:text="Auto SYNC"
             android:textSize="16sp"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:text="sync"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintBottom_toBottomOf="@+id/businessMenu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/businessMenu" />
+            app:layout_constraintTop_toTopOf="@+id/businessMenu"
+            app:icon="@drawable/ic_baseline_sync_24"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

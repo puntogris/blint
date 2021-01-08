@@ -41,7 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                             viewModel.logInUserToFirestore(credentialToken).collect { result ->
                                 when (result) {
                                     is AuthResult.Success -> {
-                                       // viewModel.saveUserToDatabase(result.user)
+                                        viewModel.saveUserToDatabase(result.user)
                                         navigateToMainApp()
                                     }
                                     is AuthResult.Error -> {

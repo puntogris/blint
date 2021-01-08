@@ -5,6 +5,7 @@ import android.os.Build
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 
@@ -59,4 +61,9 @@ fun RallyVerticalBar.setVerticalIndicatorProgress(amount: Int){
 @BindingAdapter("emptyEditTextWithInt")
 fun EditText.setEmptyEditTextWithInt(value: Int){
     setText(if (value == 0) "" else value.toString())
+}
+
+@BindingAdapter("productPrices")
+fun TextView.setProductPrices(product: Product){
+    text = "${product.buyPrice.toFloat().toUSDFormatted()} / ${product.sellPrice.toFloat().toUSDFormatted()}"
 }

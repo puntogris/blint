@@ -24,7 +24,6 @@ class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpPieView()
         val manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -40,21 +39,21 @@ class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.lay
         findNavController().navigate(action)
     }
 
-    private fun setUpPieView() {
-        binding.tvAmount.text = 5123.toFloat().toUSDFormatted()
-        val rallyPiePortions = listOf(
-            RallyPiePortion("test", 1000F, ContextCompat.getColor(requireContext(), R.color.teal_200)),
-            RallyPiePortion("test", 2000F, ContextCompat.getColor(requireContext(), R.color.teal_700)),
-            RallyPiePortion("test", 1000F, ContextCompat.getColor(requireContext(), R.color.purple_200)),
-            RallyPiePortion("test", 3000F, ContextCompat.getColor(requireContext(), R.color.bottomSheetColorPrimary)),
-        )
-
-        val rallyPieData = RallyPieData(portions = rallyPiePortions, maxValue = 10000F)
-
-        val rallyPieAnimation = RallyPieAnimation(binding.rallyPie)
-        rallyPieAnimation.duration = 600
-        binding.rallyPie.setPieData(pieData = rallyPieData, animation = rallyPieAnimation)
-    }
+//    private fun setUpPieView() {
+//        binding.tvAmount.text = 5123.toFloat().toUSDFormatted()
+//        val rallyPiePortions = listOf(
+//            RallyPiePortion("test", 1000F, ContextCompat.getColor(requireContext(), R.color.teal_200)),
+//            RallyPiePortion("test", 2000F, ContextCompat.getColor(requireContext(), R.color.teal_700)),
+//            RallyPiePortion("test", 1000F, ContextCompat.getColor(requireContext(), R.color.purple_200)),
+//            RallyPiePortion("test", 3000F, ContextCompat.getColor(requireContext(), R.color.bottomSheetColorPrimary)),
+//        )
+//
+//        val rallyPieData = RallyPieData(portions = rallyPiePortions, maxValue = 10000F)
+//
+//        val rallyPieAnimation = RallyPieAnimation(binding.rallyPie)
+//        rallyPieAnimation.duration = 600
+//        binding.rallyPie.setPieData(pieData = rallyPieData, animation = rallyPieAnimation)
+//    }
 
 
     override fun onDestroyView() {
