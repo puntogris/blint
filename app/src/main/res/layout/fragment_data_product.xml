@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -35,8 +36,8 @@
                 android:layout_marginEnd="32dp"
                 android:onClick="@{()-> fragment.onDescriptionButtonClicked()}"
                 android:text="Descripcion"
+                custom:startOpen="true"
                 android:textAlignment="viewStart"
-                app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +77,6 @@
                 android:onClick="@{()-> fragment.onPricesButtonClicked()}"
                 android:text="Precios"
                 android:textAlignment="viewStart"
-                app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,6 @@
                 android:onClick="@{()-> fragment.onImageButtonClicked()}"
                 android:text="Imagenes"
                 android:textAlignment="viewStart"
-                app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
