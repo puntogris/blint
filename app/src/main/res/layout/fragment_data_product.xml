@@ -44,7 +44,7 @@
                 custom:startOpen="true" />
 
             <include
-                android:id="@+id/productDescriptionLayout"
+                android:id="@+id/descriptionLayout"
                 layout="@layout/product_description_expandable"
                 app:viewModel="@{viewModel}"
                 app:fragment="@{fragment}"
@@ -64,7 +64,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDescriptionLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionLayout" />
 
             <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
                 android:id="@+id/productPricesButton"
@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@id/divider2" />
 
             <include
-                android:id="@+id/productPricesLayout"
+                android:id="@+id/pricesLayout"
                 layout="@layout/product_prices_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productPricesLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/pricesLayout" />
 
             <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
                 android:id="@+id/productScopeButton"
@@ -121,7 +121,7 @@
                 app:layout_constraintTop_toTopOf="@+id/divider3" />
 
             <include
-                android:id="@+id/productScopeLayout"
+                android:id="@+id/scopeLayout"
                 layout="@layout/product_scope_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productScopeLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/scopeLayout" />
 
             <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
                 android:id="@+id/productImageButton"
@@ -160,7 +160,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
             <include
-                android:id="@+id/productImagesLayout"
+                android:id="@+id/imagesLayout"
                 layout="@layout/product_images_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -7,6 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import com.maxkeppeler.bottomsheets.options.DisplayMode
+import com.maxkeppeler.bottomsheets.options.Option
+import com.maxkeppeler.bottomsheets.options.OptionsSheet
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import com.puntogris.blint.R
@@ -15,6 +18,7 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.handleCoroutineException
 
 @AndroidEntryPoint
 class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fragment_data_product) {
@@ -34,27 +38,21 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
             viewLifecycleOwner) { result ->
-            binding.productDescriptionLayout.productBarcodeText.setText(result)
+            binding.descriptionLayout.productBarcodeText.setText(result)
         }
 
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                val name = binding.productDescriptionLayout.productNameText.getString()
-                val barcode = binding.productDescriptionLayout.productBarcodeText.getString()
-                val description = binding.productDescriptionLayout.productDescriptionText.getString()
-                val buyPrice = binding.productPricesLayout.productBuyPriceText.getInt()
-                val sellPrice = binding.productPricesLayout.productSellPriceText.getInt()
-                val suggestedSellPrice = binding.productPricesLayout.productSuggestedSellPriceText.getInt()
                 val product = Product(
-                    name = name,
-                    barcode = barcode,
-                    description = description,
-                    buyPrice = buyPrice,
-                    sellPrice = sellPrice,
-                    suggestedSellPrice = suggestedSellPrice
+                    name = binding.descriptionLayout.productNameText.getString(),
+                    barcode = binding.descriptionLayout.productBarcodeText.getString(),
+                    description = binding.descriptionLayout.productDescriptionText.getString(),
+                    buyPrice = binding.pricesLayout.productBuyPriceText.getInt(),
+                    sellPrice = binding.pricesLayout.productSellPriceText.getInt(),
+                    suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getInt()
                 )
-                when(val validator = StringValidator.from(name, allowSpecialChars = true)){
+                when(val validator = StringValidator.from(product.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
                         viewModel.updateCurrentProductData(product)
                         viewModel.saveProduct()
@@ -93,7 +91,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             ImagePicker.getImages(data).let {
                 if (it.isNotEmpty()) {
                     viewModel.updateProductImage(it.first())
-                    binding.productImagesLayout.productImage.visible()
+                    binding.imagesLayout.productImage.visible()
                 }
             }
         }
@@ -102,43 +100,74 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
     fun onPricesButtonClicked(){
         binding.productPricesButton.toggleIcon()
-        binding.productPricesLayout.expandableLayout.toggle()
+        binding.pricesLayout.expandableLayout.toggle()
     }
 
     fun onDescriptionButtonClicked(){
         binding.productDescriptionButton.toggleIcon()
-        binding.productDescriptionLayout.expandableLayout.toggle()
+        binding.descriptionLayout.expandableLayout.toggle()
     }
 
     fun onImageButtonClicked(){
-        binding.productImagesLayout.expandableLayout.toggle()
+        binding.imagesLayout.expandableLayout.toggle()
         binding.productImageButton.toggleIcon()
     }
 
     fun onScopeButtonClicked(){
-        binding.productScopeLayout.expandableLayout.toggle()
+        binding.scopeLayout.expandableLayout.toggle()
         binding.productScopeButton.toggleIcon()
     }
     private fun initChips(){
-        binding.productScopeLayout.addClientChip.setOnClickListener {
-            val newChip = Chip(requireContext())
-            newChip.text = "Cliente"
-            newChip.isCloseIconVisible = true
-            newChip.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
-            newChip.setOnCloseIconClickListener {
-                binding.productScopeLayout.clientsChipGroup.removeView(it)
-            }
-            binding.productScopeLayout.clientsChipGroup.addView(newChip)
+        binding.scopeLayout.addClientChip.setOnClickListener {
+            openBottomSheetForClients()
         }
-        binding.productScopeLayout.addSupplierChip.setOnClickListener {
-            val newChip = Chip(requireContext())
-            newChip.text = "Proveedor"
-            newChip.isCloseIconVisible = true
-            newChip.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
-            newChip.setOnCloseIconClickListener {
-                binding.productScopeLayout.supplierChipGroup.removeView(it)
-            }
-            binding.productScopeLayout.supplierChipGroup.addView(newChip)
+        binding.scopeLayout.addSupplierChip.setOnClickListener {
+         openBottomSheetForSuppliers()
         }
     }
+
+    private fun openBottomSheetForClients(){
+        OptionsSheet().build(requireContext()){
+            title("Agregar Clientes")
+            displayMode(DisplayMode.LIST)
+            multipleChoices()
+            with(
+                Option("Cliente 1"),
+                Option("Cliente 2"),
+                Option("Cliente 3"),
+                Option("Cliente 4"),
+                Option("Cliente 5"),
+                Option("Cliente 6")
+            )
+            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                selectedIndices.forEach {
+                    createNewChipAndAddItToGroup(it.toString(), binding.scopeLayout.clientsChipGroup)
+                }
+            }
+            onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
+    }
+
+    private fun openBottomSheetForSuppliers(){
+        OptionsSheet().build(requireContext()){
+            title("Agregar Proveedores")
+            displayMode(DisplayMode.LIST)
+            multipleChoices()
+            with(
+                Option("Proveedor 1"),
+                Option("Proveedor 2"),
+                Option("Proveedor 3"),
+                Option("Proveedor 4"),
+                Option("Proveedpor 5"),
+                Option("Proveedor 6")
+            )
+            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                selectedIndices.forEach {
+                    createNewChipAndAddItToGroup(it.toString(), binding.scopeLayout.supplierChipGroup)
+                }
+            }
+            onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
+    }
+
 }

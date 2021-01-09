@@ -8,8 +8,11 @@ import android.view.animation.Animation
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
@@ -101,3 +104,14 @@ fun Float.toUSDFormatted() : String {
 fun String.containsInvalidCharacters() = !all { it.isLetter() }
 
 fun String.isLengthInvalid(validLength: Int) = length < validLength
+
+
+fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
+    Chip(requireContext()).apply {
+        text = "Item $name"
+        isCloseIconVisible = true
+        closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
+        setOnClickListener { chipGroup.removeView(it) }
+        chipGroup.addView(this)
+    }
+
