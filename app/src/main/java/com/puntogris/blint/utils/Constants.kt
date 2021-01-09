@@ -19,5 +19,8 @@ object Constants {
     const val PLAY_STORE_PACKAGE= "com.android.vending"
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
-    
+    const val REPORT_FIELD_FIRESTORE = "report"
+    const val TIMESTAMP_FIELD_FIRESTORE = "timestamp"
+    const val BUG_REPORT_COLLECTION_NAME = "bug_reports"
+
 }

@@ -2,19 +2,27 @@ package com.puntogris.blint.ui.about
 
 import android.content.Intent
 import android.net.Uri
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.maxkeppeler.bottomsheets.input.InputSheet
+import com.maxkeppeler.bottomsheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAboutBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.APP_PLAY_STORE_URI
 import com.puntogris.blint.utils.Constants.PLAY_STORE_PACKAGE
+import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about) {
 
-    override fun initializeViews() {
+    private val viewModel:AboutViewModel by viewModels()
 
+    override fun initializeViews() {
         binding.termsConditions.setOnClickListener {
             findNavController().navigate(R.id.action_aboutFragment_to_termsConditionsFragment)
         }
@@ -30,7 +38,28 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
             startActivity(intent)
         }
         binding.sendSuggestion.setOnClickListener {
-            //bottom sheet
+            InputSheet().show(requireParentFragment().requireContext()) {
+                title("Problemas y consejos")
+                content("Reporta un problema o envianos tus consejos.")
+                with(InputEditText {
+                    required()
+                    label("Que nos queres contar?")
+                    hint("Mensaje.")
+                    onPositive("Enviar") {
+                        onResultSendReport(value.toString())
+                    }
+                    onNegative("Cancelar")
+                })
+            }
+        }
+    }
+
+    private fun onResultSendReport(message: String){
+        lifecycleScope.launch {
+            when(viewModel.sendReport(message)){
+                RepoResult.Success -> showShortSnackBar("Se envio satisfactioriamente el reporte, Gracias por tu ayuda!")
+                RepoResult.Failure -> showShortSnackBar("Ocurrio un error. Verifique su conexion ntente nuevamente.")
+            }
         }
     }
 }

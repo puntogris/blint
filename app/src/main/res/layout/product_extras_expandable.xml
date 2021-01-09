@@ -6,6 +6,9 @@
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.ProductDataFragment" />
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.ProductViewModel" />
     </data>
 
     <net.cachapa.expandablelayout.ExpandableLayout
@@ -57,6 +60,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productInternalCodeText"
                     android:layout_width="match_parent"
+                    android:text="@{viewModel.currentProduct.internalCode}"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
@@ -65,7 +69,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/productCompany"
+                android:id="@+id/productBrand"
                 style="@style/Theme.Blint.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -79,9 +83,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/productInternalCode">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/productCompanyText"
+                    android:id="@+id/productBrandText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentProduct.brand}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
@@ -100,13 +105,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productCompany">
+                app:layout_constraintTop_toBottomOf="@+id/productBrand">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSizeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
+                    android:text="@{viewModel.currentProduct.size}"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
 

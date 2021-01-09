@@ -35,5 +35,14 @@ data class Product(
     val buyPrice:Float = 0F,
 
     @ColumnInfo
-    val suggestedSellPrice: Float = 0F
+    val suggestedSellPrice: Float = 0F,
+
+    @ColumnInfo
+    val internalCode: String = "",
+
+    @ColumnInfo
+    val brand:String = "",
+
+    @ColumnInfo
+    val size:String = ""
 ):Parcelable

@@ -200,6 +200,7 @@
             <include
                 android:id="@+id/extrasLayout"
                 app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}"
                 layout="@layout/product_extras_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

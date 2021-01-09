@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.remote
 
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
@@ -7,13 +8,19 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.user.UsersDao
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
+import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
+import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
+import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUserRepository {
@@ -56,13 +63,24 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUser
             }
         }
     }
+
+    override suspend fun sendReportToFirestore(message: String): RepoResult {
+        val report = hashMapOf(
+            REPORT_FIELD_FIRESTORE to message,
+            TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
+        )
+        return try {
+            firestore.collection(BUG_REPORT_COLLECTION_NAME).document().set(report).await()
+            RepoResult.Success
+        }catch (e: Exception){
+            RepoResult.Failure
+        }
+    }
+
+
 //
 //    override suspend fun getCurrentUserFromDatabase() = userDao.getUser(auth.uid.toString())
-//
-//    override fun sendUserSuggestion(message: String) {
-//        val suggestion = UserSuggestion(auth.currentUser?.uid.toString(), message)
-//        firestore.collection(USERS_SUGGESTIONS_COLLECTION).document().set(suggestion)
-//    }
+
 //
 //    override suspend fun editUserPhoneNumber(phoneNumber: String) {
 //        userDao.updateUserPhoneNumber(getCurrentUID(), phoneNumber)

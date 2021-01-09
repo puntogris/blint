@@ -75,7 +75,10 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             sellPrice = binding.pricesLayout.productSellPriceText.getFloat(),
             suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
             amount = binding.pricesLayout.productAmountText.getFloat(),
-            image = viewModel.productImage.value!!
+            image = viewModel.productImage.value!!,
+            internalCode = binding.extrasLayout.productInternalCodeText.getString(),
+            brand = binding.extrasLayout.productBrandText.getString(),
+            size = binding.extrasLayout.productSizeText.getString()
         )
     }
 

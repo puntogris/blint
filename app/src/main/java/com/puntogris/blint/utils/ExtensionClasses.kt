@@ -26,3 +26,8 @@ sealed class AuthResult{
     class Error(val exception: String): AuthResult()
     object InProgress: AuthResult()
 }
+
+sealed class RepoResult{
+    object Success: RepoResult()
+    object Failure: RepoResult()
+}

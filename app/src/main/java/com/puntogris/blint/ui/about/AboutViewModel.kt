@@ -7,7 +7,8 @@ import com.puntogris.blint.data.remote.UserRepository
 class AboutViewModel @ViewModelInject constructor(private val userRepository: UserRepository):
     ViewModel() {
 
-//    fun sendSuggestion(message: String) {
-//        userRepository.sendUserSuggestion(message)}
+
+    suspend fun sendReport(message: String) =
+        userRepository.sendReportToFirestore(message)
 
 }

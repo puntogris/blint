@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:title="Notificaciones"
+        app:icon="@drawable/ic_baseline_notifications_24"
+        android:key="notifications"/>
 
     <Preference
         android:title="Mi cuenta"
@@ -10,6 +16,29 @@
         android:title="Editar tarjetas inicio"
         android:key="card"
         android:icon="@drawable/ic_baseline_edit_24" />
+
+    <Preference
+        android:title="Privacidad"
+        android:key="privacy"
+        android:icon="@drawable/ic_baseline_security_24" />
+
+    <Preference
+        android:title="Ayuda"
+        android:key="help"
+        android:icon="@drawable/ic_baseline_help_24" />
+
+    <ListPreference
+        android:title="Temas"
+        app:icon="@drawable/ic_baseline_style_24"
+        android:defaultValue="11"
+        android:key="theme_app_pref"
+        android:entries="@array/theme_names"
+        android:entryValues="@array/theme_values"/>
+
+    <Preference
+        android:title="Cerrar sesion"
+        android:key="singout"
+        android:icon="@drawable/ic_baseline_eject_24" />
 
     <Preference
         android:title="Acerca de Blint"
