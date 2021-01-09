@@ -1,11 +1,13 @@
 package com.puntogris.blint.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import java.text.NumberFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 fun View.gone(){
     visibility = View.GONE
@@ -50,6 +53,10 @@ fun EditText.getInt(): Int{
     return if (text.isNotBlank()) text.toInt() else 0
 }
 
+fun EditText.getFloat(): Float{
+    val text = text.toString()
+    return if (text.isNotBlank()) text.toFloat() else 0F
+}
 
 fun Fragment.getParentFab(): FloatingActionButton =
     requireActivity().findViewById(R.id.addFav)
@@ -115,3 +122,14 @@ fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
         setOnClickListener { chipGroup.removeView(it) }
         chipGroup.addView(this)
     }
+
+fun Fragment.hideKeyboard() {
+    view?.let { requireActivity().hideKeyboard(it) }
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun HashMap<String, String>.containsImage() = any { it.value.isNotEmpty() }

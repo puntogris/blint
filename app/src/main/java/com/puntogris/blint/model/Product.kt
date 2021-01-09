@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -22,17 +23,17 @@ data class Product(
     val description: String = "",
 
     @ColumnInfo
-    val amount: Int = 0,
+    val amount: Float = 0F,
 
     @ColumnInfo
-    val image: String = "",
+    var image: HashMap<String, String> = hashMapOf("uri" to "", "path" to ""),
 
     @ColumnInfo
-    val sellPrice:Int = 0,
+    val sellPrice:Float = 0F,
 
     @ColumnInfo
-    val buyPrice:Int = 0,
+    val buyPrice:Float = 0F,
 
     @ColumnInfo
-    val suggestedSellPrice: Int = 0
+    val suggestedSellPrice: Float = 0F
 ):Parcelable

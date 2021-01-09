@@ -21,13 +21,13 @@
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>
 
-    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconPadding">0dp</item>
-        <item name="iconGravity">textStart</item>
-    </style>
+    <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
 
-    <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-
+    <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
+        <item name="backgroundTint">@color/purple_200</item>
+        <item name="tint">@android:color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
     <style name="SplashTheme" parent="Base.Theme.Blint">

@@ -20,8 +20,8 @@ class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao
 ):ViewModel() {
 
-    private val _productImage = MutableLiveData<Image>()
-    val productImage: LiveData<Image> = _productImage
+    private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
+    val productImage: LiveData<HashMap<String, String>> = _productImage
 
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
@@ -41,8 +41,10 @@ class ProductViewModel @ViewModelInject constructor(
         _currentProduct.value = product
     }
 
-    fun updateProductImage(image: Image){
-        _productImage.value = image
+    fun updateProductImage(imageMap: HashMap<String, String>){
+        _productImage.value = imageMap
+        _currentProduct.value.image = imageMap
+
     }
 
     fun getAllProducts(): Flow<PagingData<Product>> {

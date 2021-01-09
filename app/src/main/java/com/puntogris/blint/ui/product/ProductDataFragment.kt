@@ -33,6 +33,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
             getParcelable<Product>("data_key")?.let {
                 viewModel.setCurrentProductData(it)
+                viewModel.updateProductImage(it.image)
+                if (it.image.containsImage()) binding.imagesLayout.productImage.visible()
             }
         }
 
@@ -48,9 +50,11 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                     name = binding.descriptionLayout.productNameText.getString(),
                     barcode = binding.descriptionLayout.productBarcodeText.getString(),
                     description = binding.descriptionLayout.productDescriptionText.getString(),
-                    buyPrice = binding.pricesLayout.productBuyPriceText.getInt(),
-                    sellPrice = binding.pricesLayout.productSellPriceText.getInt(),
-                    suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getInt()
+                    buyPrice = binding.pricesLayout.productBuyPriceText.getFloat(),
+                    sellPrice = binding.pricesLayout.productSellPriceText.getFloat(),
+                    suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
+                    amount = binding.pricesLayout.productAmountText.getFloat(),
+                    image = viewModel.productImage.value!!
                 )
                 when(val validator = StringValidator.from(product.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
@@ -90,7 +94,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         if (ImagePicker.shouldHandleResult(requestCode, resultCode, data)) {
             ImagePicker.getImages(data).let {
                 if (it.isNotEmpty()) {
-                    viewModel.updateProductImage(it.first())
+                    val imageMap = hashMapOf("uri" to it.first().uri.toString(), "path" to it.first().path)
+                    viewModel.updateProductImage(imageMap)
                     binding.imagesLayout.productImage.visible()
                 }
             }
@@ -101,25 +106,41 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     fun onPricesButtonClicked(){
         binding.productPricesButton.toggleIcon()
         binding.pricesLayout.expandableLayout.toggle()
+        hideKeyboard()
     }
 
     fun onDescriptionButtonClicked(){
         binding.productDescriptionButton.toggleIcon()
         binding.descriptionLayout.expandableLayout.toggle()
+        hideKeyboard()
     }
 
     fun onImageButtonClicked(){
         binding.imagesLayout.expandableLayout.toggle()
         binding.productImageButton.toggleIcon()
+        hideKeyboard()
     }
 
     fun onScopeButtonClicked(){
         binding.scopeLayout.expandableLayout.toggle()
         binding.productScopeButton.toggleIcon()
+        hideKeyboard()
     }
     fun onAdvanceButtonClicked(){
         binding.productAdvanceButton.toggleIcon()
         binding.advanceLayout.expandableLayout.toggle()
+        hideKeyboard()
+    }
+
+    fun onIncreaseAmountButtonClicked(){
+        binding.pricesLayout.productAmountText.apply {
+            setText(getFloat().inc().toString())
+        }
+    }
+    fun onDecreaseAmountButtonClicked(){
+        binding.pricesLayout.productAmountText.apply {
+            setText(getFloat().dec().toString())
+        }
     }
 
     private fun initChips(){
