@@ -33,10 +33,15 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
-            getParcelable<Product>("data_key")?.let {
-                viewModel.setCurrentProductData(it)
-                viewModel.updateProductImage(it.image)
+            getParcelable<Product>("data_key")?.let { productBundle->
+                viewModel.currentProduct.value.let { savedProduct ->
+                    if (productBundle.id != savedProduct?.id){
+                        viewModel.setCurrentProductData(productBundle)
+                        viewModel.updateProductImage(productBundle.image)
+                    }
+                }
             }
         }
 
@@ -48,20 +53,10 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                val product = Product(
-                    name = binding.descriptionLayout.productNameText.getString(),
-                    barcode = binding.descriptionLayout.productBarcodeText.getString(),
-                    description = binding.descriptionLayout.productDescriptionText.getString(),
-                    buyPrice = binding.pricesLayout.productBuyPriceText.getFloat(),
-                    sellPrice = binding.pricesLayout.productSellPriceText.getFloat(),
-                    suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
-                    amount = binding.pricesLayout.productAmountText.getFloat(),
-                    image = viewModel.productImage.value!!
-                )
-                when(val validator = StringValidator.from(product.name, allowSpecialChars = true)){
+                viewModel.updateCurrentProductData(getProductDataFromViews())
+                when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.updateCurrentProductData(product)
-                        viewModel.saveProduct()
+                        viewModel.saveCurrentProductToDatabase()
                         createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
                         findNavController().navigateUp()
                     }
@@ -71,11 +66,25 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         }
     }
 
+    private fun getProductDataFromViews(): Product{
+        return Product(
+            name = binding.descriptionLayout.productNameText.getString(),
+            barcode = binding.descriptionLayout.productBarcodeText.getString(),
+            description = binding.descriptionLayout.productDescriptionText.getString(),
+            buyPrice = binding.pricesLayout.productBuyPriceText.getFloat(),
+            sellPrice = binding.pricesLayout.productSellPriceText.getFloat(),
+            suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
+            amount = binding.pricesLayout.productAmountText.getFloat(),
+            image = viewModel.productImage.value!!
+        )
+    }
+
     fun onSearchButtonClicked(){
 
     }
 
     fun onScanButtonClicked(){
+        viewModel.updateCurrentProductData(getProductDataFromViews())
         val productFragment = requireParentFragment() as ProductFragment
         permissionsManager.requestCameraPermissionAndNavigateToScaner(productFragment)
     }

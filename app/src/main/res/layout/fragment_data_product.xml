@@ -37,6 +37,7 @@
                 android:text="Descripcion"
                 android:textAlignment="viewStart"
                 app:iconGravity="end"
+                app:startOpen="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

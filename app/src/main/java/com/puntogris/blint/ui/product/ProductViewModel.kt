@@ -26,7 +26,7 @@ class ProductViewModel @ViewModelInject constructor(
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
-    fun saveProduct(){
+    fun saveCurrentProductToDatabase(){
         viewModelScope.launch {
             productsDao.insert(_currentProduct.value)
         }

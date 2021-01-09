@@ -75,7 +75,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     cameraProvider.unbindAll()
                     findNavController().apply {
                         previousBackStackEntry!!.savedStateHandle.set("key", it)
-                        popBackStack()
+                        navigateUp()
                     }
                 }
             }
