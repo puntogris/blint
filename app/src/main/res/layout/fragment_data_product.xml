@@ -124,6 +124,7 @@
                 layout="@layout/product_scope_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productScopeButton" />
@@ -187,8 +188,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onAdvanceButtonClicked()}"
-                android:text="Avanzado"
+                android:onClick="@{()-> fragment.onExtrasButtonClicked()}"
+                android:text="Extras"
                 android:textAlignment="viewStart"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -196,8 +197,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
             <include
-                android:id="@+id/advanceLayout"
-                layout="@layout/product_advance_expandable"
+                android:id="@+id/extrasLayout"
+                app:fragment="@{fragment}"
+                layout="@layout/product_extras_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"

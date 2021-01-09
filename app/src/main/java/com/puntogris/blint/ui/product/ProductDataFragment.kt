@@ -20,13 +20,13 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.handleCoroutineException
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fragment_data_product) {
 
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        initChips()
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -102,6 +102,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+
     fun onPricesButtonClicked(){
         binding.productPricesButton.toggleIcon()
         binding.pricesLayout.expandableLayout.toggle()
@@ -130,9 +131,9 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.productScopeButton.toggleIcon()
         hideKeyboard()
     }
-    fun onAdvanceButtonClicked(){
+    fun onExtrasButtonClicked(){
         binding.productAdvanceButton.toggleIcon()
-        binding.advanceLayout.expandableLayout.toggle()
+        binding.extrasLayout.expandableLayout.toggle()
         hideKeyboard()
     }
 
@@ -146,17 +147,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             setText(getFloat().dec().toString())
         }
     }
-
-    private fun initChips(){
-        binding.scopeLayout.addClientChip.setOnClickListener {
-            openBottomSheetForClients()
-        }
-        binding.scopeLayout.addSupplierChip.setOnClickListener {
-         openBottomSheetForSuppliers()
-        }
-    }
-
-    private fun openBottomSheetForClients(){
+    fun openBottomSheetForClients(){
         OptionsSheet().build(requireContext()){
             title("Agregar Clientes")
             displayMode(DisplayMode.LIST)
@@ -178,7 +169,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         }.show(parentFragmentManager, "")
     }
 
-    private fun openBottomSheetForSuppliers(){
+    fun openBottomSheetForSuppliers(){
         OptionsSheet().build(requireContext()){
             title("Agregar Proveedores")
             displayMode(DisplayMode.LIST)
@@ -194,6 +185,28 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
                 selectedIndices.forEach {
                     createNewChipAndAddItToGroup(it.toString(), binding.scopeLayout.supplierChipGroup)
+                }
+            }
+            onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
+    }
+
+    fun openBottomSheetForCategories(){
+        OptionsSheet().build(requireContext()){
+            title("Agregar Categorias")
+            displayMode(DisplayMode.LIST)
+            multipleChoices()
+            with(
+                Option("Categoria 1"),
+                Option("Categoria 2"),
+                Option("Categoria 3"),
+                Option("Categoria 4"),
+                Option("Categoria 5"),
+                Option("Categoria 6")
+            )
+            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                selectedIndices.forEach {
+                    createNewChipAndAddItToGroup(it.toString(), binding.extrasLayout.categoriesChipGroup)
                 }
             }
             onNegative("Cancelar")
