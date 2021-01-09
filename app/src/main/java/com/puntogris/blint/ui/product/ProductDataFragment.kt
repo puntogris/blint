@@ -34,7 +34,6 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             getParcelable<Product>("data_key")?.let {
                 viewModel.setCurrentProductData(it)
                 viewModel.updateProductImage(it.image)
-                if (it.image.containsImage()) binding.imagesLayout.productImage.visible()
             }
         }
 
@@ -119,6 +118,11 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.imagesLayout.expandableLayout.toggle()
         binding.productImageButton.toggleIcon()
         hideKeyboard()
+    }
+
+    fun onRemoveImageButtonClicked(){
+        viewModel.removeCurrentImage()
+        binding.imagesLayout.expandableLayout.toggle()
     }
 
     fun onScopeButtonClicked(){

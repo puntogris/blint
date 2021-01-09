@@ -44,7 +44,12 @@ class ProductViewModel @ViewModelInject constructor(
     fun updateProductImage(imageMap: HashMap<String, String>){
         _productImage.value = imageMap
         _currentProduct.value.image = imageMap
+    }
 
+    fun removeCurrentImage(){
+        val imageMap = hashMapOf("uri" to "", "path" to "")
+        _productImage.value = imageMap
+        _currentProduct.value.image = imageMap
     }
 
     fun getAllProducts(): Flow<PagingData<Product>> {
