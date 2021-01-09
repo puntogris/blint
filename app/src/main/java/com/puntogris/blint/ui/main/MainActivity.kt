@@ -172,7 +172,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             {
                 binding.bottomAppBar.gone()
                 binding.addFav.hide()
-        }else{
+        }else if(destination.id == R.id.aboutFragment ||
+                destination.id == R.id.termsConditionsFragment ||
+                destination.id == R.id.privacyPolicyFragment){
+            binding.bottomAppBar.performHide()
+            binding.addFav.hide()
+        }
+        else{
             binding.bottomAppBar.visible()
             binding.addFav.show()
             binding.bottomAppBar.performShow()

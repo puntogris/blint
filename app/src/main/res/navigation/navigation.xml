@@ -107,4 +107,23 @@
         android:id="@+id/accountingFragment"
         android:name="com.puntogris.blint.ui.accounting.AccountingFragment"
         android:label="Balances" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.puntogris.blint.ui.about.AboutFragment"
+        android:label="Sobre Blint" >
+        <action
+            android:id="@+id/action_aboutFragment_to_termsConditionsFragment"
+            app:destination="@id/termsConditionsFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsConditionsFragment"
+        android:name="com.puntogris.blint.ui.about.TermsConditionsFragment"
+        android:label="Terminos y condiciones" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.puntogris.blint.ui.about.PrivacyPolicyFragment"
+        android:label="Politica de privacidad" />
 </navigation>

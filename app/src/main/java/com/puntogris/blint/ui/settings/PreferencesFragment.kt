@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.transition.MaterialFadeThrough
@@ -24,6 +25,11 @@ class PreferencesFragment: PreferenceFragmentCompat() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        findPreference<Preference>("about")?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.aboutFragment)
+            true
+        }
 
         findPreference<Preference>("card")?.setOnPreferenceClickListener {
             OptionsSheet().show(requireParentFragment().requireContext()) {

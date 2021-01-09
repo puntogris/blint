@@ -11,4 +11,8 @@
         android:key="card"
         android:icon="@drawable/ic_baseline_edit_24" />
 
+    <Preference
+        android:title="Acerca de Blint"
+        android:key="about"/>
+
 </PreferenceScreen>

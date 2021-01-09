@@ -15,4 +15,9 @@ object Constants {
 
     const val USERS_COLLECTION = "users"
 
+    const val APP_PLAY_STORE_URI= "https://play.google.com/store/apps/details?id=com.puntogris.blint"
+    const val PLAY_STORE_PACKAGE= "com.android.vending"
+    const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
+    const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
+    
 }
