@@ -15,27 +15,22 @@ import javax.inject.Inject
 class PermissionsManager @Inject constructor(@ApplicationContext private val context: Context,
 ) {
 
-    fun hasPermission(): Boolean{
-        if (Manifest.permission.ACCESS_FINE_LOCATION == Manifest.permission.ACCESS_BACKGROUND_LOCATION &&
-            android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
-            return true
-        }
-        return ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
+    fun hasCameraPermission() = ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_GRANTED
-    }
 
-    fun requestPermission(fragment: Fragment){
+    fun requestCameraPermissionAndNavigateToScaner(fragment: Fragment){
         val requestPermissionLauncher =
             fragment.registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
             ) { isGranted: Boolean ->
-                if (isGranted) fragment.findNavController().navigate(R.id.mainFragment)
-                else fragment.showLongSnackBarAboveFab("Necesitamos permiso para poder dejarte usar esta funcion.")
+                if (isGranted) fragment.findNavController().navigate(R.id.scannerFragment)
+                else fragment.showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
             }
 
-        if (hasPermission()) fragment.findNavController().navigate(R.id.mainFragment)
-        else requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        if (hasCameraPermission()) fragment.findNavController().navigate(R.id.scannerFragment)
+        else requestPermissionLauncher.launch(Manifest.permission.CAMERA)
 
     }
+
 
 }

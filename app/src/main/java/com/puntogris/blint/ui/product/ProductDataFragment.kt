@@ -19,12 +19,15 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.handleCoroutineException
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fragment_data_product) {
 
     private val viewModel: ProductViewModel by viewModels()
+    @Inject
+    lateinit var permissionsManager: PermissionsManager
 
     override fun initializeViews() {
         binding.fragment = this
@@ -74,7 +77,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
     fun onScanButtonClicked(){
         val productFragment = requireParentFragment() as ProductFragment
-        productFragment.goToScannerFragment()
+        permissionsManager.requestCameraPermissionAndNavigateToScaner(productFragment)
     }
 
     fun onAddImageButtonClicked(){
