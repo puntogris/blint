@@ -22,7 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="?actionBarSize"
             tools:context=".ui.product.ProductDataFragment">
 
@@ -31,17 +31,17 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:onClick="@{()-> fragment.onDescriptionButtonClicked()}"
                 android:text="Descripcion"
-                custom:startOpen="true"
                 android:textAlignment="viewStart"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                custom:startOpen="true" />
 
             <include
                 android:id="@+id/productDescriptionLayout"
@@ -58,9 +58,9 @@
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +71,9 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:onClick="@{()-> fragment.onPricesButtonClicked()}"
                 android:text="Precios"
                 android:textAlignment="viewStart"
@@ -85,33 +85,35 @@
             <include
                 android:id="@+id/productPricesLayout"
                 layout="@layout/product_prices_expandable"
-                app:viewModel="@{viewModel}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/productPricesButton" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productPricesButton"
+                app:viewModel="@{viewModel}" />
 
             <View
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productPricesLayout" />
 
             <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productImageButton"
+                android:id="@+id/productScopeButton"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:onClick="@{()-> fragment.onImageButtonClicked()}"
-                android:text="Imagenes"
+                android:layout_marginEnd="24dp"
+                android:onClick="@{()-> fragment.onScopeButtonClicked()}"
+                android:text="Clientes y Proveedores"
                 android:textAlignment="viewStart"
                 app:iconGravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,11 +121,53 @@
                 app:layout_constraintTop_toTopOf="@+id/divider3" />
 
             <include
+                android:id="@+id/productScopeLayout"
+                layout="@layout/product_scope_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productScopeButton"
+                app:viewModel="@{viewModel}" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productScopeLayout" />
+
+            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
+                android:id="@+id/productImageButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:onClick="@{()-> fragment.onImageButtonClicked()}"
+                android:text="Imagenes"
+                android:textAlignment="viewStart"
+                app:iconGravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+            <include
                 android:id="@+id/productImagesLayout"
                 layout="@layout/product_images_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productImageButton"
                 app:viewModel="@{viewModel}" />
 

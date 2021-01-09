@@ -2,8 +2,10 @@ package com.puntogris.blint.ui.product
 
 import android.content.Intent
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
@@ -20,6 +22,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
+        initChips()
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -110,5 +113,32 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     fun onImageButtonClicked(){
         binding.productImagesLayout.expandableLayout.toggle()
         binding.productImageButton.toggleIcon()
+    }
+
+    fun onScopeButtonClicked(){
+        binding.productScopeLayout.expandableLayout.toggle()
+        binding.productScopeButton.toggleIcon()
+    }
+    private fun initChips(){
+        binding.productScopeLayout.addClientChip.setOnClickListener {
+            val newChip = Chip(requireContext())
+            newChip.text = "Cliente"
+            newChip.isCloseIconVisible = true
+            newChip.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
+            newChip.setOnCloseIconClickListener {
+                binding.productScopeLayout.clientsChipGroup.removeView(it)
+            }
+            binding.productScopeLayout.clientsChipGroup.addView(newChip)
+        }
+        binding.productScopeLayout.addSupplierChip.setOnClickListener {
+            val newChip = Chip(requireContext())
+            newChip.text = "Proveedor"
+            newChip.isCloseIconVisible = true
+            newChip.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
+            newChip.setOnCloseIconClickListener {
+                binding.productScopeLayout.supplierChipGroup.removeView(it)
+            }
+            binding.productScopeLayout.supplierChipGroup.addView(newChip)
+        }
     }
 }

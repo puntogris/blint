@@ -28,10 +28,10 @@
                 style="@style/Theme.Blint.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:hint="Nombre"
-                app:helperTextEnabled="true"
                 app:helperText="*Requerido"
+                app:helperTextEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/searchNameButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +41,10 @@
                     android:id="@+id/productNameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.name}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="@{viewModel.currentProduct.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/purple_200"
                 android:onClick="@{()-> fragment.onSearchButtonClicked()}"
@@ -71,7 +71,7 @@
                 style="@style/Theme.Blint.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:hint="Codigo de barras"
                 app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
@@ -84,10 +84,10 @@
                     android:id="@+id/productBarcodeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.barcode}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="@{viewModel.currentProduct.barcode}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +96,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:backgroundTint="@color/purple_200"
                 android:onClick="@{()-> fragment.onScanButtonClicked()}"
                 android:tint="@android:color/white"
@@ -112,9 +112,9 @@
                 style="@style/Theme.Blint.TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:hint="Descripcion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,10 +124,10 @@
                     android:id="@+id/productDescriptionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:text="@{viewModel.currentProduct.description}"
                     android:imeOptions="actionDone"
-                    android:singleLine="true" />
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:text="@{viewModel.currentProduct.description}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

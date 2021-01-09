@@ -29,7 +29,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "DATA"
+                0 -> "DATOS"
                 else -> "HISTORIAL"
             }
         }
