@@ -117,6 +117,11 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.scopeLayout.expandableLayout.toggle()
         binding.productScopeButton.toggleIcon()
     }
+    fun onAdvanceButtonClicked(){
+        binding.productAdvanceButton.toggleIcon()
+        binding.advanceLayout.expandableLayout.toggle()
+    }
+
     private fun initChips(){
         binding.scopeLayout.addClientChip.setOnClickListener {
             openBottomSheetForClients()

@@ -71,6 +71,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ALL_PRODUCTS_CARD_CODE -> findNavController().navigate(R.id.manageProductsFragment)
             ALL_CLIENTS_CARD_CODE -> findNavController().navigate(R.id.manageClientsFragment)
             ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
+            ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.accountingFragment)
         }
     }
 
@@ -97,7 +98,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
                 }
                 ACCOUNTING_CARD_CODE -> {
-                    MenuCard(it, "Contabilidad", R.drawable.ic_baseline_account_balance_24, "","Balances", R.color.card5 )
+                    MenuCard(it, "Balances", R.drawable.ic_baseline_account_balance_24, "","Contabilidad", R.color.card5 )
                 }
                 else -> null
             }

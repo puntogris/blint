@@ -103,4 +103,8 @@
         android:id="@+id/registerOnlineBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
         android:label="Registrar negocio online" />
+    <fragment
+        android:id="@+id/accountingFragment"
+        android:name="com.puntogris.blint.ui.accounting.AccountingFragment"
+        android:label="Balances" />
 </navigation>

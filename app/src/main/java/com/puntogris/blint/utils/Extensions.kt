@@ -1,6 +1,7 @@
 package com.puntogris.blint.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
@@ -114,4 +115,3 @@ fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
         setOnClickListener { chipGroup.removeView(it) }
         chipGroup.addView(this)
     }
-
