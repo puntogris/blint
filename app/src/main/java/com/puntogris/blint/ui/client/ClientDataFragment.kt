@@ -19,9 +19,11 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        println("asdasd")
 
-        arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getParcelable<Client>("product_key")?.let {
+        arguments?.takeIf { it.containsKey("client_key") }?.apply {
+            getParcelable<Client>("client_key")?.let {
+                println(it)
                 viewModel.setCurrentClientData(it)
             }
         }

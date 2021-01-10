@@ -21,7 +21,7 @@ class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layou
     private val viewModel: ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        val manageProductsAdapter = ManageClientsAdapter{onClientClickListener(it)}
+        val manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launchWhenStarted {

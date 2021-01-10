@@ -41,7 +41,7 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
         override fun createFragment(position: Int): Fragment =
             if (position == 0) {
                 if (args.supplier == null) SupplierDataFragment()
-                else ProductDataFragment().apply {
+                else SupplierDataFragment().apply {
                     arguments = Bundle().apply {
                         putParcelable("supplier_key", args.supplier)
                     }

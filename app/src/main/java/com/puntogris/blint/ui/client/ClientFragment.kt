@@ -46,7 +46,7 @@ class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_cli
         override fun createFragment(position: Int): Fragment =
             if (position == 0) {
                 if (args.client == null) ClientDataFragment()
-                else ProductDataFragment().apply {
+                else ClientDataFragment().apply {
                     arguments = Bundle().apply {
                         putParcelable("client_key", args.client)
                     }
