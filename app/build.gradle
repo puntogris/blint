@@ -121,6 +121,7 @@ dependencies {
     implementation "com.maxkeppeler.bottomsheets:core:$cool_bottom_sheets_version"
     implementation "com.maxkeppeler.bottomsheets:options:$cool_bottom_sheets_version"
     implementation "com.maxkeppeler.bottomsheets:input:$cool_bottom_sheets_version"
+    implementation "com.maxkeppeler.bottomsheets:info:$cool_bottom_sheets_version"
 
     //ImagePicker
     implementation "com.github.nguyenhoanglam:ImagePicker:$imagePicker_version"

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import com.maxkeppeler.bottomsheets.info.InfoSheet
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -37,6 +38,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
             getParcelable<Product>("data_key")?.let { productBundle->
                 viewModel.currentProduct.value.let { savedProduct ->
+                    binding.productDeletionButton.visible()
                     if (productBundle.id != savedProduct?.id){
                         viewModel.setCurrentProductData(productBundle)
                         viewModel.updateProductImage(productBundle.image)
@@ -225,6 +227,19 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                 }
             }
             onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
+    }
+
+    fun openBottomSheetForDeletion(){
+        InfoSheet().build(requireContext()) {
+            title("Queres eliminar este producto?")
+            content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
+            onNegative("Cancelar")
+            onPositive("Si") {
+                viewModel.deleteCurrentProductFromDatabase()
+                showLongSnackBarAboveFab("Producto eliminado correctamente.")
+                findNavController().navigateUp()
+            }
         }.show(parentFragmentManager, "")
     }
 

@@ -32,6 +32,12 @@ class ProductViewModel @ViewModelInject constructor(
         }
     }
 
+    fun deleteCurrentProductFromDatabase(){
+        viewModelScope.launch {
+            productsDao.delete(_currentProduct.value)
+        }
+    }
+
     fun updateCurrentProductData(product: Product){
         product.id = _currentProduct.value.id
         _currentProduct.value = product

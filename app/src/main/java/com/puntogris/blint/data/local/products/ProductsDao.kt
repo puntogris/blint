@@ -13,6 +13,9 @@ interface ProductsDao {
     @Update
     suspend fun update(product: Product)
 
+    @Delete
+    suspend fun delete(product: Product)
+
     @Query("SELECT COUNT(*) FROM product")
     suspend fun getCount(): Int
 

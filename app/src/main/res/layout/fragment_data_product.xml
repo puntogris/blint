@@ -208,6 +208,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productAdvanceButton" />
 
+            <Button
+                android:id="@+id/productDeletionButton"
+                android:layout_width="0dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> fragment.openBottomSheetForDeletion()}"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="30dp"
+                android:text="Eliminar Producto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/extrasLayout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
