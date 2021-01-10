@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
+            type="com.puntogris.blint.ui.client.ClientViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.SupplierDataFragment" />
+            type="com.puntogris.blint.ui.client.ClientDataFragment" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-            android:id="@+id/supplierExtrasButton"
+            android:id="@+id/clientExtraButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="24dp"
             android:text="Extras"
-            android:onClick="@{()-> fragment.onExtraButtonClicked()}"
+            android:onClick="@{()-> fragment.onClientExtraClicked()}"
             android:textAlignment="viewStart"
             app:iconGravity="end"
             app:startOpen="false" />
@@ -45,7 +45,7 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/supplierPaymentInfo"
+                    android:id="@+id/clientPaymentInfo"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,8 +58,8 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/supplierPaymentInfoText"
-                        android:text="@{viewModel.currentSupplier.companyPaymentInfo}"
+                        android:id="@+id/clientPaymentInfoText"
+                        android:text="@{viewModel.currentClient.paymentInfo}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -69,35 +69,35 @@
 
                 <ImageButton
                     android:id="@+id/scanBarcodeButton"
-                    style="@style/Theme.Blint.ImageButton"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/supplierPaymentInfo"
+                    style="@style/Theme.Blint.ImageButton"
+                    app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/supplierPaymentInfo"
-                    app:layout_constraintTop_toTopOf="@+id/supplierPaymentInfo"
+                    app:layout_constraintStart_toEndOf="@+id/clientPaymentInfo"
+                    app:layout_constraintTop_toTopOf="@+id/clientPaymentInfo"
                     app:srcCompat="@drawable/ic_baseline_content_copy_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/supplierNotes"
+                    android:id="@+id/clientDiscount"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
-                    android:hint="Notas"
+                    android:hint="Descuento"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierPaymentInfo">
+                    app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/supplierNotesText"
-                        android:text="@{viewModel.currentSupplier.notes}"
+                        android:id="@+id/clientDiscountText"
+                        emptyEditTextWithNumber="@{viewModel.currentClient.discount}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:inputType="numberDecimal"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>

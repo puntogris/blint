@@ -43,7 +43,7 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
                 if (args.supplier == null) SupplierDataFragment()
                 else ProductDataFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable("data_key", args.supplier)
+                        putParcelable("supplier_key", args.supplier)
                     }
                 }
             } else SupplierHistoryFragment()

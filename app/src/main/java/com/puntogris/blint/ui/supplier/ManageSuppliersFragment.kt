@@ -2,14 +2,17 @@ package com.puntogris.blint.ui.supplier
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.client.ClientViewModel
 import com.puntogris.blint.ui.client.ManageClientsAdapter
+import com.puntogris.blint.ui.product.ManageProductsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -30,7 +33,8 @@ class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.l
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
-
+        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

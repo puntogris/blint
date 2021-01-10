@@ -48,7 +48,7 @@ class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_cli
                 if (args.client == null) ClientDataFragment()
                 else ProductDataFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable("data_key", args.client)
+                        putParcelable("client_key", args.client)
                     }
                 }
             } else ClientHistoryFragment()

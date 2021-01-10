@@ -35,8 +35,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("data_key") }?.apply {
-            getParcelable<Product>("data_key")?.let { productBundle->
+        arguments?.takeIf { it.containsKey("product_key") }?.apply {
+            getParcelable<Product>("product_key")?.let { productBundle->
                 viewModel.currentProduct.value.let { savedProduct ->
                     binding.productDeletionButton.visible()
                     if (productBundle.id != savedProduct?.id){

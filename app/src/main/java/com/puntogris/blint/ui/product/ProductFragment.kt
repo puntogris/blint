@@ -45,7 +45,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
                 if (args.product == null) ProductDataFragment()
                 else ProductDataFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable("data_key", args.product)
+                        putParcelable("product_key", args.product)
                     }
                 }
             } else ProductHistoryFragment()

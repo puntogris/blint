@@ -20,8 +20,8 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("data_key") }?.apply {
-            getParcelable<Supplier>("data_key")?.let {
+        arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
+            getParcelable<Supplier>("supplier_key")?.let {
                 viewModel.setCurrentSupplierData(it)
             }
         }
@@ -33,7 +33,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                 when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
                         viewModel.saveCurrentSupplierToDatabase()
-                        createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+                        createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(this).show()
                         findNavController().navigateUp()
                     }
                     is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()

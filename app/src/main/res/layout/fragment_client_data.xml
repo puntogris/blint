@@ -1,229 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.client.ClientViewModel" />
 
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.client.ClientDataFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.client.ClientDataFragment">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:hint="Nombre"
-            app:layout_constraintEnd_toStartOf="@+id/nameButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            style="@style/Theme.Blint.TextInput"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/nameButton"
-            style="@style/Theme.Blint.TextInput"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/purple_200"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/clientName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clientName"
-            app:layout_constraintTop_toTopOf="@+id/clientName"
-            app:srcCompat="@drawable/ic_baseline_person_add_24" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:hint="Direccion"
-            style="@style/Theme.Blint.TextInput"
-            app:layout_constraintEnd_toStartOf="@+id/addressButton"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clientName">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientAddressText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/addressButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/purple_200"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/clientAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clientAddress"
-            app:layout_constraintTop_toTopOf="@+id/clientAddress"
-            app:srcCompat="@drawable/ic_baseline_location_searching_24" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:hint="Email"
-            style="@style/Theme.Blint.TextInput"
-            app:layout_constraintEnd_toStartOf="@+id/emailButton"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clientAddress">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientEmailText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/emailButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/purple_200"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/clientEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clientEmail"
-            app:layout_constraintTop_toTopOf="@+id/clientEmail"
-            app:srcCompat="@drawable/ic_baseline_email_24" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientPhoneNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:hint="Telefono"
-            style="@style/Theme.Blint.TextInput"
-            app:layout_constraintEnd_toStartOf="@+id/phoneNumberButton"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clientEmail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientPhoneNumberText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/phoneNumberButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/purple_200"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clientPhoneNumber"
-            app:layout_constraintTop_toTopOf="@+id/clientPhoneNumber"
-            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientPaymentInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:hint="Informacion de pagos"
-            style="@style/Theme.Blint.TextInput"
-            app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clientPhoneNumber">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientPaymentInfoText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/scanBarcodeButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/purple_200"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/clientPaymentInfo"
-            app:layout_constraintTop_toTopOf="@+id/clientPaymentInfo"
-            app:srcCompat="@drawable/ic_baseline_content_copy_24" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clientDiscount"
-            style="@style/Theme.Blint.TextInput"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Descuento"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.client.ClientDataFragment">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clientDiscountText"
+            <include
+                android:id="@+id/clientInformationLayout"
+                layout="@layout/client_information_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:singleLine="true" />
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <include
+                android:id="@+id/clientExtrasLayout"
+                layout="@layout/client_extras_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

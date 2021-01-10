@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.client
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
@@ -30,8 +31,9 @@ class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layou
         }
     }
 
-    private fun onClientClickListener(client:Client){
-
+    private fun onClientClickListener(client: Client){
+        val action = ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
