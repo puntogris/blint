@@ -44,7 +44,7 @@
                 android:layout_marginBottom="8dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/clientName"
+                    android:id="@+id/supplierCompanyName"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,7 +56,8 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/clientNameText"
+                        android:id="@+id/supplierCompanyNameText"
+                        android:text="@{viewModel.currentSupplier.companyName}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -69,16 +70,16 @@
                     style="@style/Theme.Blint.ImageButton"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/clientName"
+                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/clientName"
-                    app:layout_constraintTop_toTopOf="@+id/clientName"
+                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyName"
+                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyName"
                     app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/clientPhoneNumber"
+                    android:id="@+id/supplierCompanyPhone"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -89,10 +90,11 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clientName">
+                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyName">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/clientPhoneNumberText"
+                        android:id="@+id/supplierCompanyPhoneText"
+                        android:text="@{viewModel.currentSupplier.companyPhone}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -105,15 +107,15 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
                     style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
+                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyPhone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/clientPhoneNumber"
-                    app:layout_constraintTop_toTopOf="@+id/clientPhoneNumber"
+                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyPhone"
+                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyPhone"
                     app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/clientEmail"
+                    android:id="@+id/supplierCompanyEmail"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -124,10 +126,11 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clientPhoneNumber">
+                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyPhone">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/clientEmailText"
+                        android:id="@+id/supplierCompanyEmailText"
+                        android:text="@{viewModel.currentSupplier.companyEmail}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -140,16 +143,16 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
                     style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/clientEmail"
+                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyEmail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/clientEmail"
-                    app:layout_constraintTop_toTopOf="@+id/clientEmail"
+                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyEmail"
+                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyEmail"
                     app:srcCompat="@drawable/ic_baseline_email_24" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/clientAddress"
+                    android:id="@+id/supplierCompanyAddress"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -160,10 +163,11 @@
                     app:layout_constraintEnd_toStartOf="@+id/addressButton"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clientEmail">
+                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyEmail">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/clientAddressText"
+                        android:id="@+id/supplierCompanyAddressText"
+                        android:text="@{viewModel.currentSupplier.address}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -176,11 +180,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
                     style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/clientAddress"
+                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyAddress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/clientAddress"
-                    app:layout_constraintTop_toTopOf="@+id/clientAddress"
+                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyAddress"
+                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyAddress"
                     app:srcCompat="@drawable/ic_baseline_location_searching_24" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </net.cachapa.expandablelayout.ExpandableLayout>

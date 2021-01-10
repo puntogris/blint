@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierDataBinding
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,33 +21,39 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("data_key") }?.apply {
-            getParcelable<Product>("data_key")?.let { productBundle->
-                viewModel.currentSupplier.value.let { savedProduct ->
-                   // binding.productDeletionButton.visible()
-                    if (productBundle.id != savedProduct?.id){
-                    //    viewModel.setCurrentProductData(productBundle)
-                   //     viewModel.updateProductImage(productBundle.image)
-                    }
-                }
+            getParcelable<Supplier>("data_key")?.let {
+                viewModel.setCurrentSupplierData(it)
             }
         }
 
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                setOnClickListener {
-                  //  viewModel.updateCurrentProductData(getProductDataFromViews())
-                    when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
-                        is StringValidator.Valid -> {
-                            viewModel.saveCurrentSupplierToDatabase()
-                            createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
-                            findNavController().navigateUp()
-                        }
-                        is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
+                viewModel.updateCurrentSupplierData(getSupplierFromViews())
+                when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
+                    is StringValidator.Valid -> {
+                        viewModel.saveCurrentSupplierToDatabase()
+                        createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
+                        findNavController().navigateUp()
                     }
+                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
                 }
             }
         }
+    }
+
+    private fun getSupplierFromViews(): Supplier{
+        return Supplier(
+            companyName = binding.companyLayout.supplierCompanyNameText.getString(),
+            companyPhone = binding.companyLayout.supplierCompanyPhoneText.getString(),
+            address = binding.companyLayout.supplierCompanyAddressText.getString(),
+            companyEmail = binding.companyLayout.supplierCompanyEmailText.getString(),
+            companyPaymentInfo = binding.supplierExtrasLayout.supplierPaymentInfoText.getString(),
+            sellerEmail = binding.sellerLayout.supplierSellerEmailText.getString(),
+            sellerName = binding.sellerLayout.supplierSellerNameText.getString(),
+            sellerPhone = binding.sellerLayout.supplierSellerPhoneText.getString(),
+            notes = binding.supplierExtrasLayout.supplierNotesText.getString()
+        )
     }
 
 

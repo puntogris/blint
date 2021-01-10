@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/clientFragment"
         android:name="com.puntogris.blint.ui.client.ClientFragment"
-        android:label="Registrar cliente" >
+        android:label="Cliente" >
         <argument
             android:name="client"
             app:argType="com.puntogris.blint.model.Client"

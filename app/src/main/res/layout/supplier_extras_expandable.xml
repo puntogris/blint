@@ -58,6 +58,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierPaymentInfoText"
+                        android:text="@{viewModel.currentSupplier.companyPaymentInfo}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -92,6 +93,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierNotesText"
+                        android:text="@{viewModel.currentSupplier.notes}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"

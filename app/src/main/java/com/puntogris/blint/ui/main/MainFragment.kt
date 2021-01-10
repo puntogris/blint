@@ -84,7 +84,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$count productos","Ver todos", R.color.card1)
                 }
                 ALL_SUPPLIERS_CARD_CODE -> {
-                    val count = viewModel.getClientsCount()
+                    val count = viewModel.getSuppliersCount()
                     MenuCard(
                         it,
                         "Proveedores",
@@ -95,7 +95,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     )
                 }
                 ALL_CLIENTS_CARD_CODE -> {
-                    val count = viewModel.getSuppliersCount()
+                    val count = viewModel.getClientsCount()
                     MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
                 }
                 ACCOUNTING_CARD_CODE -> {

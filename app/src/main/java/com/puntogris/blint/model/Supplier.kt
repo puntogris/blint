@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Supplier(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Int = 0,
 
     @ColumnInfo
     val companyName: String = "",
@@ -32,6 +32,12 @@ data class Supplier(
     val sellerEmail:String = "",
 
     @ColumnInfo
-    val sellerPhone:String = ""
+    val sellerPhone:String = "",
+
+    @ColumnInfo
+    val companyPaymentInfo: String = "",
+
+    @ColumnInfo
+    val notes:String = ""
 
 ):Parcelable
