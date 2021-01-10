@@ -14,30 +14,14 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="?actionBarSize"
             tools:context=".ui.product.ProductDataFragment">
-
-            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productDescriptionButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onDescriptionButtonClicked()}"
-                android:text="Descripcion"
-                android:textAlignment="viewStart"
-                app:iconGravity="end"
-                app:startOpen="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/descriptionLayout"
@@ -45,115 +29,22 @@
                 app:viewModel="@{viewModel}"
                 app:fragment="@{fragment}"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDescriptionButton" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionLayout" />
-
-            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productPricesButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onPricesButtonClicked()}"
-                android:text="Precios y Stock"
-                android:textAlignment="viewStart"
-                app:iconGravity="end"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                android:layout_width="match_parent"/>
 
             <include
                 android:id="@+id/pricesLayout"
                 layout="@layout/product_prices_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productPricesButton"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pricesLayout" />
-
-            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productScopeButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onScopeButtonClicked()}"
-                android:text="Clientes y Proveedores"
-                android:textAlignment="viewStart"
-                app:iconGravity="end"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/divider3" />
 
             <include
                 android:id="@+id/scopeLayout"
                 layout="@layout/product_scope_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:fragment="@{fragment}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productScopeButton" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scopeLayout" />
-
-            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productImageButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onImageButtonClicked()}"
-                android:text="Imagenes"
-                android:textAlignment="viewStart"
-                app:iconGravity="end"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+                app:fragment="@{fragment}"/>
 
             <include
                 android:id="@+id/imagesLayout"
@@ -161,38 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productImageButton"
                 app:viewModel="@{viewModel}" />
-
-            <View
-                android:id="@+id/divider6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagesLayout" />
-
-            <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-                android:id="@+id/productAdvanceButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:onClick="@{()-> fragment.onExtrasButtonClicked()}"
-                android:text="Extras"
-                android:textAlignment="viewStart"
-                app:iconGravity="end"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
             <include
                 android:id="@+id/productExtrasLayout"
@@ -200,10 +60,7 @@
                 app:viewModel="@{viewModel}"
                 layout="@layout/product_extras_expandable"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productAdvanceButton" />
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/productDeletionButton"
@@ -216,12 +73,8 @@
                 android:visibility="gone"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="30dp"
-                android:text="Eliminar Producto"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productExtrasLayout" />
+                android:text="Eliminar Producto" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

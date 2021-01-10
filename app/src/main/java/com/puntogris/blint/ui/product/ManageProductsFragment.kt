@@ -1,20 +1,13 @@
 package com.puntogris.blint.ui.product
 
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.flatMap
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieAnimation
-import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
-import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
-import com.puntogris.blint.utils.toUSDFormatted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

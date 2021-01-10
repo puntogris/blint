@@ -12,13 +12,33 @@
             type="com.puntogris.blint.ui.product.ProductDataFragment" />
     </data>
 
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
+        android:id="@+id/productImageButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="@{()-> fragment.onImageButtonClicked()}"
+        android:text="Imagenes"
+        android:textAlignment="viewStart"
+        app:iconGravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
     <net.cachapa.expandablelayout.ExpandableLayout
         android:id="@+id/expandable_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:el_duration="300"
         app:el_expanded="false"
-        android:layout_marginBottom="8dp"
         app:el_parallax="0.5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,4 +93,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </net.cachapa.expandablelayout.ExpandableLayout>
-</layout>
+    <View
+        android:id="@+id/divider9"
+        android:layout_width="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider" />
+</LinearLayout>
+    </layout>

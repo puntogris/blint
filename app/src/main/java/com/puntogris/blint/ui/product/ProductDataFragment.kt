@@ -121,38 +121,50 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
 
 
     fun onPricesButtonClicked(){
-        binding.productPricesButton.toggleIcon()
-        binding.pricesLayout.expandableLayout.toggle()
+        binding.pricesLayout.apply {
+            expandableLayout.toggle()
+            productPricesButton.toggleIcon()
+        }
         hideKeyboard()
     }
 
     fun onDescriptionButtonClicked(){
-        binding.productDescriptionButton.toggleIcon()
-        binding.descriptionLayout.expandableLayout.toggle()
+        binding.descriptionLayout.apply {
+            productDescriptionButton.toggleIcon()
+            expandableLayout.toggle()
+        }
         hideKeyboard()
     }
 
     fun onImageButtonClicked(){
-        binding.imagesLayout.expandableLayout.toggle()
-        binding.productImageButton.toggleIcon()
+        binding.imagesLayout.apply {
+            expandableLayout.toggle()
+            productImageButton.toggleIcon()
+        }
         hideKeyboard()
     }
+
+    fun onScopeButtonClicked(){
+        binding.scopeLayout.apply {
+            expandableLayout.toggle()
+            productScopeButton.toggleIcon()
+        }
+        hideKeyboard()
+    }
+    fun onExtrasButtonClicked(){
+        binding.productExtrasLayout.apply {
+            expandableLayout.toggle()
+            productExtrasButton.toggleIcon()
+        }
+        hideKeyboard()
+    }
+
 
     fun onRemoveImageButtonClicked(){
         viewModel.removeCurrentImage()
         binding.imagesLayout.expandableLayout.toggle()
     }
 
-    fun onScopeButtonClicked(){
-        binding.scopeLayout.expandableLayout.toggle()
-        binding.productScopeButton.toggleIcon()
-        hideKeyboard()
-    }
-    fun onExtrasButtonClicked(){
-        binding.productAdvanceButton.toggleIcon()
-        binding.productExtrasLayout.expandableLayout.toggle()
-        hideKeyboard()
-    }
 
     fun onIncreaseAmountButtonClicked(){
         binding.pricesLayout.productAmountText.apply {

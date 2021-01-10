@@ -2,6 +2,7 @@ package com.puntogris.blint.data.local.products
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
@@ -28,6 +29,7 @@ class ProductsModule {
                 ProductsDatabase::class.java,
                 "products_table"
             )
+            //.setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
             .build()
     }
 

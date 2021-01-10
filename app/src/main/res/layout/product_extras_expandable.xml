@@ -11,6 +11,26 @@
             type="com.puntogris.blint.ui.product.ProductViewModel" />
     </data>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
+        android:id="@+id/productExtrasButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="@{()-> fragment.onExtrasButtonClicked()}"
+        android:text="Extras"
+        android:textAlignment="viewStart"
+        app:iconGravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
     <net.cachapa.expandablelayout.ExpandableLayout
         android:id="@+id/expandable_layout"
         android:layout_width="match_parent"
@@ -117,7 +137,16 @@
                     android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </net.cachapa.expandablelayout.ExpandableLayout>
+        <View
+            android:id="@+id/divider9"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
 </layout>
