@@ -78,9 +78,9 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
             amount = binding.pricesLayout.productAmountText.getFloat(),
             image = viewModel.productImage.value!!,
-            internalCode = binding.extrasLayout.productInternalCodeText.getString(),
-            brand = binding.extrasLayout.productBrandText.getString(),
-            size = binding.extrasLayout.productSizeText.getString()
+            internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
+            brand = binding.productExtrasLayout.productBrandText.getString(),
+            size = binding.productExtrasLayout.productSizeText.getString()
         )
     }
 
@@ -150,7 +150,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     }
     fun onExtrasButtonClicked(){
         binding.productAdvanceButton.toggleIcon()
-        binding.extrasLayout.expandableLayout.toggle()
+        binding.productExtrasLayout.expandableLayout.toggle()
         hideKeyboard()
     }
 
@@ -223,7 +223,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
             )
             onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
                 selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.extrasLayout.categoriesChipGroup)
+                    createNewChipAndAddItToGroup(it.toString(), binding.productExtrasLayout.categoriesChipGroup)
                 }
             }
             onNegative("Cancelar")

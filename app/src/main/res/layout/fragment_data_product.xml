@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="product"
-            type="com.puntogris.blint.model.Product" />
-        <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.ProductViewModel" />
         <variable
@@ -198,7 +195,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
             <include
-                android:id="@+id/extrasLayout"
+                android:id="@+id/productExtrasLayout"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}"
                 layout="@layout/product_extras_expandable"
@@ -223,7 +220,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/extrasLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/productExtrasLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

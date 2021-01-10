@@ -34,11 +34,23 @@
     <fragment
         android:id="@+id/clientFragment"
         android:name="com.puntogris.blint.ui.client.ClientFragment"
-        android:label="Registrar cliente" />
+        android:label="Registrar cliente" >
+        <argument
+            android:name="client"
+            app:argType="com.puntogris.blint.model.Client"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/supplierFragment"
         android:name="com.puntogris.blint.ui.supplier.SupplierFragment"
-        android:label="Registrar proveedor" />
+        android:label="Proveedor" >
+        <argument
+            android:name="supplier"
+            app:argType="com.puntogris.blint.model.Supplier"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"
         android:name="com.puntogris.blint.ui.product.ManageProductsFragment"
@@ -50,11 +62,19 @@
     <fragment
         android:id="@+id/manageSuppliersFragment"
         android:name="com.puntogris.blint.ui.supplier.ManageSuppliersFragment"
-        android:label="Proveedores" />
+        android:label="Proveedores" >
+        <action
+            android:id="@+id/action_manageSuppliersFragment_to_supplierFragment"
+            app:destination="@id/supplierFragment" />
+    </fragment>
     <fragment
         android:id="@+id/manageClientsFragment"
         android:name="com.puntogris.blint.ui.client.ManageClientsFragment"
-        android:label="Clientes" />
+        android:label="Clientes" >
+        <action
+            android:id="@+id/action_manageClientsFragment_to_clientFragment"
+            app:destination="@id/clientFragment" />
+    </fragment>
     <fragment
         android:id="@+id/productFragment"
         android:name="com.puntogris.blint.ui.product.ProductFragment"

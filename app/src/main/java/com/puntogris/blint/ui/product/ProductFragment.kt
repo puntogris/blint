@@ -41,7 +41,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
         override fun getItemCount(): Int = adapterSize
 
         override fun createFragment(position: Int): Fragment  =
-            if (position == 0) {ProductDataFragment()
+            if (position == 0) {
                 if (args.product == null) ProductDataFragment()
                 else ProductDataFragment().apply {
                     arguments = Bundle().apply {
@@ -50,11 +50,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
                 }
             } else ProductHistoryFragment()
         }
-
-
-    fun goToScannerFragment(){
-        findNavController().navigate(ProductFragmentDirections.actionProductFragmentToScannerFragment())
-    }
 
     override fun onDestroyView() {
         mediator?.detach()
