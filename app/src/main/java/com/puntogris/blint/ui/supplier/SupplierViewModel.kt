@@ -34,16 +34,22 @@ class SupplierViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    fun updateCurrentSupplierData(supplier: Supplier){
+    fun updateSupplierData(supplier: Supplier){
         supplier.id = _currentSupplier.value.id
         _currentSupplier.value = supplier
     }
 
-    fun setCurrentSupplierData(supplier: Supplier){
+    fun setSupplierData(supplier: Supplier){
         _currentSupplier.value = supplier
     }
 
-    fun saveCurrentSupplierToDatabase(){
+    fun deleteSupplierDatabase(){
+        viewModelScope.launch {
+            suppliersDao.delete(_currentSupplier.value)
+        }
+    }
+
+    fun saveSupplierDatabase(){
         viewModelScope.launch {
             suppliersDao.insert(_currentSupplier.value)
         }

@@ -2,14 +2,12 @@ package com.puntogris.blint.ui.product
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,7 +24,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
             getParcelable<Product>("product_key")?.let { productBundle->
-                viewModel.setCurrentProductData(productBundle)
+                viewModel.setProductData(productBundle)
                 lifecycleScope.launch {
                     viewModel.getProductRecords().collect {
                         productRecordsAdapter.submitData(it)

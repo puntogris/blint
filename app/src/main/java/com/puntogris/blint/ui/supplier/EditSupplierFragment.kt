@@ -21,17 +21,17 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
         arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
             getParcelable<Supplier>("supplier_key")?.let {
-                viewModel.setCurrentSupplierData(it)
+                viewModel.setSupplierData(it)
             }
         }
 
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                viewModel.updateCurrentSupplierData(getSupplierFromViews())
+                viewModel.updateSupplierData(getSupplierFromViews())
                 when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.saveCurrentSupplierToDatabase()
+                        viewModel.saveSupplierDatabase()
                         createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(this).show()
                         findNavController().navigateUp()
                     }

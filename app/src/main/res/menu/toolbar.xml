@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/moreOptions"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/editOption"
+                android:title="Editar" />
+            <item android:id="@+id/deleteOption"
+                android:title="Eliminar" />
+        </menu>
+    </item>
+
+</menu>

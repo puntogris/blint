@@ -34,7 +34,7 @@ class ProductViewModel @ViewModelInject constructor(
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
-    fun saveCurrentProductToDatabase(){
+    fun saveProductDatabase(){
         viewModelScope.launch {
             productsDao.insert(_currentProduct.value)
             saveRecordToDatabase()
@@ -51,18 +51,18 @@ class ProductViewModel @ViewModelInject constructor(
         recordsDao.insert(record)
     }
 
-    fun deleteCurrentProductFromDatabase(){
+    fun deleteProductDatabase(){
         viewModelScope.launch {
             productsDao.delete(_currentProduct.value)
         }
     }
 
-    fun updateCurrentProductData(product: Product){
+    fun updateProductData(product: Product){
         product.id = _currentProduct.value.id
         _currentProduct.value = product
     }
 
-    fun setCurrentProductData(product: Product){
+    fun setProductData(product: Product){
         _currentProduct.value = product
         initialAmount = product.amount.toInt()
     }

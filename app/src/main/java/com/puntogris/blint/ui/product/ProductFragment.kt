@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,11 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_product) {
 
     private val args: ProductFragmentArgs by navArgs()
+
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        val adapterSize = if (args.product == null) 1 else 2
-        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager, adapterSize)
+        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
@@ -31,27 +32,23 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
         mediator?.attach()
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager, val adapterSize: Int) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+    fun navigateToEditProduct(){
+        val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
+        findNavController().navigate(action)
+    }
 
-        override fun getItemCount(): Int = adapterSize
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
-        override fun createFragment(position: Int): Fragment  =
-            if (position == 0) {
-                if (args.product == null) ProductDataFragment()
-                else ProductDataFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("product_key", args.product)
-                    }
-                }
-            } else {
-                if (args.product == null) ProductRecordsFragment()
-                else ProductRecordsFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("product_key", args.product)
-                    }
+        override fun getItemCount(): Int = 2
+
+        override fun createFragment(position: Int): Fragment =
+            (if (position == 0 ) ProductDataFragment() else ProductRecordsFragment()).apply {
+                arguments = Bundle().apply {
+                    putParcelable("product_key", args.product)
                 }
             }
-        }
+    }
+
 
     override fun onDestroyView() {
         mediator?.detach()

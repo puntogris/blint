@@ -1,14 +1,8 @@
 package com.puntogris.blint.ui.product
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.maxkeppeler.bottomsheets.info.InfoSheet
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -37,9 +31,8 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
             getParcelable<Product>("product_key")?.let { productBundle->
                 viewModel.currentProduct.value.let { savedProduct ->
-                    binding.productDeletionButton.visible()
                     if (productBundle.id != savedProduct?.id){
-                        viewModel.setCurrentProductData(productBundle)
+                        viewModel.setProductData(productBundle)
                         viewModel.updateProductImage(productBundle.image)
                     }
                 }
@@ -54,10 +47,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
-                viewModel.updateCurrentProductData(getProductDataFromViews())
+                viewModel.updateProductData(getProductDataFromViews())
                 when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.saveCurrentProductToDatabase()
+                        viewModel.saveProductDatabase()
                         createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
                         findNavController().navigateUp()
                     }
@@ -88,7 +81,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun onScanButtonClicked(){
-        viewModel.updateCurrentProductData(getProductDataFromViews())
+        viewModel.updateProductData(getProductDataFromViews())
         val productFragment = requireParentFragment() as ProductFragment
         permissionsManager.requestCameraPermissionAndNavigateToScaner(productFragment)
     }
@@ -158,12 +151,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         hideKeyboard()
     }
 
-
     fun onRemoveImageButtonClicked(){
         viewModel.removeCurrentImage()
         binding.imagesLayout.expandableLayout.toggle()
     }
-
 
     fun onIncreaseAmountButtonClicked(){
         binding.pricesLayout.productAmountText.apply {
@@ -240,18 +231,4 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             onNegative("Cancelar")
         }.show(parentFragmentManager, "")
     }
-
-    fun openBottomSheetForDeletion(){
-        InfoSheet().build(requireContext()) {
-            title("Queres eliminar este producto?")
-            content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") {
-                viewModel.deleteCurrentProductFromDatabase()
-                showLongSnackBarAboveFab("Producto eliminado correctamente.")
-                findNavController().navigateUp()
-            }
-        }.show(parentFragmentManager, "")
-    }
-
 }

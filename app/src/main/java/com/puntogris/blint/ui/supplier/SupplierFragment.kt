@@ -4,12 +4,16 @@ import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.product.ProductDataFragment
+import com.puntogris.blint.ui.product.ProductFragmentDirections
+import com.puntogris.blint.ui.product.ProductRecordsFragment
 
 class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
@@ -17,8 +21,7 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        val adapterSize = if (args.supplier == null) 1 else 2
-        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager, adapterSize)
+        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
@@ -29,19 +32,21 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
         mediator?.attach()
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager, val adapterSize: Int) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+    fun navigateToEditSupplier(){
+        val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplier)
+        findNavController().navigate(action)
+    }
 
-        override fun getItemCount(): Int = adapterSize
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+
+        override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            if (position == 0) {
-                if (args.supplier == null) SupplierDataFragment()
-                else SupplierDataFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("supplier_key", args.supplier)
-                    }
+            (if (position == 0 ) SupplierDataFragment() else SupplierRecordsFragment()).apply {
+                arguments = Bundle().apply {
+                    putParcelable("supplier_key", args.supplier)
                 }
-            } else SupplierRecordsFragment()
+            }
     }
 
     override fun onDestroyView() {
@@ -50,4 +55,5 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
         binding.viewPager.adapter = null
         super.onDestroyView()
     }
+
 }

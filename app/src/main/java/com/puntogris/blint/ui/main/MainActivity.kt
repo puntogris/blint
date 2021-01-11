@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.main
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -49,6 +50,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         setUpNavigation()
         supportActionBar?.elevation  = 0F
         delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setUpNavigation(){

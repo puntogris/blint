@@ -34,20 +34,24 @@ class ClientViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    fun setCurrentClientData(client: Client){
+    fun setClientData(client: Client){
         _currentClient.value = client
     }
 
-    fun saveClientToDatabase(){
+    fun saveClientDatabase(){
         viewModelScope.launch {
             clientsDao.insert(_currentClient.value)
         }
     }
 
-    fun updateCurrentClientData(client: Client){
+    fun deleteClientDatabase(){
+        viewModelScope.launch {
+            clientsDao.delete(_currentClient.value)
+        }
+    }
+
+    fun updateClientData(client: Client){
         client.id = _currentClient.value.id
         _currentClient.value = client
     }
-
-
 }
