@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.supplier
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
@@ -22,10 +23,12 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        args.supplier?.let {
-            viewModel.setSupplierData(it)
+        if (args.supplierID != 0){
+            lifecycleScope.launchWhenStarted {
+                val supplier = viewModel.getSupplier(args.supplierID)
+                viewModel.setSupplierData(supplier)
+            }
         }
-
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {

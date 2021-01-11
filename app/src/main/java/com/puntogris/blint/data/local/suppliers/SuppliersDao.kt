@@ -17,6 +17,9 @@ interface SuppliersDao {
     @Delete
     suspend fun delete(supplier: Supplier)
 
+    @Query("SELECT * FROM supplier WHERE id = :id")
+    suspend fun getSupplier(id: Int): Supplier
+
     @Query("SELECT * FROM supplier")
     suspend fun getSuppliers(): List<Supplier>
 

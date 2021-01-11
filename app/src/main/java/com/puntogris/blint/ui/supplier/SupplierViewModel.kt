@@ -34,6 +34,8 @@ class SupplierViewModel @ViewModelInject constructor(
         }.flow
     }
 
+    suspend fun getSupplier(id:Int) = suppliersDao.getSupplier(id)
+
     fun updateSupplierData(supplier: Supplier){
         supplier.id = _currentSupplier.value.id
         _currentSupplier.value = supplier

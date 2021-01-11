@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.client
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
@@ -9,6 +10,7 @@ import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.fragment_edit_client) {
@@ -21,8 +23,11 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        args.client?.let {
-            viewModel.setClientData(it)
+        if (args.clientID != 0){
+            lifecycleScope.launch {
+                val client = viewModel.getClient(args.clientID)
+                viewModel.setClientData(client)
+            }
         }
 
         getParentFab().apply {

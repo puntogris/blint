@@ -33,7 +33,7 @@ class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.l
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
-        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier)
+        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier.id)
         findNavController().navigate(action)
     }
 

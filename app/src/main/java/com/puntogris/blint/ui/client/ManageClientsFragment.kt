@@ -32,7 +32,7 @@ class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layou
     }
 
     private fun onClientClickListener(client: Client){
-        val action = ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
+        val action = ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client.id)
         findNavController().navigate(action)
     }
 

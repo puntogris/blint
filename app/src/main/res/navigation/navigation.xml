@@ -36,8 +36,8 @@
         android:name="com.puntogris.blint.ui.client.ClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="client"
-            app:argType="com.puntogris.blint.model.Client" />
+            android:name="clientID"
+            app:argType="integer" />
         <action
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
@@ -47,8 +47,8 @@
         android:name="com.puntogris.blint.ui.supplier.SupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplier"
-            app:argType="com.puntogris.blint.model.Supplier" />
+            android:name="supplierID"
+            app:argType="integer" />
         <action
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
@@ -82,8 +82,8 @@
         android:name="com.puntogris.blint.ui.product.ProductFragment"
         android:label="Producto" >
         <argument
-            android:name="product"
-            app:argType="com.puntogris.blint.model.Product" />
+            android:name="productID"
+            app:argType="integer" />
         <action
             android:id="@+id/action_productFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
@@ -154,29 +154,26 @@
         android:name="com.puntogris.blint.ui.product.EditProductFragment"
         android:label="Producto" >
         <argument
-            android:name="product"
-            app:argType="com.puntogris.blint.model.Product"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="productID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/editClientFragment"
         android:name="com.puntogris.blint.ui.client.EditClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="client"
-            app:argType="com.puntogris.blint.model.Client"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="clientID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/editSupplierFragment"
         android:name="com.puntogris.blint.ui.supplier.EditSupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplier"
-            app:argType="com.puntogris.blint.model.Supplier"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="supplierID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

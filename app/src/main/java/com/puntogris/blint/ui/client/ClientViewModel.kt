@@ -34,6 +34,8 @@ class ClientViewModel @ViewModelInject constructor(
         }.flow
     }
 
+    suspend fun getClient(id:Int) = clientsDao.getClient(id)
+
     fun setClientData(client: Client){
         _currentClient.value = client
     }

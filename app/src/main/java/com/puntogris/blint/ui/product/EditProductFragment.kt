@@ -1,9 +1,12 @@
 package com.puntogris.blint.ui.product
 
 import android.content.Intent
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -15,12 +18,14 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
 
     private val viewModel: ProductViewModel by viewModels()
+
     private val args: EditProductFragmentArgs by navArgs()
     @Inject
     lateinit var permissionsManager: PermissionsManager
@@ -31,8 +36,11 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         if (!viewModel.viewsLoaded) {
-            args.product?.let {
-                viewModel.setProductData(it)
+            if (args.productID != 0){
+                lifecycleScope.launch {
+                    val product = viewModel.getProduct(args.productID)
+                    viewModel.setProductData(product)
+                }
             }
             viewModel.viewsLoaded = true
         }

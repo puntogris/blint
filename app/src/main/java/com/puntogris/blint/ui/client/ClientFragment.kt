@@ -4,23 +4,28 @@ import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.maxkeppeler.bottomsheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
+import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_client) {
+class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
 
     private val args: ClientFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
+    private val viewModel:ClientViewModel by viewModels()
 
     override fun initializeViews() {
         val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
@@ -34,11 +39,6 @@ class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_cli
         mediator?.attach()
     }
 
-    fun navigateToEditClient(){
-        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
-        findNavController().navigate(action)
-    }
-
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2
@@ -46,9 +46,27 @@ class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_cli
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) ClientDataFragment() else ClientRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putParcelable("client_key", args.client)
+                    putInt("client_key", args.clientID)
                 }
             }
+    }
+
+    override fun onEditButtonClicked() {
+        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientID)
+        findNavController().navigate(action)
+    }
+
+    override fun onDeleteButtonClicked() {
+        InfoSheet().build(requireContext()) {
+            title("Queres eliminar este cliente?")
+            content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
+            onNegative("Cancelar")
+            onPositive("Si") {
+                viewModel.deleteClientDatabase()
+                showLongSnackBarAboveFab("Cliente eliminado correctamente.")
+                findNavController().navigateUp()
+            }
+        }.show(parentFragmentManager, "")
     }
 
     override fun onDestroyView() {

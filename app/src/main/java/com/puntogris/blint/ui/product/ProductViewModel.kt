@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.product
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.Pager
@@ -23,9 +24,14 @@ import kotlin.math.abs
 
 class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao,
-    private val recordsDao: RecordsDao
+    private val recordsDao: RecordsDao,
+
 ):ViewModel() {
 
+    init {
+        println("init")
+        println(this)
+    }
     private var initialAmount = 0
 
     var viewsLoaded = false
@@ -53,9 +59,9 @@ class ProductViewModel @ViewModelInject constructor(
         recordsDao.insert(record)
     }
 
-    fun deleteProductDatabase(){
+    fun deleteProductDatabase(id: Int){
         viewModelScope.launch {
-            productsDao.delete(_currentProduct.value)
+            productsDao.delete(id)
         }
     }
 
@@ -99,5 +105,9 @@ class ProductViewModel @ViewModelInject constructor(
             recordsDao.getProductRecordsPaged(_currentProduct.value.id)
         }.flow
     }
+
+    suspend fun getProduct(id: Int) =
+        productsDao.getProduct(id)
+
 
 }
