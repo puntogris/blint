@@ -7,17 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialFadeThrough
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
-import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.ProductDataFragment
-import com.puntogris.blint.ui.supplier.SupplierDataFragment
-import com.puntogris.blint.ui.supplier.SupplierFragmentArgs
-import com.puntogris.blint.ui.supplier.SupplierHistoryFragment
-import com.puntogris.blint.utils.changeIconFromDrawable
-import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,7 +43,7 @@ class ClientFragment : BaseFragment<FragmentClientBinding>(R.layout.fragment_cli
                         putParcelable("client_key", args.client)
                     }
                 }
-            } else ClientHistoryFragment()
+            } else ClientRecordsFragment()
     }
 
     override fun onDestroyView() {

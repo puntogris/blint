@@ -102,15 +102,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             if (!clicked){
                 addClientFab.apply {
                     visible()
-                    setOnClickListener { navController.navigate(R.id.clientFragment) }
+                    setOnClickListener { navController.navigate(R.id.editClientFragment) }
                 }
                 addProductFab.apply {
                     visible()
-                    setOnClickListener { navController.navigate(R.id.productFragment) }
+                    setOnClickListener { navController.navigate(R.id.editProductFragment) }
                 }
                 addSupplierFab.apply {
                     visible()
-                    setOnClickListener { navController.navigate(R.id.supplierFragment) }
+                    setOnClickListener { navController.navigate(R.id.editSupplierFragment) }
                 }
             }else listOf(addClientFab, addProductFab, addSupplierFab).makeInvisible()
         }

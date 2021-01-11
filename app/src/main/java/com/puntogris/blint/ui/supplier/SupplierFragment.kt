@@ -10,11 +10,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.ProductDataFragment
-import com.puntogris.blint.ui.product.ProductFragmentArgs
-import com.puntogris.blint.ui.product.ProductHistoryFragment
-import com.puntogris.blint.utils.changeIconFromDrawable
-import com.puntogris.blint.utils.getParentFab
 
 class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
@@ -46,7 +41,7 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
                         putParcelable("supplier_key", args.supplier)
                     }
                 }
-            } else SupplierHistoryFragment()
+            } else SupplierRecordsFragment()
     }
 
     override fun onDestroyView() {

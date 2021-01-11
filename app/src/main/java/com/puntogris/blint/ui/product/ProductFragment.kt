@@ -1,20 +1,15 @@
 package com.puntogris.blint.ui.product
 
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.gone
-import com.puntogris.blint.utils.invisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +43,14 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
                         putParcelable("product_key", args.product)
                     }
                 }
-            } else ProductHistoryFragment()
+            } else {
+                if (args.product == null) ProductRecordsFragment()
+                else ProductRecordsFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("product_key", args.product)
+                    }
+                }
+            }
         }
 
     override fun onDestroyView() {

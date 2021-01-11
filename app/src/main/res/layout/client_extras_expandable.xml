@@ -9,7 +9,7 @@
             type="com.puntogris.blint.ui.client.ClientViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.client.ClientDataFragment" />
+            type="com.puntogris.blint.ui.client.EditClientFragment" />
     </data>
 
     <LinearLayout

@@ -146,4 +146,16 @@
         android:id="@+id/privacyPolicyFragment"
         android:name="com.puntogris.blint.ui.about.PrivacyPolicyFragment"
         android:label="Politica de privacidad" />
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.puntogris.blint.ui.product.EditProductFragment"
+        android:label="Producto" />
+    <fragment
+        android:id="@+id/editClientFragment"
+        android:name="com.puntogris.blint.ui.client.EditClientFragment"
+        android:label="Cliente" />
+    <fragment
+        android:id="@+id/editSupplierFragment"
+        android:name="com.puntogris.blint.ui.supplier.EditSupplierFragment"
+        android:label="Proveedor" />
 </navigation>

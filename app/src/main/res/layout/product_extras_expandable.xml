@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.ProductDataFragment" />
+            type="com.puntogris.blint.ui.product.EditProductFragment" />
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.ProductViewModel" />

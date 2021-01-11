@@ -9,7 +9,7 @@
             type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.SupplierDataFragment" />
+            type="com.puntogris.blint.ui.supplier.EditSupplierFragment" />
     </data>
 
     <LinearLayout

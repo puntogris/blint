@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.ProductViewModel" />
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.product.EditProductFragment" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?actionBarSize"
+            >
+
+            <include
+                android:id="@+id/descriptionLayout"
+                layout="@layout/product_description_expandable"
+                app:viewModel="@{viewModel}"
+                app:fragment="@{fragment}"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <include
+                android:id="@+id/pricesLayout"
+                layout="@layout/product_prices_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
+
+            <include
+                android:id="@+id/scopeLayout"
+                layout="@layout/product_scope_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"/>
+
+            <include
+                android:id="@+id/imagesLayout"
+                layout="@layout/product_images_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
+
+            <include
+                android:id="@+id/productExtrasLayout"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}"
+                layout="@layout/product_extras_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/productDeletionButton"
+                android:layout_width="0dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> fragment.openBottomSheetForDeletion()}"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="30dp"
+                android:text="Eliminar Producto" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

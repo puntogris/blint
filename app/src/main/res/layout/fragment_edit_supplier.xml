@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.supplier.EditSupplierFragment" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="?actionBarSize"
+            tools:context=".ui.supplier.EditSupplierFragment">
+
+            <include
+                android:id="@+id/companyLayout"
+                layout="@layout/supplier_company_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
+
+            <include
+                android:id="@+id/sellerLayout"
+                layout="@layout/supplier_seller_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
+
+            <include
+                android:id="@+id/supplierExtrasLayout"
+                layout="@layout/supplier_extras_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
