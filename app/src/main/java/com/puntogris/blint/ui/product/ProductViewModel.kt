@@ -28,6 +28,8 @@ class ProductViewModel @ViewModelInject constructor(
 
     private var initialAmount = 0
 
+    var viewsLoaded = false
+
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
 

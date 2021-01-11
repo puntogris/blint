@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.product
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
 
     private val viewModel: ProductViewModel by viewModels()
+    private val args: EditProductFragmentArgs by navArgs()
     @Inject
     lateinit var permissionsManager: PermissionsManager
 
@@ -28,15 +30,11 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getParcelable<Product>("product_key")?.let { productBundle->
-                viewModel.currentProduct.value.let { savedProduct ->
-                    if (productBundle.id != savedProduct?.id){
-                        viewModel.setProductData(productBundle)
-                        viewModel.updateProductImage(productBundle.image)
-                    }
-                }
+        if (!viewModel.viewsLoaded) {
+            args.product?.let {
+                viewModel.setProductData(it)
             }
+            viewModel.viewsLoaded = true
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
@@ -82,8 +80,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onScanButtonClicked(){
         viewModel.updateProductData(getProductDataFromViews())
-        val productFragment = requireParentFragment() as ProductFragment
-        permissionsManager.requestCameraPermissionAndNavigateToScaner(productFragment)
+        permissionsManager.requestCameraPermissionAndNavigateToScanner(this)
     }
 
     fun onAddImageButtonClicked(){
@@ -114,7 +111,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onPricesButtonClicked(){
         binding.pricesLayout.apply {
-            expandableLayout.toggle()
+            productPricesExpandableLayout.toggle()
             productPricesButton.toggleIcon()
         }
         hideKeyboard()
@@ -123,14 +120,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     fun onDescriptionButtonClicked(){
         binding.descriptionLayout.apply {
             productDescriptionButton.toggleIcon()
-            expandableLayout.toggle()
+            productDescriptionExpandableLayout.toggle()
         }
         hideKeyboard()
     }
 
     fun onImageButtonClicked(){
         binding.imagesLayout.apply {
-            expandableLayout.toggle()
+            productImagesExpandableLayout.toggle()
             productImageButton.toggleIcon()
         }
         hideKeyboard()
@@ -138,14 +135,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onScopeButtonClicked(){
         binding.scopeLayout.apply {
-            expandableLayout.toggle()
+            productScopeExpandableLayout.toggle()
             productScopeButton.toggleIcon()
         }
         hideKeyboard()
     }
     fun onExtrasButtonClicked(){
         binding.productExtrasLayout.apply {
-            expandableLayout.toggle()
+            productExtrasExpandableLayout.toggle()
             productExtrasButton.toggleIcon()
         }
         hideKeyboard()
@@ -153,7 +150,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onRemoveImageButtonClicked(){
         viewModel.removeCurrentImage()
-        binding.imagesLayout.expandableLayout.toggle()
+        binding.imagesLayout.productImagesExpandableLayout.toggle()
     }
 
     fun onIncreaseAmountButtonClicked(){

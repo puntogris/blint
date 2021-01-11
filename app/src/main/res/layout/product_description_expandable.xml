@@ -28,13 +28,13 @@
             android:text="Descripcion"
             android:textAlignment="viewStart"
             app:iconGravity="end"
-            app:startOpen="true"
+            app:startOpen="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
+            android:id="@+id/productDescriptionExpandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:el_duration="300"

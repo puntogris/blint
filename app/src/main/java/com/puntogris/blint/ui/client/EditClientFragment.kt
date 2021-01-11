@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.client
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditClientBinding
 import com.puntogris.blint.model.Client
@@ -11,18 +12,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.fragment_edit_client) {
+
     private val viewModel:ClientViewModel by viewModels()
+    private val args:EditClientFragmentArgs by navArgs()
 
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("client_key") }?.apply {
-            getParcelable<Client>("client_key")?.let {
-                viewModel.setClientData(it)
-            }
+        args.client?.let {
+            viewModel.setClientData(it)
         }
+
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
@@ -65,5 +67,4 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         }
         hideKeyboard()
     }
-
 }

@@ -33,6 +33,7 @@ class SupplierFragment : BaseFragment<FragmentSupplierBinding>(R.layout.fragment
     }
 
     fun navigateToEditSupplier(){
+        println(args.supplier)
         val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplier)
         findNavController().navigate(action)
     }

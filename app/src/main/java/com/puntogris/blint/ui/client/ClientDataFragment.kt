@@ -45,8 +45,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val productFragment = requireParentFragment() as ProductFragment
-                productFragment.navigateToEditProduct()
+                (requireParentFragment() as ClientFragment).navigateToEditClient()
                 true
             }
             R.id.deleteOption -> {

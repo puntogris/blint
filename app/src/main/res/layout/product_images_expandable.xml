@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
     <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/expandable_layout"
+        android:id="@+id/productImagesExpandableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:el_duration="300"

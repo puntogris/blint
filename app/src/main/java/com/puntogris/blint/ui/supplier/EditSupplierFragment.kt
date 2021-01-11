@@ -2,10 +2,12 @@ package com.puntogris.blint.ui.supplier
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditSupplierBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.product.EditProductFragmentArgs
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,16 +15,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.fragment_edit_supplier) {
 
     private val viewModel: SupplierViewModel by viewModels()
+    private val args: EditSupplierFragmentArgs by navArgs()
 
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getParcelable<Supplier>("supplier_key")?.let {
-                viewModel.setSupplierData(it)
-            }
+        args.supplier?.let {
+            viewModel.setSupplierData(it)
         }
 
         getParentFab().apply {
@@ -55,10 +56,9 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         )
     }
 
-
     fun onCompanyButtonClicked(){
         binding.companyLayout.apply {
-            expandableLayout.toggle()
+            supplierCompanyExpandableLayout.toggle()
             supplierCompanyButton.toggleIcon()
         }
         hideKeyboard()
@@ -66,7 +66,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
     fun onSellerButtonClicked(){
         binding.sellerLayout.apply {
-            expandableLayout.toggle()
+            supplierSellerExpandableLayout.toggle()
             supplierSellerButton.toggleIcon()
         }
         hideKeyboard()
@@ -74,10 +74,9 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
     fun onExtraButtonClicked(){
         binding.supplierExtrasLayout.apply {
-            expandableLayout.toggle()
+            supplierExtrasExpandableLayout.toggle()
             supplierExtrasButton.toggleIcon()
         }
         hideKeyboard()
     }
-
 }

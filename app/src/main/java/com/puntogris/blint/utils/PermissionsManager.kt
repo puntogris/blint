@@ -18,7 +18,7 @@ class PermissionsManager @Inject constructor(@ApplicationContext private val con
     fun hasCameraPermission() = ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_GRANTED
 
-    fun requestCameraPermissionAndNavigateToScaner(fragment: Fragment){
+    fun requestCameraPermissionAndNavigateToScanner(fragment: Fragment){
         val requestPermissionLauncher =
             fragment.registerForActivityResult(
                 ActivityResultContracts.RequestPermission()

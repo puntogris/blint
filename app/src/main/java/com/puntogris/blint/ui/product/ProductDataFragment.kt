@@ -44,8 +44,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val productFragment = requireParentFragment() as ProductFragment
-                productFragment.navigateToEditProduct()
+                (requireParentFragment() as ProductFragment).navigateToEditProduct()
                 true
             }
             R.id.deleteOption -> {

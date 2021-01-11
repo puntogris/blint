@@ -45,8 +45,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val productFragment = requireParentFragment() as ProductFragment
-                productFragment.navigateToEditProduct()
+                (requireParentFragment() as SupplierFragment).navigateToEditSupplier()
                 true
             }
             R.id.deleteOption -> {

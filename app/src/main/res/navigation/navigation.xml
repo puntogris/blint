@@ -155,7 +155,9 @@
         android:label="Producto" >
         <argument
             android:name="product"
-            app:argType="com.puntogris.blint.model.Product" />
+            app:argType="com.puntogris.blint.model.Product"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/editClientFragment"
@@ -163,7 +165,9 @@
         android:label="Cliente" >
         <argument
             android:name="client"
-            app:argType="com.puntogris.blint.model.Client" />
+            app:argType="com.puntogris.blint.model.Client"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/editSupplierFragment"
@@ -171,6 +175,8 @@
         android:label="Proveedor" >
         <argument
             android:name="supplier"
-            app:argType="com.puntogris.blint.model.Supplier" />
+            app:argType="com.puntogris.blint.model.Supplier"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
