@@ -11,57 +11,48 @@
             type="com.puntogris.blint.ui.client.EditClientFragment" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-            android:id="@+id/clientInformationButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:text="Informacion"
-            android:onClick="@{()-> fragment.onClientInformationClicked()}"
-            android:textAlignment="viewStart"
-            app:iconGravity="end"
-            app:startOpen="true" />
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:el_duration="300"
-            app:el_expanded="true"
-            app:el_parallax="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/clientInformationButton"
+                    style="@style/TextAppearance.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple_200"
+                    android:layout_marginTop="16dp"
+                    android:text="Informacion"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/clientName"
+                    style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
                     android:hint="Nombre"
                     app:layout_constraintEnd_toStartOf="@+id/nameButton"
                     app:layout_constraintHorizontal_bias="0.5"
-                    style="@style/Theme.Blint.TextInput"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/clientInformationButton">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/clientNameText"
-                        android:text="@{viewModel.currentClient.name}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="@{viewModel.currentClient.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
@@ -153,10 +144,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
                     android:hint="Direccion"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/addressButton"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clientEmail">
@@ -183,16 +174,6 @@
                     app:srcCompat="@drawable/ic_baseline_location_searching_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </net.cachapa.expandablelayout.ExpandableLayout>
-        <View
-            android:id="@+id/divider9"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="?android:attr/listDivider" />
-    </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

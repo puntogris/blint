@@ -14,14 +14,11 @@ interface SuppliersDao {
     @Update
     suspend fun update(supplier: Supplier)
 
-    @Delete
-    suspend fun delete(supplier: Supplier)
+    @Query("DELETE FROM supplier WHERE id = :id")
+    suspend fun delete(id: Int)
 
     @Query("SELECT * FROM supplier WHERE id = :id")
     suspend fun getSupplier(id: Int): Supplier
-
-    @Query("SELECT * FROM supplier")
-    suspend fun getSuppliers(): List<Supplier>
 
     @Query("SELECT COUNT(*) FROM supplier")
     suspend fun getCount(): Int

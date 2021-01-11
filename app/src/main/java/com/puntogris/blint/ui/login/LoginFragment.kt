@@ -1,10 +1,13 @@
 package com.puntogris.blint.ui.login
 
 import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.setPadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     @Inject
     lateinit var oneTapLogin: OneTapLogin
     private val viewModel: LoginViewModel by viewModels()
+    lateinit var login: ActivityResultLauncher<BeginSignInResult>
 
     override fun initializeViews() {
         binding.loginFragment = this

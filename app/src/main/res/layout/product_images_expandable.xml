@@ -1,50 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.ProductViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.EditProductFragment" />
     </data>
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-        android:id="@+id/productImageButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:onClick="@{()-> fragment.onImageButtonClicked()}"
-        android:text="Imagenes"
-        android:textAlignment="viewStart"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4" />
-
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/productImagesExpandableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:el_duration="300"
-        app:el_expanded="false"
-        app:el_parallax="0.5">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/productImageButton"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:text="Imagenes"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <Button
                 android:id="@+id/button3"
@@ -53,13 +45,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
                 android:onClick="@{()->fragment.onAddImageButtonClicked()}"
                 android:text="Button"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button4"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/productImageButton"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/productImage"
@@ -69,22 +65,23 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
                 android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button3" />
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="0dp"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                removeImageVisibility="@{viewModel.productImage}"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:text="Eliminar"
-                removeImageVisibility="@{viewModel.productImage}"
-                android:visibility="gone"
                 android:onClick="@{()->fragment.onRemoveImageButtonClicked()}"
+                android:text="Eliminar"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/button3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -92,16 +89,6 @@
                 app:layout_constraintTop_toTopOf="@+id/button3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </net.cachapa.expandablelayout.ExpandableLayout>
-    <View
-        android:id="@+id/divider9"
-        android:layout_width="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="?android:attr/listDivider" />
-</LinearLayout>
-    </layout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

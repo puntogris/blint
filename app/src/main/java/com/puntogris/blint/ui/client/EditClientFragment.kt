@@ -57,19 +57,4 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         )
     }
 
-    fun onClientInformationClicked(){
-        binding.clientInformationLayout.apply {
-            expandableLayout.toggle()
-            clientInformationButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
-    fun onClientExtraClicked(){
-        binding.clientExtrasLayout.apply {
-            expandableLayout.toggle()
-            clientExtraButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
 }

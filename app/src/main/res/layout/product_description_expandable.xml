@@ -10,55 +10,41 @@
             name="fragment"
             type="com.puntogris.blint.ui.product.EditProductFragment" />
     </data>
-
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-            android:id="@+id/productDescriptionButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:onClick="@{()-> fragment.onDescriptionButtonClicked()}"
-            android:text="Descripcion"
-            android:textAlignment="viewStart"
-            app:iconGravity="end"
-            app:startOpen="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/productDescriptionExpandableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:el_duration="300"
-            app:el_expanded="true"
-            app:el_parallax="0.5">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/productDescriptionButton"
+                    style="@style/TextAppearance.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Descripcion"
+                    android:textColor="@color/purple_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productName"
-                    style="@style/Theme.Blint.TextInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
                     android:hint="Nombre"
                     app:helperText="*Requerido"
                     app:helperTextEnabled="true"
                     app:layout_constraintEnd_toStartOf="@+id/searchNameButton"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/productDescriptionButton">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/productNameText"
@@ -87,7 +73,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productBarcode"
-                    style="@style/Theme.Blint.TextInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -125,13 +111,15 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productDescription"
-                    style="@style/Theme.Blint.TextInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
                     android:hint="Descripcion"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productBarcode">
@@ -146,18 +134,7 @@
                         android:text="@{viewModel.currentProduct.description}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </net.cachapa.expandablelayout.ExpandableLayout>
-        <View
-            android:id="@+id/divider9"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="?android:attr/listDivider" />
-    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
 </layout>

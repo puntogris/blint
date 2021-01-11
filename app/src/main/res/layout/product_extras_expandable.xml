@@ -11,54 +11,44 @@
             type="com.puntogris.blint.ui.product.ProductViewModel" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-        android:id="@+id/productExtrasButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:onClick="@{()-> fragment.onExtrasButtonClicked()}"
-        android:text="Extras"
-        android:textAlignment="viewStart"
-        app:iconGravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider6" />
-
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/productExtrasExpandableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:el_duration="300"
-        app:el_expanded="false"
-        app:el_parallax="0.5">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/productExtrasButton"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:text="Extras"
+                android:textColor="@color/purple_200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/categoriesChipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/productExtrasButton">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/addCategoryChip"
-                    android:onClick="@{()->fragment.openBottomSheetForCategories()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->fragment.openBottomSheetForCategories()}"
                     android:text="Agregar Categorias"
                     app:chipIcon="@drawable/ic_baseline_add_24" />
             </com.google.android.material.chip.ChipGroup>
@@ -121,9 +111,10 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
                 android:hint="Talle, tamaño, cantidad, etc.."
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productBrand">
 
@@ -132,21 +123,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:text="@{viewModel.currentProduct.size}"
                     android:inputType="textCapWords"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="@{viewModel.currentProduct.size}" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </net.cachapa.expandablelayout.ExpandableLayout>
-        <View
-            android:id="@+id/divider9"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="?android:attr/listDivider" />
-    </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

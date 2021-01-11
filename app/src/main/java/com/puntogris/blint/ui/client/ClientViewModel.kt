@@ -46,9 +46,9 @@ class ClientViewModel @ViewModelInject constructor(
         }
     }
 
-    fun deleteClientDatabase(){
+    fun deleteClientDatabase(id:Int){
         viewModelScope.launch {
-            clientsDao.delete(_currentClient.value)
+            clientsDao.delete(id)
         }
     }
 

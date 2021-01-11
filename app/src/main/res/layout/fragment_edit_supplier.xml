@@ -15,17 +15,21 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:scrollbars="vertical"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="?actionBarSize"
             tools:context=".ui.supplier.EditSupplierFragment">
 
             <include
                 android:id="@+id/companyLayout"
+                android:layout_marginTop="16dp"
                 layout="@layout/supplier_company_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,6 +38,7 @@
 
             <include
                 android:id="@+id/sellerLayout"
+                android:layout_marginTop="16dp"
                 layout="@layout/supplier_seller_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,12 +47,13 @@
 
             <include
                 android:id="@+id/supplierExtrasLayout"
+                android:layout_marginTop="16dp"
                 layout="@layout/supplier_extras_expandable"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}" />
-
+                app:viewModel="@{viewModel}"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

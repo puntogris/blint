@@ -45,9 +45,9 @@ class SupplierViewModel @ViewModelInject constructor(
         _currentSupplier.value = supplier
     }
 
-    fun deleteSupplierDatabase(){
+    fun deleteSupplierDatabase(id: Int){
         viewModelScope.launch {
-            suppliersDao.delete(_currentSupplier.value)
+            suppliersDao.delete(id)
         }
     }
 

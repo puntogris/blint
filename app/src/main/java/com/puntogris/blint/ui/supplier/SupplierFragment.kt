@@ -18,7 +18,9 @@ import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
     private val args: SupplierFragmentArgs by navArgs()
@@ -60,7 +62,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             content("Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta accion es irreversible.")
             onNegative("Cancelar")
             onPositive("Si") {
-                viewModel.deleteSupplierDatabase()
+                viewModel.deleteSupplierDatabase(args.supplierID)
                 showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
                 findNavController().navigateUp()
             }

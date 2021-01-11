@@ -15,12 +15,15 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:scrollbars="vertical"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="?actionBarSize"
             tools:context=".ui.client.EditClientFragment">
 
@@ -28,6 +31,7 @@
                 android:id="@+id/clientInformationLayout"
                 layout="@layout/client_information_expandable"
                 android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
@@ -36,6 +40,8 @@
                 android:id="@+id/clientExtrasLayout"
                 layout="@layout/client_extras_expandable"
                 android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />

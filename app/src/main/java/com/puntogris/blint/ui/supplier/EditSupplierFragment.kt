@@ -58,28 +58,4 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
             notes = binding.supplierExtrasLayout.supplierNotesText.getString()
         )
     }
-
-    fun onCompanyButtonClicked(){
-        binding.companyLayout.apply {
-            supplierCompanyExpandableLayout.toggle()
-            supplierCompanyButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
-    fun onSellerButtonClicked(){
-        binding.sellerLayout.apply {
-            supplierSellerExpandableLayout.toggle()
-            supplierSellerButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
-    fun onExtraButtonClicked(){
-        binding.supplierExtrasLayout.apply {
-            supplierExtrasExpandableLayout.toggle()
-            supplierExtrasButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
 }

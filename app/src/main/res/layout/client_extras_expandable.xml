@@ -12,37 +12,26 @@
             type="com.puntogris.blint.ui.client.EditClientFragment" />
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <com.puntogris.blint.ui.custom_views.CustomButtonIconArrows
-            android:id="@+id/clientExtraButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="24dp"
-            android:text="Extras"
-            android:onClick="@{()-> fragment.onClientExtraClicked()}"
-            android:textAlignment="viewStart"
-            app:iconGravity="end"
-            app:startOpen="false" />
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:el_duration="300"
-            app:el_expanded="false"
-            app:el_parallax="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/clientExtraButton"
+                    style="@style/TextAppearance.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Extras"
+                    android:textColor="@color/purple_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/clientPaymentInfo"
@@ -50,20 +39,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
                     android:hint="Informacion de pagos"
                     app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/clientExtraButton">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/clientPaymentInfoText"
-                        android:text="@{viewModel.currentClient.paymentInfo}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="@{viewModel.currentClient.paymentInfo}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +76,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
                     android:hint="Descuento"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo">
@@ -103,14 +94,5 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </net.cachapa.expandablelayout.ExpandableLayout>
-        <View
-            android:id="@+id/divider9"
-            android:layout_width="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="?android:attr/listDivider" />
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

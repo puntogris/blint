@@ -1,12 +1,13 @@
 package com.puntogris.blint.ui.product
 
+import android.Manifest
 import android.content.Intent
-import androidx.fragment.app.activityViewModels
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
@@ -19,16 +20,13 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
 
     private val viewModel: ProductViewModel by viewModels()
-
     private val args: EditProductFragmentArgs by navArgs()
-    @Inject
-    lateinit var permissionsManager: PermissionsManager
+    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -46,8 +44,8 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) { result ->
-            binding.descriptionLayout.productBarcodeText.setText(result)
+            viewLifecycleOwner) {
+            binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
         getParentFab().apply {
@@ -64,6 +62,13 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 }
             }
         }
+
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission())
+            { isGranted: Boolean ->
+                if (isGranted) findNavController().navigate(R.id.scannerFragment)
+                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+            }
     }
 
     private fun getProductDataFromViews(): Product {
@@ -88,7 +93,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onScanButtonClicked(){
         viewModel.updateProductData(getProductDataFromViews())
-        permissionsManager.requestCameraPermissionAndNavigateToScanner(this)
+        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     fun onAddImageButtonClicked(){
@@ -116,49 +121,8 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-
-    fun onPricesButtonClicked(){
-        binding.pricesLayout.apply {
-            productPricesExpandableLayout.toggle()
-            productPricesButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
-    fun onDescriptionButtonClicked(){
-        binding.descriptionLayout.apply {
-            productDescriptionButton.toggleIcon()
-            productDescriptionExpandableLayout.toggle()
-        }
-        hideKeyboard()
-    }
-
-    fun onImageButtonClicked(){
-        binding.imagesLayout.apply {
-            productImagesExpandableLayout.toggle()
-            productImageButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
-    fun onScopeButtonClicked(){
-        binding.scopeLayout.apply {
-            productScopeExpandableLayout.toggle()
-            productScopeButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-    fun onExtrasButtonClicked(){
-        binding.productExtrasLayout.apply {
-            productExtrasExpandableLayout.toggle()
-            productExtrasButton.toggleIcon()
-        }
-        hideKeyboard()
-    }
-
     fun onRemoveImageButtonClicked(){
         viewModel.removeCurrentImage()
-        binding.imagesLayout.productImagesExpandableLayout.toggle()
     }
 
     fun onIncreaseAmountButtonClicked(){
@@ -171,6 +135,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             setText(getFloat().dec().toString())
         }
     }
+
     fun openBottomSheetForClients(){
         OptionsSheet().build(requireContext()){
             title("Agregar Clientes")

@@ -7,11 +7,10 @@ import android.content.Intent
 import android.content.IntentSender
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.identity.SignInCredential
+import com.google.android.gms.auth.api.identity.*
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.utils.Constants.RC_ONE_TAP
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID

@@ -6,6 +6,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.user.UsersDao
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
@@ -75,6 +76,11 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUser
         }catch (e: Exception){
             RepoResult.Failure
         }
+    }
+
+    override fun saveBusinessTOFirestore(business: Business) {
+        val docRef = firestore.collection("business").document()
+        docRef.set(business)
     }
 
 

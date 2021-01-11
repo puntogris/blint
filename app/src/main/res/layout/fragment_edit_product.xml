@@ -13,12 +13,15 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:scrollbars="vertical"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="?actionBarSize">
 
             <include
@@ -26,6 +29,7 @@
                 layout="@layout/product_description_expandable"
                 app:viewModel="@{viewModel}"
                 app:fragment="@{fragment}"
+                android:layout_marginTop="16dp"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
 
@@ -34,12 +38,14 @@
                 layout="@layout/product_prices_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
 
             <include
                 android:id="@+id/scopeLayout"
                 layout="@layout/product_scope_expandable"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"/>
@@ -49,6 +55,7 @@
                 layout="@layout/product_images_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
 
@@ -56,6 +63,8 @@
                 android:id="@+id/productExtrasLayout"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
                 layout="@layout/product_extras_expandable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

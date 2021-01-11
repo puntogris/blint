@@ -14,8 +14,8 @@ interface ClientsDao {
     @Update
     suspend fun update(client: Client)
 
-    @Delete
-    suspend fun delete(client: Client)
+    @Query("DELETE FROM client WHERE id = :id")
+    suspend fun delete(id: Int)
 
     @Query("SELECT * FROM client WHERE id = :id")
     suspend fun getClient(id:Int):Client

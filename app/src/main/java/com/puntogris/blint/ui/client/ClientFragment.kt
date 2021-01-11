@@ -62,7 +62,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
             onNegative("Cancelar")
             onPositive("Si") {
-                viewModel.deleteClientDatabase()
+                viewModel.deleteClientDatabase(args.clientID)
                 showLongSnackBarAboveFab("Cliente eliminado correctamente.")
                 findNavController().navigateUp()
             }

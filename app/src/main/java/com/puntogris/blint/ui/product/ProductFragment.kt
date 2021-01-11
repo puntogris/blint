@@ -24,11 +24,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private val args: ProductFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
-
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-       // println(viewModel)
         val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
