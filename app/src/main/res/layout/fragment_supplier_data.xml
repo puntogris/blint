@@ -14,251 +14,240 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="?actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="100dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView27"
-                style="@style/TextAppearance.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Empresa"
-                android:textColor="@color/purple_200"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Nombre"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-            <TextView
-                android:id="@+id/supplierCompanyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.companyName}"
-                app:layout_constraintStart_toStartOf="@+id/textView29"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Telefono"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                app:layout_constraintStart_toStartOf="@+id/textView29"
-                app:layout_constraintTop_toBottomOf="@+id/supplierCompanyName" />
-
-            <TextView
-                android:id="@+id/supplierCompanyPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.companyPhone}"
-                app:layout_constraintStart_toStartOf="@+id/textView35"
-                app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-            <TextView
-                android:id="@+id/textView44"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Email"
-                app:layout_constraintStart_toStartOf="@+id/textView35"
-                app:layout_constraintTop_toBottomOf="@+id/supplierCompanyPhone" />
-
-            <TextView
-                android:id="@+id/supplierCompanyEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.companyEmail}"
-                app:layout_constraintStart_toStartOf="@+id/textView44"
-                app:layout_constraintTop_toBottomOf="@+id/textView44" />
-
-            <TextView
-                android:id="@+id/textView48"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Direccion"
-                app:layout_constraintStart_toStartOf="@+id/textView44"
-                app:layout_constraintTop_toBottomOf="@+id/supplierCompanyEmail" />
-
-            <TextView
-                android:id="@+id/supplierCompanyAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.address}"
-                app:layout_constraintStart_toStartOf="@+id/textView48"
-                app:layout_constraintTop_toBottomOf="@+id/textView48" />
-
-            <TextView
-                android:id="@+id/textView270"
-                style="@style/TextAppearance.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Empresa"
-                android:textColor="@color/purple_200"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.522"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider12" />
-
-            <TextView
-                android:id="@+id/textView290"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Nombre"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView270" />
-
-            <TextView
-                android:id="@+id/supplierSellerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.sellerName}"
-                app:layout_constraintStart_toStartOf="@+id/textView290"
-                app:layout_constraintTop_toBottomOf="@+id/textView290" />
-
-            <TextView
-                android:id="@+id/textView350"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Telefono"
-                app:layout_constraintStart_toStartOf="@+id/textView290"
-                app:layout_constraintTop_toBottomOf="@+id/supplierSellerName" />
-
-            <TextView
-                android:id="@+id/supplierSellerPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.sellerPhone}"
-                app:layout_constraintStart_toStartOf="@+id/textView350"
-                app:layout_constraintTop_toBottomOf="@+id/textView350" />
-
-            <TextView
-                android:id="@+id/textView440"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Email"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                app:layout_constraintStart_toStartOf="@+id/textView350"
-                app:layout_constraintTop_toBottomOf="@+id/supplierSellerPhone" />
-
-            <TextView
-                android:id="@+id/supplierSellerEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.sellerEmail}"
-                app:layout_constraintStart_toStartOf="@+id/textView440"
-                app:layout_constraintTop_toBottomOf="@+id/textView440" />
-
-            <TextView
-                android:id="@+id/textView52"
-                style="@style/TextAppearance.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="extras"
-                android:textColor="@color/purple_200"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.522"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider13" />
-
-            <View
-                android:id="@+id/divider12"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/supplierCompanyAddress" />
+                android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/divider13"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        style="@style/TextAppearance.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="Empresa"
+                        android:textColor="@color/purple_200"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/textView29"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Nombre" />
+
+                    <TextView
+                        android:id="@+id/supplierCompanyName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.companyName}"/>
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Telefono"
+                        style="@style/Theme.Blint.DataSubTitleTextView" />
+
+                    <TextView
+                        android:id="@+id/supplierCompanyPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.companyPhone}" />
+
+                    <TextView
+                        android:id="@+id/textView44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Email"/>
+
+                    <TextView
+                        android:id="@+id/supplierCompanyEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.companyEmail}" />
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Direccion" />
+
+                    <TextView
+                        android:id="@+id/supplierCompanyAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:layout_marginBottom="16dp"
+                        android:text="@{viewModel.currentSupplier.address}" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/supplierSellerEmail" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView54"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView270"
+                        style="@style/TextAppearance.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:text="Empresa"
+                        android:textColor="@color/purple_200" />
+
+                    <TextView
+                        android:id="@+id/textView290"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Nombre" />
+
+                    <TextView
+                        android:id="@+id/supplierSellerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.sellerName}"/>
+
+                    <TextView
+                        android:id="@+id/textView350"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Telefono"/>
+
+                    <TextView
+                        android:id="@+id/supplierSellerPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.sellerPhone}" />
+
+                    <TextView
+                        android:id="@+id/textView440"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Email"
+                        style="@style/Theme.Blint.DataSubTitleTextView" />
+
+                    <TextView
+                        android:id="@+id/supplierSellerEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:layout_marginBottom="16dp"
+                        android:text="@{viewModel.currentSupplier.sellerEmail}" />
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Informacion de pagos"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView52" />
+                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView55"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.companyPaymentInfo}"
-                app:layout_constraintStart_toStartOf="@+id/textView54"
-                app:layout_constraintTop_toBottomOf="@+id/textView54" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView56"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:text="Notas"
-                app:layout_constraintStart_toStartOf="@+id/textView55"
-                app:layout_constraintTop_toBottomOf="@+id/textView55" />
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/TextAppearance.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_gravity="center"
+                        android:text="extras"
+                        android:textColor="@color/purple_200"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView57"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.DataTextView"
-                android:text="@{viewModel.currentSupplier.notes}"
-                app:layout_constraintStart_toStartOf="@+id/textView56"
-                app:layout_constraintTop_toBottomOf="@+id/textView56" />
+                    <TextView
+                        android:id="@+id/textView54"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Informacion de pagos" />
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.companyPaymentInfo}" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Theme.Blint.DataSubTitleTextView"
+                        android:text="Notas" />
+
+                    <TextView
+                        android:id="@+id/textView57"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        style="@style/Theme.Blint.DataTextView"
+                        android:text="@{viewModel.currentSupplier.notes}" />
+
+                </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

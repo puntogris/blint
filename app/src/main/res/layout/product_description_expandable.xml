@@ -10,6 +10,7 @@
             name="fragment"
             type="com.puntogris.blint.ui.product.EditProductFragment" />
     </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
