@@ -54,13 +54,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="$45.49"
+            android:letterSpacing="0.2"
             productPrices="@{product}"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/bar"
             android:layout_marginStart="@dimen/spacing_medium"
-            style="?attr/textAppearanceBody2"/>
+            android:textSize="14sp"/>
 
 
         <TextView
@@ -82,6 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1200.00"
+            android:letterSpacing="0.2"
+            style="?attr/textAppearanceSubtitle1"
             android:text="@{String.valueOf(product.amount)}"
             app:layout_constraintTop_toTopOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="@id/tvUsed"
@@ -98,7 +101,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:text="Stock"
-            style="?attr/textAppearanceCaption"
+            style="@style/TextAppearance.MaterialComponents.Caption"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

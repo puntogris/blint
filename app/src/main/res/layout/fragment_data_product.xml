@@ -31,7 +31,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="24dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -120,7 +120,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="24dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                         style="@style/TextAppearance.MaterialComponents.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="Precios y stock"
                         android:textColor="@color/purple_200"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +220,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="24dp"
                         android:text="@{String.valueOf(viewModel.currentProduct.amount)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +233,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="24dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -248,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="Clientes y Proveedores"
                         android:textColor="@color/purple_200" />
 
@@ -287,7 +287,7 @@
                         android:id="@+id/supplierChipGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="24dp">
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip5"
@@ -303,7 +303,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="24dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -318,8 +318,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
                         android:text="imagenes"
                         android:textColor="@color/purple_200" />
 
@@ -329,7 +329,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="24dp"
                         tools:srcCompat="@tools:sample/backgrounds/scenic" />
                 </LinearLayout>
 
@@ -339,7 +339,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="20dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -397,7 +397,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="24dp"
                         android:text="@{viewModel.currentProduct.brand}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView43"

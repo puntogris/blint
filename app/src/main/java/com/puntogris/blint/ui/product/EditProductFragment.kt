@@ -79,7 +79,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             buyPrice = binding.pricesLayout.productBuyPriceText.getFloat(),
             sellPrice = binding.pricesLayout.productSellPriceText.getFloat(),
             suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
-            amount = binding.pricesLayout.productAmountText.getFloat(),
+            amount = binding.pricesLayout.productAmountText.getInt(),
             image = viewModel.productImage.value!!,
             internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),

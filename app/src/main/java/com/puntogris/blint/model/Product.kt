@@ -22,7 +22,7 @@ data class Product(
     val description: String = "",
 
     @ColumnInfo
-    val amount: Float = 0F,
+    val amount: Int = 0,
 
     @ColumnInfo
     var image: HashMap<String, String> = hashMapOf("uri" to "", "path" to ""),

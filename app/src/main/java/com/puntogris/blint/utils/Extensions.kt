@@ -16,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.parser.IntegerParser
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,7 +53,7 @@ fun EditText.getString() = text.toString()
 
 fun EditText.getInt(): Int{
     val text = text.toString()
-    return if (text.isNotBlank()) text.toInt() else 0
+    return if(text.isEmpty()) 0 else text.toInt()
 }
 
 fun EditText.getFloat(): Float{
