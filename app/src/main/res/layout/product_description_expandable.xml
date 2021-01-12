@@ -34,7 +34,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -74,7 +74,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productBarcode"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -112,7 +112,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/productDescription"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    style="@style/Theme.Blint.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

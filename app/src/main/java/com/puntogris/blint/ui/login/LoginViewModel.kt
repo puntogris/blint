@@ -13,8 +13,6 @@ class LoginViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     private val businessDao: BusinessDao): ViewModel() {
 
-    fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
-
     fun logInUserToFirestore(credentialToken: String) =
         userRepository.logInUserWithCredentialToken(credentialToken)
 
@@ -23,7 +21,6 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
     suspend fun userHasBusinessRegistered() = businessDao.getCount() > 1
-
 
     fun saveUserToDatabase(firebaseUser: FirebaseUser){
         viewModelScope.launch {
@@ -34,6 +31,4 @@ class LoginViewModel @ViewModelInject constructor(
                 firebaseUser.email.toString()).apply { userRepository.saveUserToDatabases(this) }
         }
     }
-
- //   suspend fun getCurrentUser() = userRepository.getCurrentUserFromDatabase()
-}
+    }

@@ -37,22 +37,20 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUser
 
     private fun getCurrentUID() = auth.currentUser?.uid.toString()
 
-    override fun logInUserWithCredentialToken(credentialToken: String):StateFlow<AuthResult> {
-        val result = MutableStateFlow<AuthResult>(AuthResult.InProgress)
-        val authCredential = GoogleAuthProvider.getCredential(credentialToken, null)
-        auth.signInWithCredential(authCredential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    result.value = AuthResult.Success(task.result.user!!)
-                } else {
-                    task.exception?.let {
-                        result.value = AuthResult.Error(it.message.toString())
+    override fun logInUserWithCredentialToken(credentialToken: String) =
+        MutableStateFlow<AuthResult>(AuthResult.InProgress).also {
+            val authCredential = GoogleAuthProvider.getCredential(credentialToken, null)
+            auth.signInWithCredential(authCredential)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        it.value = AuthResult.Success(task.result.user!!)
+                    } else {
+                        task.exception?.let {e ->
+                            it.value = AuthResult.Error(e)
+                        }
                     }
                 }
-            }
-        return result
     }
-
 
     override suspend fun saveUserToDatabases(user: FirestoreUser){
         firestore.collection(USERS_COLLECTION).document(user.uid).get().addOnSuccessListener {

@@ -16,7 +16,7 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopEnd">2dp</item>
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>

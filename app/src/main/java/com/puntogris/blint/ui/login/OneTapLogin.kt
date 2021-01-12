@@ -1,33 +1,27 @@
 package com.puntogris.blint.ui.login
 
-import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
-import android.util.Log
-import android.view.View
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.fragment.app.Fragment
+import androidx.activity.result.IntentSenderRequest
 import com.google.android.gms.auth.api.identity.*
-import com.google.android.material.snackbar.Snackbar
-import com.puntogris.blint.utils.Constants.RC_ONE_TAP
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID
+import com.puntogris.blint.utils.showLongSnackBar
+import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.qualifiers.ActivityContext
+import java.lang.Exception
 import javax.inject.Inject
 
 class OneTapLogin @Inject constructor(@ActivityContext private val context: Context) {
 
     private val oneTapClient: SignInClient = Identity.getSignInClient(context)
-    private val parentView: View = (context as Activity).findViewById(android.R.id.content)
     private var counter = 0
-    private var enabled = true
-
-    fun isEnabled() = enabled
+    private var isEnabled = true
 
     fun loginCanceled(){
-        if (counter > 3) enabled = false else counter += 1
+        if (counter > 3) isEnabled = false else counter += 1
     }
 
     private fun createSignInRequest(): BeginSignInRequest =
@@ -46,28 +40,36 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
             )
             .build()
 
-    fun singIn(fragment:Fragment){
-        val signUpRequest = createSignInRequest()
-        oneTapClient.beginSignIn(signUpRequest)
-            .addOnSuccessListener { result ->
-                try {
-                    fragment.startIntentSenderForResult(
-                        result.pendingIntent.intentSender, RC_ONE_TAP,
-                        null, 0, 0, 0, null
-                    )
-                } catch (e: IntentSender.SendIntentException) {
-                    Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
-                }
-
-            }.addOnFailureListener { e ->
-                Log.e(TAG, "No saved credentials: ${e.localizedMessage}")
-                Snackbar.make(parentView, e.localizedMessage, Snackbar.LENGTH_LONG).show()
-            }
-    }
-
     fun getSingInCredentials(data: Intent?): SignInCredential = oneTapClient.getSignInCredentialFromIntent(data)
 
     fun singOut(){
         oneTapClient.signOut()
+    }
+
+    fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>){
+        if (isEnabled) {
+            oneTapClient.beginSignIn(createSignInRequest())
+                .addOnSuccessListener {
+                    activityResultLauncher.launch(IntentSenderRequest.Builder(it.pendingIntent.intentSender).build())
+                }
+                .addOnFailureListener {
+                    it.localizedMessage?.let { message ->
+                        //integrar esto con las de abajo dealguna forma
+                        context.showLongSnackBar(message)
+                    }
+                }
+        }
+        else
+            context.showLongSnackBar("Debido a multiples intentos de ingreso consecutivos, se deshabilito el ingreso a la app momentaneamente.")
+    }
+
+    fun onOneTapException(exception: ApiException){
+        when (exception.statusCode) {
+            CommonStatusCodes.CANCELED -> loginCanceled()
+            CommonStatusCodes.NETWORK_ERROR ->
+                context.showLongSnackBar("Se encontro un problema con la conexion. Revisa tu red y intenta nuevamente.")
+            else ->
+                context.showLongSnackBar("Estamos teniendo dificultades tecnicas. Intenta nuevamente en un rato.")
+        }
     }
 }

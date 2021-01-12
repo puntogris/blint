@@ -29,7 +29,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun initializeViews() {
-        getParentFab().isEnabled = true
         setupBusinessMenu()
         setupRecyclerView()
     }
@@ -42,8 +41,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, businessesNames))
                 setText(businesses.first().name, false)
             }
-            binding.businessMenu.visible()
-            binding.syncSwitch.visible()
         }
     }
 
@@ -58,13 +55,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE,ACCOUNTING_CARD_CODE)
         lifecycleScope.launch {
             mainMenuAdapter.submitList(getMenuCardList(cardList))
-
         }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
             addItemDecoration(SpaceItemDecoration(30, true))
-            visible()
         }
     }
 
@@ -81,23 +76,23 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         return codeList.map {
             when(it){
                 ALL_PRODUCTS_CARD_CODE ->{
-                  //  val count = viewModel.getProductsCount()
-                    MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$1 productos","Ver todos", R.color.card1)
+                    val count = viewModel.getProductsCount()
+                    MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$count productos","Ver todos", R.color.card1)
                 }
                 ALL_SUPPLIERS_CARD_CODE -> {
-                //    val count = viewModel.getSuppliersCount()
+                    val count = viewModel.getSuppliersCount()
                     MenuCard(
                         it,
                         "Proveedores",
                         R.drawable.ic_baseline_store_24,
-                        "$1 proveedores",
+                        "$count proveedores",
                         "Ver todos",
                         R.color.card2
                     )
                 }
                 ALL_CLIENTS_CARD_CODE -> {
-                  //  val count = viewModel.getClientsCount()
-                    MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$1 clientes","Ver todos", R.color.card3)
+                    val count = viewModel.getClientsCount()
+                    MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
                 }
                 ACCOUNTING_CARD_CODE -> {
                     MenuCard(it, "Balances", R.drawable.ic_baseline_account_balance_24, "","Contabilidad", R.color.card5 )
