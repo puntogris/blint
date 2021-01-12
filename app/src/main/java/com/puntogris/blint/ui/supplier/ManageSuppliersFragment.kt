@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.supplier
 
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import com.puntogris.blint.ui.client.ManageClientsAdapter
 import com.puntogris.blint.ui.product.ManageProductsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
@@ -28,6 +30,14 @@ class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.l
         lifecycleScope.launchWhenStarted {
             viewModel.getAllSuppliers().collect {
                 manageProductsAdapter.submitData(it)
+            }
+        }
+
+        binding.supplierSearchText.addTextChangedListener {
+            lifecycleScope.launch {
+                viewModel.getSuppliersWithName(it.toString()).collect {
+                    manageProductsAdapter.submitData(it)
+                }
             }
         }
     }

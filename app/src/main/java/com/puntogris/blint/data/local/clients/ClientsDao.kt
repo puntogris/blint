@@ -20,12 +20,13 @@ interface ClientsDao {
     @Query("SELECT * FROM client WHERE id = :id")
     suspend fun getClient(id:Int):Client
 
-    @Query("SELECT * FROM client")
-    suspend fun getClients(): List<Client>
-
     @Query("SELECT COUNT(*) FROM client")
     suspend fun getCount(): Int
 
     @Query("SELECT * FROM client")
     fun getAllPaged(): PagingSource<Int, Client>
+
+    @Query("SELECT * FROM client WHERE name LIKE :name")
+    fun getPagedSearch(name :String): PagingSource<Int, Client>
+
 }

@@ -11,6 +11,7 @@ import androidx.paging.PagingData
 import com.puntogris.blint.data.local.clients.ClientsDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -31,6 +32,18 @@ class ClientViewModel @ViewModelInject constructor(
         )
         ){
             clientsDao.getAllPaged()
+        }.flow
+    }
+
+    fun getClientsWithName(name: String): Flow<PagingData<Client>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            clientsDao.getPagedSearch("%${name}%")
         }.flow
     }
 

@@ -1,24 +1,17 @@
 package com.puntogris.blint.ui.product
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.room.ColumnInfo
-import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.data.local.records.RecordsDao
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.utils.Constants.STOCK_DECREASE
 import com.puntogris.blint.utils.Constants.STOCK_INCREASE
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -28,10 +21,6 @@ class ProductViewModel @ViewModelInject constructor(
 
 ):ViewModel() {
 
-    init {
-        println("init")
-        println(this)
-    }
     private var initialAmount = 0
 
     var viewsLoaded = false
@@ -109,5 +98,16 @@ class ProductViewModel @ViewModelInject constructor(
     suspend fun getProduct(id: Int) =
         productsDao.getProduct(id)
 
+    fun getProductWithName(name: String): Flow<PagingData<Product>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            productsDao.getPagedSearch("%${name}%")
+        }.flow
+    }
 
 }

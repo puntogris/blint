@@ -34,6 +34,18 @@ class SupplierViewModel @ViewModelInject constructor(
         }.flow
     }
 
+    fun getSuppliersWithName(name: String): Flow<PagingData<Supplier>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            suppliersDao.getPagedSearch("%${name}%")
+        }.flow
+    }
+
     suspend fun getSupplier(id:Int) = suppliersDao.getSupplier(id)
 
     fun updateSupplierData(supplier: Supplier){

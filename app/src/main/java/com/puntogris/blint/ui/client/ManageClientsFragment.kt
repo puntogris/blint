@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.client
 
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.puntogris.blint.ui.product.ManageProductsAdapter
 import com.puntogris.blint.ui.product.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
@@ -27,6 +29,14 @@ class ManageClientsFragment : BaseFragment<FragmentManageClientsBinding>(R.layou
         lifecycleScope.launchWhenStarted {
             viewModel.getAllClients().collect {
                 manageProductsAdapter.submitData(it)
+            }
+        }
+
+        binding.productSearchText.addTextChangedListener {
+            lifecycleScope.launch {
+                viewModel.getClientsWithName(it.toString()).collect {
+                    manageProductsAdapter.submitData(it)
+                }
             }
         }
     }

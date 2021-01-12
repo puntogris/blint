@@ -26,4 +26,8 @@ interface SuppliersDao {
     @Query("SELECT * FROM supplier")
     fun getAllPaged(): PagingSource<Int, Supplier>
 
+    @Query("SELECT * FROM supplier WHERE companyName LIKE :name")
+    fun getPagedSearch(name :String): PagingSource<Int, Supplier>
+
+
 }
