@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.platform.MaterialArcMotion
 import com.maxkeppeler.bottomsheets.options.DisplayMode
 import com.maxkeppeler.bottomsheets.options.Option
 import com.maxkeppeler.bottomsheets.options.OptionsSheet
 import com.puntogris.blint.R
+
 
 class PreferencesFragment: PreferenceFragmentCompat() {
 
@@ -26,6 +28,10 @@ class PreferencesFragment: PreferenceFragmentCompat() {
         savedInstanceState: Bundle?
     ): View? {
 
+        findPreference<ListPreference>("app_theme_pref")?.setOnPreferenceChangeListener { _, newValue ->
+            (requireActivity() as AppCompatActivity).delegate.localNightMode = Integer.parseInt(newValue.toString())
+            true
+        }
         findPreference<Preference>("about")?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.aboutFragment)
             true

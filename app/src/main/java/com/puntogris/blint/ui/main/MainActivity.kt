@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import androidx.preference.PreferenceManager
 import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
@@ -48,14 +50,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     override fun initializeViews() {
         setUpNavigation()
-        supportActionBar?.elevation  = 0F
-        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        setUpTheme()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    private fun setUpTheme(){
+        supportActionBar?.elevation  = 0F
+        delegate.localNightMode = sharedPref.getThemePref()
+    }
+
 
     private fun setUpNavigation(){
         navController = getNavController()

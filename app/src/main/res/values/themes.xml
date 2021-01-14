@@ -16,6 +16,10 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+<!--    chart-->
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
+    </style>
+
     <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopEnd">2dp</item>
         <item name="boxCornerRadiusTopStart">2dp</item>

@@ -3,25 +3,32 @@ package com.puntogris.blint.utils
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.drawable.InsetDrawable
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.parser.IntegerParser
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -142,3 +149,17 @@ fun Context.hideKeyboard(view: View) {
 }
 
 fun HashMap<String, String>.containsImage() = any { it.value.isNotEmpty() }
+
+fun ViewGroup.inflate(@LayoutRes res: Int): View {
+    return LayoutInflater.from(context)
+        .inflate(res, this, false)
+}
+
+
+fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
+    return DecimalFormat("###,###,##0.00").format(this).apply {
+        if(removeSuffix){
+            return this.removeSuffix(".00")
+        }
+    }
+}

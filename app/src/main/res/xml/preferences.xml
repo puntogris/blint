@@ -31,7 +31,7 @@
         android:title="Temas"
         app:icon="@drawable/ic_baseline_style_24"
         android:defaultValue="11"
-        android:key="theme_app_pref"
+        android:key="app_theme_pref"
         android:entries="@array/theme_names"
         android:entryValues="@array/theme_values"/>
 

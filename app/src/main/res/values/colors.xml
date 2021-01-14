@@ -12,6 +12,7 @@
     <color name="logo">#A451E8</color>
 
     <color name="green_500">#4CAF50</color>
+    <color name="rally_dark_green">#0C4B44</color>
 
     <color name="colorCopyButton">#00897B</color>
     <color name="barcode_reticle_background">#99000000</color>
