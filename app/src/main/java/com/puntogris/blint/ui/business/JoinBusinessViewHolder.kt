@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.JoinBusinessVhBinding
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Employee
 
 class JoinBusinessViewHolder private constructor(val binding: JoinBusinessVhBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(employee: Employee) {
-        binding.employee = employee
+    fun bind(business: Business) {
+        binding.business = business
         binding.executePendingBindings()
     }
 

@@ -8,22 +8,19 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.local.user.UsersDao
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
-import com.puntogris.blint.utils.BusinessData
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RepoResult
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -38,7 +35,27 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
         auth.signOut()
     }
 
-    private fun getCurrentUID() = auth.currentUser?.uid.toString()
+    override fun getCurrentUID() = auth.currentUser?.uid.toString()
+
+    override suspend fun registerNewBusiness(name: String) = withContext(Dispatchers.IO) {
+        try {
+            val ref = firestore.collection("users").document(getCurrentUID()).collection("business").document()
+            val business = Business(
+                id = ref.id,
+                name = name,
+                type = "LOCAL",
+                owner = getCurrentUID(),
+                userRole = "ADMINISTRATOR"
+            )
+            ref.set(business).await()
+            business.userID = getCurrentUID()
+            ref.collection("employees").document().set(business)
+            businessDao.insert(business)
+
+        }catch (e:Exception){
+
+        }
+    }
 
     override fun logInUserWithCredentialToken(credentialToken: String) =
         MutableStateFlow<AuthResult>(AuthResult.InProgress).also {
@@ -55,33 +72,18 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
                 }
     }
 
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): BusinessData = withContext(Dispatchers.IO) {
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RepoResult = withContext(Dispatchers.IO){
         try {
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
             if (!document.exists()){
                 firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
-                BusinessData.NotExists
             }
-            else {
-                val businessList = document.get("business") as List<HashMap<String, String>>?
-                if (!businessList.isNullOrEmpty()) {
-                    businessList.forEach { business ->
-                        val data = Business(
-                            name = business["name"].toString(),
-                            id = business["id"].toString(),
-                            type = business["type"].toString(),
-                            role = business["role"].toString())
-                        businessDao.insert(data)
-                    }
-                    BusinessData.Exists
-                }else BusinessData.NotExists
-            }
+            RepoResult.Success
         }
         catch (e:Exception){
-            BusinessData.Error(e)
+            RepoResult.Failure
         }
     }
-
 
     override suspend fun sendReportToFirestore(message: String): RepoResult {
         val report = hashMapOf(
@@ -96,39 +98,23 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
         }
     }
 
-    override fun saveBusinessTOFirestore(business: Business) {
-        val docRef = firestore.collection("business").document()
-        docRef.set(business)
-    }
-
-    @ExperimentalCoroutinesApi
-    override fun getBusinessForUser(): Flow<List<Employee>> = callbackFlow{
-        val subscription = firestore.collection("users").whereEqualTo("id", "rosariodota3@gmail.com").addSnapshotListener { value, error ->
-            if (!value?.documents.isNullOrEmpty()){
-                val data = value!!.documents.map {
-                    Employee(
-                        name = it["name"].toString(),
-                        businessID = it["businessID"].toString(),
-                        role = it["role"].toString(),
-                        businessName = it["businessName"].toString()
+     override fun getBusinessForUser(): StateFlow<List<Business>>  =
+        MutableStateFlow(listOf<Business>()).also {
+            firestore.collectionGroup("employees").whereEqualTo("userID", getCurrentUID()).addSnapshotListener { snap, _ ->
+                if (!snap?.documents.isNullOrEmpty()){
+                    val data = snap!!.documents.map { doc->
+                        Business(
+                            name = doc["name"].toString(),
+                            id = doc["id"].toString(),
+                            userRole = doc["userRole"].toString(),
+                            type = doc["type"].toString(),
+                            owner = doc["owner"].toString(),
+                            userID = doc["userID"].toString()
                         )
+                    }
+                    it.value = data
                 }
-                offer(data)
+                else it.value = emptyList()
             }
-            else offer(emptyList<Employee>())
         }
-        awaitClose { subscription.remove() }
-
-    }
-
-
-//
-//    override suspend fun getCurrentUserFromDatabase() = userDao.getUser(auth.uid.toString())
-
-//
-//    override suspend fun editUserPhoneNumber(phoneNumber: String) {
-//        userDao.updateUserPhoneNumber(getCurrentUID(), phoneNumber)
-//        firestore.collection(USERS_COLLECTION).document(getCurrentUID()).update("phoneNumber", phoneNumber)
-//    }
-
 }

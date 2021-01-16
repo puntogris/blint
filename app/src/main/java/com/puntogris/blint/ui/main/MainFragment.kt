@@ -67,7 +67,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
-            addItemDecoration(SpaceItemDecoration(30, true))
+            addItemDecoration(SpaceItemDecoration(50, true))
         }
     }
 

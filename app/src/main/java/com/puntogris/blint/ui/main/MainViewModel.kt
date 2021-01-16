@@ -20,6 +20,7 @@ class MainViewModel @ViewModelInject constructor(
 
     suspend fun getBusiness() = businessDao.getBusinesses()
 
+
     suspend fun userHasBusinessRegistered() = businessDao.getCount() > 1
 
     suspend fun getProductsCount() = productsDao.getCount()
@@ -31,6 +32,6 @@ class MainViewModel @ViewModelInject constructor(
     fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 
     suspend fun registerNewBusiness(name: String){
-        businessDao.insert(Business(name = name))
+        userRepository.registerNewBusiness(name)
     }
 }

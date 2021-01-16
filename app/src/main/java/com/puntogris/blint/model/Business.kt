@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Business(
+data class Business(
 
         @PrimaryKey
         var id: String = "",
@@ -20,5 +20,8 @@ class Business(
         val owner: String = "",
 
         @ColumnInfo
-        val role:String = ""
+        val userRole:String = "",
+
+        @ColumnInfo
+        var userID:String = ""
 )
