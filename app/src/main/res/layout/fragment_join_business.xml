@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView2"
+            android:id="@+id/accountMessage"
             style="@style/Theme.Blint.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,31 +51,33 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="44dp"
             android:indeterminate="true"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
+            app:layout_constraintBottom_toTopOf="@+id/exitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView42"
-            android:layout_width="wrap_content"
+            android:id="@+id/fillJokeMessage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:text="Parece que alguien esta durmiendo..\n\nMomento de preparar un cafe y volver mas tarde."
+            android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/progressBar2"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+            app:layout_constraintTop_toBottomOf="@+id/accountMessage" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/exitButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,5 +88,39 @@
             app:icon="@drawable/ic_baseline_close_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/continueButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{()->fragment.onContinueButtonClicked()}"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_navigate_next_24"
+            android:text="Continuar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recyclerViewCard"
+            style="@style/Theme.Blint.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/fillJokeMessage"
+            app:layout_constraintTop_toBottomOf="@+id/textView25"
+            tools:layout_editor_absoluteX="197dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

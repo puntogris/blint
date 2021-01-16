@@ -8,6 +8,7 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.local.user.UsersDao
 import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
 import com.puntogris.blint.utils.BusinessData
@@ -17,8 +18,11 @@ import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 import javax.inject.Inject
@@ -95,6 +99,26 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
     override fun saveBusinessTOFirestore(business: Business) {
         val docRef = firestore.collection("business").document()
         docRef.set(business)
+    }
+
+    @ExperimentalCoroutinesApi
+    override fun getBusinessForUser(): Flow<List<Employee>> = callbackFlow{
+        val subscription = firestore.collection("users").whereEqualTo("id", "rosariodota3@gmail.com").addSnapshotListener { value, error ->
+            if (!value?.documents.isNullOrEmpty()){
+                val data = value!!.documents.map {
+                    Employee(
+                        name = it["name"].toString(),
+                        businessID = it["businessID"].toString(),
+                        role = it["role"].toString(),
+                        businessName = it["businessName"].toString()
+                        )
+                }
+                offer(data)
+            }
+            else offer(emptyList<Employee>())
+        }
+        awaitClose { subscription.remove() }
+
     }
 
 

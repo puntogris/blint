@@ -2,13 +2,12 @@ package com.puntogris.blint.ui.login
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.BusinessData
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class LoginViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
@@ -31,4 +30,6 @@ class LoginViewModel @ViewModelInject constructor(
         return userRepository.checkUserDataInFirestore(user)
     }
 
+    @ExperimentalCoroutinesApi
+    fun getUserBusiness() = userRepository.getBusinessForUser()
 }
