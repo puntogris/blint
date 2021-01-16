@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
@@ -65,7 +66,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     private fun setUpTheme(){
         supportActionBar?.elevation  = 0F
-        delegate.localNightMode = sharedPref.getThemePref()
+        when(sharedPref.getThemePref()){
+            1-> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            -1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+
+        }
     }
 
 

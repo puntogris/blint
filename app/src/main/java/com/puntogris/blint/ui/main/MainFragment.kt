@@ -1,19 +1,13 @@
 package com.puntogris.blint.ui.main
 
-import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
@@ -21,35 +15,35 @@ import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
-import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
-import java.sql.Timestamp
-import java.util.*
-import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
+    private lateinit var businessAdapter: BusinessAdapter
 
     override fun initializeViews() {
-        setupBusinessMenu()
         setupRecyclerView()
+        setupBusinessMenu()
     }
 
     private fun setupBusinessMenu(){
-        lifecycleScope.launch {
+        val dropDownMenu = (binding.businessMenuDropDown as? AutoCompleteTextView)
+        businessAdapter = BusinessAdapter(requireContext())
+        dropDownMenu?.setAdapter(businessAdapter)
+        lifecycleScope.launch(Dispatchers.IO) {
             val businesses = viewModel.getBusiness()
             val businessesNames = businesses.map { it.name }
-            binding.businessMenuDropDown.apply {
-                setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, businessesNames))
-                setText(businesses.first().name, false)
-            }
+            dropDownMenu?.setText(businesses.first().name, false)
+            businessAdapter.setList(businessesNames)
         }
+
+
     }
 
     private fun changeBusinessListener(){
@@ -67,7 +61,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
-            addItemDecoration(SpaceItemDecoration(50, true))
+            addItemDecoration(SpaceItemDecoration(30, true))
         }
     }
 
@@ -116,8 +110,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
 
     override fun onDestroyView() {
-        (binding.businessMenuDropDown as? AutoCompleteTextView)?.setAdapter(null)
         binding.recyclerView.adapter = null
+        (binding.businessMenuDropDown as? AutoCompleteTextView)?.setAdapter(null)
         super.onDestroyView()
     }
 }

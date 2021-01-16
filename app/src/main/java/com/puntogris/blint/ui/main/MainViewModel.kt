@@ -20,7 +20,6 @@ class MainViewModel @ViewModelInject constructor(
 
     suspend fun getBusiness() = businessDao.getBusinesses()
 
-
     suspend fun userHasBusinessRegistered() = businessDao.getCount() > 1
 
     suspend fun getProductsCount() = productsDao.getCount()

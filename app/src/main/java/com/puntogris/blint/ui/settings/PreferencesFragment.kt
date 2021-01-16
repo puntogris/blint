@@ -29,7 +29,7 @@ class PreferencesFragment: PreferenceFragmentCompat() {
     ): View? {
 
         findPreference<ListPreference>("app_theme_pref")?.setOnPreferenceChangeListener { _, newValue ->
-            (requireActivity() as AppCompatActivity).delegate.localNightMode = Integer.parseInt(newValue.toString())
+            AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newValue.toString()))
             true
         }
         findPreference<Preference>("about")?.setOnPreferenceClickListener {
