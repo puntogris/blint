@@ -9,23 +9,15 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import androidx.preference.PreferenceManager
-import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,10 +29,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     @Inject lateinit var sharedPref: SharedPref
 
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(
+        this,
+        R.anim.rotate_open_anim
+    ) }
+    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(
+        this,
+        R.anim.rotate_close_anim
+    ) }
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(
+        this,
+        R.anim.from_bottom_anim
+    ) }
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(
+        this,
+        R.anim.to_bottom_anim
+    ) }
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -49,8 +53,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun initializeViews() {
-        setUpNavigation()
         setUpTheme()
+        setUpNavigation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -72,7 +76,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (viewModel.isUserLoggedIn()) {
                 if (sharedPref.getUserHasBusinessRegisteredPref()) {
                     navGraph.startDestination = R.id.mainFragment
-                }else navGraph.startDestination = R.id.alertRegisterBusinessFragment
+                }else navGraph.startDestination = R.id.welcomeNewUserFragment
         } else {
             navGraph.startDestination = R.id.loginFragment
         }
@@ -82,13 +86,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.run {
             navController.addOnDestinationChangedListener(this@MainActivity)
         }
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.mainFragment,
-            R.id.registerBusinessFragment,
-            R.id.preferencesFragment,
-            R.id.loginFragment,
-            R.id.alertRegisterBusinessFragment
-        ))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.mainFragment,
+                R.id.registerBusinessFragment,
+                R.id.preferencesFragment,
+                R.id.loginFragment,
+                R.id.welcomeNewUserFragment
+            )
+        )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -167,6 +173,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                     bottomAppBar.visibility = View.GONE
                     binding.addFav.visibility = View.INVISIBLE
                 }
+
                 override fun onAnimationCancel(animation: Animator?) {
                     isCanceled = true
                 }
@@ -174,14 +181,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         }
     }
 
-    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
         if (
             destination.id == R.id.loginFragment ||
-            destination.id == R.id.alertRegisterBusinessFragment ||
+            destination.id == R.id.welcomeNewUserFragment ||
             destination.id == R.id.registerBusinessFragment ||
             destination.id == R.id.registerLocalBusinessFragment ||
             destination.id == R.id.registerOnlineBusinessFragment ||
-            destination.id == R.id.loginProblemsFragment)
+            destination.id == R.id.loginProblemsFragment ||
+            destination.id == R.id.businessWaitingRoomFragment ||
+            destination.id == R.id.joinBusinessFragment)
             {
                 binding.bottomAppBar.gone()
                 binding.addFav.hide()

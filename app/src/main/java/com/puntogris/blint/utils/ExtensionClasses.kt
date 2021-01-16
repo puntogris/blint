@@ -32,3 +32,9 @@ sealed class RepoResult{
     object Success: RepoResult()
     object Failure: RepoResult()
 }
+
+sealed class BusinessData{
+    object Exists: BusinessData()
+    object NotExists: BusinessData()
+    class Error(val exception: Exception): BusinessData()
+}

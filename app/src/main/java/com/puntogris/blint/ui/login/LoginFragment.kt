@@ -3,13 +3,11 @@ package com.puntogris.blint.ui.login
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.CommonStatusCodes
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -45,19 +43,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 lifecycleScope.launch {
                     viewModel.logInUserToFirestore(credentialToken).collect { result ->
                         when (result) {
-                            AuthResult.InProgress -> {
-                                binding.logInProgressBar.visible()
-                            }
-                            is AuthResult.Success -> {
-                                viewModel.saveUserToDatabase(result.user)
-                                navigateToMainApp()
-                            }
-                            is AuthResult.Error -> {
-                                binding.logInProgressBar.gone()
-                                result.exception.localizedMessage?.let {
-                                    showShortSnackBar(it)
-                                }
-                            }
+                            AuthResult.InProgress -> binding.logInProgressBar.visible()
+                            is AuthResult.Success -> onSuccessLogIn(result)
+                            is AuthResult.Error -> onErrorLogIn(result)
                         }
                     }
                 }
@@ -65,12 +53,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         } catch (e: ApiException) { oneTapLogin.onOneTapException(e) }
     }
 
-    private fun navigateToMainApp(){
+    private fun onSuccessLogIn(result: AuthResult.Success){
         lifecycleScope.launch {
-            if (viewModel.userHasBusinessRegistered())
-                findNavController().navigate(R.id.mainFragment)
-            else
-                findNavController().navigate(R.id.alertRegisterBusinessFragment)
+            when(viewModel.lookUpUserBusinessData(result.user)){
+                BusinessData.Exists -> findNavController().navigate(R.id.mainFragment)
+                BusinessData.NotExists -> findNavController().navigate(R.id.action_loginFragment_to_welcomeNewUserFragment)
+
+                is BusinessData.Error -> showShortSnackBar("Error buscando tu informacion en los servidores.")
+            }
+        }
+    }
+
+    private fun onErrorLogIn(result: AuthResult.Error) {
+        binding.logInProgressBar.gone()
+        result.exception.localizedMessage?.let {
+            showShortSnackBar(it)
         }
     }
 }

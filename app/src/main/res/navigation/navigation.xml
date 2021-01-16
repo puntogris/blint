@@ -98,25 +98,21 @@
         <action
             android:id="@+id/action_loginFragment_to_loginProblemsFragment"
             app:destination="@id/loginProblemsFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeNewUserFragment"
+            app:destination="@id/welcomeNewUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginProblemsFragment"
         android:name="com.puntogris.blint.ui.login.LoginProblemsFragment"
-        android:label="Ayuda" >
-        <action
-            android:id="@+id/action_loginProblemsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:label="Ayuda" />
     <fragment
-        android:id="@+id/alertRegisterBusinessFragment"
-        android:name="com.puntogris.blint.ui.business.AlertRegisterBusinessFragment"
+        android:id="@+id/welcomeNewUserFragment"
+        android:name="com.puntogris.blint.ui.business.WelcomeNewUserFragment"
         android:label="" >
         <action
-            android:id="@+id/action_alertRegisterBusinessFragment_to_registerBusinessFragment"
-            app:destination="@id/registerBusinessFragment" />
-        <action
-            android:id="@+id/action_alertRegisterBusinessFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_welcomeNewUserFragment_to_businessWaitingRoomFragment"
+            app:destination="@id/businessWaitingRoomFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerLocalBusinessFragment"
@@ -176,4 +172,12 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/businessWaitingRoomFragment"
+        android:name="com.puntogris.blint.ui.business.BusinessWaitingRoomFragment"
+        android:label="" />
+    <fragment
+        android:id="@+id/joinBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.JoinBusinessFragment"
+        android:label="" />
 </navigation>

@@ -5,26 +5,25 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.local.user.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
+import com.puntogris.blint.utils.BusinessData
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RepoResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUserRepository {
+class UserRepository @Inject constructor(private val usersDao: UsersDao, private val businessDao: BusinessDao) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -52,16 +51,33 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao) : IUser
                 }
     }
 
-    override suspend fun saveUserToDatabases(user: FirestoreUser){
-        firestore.collection(USERS_COLLECTION).document(user.uid).get().addOnSuccessListener {
-            if (!it.exists()){
-                firestore.collection(USERS_COLLECTION).document(user.uid).set(user)
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): BusinessData = withContext(Dispatchers.IO) {
+        try {
+            val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+            if (!document.exists()){
+                firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
+                BusinessData.NotExists
             }
-            else{
-                //we populate the room databse with the data
+            else {
+                val businessList = document.get("business") as List<HashMap<String, String>>?
+                if (!businessList.isNullOrEmpty()) {
+                    businessList.forEach { business ->
+                        val data = Business(
+                            name = business["name"].toString(),
+                            id = business["id"].toString(),
+                            type = business["type"].toString(),
+                            role = business["role"].toString())
+                        businessDao.insert(data)
+                    }
+                    BusinessData.Exists
+                }else BusinessData.NotExists
             }
         }
+        catch (e:Exception){
+            BusinessData.Error(e)
+        }
     }
+
 
     override suspend fun sendReportToFirestore(message: String): RepoResult {
         val report = hashMapOf(

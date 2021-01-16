@@ -14,28 +14,13 @@
         android:layout_height="match_parent"
         tools:context=".ui.business.RegisterLocalBusinessFragment">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:clickable="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.255"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/birds" />
-
         <TextView
             android:id="@+id/textView17"
-            style="@style/TextAppearance.MaterialComponents.Headline4"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
             android:text="Estas a un paso de abrir tu negocio en Blint!"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +50,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <Button
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
@@ -83,11 +67,25 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
-            android:text="Como se llama tu negocio?"
+            android:layout_marginTop="72dp"
+            android:text="Como lo vas a llamar?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toTopOf="@+id/continueButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessName"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/business4" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

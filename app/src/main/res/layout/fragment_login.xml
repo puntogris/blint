@@ -28,10 +28,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_full_logo" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
+            app:strokeColor="@color/purple_200"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
@@ -75,7 +76,6 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{()-> loginFragment.onLoginProblemsClicked()}"
             android:text="Solucionar problemas para entrar"
-            android:textColor="@android:color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

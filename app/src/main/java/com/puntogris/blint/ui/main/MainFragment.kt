@@ -1,5 +1,7 @@
 package com.puntogris.blint.ui.main
 
+import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
@@ -43,7 +45,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         lifecycleScope.launch {
             val businesses = viewModel.getBusiness()
             val businessesNames = businesses.map { it.name }
-            (binding.businessMenuDropDown as? AutoCompleteTextView)?.apply {
+            binding.businessMenuDropDown.apply {
                 setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, businessesNames))
                 setText(businesses.first().name, false)
             }

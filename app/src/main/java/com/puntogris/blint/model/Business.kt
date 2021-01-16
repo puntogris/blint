@@ -17,5 +17,8 @@ class Business(
         val type: String = "",
 
         @ColumnInfo
-        val owner: String = ""
+        val owner: String = "",
+
+        @ColumnInfo
+        val role:String = ""
 )

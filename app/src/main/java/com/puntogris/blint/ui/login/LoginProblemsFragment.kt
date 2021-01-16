@@ -13,7 +13,7 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
 
     override fun initializeViews() {
         binding.goBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginProblemsFragment_to_loginFragment)
+            findNavController().navigateUp()
         }
         binding.enableAccountLink.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -23,7 +23,7 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
         binding.sendEmail.setOnClickListener {
             val email = Intent(Intent.ACTION_SENDTO)
             email.data = Uri.parse("mailto:$SUPPORT_EMAIL")
-            email.putExtra(Intent.EXTRA_SUBJECT, "Problema con mi cuenta de PetMate")
+            email.putExtra(Intent.EXTRA_SUBJECT, "Problema con mi cuenta de Blint")
             startActivity(email)
         }
     }
