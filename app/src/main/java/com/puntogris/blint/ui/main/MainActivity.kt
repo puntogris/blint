@@ -201,7 +201,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                 binding.addFav.hide()
         }else if(destination.id == R.id.aboutFragment ||
                 destination.id == R.id.termsConditionsFragment ||
-                destination.id == R.id.privacyPolicyFragment){
+                destination.id == R.id.privacyPolicyFragment||
+                destination.id == R.id.createBackupFragment){
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
         }else if(destination.id == R.id.productFragment){

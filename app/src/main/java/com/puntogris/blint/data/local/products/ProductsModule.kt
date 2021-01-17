@@ -1,16 +1,16 @@
 package com.puntogris.blint.data.local.products
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
+
 
 @InstallIn(ApplicationComponent::class)
 @Module

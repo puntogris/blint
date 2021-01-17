@@ -15,8 +15,8 @@ import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
@@ -38,6 +38,30 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
     override fun getCurrentUID() = auth.currentUser?.uid.toString()
 
     override fun getCurrentUser() = auth.currentUser
+
+    override fun getOwnerBusiness(): StateFlow<RepoResult<List<Business>>> =
+        MutableStateFlow<RepoResult<List<Business>>>(RepoResult.InProgress).also { result ->
+            firestore.collectionGroup("business").whereEqualTo("owner", getCurrentUID()).get()
+                .addOnSuccessListener { snap ->
+                    if (!snap?.documents.isNullOrEmpty()) {
+                        val data = snap!!.documents.map { doc ->
+                            Business(
+                                name = doc["name"].toString(),
+                                id = doc["id"].toString(),
+                                userRole = doc["userRole"].toString(),
+                                type = doc["type"].toString(),
+                                owner = doc["owner"].toString(),
+                                userID = doc["userID"].toString()
+                            )
+                        }
+                        result.value = RepoResult.Success(data)
+                    }
+                }
+                .addOnFailureListener {
+                    result.value = RepoResult.Error(it)
+                }
+            }
+
 
     override suspend fun registerNewBusiness(name: String) = withContext(Dispatchers.IO) {
         try {
@@ -74,33 +98,33 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
                 }
     }
 
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RepoResult = withContext(Dispatchers.IO){
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): SimpleResult = withContext(Dispatchers.IO){
         try {
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
             if (!document.exists()){
                 firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
             }
-            RepoResult.Success
+            SimpleResult.Success
         }
         catch (e:Exception){
-            RepoResult.Failure
+            SimpleResult.Failure
         }
     }
 
-    override suspend fun sendReportToFirestore(message: String): RepoResult {
+    override suspend fun sendReportToFirestore(message: String): SimpleResult {
         val report = hashMapOf(
             REPORT_FIELD_FIRESTORE to message,
             TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
         )
         return try {
             firestore.collection(BUG_REPORT_COLLECTION_NAME).document().set(report).await()
-            RepoResult.Success
+            SimpleResult.Success
         }catch (e: Exception){
-            RepoResult.Failure
+            SimpleResult.Failure
         }
     }
 
-     override fun getBusinessForUser(): StateFlow<List<Business>>  =
+     override fun getEmployeeBusiness(): StateFlow<List<Business>>  =
         MutableStateFlow(listOf<Business>()).also {
             firestore.collectionGroup("employees").whereEqualTo("userID", getCurrentUID()).addSnapshotListener { snap, _ ->
                 if (!snap?.documents.isNullOrEmpty()){

@@ -7,11 +7,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.data.local.businesses.BusinessDao
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
-import com.puntogris.blint.utils.BusinessData
-import com.puntogris.blint.utils.RepoResult
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emitAll
@@ -31,7 +28,7 @@ class LoginViewModel @ViewModelInject constructor(
         userRepository.singOutCurrentUser()
     }
 
-    suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser):RepoResult {
+    suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser):SimpleResult {
         val user = FirestoreUser(
             firebaseUser.uid,
             firebaseUser.displayName.toString(),
@@ -43,7 +40,7 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun getUserBusiness() {
         viewModelScope.launch {
-            _userBusiness.emitAll(userRepository.getBusinessForUser())
+            _userBusiness.emitAll(userRepository.getEmployeeBusiness())
         }
     }
 

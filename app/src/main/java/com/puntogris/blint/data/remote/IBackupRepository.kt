@@ -1,7 +1,9 @@
 package com.puntogris.blint.data.remote
 
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.SimpleResult
 
 interface IBackupRepository {
-    fun createBackupForBusiness(list: List<String>): RepoResult
+    suspend fun createBackupForBusiness(businessID:String, paths: List<String>): SimpleResult
+    suspend fun restoreBackupForBusiness(): SimpleResult
+
 }

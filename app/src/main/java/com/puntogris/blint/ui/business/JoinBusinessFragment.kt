@@ -24,6 +24,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
 
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var joinBusinessAdapter: JoinBusinessAdapter
+
     @Inject
     lateinit var sharedPref: SharedPref
 

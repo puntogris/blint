@@ -13,6 +13,13 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     private val viewModel: PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
-
+//        binding.button8.setOnClickListener {
+//            lifecycleScope.launch {
+//                when(viewModel.restoreBackup()){
+//                    RepoResult.Success -> println("yay")
+//                    RepoResult.Failure -> println("no")
+//                }
+//            }
+//        }
     }
 }

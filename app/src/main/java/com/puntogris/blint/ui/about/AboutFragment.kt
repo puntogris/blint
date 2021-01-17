@@ -13,7 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.Constants.APP_PLAY_STORE_URI
 import com.puntogris.blint.utils.Constants.PLAY_STORE_PACKAGE
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -58,8 +58,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
     private fun onResultSendReport(message: String){
         lifecycleScope.launch {
             when(viewModel.sendReport(message)){
-                RepoResult.Success -> showShortSnackBar("Se envio satisfactioriamente el reporte, Gracias por tu ayuda!")
-                RepoResult.Failure -> showShortSnackBar("Ocurrio un error. Verifique su conexion ntente nuevamente.")
+                SimpleResult.Success -> showShortSnackBar("Se envio satisfactioriamente el reporte, Gracias por tu ayuda!")
+                SimpleResult.Failure -> showShortSnackBar("Ocurrio un error. Verifique su conexion ntente nuevamente.")
             }
         }
     }

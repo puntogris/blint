@@ -176,3 +176,9 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
 
 fun Date.getFormattedString() =
     SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(this).toString()
+
+
+fun Fragment.createDatabasesPathList():List<String>{
+    val databasesTables = listOf("business_table","clients_table", "products_table", "records_table", "supplier_table")
+    return databasesTables.map { requireActivity().getDatabasePath(it).absolutePath }
+}

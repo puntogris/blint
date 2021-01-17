@@ -56,8 +56,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun onSuccessLogIn(result: AuthResult.Success){
         lifecycleScope.launch {
             when(viewModel.lookUpUserBusinessData(result.user)){
-                RepoResult.Success -> findNavController().navigate(R.id.action_loginFragment_to_welcomeNewUserFragment)
-                RepoResult.Failure -> showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
+                SimpleResult.Success -> findNavController().navigate(R.id.action_loginFragment_to_welcomeNewUserFragment)
+                SimpleResult.Failure -> showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
             }
         }
     }

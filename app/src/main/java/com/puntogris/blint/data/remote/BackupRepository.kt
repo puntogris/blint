@@ -1,27 +1,95 @@
 package com.puntogris.blint.data.remote
 
+import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.data.local.businesses.BusinessDatabase
+import com.puntogris.blint.data.local.clients.ClientsDatabase
+import com.puntogris.blint.data.local.products.ProductsDatabase
+import com.puntogris.blint.data.local.records.RecordsDatabase
+import com.puntogris.blint.data.local.suppliers.SuppliersDatabase
+import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.Util
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.nio.channels.FileChannel
 import javax.inject.Inject
 
-class BackupRepository @Inject constructor():IBackupRepository {
+class BackupRepository @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val productsDatabase: ProductsDatabase,
+    private val clientsDatabase: ClientsDatabase,
+    private val suppliersDatabase: SuppliersDatabase,
+    private val recordsDatabase: RecordsDatabase,
+    private val businessDatabase: BusinessDatabase
+):IBackupRepository {
+
     private val storage =  Firebase.storage.reference
+    private val auth = FirebaseAuth.getInstance()
 
 
-    override fun createBackupForBusiness(list: List<String>):RepoResult {
+    //hacer esta funcion sin suspend y con state flow para poder mostrar el progreso? idk
+    //ponerla linda que esta un desastre
+    override suspend fun createBackupForBusiness(businessID: String ,paths: List<String>):SimpleResult {
         return try {
-            list.forEach {
-                val dbRef = storage.child("products_table.db")
-                val stream = FileInputStream(File(it))
-                dbRef.putStream(stream)
+//            productsDatabase.close()
+//            clientsDatabase.close()
+//            suppliersDatabase.close()
+//            recordsDatabase.close()
+//            businessDatabase.close()
+            //     paths.forEach {
+            val databasesfiles = paths.map {
+                File(it)
             }
-            RepoResult.Success
+            val dbRef = storage.child(
+                "users/${auth.currentUser?.uid}/backup/backup_.zip"
+            )
+            Util.zipDatabases(databasesfiles, context.filesDir.path, "backup_.zip")
+            withContext(Dispatchers.IO) {
+                val stream = FileInputStream(File(context.filesDir.path+"/backup_.zip"))
+                val test = dbRef.putStream(stream).await()
+            }
+            SimpleResult.Success
         }
-        catch (e:Exception){
-            RepoResult.Failure
+        catch (e: Exception){
+            println(e.localizedMessage)
+            SimpleResult.Failure
+        }
+    }
+    override suspend fun restoreBackupForBusiness(): SimpleResult {
+        return try {
+            productsDatabase.close()
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/products_table.db")
+            val localFile = File(context.filesDir,"products_table.db")
+            //if (!localFile.exists()) localFile.mkdirs()
+            dbRef.getFile(localFile).await()
+            copyFile(localFile.inputStream(), File("/data/user/0/com.puntogris.blint/databases/products_table").outputStream())
+
+            SimpleResult.Success
+        }catch (e: java.lang.Exception){
+            SimpleResult.Failure
+        }
+    }
+
+    fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
+        var fromChannel: FileChannel? = null
+        var toChannel: FileChannel? = null
+        try {
+            fromChannel = fromFile.channel
+            toChannel = toFile.channel
+            fromChannel.transferTo(0, fromChannel.size(), toChannel)
+        } finally {
+            try {
+                fromChannel?.close()
+            } finally {
+                toChannel?.close()
+            }
         }
     }
 }
