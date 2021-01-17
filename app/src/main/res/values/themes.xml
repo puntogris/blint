@@ -18,6 +18,9 @@
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
+    <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light"/>
+
+
 <!--    chart-->
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
     </style>
@@ -27,7 +30,7 @@
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>
 
-    <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
+    <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
 
     <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
         <item name="backgroundTint">@color/purple_200</item>

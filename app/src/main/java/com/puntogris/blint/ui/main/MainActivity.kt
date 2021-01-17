@@ -65,12 +65,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     private fun setUpTheme(){
-        supportActionBar?.elevation  = 0F
-         AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
+        //supportActionBar?.elevation  = 0F
+        AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
     }
 
 
     private fun setUpNavigation(){
+        setSupportActionBar(binding.toolbar)
         navController = getNavController()
         val inflater = navController.navInflater
         // Manually inflate the graph and set the start destination
@@ -97,7 +98,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                 R.id.welcomeNewUserFragment
             )
         )
-
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomAppBar.apply {
@@ -205,6 +205,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                 destination.id == R.id.privacyPolicyFragment){
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
+        }else if(destination.id == R.id.productFragment){
+            println("asdasdad")
         }
         else{
             binding.bottomAppBar.visible()
@@ -212,7 +214,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             binding.bottomAppBar.performShow()
         }
         binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-        binding.addFav.setOnClickListener{ onParentFabClicked()}
+        binding.addFav.setOnClickListener{ onParentFabClicked() }
         if (clicked) onParentFabClicked()
     }
 
