@@ -66,7 +66,7 @@ class ScannerResultDialog(private val listener: DialogDismissListener) : BottomS
     fun onSaveProductClicked(){
         viewModel.setNewProductStock(binding.productAmountText.getInt())
         binding.productAmount.text = binding.productAmountText.getString()
-        binding.productLastEdited.text = SimpleDateFormat("dd / MM / yyyy",Locale.getDefault()).format(Date())
+        binding.productLastEdited.text = Date().getFormattedString()
         showSackBarAboveBotomSheet("Se actualizo el producto correctamente.")
     }
 

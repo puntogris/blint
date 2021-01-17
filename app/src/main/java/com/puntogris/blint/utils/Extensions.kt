@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -172,3 +173,6 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
         }
     }
 }
+
+fun Date.getFormattedString() =
+    SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(this).toString()

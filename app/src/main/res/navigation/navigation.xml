@@ -192,4 +192,28 @@
         android:id="@+id/scannerResultDialog"
         android:name="com.puntogris.blint.ui.ScannerResultDialog"
         android:label="ScannerResultDialog" />
+    <fragment
+        android:id="@+id/accountPreferences"
+        android:name="com.puntogris.blint.ui.settings.AccountPreferences"
+        android:label="Mi cuenta" />
+    <fragment
+        android:id="@+id/backUpPreferences"
+        android:name="com.puntogris.blint.ui.settings.BackupPreferences"
+        android:label="Copias de seguridad" />
+    <fragment
+        android:id="@+id/notificationsPreferences"
+        android:name="com.puntogris.blint.ui.settings.NotificationsPreferences"
+        android:label="Notificaciones" />
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="com.puntogris.blint.ui.account.UserAccountFragment"
+        android:label="Mi datos" />
+    <fragment
+        android:id="@+id/restoreBackupFragment"
+        android:name="com.puntogris.blint.ui.backup.RestoreBackupFragment"
+        android:label="Restaurar negocio" />
+    <fragment
+        android:id="@+id/createBackupFragment"
+        android:name="com.puntogris.blint.ui.backup.CreateBackupFragment"
+        android:label="Respaldar negocio" />
 </navigation>

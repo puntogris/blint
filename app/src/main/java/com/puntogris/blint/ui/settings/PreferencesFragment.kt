@@ -1,62 +1,42 @@
 package com.puntogris.blint.ui.settings
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import com.maxkeppeler.bottomsheets.options.DisplayMode
-import com.maxkeppeler.bottomsheets.options.Option
-import com.maxkeppeler.bottomsheets.options.OptionsSheet
 import com.puntogris.blint.R
+import com.puntogris.blint.ui.base.BasePreferences
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class PreferencesFragment: BasePreferences(R.xml.preferences) {
 
-class PreferencesFragment: PreferenceFragmentCompat() {
+    override fun initializeViews() {
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.preferences, rootKey)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        findPreference<ListPreference>("app_theme_pref")?.setOnPreferenceChangeListener { _, newValue ->
+        findPreference<Preference>("account_pref")?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.accountPreferences)
+            true
+        }
+        findPreference<Preference>("notifications_pref")?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.notificationsPreferences)
+            true
+        }
+        findPreference<Preference>("backup_pref")?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.backUpPreferences)
+            true
+        }
+        findPreference<ListPreference>("theme_pref")?.setOnPreferenceChangeListener { _, newValue ->
             AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newValue.toString()))
             true
         }
-        findPreference<Preference>("about")?.setOnPreferenceClickListener {
+        findPreference<Preference>("help_pref")?.setOnPreferenceClickListener {
+            true
+        }
+        findPreference<Preference>("about_pref")?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.aboutFragment)
             true
         }
-
-        findPreference<Preference>("card")?.setOnPreferenceClickListener {
-            OptionsSheet().show(requireParentFragment().requireContext()) {
-                title("Seleccionar tarjetas del inicio")
-                multipleChoices()
-                displayMode(DisplayMode.LIST)
-                with(
-                    Option(R.drawable.ic_baseline_add_business_24, "Agregar Proveedores").select(),
-                    Option(R.drawable.ic_baseline_library_add_24, "Agergar Producto").select(),
-                    Option(R.drawable.ic_baseline_person_add_24, "Agregar Cliente").select(),
-                    Option(R.drawable.ic_baseline_store_24, "Ver Proveedores"),
-                    Option(R.drawable.ic_baseline_library_books_24, "Ver Productos"),
-                    Option(R.drawable.ic_baseline_people_alt_24, "Ver Clientes")
-                )
-                onNegative("Cancelar")
-                onPositive("Guardar") { index: Int, option: Option ->
-                    // Handle selected option
-                }
-            }
-            true
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+
 }

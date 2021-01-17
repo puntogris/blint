@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.firebase.auth.FirebaseUser
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
@@ -23,6 +25,9 @@ import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: HashMap<String,String>?){
@@ -49,10 +54,9 @@ fun CardView.setBackgroundColor(menuCard: MenuCard){
         ALL_PRODUCTS_CARD_CODE -> R.color.card1
         ALL_CLIENTS_CARD_CODE -> R.color.card2
         ALL_SUPPLIERS_CARD_CODE -> R.color.card3
-        ACCOUNTING_CARD_CODE -> R.color.card4
-        RECORDS_CARD_CODE -> R.color.card5
-        CHARTS_CARD_CODE -> R.color.card6
-        else -> R.color.card1
+        RECORDS_CARD_CODE -> R.color.card4
+        CHARTS_CARD_CODE -> R.color.card5
+        else -> R.color.card6
     }.also {
         setCardBackgroundColor(context.getColor(it))
     }
@@ -103,4 +107,28 @@ fun EditText.setEmptyEditTextWithNumber(value: Number){
 @BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product){
     text = "${product.buyPrice.toFloat().toUSDFormatted()} / ${product.sellPrice.toFloat().toUSDFormatted()}"
+}
+
+@BindingAdapter("userDataImage")
+fun ImageView.setUserDataImage(image: String?){
+    if (!image.isNullOrBlank()){
+        Glide.with(context)
+            .load(image)
+            .transform(RoundedCorners(20))
+            .into(this)
+    }else{
+        Glide.with(context)
+            .load(R.drawable.ic_baseline_account_circle_24)
+            .transform(RoundedCorners(20))
+            .into(this)
+    }
+}
+
+@BindingAdapter("userCreationTimestamp")
+fun TextView.setDateFromFirebaseUser(user:FirebaseUser?){
+    if (user != null){
+        user.metadata?.creationTimestamp?.let {
+            text =  Date(it).getFormattedString()
+        }
+    }
 }

@@ -65,7 +65,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     private fun setUpTheme(){
-        //supportActionBar?.elevation  = 0F
         AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
     }
 

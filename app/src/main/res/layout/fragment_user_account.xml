@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.settings.PreferencesViewModel"/>
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.account.UserAccountFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.account.UserAccountFragment">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="E-mail"
+            android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.userData.email}"
+            android:textAppearance="@style/Theme.Blint.DataTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="50dp"
+            android:text="Nombre de usuario"
+            android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Theme.Blint.DataTextView"
+            android:text="@{viewModel.userData.displayName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:userDataImage="@{String.valueOf(viewModel.userData.photoUrl)}"
+            android:elevation="2dp"/>
+
+        <TextView
+            android:id="@+id/privacyPolicyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:textColor="@color/purple_200"
+            android:padding="8dp"
+            android:foreground="?selectableItemBackground"
+            android:textSize="16sp"
+            android:onClick="@{()->fragment.onReadPrivacyPolicyClicked()}"
+            android:text="Leer nuestras Politicas de Privacidad."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
+            android:text="Fecha de creacion"
+            app:layout_constraintStart_toStartOf="@+id/userEmail"
+            app:layout_constraintTop_toBottomOf="@+id/userEmail" />
+
+        <TextView
+            android:id="@+id/textView65"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Theme.Blint.DataTextView"
+            userCreationTimestamp="@{viewModel.userData}"
+            app:layout_constraintStart_toStartOf="@+id/textView63"
+            app:layout_constraintTop_toBottomOf="@+id/textView63" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

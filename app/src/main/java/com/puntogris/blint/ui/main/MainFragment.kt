@@ -85,11 +85,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         return listOf(
             MenuCard(ALL_PRODUCTS_CARD_CODE,"Productos", "$productsCount productos","Ver todos"),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores","Ver todos"),
             MenuCard(ALL_CLIENTS_CARD_CODE,"Clientes", "$clientsCount clientes","Ver todos"),
-            MenuCard(ACCOUNTING_CARD_CODE, "Balances", "","Contabilidad"),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores","Ver todos"),
             MenuCard(RECORDS_CARD_CODE,"Regristros",  "", "Gestionar"),
-            MenuCard(CHARTS_CARD_CODE, "Informes", "", "Ver todos")
+            MenuCard(CHARTS_CARD_CODE, "Informes", "", "Ver todos"),
+            MenuCard(ACCOUNTING_CARD_CODE, "Algo", "","Algo"),
         )
     }
 

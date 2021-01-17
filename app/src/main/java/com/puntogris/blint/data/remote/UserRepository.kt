@@ -37,6 +37,8 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
 
     override fun getCurrentUID() = auth.currentUser?.uid.toString()
 
+    override fun getCurrentUser() = auth.currentUser
+
     override suspend fun registerNewBusiness(name: String) = withContext(Dispatchers.IO) {
         try {
             val ref = firestore.collection("users").document(getCurrentUID()).collection("business").document()

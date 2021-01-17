@@ -27,7 +27,7 @@
             android:layout_width="120dp"
             android:layout_height="3dp"
             android:layout_marginTop="5dp"
-            android:background="@color/teal_200"
+            android:background="@color/purple_200"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -64,9 +64,11 @@
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/rateAppButton"
             android:layout_width="0dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/purple_200"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
@@ -82,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="Sugerencias"
-            android:textColor="@color/teal_200"
+            android:textColor="@color/purple_200"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:title="Backup automatico"
+        android:summary="Se guarda tu negocio en la nube automaticamente todos dias"
+        app:iconSpaceReserved="false"
+        android:key="auto_backup_pref"/>
+
+    <Preference
+        android:title="Crear copia de seguridad"
+        android:summary="Se respalda todo su negocio en la nube"
+        app:iconSpaceReserved="false"
+        android:key="create_backup_pref"/>
+
+    <Preference
+        android:title="Restaurar desde copia de seguridad"
+        android:summary="Se restaura su negocio desde la nube"
+        app:iconSpaceReserved="false"
+        android:key="restore_backup_pref"/>
+
+</PreferenceScreen>

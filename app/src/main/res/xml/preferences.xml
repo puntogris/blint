@@ -2,46 +2,39 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreference
-        android:title="Notificaciones"
-        app:icon="@drawable/ic_baseline_notifications_24"
-        android:key="notifications"/>
-
     <Preference
         android:title="Mi cuenta"
-        android:key="account"
-        android:icon="@drawable/ic_baseline_account_circle_24" />
+        android:key="account_pref"
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
 
     <Preference
-        android:title="Editar tarjetas inicio"
-        android:key="card"
-        android:icon="@drawable/ic_baseline_edit_24" />
+        android:title="Notificaciones"
+        app:icon="@drawable/ic_baseline_notifications_24"
+        android:key="notifications_pref"
+        android:fragment="com.puntogris.blint.ui.settings.NotificationsPreferences"/>
 
     <Preference
-        android:title="Privacidad"
-        android:key="privacy"
-        android:icon="@drawable/ic_baseline_security_24" />
-
-    <Preference
-        android:title="Ayuda"
-        android:key="help"
-        android:icon="@drawable/ic_baseline_help_24" />
+        android:title="Copias de seguridad"
+        android:key="backup_pref"
+        android:icon="@drawable/ic_baseline_backup_24"
+        android:fragment="com.puntogris.blint.ui.settings.BackupPreferences"/>
 
     <ListPreference
         android:title="Temas"
         app:icon="@drawable/ic_baseline_style_24"
-        android:defaultValue="11"
-        android:key="app_theme_pref"
+        android:defaultValue="1"
+        android:key="theme_pref"
         android:entries="@array/theme_names"
         android:entryValues="@array/theme_values"/>
 
     <Preference
-        android:title="Cerrar sesion"
-        android:key="singout"
-        android:icon="@drawable/ic_baseline_eject_24" />
+        android:title="Ayuda"
+        android:key="help_pref"
+        android:icon="@drawable/ic_baseline_help_24" />
 
     <Preference
         android:title="Acerca de Blint"
-        android:key="about"/>
+        app:iconSpaceReserved="false"
+        android:key="about_pref"/>
 
 </PreferenceScreen>

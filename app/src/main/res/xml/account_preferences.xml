@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="Mis datos"
+        android:key="user_data_pref"
+        android:icon="@drawable/ic_baseline_account_circle_24" />
+
+    <Preference
+        android:title="Mis negocios"
+        android:key="user_business_pref"
+        android:icon="@drawable/ic_baseline_store_24" />
+
+    <Preference
+        android:title="Facturacion"
+        android:key="payments_pref"
+        android:icon="@drawable/ic_baseline_payment_24" />
+
+    <Preference
+        android:title="Privacidad"
+        android:key="privacy_pref"
+        android:icon="@drawable/ic_baseline_security_24" />
+
+    <Preference
+        android:title="Cerrar sesion"
+        android:key="singOut_pref"
+        android:icon="@drawable/ic_baseline_eject_24" />
+</PreferenceScreen>
