@@ -12,6 +12,8 @@
         <!-- Customize your theme here. -->
         <item name="colorSurface">#121212</item>
         <item name="android:statusBarColor">@color/almostBlack</item>
+        <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
+
     </style>
 
     <style name="Theme.Blint.Fab.Child" parent="Widget.MaterialComponents.FloatingActionButton">

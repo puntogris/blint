@@ -1,40 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.ScannerResultDialog" />
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.ProductViewModel" />
+        <variable
+            name="product"
+            type="com.puntogris.blint.model.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:hint="Resultado"
-            android:layout_margin="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_marginTop="16dp"
+            android:text="Informacion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtResult"
-                android:inputType="text"
-                android:imeOptions="actionDone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textView58"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Edicion rapida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.475"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/textView60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Nombre"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintEnd_toStartOf="@+id/textView62"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView62" />
+
+        <TextView
+            android:id="@+id/textView61"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{product.name}"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintStart_toStartOf="@+id/textView60"
+            app:layout_constraintTop_toBottomOf="@+id/textView60" />
+
+        <TextView
+            android:id="@+id/textView62"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Stock"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintEnd_toStartOf="@+id/textView64"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView60"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/productAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(product.amount)}"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintStart_toStartOf="@+id/textView62"
+            app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+        <TextView
+            android:id="@+id/textView64"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="Ultimo cambio"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView62"
+            app:layout_constraintTop_toTopOf="@+id/textView62" />
+
+        <TextView
+            android:id="@+id/productLastEdited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.Blint.DataTextView"
+            android:text="13 / 05/ 21"
+            app:layout_constraintStart_toStartOf="@+id/textView64"
+            app:layout_constraintTop_toBottomOf="@+id/textView64" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCopy"
-            android:text="Confirmar"
-            android:insetTop="0dp"
-            app:cornerRadius="0dp"
-            app:backgroundTint="@color/colorCopyButton"
-            android:insetBottom="0dp"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            app:iconGravity="textStart"
-            app:icon="@drawable/ic_baseline_check_24"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/button6"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="@{()->fragment.onSaveProductClicked()}"
+            android:text="Guardar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productAmountTextInput"
+            app:strokeColor="@color/purple_200" />
 
-    </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button5"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="ir al producto"
+            android:onClick="@{()->fragment.onGoToProductClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productAmount"
+            app:strokeColor="@color/purple_200" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/productAmountTextInput"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:hint="Stock"
+            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView58">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/productAmountText"
+                emptyEditTextWithNumber="@{product.amount}"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/decreaseAmountButton"
+            style="@style/Theme.Blint.ImageButton"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/productAmountTextInput"
+            app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/productAmountTextInput"
+            app:layout_constraintTop_toTopOf="@+id/productAmountTextInput"
+            app:srcCompat="@drawable/ic_baseline_exposure_neg_1_24" />
+
+        <ImageButton
+            android:id="@+id/increaseAmountButton"
+            style="@style/Theme.Blint.ImageButton"
+            android:layout_marginEnd="24dp"
+            android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/decreaseAmountButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/decreaseAmountButton"
+            app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
+            app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

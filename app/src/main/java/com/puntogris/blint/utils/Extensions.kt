@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.parser.IntegerParser
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -92,6 +93,14 @@ fun Fragment.showLongSnackBarAboveFab(message: String){
 fun Fragment.createLongSnackBar(message: String): Snackbar{
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
+}
+
+fun BottomSheetDialogFragment.showSackBarAboveBotomSheet(message:String){
+    Snackbar.make(
+        dialog?.window!!.decorView,
+        message,
+        Snackbar.LENGTH_SHORT
+    ).show()
 }
 
 fun Fragment.createShortSnackBar(message: String): Snackbar{

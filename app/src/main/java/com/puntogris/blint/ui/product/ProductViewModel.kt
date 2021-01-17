@@ -42,7 +42,7 @@ class ProductViewModel @ViewModelInject constructor(
         val type = if (initialAmount < _currentProduct.value.amount) STOCK_INCREASE else STOCK_DECREASE
         val record = Record(
             type = type,
-            amount = abs(initialAmount - _currentProduct.value.amount).toInt(),
+            amount = abs(initialAmount - _currentProduct.value.amount),
             product = _currentProduct.value.id
         )
         recordsDao.insert(record)
@@ -61,7 +61,7 @@ class ProductViewModel @ViewModelInject constructor(
 
     fun setProductData(product: Product){
         _currentProduct.value = product
-        initialAmount = product.amount.toInt()
+        initialAmount = product.amount
     }
 
     fun updateProductImage(imageMap: HashMap<String, String>){
@@ -110,4 +110,14 @@ class ProductViewModel @ViewModelInject constructor(
         }.flow
     }
 
+    suspend fun getProductWithBarCode(barcode:String) =
+        productsDao.getProductWithBarcode(barcode)
+
+    fun getProductID() = _currentProduct.value.id
+
+    fun setNewProductStock(amount: Int){
+        viewModelScope.launch {
+            productsDao.updateProductAmount(_currentProduct.value.id, amount )
+        }
+    }
 }

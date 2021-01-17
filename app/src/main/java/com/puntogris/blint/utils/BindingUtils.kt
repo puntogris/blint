@@ -17,6 +17,12 @@ import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
+import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
+import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
+import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: HashMap<String,String>?){
@@ -39,12 +45,32 @@ fun ImageView.setImageFullSize(image: HashMap<String,String>?){
 
 @BindingAdapter("menuCardColor")
 fun CardView.setBackgroundColor(menuCard: MenuCard){
-    setCardBackgroundColor(context.getColor(menuCard.color))
+    when(menuCard.code){
+        ALL_PRODUCTS_CARD_CODE -> R.color.card1
+        ALL_CLIENTS_CARD_CODE -> R.color.card2
+        ALL_SUPPLIERS_CARD_CODE -> R.color.card3
+        ACCOUNTING_CARD_CODE -> R.color.card4
+        RECORDS_CARD_CODE -> R.color.card5
+        CHARTS_CARD_CODE -> R.color.card6
+        else -> R.color.card1
+    }.also {
+        setCardBackgroundColor(context.getColor(it))
+    }
 }
 
 @BindingAdapter("menuCardIcon")
 fun ImageView.setMenuCardIcon(menuCard: MenuCard){
-    setImageDrawable(ContextCompat.getDrawable(context, menuCard.icon))
+    when(menuCard.code){
+        ALL_PRODUCTS_CARD_CODE -> R.drawable.ic_baseline_library_books_24
+        ALL_CLIENTS_CARD_CODE -> R.drawable.ic_baseline_people_alt_24
+        ALL_SUPPLIERS_CARD_CODE -> R.drawable.ic_baseline_store_24
+        ACCOUNTING_CARD_CODE -> R.drawable.ic_baseline_account_balance_24
+        RECORDS_CARD_CODE -> R.drawable.ic_baseline_article_24
+        CHARTS_CARD_CODE -> R.drawable.ic_baseline_bar_chart_24
+        else -> R.drawable.ic_baseline_add_24
+    }.also {
+        setImageDrawable(ContextCompat.getDrawable(context, it))
+    }
     setColorFilter(Color.WHITE)
 }
 

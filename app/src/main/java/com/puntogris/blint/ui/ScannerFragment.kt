@@ -6,6 +6,8 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.common.util.concurrent.ListenableFuture
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -27,20 +29,27 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var orientationEventListener: OrientationEventListener
     private lateinit var cameraExecutor: ExecutorService
     private var flashEnabled = false
+    private val args: ScannerFragmentArgs by navArgs()
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+
 
     override fun initializeViews() {
         cameraExecutor = Executors.newSingleThreadExecutor()
-        startCamera()
         binding.overlay.post {
             binding.overlay.setViewFinder()
         }
-    }
-
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val cameraProvider = cameraProviderFuture.get()
+            bindPreview(cameraProvider)
+        }, ContextCompat.getMainExecutor(requireContext()))
+
+    }
+
+    private fun bindPreview(cameraProvider: ProcessCameraProvider?) {
+
+        cameraProviderFuture.addListener({
             val rotation = binding.viewFinder.display.rotation
 
             preview = Preview.Builder()
@@ -72,18 +81,28 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             barcodeAnalyzer.onResult {
                 requireActivity().runOnUiThread {
                     imageAnalysis.clearAnalyzer()
-                    cameraProvider.unbindAll()
-                    findNavController().apply {
-                        previousBackStackEntry!!.savedStateHandle.set("key", it)
-                        navigateUp()
+                    cameraProvider?.unbindAll()
+                    if (args.originDestination == 0){
+                            ScannerResultDialog
+                                .newInstance(it, object : ScannerResultDialog.DialogDismissListener {
+                                    override fun onDismiss() {
+                                        bindPreview(cameraProvider)
+                                    }
+                                })
+                                .show(parentFragmentManager, ScannerResultDialog::class.java.simpleName)
+                    }else{
+                        findNavController().apply {
+                            previousBackStackEntry!!.savedStateHandle.set("key", it)
+                            popBackStack()
+                        }
                     }
                 }
             }
 
             try {
-                cameraProvider.unbindAll()
+                cameraProvider?.unbindAll()
                 preview!!.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                camera = cameraProvider.bindToLifecycle(
+                camera = cameraProvider?.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
                 val parentFab = getParentFab()
                 if (camera!!.cameraInfo.hasFlashUnit()) {
@@ -109,10 +128,12 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
+
     override fun onDestroyView() {
         orientationEventListener.disable()
         camera = null
         preview = null
         super.onDestroyView()
     }
+
 }

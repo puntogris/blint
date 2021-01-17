@@ -15,6 +15,7 @@
         <item name="android:statusBarColor">@color/grey_5</item>
         <item name="android:windowBackground">@color/grey_5</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
 <!--    chart-->
@@ -55,5 +56,11 @@
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="android:backgroundTint">@color/grey_10</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
     </style>
 </resources>

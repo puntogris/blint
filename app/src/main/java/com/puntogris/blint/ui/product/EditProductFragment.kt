@@ -66,7 +66,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
-                if (isGranted) findNavController().navigate(R.id.scannerFragment)
+                if (isGranted) {
+                    val action = EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
+                    findNavController().navigate(action)
+                }
                 else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
             }
     }
@@ -127,12 +130,12 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun onIncreaseAmountButtonClicked(){
         binding.pricesLayout.productAmountText.apply {
-            setText(getFloat().inc().toString())
+            setText(getInt().inc().toString())
         }
     }
     fun onDecreaseAmountButtonClicked(){
         binding.pricesLayout.productAmountText.apply {
-            setText(getFloat().dec().toString())
+            setText(getInt().dec().toString())
         }
     }
 

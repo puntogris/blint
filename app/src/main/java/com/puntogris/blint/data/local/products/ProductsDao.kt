@@ -17,7 +17,10 @@ interface ProductsDao {
     suspend fun delete(id: Int)
 
     @Query("SELECT * FROM product WHERE id = :id")
-    suspend fun getProduct(id:Int): Product
+    suspend fun getProduct(id: Int): Product
+
+    @Query("SELECT * FROM product WHERE barcode = :barcode")
+    suspend fun getProductWithBarcode(barcode: String): Product
 
     @Query("SELECT COUNT(*) FROM product")
     suspend fun getCount(): Int
@@ -26,7 +29,10 @@ interface ProductsDao {
     fun getAllPaged(): PagingSource<Int, Product>
 
     @Query("SELECT * FROM product WHERE name LIKE :name")
-    fun getPagedSearch(name :String): PagingSource<Int, Product>
+    fun getPagedSearch(name: String): PagingSource<Int, Product>
+
+    @Query("UPDATE product SET amount = :amount WHERE id = :id")
+    suspend fun updateProductAmount(id: Int, amount: Int)
 
 //    @Query("SELECT * FROM product ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
 //    fun getAllPaged(isAsc:Boolean): PagingSource<Int, Product>

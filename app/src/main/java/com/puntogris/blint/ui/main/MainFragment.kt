@@ -7,7 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
@@ -19,44 +21,46 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var businessAdapter: BusinessAdapter
+    private lateinit var dropDownMenuAdapter: DropDownMenuAdapter
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     override fun initializeViews() {
         setupRecyclerView()
         setupBusinessMenu()
+        changeBusinessListener()
     }
 
     private fun setupBusinessMenu(){
         val dropDownMenu = (binding.businessMenuDropDown as? AutoCompleteTextView)
-        businessAdapter = BusinessAdapter(requireContext())
-        dropDownMenu?.setAdapter(businessAdapter)
+        dropDownMenuAdapter = DropDownMenuAdapter(requireContext())
+        dropDownMenu?.setAdapter(dropDownMenuAdapter)
         lifecycleScope.launch(Dispatchers.IO) {
             val businesses = viewModel.getBusiness()
             val businessesNames = businesses.map { it.name }
             dropDownMenu?.setText(businesses.first().name, false)
-            businessAdapter.setList(businessesNames)
+            dropDownMenuAdapter.setList(businessesNames)
         }
-
-
     }
 
     private fun changeBusinessListener(){
         binding.businessMenuDropDown.setOnItemClickListener { adapterView, view, i, l ->
-            //get the info from database and update ui
+
         }
     }
 
     private fun setupRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
-        val cardList = listOf(ALL_PRODUCTS_CARD_CODE, ALL_CLIENTS_CARD_CODE, ALL_SUPPLIERS_CARD_CODE,ACCOUNTING_CARD_CODE,RECORDS_CARD_CODE, CHARTS_CARD_CODE)
         lifecycleScope.launch {
-            mainMenuAdapter.submitList(getMenuCardList(cardList))
+            mainMenuAdapter.submitList(getMenuCardList())
         }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
@@ -74,40 +78,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private suspend fun getMenuCardList(codeList: List<Int>): List<MenuCard?>{
-        return codeList.map {
-            when(it){
-                ALL_PRODUCTS_CARD_CODE ->{
-                    val count = viewModel.getProductsCount()
-                    MenuCard(it,"Productos", R.drawable.ic_baseline_library_books_24,"$count productos","Ver todos", R.color.card1)
-                }
-                ALL_SUPPLIERS_CARD_CODE -> {
-                    val count = viewModel.getSuppliersCount()
-                    MenuCard(
-                        it,
-                        "Proveedores",
-                        R.drawable.ic_baseline_store_24,
-                        "$count proveedores",
-                        "Ver todos",
-                        R.color.card2
-                    )
-                }
-                ALL_CLIENTS_CARD_CODE -> {
-                    val count = viewModel.getClientsCount()
-                    MenuCard(it,"Clientes", R.drawable.ic_baseline_people_alt_24,"$count clientes","Ver todos", R.color.card3)
-                }
-                ACCOUNTING_CARD_CODE -> {
-                    MenuCard(it, "Balances", R.drawable.ic_baseline_account_balance_24, "","Contabilidad", R.color.card4 )
-                }
-                RECORDS_CARD_CODE ->
-                    MenuCard(it,"Regristros", R.drawable.ic_baseline_article_24, "", "Gestionar", R.color.card5)
-                CHARTS_CARD_CODE->
-                    MenuCard(it, "Informes", R.drawable.ic_baseline_bar_chart_24, "", "Ver todos", R.color.card6)
-                else -> null
-            }
-        }
-    }
+    private suspend fun getMenuCardList(): List<MenuCard>{
+        val productsCount = viewModel.getProductsCount()
+        val suppliersCount = viewModel.getSuppliersCount()
+        val clientsCount = viewModel.getClientsCount()
 
+        return listOf(
+            MenuCard(ALL_PRODUCTS_CARD_CODE,"Productos", "$productsCount productos","Ver todos"),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores","Ver todos"),
+            MenuCard(ALL_CLIENTS_CARD_CODE,"Clientes", "$clientsCount clientes","Ver todos"),
+            MenuCard(ACCOUNTING_CARD_CODE, "Balances", "","Contabilidad"),
+            MenuCard(RECORDS_CARD_CODE,"Regristros",  "", "Gestionar"),
+            MenuCard(CHARTS_CARD_CODE, "Informes", "", "Ver todos")
+        )
+    }
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
