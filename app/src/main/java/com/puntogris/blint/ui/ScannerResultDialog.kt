@@ -59,9 +59,8 @@ class ScannerResultDialog(private val listener: DialogDismissListener) : BottomS
 
     fun onGoToProductClicked(){
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.getProductID())
+        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(viewModel.getProductID())
         findNavController().navigate(action)
-
     }
 
     fun onSaveProductClicked(){

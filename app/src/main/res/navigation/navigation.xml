@@ -13,8 +13,8 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_scannerFragment_to_productFragment"
-            app:destination="@id/productFragment" />
+            android:id="@+id/action_scannerFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -188,4 +188,8 @@
         android:id="@+id/joinBusinessFragment"
         android:name="com.puntogris.blint.ui.business.JoinBusinessFragment"
         android:label="" />
+    <dialog
+        android:id="@+id/scannerResultDialog"
+        android:name="com.puntogris.blint.ui.ScannerResultDialog"
+        android:label="ScannerResultDialog" />
 </navigation>

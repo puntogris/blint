@@ -128,7 +128,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-
     override fun onDestroyView() {
         orientationEventListener.disable()
         camera = null
