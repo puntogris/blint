@@ -132,3 +132,13 @@ fun TextView.setDateFromFirebaseUser(user:FirebaseUser?){
         }
     }
 }
+
+@BindingAdapter("userRoleFormatted")
+fun TextView.setUserRoleFormatted(role:String){
+    text = role.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())
+}
+
+@BindingAdapter("upperCaseToLowerCapitalize")
+fun TextView.setUpperCaseToLowerCapitalize(role:String){
+    text = role.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())
+}

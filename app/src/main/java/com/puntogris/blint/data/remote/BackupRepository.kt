@@ -11,6 +11,7 @@ import com.puntogris.blint.data.local.records.RecordsDatabase
 import com.puntogris.blint.data.local.suppliers.SuppliersDatabase
 import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.Util
+import com.puntogris.blint.utils.Util.zipDatabases
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -33,35 +34,29 @@ class BackupRepository @Inject constructor(
     private val storage =  Firebase.storage.reference
     private val auth = FirebaseAuth.getInstance()
 
-
     //hacer esta funcion sin suspend y con state flow para poder mostrar el progreso? idk
     //ponerla linda que esta un desastre
     override suspend fun createBackupForBusiness(businessID: String ,paths: List<String>):SimpleResult {
         return try {
-//            productsDatabase.close()
-//            clientsDatabase.close()
-//            suppliersDatabase.close()
-//            recordsDatabase.close()
-//            businessDatabase.close()
-            //     paths.forEach {
-            val databasesfiles = paths.map {
-                File(it)
-            }
-            val dbRef = storage.child(
-                "users/${auth.currentUser?.uid}/backup/backup_.zip"
-            )
-            Util.zipDatabases(databasesfiles, context.filesDir.path, "backup_.zip")
+            productsDatabase.close()
+            clientsDatabase.close()
+            suppliersDatabase.close()
+            recordsDatabase.close()
+            businessDatabase.close()
+            val databasesFiles = paths.map { File(it) }
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
+            zipDatabases(databasesFiles, context.filesDir.path, "$businessID.zip")
             withContext(Dispatchers.IO) {
-                val stream = FileInputStream(File(context.filesDir.path+"/backup_.zip"))
-                val test = dbRef.putStream(stream).await()
+                val stream = FileInputStream(File(context.filesDir.path +"/$businessID.zip"))
+                dbRef.putStream(stream).await()
             }
             SimpleResult.Success
         }
         catch (e: Exception){
-            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }
+
     override suspend fun restoreBackupForBusiness(): SimpleResult {
         return try {
             productsDatabase.close()

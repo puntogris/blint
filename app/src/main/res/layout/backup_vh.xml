@@ -47,12 +47,11 @@
         <TextView
             android:id="@+id/textView59"
             style="@style/Theme.Blint.DataTextView"
+            userRoleFormatted="@{business.userRole}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="@{business.userRole}"
             app:layout_constraintBottom_toBottomOf="@+id/textView42"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView71"
             app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
         <TextView
@@ -70,17 +69,19 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
             android:text="Ultimo respaldo"
             app:layout_constraintBottom_toBottomOf="@+id/textView69"
-            app:layout_constraintStart_toStartOf="@+id/textView59"
-            app:layout_constraintTop_toTopOf="@+id/textView69" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView69"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView70"
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{business.type}"
+            upperCaseToLowerCapitalize="@{business.type}"
             app:layout_constraintStart_toStartOf="@+id/textView69"
             app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
