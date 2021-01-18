@@ -68,7 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
-            addItemDecoration(SpaceItemDecoration(30, true))
+            addItemDecoration(SpaceItemDecoration(20, true))
         }
     }
 
@@ -87,12 +87,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val clientsCount = viewModel.getClientsCount()
 
         return listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE,"Productos", "$productsCount productos","Ver todos"),
-            MenuCard(ALL_CLIENTS_CARD_CODE,"Clientes", "$clientsCount clientes","Ver todos"),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores","Ver todos"),
-            MenuCard(RECORDS_CARD_CODE,"Regristros",  "", "Gestionar"),
-            MenuCard(CHARTS_CARD_CODE, "Informes", "", "Ver todos"),
-            MenuCard(ACCOUNTING_CARD_CODE, "Algo", "","Algo"),
+            MenuCard(ALL_PRODUCTS_CARD_CODE,"Productos", "$productsCount productos",""),
+            MenuCard(ALL_CLIENTS_CARD_CODE,"Clientes", "$clientsCount clientes",""),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores",""),
+            MenuCard(RECORDS_CARD_CODE,"Movimientos",  "", ""),
+            MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
+            MenuCard(ACCOUNTING_CARD_CODE, "Algo", "",""),
         )
     }
 

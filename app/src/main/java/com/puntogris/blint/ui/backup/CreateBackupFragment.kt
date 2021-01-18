@@ -78,7 +78,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     private fun businessClickListener(business: Business){
         InfoSheet().show(requireParentFragment().requireContext()){
             title("Estas seguro de esta accion?")
-            content("Esto reemplazara a un respaldo de tu negocio ya existente en el caso de que exista.")
+            content("Esto reemplazara a un respaldo de tu negocio ya existente en el caso de que exista. Ten en cuenta que no podemos guardar tus imagenes asi que no estan cubiertas por el respaldo.")
             onNegative("Cancelar")
             onPositive("Respaldar") {  startBusinessBackup(business.id) }
         }

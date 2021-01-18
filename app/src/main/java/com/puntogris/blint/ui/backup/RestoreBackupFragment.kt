@@ -73,7 +73,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     private fun businessClickListener(business: Business){
         InfoSheet().show(requireParentFragment().requireContext()){
             title("Estas seguro de esta accion?")
-            content("Esto restaura todo tu negocio desde la ultima copia que subiste a la nube, toda la informacion que tengas se borrara y reemplazara por la copia de seguridad.")
+            content("Esto restaura todo tu negocio desde la ultima copia que subiste a la nube, toda la informacion que tengas se borrara y reemplazara por la copia de seguridad. Ten en cuenta que las imagenes no se restableceran.")
             onNegative("Cancelar")
             onPositive("Restaurar") { startBusinessBackup(business.id) }
         }
