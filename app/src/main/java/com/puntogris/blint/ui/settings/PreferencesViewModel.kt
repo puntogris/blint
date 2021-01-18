@@ -27,7 +27,8 @@ class PreferencesViewModel @ViewModelInject constructor(
     suspend fun backupBusiness(businessID:String, paths: List<String>) =
         backupRepository.createBackupForBusiness(businessID, paths)
 
-    suspend fun restoreBackup() = backupRepository.restoreBackupForBusiness()
+    suspend fun restoreBackup(businessID: String ,paths: List<String>) =
+        backupRepository.restoreBackupForBusiness(businessID, paths)
 
     fun getOwnerBusiness() = userRepository.getOwnerBusiness()
 

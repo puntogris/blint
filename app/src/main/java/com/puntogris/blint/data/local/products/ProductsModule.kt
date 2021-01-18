@@ -29,7 +29,7 @@ class ProductsModule {
                 ProductsDatabase::class.java,
                 "products_table"
             )
-            //.setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
+            .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
             .build()
     }
 

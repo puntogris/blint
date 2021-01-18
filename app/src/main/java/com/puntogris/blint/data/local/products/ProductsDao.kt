@@ -34,6 +34,9 @@ interface ProductsDao {
     @Query("UPDATE product SET amount = :amount WHERE id = :id")
     suspend fun updateProductAmount(id: Int, amount: Int)
 
+    @Query("UPDATE product SET name = :text")
+    suspend fun clearImages(text:String)
+
 //    @Query("SELECT * FROM product ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
 //    fun getAllPaged(isAsc:Boolean): PagingSource<Int, Product>
 

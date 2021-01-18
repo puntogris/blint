@@ -2,6 +2,7 @@ package com.puntogris.blint.data.local.businesses
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +27,8 @@ class BusinessModule {
                         BusinessDatabase::class.java,
                         "business_table"
                 )
-                .build()
+            .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
+            .build()
     }
 
 }

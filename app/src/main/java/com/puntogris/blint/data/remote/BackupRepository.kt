@@ -6,12 +6,15 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.data.local.businesses.BusinessDatabase
 import com.puntogris.blint.data.local.clients.ClientsDatabase
+import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.data.local.products.ProductsDatabase
 import com.puntogris.blint.data.local.records.RecordsDatabase
 import com.puntogris.blint.data.local.suppliers.SuppliersDatabase
+import com.puntogris.blint.ui.main.MainActivity
 import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.Util
 import com.puntogris.blint.utils.Util.zipDatabases
+import com.wwdablu.soumya.wzip.WZip
+import com.wwdablu.soumya.wzip.WZipCallback
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -21,6 +24,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.nio.channels.FileChannel
 import javax.inject.Inject
+import javax.security.auth.callback.Callback
 
 class BackupRepository @Inject constructor(
     @ApplicationContext val context: Context,
@@ -28,7 +32,8 @@ class BackupRepository @Inject constructor(
     private val clientsDatabase: ClientsDatabase,
     private val suppliersDatabase: SuppliersDatabase,
     private val recordsDatabase: RecordsDatabase,
-    private val businessDatabase: BusinessDatabase
+    private val businessDatabase: BusinessDatabase,
+    private val productsDao: ProductsDao
 ):IBackupRepository {
 
     private val storage =  Firebase.storage.reference
@@ -36,20 +41,18 @@ class BackupRepository @Inject constructor(
 
     //hacer esta funcion sin suspend y con state flow para poder mostrar el progreso? idk
     //ponerla linda que esta un desastre
-    override suspend fun createBackupForBusiness(businessID: String ,paths: List<String>):SimpleResult {
+    override suspend fun createBackupForBusiness(businessID: String, paths: List<String>):SimpleResult {
         return try {
-            productsDatabase.close()
-            clientsDatabase.close()
-            suppliersDatabase.close()
-            recordsDatabase.close()
-            businessDatabase.close()
+            closeDatabasesForBackup()
             val databasesFiles = paths.map { File(it) }
             val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
             zipDatabases(databasesFiles, context.filesDir.path, "$businessID.zip")
+            val zipFile = File(context.filesDir.path + "/$businessID.zip")
             withContext(Dispatchers.IO) {
-                val stream = FileInputStream(File(context.filesDir.path +"/$businessID.zip"))
+                val stream = FileInputStream(zipFile)
                 dbRef.putStream(stream).await()
             }
+            zipFile.delete()
             SimpleResult.Success
         }
         catch (e: Exception){
@@ -57,22 +60,51 @@ class BackupRepository @Inject constructor(
         }
     }
 
-    override suspend fun restoreBackupForBusiness(): SimpleResult {
+
+    override suspend fun restoreBackupForBusiness(businessID: String, paths: List<String>): SimpleResult {
         return try {
-            productsDatabase.close()
-            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/products_table.db")
-            val localFile = File(context.filesDir,"products_table.db")
-            //if (!localFile.exists()) localFile.mkdirs()
+            closeDatabasesForBackup()
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
+
+            val localFile = File(context.filesDir.path + "/backup/$businessID", "$businessID.zip")
+
+            if (!localFile.exists()) localFile.parentFile?.mkdirs()
             dbRef.getFile(localFile).await()
-            copyFile(localFile.inputStream(), File("/data/user/0/com.puntogris.blint/databases/products_table").outputStream())
+
+            withContext(Dispatchers.IO){
+                WZip().unzip(localFile, localFile.parentFile!! ,"bitMapZipper" , object : WZipCallback{
+
+                    override fun onStarted(identifier: String?) {
+
+                    }
+
+                    override fun onZipCompleted(zipFile: File?, identifier: String?) {
+                    }
+
+                    override fun onUnzipCompleted(identifier: String?) {
+                        println(identifier.toString())
+                        paths.forEach {
+                            copyFile(
+                                File(localFile.parentFile!!.path + "/" + it.substringAfterLast("/")).inputStream(),
+                                File(it).outputStream()
+                            )
+                        }
+                    }
+
+                    override fun onError(throwable: Throwable?, identifier: String?) {
+
+                    }
+                })
+            }
 
             SimpleResult.Success
-        }catch (e: java.lang.Exception){
+        }catch (e: Exception){
+            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }
 
-    fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
+    private fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
         var fromChannel: FileChannel? = null
         var toChannel: FileChannel? = null
         try {
@@ -86,5 +118,14 @@ class BackupRepository @Inject constructor(
                 toChannel?.close()
             }
         }
+    }
+
+
+    private fun closeDatabasesForBackup(){
+        productsDatabase.close()
+        clientsDatabase.close()
+        suppliersDatabase.close()
+        recordsDatabase.close()
+        businessDatabase.close()
     }
 }

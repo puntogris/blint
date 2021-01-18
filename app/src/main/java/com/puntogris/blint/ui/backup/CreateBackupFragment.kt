@@ -108,6 +108,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     }
 
     private fun showFailureBackupUI(){
+        binding.animationView.gone()
         binding.animationView.cancelAnimation()
         binding.backupSummary.text = "*Ocurrio un problema respaldando tu negocio. Intenta nuevamente mas tarde."
 

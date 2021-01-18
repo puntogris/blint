@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
+import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.MenuCard
@@ -33,7 +34,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     @Inject
     lateinit var sharedPref: SharedPref
 
+    @Inject lateinit var productsDao: ProductsDao
+
     override fun initializeViews() {
+        lifecycleScope.launchWhenStarted {
+         //   productsDao.clearImages("xd")
+        }
         setupRecyclerView()
         setupBusinessMenu()
         changeBusinessListener()
