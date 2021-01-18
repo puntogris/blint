@@ -1,6 +1,7 @@
 package com.puntogris.blint.data.remote
 
 import android.content.Context
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -17,6 +18,8 @@ import com.wwdablu.soumya.wzip.WZip
 import com.wwdablu.soumya.wzip.WZipCallback
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -61,7 +64,7 @@ class BackupRepository @Inject constructor(
     }
 
 
-    override suspend fun restoreBackupForBusiness(businessID: String, paths: List<String>): SimpleResult {
+    override suspend fun restoreBackupForBusiness(businessID: String, paths: List<String>): SimpleResult  {
         return try {
             closeDatabasesForBackup()
             val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
@@ -82,13 +85,14 @@ class BackupRepository @Inject constructor(
                     }
 
                     override fun onUnzipCompleted(identifier: String?) {
-                        println(identifier.toString())
                         paths.forEach {
                             copyFile(
                                 File(localFile.parentFile!!.path + "/" + it.substringAfterLast("/")).inputStream(),
                                 File(it).outputStream()
                             )
+                            File(localFile.parentFile!!.path + "/" + it.substringAfterLast("/")).delete()
                         }
+                        localFile.delete()
                     }
 
                     override fun onError(throwable: Throwable?, identifier: String?) {

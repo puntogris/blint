@@ -91,6 +91,14 @@ fun Fragment.showLongSnackBarAboveFab(message: String){
             .show()
 }
 
+fun Activity.showLongSnackBarAboveFab(message: String){
+    val snackLayout = findViewById<View>(android.R.id.content)
+    Snackbar
+        .make(snackLayout, message, Snackbar.LENGTH_LONG)
+        .setAnchorView(findViewById(R.id.addFav))
+        .show()
+}
+
 fun Fragment.createLongSnackBar(message: String): Snackbar{
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)

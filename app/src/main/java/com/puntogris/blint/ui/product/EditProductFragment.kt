@@ -40,6 +40,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     viewModel.setProductData(product)
                 }
             }
+            args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true
         }
 

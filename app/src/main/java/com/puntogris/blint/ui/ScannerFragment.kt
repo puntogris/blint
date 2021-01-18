@@ -83,13 +83,13 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     imageAnalysis.clearAnalyzer()
                     cameraProvider?.unbindAll()
                     if (args.originDestination == 0){
-                            ScannerResultDialog
-                                .newInstance(it, object : ScannerResultDialog.DialogDismissListener {
+                            ScannerResultBottomSheet
+                                .newInstance(it, object : ScannerResultBottomSheet.DialogDismissListener {
                                     override fun onDismiss() {
                                         bindPreview(cameraProvider)
                                     }
                                 })
-                                .show(parentFragmentManager, ScannerResultDialog::class.java.simpleName)
+                                .show(parentFragmentManager, ScannerResultBottomSheet::class.java.simpleName)
                     }else{
                         findNavController().apply {
                             previousBackStackEntry!!.savedStateHandle.set("key", it)

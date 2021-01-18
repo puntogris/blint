@@ -25,17 +25,30 @@ class ProductViewModel @ViewModelInject constructor(
 
     var viewsLoaded = false
 
+    private val _barcodeScanned = MutableLiveData<String>()
+    val barcodeScanned: LiveData<String> = _barcodeScanned
+
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
 
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
+    fun updateBarcodeScanned(barcode: String){
+        _barcodeScanned.value = barcode
+    }
+
+    fun getBarcodeScanned() = _barcodeScanned.value.toString()
+
     fun saveProductDatabase(){
         viewModelScope.launch {
             productsDao.insert(_currentProduct.value)
             saveRecordToDatabase()
         }
+    }
+
+    fun updateCurrentProductBarcode(barcode: String){
+        _currentProduct.value.barcode = barcode
     }
 
     private suspend fun saveRecordToDatabase(){

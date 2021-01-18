@@ -20,7 +20,7 @@ interface ProductsDao {
     suspend fun getProduct(id: Int): Product
 
     @Query("SELECT * FROM product WHERE barcode = :barcode")
-    suspend fun getProductWithBarcode(barcode: String): Product
+    suspend fun getProductWithBarcode(barcode: String): Product?
 
     @Query("SELECT COUNT(*) FROM product")
     suspend fun getCount(): Int
@@ -34,8 +34,8 @@ interface ProductsDao {
     @Query("UPDATE product SET amount = :amount WHERE id = :id")
     suspend fun updateProductAmount(id: Int, amount: Int)
 
-    @Query("UPDATE product SET name = :text")
-    suspend fun clearImages(text:String)
+    @Query("UPDATE product SET image = :empty")
+    suspend fun clearImages(empty: HashMap<String, String>)
 
 //    @Query("SELECT * FROM product ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
 //    fun getAllPaged(isAsc:Boolean): PagingSource<Int, Product>

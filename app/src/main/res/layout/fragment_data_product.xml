@@ -29,6 +29,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                style="@style/Theme.Blint.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp">
@@ -119,6 +120,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
+                style="@style/Theme.Blint.CardView"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp">
 
@@ -232,6 +234,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
+                style="@style/Theme.Blint.CardView"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp">
 
@@ -303,6 +306,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Theme.Blint.CardView"
                 android:layout_marginTop="24dp">
 
                 <LinearLayout
@@ -340,6 +344,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                style="@style/Theme.Blint.CardView"
                 android:layout_marginBottom="20dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

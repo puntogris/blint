@@ -16,7 +16,7 @@ data class Product(
     val name: String = "",
 
     @ColumnInfo
-    val barcode: String = "",
+    var barcode: String = "",
 
     @ColumnInfo
     val description: String = "",

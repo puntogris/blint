@@ -5,25 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
-import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ScannerResultDialog(private val listener: DialogDismissListener) : BottomSheetDialogFragment() {
+class ScannerResultBottomSheet(private val listener: DialogDismissListener) : BottomSheetDialogFragment() {
 
     private lateinit var binding: ScannerResultDialogBinding
     private val viewModel: ProductViewModel by viewModels()
@@ -35,22 +31,38 @@ class ScannerResultDialog(private val listener: DialogDismissListener) : BottomS
         binding = ScannerResultDialogBinding.inflate(
             inflater, container, false
         )
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         binding.fragment = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val scannedResult = arguments?.getString(ARG_SCANNING_RESULT)
+        viewModel.updateBarcodeScanned(scannedResult.toString())
         lifecycleScope.launch {
             val product = viewModel.getProductWithBarCode(scannedResult.toString())
-            viewModel.setProductData(product)
-            binding.product = product
+            if (product!= null){
+                viewModel.setProductData(product)
+                showProductUI(product)
+            }else showProductNotFoundUI()
+
         }
     }
 
+    private fun showProductUI(product: Product){
+        binding.productFoundGroup.visible()
+        viewModel.setProductData(product)
+        binding.product = product
+    }
+
+    private fun showProductNotFoundUI(){
+        binding.productNotFoundGroup.visible()
+    }
+
     companion object {
-        fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultDialog =
-            ScannerResultDialog(listener).apply {
+        fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultBottomSheet =
+            ScannerResultBottomSheet(listener).apply {
                 arguments = Bundle().apply {
                     putString(ARG_SCANNING_RESULT, scanningResult)
                 }
@@ -68,6 +80,12 @@ class ScannerResultDialog(private val listener: DialogDismissListener) : BottomS
         binding.productAmount.text = binding.productAmountText.getString()
         binding.productLastEdited.text = Date().getFormattedString()
         showSackBarAboveBotomSheet("Se actualizo el producto correctamente.")
+    }
+
+    fun onCreateNewProductClicked(){
+        dismiss()
+        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getBarcodeScanned())
+        findNavController().navigate(action)
     }
 
     fun onIncreaseAmountButtonClicked(){

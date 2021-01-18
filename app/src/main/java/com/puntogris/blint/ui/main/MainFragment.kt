@@ -37,9 +37,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     @Inject lateinit var productsDao: ProductsDao
 
     override fun initializeViews() {
-        lifecycleScope.launchWhenStarted {
-         //   productsDao.clearImages("xd")
-        }
         setupRecyclerView()
         setupBusinessMenu()
         changeBusinessListener()

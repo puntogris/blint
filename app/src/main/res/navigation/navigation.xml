@@ -161,6 +161,10 @@
         <action
             android:id="@+id/action_editProductFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
+        <argument
+            android:name="barcodeScanned"
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/editClientFragment"
@@ -190,7 +194,7 @@
         android:label="" />
     <dialog
         android:id="@+id/scannerResultDialog"
-        android:name="com.puntogris.blint.ui.ScannerResultDialog"
+        android:name="com.puntogris.blint.ui.ScannerResultBottomSheet"
         android:label="ScannerResultDialog" />
     <fragment
         android:id="@+id/accountPreferences"

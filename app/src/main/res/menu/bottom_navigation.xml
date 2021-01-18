@@ -8,16 +8,16 @@
         android:title="Configuracion"
         android:icon="@drawable/ic_baseline_settings_24"/>
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:id="@+id/scannerFragment"
+        android:icon="@drawable/ic_search_barcode_2"
         android:title="Buscar"
         app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/reportUserItemMenu"
-                android:title="Por nombre" />
-            <item android:id="@+id/scannerFragment"
-                android:title="Con codigo de barras" />
-        </menu>
+<!--        <menu >-->
+<!--            <item android:id="@+id/reportUserItemMenu"-->
+<!--                android:title="Por nombre" />-->
+<!--            <item android:id="@+id/scannerFragment"-->
+<!--                android:title="Con codigo de barras" />-->
+<!--        </menu>-->
     </item>
 
 </menu>

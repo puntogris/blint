@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.ScannerResultDialog" />
+            type="com.puntogris.blint.ui.ScannerResultBottomSheet" />
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.ProductViewModel" />
@@ -19,6 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/productFoundGroup"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:constraint_referenced_ids="productAmountTextInput,button6,textView58,productLastEdited,textView64,productAmount,textView60,textView62,button5,increaseAmountButton,textView15,textView61,decreaseAmountButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </androidx.constraintlayout.widget.Group>
 
         <TextView
             android:id="@+id/textView15"
@@ -188,6 +202,69 @@
             app:layout_constraintStart_toEndOf="@+id/decreaseAmountButton"
             app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
             app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/productNotFoundGroup"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:constraint_referenced_ids="textView67,button7,barcodeScanned,textView66">
+
+
+        </androidx.constraintlayout.widget.Group>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button7"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{()-> fragment.onCreateNewProductClicked()}"
+            android:text="crear producto con este codigo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView67"
+            app:strokeColor="@color/purple_200" />
+
+        <TextView
+            android:id="@+id/textView66"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textAlignment="center"
+            android:textSize="17sp"
+            android:layout_marginTop="24dp"
+            android:text="No se encontro un producto con este codigo de barras."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView67"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Codigo:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView66" />
+
+        <TextView
+            android:id="@+id/barcodeScanned"
+            android:layout_width="wrap_content"
+            style="@style/Theme.Blint.DataTextView"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(viewModel.barcodeScanned)}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView67"
+            app:layout_constraintStart_toEndOf="@+id/textView67"
+            app:layout_constraintTop_toTopOf="@+id/textView67" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

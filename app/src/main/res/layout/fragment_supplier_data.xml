@@ -29,6 +29,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_marginTop="24dp"
+                style="@style/Theme.Blint.CardView"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -118,6 +119,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_marginTop="24dp"
+                style="@style/Theme.Blint.CardView"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -192,6 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="20dp"
+                style="@style/Theme.Blint.CardView"
                 android:layout_height="wrap_content">
 
                 <LinearLayout

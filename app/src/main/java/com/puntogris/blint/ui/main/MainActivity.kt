@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.main
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
@@ -8,16 +9,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
 import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
+import com.puntogris.blint.ui.product.EditProductFragmentDirections
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var clicked = false
+    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     @Inject lateinit var sharedPref: SharedPref
 
@@ -57,6 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     override fun initializeViews() {
         setUpTheme()
         setUpNavigation()
+        setUpScanner()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -66,6 +73,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     private fun setUpTheme(){
         AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
+    }
+
+    private fun setUpScanner(){
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission())
+            { isGranted: Boolean ->
+                if (isGranted) navController.navigate(R.id.scannerFragment)
+                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+            }
     }
 
 
@@ -223,12 +239,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
-            R.id.scannerFragment -> {
-                navController.navigate(R.id.scannerFragment)
-            }
-            R.id.preferencesFragment -> {
-                navController.navigate(R.id.preferencesFragment)
-            }
+            R.id.scannerFragment -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            R.id.preferencesFragment -> navController.navigate(R.id.preferencesFragment)
         }
         return true
     }
