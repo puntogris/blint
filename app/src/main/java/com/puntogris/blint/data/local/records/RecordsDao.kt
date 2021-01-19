@@ -20,8 +20,8 @@ interface RecordsDao {
     @Query("SELECT * FROM record")
     fun getAllPaged(): PagingSource<Int, Record>
 
-    @Query("SELECT * FROM record WHERE :product = product")
-    fun getProductRecordsPaged(product: Int): PagingSource<Int, Record>
+    @Query("SELECT * FROM record WHERE :productID = productID")
+    fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
 
     @Query("SELECT * FROM record WHERE productName LIKE :productName")
     fun getPagedSearch(productName: String): PagingSource<Int, Record>

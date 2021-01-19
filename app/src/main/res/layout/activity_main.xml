@@ -109,19 +109,6 @@
                 app:layout_constraintStart_toStartOf="@+id/addClientFab"
                 app:srcCompat="@drawable/ic_baseline_add_business_24" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addRecordFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/Theme.Blint.Fab.Child"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/addSupplierFab"
-                app:layout_constraintEnd_toEndOf="@+id/addSupplierFab"
-                app:layout_constraintStart_toStartOf="@+id/addSupplierFab"
-                app:srcCompat="@drawable/ic_baseline_post_add_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

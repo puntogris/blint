@@ -1,5 +1,7 @@
 package com.puntogris.blint.ui.product
 
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
@@ -34,7 +36,6 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
 //            }
 //        }
 
-
     }
 
     private fun setUpPieView() {
@@ -45,8 +46,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
             RallyPiePortion("it.name", 3500F, ContextCompat.getColor(requireContext(), R.color.teal_200))
         )
 
-        val rallyPieData =
-            RallyPieData(portions = rallyPiePortions, maxValue = 5000F)
+        val rallyPieData =  RallyPieData(portions = rallyPiePortions, maxValue = 5000F)
 
         val rallyPieAnimation = PieChartAnimation(binding.pieChart)
         rallyPieAnimation.duration = 600

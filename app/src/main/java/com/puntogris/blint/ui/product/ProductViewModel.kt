@@ -25,20 +25,13 @@ class ProductViewModel @ViewModelInject constructor(
 
     var viewsLoaded = false
 
-    private val _barcodeScanned = MutableLiveData<String>()
-    val barcodeScanned: LiveData<String> = _barcodeScanned
-
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
 
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
-    fun updateBarcodeScanned(barcode: String){
-        _barcodeScanned.value = barcode
-    }
 
-    fun getBarcodeScanned() = _barcodeScanned.value.toString()
 
     fun saveProductDatabase(){
         viewModelScope.launch {
@@ -54,9 +47,9 @@ class ProductViewModel @ViewModelInject constructor(
     private suspend fun saveRecordToDatabase(){
         val type = if (initialAmount < _currentProduct.value.amount) STOCK_INCREASE else STOCK_DECREASE
         val record = Record(
-            type = type,
+            type = "type",
             amount = abs(initialAmount - _currentProduct.value.amount),
-            product = _currentProduct.value.id,
+            productID = _currentProduct.value.id,
             productName = _currentProduct.value.name
         )
         recordsDao.insert(record)
@@ -114,14 +107,4 @@ class ProductViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    suspend fun getProductWithBarCode(barcode:String) =
-        productsDao.getProductWithBarcode(barcode)
-
-    fun getProductID() = _currentProduct.value.id
-
-    fun setNewProductStock(amount: Int){
-        viewModelScope.launch {
-            productsDao.updateProductAmount(_currentProduct.value.id, amount )
-        }
-    }
 }

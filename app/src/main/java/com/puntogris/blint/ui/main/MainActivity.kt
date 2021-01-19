@@ -148,11 +148,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                     visible()
                     setOnClickListener { navController.navigate(R.id.editSupplierFragment) }
                 }
-                addRecordFab.apply {
-                    visible()
-                    setOnClickListener { navController.navigate(R.id.createRecordFragment) }
-                }
-            }else listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).makeInvisible()
+            }else listOf(addClientFab, addProductFab, addSupplierFab).makeInvisible()
         }
     }
 
@@ -160,18 +156,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.apply {
             if (!clicked){
                 addFav.startAnimation(rotateOpen)
-                listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupAnimation(fromBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(fromBottom)
             }else{
                 addFav.startAnimation(rotateClose)
-                listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupAnimation(toBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(toBottom)
             }
         }
     }
 
     private fun setClickable(clicked: Boolean){
         binding.apply {
-            if (!clicked) listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupClickable(true)
-            else listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupClickable(false)
+            if (!clicked) listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(true)
+            else listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(false)
         }
     }
 

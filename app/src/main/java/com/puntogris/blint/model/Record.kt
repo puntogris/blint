@@ -12,7 +12,7 @@ data class Record(
     val id: Int = 0,
 
     @ColumnInfo
-    val type:Int = 0,
+    val type: String = "",
 
     @ColumnInfo
     val clients:List<Int> = listOf(),
@@ -27,8 +27,8 @@ data class Record(
     val amount: Int = 0,
 
     @ColumnInfo
-    val product: Int = 0,
+    val productID: Int = 0,
 
     @ColumnInfo
-    val productName:String
+    val productName:String = ""
 )

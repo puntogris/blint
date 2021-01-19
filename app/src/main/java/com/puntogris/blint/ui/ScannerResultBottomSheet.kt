@@ -5,24 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.maxkeppeler.bottomsheets.options.DisplayMode
+import com.maxkeppeler.bottomsheets.options.Option
+import com.maxkeppeler.bottomsheets.options.OptionsSheet
+import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.ui.product.ProductViewModel
+import com.puntogris.blint.ui.record.RecordsViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
 class ScannerResultBottomSheet(private val listener: DialogDismissListener) : BottomSheetDialogFragment() {
 
     private lateinit var binding: ScannerResultDialogBinding
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: RecordsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +39,69 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.fragment = this
+
+        val items = listOf("Entrada", "Salida")
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
+        (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+        binding.recordTypeText.setOnItemClickListener { adapterView, view, i, l ->
+            when(i){
+                0 -> {
+                    binding.supplierChipGroup.visible()
+                    binding.clientsChipGroup.gone()
+                }
+                1 -> {
+                    binding.supplierChipGroup.gone()
+                    binding.clientsChipGroup.visible()
+                }
+            }
+        }
+
         return binding.root
+    }
+
+    fun openBottomSheetForClients(){
+        OptionsSheet().build(requireContext()){
+            title("Agregar Clientes")
+            displayMode(DisplayMode.LIST)
+            multipleChoices()
+            with(
+                Option("Cliente 1"),
+                Option("Cliente 2"),
+                Option("Cliente 3"),
+                Option("Cliente 4"),
+                Option("Cliente 5"),
+                Option("Cliente 6")
+            )
+            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                selectedIndices.forEach {
+                    createNewChipAndAddItToGroup(it.toString(), binding.clientsChipGroup)
+                }
+            }
+            onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
+    }
+
+    fun openBottomSheetForSuppliers(){
+        OptionsSheet().build(requireContext()){
+            title("Agregar Proveedores")
+            displayMode(DisplayMode.LIST)
+            multipleChoices()
+            with(
+                Option("Proveedor 1"),
+                Option("Proveedor 2"),
+                Option("Proveedor 3"),
+                Option("Proveedor 4"),
+                Option("Proveedpor 5"),
+                Option("Proveedor 6")
+            )
+            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                selectedIndices.forEach {
+                    createNewChipAndAddItToGroup(it.toString(), binding.supplierChipGroup)
+                }
+            }
+            onNegative("Cancelar")
+        }.show(parentFragmentManager, "")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,14 +127,6 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
         binding.productNotFoundGroup.visible()
     }
 
-    companion object {
-        fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultBottomSheet =
-            ScannerResultBottomSheet(listener).apply {
-                arguments = Bundle().apply {
-                    putString(ARG_SCANNING_RESULT, scanningResult)
-                }
-            }
-    }
 
     fun onGoToProductClicked(){
         dismiss()
@@ -76,27 +135,25 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
     }
 
     fun onSaveProductClicked(){
-        viewModel.setNewProductStock(binding.productAmountText.getInt())
-        binding.productAmount.text = binding.productAmountText.getString()
-        binding.productLastEdited.text = Date().getFormattedString()
-        showSackBarAboveBotomSheet("Se actualizo el producto correctamente.")
+        when {
+            binding.recordTypeText.text.isNullOrEmpty() -> {
+                showLongSnackBarAboveFab("Especifica el tipo de movimiento.")
+            }
+            binding.productAmountText.getInt() == 0 -> {
+                showLongSnackBarAboveFab("El campo de cantidad no puede estar vacio.")
+            }
+            else -> {
+                viewModel.saveRecordAndUpdateStock(binding.productAmountText.getInt())
+                dismiss()
+                showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
+            }
+        }
     }
 
     fun onCreateNewProductClicked(){
         dismiss()
         val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getBarcodeScanned())
         findNavController().navigate(action)
-    }
-
-    fun onIncreaseAmountButtonClicked(){
-        binding.productAmountText.apply {
-            setText(getInt().inc().toString())
-        }
-    }
-    fun onDecreaseAmountButtonClicked(){
-        binding.productAmountText.apply {
-            setText(getInt().dec().toString())
-        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
@@ -111,5 +168,14 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
 
     interface DialogDismissListener {
         fun onDismiss()
+    }
+
+    companion object {
+        fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultBottomSheet =
+            ScannerResultBottomSheet(listener).apply {
+                arguments = Bundle().apply {
+                    putString(ARG_SCANNING_RESULT, scanningResult)
+                }
+            }
     }
 }
