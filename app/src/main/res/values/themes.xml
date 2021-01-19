@@ -20,6 +20,15 @@
 
     <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/purple_500</item>
+    </style>
+
+    <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@color/purple_500</item>
+    </style>
 
 <!--    chart-->
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">

@@ -3,11 +3,7 @@ package com.puntogris.blint.ui.custom_views.pie_chart
 import android.view.animation.Animation
 import android.view.animation.Transformation
 
-/**
- * Created by lin min phyo on 2019-07-30.
- */
-
-class RallyPieAnimation(private val pie: RallyPie) : Animation() {
+class PieChartAnimation(private val pie: PieChart) : Animation() {
 
     private var rallyPieProgressRenderData: MutableList<Pair<Float, Float>> = mutableListOf()
     private var rallyPieRenderData: List<RallyPieRenderData> = listOf()

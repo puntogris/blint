@@ -77,7 +77,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ALL_PRODUCTS_CARD_CODE -> findNavController().navigate(R.id.manageProductsFragment)
             ALL_CLIENTS_CARD_CODE -> findNavController().navigate(R.id.manageClientsFragment)
             ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
-            ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.accountingFragment)
+            ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
+            RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
         }
     }
 
@@ -92,7 +93,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores",""),
             MenuCard(RECORDS_CARD_CODE,"Movimientos",  "", ""),
             MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
-            MenuCard(ACCOUNTING_CARD_CODE, "Algo", "",""),
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "",""),
         )
     }
 

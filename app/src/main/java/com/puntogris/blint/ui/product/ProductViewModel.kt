@@ -56,7 +56,8 @@ class ProductViewModel @ViewModelInject constructor(
         val record = Record(
             type = type,
             amount = abs(initialAmount - _currentProduct.value.amount),
-            product = _currentProduct.value.id
+            product = _currentProduct.value.id,
+            productName = _currentProduct.value.name
         )
         recordsDao.insert(record)
     }
@@ -95,16 +96,6 @@ class ProductViewModel @ViewModelInject constructor(
             maxSize = 200
         )){
             productsDao.getAllPaged()
-        }.flow
-    }
-
-    fun getProductRecords(): Flow<PagingData<Record>> {
-        return Pager(PagingConfig(
-            pageSize = 30,
-            enablePlaceholders = true,
-            maxSize = 200
-        )){
-            recordsDao.getProductRecordsPaged(_currentProduct.value.id)
         }.flow
     }
 

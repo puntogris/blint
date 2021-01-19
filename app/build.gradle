@@ -149,8 +149,8 @@ dependencies {
     //Activities ktx
     implementation 'androidx.activity:activity-ktx:1.2.0-rc01'
     implementation 'androidx.fragment:fragment-ktx:1.3.0-rc01'
-
-
+    
     implementation 'com.github.wwdablu:wZip:1.0.1'
+
 
 }

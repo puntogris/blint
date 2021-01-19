@@ -95,6 +95,9 @@
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_createRecordFragment"
+            app:destination="@id/createRecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -128,9 +131,9 @@
         android:name="com.puntogris.blint.ui.business.RegisterOnlineBusinessFragment"
         android:label="Registrar negocio online" />
     <fragment
-        android:id="@+id/accountingFragment"
-        android:name="com.puntogris.blint.ui.accounting.AccountingFragment"
-        android:label="Balances" />
+        android:id="@+id/calendarFragment"
+        android:name="com.puntogris.blint.ui.calendar.CalendarFragment"
+        android:label="Calendario" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.puntogris.blint.ui.about.AboutFragment"
@@ -220,4 +223,17 @@
         android:id="@+id/createBackupFragment"
         android:name="com.puntogris.blint.ui.backup.CreateBackupFragment"
         android:label="Respaldar negocio" />
+    <fragment
+        android:id="@+id/manageRecordsFragment"
+        android:name="com.puntogris.blint.ui.record.ManageRecordsFragment"
+        android:label="Movimientos" />
+    <fragment
+        android:id="@+id/createRecordFragment"
+        android:name="com.puntogris.blint.ui.record.CreateRecordFragment"
+        android:label="Nuevo movimiento" >
+        <argument
+            android:name="productID"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

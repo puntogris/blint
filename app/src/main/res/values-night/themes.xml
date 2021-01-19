@@ -14,6 +14,17 @@
         <item name="android:statusBarColor">@color/almostBlack</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
+
+    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/purple_200</item>
+    </style>
+
+    <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
     <style name="Theme.Blint.Fab.Child" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="fabSize">mini</item>
         <item name="backgroundTint">@color/purple_200</item>

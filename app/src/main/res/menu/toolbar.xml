@@ -11,8 +11,13 @@
         <menu >
             <item android:id="@+id/editOption"
                 android:title="Editar" />
+            <item
+                android:visible="false"
+                android:id="@+id/createRecord"
+                android:title="Nuevo movimiento" />
             <item android:id="@+id/deleteOption"
                 android:title="Eliminar" />
+
         </menu>
     </item>
 

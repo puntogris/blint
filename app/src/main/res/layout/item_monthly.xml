@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/spacing_medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@id/productAmountNetWorth"
         android:layout_marginStart="@dimen/spacing_large"
         style="?attr/textAppearanceSubtitle1"/>
 
@@ -30,12 +30,12 @@
         app:layout_constraintTop_toBottomOf="@id/tvName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvAmount"
+        app:layout_constraintEnd_toStartOf="@id/productAmountNetWorth"
         android:layout_marginStart="@dimen/spacing_large"
         style="?attr/textAppearanceBody2"/>
 
     <TextView
-        android:id="@+id/tvAmount"
+        android:id="@+id/productAmountNetWorth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="2,215.13"

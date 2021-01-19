@@ -1,16 +1,12 @@
 package com.puntogris.blint.ui.custom_views.pie_chart
 
-/**
- * Created by lin min phyo on 2019-07-31.
- */
-
 data class RallyPieData(val portions: List<RallyPiePortion>, val maxValue: Float? = null)
 
 data class RallyPiePortion(val name: String, val value: Float, val colorInt: Int)
 
 fun List<RallyPiePortion>.toPoints(maxValue: Float): List<RallyPieRenderData> {
     val renderDataList = mutableListOf<RallyPieRenderData>()
-    forEachIndexed { index, it ->
+    forEachIndexed { _, it ->
         val startAngle = if (renderDataList.isEmpty()) {
             -90f + 1f
         } else {
@@ -25,7 +21,6 @@ fun List<RallyPiePortion>.toPoints(maxValue: Float): List<RallyPieRenderData> {
 
     return renderDataList
 }
-
 
 data class RallyPieRenderData(val name: String, val startAngle: Float, val sweepAngle: Float, val color: Int)
 

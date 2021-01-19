@@ -43,12 +43,11 @@
 
                     <TextView
                         android:id="@+id/textView32"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="Descripcion"
-                        android:textColor="@color/purple_200"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -133,12 +132,11 @@
 
                     <TextView
                         android:id="@+id/textView33"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="Precios y stock"
-                        android:textColor="@color/purple_200"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -247,13 +245,12 @@
 
                     <TextView
                         android:id="@+id/textView36"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:text="Clientes y Proveedores"
-                        android:textColor="@color/purple_200" />
+                        android:text="Clientes y Proveedores"/>
 
                     <TextView
                         android:id="@+id/textView37"
@@ -318,14 +315,13 @@
 
                     <TextView
                         android:id="@+id/textView39"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="24dp"
-                        android:text="imagenes"
-                        android:textColor="@color/purple_200" />
+                        android:text="imagenes" />
 
                     <ImageView
                         android:id="@+id/imageView7"
@@ -355,12 +351,11 @@
 
                     <TextView
                         android:id="@+id/textView40"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="Extras"
-                        android:textColor="@color/purple_200"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

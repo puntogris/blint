@@ -21,7 +21,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
+class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier, false) {
 
     private val args: SupplierFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -33,7 +33,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
-                else -> "HISTORIAL"
+                else -> "MOVIMIENTOS"
             }
         }
         mediator?.attach()

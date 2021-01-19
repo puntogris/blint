@@ -41,12 +41,11 @@
 
                     <TextView
                         android:id="@+id/textView27"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="Empresa"
-                        android:textColor="@color/purple_200"
                         android:layout_gravity="center"/>
 
                     <TextView
@@ -131,13 +130,12 @@
 
                     <TextView
                         android:id="@+id/textView270"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:text="Vendedor"
-                        android:textColor="@color/purple_200" />
+                        android:text="Vendedor" />
 
                     <TextView
                         android:id="@+id/textView290"
@@ -206,13 +204,12 @@
 
                     <TextView
                         android:id="@+id/textView52"
-                        style="@style/TextAppearance.MaterialComponents.Button"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_gravity="center"
                         android:text="extras"
-                        android:textColor="@color/purple_200"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView

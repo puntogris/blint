@@ -30,7 +30,7 @@ class MonthlyAdapter(private val items: List<MonthlyItem>) : RecyclerView.Adapte
 class MonthlyItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private val tvName: TextView = view.findViewById(R.id.tvName)
-    private val tvAmount: TextView = view.findViewById(R.id.tvAmount)
+    private val tvAmount: TextView = view.findViewById(R.id.productAmountNetWorth)
     private val tvViewDollar: TextView = view.findViewById(R.id.text_view_dollar)
     private val tvDate: TextView = view.findViewById(R.id.tvDate)
 

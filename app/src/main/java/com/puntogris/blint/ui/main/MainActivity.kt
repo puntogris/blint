@@ -148,7 +148,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                     visible()
                     setOnClickListener { navController.navigate(R.id.editSupplierFragment) }
                 }
-            }else listOf(addClientFab, addProductFab, addSupplierFab).makeInvisible()
+                addRecordFab.apply {
+                    visible()
+                    setOnClickListener { navController.navigate(R.id.createRecordFragment) }
+                }
+            }else listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).makeInvisible()
         }
     }
 
@@ -156,18 +160,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.apply {
             if (!clicked){
                 addFav.startAnimation(rotateOpen)
-                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(fromBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupAnimation(fromBottom)
             }else{
                 addFav.startAnimation(rotateClose)
-                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(toBottom)
+                listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupAnimation(toBottom)
             }
         }
     }
 
     private fun setClickable(clicked: Boolean){
         binding.apply {
-            if (!clicked) listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(true)
-            else listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(false)
+            if (!clicked) listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupClickable(true)
+            else listOf(addClientFab, addProductFab, addSupplierFab, addRecordFab).setGroupClickable(false)
         }
     }
 
@@ -175,28 +179,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun hideBottomAppBar() {
-        binding.run {
-            bottomAppBar.performHide()
-            // Get a handle on the animator that hides the bottom app bar so we can wait to hide
-            // the fab and bottom app bar until after it's exit animation finishes.
-            bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
-                var isCanceled = false
-                override fun onAnimationEnd(animation: Animator?) {
-                    if (isCanceled) return
-
-                    // Hide the BottomAppBar to avoid it showing above the keyboard
-                    // when composing a new email.
-                    bottomAppBar.visibility = View.GONE
-                    binding.addFav.visibility = View.INVISIBLE
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {
-                    isCanceled = true
-                }
-            })
-        }
-    }
 
     override fun onDestinationChanged(
         controller: NavController,

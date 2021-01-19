@@ -11,14 +11,10 @@ import android.view.animation.Animation
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.puntogris.blint.utils.dpToPx
 
-/**
- * Created by lin min phyo on 2019-07-29.
- */
-class RallyPie @JvmOverloads constructor(
+class PieChart @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    val defStyleAttr: Int = 0,
-    val defStyleRes: Int = 0
+    defStyleAttr: Int = 0,
 ) : View(context, attrs, defStyleAttr) {
 
     var rallyPieProgressRenderData = listOf<RallyPieRenderData>()
@@ -35,7 +31,6 @@ class RallyPie @JvmOverloads constructor(
             strokeWidth = STROKE
             isAntiAlias = true
             style = Paint.Style.STROKE
-
         }
     }
 
@@ -44,7 +39,6 @@ class RallyPie @JvmOverloads constructor(
     init{
         // Get attrs
         colorPrimary = Color.parseColor("#2A2931")
-
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -78,25 +72,18 @@ class RallyPie @JvmOverloads constructor(
                     false,
                     paint
                 )
-
             }
         }
-
     }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-    }
-
 
     override fun startAnimation(animation: Animation?) {
-        if (animation is RallyPieAnimation) {
+        if (animation is PieChartAnimation) {
             animation.addData(rallyPieFinalRenderData)
         }
         super.startAnimation(animation)
     }
 
-    fun setPieData(pieData: RallyPieData, animation: RallyPieAnimation? = null) {
+    fun setPieData(pieData: RallyPieData, animation: PieChartAnimation? = null) {
         val totalPortionValues = pieData.maxValue ?: pieData.portions.sumByDouble { it.value.toDouble() }.toFloat()
         rallyPieFinalRenderData = pieData.portions.toPoints(totalPortionValues)
         if (animation != null) {
@@ -107,6 +94,4 @@ class RallyPie @JvmOverloads constructor(
             rallyPieProgressRenderData = rallyPieFinalRenderData
         }
     }
-
-
 }

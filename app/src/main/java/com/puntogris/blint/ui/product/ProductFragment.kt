@@ -20,7 +20,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product) {
+class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product, true) {
 
     private val args: ProductFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -32,7 +32,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
-                else -> "HISTORIAL"
+                else -> "MOVIMIENTOS"
             }
         }
         mediator?.attach()
@@ -75,4 +75,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         }.show(parentFragmentManager, "")
     }
 
+    override fun onCreateRecordButtonClicked() {
+        val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
+        findNavController().navigate(action)
+    }
 }

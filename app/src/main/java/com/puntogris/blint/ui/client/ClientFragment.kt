@@ -21,7 +21,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
+class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client, false) {
 
     private val args: ClientFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -33,7 +33,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
-                else -> "HISTORIAL"
+                else -> "MOVIMIENTOS"
             }
         }
         mediator?.attach()

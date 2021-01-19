@@ -8,8 +8,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.puntogris.blint.R
 import com.puntogris.blint.ui.product.ProductFragment
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
-abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: Int): Fragment() {
+abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: Int, private val isProduct: Boolean): Fragment() {
 
     private var _binding : T? = null
     val binding get() = _binding!!
@@ -34,6 +36,9 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     open fun onDeleteButtonClicked(){}
 
+    open fun onCreateRecordButtonClicked(){}
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -41,6 +46,7 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.findItem(R.id.moreOptions).isVisible = true
+        if (isProduct) menu.findItem(R.id.createRecord).isVisible = true
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -52,6 +58,10 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
             }
             R.id.deleteOption -> {
                 onDeleteButtonClicked()
+                true
+            }
+            R.id.createRecord ->{
+                onCreateRecordButtonClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)

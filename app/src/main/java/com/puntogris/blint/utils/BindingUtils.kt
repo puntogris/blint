@@ -68,7 +68,7 @@ fun ImageView.setMenuCardIcon(menuCard: MenuCard){
         ALL_PRODUCTS_CARD_CODE -> R.drawable.ic_baseline_library_books_24
         ALL_CLIENTS_CARD_CODE -> R.drawable.ic_baseline_people_alt_24
         ALL_SUPPLIERS_CARD_CODE -> R.drawable.ic_baseline_store_24
-        ACCOUNTING_CARD_CODE -> R.drawable.ic_baseline_account_balance_24
+        ACCOUNTING_CARD_CODE -> R.drawable.ic_baseline_calendar_today_24
         RECORDS_CARD_CODE -> R.drawable.ic_baseline_article_24
         CHARTS_CARD_CODE -> R.drawable.ic_baseline_bar_chart_24
         else -> R.drawable.ic_baseline_add_24

@@ -39,8 +39,7 @@
 
                     <TextView
                         android:id="@+id/textView27"
-                        style="@style/TextAppearance.MaterialComponents.Button"
-                        android:textColor="@color/purple_200"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -130,8 +129,7 @@
 
                     <TextView
                         android:id="@+id/textView50"
-                        style="@style/TextAppearance.MaterialComponents.Button"
-                        android:textColor="@color/purple_200"
+                        style="@style/Theme.Blint.TextButton"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

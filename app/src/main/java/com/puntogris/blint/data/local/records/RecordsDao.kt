@@ -14,9 +14,6 @@ interface RecordsDao {
     @Update
     suspend fun update(record: Record)
 
-    @Query("SELECT * FROM record")
-    suspend fun getRecords(): List<Record>
-
     @Query("SELECT COUNT(*) FROM record")
     suspend fun getCount(): Int
 
@@ -25,5 +22,8 @@ interface RecordsDao {
 
     @Query("SELECT * FROM record WHERE :product = product")
     fun getProductRecordsPaged(product: Int): PagingSource<Int, Record>
+
+    @Query("SELECT * FROM record WHERE productName LIKE :productName")
+    fun getPagedSearch(productName: String): PagingSource<Int, Record>
 
 }

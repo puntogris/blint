@@ -27,5 +27,8 @@ data class Record(
     val amount: Int = 0,
 
     @ColumnInfo
-    val product: Int = 0
+    val product: Int = 0,
+
+    @ColumnInfo
+    val productName:String
 )
