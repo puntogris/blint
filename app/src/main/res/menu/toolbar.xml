@@ -21,4 +21,43 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/manageProductFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newProduct"
+                android:title="Nuevo producto" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/manageClientsFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newClient"
+                android:title="Nuevo producto" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/manageSuppliersFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newSupplier"
+                android:title="Nuevo producto" />
+
+        </menu>
+    </item>
+
 </menu>

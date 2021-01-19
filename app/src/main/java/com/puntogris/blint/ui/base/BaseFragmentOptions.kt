@@ -11,7 +11,7 @@ import com.puntogris.blint.ui.product.ProductFragment
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
-abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: Int, private val isProduct: Boolean): Fragment() {
+abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: Int): Fragment() {
 
     private var _binding : T? = null
     val binding get() = _binding!!
@@ -38,6 +38,14 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     open fun onCreateRecordButtonClicked(){}
 
+    open fun onNewProductClicked(){}
+
+    open fun onNewClientClicked(){}
+
+    open fun onNewSupplierClicked(){}
+
+    open fun setUpMenuOptions(menu: Menu){}
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -45,8 +53,7 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.findItem(R.id.moreOptions).isVisible = true
-        if (isProduct) menu.findItem(R.id.createRecord).isVisible = true
+        setUpMenuOptions(menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -62,6 +69,18 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
             }
             R.id.createRecord ->{
                 onCreateRecordButtonClicked()
+                true
+            }
+            R.id.newProduct -> {
+                onNewProductClicked()
+                true
+            }
+            R.id.newClient ->{
+                onNewClientClicked()
+                true
+            }
+            R.id.newSupplier ->{
+                onNewSupplierClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)

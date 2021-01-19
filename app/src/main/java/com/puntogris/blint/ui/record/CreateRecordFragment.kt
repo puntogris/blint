@@ -55,7 +55,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
             }
         }
 
-        val items = listOf("Entrada", "Salida", "Sin especificar")
+        val items = listOf("Entrada", "Salida")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 

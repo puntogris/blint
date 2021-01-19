@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.product
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -20,7 +21,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product, true) {
+class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product) {
 
     private val args: ProductFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -78,5 +79,10 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     override fun onCreateRecordButtonClicked() {
         val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
         findNavController().navigate(action)
+    }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.moreOptions).isVisible = true
+        menu.findItem(R.id.createRecord).isVisible = true
     }
 }

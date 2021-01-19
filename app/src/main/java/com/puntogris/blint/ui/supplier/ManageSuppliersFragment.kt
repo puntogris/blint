@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.supplier
 
+import android.view.Menu
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.client.ClientViewModel
 import com.puntogris.blint.ui.client.ManageClientsAdapter
 import com.puntogris.blint.ui.product.ManageProductsFragmentDirections
@@ -19,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
+class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
 
     private val viewModel: SupplierViewModel by viewModels()
 
@@ -50,5 +52,13 @@ class ManageSuppliersFragment : BaseFragment<FragmentManageSuppliersBinding>(R.l
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
         super.onDestroyView()
+    }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.manageSuppliersFragmentMenu).isVisible = true
+    }
+
+    override fun onNewProductClicked() {
+        findNavController().navigate(R.id.editSupplierFragment)
     }
 }

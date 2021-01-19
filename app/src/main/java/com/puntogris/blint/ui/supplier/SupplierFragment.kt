@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.supplier
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -21,7 +22,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier, false) {
+class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
     private val args: SupplierFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -74,5 +75,9 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         mediator = null
         binding.viewPager.adapter = null
         super.onDestroyView()
+    }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.moreOptions).isVisible = true
     }
 }

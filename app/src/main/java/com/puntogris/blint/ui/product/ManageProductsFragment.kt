@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.product
 
+import android.view.Menu
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -10,12 +11,13 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.base.BaseFragmentOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
+class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
 
     private val viewModel: ProductViewModel by viewModels()
 
@@ -46,5 +48,13 @@ class ManageProductsFragment : BaseFragment<FragmentManageProductsBinding>(R.lay
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
         super.onDestroyView()
+    }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.manageProductFragmentMenu).isVisible = true
+    }
+
+    override fun onNewProductClicked() {
+        findNavController().navigate(R.id.editProductFragment)
     }
 }

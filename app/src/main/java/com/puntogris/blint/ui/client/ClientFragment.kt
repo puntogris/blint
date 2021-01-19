@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.client
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -21,7 +22,7 @@ import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client, false) {
+class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
 
     private val args: ClientFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
@@ -74,5 +75,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         mediator = null
         binding.viewPager.adapter = null
         super.onDestroyView()
+    }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.moreOptions).isVisible = true
     }
 }

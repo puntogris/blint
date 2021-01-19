@@ -56,7 +56,6 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
                 }
             }
         }
-
         return binding.root
     }
 
@@ -68,10 +67,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
             with(
                 Option("Cliente 1"),
                 Option("Cliente 2"),
-                Option("Cliente 3"),
-                Option("Cliente 4"),
-                Option("Cliente 5"),
-                Option("Cliente 6")
+                Option("Cliente 3")
             )
             onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
                 selectedIndices.forEach {
@@ -90,10 +86,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
             with(
                 Option("Proveedor 1"),
                 Option("Proveedor 2"),
-                Option("Proveedor 3"),
-                Option("Proveedor 4"),
-                Option("Proveedpor 5"),
-                Option("Proveedor 6")
+                Option("Proveedor 3")
             )
             onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
                 selectedIndices.forEach {
@@ -126,7 +119,6 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
     private fun showProductNotFoundUI(){
         binding.productNotFoundGroup.visible()
     }
-
 
     fun onGoToProductClicked(){
         dismiss()
