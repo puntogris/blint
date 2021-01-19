@@ -42,7 +42,7 @@
         app:showAsAction="always">
         <menu >
             <item android:id="@+id/newClient"
-                android:title="Nuevo producto" />
+                android:title="Nuevo cliente" />
 
         </menu>
     </item>
@@ -55,7 +55,7 @@
         app:showAsAction="always">
         <menu >
             <item android:id="@+id/newSupplier"
-                android:title="Nuevo producto" />
+                android:title="Nuevo proveedor" />
 
         </menu>
     </item>

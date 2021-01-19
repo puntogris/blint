@@ -31,7 +31,17 @@ class ProductViewModel @ViewModelInject constructor(
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
-
+    fun getProductRecords(productID:Int): Flow<PagingData<Record>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ){
+            recordsDao.getProductRecordsPaged(productID)
+        }.flow
+    }
 
     fun saveProductDatabase(){
         viewModelScope.launch {

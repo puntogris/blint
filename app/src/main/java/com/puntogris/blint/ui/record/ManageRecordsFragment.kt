@@ -18,20 +18,20 @@ class ManageRecordsFragment : BaseFragment<FragmentManageRecordsBinding>(R.layou
     private val viewModel: RecordsViewModel by viewModels()
 
     override fun initializeViews() {
-        val manageRecordsAdapter = ManageRecordsAdapter { onRecordClickListener(it) }
-        binding.recyclerView.adapter = manageRecordsAdapter
+        val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
+        binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launchWhenStarted {
             viewModel.getProductRecords().collect {
-                manageRecordsAdapter.submitData(it)
+                productsRecordsAdapter.submitData(it)
             }
         }
 
         binding.productSearchText.addTextChangedListener {
             lifecycleScope.launch {
                 viewModel.getRecordsWithName(it.toString()).collect {
-                    manageRecordsAdapter.submitData(it)
+                    productsRecordsAdapter.submitData(it)
                 }
             }
         }

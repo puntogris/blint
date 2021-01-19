@@ -58,7 +58,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         menu.findItem(R.id.manageSuppliersFragmentMenu).isVisible = true
     }
 
-    override fun onNewProductClicked() {
+    override fun onNewSupplierClicked() {
         findNavController().navigate(R.id.editSupplierFragment)
     }
 }

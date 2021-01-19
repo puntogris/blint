@@ -57,7 +57,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         menu.findItem(R.id.manageClientsFragmentMenu).isVisible = true
     }
 
-    override fun onNewProductClicked() {
+    override fun onNewClientClicked() {
         findNavController().navigate(R.id.editClientFragment)
     }
 }
