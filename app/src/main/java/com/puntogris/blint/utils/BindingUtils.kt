@@ -12,8 +12,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
-import com.nguyenhoanglam.imagepicker.model.Image
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
@@ -25,7 +25,6 @@ import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -128,7 +127,7 @@ fun ImageView.setUserDataImage(image: String?){
 fun TextView.setDateFromFirebaseUser(user:FirebaseUser?){
     if (user != null){
         user.metadata?.creationTimestamp?.let {
-            text =  Date(it).getFormattedString()
+            text =  Date(it).getDateFormattedString()
         }
     }
 }
@@ -141,4 +140,14 @@ fun TextView.setUserRoleFormatted(role:String){
 @BindingAdapter("upperCaseToLowerCapitalize")
 fun TextView.setUpperCaseToLowerCapitalize(role:String){
     text = role.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())
+}
+
+@BindingAdapter("clientOrSupplierTitleWithRecordType")
+fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
+    text = if(type == "IN") "Proveedores" else "Clientes"
+}
+
+@BindingAdapter("dateFromTimestamp")
+fun TextView.setDateFromTimestamp(timestamp: Timestamp){
+    text =  timestamp.toDate().getDateWithTimeFormattedString()
 }

@@ -17,6 +17,7 @@ import com.maxkeppeler.bottomsheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.record.RecordsViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
@@ -24,18 +25,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ScannerResultBottomSheet(private val listener: DialogDismissListener) : BottomSheetDialogFragment() {
+class ScannerResultBottomSheet(private val listener: DialogDismissListener): BaseBottomSheetFragment<ScannerResultDialogBinding>(R.layout.scanner_result_dialog) {
 
-    private lateinit var binding: ScannerResultDialogBinding
     private val viewModel: RecordsViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = ScannerResultDialogBinding.inflate(
-            inflater, container, false
-        )
+    private var returnAndActivateCamera = true
+    override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.fragment = this
@@ -55,8 +49,8 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
                     binding.clientsChipGroup.visible()
                 }
             }
+            viewModel.updateRecordType(i)
         }
-        return binding.root
     }
 
     fun openBottomSheetForClients(){
@@ -121,8 +115,9 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
     }
 
     fun onGoToProductClicked(){
+        returnAndActivateCamera = false
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(viewModel.getProductID())
+        val action = ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.getProductID())
         findNavController().navigate(action)
     }
 
@@ -135,9 +130,15 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
                 showLongSnackBarAboveFab("El campo de cantidad no puede estar vacio.")
             }
             else -> {
-                viewModel.saveRecordAndUpdateStock(binding.productAmountText.getInt())
-                dismiss()
-                showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
+                lifecycleScope.launchWhenStarted {
+                    if(viewModel.saveRecordAndUpdateStock(binding.productAmountText.getInt())){
+                        dismiss()
+                        showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
+                    }
+                    else{
+                        showSackBarAboveBotomSheet("No dispone del stock para realizar esta accion.")
+                    }
+                }
             }
         }
     }
@@ -150,12 +151,12 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) : Bo
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        listener.onDismiss()
+        if(returnAndActivateCamera) listener.onDismiss()
     }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        listener.onDismiss()
+        if(returnAndActivateCamera) listener.onDismiss()
     }
 
     interface DialogDismissListener {

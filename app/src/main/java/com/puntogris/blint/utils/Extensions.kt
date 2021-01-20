@@ -182,9 +182,12 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
     }
 }
 
-fun Date.getFormattedString() =
+fun Date.getDateFormattedString() =
     SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(this).toString()
 
+
+fun Date.getDateWithTimeFormattedString() =
+    SimpleDateFormat("dd / MM / yyyy - h:mm a", Locale.getDefault()).format(this).toString()
 
 fun Fragment.createDatabasesPathList():List<String>{
     val databasesTables = listOf("business_table","clients_table", "products_table", "records_table", "supplier_table")

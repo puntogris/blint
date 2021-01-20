@@ -17,6 +17,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.changeIconFromDrawable
+import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 

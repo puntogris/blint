@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.record
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageRecordsBinding
@@ -38,7 +39,8 @@ class ManageRecordsFragment : BaseFragment<FragmentManageRecordsBinding>(R.layou
     }
 
     private fun onRecordClickListener(record: Record){
-
+        val action = ManageRecordsFragmentDirections.actionManageRecordsFragmentToRecordInfoBottomSheet(record)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

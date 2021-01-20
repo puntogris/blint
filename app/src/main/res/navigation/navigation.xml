@@ -13,6 +13,9 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
+            android:id="@+id/action_scannerFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <action
             android:id="@+id/action_scannerFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
     </fragment>
@@ -198,7 +201,7 @@
     <dialog
         android:id="@+id/scannerResultDialog"
         android:name="com.puntogris.blint.ui.ScannerResultBottomSheet"
-        android:label="ScannerResultDialog" />
+        android:label="" />
     <fragment
         android:id="@+id/accountPreferences"
         android:name="com.puntogris.blint.ui.settings.AccountPreferences"
@@ -226,7 +229,11 @@
     <fragment
         android:id="@+id/manageRecordsFragment"
         android:name="com.puntogris.blint.ui.record.ManageRecordsFragment"
-        android:label="Movimientos" />
+        android:label="Movimientos" >
+        <action
+            android:id="@+id/action_manageRecordsFragment_to_recordInfoBottomSheet"
+            app:destination="@id/recordInfoBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/createRecordFragment"
         android:name="com.puntogris.blint.ui.record.CreateRecordFragment"
@@ -236,4 +243,12 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <dialog
+        android:id="@+id/recordInfoBottomSheet"
+        android:name="com.puntogris.blint.ui.record.RecordInfoBottomSheet"
+        android:label="RecordInfoBottomSheet" >
+        <argument
+            android:name="record"
+            app:argType="com.puntogris.blint.model.Record" />
+    </dialog>
 </navigation>

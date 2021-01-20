@@ -47,9 +47,15 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                         showLongSnackBarAboveFab("El campo de cantidad no puede estar vacio.")
                     }
                     else -> {
-                        viewModel.saveRecordAndUpdateStock(binding.productAmountText.getInt())
-                        showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
-                        findNavController().navigateUp()
+                        lifecycleScope.launchWhenStarted {
+                            if(viewModel.saveRecordAndUpdateStock(binding.productAmountText.getInt())){
+                                showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
+                                findNavController().navigateUp()
+                            }
+                            else{
+                                showLongSnackBarAboveFab("No dispone del stock para realizar esta accion.")
+                            }
+                        }
                     }
                 }
             }
@@ -68,10 +74,6 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                 1 -> {
                     binding.supplierChipGroup.gone()
                     binding.clientsChipGroup.visible()
-                }
-                2 -> {
-                    binding.supplierChipGroup.gone()
-                    binding.clientsChipGroup.gone()
                 }
             }
             viewModel.updateRecordType(i)

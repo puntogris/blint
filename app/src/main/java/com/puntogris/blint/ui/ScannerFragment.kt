@@ -32,7 +32,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private val args: ScannerFragmentArgs by navArgs()
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
-
     override fun initializeViews() {
         cameraExecutor = Executors.newSingleThreadExecutor()
         binding.overlay.post {

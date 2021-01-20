@@ -1,10 +1,13 @@
 package com.puntogris.blint.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity
 data class Record(
 
@@ -30,5 +33,8 @@ data class Record(
     val productID: Int = 0,
 
     @ColumnInfo
-    val productName:String = ""
-)
+    val productName:String = "",
+
+    @ColumnInfo
+    val author: String = ""
+):Parcelable

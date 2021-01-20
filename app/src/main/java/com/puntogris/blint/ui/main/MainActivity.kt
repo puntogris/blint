@@ -203,7 +203,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         }else if(destination.id == R.id.productFragment){
             binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
             binding.addFav.setOnClickListener{ onParentFabClicked() }
-
         }
         else{
             binding.bottomAppBar.visible()
@@ -213,6 +212,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
         binding.addFav.setOnClickListener{ onParentFabClicked() }
         if (clicked) onParentFabClicked()
+        println(destination.label)
     }
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
