@@ -51,7 +51,7 @@
             android:id="@+id/textView76"
             style="@style/Theme.Blint.DataTextView"
             android:layout_marginBottom="24dp"
-            dateFromTimestamp="@{record.timestamp}"
+            dateFromTimestampWithTime="@{record.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView75"

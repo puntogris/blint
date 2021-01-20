@@ -27,34 +27,33 @@
             android:id="@+id/bar"
             android:layout_width="4dp"
             android:layout_height="0dp"
+            recordType="@{record.type}"
             app:layout_constraintTop_toTopOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="@id/tvUsed"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/barcode_reticle_stroke"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="@dimen/spacing_medium"/>
 
         <TextView
             android:id="@+id/tvName"
+            style="?attr/textAppearanceSubtitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Coffee Shops"
-            android:text="@{record.productName}"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bar"
-            app:layout_constraintEnd_toStartOf="@id/tvLeft"
             android:layout_marginStart="@dimen/spacing_medium"
-            style="?attr/textAppearanceSubtitle1"/>
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@{record.productName}"
+            app:layout_constraintEnd_toStartOf="@+id/textView85"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/bar"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvUsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Entrada"
-            android:letterSpacing="0.2"
-            android:text="@{record.type}"
+            dateFromTimestamp="@{record.timestamp}"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -102,6 +101,19 @@
             android:text="Stock"
             style="@style/TextAppearance.MaterialComponents.Caption"
             />
+
+        <TextView
+            android:id="@+id/textView85"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            amountSymbolWithRecordType="@{record.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.296" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

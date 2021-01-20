@@ -2,12 +2,14 @@ package com.puntogris.blint.utils
 
 import android.graphics.Color
 import android.os.Build
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -147,7 +149,26 @@ fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
     text = if(type == "IN") "Proveedores" else "Clientes"
 }
 
+@BindingAdapter("dateFromTimestampWithTime")
+fun TextView.setDateFromTimestampWithTime(timestamp: Timestamp){
+    text =  timestamp.toDate().getDateWithTimeFormattedString()
+}
+
+@BindingAdapter("amountSymbolWithRecordType")
+fun TextView.setAmountSymbolWithRecordType(type:String){
+    text =  if(type == "IN") "+" else "-"
+}
+
 @BindingAdapter("dateFromTimestamp")
 fun TextView.setDateFromTimestamp(timestamp: Timestamp){
-    text =  timestamp.toDate().getDateWithTimeFormattedString()
+    text =  timestamp.toDate().getDateFormattedString()
+}
+
+@BindingAdapter("recordType")
+fun View.setRecordType(type:String){
+    if (type == "IN"){
+        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
+    }else{
+        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))
+    }
 }
