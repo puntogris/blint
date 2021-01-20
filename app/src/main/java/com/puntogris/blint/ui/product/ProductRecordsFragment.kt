@@ -37,7 +37,6 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
                 }
             }
         }
-
     }
 
     private fun setUpPieView() {
