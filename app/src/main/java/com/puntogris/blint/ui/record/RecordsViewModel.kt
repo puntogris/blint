@@ -6,11 +6,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
+import com.puntogris.blint.data.local.clients.ClientsDao
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.data.local.records.RecordsDao
+import com.puntogris.blint.data.local.suppliers.SuppliersDao
 import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -18,6 +22,8 @@ import kotlinx.coroutines.launch
 class RecordsViewModel @ViewModelInject constructor(
     private val recordsDao: RecordsDao,
     private val productsDao: ProductsDao,
+    private val suppliersDao: SuppliersDao,
+    private val clientsDao: ClientsDao,
     private val userRepository: UserRepository): ViewModel() {
 
     private val _currentProduct = MutableStateFlow(Product())
@@ -27,6 +33,17 @@ class RecordsViewModel @ViewModelInject constructor(
     val barcodeScanned: LiveData<String> = _barcodeScanned
 
     private var recordType = "NONE"
+
+    private var clientID = 0
+    private var supplierID = 0
+
+    fun updateClientID(id:Int){
+        clientID = id
+    }
+
+    fun updateSupplierID(id:Int){
+        supplierID = id
+    }
 
     fun setProductData(product: Product){
         _currentProduct.value = product
@@ -72,21 +89,35 @@ class RecordsViewModel @ViewModelInject constructor(
             amount = amount,
             type = recordType,
             timestamp = Timestamp.now(),
-            clients = listOf(),
-            suppliers = listOf(),
+            clientID = clientID,
+            supplierID = supplierID,
             author = userRepository.getCurrentUser()?.email.toString()
         )
-        val newAmount = when(record.type){
-            "IN" -> _currentProduct.value.amount + amount
-            else -> _currentProduct.value.amount - amount
-        }
+        val newAmount = getNewStockAmount(record.type, amount)
         return if (newAmount < 0){
             false
         }else{
             recordsDao.insert(record)
-            productsDao.updateProductAmount(_currentProduct.value.id, newAmount)
+            _currentProduct.value.amount = newAmount
+            _currentProduct.value.lastRecordTimestamp = Timestamp.now()
+            productsDao.update(_currentProduct.value)
             true
         }
+    }
+
+    private fun getNewStockAmount(type:String, amount:Int): Int{
+        val newAmount :Int
+        when(type){
+            "IN" -> {
+                _currentProduct.value.totalInStock += amount
+                newAmount = _currentProduct.value.amount + amount
+            }
+            else -> {
+                _currentProduct.value.totalOutStock += amount
+                newAmount = _currentProduct.value.amount - amount
+            }
+        }
+        return newAmount
     }
 
     suspend fun getProductWithBarCode(barcode:String) = productsDao.getProductWithBarcode(barcode)
@@ -99,4 +130,7 @@ class RecordsViewModel @ViewModelInject constructor(
 
     fun getBarcodeScanned() = _barcodeScanned.value.toString()
 
+    suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
+
+    suspend fun getAllClients() = clientsDao.getAllClients()
 }

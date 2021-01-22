@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -22,7 +23,7 @@ data class Product(
     val description: String = "",
 
     @ColumnInfo
-    val amount: Int = 0,
+    var amount: Int = 0,
 
     @ColumnInfo
     var image: HashMap<String, String> = hashMapOf("uri" to "", "path" to ""),
@@ -43,5 +44,14 @@ data class Product(
     val brand:String = "",
 
     @ColumnInfo
-    val size:String = ""
+    val size:String = "",
+
+    @ColumnInfo
+    var lastRecordTimestamp: Timestamp = Timestamp.now(),
+
+    @ColumnInfo
+    var totalInStock: Int = 0,
+
+    @ColumnInfo
+    var totalOutStock: Int = 0,
 ):Parcelable

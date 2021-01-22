@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
-import com.maxkeppeler.bottomsheets.info.InfoSheet
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRestoreBackupBinding
 import com.puntogris.blint.model.Business

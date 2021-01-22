@@ -5,8 +5,10 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.data.local.records.RecordsDao
+import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.STOCK_DECREASE
@@ -18,10 +20,8 @@ import kotlin.math.abs
 class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao,
     private val recordsDao: RecordsDao,
-
+    private val userRepository: UserRepository
 ):ViewModel() {
-
-    private var initialAmount = 0
 
     var viewsLoaded = false
 
@@ -55,12 +55,13 @@ class ProductViewModel @ViewModelInject constructor(
     }
 
     private suspend fun saveRecordToDatabase(){
-        val type = if (initialAmount < _currentProduct.value.amount) STOCK_INCREASE else STOCK_DECREASE
         val record = Record(
-            type = "type",
-            amount = abs(initialAmount - _currentProduct.value.amount),
+            type = "IN",
+            amount = _currentProduct.value.amount,
             productID = _currentProduct.value.id,
-            productName = _currentProduct.value.name
+            productName = _currentProduct.value.name,
+            timestamp = Timestamp.now(),
+            author = userRepository.getCurrentUser()?.email.toString()
         )
         recordsDao.insert(record)
     }
@@ -78,7 +79,6 @@ class ProductViewModel @ViewModelInject constructor(
 
     fun setProductData(product: Product){
         _currentProduct.value = product
-        initialAmount = product.amount
     }
 
     fun updateProductImage(imageMap: HashMap<String, String>){
@@ -102,8 +102,7 @@ class ProductViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    suspend fun getProduct(id: Int) =
-        productsDao.getProduct(id)
+    suspend fun getProduct(id: Int) = productsDao.getProduct(id)
 
     fun getProductWithName(name: String): Flow<PagingData<Product>> {
         return Pager(

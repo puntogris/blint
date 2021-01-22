@@ -9,15 +9,18 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.clients.ClientsDao
+import com.puntogris.blint.data.local.records.RecordsDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class ClientViewModel @ViewModelInject constructor(
-    private val clientsDao: ClientsDao
+    private val clientsDao: ClientsDao,
+    private val recordsDao: RecordsDao
 ) : ViewModel() {
 
     private val _currentClient = MutableStateFlow(Client())
@@ -69,4 +72,18 @@ class ClientViewModel @ViewModelInject constructor(
         client.id = _currentClient.value.id
         _currentClient.value = client
     }
+
+
+    fun getClientsRecords(clientID:Int):Flow<PagingData<Record>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ){
+            recordsDao.getClientsRecords(clientID)
+        }.flow
+    }
+
 }

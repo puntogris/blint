@@ -8,9 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.maxkeppeler.bottomsheets.options.DisplayMode
-import com.maxkeppeler.bottomsheets.options.Option
-import com.maxkeppeler.bottomsheets.options.OptionsSheet
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.nguyenhoanglam.imagepicker.model.Config
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import com.puntogris.blint.R
@@ -33,6 +33,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
         if (!viewModel.viewsLoaded) {
             if (args.productID != 0){
                 lifecycleScope.launch {
@@ -42,6 +43,15 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true
+        }
+
+        if (args.productID == 0) {
+            binding.pricesLayout.apply {
+                productAmount.visible()
+                increaseAmountButton.visible()
+                decreaseAmountButton.visible()
+                productPricesTitle.text = "Precios"
+            }
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(

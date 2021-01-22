@@ -3,9 +3,11 @@ package com.puntogris.blint.ui.product
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
@@ -23,7 +25,6 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpPieView()
         val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -35,17 +36,21 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
                         productsRecordsAdapter.submitData(it)
                     }
                 }
+                lifecycleScope.launch {
+                    setUpPieView(viewModel.getProduct(productID))
+                }
             }
         }
     }
 
-    private fun setUpPieView() {
-        binding.productAmountNetWorth.text = 5004.13.toFloat().toUSDFormatted()
+    private fun setUpPieView(product:Product) {
+        binding.productAmountNetWorth.text = (product.amount * product.buyPrice).toString()
         val rallyPiePortions = listOf(
-            RallyPiePortion("it.name", 3500F, ContextCompat.getColor(requireContext(), R.color.teal_200))
-        )
+            RallyPiePortion(product.name, product.totalOutStock.toFloat(), ContextCompat.getColor(requireContext(), R.color.teal_200)),
+            RallyPiePortion(product.name, product.totalInStock.toFloat(), ContextCompat.getColor(requireContext(), R.color.purple_200))
 
-        val rallyPieData =  RallyPieData(portions = rallyPiePortions, maxValue = 5000F)
+        )
+        val rallyPieData =  RallyPieData(portions = rallyPiePortions, maxValue = product.totalInStock.toFloat() + product.totalOutStock + product.amount)
         val rallyPieAnimation = PieChartAnimation(binding.pieChart)
         rallyPieAnimation.duration = 600
         binding.pieChart.setPieData(pieData = rallyPieData, animation = rallyPieAnimation)

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.Lottie
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import com.maxkeppeler.bottomsheets.info.InfoSheet
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateBackUpBinding
 import com.puntogris.blint.model.Business

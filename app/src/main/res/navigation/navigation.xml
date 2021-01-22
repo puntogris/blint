@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
+        <action
+            android:id="@+id/action_supplierFragment_to_recordInfoBottomSheet"
+            app:destination="@id/recordInfoBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"

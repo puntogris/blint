@@ -159,9 +159,17 @@ fun TextView.setAmountSymbolWithRecordType(type:String){
     text =  if(type == "IN") "+" else "-"
 }
 
+@BindingAdapter("recordTypeString")
+fun TextView.setRecordTypeString(type:String){
+    text =  if(type == "IN") "Entrada" else "Salida"
+}
+
+
 @BindingAdapter("dateFromTimestamp")
-fun TextView.setDateFromTimestamp(timestamp: Timestamp){
-    text =  timestamp.toDate().getDateFormattedString()
+fun TextView.setDateFromTimestamp(timestamp: Timestamp?){
+    timestamp?.let{
+        text =  it.toDate().getDateFormattedString()
+    }
 }
 
 @BindingAdapter("recordType")

@@ -5,8 +5,8 @@ import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.maxkeppeler.bottomsheets.input.InputSheet
-import com.maxkeppeler.bottomsheets.input.type.InputEditText
+import com.maxkeppeler.sheets.input.InputSheet
+import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAboutBinding
 import com.puntogris.blint.ui.base.BaseFragment

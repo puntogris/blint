@@ -11,9 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.maxkeppeler.bottomsheets.options.DisplayMode
-import com.maxkeppeler.bottomsheets.options.Option
-import com.maxkeppeler.bottomsheets.options.OptionsSheet
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.Product
@@ -123,11 +123,11 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
 
     fun onSaveProductClicked(){
         when {
-            binding.recordTypeText.text.isNullOrEmpty() -> {
-                showLongSnackBarAboveFab("Especifica el tipo de movimiento.")
+            binding.recordTypeText.text.isNullOrBlank() -> {
+                showSackBarAboveBotomSheet("Especifica el tipo de movimiento.")
             }
-            binding.productAmountText.getInt() == 0 -> {
-                showLongSnackBarAboveFab("El campo de cantidad no puede estar vacio.")
+            binding.productAmountText.getInt() == 0  || binding.productAmountText.text.isNullOrBlank() -> {
+                showSackBarAboveBotomSheet("El campo de cantidad no puede estar vacio.")
             }
             else -> {
                 lifecycleScope.launchWhenStarted {

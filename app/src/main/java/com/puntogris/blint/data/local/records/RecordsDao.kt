@@ -17,13 +17,18 @@ interface RecordsDao {
     @Query("SELECT COUNT(*) FROM record")
     suspend fun getCount(): Int
 
-    @Query("SELECT * FROM record")
+    @Query("SELECT * FROM record ORDER BY timestamp DESC")
     fun getAllPaged(): PagingSource<Int, Record>
 
-    @Query("SELECT * FROM record WHERE :productID = productID")
+    @Query("SELECT * FROM record WHERE :productID = productID ORDER BY timestamp DESC")
     fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
 
-    @Query("SELECT * FROM record WHERE productName LIKE :productName")
+    @Query("SELECT * FROM record WHERE productName LIKE :productName ORDER BY timestamp DESC")
     fun getPagedSearch(productName: String): PagingSource<Int, Record>
 
+    @Query("SELECT * FROM record WHERE supplierID = :supplierID")
+    fun getSupplierRecords(supplierID:Int): PagingSource<Int, Record>
+
+    @Query("SELECT * FROM record WHERE clientID = :clientID")
+    fun getClientsRecords(clientID:Int): PagingSource<Int, Record>
 }

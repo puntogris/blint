@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.maxkeppeler.bottomsheets.info.InfoSheet
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.product.ProductDataFragment
@@ -68,6 +69,11 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                 findNavController().navigateUp()
             }
         }.show(parentFragmentManager, "")
+    }
+
+    fun navigateToInfoRecord(record: Record){
+        val action = SupplierFragmentDirections.actionSupplierFragmentToRecordInfoBottomSheet(record)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

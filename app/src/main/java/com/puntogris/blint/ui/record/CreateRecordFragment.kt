@@ -2,15 +2,18 @@ package com.puntogris.blint.ui.record
 
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.maxkeppeler.bottomsheets.options.DisplayMode
-import com.maxkeppeler.bottomsheets.options.Option
-import com.maxkeppeler.bottomsheets.options.OptionsSheet
+import com.google.android.material.chip.Chip
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateRecordBinding
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,42 +81,50 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
             }
             viewModel.updateRecordType(i)
         }
+
     }
 
     fun openBottomSheetForClients(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Clientes")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Cliente 1"),
-                Option("Cliente 2")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.clientsChipGroup)
-                }
+        lifecycleScope.launch {
+            val clients = viewModel.getAllClients()
+            if (clients.isNullOrEmpty()){
+                showLongSnackBarAboveFab("No se encontraron clientes registrados.")
+            }else{
+                val optionClients = clients.map { Option(it.name) }.toMutableList()
+                OptionsSheet().build(requireContext()) {
+                    title("Agregar Clientes")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(false)
+                    with(optionClients)
+                    onPositive { index: Int, _: Option ->
+                        viewModel.updateClientID(clients[index].id)
+                        createNewChipAndAddItToGroup(clients[index].name, binding.clientsChipGroup)
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        }
     }
 
     fun openBottomSheetForSuppliers(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Proveedores")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Proveedor 1"),
-                Option("Proveedor 2"),
-                Option("Proveedor 3")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.supplierChipGroup)
-                }
+        lifecycleScope.launch {
+            val suppliers = viewModel.getAllSuppliers()
+            if (suppliers.isNullOrEmpty()){
+                showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
+            }else{
+                val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
+                OptionsSheet().build(requireContext()){
+                    title("Agregar Proveedores")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(false)
+                    with(optionSuppliers)
+                    onPositive { index: Int, _: Option ->
+                        viewModel.updateSupplierID(suppliers[index].id)
+                        createNewChipAndAddItToGroup(suppliers[index].companyName, binding.clientsChipGroup)
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        }
     }
 }

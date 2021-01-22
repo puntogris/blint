@@ -18,10 +18,10 @@ data class Record(
     val type: String = "",
 
     @ColumnInfo
-    val clients:List<Int> = listOf(),
+    val clientID: Int = 0,
 
     @ColumnInfo
-    val suppliers: List<Int> = listOf(),
+    val supplierID :Int = 0,
 
     @ColumnInfo
     val timestamp: Timestamp = Timestamp.now(),

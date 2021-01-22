@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Supplier
 
 @Dao
 interface ClientsDao {
@@ -28,5 +29,8 @@ interface ClientsDao {
 
     @Query("SELECT * FROM client WHERE name LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Client>
+
+    @Query("SELECT * FROM client")
+    suspend fun getAllClients(): List<Client>
 
 }

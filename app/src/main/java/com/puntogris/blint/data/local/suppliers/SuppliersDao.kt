@@ -29,5 +29,7 @@ interface SuppliersDao {
     @Query("SELECT * FROM supplier WHERE companyName LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Supplier>
 
+    @Query("SELECT * FROM supplier")
+    suspend fun getAllSuppliers(): List<Supplier>
 
 }

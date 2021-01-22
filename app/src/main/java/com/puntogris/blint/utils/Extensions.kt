@@ -150,7 +150,7 @@ fun String.isLengthInvalid(validLength: Int) = length < validLength
 
 fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
     Chip(requireContext()).apply {
-        text = "Item $name"
+        text = "$name"
         isCloseIconVisible = true
         closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
         setOnClickListener { chipGroup.removeView(it) }
@@ -183,11 +183,11 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
 }
 
 fun Date.getDateFormattedString() =
-    SimpleDateFormat("dd / MM / yyyy", Locale.getDefault()).format(this).toString()
+    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(this).toString()
 
 
 fun Date.getDateWithTimeFormattedString() =
-    SimpleDateFormat("dd / MM / yyyy - h:mm a", Locale.getDefault()).format(this).toString()
+    SimpleDateFormat("dd/MM/yyyy - h:mm a", Locale.getDefault()).format(this).toString()
 
 fun Fragment.createDatabasesPathList():List<String>{
     val databasesTables = listOf("business_table","clients_table", "products_table", "records_table", "supplier_table")

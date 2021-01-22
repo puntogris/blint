@@ -72,7 +72,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             android:text="@{record.author}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView77"
@@ -95,21 +95,21 @@
             android:id="@+id/textView80"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            upperCaseToLowerCapitalize="@{record.type}"
+            recordTypeString="@{record.type}"
             style="@style/Theme.Blint.DataTextView"
             app:layout_constraintStart_toStartOf="@+id/textView79"
             app:layout_constraintTop_toBottomOf="@+id/textView79" />
 
         <TextView
             android:id="@+id/textView81"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_marginTop="16dp"
             android:text="Detalles del movimiento"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
         <TextView
             android:id="@+id/textView82"
@@ -156,6 +156,16 @@
             app:layout_constraintStart_toStartOf="@+id/textView84"
             app:layout_constraintTop_toBottomOf="@+id/textView84"
             app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

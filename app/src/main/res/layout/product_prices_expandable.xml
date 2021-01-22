@@ -25,12 +25,12 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/productPricesButton"
+                android:id="@+id/productPricesTitle"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Precios y Stock"
+                android:text="Precios y Stock inicial"
                 android:textColor="@color/purple_200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,13 +44,16 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 android:hint="Compra"
-                app:prefixText="$"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/productSellPrice"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productPricesButton">
+                app:layout_constraintTop_toBottomOf="@+id/productPricesTitle"
+                app:layout_constraintVertical_bias="0.0"
+                app:prefixText="$">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productBuyPriceText"
@@ -121,8 +124,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 android:layout_marginBottom="16dp"
-                android:hint="Stock"
+                android:hint="Stock inicial"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -144,6 +148,7 @@
                 style="@style/Theme.Blint.ImageButton"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="gone"
                 android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
                 app:layout_constraintBottom_toBottomOf="@+id/productAmount"
                 app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
@@ -156,6 +161,7 @@
                 android:id="@+id/increaseAmountButton"
                 style="@style/Theme.Blint.ImageButton"
                 android:layout_marginEnd="24dp"
+                android:visibility="gone"
                 android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
                 app:layout_constraintBottom_toBottomOf="@+id/decreaseAmountButton"
                 app:layout_constraintEnd_toEndOf="parent"
