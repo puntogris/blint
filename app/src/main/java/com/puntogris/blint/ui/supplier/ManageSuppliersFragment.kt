@@ -8,14 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
-import com.puntogris.blint.model.Client
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.client.ClientViewModel
-import com.puntogris.blint.ui.client.ManageClientsAdapter
-import com.puntogris.blint.ui.product.ManageProductsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -45,7 +39,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
-        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier.id)
+        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier.supplierId)
         findNavController().navigate(action)
     }
 

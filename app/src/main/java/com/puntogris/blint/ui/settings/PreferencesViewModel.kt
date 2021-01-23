@@ -24,10 +24,10 @@ class PreferencesViewModel @ViewModelInject constructor(
     suspend fun sendReport(message: String) =
         userRepository.sendReportToFirestore(message)
 
-    suspend fun backupBusiness(businessID:String, paths: List<String>) =
+    suspend fun backupBusiness(businessID:String, paths: String) =
         backupRepository.createBackupForBusiness(businessID, paths)
 
-    suspend fun restoreBackup(businessID: String ,paths: List<String>) =
+    suspend fun restoreBackup(businessID: String ,paths: String) =
         backupRepository.restoreBackupForBusiness(businessID, paths)
 
     fun getOwnerBusiness() = userRepository.getOwnerBusiness()

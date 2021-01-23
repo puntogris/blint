@@ -6,9 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
-import com.puntogris.blint.data.local.products.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
-import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
@@ -34,12 +32,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    @Inject lateinit var productsDao: ProductsDao
 
     override fun initializeViews() {
         setupRecyclerView()
         setupBusinessMenu()
         changeBusinessListener()
+
     }
 
     private fun setupBusinessMenu(){
@@ -67,7 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
-            layoutManager = GridLayoutManager(requireContext(),2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             addItemDecoration(SpaceItemDecoration(20, true))
         }
     }
@@ -88,12 +86,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val clientsCount = viewModel.getClientsCount()
 
         return listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE,"Productos", "$productsCount productos",""),
-            MenuCard(ALL_CLIENTS_CARD_CODE,"Clientes", "$clientsCount clientes",""),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE,"Proveedores","$suppliersCount proveedores",""),
-            MenuCard(RECORDS_CARD_CODE,"Movimientos",  "", ""),
+            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", "$productsCount productos", ""),
+            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", "$clientsCount clientes", ""),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", "$suppliersCount proveedores", ""),
+            MenuCard(RECORDS_CARD_CODE, "Movimientos", "", ""),
             MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "",""),
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "", ""),
         )
     }
 

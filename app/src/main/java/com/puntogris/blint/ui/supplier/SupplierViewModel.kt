@@ -8,9 +8,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.puntogris.blint.data.local.records.RecordsDao
-import com.puntogris.blint.data.local.suppliers.SuppliersDao
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
@@ -52,7 +51,7 @@ class SupplierViewModel @ViewModelInject constructor(
     suspend fun getSupplier(id:Int) = suppliersDao.getSupplier(id)
 
     fun updateSupplierData(supplier: Supplier){
-        supplier.id = _currentSupplier.value.id
+        supplier.supplierId = _currentSupplier.value.supplierId
         _currentSupplier.value = supplier
     }
 

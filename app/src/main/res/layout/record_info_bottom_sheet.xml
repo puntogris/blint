@@ -7,6 +7,10 @@
         <variable
             name="record"
             type="com.puntogris.blint.model.Record" />
+
+        <variable
+            name="bottomSheet"
+            type="com.puntogris.blint.ui.record.RecordInfoBottomSheet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,13 +138,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView82" />
 
         <TextView
-            android:id="@+id/textView84"
+            android:id="@+id/externalNameTitle"
             style="@style/Theme.Blint.DataSubTitleTextView"
             clientOrSupplierTitleWithRecordType="@{record.type}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/textView78"
             app:layout_constraintTop_toBottomOf="@+id/textView78" />
 
@@ -149,13 +153,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView84"
-            app:layout_constraintTop_toBottomOf="@+id/textView84"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="@+id/externalNameTitle"
+            app:layout_constraintTop_toBottomOf="@+id/externalNameTitle">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                externalChipName="@{record.externalName}"
+                android:layout_width="wrap_content"
+                android:onClick="@{()->bottomSheet.onExternalChipClicked()}"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.chip.ChipGroup>
 
         <ImageView
             android:id="@+id/imageView10"
@@ -166,7 +175,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/divider_round_corners_horizontal" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -250,28 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:text="Clientes y Proveedores"/>
-
-                    <TextView
-                        android:id="@+id/textView37"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Clientes" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/clientsChipGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cliente 1" />
-
-                    </com.google.android.material.chip.ChipGroup>
+                        android:text="Proveedores"/>
 
 
                     <TextView
@@ -289,11 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Proveedor 1" />
+
                     </com.google.android.material.chip.ChipGroup>
 
                 </LinearLayout>

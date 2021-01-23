@@ -5,8 +5,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.local.businesses.BusinessDao
-import com.puntogris.blint.data.local.user.UsersDao
+import com.puntogris.blint.data.local.dao.BusinessDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult

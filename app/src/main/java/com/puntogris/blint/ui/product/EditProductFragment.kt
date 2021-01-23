@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.chip.Chip
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
@@ -33,13 +34,25 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-
         if (!viewModel.viewsLoaded) {
             if (args.productID != 0){
                 lifecycleScope.launch {
-                    val product = viewModel.getProduct(args.productID)
-                    viewModel.setProductData(product)
+                    val productWithSuppliers = viewModel.getProductWithSuppliers(args.productID)
+                    viewModel.setProductData(productWithSuppliers.product)
+
+                    if (productWithSuppliers.suppliers.isNotEmpty()){
+                        productWithSuppliers.suppliers.forEach { supplier->
+                            Chip(requireContext()).apply {
+                                text = supplier.companyName
+                                setOnClickListener {
+
+                                }
+                                binding.scopeLayout.supplierChipGroup.addView(this)
+                            }
+                        }
+                    }
                 }
+
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true
@@ -65,9 +78,11 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 viewModel.updateProductData(getProductDataFromViews())
                 when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.saveProductDatabase()
-                        createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this).show()
-                        findNavController().navigateUp()
+                        lifecycleScope.launch {
+                            viewModel.saveProductDatabase()
+                            createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this@apply).show()
+                            findNavController().navigateUp()
+                        }
                     }
                     is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
                 }
@@ -97,7 +112,8 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             image = viewModel.productImage.value!!,
             internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),
-            size = binding.productExtrasLayout.productSizeText.getString()
+            size = binding.productExtrasLayout.productSizeText.getString(),
+            suppliers = viewModel.suppliers.value!!
         )
     }
 
@@ -150,48 +166,28 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         }
     }
 
-    fun openBottomSheetForClients(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Clientes")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Cliente 1"),
-                Option("Cliente 2"),
-                Option("Cliente 3"),
-                Option("Cliente 4"),
-                Option("Cliente 5"),
-                Option("Cliente 6")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.scopeLayout.clientsChipGroup)
-                }
-            }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
-    }
-
     fun openBottomSheetForSuppliers(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Proveedores")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Proveedor 1"),
-                Option("Proveedor 2"),
-                Option("Proveedor 3"),
-                Option("Proveedor 4"),
-                Option("Proveedpor 5"),
-                Option("Proveedor 6")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.scopeLayout.supplierChipGroup)
-                }
+        lifecycleScope.launch {
+            val suppliers = viewModel.getAllSuppliers()
+            if (suppliers.isNullOrEmpty()){
+                showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
+            }else{
+                val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
+                OptionsSheet().build(requireContext()){
+                    title("Agregar Proveedores")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(true)
+                    with(optionSuppliers)
+                    onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                        viewModel.updateSuppliers(selectedIndices.map { suppliers[it].supplierId })
+                        selectedIndices.forEach {
+                            createNewChipAndAddItToGroup(suppliers[it].companyName, binding.scopeLayout.supplierChipGroup)
+                        }
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        }
     }
 
     fun openBottomSheetForCategories(){

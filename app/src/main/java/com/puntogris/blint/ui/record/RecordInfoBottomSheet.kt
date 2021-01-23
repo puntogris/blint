@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.record
 
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.RecordInfoBottomSheetBinding
@@ -11,5 +12,21 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
 
     override fun initializeViews() {
         binding.record = args.record
+        binding.bottomSheet = this
+    }
+
+    fun onExternalChipClicked(){
+        if(args.record.externalID != 0){
+            when(args.record.type){
+                "IN"-> {
+                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(args.record.externalID)
+                    findNavController().navigate(action)
+                }
+                "OUT" -> {
+                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToClientFragment(args.record.externalID)
+                    findNavController().navigate(action)
+                }
+            }
+        }
     }
 }

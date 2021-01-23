@@ -3,8 +3,6 @@ package com.puntogris.blint.ui.backup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.airbnb.lottie.Lottie
-import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
@@ -16,9 +14,6 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.io.*
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 @AndroidEntryPoint
 class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.fragment_create_back_up) {
@@ -87,7 +82,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     private fun startBusinessBackup(businessID: String){
         showBackupInProgressUI()
         lifecycleScope.launch {
-            when(viewModel.backupBusiness(businessID, createDatabasesPathList())){
+            when(viewModel.backupBusiness(businessID, getDatabasePath())){
                 SimpleResult.Success -> {
                     showSuccessfulBackupUI()
                 }

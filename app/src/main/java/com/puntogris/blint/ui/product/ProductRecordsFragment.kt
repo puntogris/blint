@@ -30,7 +30,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getInt("product_key").let { productID->
+            getInt("product_key").let { productID ->
                 lifecycleScope.launch {
                     viewModel.getProductRecords(productID).collect {
                         productsRecordsAdapter.submitData(it)
@@ -57,7 +57,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     }
 
     private fun onRecordClickListener(record: Record){
-
+        (requireParentFragment() as ProductFragment).navigateToInfoRecord(record)
     }
 
 }

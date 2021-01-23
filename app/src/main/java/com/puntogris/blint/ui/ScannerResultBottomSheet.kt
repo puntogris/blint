@@ -2,15 +2,12 @@ package com.puntogris.blint.ui
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
@@ -29,6 +26,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
 
     private val viewModel: RecordsViewModel by viewModels()
     private var returnAndActivateCamera = true
+
     override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -38,57 +36,87 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
+
+        binding.externalChip.setOnCloseIconClickListener {
+            it.gone()
+            viewModel.resetExternalInfo()
+        }
+
         binding.recordTypeText.setOnItemClickListener { adapterView, view, i, l ->
             when(i){
                 0 -> {
-                    binding.supplierChipGroup.visible()
-                    binding.clientsChipGroup.gone()
+                    setUpExternalChipGroup(i)
+                    binding.addExternalChip.setOnClickListener {
+                        openBottomSheetForSuppliers()
+                    }
                 }
                 1 -> {
-                    binding.supplierChipGroup.gone()
-                    binding.clientsChipGroup.visible()
+                    setUpExternalChipGroup(i)
+                    binding.addExternalChip.setOnClickListener {
+                        openBottomSheetForClients()
+                    }
                 }
             }
             viewModel.updateRecordType(i)
         }
     }
 
-    fun openBottomSheetForClients(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Clientes")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Cliente 1"),
-                Option("Cliente 2"),
-                Option("Cliente 3")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.clientsChipGroup)
-                }
+    private fun setUpExternalChipGroup(position:Int){
+        binding.addExternalChip.text =
+            when(position){
+                0-> "Agregar proveedor"
+                1-> "Agregar cliente"
+                else -> ""
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        viewModel.resetExternalInfo()
+        binding.externalChip.gone()
+        binding.externalChipGroup.visible()
     }
 
-    fun openBottomSheetForSuppliers(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Proveedores")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Proveedor 1"),
-                Option("Proveedor 2"),
-                Option("Proveedor 3")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.supplierChipGroup)
-                }
+    private fun openBottomSheetForClients(){
+        lifecycleScope.launch {
+            val clients = viewModel.getAllClients()
+            if (clients.isNullOrEmpty()){
+                showSackBarAboveBotomSheet("No se encontraron clientes registrados.")
+            }else{
+                val optionClients = clients.map { Option(it.name) }.toMutableList()
+                OptionsSheet().build(requireContext()) {
+                    title("Agregar Clientes")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(false)
+                    with(optionClients)
+                    onPositive { index: Int, _: Option ->
+                        viewModel.updateExternalInfo(clients[index].id, clients[index].name)
+                        binding.externalChip.text = clients[index].name
+                        binding.externalChip.visible()
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        }
+    }
+
+    private fun openBottomSheetForSuppliers(){
+        lifecycleScope.launch {
+            val suppliers = viewModel.getAllSuppliers()
+            if (suppliers.isNullOrEmpty()){
+                showSackBarAboveBotomSheet("No se encontraron proveedores registrados.")
+            }else{
+                val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
+                OptionsSheet().build(requireContext()){
+                    title("Agregar Proveedores")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(false)
+                    with(optionSuppliers)
+                    onPositive { index: Int, _: Option ->
+                        viewModel.updateExternalInfo(suppliers[index].supplierId, suppliers[index].companyName)
+                        binding.externalChip.text = suppliers[index].companyName
+                        binding.externalChip.visible()
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

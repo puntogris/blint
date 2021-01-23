@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.data.local.businesses.BusinessDao
+import com.puntogris.blint.data.local.dao.BusinessDao
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser

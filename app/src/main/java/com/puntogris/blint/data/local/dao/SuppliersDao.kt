@@ -1,8 +1,7 @@
-package com.puntogris.blint.data.local.suppliers
+package com.puntogris.blint.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 
 @Dao
@@ -14,10 +13,10 @@ interface SuppliersDao {
     @Update
     suspend fun update(supplier: Supplier)
 
-    @Query("DELETE FROM supplier WHERE id = :id")
+    @Query("DELETE FROM supplier WHERE supplierId = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT * FROM supplier WHERE id = :id")
+    @Query("SELECT * FROM supplier WHERE supplierId = :id")
     suspend fun getSupplier(id: Int): Supplier
 
     @Query("SELECT COUNT(*) FROM supplier")

@@ -26,12 +26,11 @@
 
             <TextView
                 android:id="@+id/productPricesTitle"
-                style="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/Theme.Blint.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Precios y Stock inicial"
-                android:textColor="@color/purple_200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

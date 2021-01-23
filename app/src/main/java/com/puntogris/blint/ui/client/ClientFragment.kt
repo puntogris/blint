@@ -13,11 +13,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
+import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,6 +56,11 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     override fun onEditButtonClicked() {
         val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientID)
+        findNavController().navigate(action)
+    }
+
+    fun navigateToInfoRecord(record: Record){
+        val action = ClientFragmentDirections.actionClientFragmentToRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }
 

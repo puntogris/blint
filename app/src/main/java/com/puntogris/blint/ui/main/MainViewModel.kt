@@ -2,13 +2,11 @@ package com.puntogris.blint.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.data.local.businesses.BusinessDao
-import com.puntogris.blint.data.local.clients.ClientsDao
-import com.puntogris.blint.data.local.products.ProductsDao
-import com.puntogris.blint.data.local.suppliers.SuppliersDao
+import com.puntogris.blint.data.local.dao.BusinessDao
+import com.puntogris.blint.data.local.dao.ClientsDao
+import com.puntogris.blint.data.local.dao.ProductsDao
+import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Business
 
 class MainViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,

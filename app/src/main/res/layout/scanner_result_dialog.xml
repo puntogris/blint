@@ -143,7 +143,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipsLayout"
+            app:layout_constraintTop_toBottomOf="@+id/externalChipGroup"
             app:strokeColor="@color/purple_200" />
 
         <com.google.android.material.button.MaterialButton
@@ -208,48 +208,30 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/chipsLayout"
-            android:layout_width="match_parent"
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/externalChipGroup"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/recordType"
             app:layout_constraintTop_toBottomOf="@+id/recordType">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/clientsChipGroup"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/addExternalChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="gone">
+                app:chipIcon="@drawable/ic_baseline_add_24" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/addClientChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->fragment.openBottomSheetForClients()}"
-                    android:text="Agregar Cliente"
-                    app:chipIcon="@drawable/ic_baseline_add_24" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/supplierChipGroup"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/externalChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="gone">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/addSupplierChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->fragment.openBottomSheetForSuppliers()}"
-                    android:text="Agregar Proveedor"
-                    app:chipIcon="@drawable/ic_baseline_add_24" />
-            </com.google.android.material.chip.ChipGroup>
-
-        </LinearLayout>
+                android:visibility="gone"
+                app:closeIconEnabled="true"
+                app:closeIconVisible="true" />
+        </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button7"
@@ -299,7 +281,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(viewModel.barcodeScanned)}"
+            android:text="@{viewModel.barcodeScanned}"
             app:layout_constraintBottom_toBottomOf="@+id/textView67"
             app:layout_constraintStart_toEndOf="@+id/textView67"
             app:layout_constraintTop_toTopOf="@+id/textView67" />

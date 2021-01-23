@@ -1,10 +1,8 @@
-package com.puntogris.blint.data.local.clients
+package com.puntogris.blint.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Client
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.Supplier
 
 @Dao
 interface ClientsDao {

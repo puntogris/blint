@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Supplier(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var supplierId: Int = 0,
 
     @ColumnInfo
     val companyName: String = "",

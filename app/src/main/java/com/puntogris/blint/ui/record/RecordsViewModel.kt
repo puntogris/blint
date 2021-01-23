@@ -6,18 +6,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.local.clients.ClientsDao
-import com.puntogris.blint.data.local.products.ProductsDao
-import com.puntogris.blint.data.local.records.RecordsDao
-import com.puntogris.blint.data.local.suppliers.SuppliersDao
+import com.puntogris.blint.data.local.dao.ClientsDao
+import com.puntogris.blint.data.local.dao.ProductsDao
+import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 class RecordsViewModel @ViewModelInject constructor(
     private val recordsDao: RecordsDao,
@@ -33,16 +30,17 @@ class RecordsViewModel @ViewModelInject constructor(
     val barcodeScanned: LiveData<String> = _barcodeScanned
 
     private var recordType = "NONE"
+    private var externalID = 0
+    private var externalName = ""
 
-    private var clientID = 0
-    private var supplierID = 0
-
-    fun updateClientID(id:Int){
-        clientID = id
+    fun updateExternalInfo(id:Int, name: String){
+        externalID = id
+        externalName = name
     }
 
-    fun updateSupplierID(id:Int){
-        supplierID = id
+    fun resetExternalInfo(){
+        externalName = ""
+        externalID = 0
     }
 
     fun setProductData(product: Product){
@@ -82,15 +80,15 @@ class RecordsViewModel @ViewModelInject constructor(
 
     suspend fun getProduct(id: Int) = productsDao.getProduct(id)
 
-    suspend fun saveRecordAndUpdateStock(amount: Int):Boolean{
+    suspend fun saveRecordAndUpdateStock(amount: Int): Boolean{
         val record = Record(
-            productID = _currentProduct.value.id,
+            productID = _currentProduct.value.productId,
             productName = _currentProduct.value.name,
             amount = amount,
             type = recordType,
             timestamp = Timestamp.now(),
-            clientID = clientID,
-            supplierID = supplierID,
+            externalID = externalID,
+            externalName = externalName,
             author = userRepository.getCurrentUser()?.email.toString()
         )
         val newAmount = getNewStockAmount(record.type, amount)
@@ -122,7 +120,7 @@ class RecordsViewModel @ViewModelInject constructor(
 
     suspend fun getProductWithBarCode(barcode:String) = productsDao.getProductWithBarcode(barcode)
 
-    fun getProductID() = _currentProduct.value.id
+    fun getProductID() = _currentProduct.value.productId
 
     fun updateBarcodeScanned(barcode: String){
         _barcodeScanned.value = barcode

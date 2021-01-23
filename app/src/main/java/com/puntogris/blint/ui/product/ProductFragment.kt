@@ -15,8 +15,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
@@ -80,6 +82,16 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     override fun onCreateRecordButtonClicked() {
         val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
+        findNavController().navigate(action)
+    }
+
+    fun navigateToInfoRecord(record: Record){
+        val action = ProductFragmentDirections.actionProductFragmentToRecordInfoBottomSheet(record)
+        findNavController().navigate(action)
+    }
+
+    fun navigateToSupplier(supplierId:Int){
+        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(supplierId)
         findNavController().navigate(action)
     }
 

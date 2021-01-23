@@ -17,7 +17,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.record.CreateRecordFragment">
 
-
         <TextView
             android:id="@+id/textView15"
             style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -152,47 +151,29 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/clientsChipGroup"
+            android:id="@+id/externalChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/supplierChipGroup"
+            app:layout_constraintStart_toStartOf="@+id/recordType"
             app:layout_constraintTop_toBottomOf="@+id/recordType">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/addClientChip"
+                android:id="@+id/addExternalChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->fragment.openBottomSheetForClients()}"
-                android:text="Agregar Cliente"
                 app:chipIcon="@drawable/ic_baseline_add_24" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/supplierChipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:visibility="gone"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordType">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/addSupplierChip"
+                android:id="@+id/externalChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->fragment.openBottomSheetForSuppliers()}"
-                android:text="Agregar Proveedor"
-                app:chipIcon="@drawable/ic_baseline_add_24" />
+                android:visibility="gone"
+                app:closeIconEnabled="true"
+                app:closeIconVisible="true" />
         </com.google.android.material.chip.ChipGroup>
 
         <TextView

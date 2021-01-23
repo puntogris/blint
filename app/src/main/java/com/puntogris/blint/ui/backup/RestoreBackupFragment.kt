@@ -82,7 +82,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     private fun startBusinessBackup(businessID: String){
         showBackupInProgressUI()
         lifecycleScope.launch {
-            when(viewModel.restoreBackup(businessID, createDatabasesPathList())){
+            when(viewModel.restoreBackup(businessID, getDatabasePath())){
                 SimpleResult.Success -> showSuccessfulBackupUI()
                 SimpleResult.Failure -> showFailureBackupUI()
             }

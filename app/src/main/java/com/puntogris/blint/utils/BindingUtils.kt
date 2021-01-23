@@ -14,11 +14,13 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.chip.Chip
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
@@ -146,7 +148,7 @@ fun TextView.setUpperCaseToLowerCapitalize(role:String){
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
-    text = if(type == "IN") "Proveedores" else "Clientes"
+    text = if(type == "IN") "Proveedor" else "Cliente"
 }
 
 @BindingAdapter("dateFromTimestampWithTime")
@@ -178,5 +180,15 @@ fun View.setRecordType(type:String){
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))
+    }
+}
+
+@BindingAdapter("externalChipName")
+fun Chip.setExternalChipName(name: String){
+    if (name.isNotEmpty()){
+        text = name
+    }else{
+        text = "No especificado"
+        isEnabled = false
     }
 }

@@ -5,12 +5,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -41,7 +39,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     }
 
     private fun onProductClickListener(product: Product){
-        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product.id)
+        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product.productId)
         findNavController().navigate(action)
     }
 

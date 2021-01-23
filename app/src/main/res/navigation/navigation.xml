@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
+        <action
+            android:id="@+id/action_clientFragment_to_recordInfoBottomSheet"
+            app:destination="@id/recordInfoBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/supplierFragment"
@@ -104,6 +107,12 @@
         <action
             android:id="@+id/action_productFragment_to_createRecordFragment"
             app:destination="@id/createRecordFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_recordInfoBottomSheet"
+            app:destination="@id/recordInfoBottomSheet" />
+        <action
+            android:id="@+id/action_productFragment_to_supplierFragment"
+            app:destination="@id/supplierFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -253,5 +262,11 @@
         <argument
             android:name="record"
             app:argType="com.puntogris.blint.model.Record" />
+        <action
+            android:id="@+id/action_recordInfoBottomSheet_to_supplierFragment"
+            app:destination="@id/supplierFragment" />
+        <action
+            android:id="@+id/action_recordInfoBottomSheet_to_clientFragment"
+            app:destination="@id/clientFragment" />
     </dialog>
 </navigation>

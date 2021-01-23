@@ -8,12 +8,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.puntogris.blint.data.local.clients.ClientsDao
-import com.puntogris.blint.data.local.records.RecordsDao
+import com.puntogris.blint.data.local.dao.ClientsDao
+import com.puntogris.blint.data.local.dao.RecordsDao
 import com.puntogris.blint.model.Client
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

@@ -2,18 +2,15 @@ package com.puntogris.blint.ui.record
 
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.chip.Chip
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateRecordBinding
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,15 +65,24 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
+        binding.externalChip.setOnCloseIconClickListener {
+            it.gone()
+            viewModel.resetExternalInfo()
+        }
+
         binding.recordTypeText.setOnItemClickListener { adapterView, view, i, l ->
             when(i){
                 0 -> {
-                    binding.supplierChipGroup.visible()
-                    binding.clientsChipGroup.gone()
+                    setUpExternalChipGroup(i)
+                    binding.addExternalChip.setOnClickListener {
+                        openBottomSheetForSuppliers()
+                    }
                 }
                 1 -> {
-                    binding.supplierChipGroup.gone()
-                    binding.clientsChipGroup.visible()
+                    setUpExternalChipGroup(i)
+                    binding.addExternalChip.setOnClickListener {
+                        openBottomSheetForClients()
+                    }
                 }
             }
             viewModel.updateRecordType(i)
@@ -84,7 +90,19 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
 
     }
 
-    fun openBottomSheetForClients(){
+    private fun setUpExternalChipGroup(position:Int){
+        binding.addExternalChip.text =
+            when(position){
+                0-> "Agregar proveedor"
+                1-> "Agregar cliente"
+                else -> ""
+            }
+        viewModel.resetExternalInfo()
+        binding.externalChip.gone()
+        binding.externalChipGroup.visible()
+    }
+
+    private fun openBottomSheetForClients(){
         lifecycleScope.launch {
             val clients = viewModel.getAllClients()
             if (clients.isNullOrEmpty()){
@@ -97,8 +115,9 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                     multipleChoices(false)
                     with(optionClients)
                     onPositive { index: Int, _: Option ->
-                        viewModel.updateClientID(clients[index].id)
-                        createNewChipAndAddItToGroup(clients[index].name, binding.clientsChipGroup)
+                        viewModel.updateExternalInfo(clients[index].id, clients[index].name)
+                        binding.externalChip.text = clients[index].name
+                        binding.externalChip.visible()
                     }
                     onNegative("Cancelar")
                 }.show(parentFragmentManager, "")
@@ -106,7 +125,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
         }
     }
 
-    fun openBottomSheetForSuppliers(){
+    private fun openBottomSheetForSuppliers(){
         lifecycleScope.launch {
             val suppliers = viewModel.getAllSuppliers()
             if (suppliers.isNullOrEmpty()){
@@ -119,8 +138,9 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                     multipleChoices(false)
                     with(optionSuppliers)
                     onPositive { index: Int, _: Option ->
-                        viewModel.updateSupplierID(suppliers[index].id)
-                        createNewChipAndAddItToGroup(suppliers[index].companyName, binding.clientsChipGroup)
+                        viewModel.updateExternalInfo(suppliers[index].supplierId, suppliers[index].companyName)
+                        binding.externalChip.text = suppliers[index].companyName
+                        binding.externalChip.visible()
                     }
                     onNegative("Cancelar")
                 }.show(parentFragmentManager, "")
