@@ -1,5 +1,7 @@
 package com.puntogris.blint.utils
 
+import android.content.Context
+import android.content.res.Configuration
 import java.io.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -23,6 +25,10 @@ object Util {
         ))
     ) * scaleFactor + minScaleOffest).toFloat()
   }
+
+    fun isPortraitMode(context: Context): Boolean =
+        context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
 
     // Zip filesBeingZipped into zipDirectory using standard File IO, and name it zipFileName.
     fun zipDatabases(filesBeingZipped: List<File>, zipDirectory: String, zipFileName: String): Boolean {

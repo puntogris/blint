@@ -17,10 +17,10 @@ import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -28,16 +28,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var dropDownMenuAdapter: DropDownMenuAdapter
-
     @Inject
     lateinit var sharedPref: SharedPref
-
 
     override fun initializeViews() {
         setupRecyclerView()
         setupBusinessMenu()
         changeBusinessListener()
-
     }
 
     private fun setupBusinessMenu(){
@@ -60,13 +57,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun setupRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
-        lifecycleScope.launch {
-            mainMenuAdapter.submitList(getMenuCardList())
-        }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
             addItemDecoration(SpaceItemDecoration(20, true))
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            mainMenuAdapter.currentList[0].description = "${viewModel.getProductsCount()} productos"
+            mainMenuAdapter.currentList[1].description = "${viewModel.getClientsCount()} clientes"
+            mainMenuAdapter.currentList[2].description = "${viewModel.getSuppliersCount()} proveedores"
+            requireActivity().runOnUiThread {
+                mainMenuAdapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -78,21 +81,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
             RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
         }
-    }
-
-    private suspend fun getMenuCardList(): List<MenuCard>{
-        val productsCount = viewModel.getProductsCount()
-        val suppliersCount = viewModel.getSuppliersCount()
-        val clientsCount = viewModel.getClientsCount()
-
-        return listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", "$productsCount productos", ""),
-            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", "$clientsCount clientes", ""),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", "$suppliersCount proveedores", ""),
-            MenuCard(RECORDS_CARD_CODE, "Movimientos", "", ""),
-            MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "", ""),
-        )
     }
 
     override fun onDestroyView() {
