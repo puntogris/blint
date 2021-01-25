@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class Record(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val recordId: Int = 0,
 
     @ColumnInfo
     val type: String = "",
@@ -36,5 +36,8 @@ data class Record(
     val productName:String = "",
 
     @ColumnInfo
-    val author: String = ""
+    val author: String = "",
+
+    @ColumnInfo
+    var businessId:String = ""
 ):Parcelable

@@ -5,18 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.data.local.dao.BusinessDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
+import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
-    private val businessDao: BusinessDao): ViewModel() {
+    private val businessDao: BusinessDao,
+    private val usersDao: UsersDao): ViewModel() {
 
     private val _userBusiness = MutableStateFlow(emptyList<Business>())
     val userBusiness: StateFlow<List<Business>> = _userBusiness
@@ -25,7 +29,10 @@ class LoginViewModel @ViewModelInject constructor(
         userRepository.logInUserWithCredentialToken(credentialToken)
 
     fun singOut(){
-        userRepository.singOutCurrentUser()
+        viewModelScope.launch {
+            businessDao.deleteAll()
+            userRepository.singOutCurrentUser()
+        }
     }
 
     suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser):SimpleResult {
@@ -39,14 +46,26 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
     fun getUserBusiness() {
+
         viewModelScope.launch {
             _userBusiness.emitAll(userRepository.getEmployeeBusiness())
         }
     }
 
+
     suspend fun saveBusinessToLocalDatabase(){
-        userBusiness.value.forEach {
-            businessDao.insert(it)
-        }
+        businessDao.insert(userBusiness.value)
+        usersDao.insert(RoomUser(
+            currentBusinessId = userBusiness.value.first().businessId,
+            currentBusinessType = userBusiness.value.first().type,
+            currentBusinessName = userBusiness.value.first().name,
+            currentUid = userRepository.getCurrentUID()
+        ))
     }
+
+    suspend fun registerNewBusiness(name: String){
+        userRepository.getOwnerBusiness()
+        userRepository.registerNewBusiness(name)
+    }
+
 }

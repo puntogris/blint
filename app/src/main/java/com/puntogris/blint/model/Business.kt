@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Business(
 
-        @PrimaryKey
-        var id: String = "",
+        @PrimaryKey(autoGenerate = false)
+        var businessId: String = "",
 
         @ColumnInfo
         val name: String = "",

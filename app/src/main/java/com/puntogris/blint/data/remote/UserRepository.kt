@@ -47,7 +47,7 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
                         val data = snap!!.documents.map { doc ->
                             Business(
                                 name = doc["name"].toString(),
-                                id = doc["id"].toString(),
+                                businessId = doc["businessId"].toString(),
                                 userRole = doc["userRole"].toString(),
                                 type = doc["type"].toString(),
                                 owner = doc["owner"].toString(),
@@ -67,17 +67,17 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
         try {
             val ref = firestore.collection("users").document(getCurrentUID()).collection("business").document()
             val business = Business(
-                id = ref.id,
+                businessId = ref.id,
                 name = name,
                 type = "LOCAL",
                 owner = getCurrentUID(),
-                userRole = "ADMINISTRATOR"
+                userRole = "ADMINISTRATOR",
+                userID = getCurrentUID()
             )
             ref.set(business).await()
             business.userID = getCurrentUID()
             ref.collection("employees").document().set(business)
             businessDao.insert(business)
-
         }catch (e:Exception){
 
         }
@@ -131,7 +131,7 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
                     val data = snap!!.documents.map { doc->
                         Business(
                             name = doc["name"].toString(),
-                            id = doc["id"].toString(),
+                            businessId = doc["businessId"].toString(),
                             userRole = doc["userRole"].toString(),
                             type = doc["type"].toString(),
                             owner = doc["owner"].toString(),

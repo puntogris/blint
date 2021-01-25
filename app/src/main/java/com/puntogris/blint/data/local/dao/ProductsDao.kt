@@ -18,19 +18,19 @@ interface ProductsDao {
     @Query("DELETE FROM product WHERE productId = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT * FROM product WHERE productId = :id")
+    @Query("SELECT * FROM product WHERE productId = :id ")
     suspend fun getProduct(id: Int): Product
 
-    @Query("SELECT * FROM product WHERE barcode = :barcode")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): Product?
 
-    @Query("SELECT COUNT(*) FROM product")
+    @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getCount(): Int
 
-    @Query("SELECT * FROM product ORDER BY name ASC")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY name ASC")
     fun getAllPaged(): PagingSource<Int, Product>
 
-    @Query("SELECT * FROM product WHERE name LIKE :name")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND name LIKE :name")
     fun getPagedSearch(name: String): PagingSource<Int, Product>
 
     @Query("UPDATE product SET amount = :amount WHERE productId = :id")
@@ -45,6 +45,7 @@ interface ProductsDao {
 
     @Insert
     suspend fun insertProductSupplierCrossRef(items:List<ProductSupplierCrossRef>)
+
 
 //    @Query("SELECT * FROM product ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
 //    fun getAllPaged(isAsc:Boolean): PagingSource<Int, Product>

@@ -38,6 +38,9 @@ data class Supplier(
     val companyPaymentInfo: String = "",
 
     @ColumnInfo
-    val notes:String = ""
+    val notes:String = "",
+
+    @ColumnInfo
+    var businessId:String = ""
 
 ):Parcelable

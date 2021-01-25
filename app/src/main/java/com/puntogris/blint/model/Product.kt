@@ -57,4 +57,7 @@ data class Product(
 
     @ColumnInfo
     var suppliers: List<Int> = listOf(),
+
+    @ColumnInfo
+    var businessId:String = ""
 ):Parcelable

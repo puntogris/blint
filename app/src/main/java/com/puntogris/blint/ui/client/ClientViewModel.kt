@@ -10,6 +10,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 
 class ClientViewModel @ViewModelInject constructor(
     private val clientsDao: ClientsDao,
-    private val recordsDao: RecordsDao
+    private val recordsDao: RecordsDao,
+    private val usersDao: UsersDao
 ) : ViewModel() {
 
     private val _currentClient = MutableStateFlow(Client())
@@ -56,6 +58,7 @@ class ClientViewModel @ViewModelInject constructor(
 
     fun saveClientDatabase(){
         viewModelScope.launch {
+            _currentClient.value.businessId = getCurrentBusiness().currentBusinessId
             clientsDao.insert(_currentClient.value)
         }
     }
@@ -67,7 +70,7 @@ class ClientViewModel @ViewModelInject constructor(
     }
 
     fun updateClientData(client: Client){
-        client.id = _currentClient.value.id
+        client.clientId = _currentClient.value.clientId
         _currentClient.value = client
     }
 
@@ -83,5 +86,8 @@ class ClientViewModel @ViewModelInject constructor(
             recordsDao.getClientsRecords(clientID)
         }.flow
     }
+
+    suspend fun getCurrentBusiness() = usersDao.getUser()
+
 
 }

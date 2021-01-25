@@ -13,22 +13,22 @@ interface ClientsDao {
     @Update
     suspend fun update(client: Client)
 
-    @Query("DELETE FROM client WHERE id = :id")
+    @Query("DELETE FROM client WHERE clientId = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT * FROM client WHERE id = :id")
+    @Query("SELECT * FROM client WHERE clientId = :id")
     suspend fun getClient(id:Int):Client
 
-    @Query("SELECT COUNT(*) FROM client")
+    @Query("SELECT COUNT(*) FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getCount(): Int
 
-    @Query("SELECT * FROM client")
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     fun getAllPaged(): PagingSource<Int, Client>
 
-    @Query("SELECT * FROM client WHERE name LIKE :name")
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND name LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Client>
 
-    @Query("SELECT * FROM client")
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getAllClients(): List<Client>
 
 }

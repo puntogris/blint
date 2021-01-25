@@ -115,7 +115,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                     multipleChoices(false)
                     with(optionClients)
                     onPositive { index: Int, _: Option ->
-                        viewModel.updateExternalInfo(clients[index].id, clients[index].name)
+                        viewModel.updateExternalInfo(clients[index].clientId, clients[index].name)
                         binding.externalChip.text = clients[index].name
                         binding.externalChip.visible()
                     }

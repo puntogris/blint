@@ -104,16 +104,17 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
 
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/recyclerViewCard"
             style="@style/Theme.Blint.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/fillJokeMessage"
-            app:layout_constraintTop_toBottomOf="@+id/textView25"
-            tools:layout_editor_absoluteX="197dp">
+            app:layout_constraintBottom_toTopOf="@+id/businessFoundMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="250dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -121,6 +122,20 @@
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/businessFoundMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:visibility="gone"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="35dp"
+            android:text="Encontramos estos negocios enlazados a tu cuenta.\n\nSi esta informacion es valida continua o espera y automaticamente seguiremos buscando el negocio al que perteneces."
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/exitButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

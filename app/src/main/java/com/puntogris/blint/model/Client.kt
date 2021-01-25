@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Client(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var clientId: Int = 0,
 
     @ColumnInfo
     val name:String = "",
@@ -29,6 +29,9 @@ data class Client(
     val paymentInfo:String = "",
 
     @ColumnInfo
-    val discount: Float = 0F
+    val discount: Float = 0F,
+
+    @ColumnInfo
+    var businessId:String = ""
 
 ):Parcelable

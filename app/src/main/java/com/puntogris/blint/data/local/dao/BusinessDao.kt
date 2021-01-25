@@ -9,14 +9,19 @@ interface BusinessDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(business: Business)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(businesses: List<Business>)
+
+    @Query("DELETE FROM business")
+    suspend fun deleteAll()
+
     @Update
     suspend fun update(business: Business)
 
-    @Query("SELECT * FROM business")
+    @Query("SELECT * FROM business INNER JOIN roomuser ON userID = currentUid WHERE id = '1'")
     suspend fun getBusinesses(): List<Business>
 
     @Query("SELECT COUNT(*) FROM business")
     suspend fun getCount(): Int
-
 
 }

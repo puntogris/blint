@@ -7,14 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.login.LoginViewModel
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -56,7 +54,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     private fun onEmployeeDataFound(data: List<Business>){
         joinBusinessAdapter.submitList(data)
         binding.apply {
-            binding.fillJokeMessage.text = "Encontramos estos negocios enlazados a tu cuenta.\n\nSi esta informacion es valida continua o espera y automaticamente seguiremos buscando el negocio al que perteneces."
+            businessFoundMessage.visible()
+            fillJokeMessage.gone()
             continueButton.visible()
             recyclerViewCard.visible()
             accountMessage.gone()
@@ -76,7 +75,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     fun onContinueButtonClicked(){
         lifecycleScope.launch {
             viewModel.saveBusinessToLocalDatabase()
-            sharedPref.setUserHasBusinessRegisteredPref()
+            sharedPref.setUserHasBusinessRegisteredPref(true)
             findNavController().navigate(R.id.mainFragment)
         }
     }

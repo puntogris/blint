@@ -15,4 +15,5 @@ class ManageProductsAdapter(private val clickListener: (Product) -> Unit): Pagin
     override fun onBindViewHolder(holder: ManageProductsViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
     }
+
 }

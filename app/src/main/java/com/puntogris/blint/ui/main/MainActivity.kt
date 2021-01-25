@@ -1,12 +1,9 @@
 package com.puntogris.blint.ui.main
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
@@ -15,14 +12,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.*
-import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
-import com.puntogris.blint.ui.product.EditProductFragmentDirections
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -84,12 +78,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             }
     }
 
-
     private fun setUpNavigation(){
         setSupportActionBar(binding.toolbar)
         navController = getNavController()
         val inflater = navController.navInflater
-        // Manually inflate the graph and set the start destination
         val navGraph = inflater.inflate(R.navigation.navigation)
         if (viewModel.isUserLoggedIn()) {
                 if (sharedPref.getUserHasBusinessRegisteredPref()) {
@@ -98,7 +90,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         } else {
             navGraph.startDestination = R.id.loginFragment
         }
-        // Set the manually created graph and args
         navController.graph = navGraph
 
         binding.run {
@@ -175,7 +166,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
@@ -191,18 +181,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             destination.id == R.id.businessWaitingRoomFragment ||
             destination.id == R.id.joinBusinessFragment)
             {
+                binding.addFav.isClickable = false
                 binding.bottomAppBar.gone()
                 binding.addFav.hide()
-        }else if(destination.id == R.id.aboutFragment ||
-                destination.id == R.id.termsConditionsFragment ||
-                destination.id == R.id.privacyPolicyFragment||
-                destination.id == R.id.createBackupFragment||
-                destination.id == R.id.restoreBackupFragment){
+        }else if(
+            destination.id == R.id.aboutFragment ||
+            destination.id == R.id.termsConditionsFragment ||
+            destination.id == R.id.privacyPolicyFragment||
+            destination.id == R.id.createBackupFragment||
+            destination.id == R.id.restoreBackupFragment){
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
-        }else if(destination.id == R.id.productFragment){
-            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-            binding.addFav.setOnClickListener{ onParentFabClicked() }
         }
         else{
             binding.bottomAppBar.visible()

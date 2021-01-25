@@ -20,7 +20,7 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
     private var counter = 0
     private var isEnabled = true
 
-    fun loginCanceled(){
+    private fun loginCanceled(){
         if (counter > 3) isEnabled = false else counter += 1
     }
 
@@ -41,10 +41,6 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
             .build()
 
     fun getSingInCredentials(data: Intent?): SignInCredential = oneTapClient.getSignInCredentialFromIntent(data)
-
-    fun singOut(){
-        oneTapClient.signOut()
-    }
 
     fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>){
         if (isEnabled) {

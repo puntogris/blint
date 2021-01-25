@@ -7,6 +7,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterLocalBusinessBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.login.LoginViewModel
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.StringValidator
 import com.puntogris.blint.utils.createShortSnackBar
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusinessBinding>(R.layout.fragment_register_local_business) {
 
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: LoginViewModel by activityViewModels()
     @Inject
     lateinit var sharedPref: SharedPref
 
@@ -31,7 +32,7 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
         when(val validator = StringValidator.from(binding.businessNameText.getString())){
             is StringValidator.Valid -> {
                 lifecycleScope.launch {
-                    sharedPref.setUserHasBusinessRegisteredPref()
+                    sharedPref.setUserHasBusinessRegisteredPref(true)
                     viewModel.registerNewBusiness(validator.value)
                     findNavController().navigate(R.id.mainFragment)
                 }

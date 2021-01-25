@@ -253,15 +253,6 @@
                         android:text="Proveedores"/>
 
 
-                    <TextView
-                        android:id="@+id/textView38"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Proveedores" />
-
-
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/supplierChipGroup"
                         android:layout_width="wrap_content"

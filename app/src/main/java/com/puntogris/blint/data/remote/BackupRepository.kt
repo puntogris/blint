@@ -7,9 +7,6 @@ import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.data.local.AppDatabase
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.Util.zipDatabases
-import com.wwdablu.soumya.wzip.WZip
-import com.wwdablu.soumya.wzip.WZipCallback
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -34,18 +31,18 @@ class BackupRepository @Inject constructor(
     override suspend fun createBackupForBusiness(businessID: String, path: String):SimpleResult {
         return try {
             appDatabase.close()
-//            val databaseFile =  File(path)
-//            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
-//            zipDatabases(databasesFiles, context.filesDir.path, "$businessID.zip")
-//            val zipFile = File(context.filesDir.path + "/$businessID.zip")
-//            withContext(Dispatchers.IO) {
-//                val stream = FileInputStream(zipFile)
-//                dbRef.putStream(stream).await()
-//            }
-//            zipFile.delete()
+
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID")
+
+            val zipFile = File(path)
+            withContext(Dispatchers.IO) {
+                val stream = FileInputStream(zipFile)
+                dbRef.putStream(stream).await()
+            }
             SimpleResult.Success
         }
         catch (e: Exception){
+            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }
@@ -54,43 +51,19 @@ class BackupRepository @Inject constructor(
     override suspend fun restoreBackupForBusiness(businessID: String, path: String): SimpleResult  {
         return try {
             appDatabase.close()
-//            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID.zip")
-//
-//            val localFile = File(context.filesDir.path + "/backup/$businessID", "$businessID.zip")
-//
-//            if (!localFile.exists()) localFile.parentFile?.mkdirs()
-//            dbRef.getFile(localFile).await()
-//
-//            withContext(Dispatchers.IO){
-//                WZip().unzip(localFile, localFile.parentFile!! ,"bitMapZipper" , object : WZipCallback{
-//
-//                    override fun onStarted(identifier: String?) {
-//
-//                    }
-//
-//                    override fun onZipCompleted(zipFile: File?, identifier: String?) {
-//                    }
-//
-//                    override fun onUnzipCompleted(identifier: String?) {
-//                        paths.forEach {
-//                            copyFile(
-//                                File(localFile.parentFile!!.path + "/" + it.substringAfterLast("/")).inputStream(),
-//                                File(it).outputStream()
-//                            )
-//                            File(localFile.parentFile!!.path + "/" + it.substringAfterLast("/")).delete()
-//                        }
-//                        localFile.delete()
-//                    }
-//
-//                    override fun onError(throwable: Throwable?, identifier: String?) {
-//
-//                    }
-//                })
-//            }
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup/$businessID")
+
+            val localFile = File(context.filesDir.path + "/backup/$businessID", businessID)
+
+            if (!localFile.exists()) localFile.parentFile?.mkdirs()
+            dbRef.getFile(localFile).await()
+
+            copyFile(
+                File(localFile.path).inputStream(),
+                File(path).outputStream())
 
             SimpleResult.Success
         }catch (e: Exception){
-            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }

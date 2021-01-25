@@ -9,10 +9,12 @@ import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.data.local.dao.RecordsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductSupplierCrossRef
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.ui.SharedPref
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -20,7 +22,8 @@ class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao,
     private val recordsDao: RecordsDao,
     private val suppliersDao: SuppliersDao,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val usersDao: UsersDao
 ):ViewModel() {
 
     var viewsLoaded = false
@@ -51,6 +54,7 @@ class ProductViewModel @ViewModelInject constructor(
     }
 
     suspend fun saveProductDatabase(){
+        _currentProduct.value.businessId = usersDao.getUser().currentBusinessId
         val productID = productsDao.insert(_currentProduct.value)
         saveRecordToDatabase(productID)
         saveProductSuppliersCrossRef(productID.toInt())
@@ -67,7 +71,8 @@ class ProductViewModel @ViewModelInject constructor(
             productID = productID.toInt(),
             productName = _currentProduct.value.name,
             timestamp = Timestamp.now(),
-            author = userRepository.getCurrentUser()?.email.toString()
+            author = userRepository.getCurrentUser()?.email.toString(),
+            businessId = usersDao.getUser().currentBusinessId
         )
         recordsDao.insert(record)
     }
@@ -120,7 +125,6 @@ class ProductViewModel @ViewModelInject constructor(
 
     suspend fun getProductWithSuppliers(id: Int) = productsDao.getProductWithSuppliers(id)
 
-
     fun getProductWithName(name: String): Flow<PagingData<Product>> {
         return Pager(
             PagingConfig(
@@ -134,9 +138,5 @@ class ProductViewModel @ViewModelInject constructor(
     }
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
-
-    fun updateProductSuppliers(suppliers:List<Int>){
-        _currentProduct.value.suppliers = suppliers
-    }
 
 }

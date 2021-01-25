@@ -6,13 +6,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.local.dao.ClientsDao
-import com.puntogris.blint.data.local.dao.ProductsDao
-import com.puntogris.blint.data.local.dao.RecordsDao
-import com.puntogris.blint.data.local.dao.SuppliersDao
+import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.ui.SharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -21,6 +19,7 @@ class RecordsViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao,
     private val suppliersDao: SuppliersDao,
     private val clientsDao: ClientsDao,
+    private val usersDao: UsersDao,
     private val userRepository: UserRepository): ViewModel() {
 
     private val _currentProduct = MutableStateFlow(Product())
@@ -89,7 +88,8 @@ class RecordsViewModel @ViewModelInject constructor(
             timestamp = Timestamp.now(),
             externalID = externalID,
             externalName = externalName,
-            author = userRepository.getCurrentUser()?.email.toString()
+            author = userRepository.getCurrentUser()?.email.toString(),
+            businessId = usersDao.getUser().currentBusinessId
         )
         val newAmount = getNewStockAmount(record.type, amount)
         return if (newAmount < 0){

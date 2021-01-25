@@ -2,23 +2,34 @@ package com.puntogris.blint.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.local.dao.BusinessDao
-import com.puntogris.blint.data.local.dao.ClientsDao
-import com.puntogris.blint.data.local.dao.ProductsDao
-import com.puntogris.blint.data.local.dao.SuppliersDao
+import androidx.lifecycle.viewModelScope
+import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.RoomUser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     private val businessDao: BusinessDao,
     private val productsDao: ProductsDao,
     private val clientsDao: ClientsDao,
-    private val suppliersDao: SuppliersDao
+    private val suppliersDao: SuppliersDao,
+    private val usersDao: UsersDao
 ):ViewModel() {
 
-    suspend fun getBusiness() = businessDao.getBusinesses()
+    private val _businesses = MutableStateFlow(listOf(Business()))
+    val businesses: StateFlow<List<Business>> = _businesses
 
-    suspend fun userHasBusinessRegistered() = businessDao.getCount() > 1
+    fun getBusiness(){
+        viewModelScope.launch {
+            _businesses.emit(businessDao.getBusinesses())
+        }
+    }
+
+    suspend fun getCurrentBusiness() = usersDao.getUser()
 
     suspend fun getProductsCount() = productsDao.getCount()
 
@@ -28,7 +39,14 @@ class MainViewModel @ViewModelInject constructor(
 
     fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 
-    suspend fun registerNewBusiness(name: String){
-        userRepository.registerNewBusiness(name)
+    suspend fun updateCurrentBusiness(position:Int){
+        val business = _businesses.value[position]
+        usersDao.insert(RoomUser(
+            id = "1",
+            currentBusinessId = business.businessId,
+            currentBusinessType = business.type,
+            currentBusinessName = business.name,
+            currentUid = userRepository.getCurrentUID()
+        ))
     }
 }

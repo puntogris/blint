@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
@@ -23,6 +24,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         val manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         lifecycleScope.launchWhenStarted {
             viewModel.getAllProducts().collect {
                 manageProductsAdapter.submitData(it)

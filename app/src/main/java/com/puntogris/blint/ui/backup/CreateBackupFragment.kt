@@ -75,7 +75,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
             title("Estas seguro de esta accion?")
             content("Esto reemplazara a un respaldo de tu negocio ya existente en el caso de que exista. Ten en cuenta que no podemos guardar tus imagenes asi que no estan cubiertas por el respaldo.")
             onNegative("Cancelar")
-            onPositive("Respaldar") {  startBusinessBackup(business.id) }
+            onPositive("Respaldar") {  startBusinessBackup(business.businessId) }
         }
     }
 

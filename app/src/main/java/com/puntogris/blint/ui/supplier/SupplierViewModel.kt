@@ -10,6 +10,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.dao.RecordsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 
 class SupplierViewModel @ViewModelInject constructor(
     private val suppliersDao: SuppliersDao,
-    private val recordsDao: RecordsDao
+    private val recordsDao: RecordsDao,
+    private val usersDao: UsersDao
 ):ViewModel() {
 
     private val _currentSupplier = MutableStateFlow(Supplier())
@@ -67,6 +69,7 @@ class SupplierViewModel @ViewModelInject constructor(
 
     fun saveSupplierDatabase(){
         viewModelScope.launch {
+            _currentSupplier.value.businessId = usersDao.getUser().currentBusinessId
             suppliersDao.insert(_currentSupplier.value)
         }
     }
@@ -82,4 +85,5 @@ class SupplierViewModel @ViewModelInject constructor(
             recordsDao.getSupplierRecords(supplierID)
         }.flow
     }
+
 }
