@@ -10,7 +10,7 @@ import com.puntogris.blint.model.ProductWithSuppliers
 interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(product: Product):Long
+    suspend fun insert(product: Product): Long
 
     @Update
     suspend fun update(product: Product)
@@ -41,13 +41,78 @@ interface ProductsDao {
 
     @Transaction
     @Query("SELECT * FROM product WHERE productId = :id")
-    suspend fun getProductWithSuppliers(id:Int):ProductWithSuppliers
+    suspend fun getProductWithSuppliers(id: Int): ProductWithSuppliers
 
     @Insert
-    suspend fun insertProductSupplierCrossRef(items:List<ProductSupplierCrossRef>)
+    suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
 
 
-//    @Query("SELECT * FROM product ORDER BY CASE WHEN :isAsc = 1 THEN name END ASC, CASE WHEN :isAsc = 0 THEN name END DESC")
-//    fun getAllPaged(isAsc:Boolean): PagingSource<Int, Product>
-
+    @Query(
+        """
+            UPDATE product
+                SET buyPrice = CASE
+                    WHEN :affectsBuyPrice 
+                        THEN CASE
+                            WHEN :valueType = '%' 
+                            THEN CASE 
+                                WHEN :isValueUp 
+                                THEN (buyPrice + ((buyPrice * :newPrice) / 100)) 
+                                ELSE (buyPrice - ((buyPrice * :newPrice) / 100)) 
+                                END
+                            ELSE CASE
+                                WHEN :isValueUp 
+                                THEN buyPrice + :newPrice 
+                                ELSE buyPrice - :newPrice 
+                                END
+                            END
+                        ELSE buyPrice END, 
+                    suggestedSellPrice = CASE
+                    WHEN :affectsSuggestedPrice
+                        THEN CASE
+                            WHEN :valueType = '%' 
+                            THEN CASE
+                                WHEN :isValueUp 
+                                THEN (suggestedSellPrice + ((suggestedSellPrice * :newPrice) / 100)) 
+                                ELSE (suggestedSellPrice - ((suggestedSellPrice * :newPrice) / 100)) 
+                                END
+                            ELSE CASE 
+                                WHEN :isValueUp 
+                                THEN suggestedSellPrice + :newPrice 
+                                ELSE suggestedSellPrice - :newPrice 
+                                END
+                            END
+                        ELSE sellPrice END,
+                    sellPrice = CASE
+                    WHEN :affectsSellPrice
+                        THEN CASE
+                            WHEN :valueType = '%' 
+                            THEN CASE 
+                                WHEN :isValueUp 
+                                THEN (sellPrice + ((sellPrice * :newPrice) / 100)) 
+                                ELSE (sellPrice - ((sellPrice * :newPrice) / 100)) 
+                                END
+                            ELSE CASE 
+                                WHEN :isValueUp 
+                                THEN sellPrice + :newPrice 
+                                ELSE sellPrice - :newPrice 
+                                END
+                            END
+                        ELSE sellPrice END
+                WHERE productId IN 
+                    (SELECT p.productId 
+                    FROM product p 
+                    JOIN roomuser u ON p.businessId = u.currentBusinessId 
+                    JOIN productsuppliercrossref r ON r.productId = p.productId
+                    WHERE u.id = '1' and r.supplierId = :supplierId)
+            """
+    )
+    suspend fun updateSupplierProductsPrices(
+        newPrice: Float,
+        supplierId: Int,
+        valueType: String,
+        isValueUp: Boolean,
+        affectsBuyPrice : Boolean,
+        affectsSellPrice:Boolean,
+        affectsSuggestedPrice:Boolean
+    )
 }

@@ -269,4 +269,20 @@
             android:id="@+id/action_recordInfoBottomSheet_to_clientFragment"
             app:destination="@id/clientFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/operationsFragment"
+        android:name="com.puntogris.blint.ui.operations.OperationsFragment"
+        android:label="Herramientas" />
+    <fragment
+        android:id="@+id/addMultipleProductsFragment"
+        android:name="com.puntogris.blint.ui.operations.AddMultipleProductsFragment"
+        android:label="Carga multiple" />
+    <fragment
+        android:id="@+id/generalPriceChangeFragment"
+        android:name="com.puntogris.blint.ui.operations.GeneralPriceChangeFragment"
+        android:label="Edicion general" />
+    <fragment
+        android:id="@+id/importProductsFragment"
+        android:name="com.puntogris.blint.ui.operations.ImportProductsFragment"
+        android:label="Importar lista externa" />
 </navigation>

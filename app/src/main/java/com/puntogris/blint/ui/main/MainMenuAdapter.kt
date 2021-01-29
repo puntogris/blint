@@ -10,6 +10,7 @@ import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 
 class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapter<MenuCard, MenuCardViewHolder>(MenuCardDiffCallback()) {
@@ -22,7 +23,8 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(RECORDS_CARD_CODE, "Movimientos", "", ""),
             MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
             MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "", ""),
-        )
+            MenuCard(OPERATIONS_CARD_CODE, "Herramientas", "", "")
+            )
         submitList(list)
     }
 

@@ -19,7 +19,7 @@ class PreferencesViewModel @ViewModelInject constructor(
     private val backupRepository: BackupRepository) :ViewModel() {
 
     private val _userData = MutableLiveData<FirebaseUser>(userRepository.getCurrentUser())
-    val userData:LiveData<FirebaseUser> = _userData
+    val userData: LiveData<FirebaseUser> = _userData
 
     suspend fun logOut(){
         sharedPref.setUserHasBusinessRegisteredPref(false)
@@ -30,13 +30,11 @@ class PreferencesViewModel @ViewModelInject constructor(
     suspend fun sendReport(message: String) =
         userRepository.sendReportToFirestore(message)
 
-    suspend fun backupBusiness(businessID:String, path: String) =
+    suspend fun backupBusiness(businessID: String, path: String) =
         backupRepository.createBackupForBusiness(businessID, path)
 
     suspend fun restoreBackup(businessID: String ,path: String) =
         backupRepository.restoreBackupForBusiness(businessID, path)
 
     fun getOwnerBusiness() = userRepository.getOwnerBusiness()
-
-
 }

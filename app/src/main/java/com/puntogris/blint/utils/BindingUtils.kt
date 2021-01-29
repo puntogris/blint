@@ -28,6 +28,7 @@ import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
+import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import java.util.*
 import kotlin.collections.HashMap
@@ -59,6 +60,7 @@ fun CardView.setBackgroundColor(menuCard: MenuCard){
         ALL_SUPPLIERS_CARD_CODE -> R.color.card3
         RECORDS_CARD_CODE -> R.color.card4
         CHARTS_CARD_CODE -> R.color.card5
+        OPERATIONS_CARD_CODE -> R.color.card7
         else -> R.color.card6
     }.also {
         setCardBackgroundColor(context.getColor(it))
@@ -74,6 +76,7 @@ fun ImageView.setMenuCardIcon(menuCard: MenuCard){
         ACCOUNTING_CARD_CODE -> R.drawable.ic_baseline_calendar_today_24
         RECORDS_CARD_CODE -> R.drawable.ic_baseline_article_24
         CHARTS_CARD_CODE -> R.drawable.ic_baseline_bar_chart_24
+        OPERATIONS_CARD_CODE -> R.drawable.ic_baseline_grain_24
         else -> R.drawable.ic_baseline_add_24
     }.also {
         setImageDrawable(ContextCompat.getDrawable(context, it))

@@ -1,8 +1,8 @@
-package com.puntogris.blint.data.local
+package com.puntogris.blint.di
 
 import android.content.Context
 import androidx.room.Room
-import com.puntogris.blint.data.local.dao.*
+import com.puntogris.blint.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -20,6 +20,7 @@ import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
+import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -91,6 +92,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
             ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
             RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
+            OPERATIONS_CARD_CODE -> findNavController().navigate(R.id.operationsFragment)
         }
     }
 

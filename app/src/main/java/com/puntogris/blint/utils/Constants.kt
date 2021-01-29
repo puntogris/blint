@@ -8,6 +8,7 @@ object Constants {
     const val ACCOUNTING_CARD_CODE = 104
     const val RECORDS_CARD_CODE = 105
     const val CHARTS_CARD_CODE = 106
+    const val OPERATIONS_CARD_CODE = 107
     const val STOCK_INCREASE = 101
 
     const val STOCK_DECREASE = 102
