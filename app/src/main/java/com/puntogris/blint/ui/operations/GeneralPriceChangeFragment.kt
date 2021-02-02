@@ -31,7 +31,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.changeValueType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.productsAffectedText.setOnItemClickListener { adapterView, view, i, l ->
+        binding.productsAffectedText.setOnItemClickListener { _, _, i, _ ->
             when(i){
                 0-> openSuppliersBottomSheet()
                 1-> openCategoryBottomSheet()
@@ -50,11 +50,13 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
                 else if (binding.changeValueText.text.isNullOrBlank() ||
                         binding.changeValueText.getFloat() == 0F)
                     showLongSnackBarAboveFab("Ingresa un valor distinto de 0 para la modificacion.")
+                else if (binding.changeValueTypeText.getString() == "%" &&
+                        binding.changeValueText.getFloat() > 100)
+                            showLongSnackBarAboveFab("El valor no puede ser mayor a 100 %.")
                 else
                     onSaveChangesClicked()
             }
         }
-
     }
 
     private fun openSuppliersBottomSheet(){
@@ -75,6 +77,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
                         binding.productsAffectedData.visible()
                         binding.productsAffectedData.text = suppliers[index].companyName
                         suppliers[index].supplierId
+                        viewModel.updateSupplierId(suppliers[index].supplierId)
                     }
                     onNegative("Cancelar")
                 }.show(parentFragmentManager, "")
@@ -112,17 +115,16 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
 
     private fun savesChanges(){
         lifecycleScope.launch {
-
             val result = viewModel.saveChangesToDatabase(
                 valueType = binding.changeValueTypeText.getString(),
                 changeAmount = binding.changeValueText.getFloat(),
                 isValueUp = binding.increaseAmount.isChecked,
                 affectsBuyPrice = binding.buyPriceCheckBox.isChecked,
-                afffectsSellPrice = binding.sellPriceCheckBox.isChecked,
-                affectsSuggetedPrice = binding.suggestedPriceCheckBox.isChecked
+                affectsSellPrice = binding.sellPriceCheckBox.isChecked,
+                affectsSuggestedPrice = binding.suggestedPriceCheckBox.isChecked
             )
 
-            showLongSnackBarAboveFab("Cambios realizados correctamente.")
+            showLongSnackBarAboveFab("Cambios realizados correctamente. Afecto $result productos.")
             findNavController().navigateUp()
         }
 

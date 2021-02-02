@@ -191,3 +191,7 @@ fun Date.getDateWithTimeFormattedString() =
 
 fun Fragment.getDatabasePath():String =
     requireActivity().getDatabasePath("blint_database").absolutePath
+
+fun Date.getMonthWithYear() =
+    SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this).toString()
+

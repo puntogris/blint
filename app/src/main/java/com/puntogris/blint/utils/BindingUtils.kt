@@ -112,7 +112,7 @@ fun EditText.setEmptyEditTextWithNumber(value: Number){
 
 @BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product){
-    text = "${product.buyPrice.toFloat().toUSDFormatted()} / ${product.sellPrice.toFloat().toUSDFormatted()}"
+    text = "${product.buyPrice.toUSDFormatted()} / ${product.sellPrice.toUSDFormatted()}"
 }
 
 @BindingAdapter("userDataImage")

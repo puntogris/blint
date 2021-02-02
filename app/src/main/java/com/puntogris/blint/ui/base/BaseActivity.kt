@@ -1,12 +1,14 @@
 package com.puntogris.blint.ui.base
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
+import com.puntogris.blint.R
 import com.puntogris.blint.utils.getNavHostFragment
 
 abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
@@ -42,4 +44,8 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 }

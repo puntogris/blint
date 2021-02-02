@@ -18,6 +18,14 @@
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
+    <style name="Theme.Blint.Calendar">
+        <item name="compactCalendarBackgroundColor">@color/grey_5</item>
+        <item name="compactCalendarCurrentDayBackgroundColor">@color/purple_200</item>
+        <item name="compactCalendarCurrentSelectedDayBackgroundColor">#E57373</item>
+        <item name="compactCalendarMultiEventIndicatorColor">#fff</item>
+        <item name="compactCalendarTextColor">#121212</item>
+    </style>
+
     <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">

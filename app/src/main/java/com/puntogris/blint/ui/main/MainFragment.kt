@@ -20,8 +20,10 @@ import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
+import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
+import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -33,8 +35,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private val viewModel: MainViewModel by activityViewModels()
-    @Inject
-    lateinit var sharedPref: SharedPref
 
     override fun initializeViews() {
         setupRecyclerView()
@@ -57,10 +57,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun changeBusinessListener(){
         binding.businessMenuDropDown.setOnItemClickListener { _, _, i, _ ->
-            lifecycleScope.launch {
-                viewModel.updateCurrentBusiness(i)
-                updateRecyclerViewData()
-            }
+            lifecycleScope.launch { viewModel.updateCurrentBusiness(i) }
         }
     }
 
@@ -70,18 +67,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
             addItemDecoration(SpaceItemDecoration(20, true))
-        }
-        updateRecyclerViewData()
-    }
-
-    private fun updateRecyclerViewData(){
-        lifecycleScope.launch(Dispatchers.IO) {
-            mainMenuAdapter.currentList[0].description = "${viewModel.getProductsCount()} productos"
-            mainMenuAdapter.currentList[1].description = "${viewModel.getClientsCount()} clientes"
-            mainMenuAdapter.currentList[2].description = "${viewModel.getSuppliersCount()} proveedores"
-            requireActivity().runOnUiThread {
-                mainMenuAdapter.notifyDataSetChanged()
-            }
         }
     }
 
@@ -93,6 +78,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
             RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
             OPERATIONS_CARD_CODE -> findNavController().navigate(R.id.operationsFragment)
+            CHARTS_CARD_CODE -> findNavController().navigate(R.id.reportsFragment)
         }
     }
 

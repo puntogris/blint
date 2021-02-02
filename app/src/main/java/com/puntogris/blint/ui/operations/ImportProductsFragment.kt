@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.operations
 
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,6 @@ import com.puntogris.blint.ui.base.BaseFragment
 class ImportProductsFragment : BaseFragment<FragmentImportProductsBinding>(R.layout.fragment_import_products) {
 
     override fun initializeViews() {
-
+        
     }
 }

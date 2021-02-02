@@ -11,19 +11,30 @@ class OperationsViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao
 ): ViewModel() {
 
+    private var supplierId: Int = 0
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
-    suspend fun saveChangesToDatabase(
-        valueType: String,
-        changeAmount:Float,
-        isValueUp: Boolean,
-        affectsBuyPrice : Boolean,
-        afffectsSellPrice:Boolean,
-        affectsSuggetedPrice:Boolean )
-    {
-        //productsDao.updateProduct("1f")
+    fun updateSupplierId(supplierId: Int){
+        this.supplierId = supplierId
     }
 
+    suspend fun saveChangesToDatabase(
+        valueType: String,
+        changeAmount: Float,
+        isValueUp: Boolean,
+        affectsBuyPrice : Boolean,
+        affectsSellPrice: Boolean,
+        affectsSuggestedPrice: Boolean):Int
+    {
+        return productsDao.updateSupplierProductsPrices(
+            newPrice = changeAmount,
+            supplierId = supplierId,
+            valueType = valueType,
+            isValueUp = isValueUp,
+            affectsBuyPrice = affectsBuyPrice,
+            affectsSellPrice = affectsSellPrice,
+            affectsSuggestedPrice = affectsSuggestedPrice)
+    }
 
 }

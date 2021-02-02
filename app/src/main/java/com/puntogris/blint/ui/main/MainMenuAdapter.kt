@@ -17,13 +17,13 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
 
     init {
         val list = listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", "productos", ""),
-            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", "clientes", ""),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", "proveedores", ""),
-            MenuCard(RECORDS_CARD_CODE, "Movimientos", "", ""),
-            MenuCard(CHARTS_CARD_CODE, "Informes", "", ""),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", "", ""),
-            MenuCard(OPERATIONS_CARD_CODE, "Herramientas", "", "")
+            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos"),
+            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes"),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores"),
+            MenuCard(RECORDS_CARD_CODE, "Movimientos"),
+            MenuCard(CHARTS_CARD_CODE, "Informes"),
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),
+            MenuCard(OPERATIONS_CARD_CODE, "Herramientas")
             )
         submitList(list)
     }

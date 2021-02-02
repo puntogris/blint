@@ -44,6 +44,8 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     open fun onNewSupplierClicked(){}
 
+    open fun onNewEventClicked(){}
+
     open fun setUpMenuOptions(menu: Menu){}
 
 
@@ -81,6 +83,10 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
             }
             R.id.newSupplier ->{
                 onNewSupplierClicked()
+                true
+            }
+            R.id.newEvent ->{
+                onNewEventClicked()
                 true
             }
             else -> super.onOptionsItemSelected(item)

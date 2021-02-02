@@ -29,6 +29,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -38,6 +39,9 @@ android {
     buildFeatures{
         dataBinding = true
     }
+}
+dependencies{
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
 }
 
 ext {
@@ -123,6 +127,8 @@ dependencies {
     implementation "com.maxkeppeler.sheets:options:$cool_bottom_sheets_version"
     implementation "com.maxkeppeler.sheets:input:$cool_bottom_sheets_version"
     implementation "com.maxkeppeler.sheets:info:$cool_bottom_sheets_version"
+    implementation "com.maxkeppeler.sheets:calendar:$cool_bottom_sheets_version"
+
 
     //ImagePicker
     implementation "com.github.nguyenhoanglam:ImagePicker:$imagePicker_version"
@@ -152,5 +158,6 @@ dependencies {
 
     implementation 'com.github.wwdablu:wZip:1.0.1'
 
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
 }

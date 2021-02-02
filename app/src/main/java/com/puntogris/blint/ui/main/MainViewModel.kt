@@ -14,9 +14,6 @@ import kotlinx.coroutines.launch
 class MainViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     private val businessDao: BusinessDao,
-    private val productsDao: ProductsDao,
-    private val clientsDao: ClientsDao,
-    private val suppliersDao: SuppliersDao,
     private val usersDao: UsersDao
 ):ViewModel() {
 
@@ -30,12 +27,6 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     suspend fun getCurrentBusiness() = usersDao.getUser()
-
-    suspend fun getProductsCount() = productsDao.getCount()
-
-    suspend fun getClientsCount() = clientsDao.getCount()
-
-    suspend fun getSuppliersCount() = suppliersDao.getCount()
 
     fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 

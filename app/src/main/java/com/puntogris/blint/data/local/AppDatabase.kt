@@ -14,7 +14,8 @@ import com.puntogris.blint.utils.Converters
     Record::class,
     Supplier::class,
     RoomUser::class,
-    ProductSupplierCrossRef::class
+    ProductSupplierCrossRef::class,
+    Event::class
                      ], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -24,4 +25,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun recordsDao(): RecordsDao
     abstract fun suppliersDao():SuppliersDao
     abstract fun userDao(): UsersDao
+    abstract fun eventsDao(): EventsDao
 }

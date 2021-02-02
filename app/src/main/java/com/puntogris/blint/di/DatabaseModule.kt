@@ -33,6 +33,9 @@ class DatabaseModule {
     fun providesUserDao(appDatabase: AppDatabase) = appDatabase.userDao()
 
     @Provides
+    fun providesEventDao(appDatabase: AppDatabase) = appDatabase.eventsDao()
+
+    @Provides
     @Singleton
     fun provideUserDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room

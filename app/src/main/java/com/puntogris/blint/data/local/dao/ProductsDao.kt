@@ -46,7 +46,7 @@ interface ProductsDao {
     @Insert
     suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
 
-
+    @Transaction
     @Query(
         """
             UPDATE product
@@ -114,5 +114,5 @@ interface ProductsDao {
         affectsBuyPrice : Boolean,
         affectsSellPrice:Boolean,
         affectsSuggestedPrice:Boolean
-    )
+    ):Int
 }

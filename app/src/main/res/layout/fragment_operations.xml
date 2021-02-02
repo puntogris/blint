@@ -31,55 +31,6 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView33"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Carga multiple de productos" />
-
-                <TextView
-                    android:id="@+id/textView381"
-                    android:layout_marginTop="16dp"
-                    android:layout_width="wrap_content"
-                    android:lineSpacingExtra="5dp"
-                    android:layout_height="wrap_content"
-                    android:text="Te permite hacer una carga rapida de productos, especificando los datos minimos de cada producto en sucesion." />
-
-                <Button
-                    android:id="@+id/button81"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="16dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()-> fragment.onAddMultipleProductsClicked()}"
-                    app:iconGravity="end"
-                    app:icon="@drawable/ic_baseline_navigate_next_24"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:text="Cargar productos"
-                    tools:layout_editor_absoluteX="32dp"
-                    tools:layout_editor_absoluteY="67dp" />
-            </LinearLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_marginTop="24dp"
-            style="@style/Theme.Blint.CardView"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
                     android:id="@+id/textView327"
                     style="@style/Theme.Blint.TextButton"
                     android:layout_gravity="center"

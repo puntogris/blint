@@ -60,4 +60,17 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/calendarFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newEvent"
+                android:title="Nuevo evento" />
+
+        </menu>
+    </item>
+
 </menu>

@@ -273,10 +273,7 @@
         android:id="@+id/operationsFragment"
         android:name="com.puntogris.blint.ui.operations.OperationsFragment"
         android:label="Herramientas" />
-    <fragment
-        android:id="@+id/addMultipleProductsFragment"
-        android:name="com.puntogris.blint.ui.operations.AddMultipleProductsFragment"
-        android:label="Carga multiple" />
+
     <fragment
         android:id="@+id/generalPriceChangeFragment"
         android:name="com.puntogris.blint.ui.operations.GeneralPriceChangeFragment"
@@ -285,4 +282,12 @@
         android:id="@+id/importProductsFragment"
         android:name="com.puntogris.blint.ui.operations.ImportProductsFragment"
         android:label="Importar lista externa" />
+    <fragment
+        android:id="@+id/reportsFragment"
+        android:name="com.puntogris.blint.ui.reports.ReportsFragment"
+        android:label="Informes" />
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="com.puntogris.blint.ui.calendar.CreateEventFragment"
+        android:label="Nuevo evento" />
 </navigation>

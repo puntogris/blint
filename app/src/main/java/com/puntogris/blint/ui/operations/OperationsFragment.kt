@@ -11,10 +11,6 @@ class OperationsFragment : BaseFragment<FragmentOperationsBinding>(R.layout.frag
         binding.fragment = this
     }
 
-    fun onAddMultipleProductsClicked(){
-        findNavController().navigate(R.id.addMultipleProductsFragment)
-    }
-
     fun onGeneralPriceChangeClicked(){
         findNavController().navigate(R.id.generalPriceChangeFragment)
     }
