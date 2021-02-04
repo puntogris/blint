@@ -148,7 +148,11 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.puntogris.blint.ui.calendar.CalendarFragment"
-        android:label="Calendario" />
+        android:label="Calendario" >
+        <action
+            android:id="@+id/action_calendarFragment_to_eventInfoBottomSheet"
+            app:destination="@id/eventInfoBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.puntogris.blint.ui.about.AboutFragment"
@@ -290,4 +294,12 @@
         android:id="@+id/createEventFragment"
         android:name="com.puntogris.blint.ui.calendar.CreateEventFragment"
         android:label="Nuevo evento" />
+    <dialog
+        android:id="@+id/eventInfoBottomSheet"
+        android:name="com.puntogris.blint.ui.calendar.EventInfoBottomSheet"
+        android:label="EventInfoBottomSheet" >
+        <argument
+            android:name="event"
+            app:argType="com.puntogris.blint.model.Event" />
+    </dialog>
 </navigation>

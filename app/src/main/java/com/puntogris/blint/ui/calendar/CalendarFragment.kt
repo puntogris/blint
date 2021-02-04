@@ -1,61 +1,59 @@
 package com.puntogris.blint.ui.calendar
 
-import android.graphics.Color
 import android.view.Menu
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.sundeepk.compactcalendarview.CompactCalendarView
-import com.github.sundeepk.compactcalendarview.domain.Event
-import com.google.firebase.Timestamp
-import com.maxkeppeler.sheets.core.views.SheetInputEditText
-import com.maxkeppeler.sheets.input.InputSheet
-import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCalendarBinding
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.product.ManageProductsAdapter
-import com.puntogris.blint.utils.getMonthWithYear
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import java.util.*
-import kotlin.time.milliseconds
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.fragment_calendar) {
 
-    private val viewModel:CalendarViewModel by viewModels()
-
+    private val viewModel: CalendarViewModel by viewModels()
+    private lateinit var calendarEventsAdapter:CalendarEventsAdapter
     override fun initializeViews() {
-        binding.calendarMonth.text = Date().getMonthWithYear()
-        binding.calendarView.addEvent(Event(Color.RED, 1612478445000))
 
-        val manageProductsAdapter = CalendarEventsAdapter { onEventClicked(it) }
-        binding.recyclerView.adapter = manageProductsAdapter
+        calendarEventsAdapter = CalendarEventsAdapter { onEventClicked(it) }
+        binding.recyclerView.adapter = calendarEventsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launchWhenStarted {
-            viewModel.getEvents().collect {
-                manageProductsAdapter.submitData(it)
+            viewModel.events.collectLatest {
+                calendarEventsAdapter.submitData(it)
             }
         }
 
+        val items = listOf("Todos", "Pendientes", "Finalizados")
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
+        (binding.calendarFilter.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.calendarView.setListener(object :CompactCalendarView.CompactCalendarViewListener{
-            override fun onDayClick(dateClicked: Date?) {
-
+        binding.calendarFilterText.setOnItemClickListener { _, _, i, _ ->
+            when(i){
+                0 -> viewModel.setAllFilter()
+                1 -> viewModel.setPendingFilter()
+                2 -> viewModel.setFinishedFilter()
             }
+        }
 
-            override fun onMonthScroll(firstDayOfNewMonth: Date?) {
-                binding.calendarMonth.text = firstDayOfNewMonth?.getMonthWithYear()
-            }
-        })
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("dismiss_key")?.observe(
+            viewLifecycleOwner) {
+            if (it) calendarEventsAdapter.notifyDataSetChanged()
+        }
     }
 
-    private fun onEventClicked(event:com.puntogris.blint.model.Event){
 
+    private fun onEventClicked(event:com.puntogris.blint.model.Event){
+        val action = CalendarFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(event)
+        findNavController().navigate(action)
     }
 
     override fun onNewEventClicked() {
@@ -66,4 +64,10 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         menu.findItem(R.id.calendarFragmentMenu).isVisible = true
     }
 
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
+    }
+
 }
+

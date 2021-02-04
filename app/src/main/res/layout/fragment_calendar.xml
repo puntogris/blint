@@ -13,32 +13,53 @@
         android:layout_height="match_parent"
         tools:context=".ui.calendar.CalendarFragment">
 
-        <TextView
-            android:id="@+id/calendarMonth"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/calendarFilter"
+            android:layout_marginTop="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="center"
-            style="@style/TextAppearance.MaterialComponents.Headline6" />
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Filtro">
 
-        <com.github.sundeepk.compactcalendarview.CompactCalendarView
-            android:id="@+id/calendarView"
-            style="@style/Theme.Blint.Calendar"
-            android:layout_width="fill_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:compactCalendarTargetHeight="250dp"
-            app:compactCalendarTextSize="12sp" />
+            <AutoCompleteTextView
+                android:id="@+id/calendarFilterText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todos"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/calendarMonth"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            style="@style/TextAppearance.MaterialComponents.Headline6" />-->
+
+<!--        <com.github.sundeepk.compactcalendarview.CompactCalendarView-->
+<!--            android:id="@+id/calendarView"-->
+<!--            style="@style/Theme.Blint.Calendar"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="250dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:paddingRight="10dp"-->
+<!--            app:compactCalendarTargetHeight="250dp"-->
+<!--            app:compactCalendarTextSize="12sp" />-->
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
+            android:layout_marginTop="24dp"
             style="@style/Theme.Blint.CardView"
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>

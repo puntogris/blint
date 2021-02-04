@@ -195,3 +195,17 @@ fun Chip.setExternalChipName(name: String){
         isEnabled = false
     }
 }
+
+@BindingAdapter("eventStatus")
+fun TextView.setEventStatus(status: String){
+    text = if (status == "PENDING") "Pendiente" else "Finalizado"
+}
+
+@BindingAdapter("eventStatusColor")
+fun View.setEventStatusColor(status:String){
+    if (status == "PENDING"){
+        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card7, null))
+    }else{
+        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
+    }
+}

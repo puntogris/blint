@@ -1,10 +1,13 @@
 package com.puntogris.blint.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity
 data class Event (
 
@@ -12,17 +15,17 @@ data class Event (
     val eventId: Int = 0,
 
     @ColumnInfo
-    val timestamp: Timestamp = Timestamp.now(),
+    var timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    val status: String = "PENDING",
+    var status: String = "PENDING",
 
     @ColumnInfo
-    val title: String = "",
+    var title: String = "",
 
     @ColumnInfo
-    val message: String = "",
+    var message: String = "",
 
     @ColumnInfo
-    val businessId: String = ""
-)
+    var businessId: String = ""
+):Parcelable

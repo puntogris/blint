@@ -184,7 +184,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             destination.id == R.id.registerOnlineBusinessFragment ||
             destination.id == R.id.loginProblemsFragment ||
             destination.id == R.id.businessWaitingRoomFragment ||
-            destination.id == R.id.joinBusinessFragment
+            destination.id == R.id.joinBusinessFragment ||
+            destination.id == R.id.calendarFragment ||
+            destination.id == R.id.eventInfoBottomSheet
         ) {
             binding.addFav.isClickable = false
             binding.bottomAppBar.gone()

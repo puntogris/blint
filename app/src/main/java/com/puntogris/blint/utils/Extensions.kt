@@ -20,6 +20,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
+import androidx.paging.insertSeparators
+import androidx.paging.map
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.parser.IntegerParser
@@ -28,7 +31,11 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
 import com.puntogris.blint.R
+import com.puntogris.blint.model.Event
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -195,3 +202,32 @@ fun Fragment.getDatabasePath():String =
 fun Date.getMonthWithYear() =
     SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this).toString()
 
+fun Timestamp.getMonthAndYeah() =
+    SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this.toDate()).toString()
+
+fun Timestamp.getMonth() =
+    SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
+
+fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
+    return map { pagingData -> pagingData.map { EventUi.EventItem(it) } }
+        .map{
+            it.insertSeparators { before, after ->
+
+                if (after == null) {
+                    // we're at the end of the list
+                    return@insertSeparators null
+                }
+
+                if (before == null) {
+                    // we're at the beginning of the list
+                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalize(Locale.getDefault()))
+                }
+
+                if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()){
+                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalize(Locale.getDefault()))
+                }else{
+                    null
+                }
+            }
+        }
+}

@@ -23,6 +23,11 @@
         <item name="compactCalendarTextColor">#fff</item>
     </style>
 
+    <style name="Theme.Blint.CalendarSeparator">
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>

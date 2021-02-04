@@ -71,6 +71,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Theme.Blint.CalendarSeparator" >
+        <item name="android:textColor">@color/purple_500</item>
+    </style>
+
     <style name="Theme.Blint.DataSubTitleTextView" parent="@style/TextAppearance.AppCompat.Small" >
     </style>
 
