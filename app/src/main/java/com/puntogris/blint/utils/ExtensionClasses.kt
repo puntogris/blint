@@ -1,7 +1,7 @@
 package com.puntogris.blint.utils
 
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.*
 import java.lang.Exception
 
 sealed class StringValidator{
@@ -49,4 +49,13 @@ sealed class BusinessData{
 sealed class EventUi{
     data class EventItem(val event: Event): EventUi()
     data class SeparatorItem(val date: String) : EventUi()
+}
+
+sealed class ReportType{
+    class ProductRecords(val productRecords: List<Record>):ReportType()
+    class ClientRecords(val clientRecords: List<Record>):ReportType()
+    class SuppliersRecords(val suppliersRecords: List<Record>):ReportType()
+    object ProductList : ReportType()
+    object ClientsList : ReportType()
+    object SuppliersList : ReportType()
 }

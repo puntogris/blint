@@ -20,7 +20,9 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
@@ -79,7 +81,9 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
                         lifecycleScope.launch {
-                            viewModel.saveProductDatabase()
+                            withContext(Dispatchers.IO){
+                                viewModel.saveProductDatabase()
+                            }
                             createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this@apply).show()
                             findNavController().navigateUp()
                         }

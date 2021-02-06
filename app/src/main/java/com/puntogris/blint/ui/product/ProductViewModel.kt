@@ -6,14 +6,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.local.dao.ProductsDao
-import com.puntogris.blint.data.local.dao.RecordsDao
-import com.puntogris.blint.data.local.dao.SuppliersDao
-import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductSupplierCrossRef
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.ui.SharedPref
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -23,7 +21,8 @@ class ProductViewModel @ViewModelInject constructor(
     private val recordsDao: RecordsDao,
     private val suppliersDao: SuppliersDao,
     private val userRepository: UserRepository,
-    private val usersDao: UsersDao
+    private val usersDao: UsersDao,
+    private val statisticsDao: StatisticsDao
 ):ViewModel() {
 
     var viewsLoaded = false
@@ -57,6 +56,7 @@ class ProductViewModel @ViewModelInject constructor(
         _currentProduct.value.businessId = usersDao.getUser().currentBusinessId
         val productID = productsDao.insert(_currentProduct.value)
         saveRecordToDatabase(productID)
+        if (_currentProduct.value.productId == 0) statisticsDao.incrementTotalProducts()
         saveProductSuppliersCrossRef(productID.toInt())
     }
 
@@ -88,6 +88,7 @@ class ProductViewModel @ViewModelInject constructor(
     fun deleteProductDatabase(id: Int){
         viewModelScope.launch {
             productsDao.delete(id)
+            statisticsDao.decrementTotalProducts()
         }
     }
 

@@ -12,12 +12,15 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(event: Event)
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY timestamp ASC")
     fun getAllPaged(): PagingSource<Int, Event>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND date(timestamp, 'unixepoch','localtime') = date(:timestamp, 'unixepoch','localtime') ORDER BY timestamp ASC")
     fun getDayEvents(timestamp:Timestamp): PagingSource<Int, Event>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND status = :status ORDER BY timestamp ASC")
     fun getPagedEventsWithFilter(status: String): PagingSource<Int, Event>
 

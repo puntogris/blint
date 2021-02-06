@@ -22,12 +22,15 @@ interface ClientsDao {
     @Query("SELECT COUNT(*) FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getCount(): Int
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     fun getAllPaged(): PagingSource<Int, Client>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND name LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Client>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getAllClients(): List<Client>
 

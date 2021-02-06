@@ -3,6 +3,7 @@ package com.puntogris.blint.utils
 import android.content.Context
 import android.content.res.Configuration
 import java.io.*
+import java.nio.channels.FileChannel
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -28,5 +29,21 @@ object Util {
 
     fun isPortraitMode(context: Context): Boolean =
         context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+    fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
+        var fromChannel: FileChannel? = null
+        var toChannel: FileChannel? = null
+        try {
+            fromChannel = fromFile.channel
+            toChannel = toFile.channel
+            fromChannel.transferTo(0, fromChannel.size(), toChannel)
+        } finally {
+            try {
+                fromChannel?.close()
+            } finally {
+                toChannel?.close()
+            }
+        }
+    }
 
 }

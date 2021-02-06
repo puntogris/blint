@@ -21,15 +21,18 @@ interface ProductsDao {
     @Query("SELECT * FROM product WHERE productId = :id ")
     suspend fun getProduct(id: Int): Product
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): Product?
 
     @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getCount(): Int
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY name ASC")
     fun getAllPaged(): PagingSource<Int, Product>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND name LIKE :name")
     fun getPagedSearch(name: String): PagingSource<Int, Product>
 

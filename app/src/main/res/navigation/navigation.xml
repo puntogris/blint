@@ -289,7 +289,11 @@
     <fragment
         android:id="@+id/reportsFragment"
         android:name="com.puntogris.blint.ui.reports.ReportsFragment"
-        android:label="Informes" />
+        android:label="Informes" >
+        <action
+            android:id="@+id/action_reportsFragment_to_generateReportFragment"
+            app:destination="@id/generateReportFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createEventFragment"
         android:name="com.puntogris.blint.ui.calendar.CreateEventFragment"
@@ -302,4 +306,23 @@
             android:name="event"
             app:argType="com.puntogris.blint.model.Event" />
     </dialog>
+    <fragment
+        android:id="@+id/generateReportFragment"
+        android:name="com.puntogris.blint.ui.reports.GenerateReportFragment"
+        android:label="Generar informe" >
+        <argument
+            android:name="reportCode"
+            app:argType="string" />
+        <argument android:name="timeCode"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="startTime"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="endTime"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
 </navigation>

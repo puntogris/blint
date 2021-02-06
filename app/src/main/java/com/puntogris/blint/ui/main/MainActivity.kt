@@ -200,7 +200,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
-        } else {
+        }
+        else {
             binding.bottomAppBar.visible()
             binding.addFav.show()
             binding.bottomAppBar.performShow()

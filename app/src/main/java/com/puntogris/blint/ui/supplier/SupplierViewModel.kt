@@ -9,10 +9,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -20,7 +22,8 @@ import kotlinx.coroutines.launch
 class SupplierViewModel @ViewModelInject constructor(
     private val suppliersDao: SuppliersDao,
     private val recordsDao: RecordsDao,
-    private val usersDao: UsersDao
+    private val usersDao: UsersDao,
+    private val statisticsDao: StatisticsDao
 ):ViewModel() {
 
     private val _currentSupplier = MutableStateFlow(Supplier())
@@ -64,13 +67,15 @@ class SupplierViewModel @ViewModelInject constructor(
     fun deleteSupplierDatabase(id: Int){
         viewModelScope.launch {
             suppliersDao.delete(id)
+            statisticsDao.decrementTotalSuppliers()
         }
     }
 
     fun saveSupplierDatabase(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _currentSupplier.value.businessId = usersDao.getUser().currentBusinessId
             suppliersDao.insert(_currentSupplier.value)
+            if (_currentSupplier.value.supplierId == 0) statisticsDao.incrementTotalSuppliers()
         }
     }
 

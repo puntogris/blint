@@ -7,6 +7,7 @@ import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.data.local.AppDatabase
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.Util.copyFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -68,20 +69,5 @@ class BackupRepository @Inject constructor(
         }
     }
 
-    private fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
-        var fromChannel: FileChannel? = null
-        var toChannel: FileChannel? = null
-        try {
-            fromChannel = fromFile.channel
-            toChannel = toFile.channel
-            fromChannel.transferTo(0, fromChannel.size(), toChannel)
-        } finally {
-            try {
-                fromChannel?.close()
-            } finally {
-                toChannel?.close()
-            }
-        }
-    }
 
 }

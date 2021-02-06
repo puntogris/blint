@@ -22,12 +22,15 @@ interface SuppliersDao {
     @Query("SELECT COUNT(*) FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getCount(): Int
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     fun getAllPaged(): PagingSource<Int, Supplier>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND companyName LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Supplier>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
     suspend fun getAllSuppliers(): List<Supplier>
 

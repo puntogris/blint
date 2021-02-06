@@ -18,6 +18,7 @@ interface BusinessDao {
     @Update
     suspend fun update(business: Business)
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM business INNER JOIN roomuser ON userID = currentUid WHERE id = '1'")
     suspend fun getBusinesses(): List<Business>
 
