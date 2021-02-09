@@ -43,15 +43,64 @@ interface StatisticsDao {
     suspend fun getAllSuppliers(): List<Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY productID")
     suspend fun getAllRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime')")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND type = 'OUT' AND externalID != 0 ORDER BY externalName")
+    suspend fun getAllClientsRecords(): List<Record>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'  AND type = 'IN' AND externalID != 0 ORDER BY externalName ")
+    suspend fun getAllSuppliersRecords(): List<Record>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY productID")
     suspend fun getRecordsWithDays(days:String): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' and date(timestamp, 'unixepoch','localtime') BETWEEN  date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime')")
+    @Query(
+        """
+        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
+        WHERE id = '1' and date(timestamp, 'unixepoch','localtime')
+        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
+        ORDER BY productID
+     """
+    )
     suspend fun getRecordsWithDaysFrame(startTime:Long, endTime: Long): List<Record>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND type = 'OUT' AND externalID != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY externalName")
+    suspend fun getRecordsClientsWithDays(days:String): List<Record>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query(
+        """
+        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
+        WHERE id = '1' and date(timestamp, 'unixepoch','localtime')
+        AND type = "OUT" AND externalID != 0
+        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
+        ORDER BY externalName
+     """
+    )
+    suspend fun getRecordsClientsWithDaysFrame(startTime:Long, endTime: Long): List<Record>
+
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND type = 'IN' AND externalID != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY externalName")
+    suspend fun getRecordsSuppliersWithDays(days:String): List<Record>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query(
+        """
+        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
+        WHERE id = '1' and date(timestamp, 'unixepoch','localtime')
+        AND type = 'IN' AND externalID != 0
+        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
+        ORDER BY externalName
+     """
+    )
+    suspend fun getRecordsSuppliersWithDaysFrame(startTime:Long, endTime: Long): List<Record>
+
 
 }

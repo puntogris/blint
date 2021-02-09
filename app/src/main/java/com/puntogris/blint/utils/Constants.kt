@@ -28,4 +28,11 @@ object Constants {
     const val TIMESTAMP_FIELD_FIRESTORE = "timestamp"
     const val BUG_REPORT_COLLECTION_NAME = "bug_reports"
 
+    const val SUPPLIERS_LIST = 101
+    const val CLIENTS_LIST = 102
+    const val PRODUCTS_LIST = 103
+    const val SUPPLIERS_RECORDS = 104
+    const val CLIENTS_RECORDS = 105
+    const val PRODUCTS_RECORDS = 106
+
 }

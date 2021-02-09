@@ -162,5 +162,11 @@ dependencies {
 
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 
+    implementation "org.apache.poi:poi:4.0.1"
+    implementation "org.apache.poi:poi-ooxml:4.0.1"
+    implementation("org.apache.poi:poi-ooxml-schemas:4.0.1") {
+        exclude group: 'org.apache.xmlbeans'
+    }
+    implementation "xerces:xercesImpl:2.12.0"
 
 }

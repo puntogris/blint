@@ -1,9 +1,13 @@
 package com.puntogris.blint.ui.reports
 
+import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.StatisticsDao
-import com.puntogris.blint.utils.ReportType
+import com.puntogris.blint.model.Record
+import com.puntogris.blint.utils.ExportResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class ReportsViewModel @ViewModelInject constructor(
     private val statisticsDao: StatisticsDao
@@ -11,25 +15,55 @@ class ReportsViewModel @ViewModelInject constructor(
 
     suspend fun getStatistics() = statisticsDao.getStatistics()
 
-    suspend fun getReportData(reportCode:String, timeCode:String, startTime:Long, endTime:Long):ReportType{
+    private var saveDownloadFileUri:Uri? = null
 
-         return when (reportCode) {
-            "PRODUCTS_REPORT", "CLIENTS_REPORT", "SUPPLIERS_REPORT" -> {
-                when(timeCode){
-                    "WEEKLY" -> ReportType.ProductRecords(statisticsDao.getRecordsWithDays("-7 days"))
-                    "MONTHLY" -> ReportType.ProductRecords(statisticsDao.getRecordsWithDays("-30 days"))
-                    "QUARTERLY" -> ReportType.ProductRecords(statisticsDao.getRecordsWithDays("-90 days"))
-                    "BIANNUAL" -> ReportType.ProductRecords(statisticsDao.getRecordsWithDays("-180 days"))
-                    "ANNUAL" -> ReportType.ProductRecords(statisticsDao.getRecordsWithDays("-360 days"))
-                    "HISTORICAL" -> ReportType.ProductRecords(statisticsDao.getAllRecords())
-                    else -> ReportType.ProductRecords(statisticsDao.getRecordsWithDaysFrame(startTime, endTime))
-                }
-            }
-            "PRODUCT_LIST_REPORT" -> ReportType.ProductList
-            "CLIENT_LIST_REPORT" -> ReportType.ClientsList
-            //"SUPPLIER_LIST_REPORT"
-            else -> ReportType.SuppliersList
+    fun saveDownloadUri(uri: Uri){
+        saveDownloadFileUri = uri
+    }
+
+    fun getDownloadUri() = saveDownloadFileUri
+
+    private val _exportingState = MutableStateFlow<ExportResult>(ExportResult.InProgress)
+    val exportingState:StateFlow<ExportResult> = _exportingState
+
+    fun updateExportState(result: ExportResult){
+        _exportingState.value = result
+    }
+
+    suspend fun getProductRecords(timeCode:String, startTime:Long, endTime:Long):List<Record> {
+        return when(timeCode){
+            "WEEKLY" -> statisticsDao.getRecordsWithDays("-7 days")
+            "MONTHLY" -> statisticsDao.getRecordsWithDays("-30 days")
+            "QUARTERLY" -> statisticsDao.getRecordsWithDays("-90 days")
+            "BIANNUAL" -> statisticsDao.getRecordsWithDays("-180 days")
+            "ANNUAL" -> statisticsDao.getRecordsWithDays("-360 days")
+            "HISTORICAL" -> statisticsDao.getAllRecords()
+            else -> statisticsDao.getRecordsWithDaysFrame(startTime, endTime)
         }
+    }
+
+    suspend fun getClientRecords(timeCode:String, startTime:Long, endTime:Long):List<Record> {
+        return when(timeCode){
+             "WEEKLY" -> statisticsDao.getRecordsClientsWithDays("-7 days")
+             "MONTHLY" -> statisticsDao.getRecordsClientsWithDays("-30 days")
+             "QUARTERLY" -> statisticsDao.getRecordsClientsWithDays("-90 days")
+             "BIANNUAL" -> statisticsDao.getRecordsClientsWithDays("-180 days")
+             "ANNUAL" -> statisticsDao.getRecordsClientsWithDays("-360 days")
+             "HISTORICAL" -> statisticsDao.getAllClientsRecords()
+             else -> statisticsDao.getRecordsClientsWithDaysFrame(startTime, endTime)
+         }
+    }
+
+    suspend fun getSuppliersRecords(timeCode:String, startTime:Long, endTime:Long):List<Record> {
+        return when(timeCode){
+             "WEEKLY" -> statisticsDao.getRecordsSuppliersWithDays("-7 days")
+             "MONTHLY" -> statisticsDao.getRecordsSuppliersWithDays("-30 days")
+             "QUARTERLY" -> statisticsDao.getRecordsSuppliersWithDays("-90 days")
+             "BIANNUAL" -> statisticsDao.getRecordsSuppliersWithDays("-180 days")
+             "ANNUAL" -> statisticsDao.getRecordsSuppliersWithDays("-360 days")
+             "HISTORICAL" -> statisticsDao.getAllSuppliersRecords()
+             else -> statisticsDao.getRecordsSuppliersWithDaysFrame(startTime, endTime)
+         }
     }
 
 }

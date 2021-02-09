@@ -231,3 +231,7 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
             }
         }
 }
+
+fun String.getDateWithFileName() =
+    SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date()).toString() + "_$this.xls"
+

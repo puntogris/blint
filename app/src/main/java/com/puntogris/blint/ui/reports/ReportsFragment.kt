@@ -1,11 +1,9 @@
 package com.puntogris.blint.ui.reports
 
-import android.graphics.Path
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
@@ -16,8 +14,13 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentReportsBinding
 import com.puntogris.blint.model.DashboardItem
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.CLIENTS_LIST
+import com.puntogris.blint.utils.Constants.CLIENTS_RECORDS
+import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
+import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
+import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
+import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
@@ -44,34 +47,28 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
         }
     }
 
-    fun onProductsReportClicked(){
-        showTimeFrameBottomSheet("PRODUCTS_REPORT")
-    }
+    fun onProductsReportClicked(){ showTimeFrameBottomSheet(PRODUCTS_RECORDS) }
 
-    fun onClientsReportClicked(){
-        showTimeFrameBottomSheet("CLIENTS_REPORT")
-    }
+    fun onClientsReportClicked(){ showTimeFrameBottomSheet(CLIENTS_RECORDS) }
 
-    fun onSuppliersReportClicked(){
-        showTimeFrameBottomSheet("SUPPLIERS_REPORT")
-    }
+    fun onSuppliersReportClicked(){ showTimeFrameBottomSheet(SUPPLIERS_RECORDS) }
 
     fun onProductListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = "PRODUCT_LIST_REPORT")
+        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = PRODUCTS_LIST)
         findNavController().navigate(action)
     }
 
     fun onClientListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = "CLIENT_LIST_REPORT")
+        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = CLIENTS_LIST)
         findNavController().navigate(action)
     }
 
     fun onSuppliersListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = "SUPPLIER_LIST_REPORT")
+        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = SUPPLIERS_LIST)
         findNavController().navigate(action)
     }
 
-    private fun showTimeFrameBottomSheet(code:String){
+    private fun showTimeFrameBottomSheet(code:Int){
         OptionsSheet().build(requireContext()) {
             title("Periodo de tiempo del reporte")
             displayMode(DisplayMode.LIST)

@@ -312,7 +312,7 @@
         android:label="Generar informe" >
         <argument
             android:name="reportCode"
-            app:argType="string" />
+            app:argType="integer" />
         <argument android:name="timeCode"
             app:argType="string"
             android:defaultValue=" " />
