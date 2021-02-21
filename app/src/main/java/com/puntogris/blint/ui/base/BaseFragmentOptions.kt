@@ -32,20 +32,6 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     open fun preInitializeViews() {}
 
-    open fun onEditButtonClicked() {}
-
-    open fun onDeleteButtonClicked(){}
-
-    open fun onCreateRecordButtonClicked(){}
-
-    open fun onNewProductClicked(){}
-
-    open fun onNewClientClicked(){}
-
-    open fun onNewSupplierClicked(){}
-
-    open fun onNewEventClicked(){}
-
     open fun setUpMenuOptions(menu: Menu){}
 
 
@@ -59,37 +45,4 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.editOption -> {
-                onEditButtonClicked()
-                true
-            }
-            R.id.deleteOption -> {
-                onDeleteButtonClicked()
-                true
-            }
-            R.id.createRecord ->{
-                onCreateRecordButtonClicked()
-                true
-            }
-            R.id.newProduct -> {
-                onNewProductClicked()
-                true
-            }
-            R.id.newClient ->{
-                onNewClientClicked()
-                true
-            }
-            R.id.newSupplier ->{
-                onNewSupplierClicked()
-                true
-            }
-            R.id.newEvent ->{
-                onNewEventClicked()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

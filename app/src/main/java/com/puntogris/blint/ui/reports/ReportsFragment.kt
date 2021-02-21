@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.reports
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maxkeppeler.sheets.calendar.CalendarSheet
@@ -33,7 +34,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
         val reportDashboardAdapter = ReportsDashboardAdapter()
         binding.dashboardRv.apply {
             adapter = reportDashboardAdapter
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(requireContext(), 3)
         }
 
         lifecycleScope.launchWhenStarted {

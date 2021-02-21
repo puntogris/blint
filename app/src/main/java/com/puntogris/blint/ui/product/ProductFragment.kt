@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.product
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -18,6 +19,7 @@ import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.client.ClientFragmentDirections
 import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
@@ -60,29 +62,36 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         mediator = null
         binding.viewPager.adapter = null
         super.onDestroyView()
+
     }
 
-    override fun onEditButtonClicked() {
-        val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.productID)
-        findNavController().navigate(action)
-    }
-
-    override fun onDeleteButtonClicked() {
-        InfoSheet().build(requireContext()) {
-            title("Queres eliminar este producto?")
-            content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") {
-                    viewModel.deleteProductDatabase(args.productID)
-                showLongSnackBarAboveFab("Producto eliminado correctamente.")
-                findNavController().navigateUp()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.editOption -> {
+                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.productID)
+                findNavController().navigate(action)
+                true
             }
-        }.show(parentFragmentManager, "")
-    }
-
-    override fun onCreateRecordButtonClicked() {
-        val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
-        findNavController().navigate(action)
+            R.id.deleteOption -> {
+                InfoSheet().build(requireContext()) {
+                    title("Queres eliminar este producto?")
+                    content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
+                    onNegative("Cancelar")
+                    onPositive("Si") {
+                        viewModel.deleteProductDatabase(args.productID)
+                        showLongSnackBarAboveFab("Producto eliminado correctamente.")
+                        findNavController().navigateUp()
+                    }
+                }.show(parentFragmentManager, "")
+                true
+            }
+            R.id.createRecord -> {
+                val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
+                findNavController().navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun navigateToInfoRecord(record: Record){

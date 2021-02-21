@@ -8,12 +8,12 @@ import javax.inject.Inject
 class SharedPref @Inject constructor(@ApplicationContext private val context: Context) {
     private val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun setUserHasBusinessRegisteredPref(value:Boolean){
-        sharedPref.edit().putBoolean("user_has_local_business", value).apply()
+    fun setWelcomeUiPref(value:Boolean){
+        sharedPref.edit().putBoolean("show_welcome_ui", value).apply()
     }
 
-    fun getUserHasBusinessRegisteredPref() =
-        sharedPref.getBoolean("user_has_local_business", false)
+    fun getWelcomeUiPref() =
+        sharedPref.getBoolean("show_welcome_ui", false)
 
     fun getThemePref() = sharedPref.getString("theme_pref", "1")?.toInt() ?: 1
 

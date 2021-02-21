@@ -22,8 +22,8 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores"),
             MenuCard(RECORDS_CARD_CODE, "Movimientos"),
             MenuCard(CHARTS_CARD_CODE, "Informes"),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),
-            MenuCard(OPERATIONS_CARD_CODE, "Herramientas")
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda")
+       //     MenuCard(OPERATIONS_CARD_CODE, "Herramientas")
             )
         submitList(list)
     }

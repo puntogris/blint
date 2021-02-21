@@ -1,10 +1,12 @@
 package com.puntogris.blint.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductCategoryCrossRef
 import com.puntogris.blint.model.ProductSupplierCrossRef
-import com.puntogris.blint.model.ProductWithSuppliers
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 
 @Dao
 interface ProductsDao {
@@ -26,7 +28,7 @@ interface ProductsDao {
     suspend fun getProductWithBarcode(barcode: String): Product?
 
     @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
-    suspend fun getCount(): Int
+    fun getCount(): LiveData<Int>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY name ASC")
@@ -44,10 +46,14 @@ interface ProductsDao {
 
     @Transaction
     @Query("SELECT * FROM product WHERE productId = :id")
-    suspend fun getProductWithSuppliers(id: Int): ProductWithSuppliers
+    suspend fun getProductWithSuppliersCategories(id: Int): ProductWithSuppliersCategories
 
     @Insert
     suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
+
+
+    @Insert
+    suspend fun insertProductCategoriesCrossRef(items: List<ProductCategoryCrossRef>)
 
     @Transaction
     @Query(

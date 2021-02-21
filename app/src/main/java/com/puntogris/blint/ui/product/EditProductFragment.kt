@@ -39,17 +39,28 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         if (!viewModel.viewsLoaded) {
             if (args.productID != 0){
                 lifecycleScope.launch {
-                    val productWithSuppliers = viewModel.getProductWithSuppliers(args.productID)
-                    viewModel.setProductData(productWithSuppliers.product)
+                    val productWithSuppAndCat = viewModel.getProductWithSuppliersCategories(args.productID)
+                    viewModel.setProductData(productWithSuppAndCat.product)
 
-                    if (productWithSuppliers.suppliers.isNotEmpty()){
-                        productWithSuppliers.suppliers.forEach { supplier->
+                    if (productWithSuppAndCat.suppliers.isNotEmpty()){
+                        productWithSuppAndCat.suppliers.forEach { supplier->
                             Chip(requireContext()).apply {
                                 text = supplier.companyName
                                 setOnClickListener {
 
                                 }
                                 binding.scopeLayout.supplierChipGroup.addView(this)
+                            }
+                        }
+                    }
+                    if (productWithSuppAndCat.categories.isNotEmpty()){
+                        productWithSuppAndCat.categories.forEach { category ->
+                            Chip(requireContext()).apply {
+                                text = category.name
+                                setOnClickListener {
+
+                                }
+                                binding.productExtrasLayout.categoriesChipGroup.addView(this)
                             }
                         }
                     }
@@ -116,9 +127,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             image = viewModel.productImage.value!!,
             internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),
-            size = binding.productExtrasLayout.productSizeText.getString(),
-            suppliers = viewModel.suppliers.value!!
-        )
+            size = binding.productExtrasLayout.productSizeText.getString())
     }
 
     fun onSearchButtonClicked(){
@@ -195,24 +204,26 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun openBottomSheetForCategories(){
-        OptionsSheet().build(requireContext()){
-            title("Agregar Categorias")
-            displayMode(DisplayMode.LIST)
-            multipleChoices()
-            with(
-                Option("Categoria 1"),
-                Option("Categoria 2"),
-                Option("Categoria 3"),
-                Option("Categoria 4"),
-                Option("Categoria 5"),
-                Option("Categoria 6")
-            )
-            onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
-                selectedIndices.forEach {
-                    createNewChipAndAddItToGroup(it.toString(), binding.productExtrasLayout.categoriesChipGroup)
-                }
+        lifecycleScope.launch {
+            val categories = viewModel.getAllCategories()
+            if (categories.isNullOrEmpty()){
+                showLongSnackBarAboveFab("No se encontraron categorias registrados.")
+            }else{
+                val optionSuppliers = categories.map { Option(it.name) }.toMutableList()
+                OptionsSheet().build(requireContext()){
+                    title("Agregar Categorias")
+                    displayMode(DisplayMode.LIST)
+                    multipleChoices(true)
+                    with(optionSuppliers)
+                    onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                        viewModel.updateCategories(selectedIndices.map { categories[it].categoryId })
+                        selectedIndices.forEach {
+                            createNewChipAndAddItToGroup(categories[it].name, binding.scopeLayout.supplierChipGroup)
+                        }
+                    }
+                    onNegative("Cancelar")
+                }.show(parentFragmentManager, "")
             }
-            onNegative("Cancelar")
-        }.show(parentFragmentManager, "")
+        }
     }
 }

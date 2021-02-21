@@ -8,11 +8,7 @@ import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductSupplierCrossRef
-import com.puntogris.blint.model.Record
-import com.puntogris.blint.model.Statistic
-import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.model.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -22,7 +18,8 @@ class ProductViewModel @ViewModelInject constructor(
     private val suppliersDao: SuppliersDao,
     private val userRepository: UserRepository,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao
+    private val statisticsDao: StatisticsDao,
+    private val categoriesDao: CategoriesDao
 ):ViewModel() {
 
     var viewsLoaded = false
@@ -30,11 +27,15 @@ class ProductViewModel @ViewModelInject constructor(
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
 
-    private val _suppliers = MutableLiveData(listOf<Int>())
-    val suppliers :LiveData<List<Int>> = _suppliers
+    private val suppliers = MutableLiveData(listOf<Int>())
+    private val categories = MutableLiveData(listOf<Int>())
 
     fun updateSuppliers(suppliers:List<Int>){
-        _suppliers.value = suppliers
+        this.suppliers.value = suppliers
+    }
+
+    fun updateCategories(categories:List<Int>){
+        this.categories.value = categories
     }
 
     private val _currentProduct = MutableStateFlow(Product())
@@ -54,10 +55,11 @@ class ProductViewModel @ViewModelInject constructor(
 
     suspend fun saveProductDatabase(){
         _currentProduct.value.businessId = usersDao.getUser().currentBusinessId
-        val productID = productsDao.insert(_currentProduct.value)
-        saveRecordToDatabase(productID)
+        val productId = productsDao.insert(_currentProduct.value)
+        saveRecordToDatabase(productId)
         if (_currentProduct.value.productId == 0) statisticsDao.incrementTotalProducts()
-        saveProductSuppliersCrossRef(productID.toInt())
+        saveProductSuppliersCrossRef(productId.toInt())
+        saveProductCategoryCrossRef(productId.toInt())
     }
 
     fun updateCurrentProductBarcode(barcode: String){
@@ -78,10 +80,18 @@ class ProductViewModel @ViewModelInject constructor(
     }
 
     private suspend fun saveProductSuppliersCrossRef(productId: Int){
-        _suppliers.value?.map {
+        suppliers.value?.map {
             ProductSupplierCrossRef(productId, it)
         }?.let {
             productsDao.insertProductSupplierCrossRef(it)
+        }
+    }
+
+    private suspend fun saveProductCategoryCrossRef(productId: Int){
+        categories.value?.map {
+            ProductCategoryCrossRef(productId, it)
+        }?.let {
+            productsDao.insertProductCategoriesCrossRef(it)
         }
     }
 
@@ -124,7 +134,7 @@ class ProductViewModel @ViewModelInject constructor(
 
     suspend fun getProduct(id: Int) = productsDao.getProduct(id)
 
-    suspend fun getProductWithSuppliers(id: Int) = productsDao.getProductWithSuppliers(id)
+    suspend fun getProductWithSuppliersCategories(id: Int) = productsDao.getProductWithSuppliersCategories(id)
 
     fun getProductWithName(name: String): Flow<PagingData<Product>> {
         return Pager(
@@ -140,4 +150,13 @@ class ProductViewModel @ViewModelInject constructor(
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
+    suspend fun getAllCategories() = categoriesDao.getAllCategories()
+    fun getAllCategoriesFlow() = categoriesDao.getAllCategoriesFlow()
+    suspend fun deleteCategory(category: Category){
+        categoriesDao.deleteCategory(category)
+    }
+
+    suspend fun insertCategory(name: String){
+        categoriesDao.insert(Category(name = name, businessId = usersDao.getUser().currentBusinessId))
+    }
 }

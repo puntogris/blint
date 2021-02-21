@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.Blint" parent="Base.Theme.Blint">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
@@ -14,8 +14,12 @@
         <item name="colorSurface">@color/grey_5</item>
         <item name="android:statusBarColor">@color/grey_5</item>
         <item name="android:windowBackground">@color/grey_5</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@color/grey_20</item>
     </style>
 
     <style name="Theme.Blint.Calendar">
@@ -31,11 +35,12 @@
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>
-        <item name="iconTint">@color/purple_500</item>
+        <item name="iconTint">@color/primaryColor</item>
     </style>
 
     <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
-        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="fontFamily">@font/avenir_medium</item>
     </style>
 
 <!--    chart-->
@@ -47,10 +52,15 @@
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>
 
+    <style name="Theme.Blint.RoundButtonShapeOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
 
     <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
-        <item name="backgroundTint">@color/purple_200</item>
+        <item name="backgroundTint">@color/primaryColor</item>
         <item name="tint">@android:color/white</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -61,21 +71,18 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="Theme.Blint.Fab.Child" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="fabSize">mini</item>
-        <item name="backgroundTint">@color/purple_500</item>
-        <item name="tint">@android:color/white</item>
-    </style>
 
     <style name="Theme.Blint.DataTextView" parent="@style/TextAppearance.MaterialComponents.Body2">
         <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/avenir_medium</item>
     </style>
 
     <style name="Theme.Blint.CalendarSeparator" >
-        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:textColor">@color/primaryColor</item>
     </style>
 
     <style name="Theme.Blint.DataSubTitleTextView" parent="@style/TextAppearance.AppCompat.Small" >
+        <item name="fontFamily">@font/avenir_medium</item>
     </style>
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView">

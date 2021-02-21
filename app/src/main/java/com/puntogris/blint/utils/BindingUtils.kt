@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -20,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
@@ -52,30 +50,16 @@ fun ImageView.setImageFullSize(image: HashMap<String,String>?){
     }else gone()
 }
 
-@BindingAdapter("menuCardColor")
-fun CardView.setBackgroundColor(menuCard: MenuCard){
-    when(menuCard.code){
-        ALL_PRODUCTS_CARD_CODE -> R.color.card1
-        ALL_CLIENTS_CARD_CODE -> R.color.card2
-        ALL_SUPPLIERS_CARD_CODE -> R.color.card3
-        RECORDS_CARD_CODE -> R.color.card4
-        CHARTS_CARD_CODE -> R.color.card5
-        OPERATIONS_CARD_CODE -> R.color.card7
-        else -> R.color.card6
-    }.also {
-        setCardBackgroundColor(context.getColor(it))
-    }
-}
 
 @BindingAdapter("menuCardIcon")
 fun ImageView.setMenuCardIcon(menuCard: MenuCard){
     when(menuCard.code){
-        ALL_PRODUCTS_CARD_CODE -> R.drawable.ic_baseline_library_books_24
-        ALL_CLIENTS_CARD_CODE -> R.drawable.ic_baseline_people_alt_24
-        ALL_SUPPLIERS_CARD_CODE -> R.drawable.ic_baseline_store_24
-        ACCOUNTING_CARD_CODE -> R.drawable.ic_baseline_calendar_today_24
-        RECORDS_CARD_CODE -> R.drawable.ic_baseline_article_24
-        CHARTS_CARD_CODE -> R.drawable.ic_baseline_bar_chart_24
+        ALL_PRODUCTS_CARD_CODE -> R.drawable.ic_packages
+        ALL_CLIENTS_CARD_CODE -> R.drawable.ic_rating
+        ALL_SUPPLIERS_CARD_CODE -> R.drawable.ic_shipped
+        ACCOUNTING_CARD_CODE -> R.drawable.ic_calendar
+        RECORDS_CARD_CODE -> R.drawable.ic_report
+        CHARTS_CARD_CODE -> R.drawable.ic_analytics
         OPERATIONS_CARD_CODE -> R.drawable.ic_baseline_grain_24
         else -> R.drawable.ic_baseline_add_24
     }.also {
@@ -208,4 +192,10 @@ fun View.setEventStatusColor(status:String){
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
     }
+}
+
+
+@BindingAdapter("businessType")
+fun TextView.setBusinessType(type:String){
+    text = if(type == "LOCAL") "Local" else "Online"
 }

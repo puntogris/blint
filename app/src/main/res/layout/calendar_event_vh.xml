@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="event"
             type="com.puntogris.blint.model.Event" />
@@ -12,6 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:layout_height="wrap_content">
 
         <View

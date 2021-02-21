@@ -1,27 +1,12 @@
 package com.puntogris.blint.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
 
-@Entity
 data class Business(
-
-        @PrimaryKey(autoGenerate = false)
-        var businessId: String = "",
-
-        @ColumnInfo
-        val name: String = "",
-
-        @ColumnInfo
-        val type: String = "",
-
-        @ColumnInfo
-        val owner: String = "",
-
-        @ColumnInfo
-        val userRole:String = "",
-
-        @ColumnInfo
-        var userID:String = ""
+    var businessId: String = "",
+    val businessName: String = "",
+    val type: String = "",
+    val owner: String = "",
+    val valid: Boolean = true,
+    val creationTimestamp: Timestamp = Timestamp.now()
 )

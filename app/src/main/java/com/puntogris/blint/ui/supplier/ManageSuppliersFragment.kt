@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.supplier
 
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -36,6 +38,9 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
                 }
             }
         }
+        getParentFab().setOnClickListener {
+            findNavController().navigate(R.id.editSupplierFragment)
+        }
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
@@ -52,7 +57,11 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         menu.findItem(R.id.manageSuppliersFragmentMenu).isVisible = true
     }
 
-    override fun onNewSupplierClicked() {
-        findNavController().navigate(R.id.editSupplierFragment)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.newSupplier) {
+            findNavController().navigate(R.id.editSupplierFragment)
+            true
+        }
+        else super.onOptionsItemSelected(item)
     }
 }

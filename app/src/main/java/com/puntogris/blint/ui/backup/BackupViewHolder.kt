@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.BackupVhBinding
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 
 class BackupViewHolder private constructor(val binding: BackupVhBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(business: Business, clickListener: (Business)->Unit) {
-        binding.business = business
-        binding.root.setOnClickListener { clickListener(business) }
+    fun bind(employee: Employee, clickListener: (Employee)->Unit) {
+        binding.business = employee
+        binding.root.setOnClickListener { clickListener(employee) }
         binding.executePendingBindings()
     }
 

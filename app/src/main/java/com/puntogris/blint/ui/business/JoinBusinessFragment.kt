@@ -6,14 +6,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.login.LoginViewModel
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,12 +28,12 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     override fun initializeViews() {
         binding.fragment = this
         setUpRecyclerView()
-        viewModel.getUserBusiness()
+        //viewModel.getUserBusiness()
         lifecycleScope.launchWhenStarted {
-            viewModel.userBusiness.collect {
-                if (it.isEmpty()) onEmployeeDataNotFound()
-                else onEmployeeDataFound(it)
-            }
+//            viewModel.userBusiness.collect {
+//                if (it.isEmpty()) onEmployeeDataNotFound()
+//                else onEmployeeDataFound(it)
+//            }
         }
     }
 
@@ -51,7 +50,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
         }
     }
 
-    private fun onEmployeeDataFound(data: List<Business>){
+    private fun onEmployeeDataFound(data: List<Employee>){
         joinBusinessAdapter.submitList(data)
         binding.apply {
             businessFoundMessage.visible()
@@ -74,8 +73,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
 
     fun onContinueButtonClicked(){
         lifecycleScope.launch {
-            viewModel.saveBusinessToLocalDatabase()
-            sharedPref.setUserHasBusinessRegisteredPref(true)
+          //  viewModel.saveBusinessToLocalDatabase()
+            sharedPref.setWelcomeUiPref(true)
             findNavController().navigate(R.id.mainFragment)
         }
     }

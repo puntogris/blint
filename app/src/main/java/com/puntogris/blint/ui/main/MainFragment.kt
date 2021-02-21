@@ -1,21 +1,15 @@
 package com.puntogris.blint.ui.main
 
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.billingclient.api.*
 import com.puntogris.blint.R
-import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.databinding.FragmentMainBinding
+import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.RoomUser
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
@@ -24,51 +18,93 @@ import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
-import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
-import java.lang.reflect.Field
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
+    private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by activityViewModels()
+    private lateinit var billingClient: BillingClient
 
     override fun initializeViews() {
-        setupRecyclerView()
-        setupBusinessMenu()
-        changeBusinessListener()
+        binding.lifecycleOwner= this
+        binding.viewModel = viewModel
+        setupMenuRecyclerView()
+        setupCalendarRecyclerView()
+
+//        val purchasesUpdateListener =
+//            PurchasesUpdatedListener { billingResult, purchases ->
+//                // To be implemented in a later section.
+//            }
+//
+//        billingClient = BillingClient.newBuilder(requireActivity())
+//            .setListener(purchasesUpdateListener)
+//            .enablePendingPurchases()
+//            .build()
+//
+//        billingClient.startConnection(object : BillingClientStateListener {
+//            override fun onBillingSetupFinished(billingResult: BillingResult) {
+//                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
+//                // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+//                    val params = SkuDetailsParams.newBuilder()
+//                    params.setSkusList(listOf("online_business_tier_1"))
+//                    params.setType(BillingClient.SkuType.SUBS)
+//                    val test = params.build()
+//                    billingClient.querySkuDetailsAsync(test, object :SkuDetailsResponseListener{
+//                        override fun onSkuDetailsResponse(
+//                            p0: BillingResult,
+//                            p1: MutableList<SkuDetails>?
+//                        ) {
+//
+//                            val flowParams = p1?.get(0)?.let {
+//                                BillingFlowParams.newBuilder()
+//                                    .setSkuDetails(it)
+//                                    .build()
+//                            }
+//                            val responseCode = flowParams?.let {
+//                                billingClient.launchBillingFlow(requireActivity(),
+//                                    it
+//                                ).responseCode
+//                            }
+//                        }
+//                    })
+//
+//                }
+//            }
+//            override fun onBillingServiceDisconnected() {
+//                // Try to restart the connection on the next request to
+//                // Google Play by calling the startConnection() method.
+//            }
+//        })
     }
 
-    private fun setupBusinessMenu(){
-        viewModel.getBusiness()
-        val dropDownMenu = (binding.businessMenuDropDown as? AutoCompleteTextView)
-        lifecycleScope.launch {
-            viewModel.businesses.collect { list ->
-                val businessesName = list.map { it.name }
-                dropDownMenu?.setText(viewModel.getCurrentBusiness().currentBusinessName,false)
-                val adapter = ArrayAdapter(requireContext(),R.layout.dropdown_item_list, businessesName)
-                dropDownMenu?.setAdapter(adapter)
-            }
+    private fun setupCalendarRecyclerView(){
+        mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
+        lifecycleScope.launch(Dispatchers.IO) {
+            val events = viewModel.getLastEvents()
+            mainCalendarAdapter.submitList(events)
+        }
+        binding.calendarRecyclerView.apply {
+            adapter = mainCalendarAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun changeBusinessListener(){
-        binding.businessMenuDropDown.setOnItemClickListener { _, _, i, _ ->
-            lifecycleScope.launch { viewModel.updateCurrentBusiness(i) }
-        }
+    private fun onCalendarEventClicked(event: Event){
+        val action = MainFragmentDirections.actionMainFragmentToEventInfoBottomSheet(event)
+        findNavController().navigate(action)
     }
 
-    private fun setupRecyclerView(){
+    private fun setupMenuRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            addItemDecoration(SpaceItemDecoration(20, true))
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            addItemDecoration(SpaceItemDecoration(10, true))
         }
     }
 
@@ -86,7 +122,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
-        (binding.businessMenuDropDown as? AutoCompleteTextView)?.setAdapter(null)
         super.onDestroyView()
     }
 }

@@ -27,4 +27,7 @@ interface EventsDao {
     @Update
     suspend fun updateEvent(event: Event)
 
+    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY timestamp ASC LIMIT 3")
+    fun getLastThreeEvents():List<Event>
+
 }

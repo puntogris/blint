@@ -9,6 +9,8 @@
         tools:context=".ui.main.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/topAppBar"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="0dp"
@@ -16,6 +18,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:titleTextColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStartWithNavigation="0dp"
@@ -23,7 +26,9 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <androidx.fragment.app.FragmentContainerView
+
             android:layout_marginTop="?actionBarSize"
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -36,7 +41,7 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            style="@style/Theme.Blint.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -48,50 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addFav"
+            android:backgroundTint="@color/primaryColor"
             app:layout_anchor="@id/bottomAppBar"
             app:srcCompat="@drawable/ic_baseline_add_24" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            app:layout_anchorGravity="top|center_horizontal"
-            app:layout_anchor="@id/addFav"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addProductFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/Theme.Blint.Fab.Child"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_baseline_library_add_24" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addClientFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone"
-                style="@style/Theme.Blint.Fab.Child"
-                app:srcCompat="@drawable/ic_baseline_person_add_24" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addSupplierFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                style="@style/Theme.Blint.Fab.Child"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_baseline_add_business_24" />
-
-        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

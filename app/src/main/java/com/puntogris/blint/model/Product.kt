@@ -56,8 +56,5 @@ data class Product(
     var totalOutStock: Int = 0,
 
     @ColumnInfo
-    var suppliers: List<Int> = listOf(),
-
-    @ColumnInfo
     var businessId:String = ""
 ):Parcelable

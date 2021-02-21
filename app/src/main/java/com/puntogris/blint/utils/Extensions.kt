@@ -2,6 +2,7 @@ package com.puntogris.blint.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.drawable.InsetDrawable
 import android.util.DisplayMetrics
@@ -51,18 +52,6 @@ fun View.visible(){
 }
 fun View.invisible(){
     visibility = View.INVISIBLE
-}
-
-fun List<View>.makeInvisible(){
-    forEach { it.invisible() }
-}
-
-fun List<View>.setGroupClickable(isClickable: Boolean){
-    forEach { it.isClickable = isClickable }
-}
-
-fun List<View>.setGroupAnimation(animation:Animation){
-    forEach { it.startAnimation(animation) }
 }
 
 fun EditText.getString() = text.toString()
@@ -235,3 +224,14 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
 fun String.getDateWithFileName() =
     SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date()).toString() + "_$this.xls"
 
+fun View.isDarkThemeOn() =
+    (resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+
+fun Fragment.isDarkThemeOn() =
+    (resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+
+fun Activity.isDarkThemeOn() =
+    (resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)

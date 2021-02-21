@@ -23,6 +23,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dashboardRv"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,9 +33,10 @@
 
             <TextView
                 android:id="@+id/textView101"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:fontFamily="@font/versatile_bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
@@ -45,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:foreground="?selectableItemBackground"
                 android:onClick="@{()->fragment.onProductsReportClicked()}">
@@ -58,7 +60,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Informe de Movimientos por producto"
+                    android:text="Movimientos por producto"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -84,7 +86,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Informe de compras por proveedor"
+                    android:text="Compras por proveedor"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -109,10 +111,21 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Informe de ventas por cliente"
+                    android:text="Ventas por cliente"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/textView1021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:fontFamily="@font/versatile_bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Generar listas" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/productsReport"
@@ -120,7 +133,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:foreground="?selectableItemBackground"
                 android:onClick="@{()->fragment.onProductListClicked()}">
@@ -133,7 +145,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="lista de productos"
+                    android:text="Productos"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -158,7 +170,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="lista de clientes"
+                    android:text="Clientes"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -184,7 +196,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="lista de proveedores"
+                    android:text="Proveedores"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 

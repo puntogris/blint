@@ -6,7 +6,7 @@
     <data>
         <variable
             name="business"
-            type="com.puntogris.blint.model.Business" />
+            type="com.puntogris.blint.model.Employee" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,7 @@
         <TextView
             android:id="@+id/textView59"
             style="@style/Theme.Blint.DataTextView"
-            userRoleFormatted="@{business.userRole}"
+            userRoleFormatted="@{business.role}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/textView42"
@@ -81,7 +81,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            upperCaseToLowerCapitalize="@{business.type}"
+            upperCaseToLowerCapitalize="@{business.businessType}"
             app:layout_constraintStart_toStartOf="@+id/textView69"
             app:layout_constraintTop_toBottomOf="@+id/textView69" />
 

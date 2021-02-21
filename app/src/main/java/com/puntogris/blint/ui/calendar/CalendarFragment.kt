@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.calendar
 
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
@@ -56,9 +57,14 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         findNavController().navigate(action)
     }
 
-    override fun onNewEventClicked() {
-        findNavController().navigate(R.id.createEventFragment)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.newEvent) {
+            findNavController().navigate(R.id.createEventFragment)
+            true
+        }
+        else super.onOptionsItemSelected(item)
     }
+
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.calendarFragmentMenu).isVisible = true

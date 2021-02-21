@@ -4,17 +4,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.data.local.dao.BusinessDao
+import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.remote.BackupRepository
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.ui.SharedPref
-import kotlinx.coroutines.launch
 
 class PreferencesViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
-    private val businessDao: BusinessDao,
+    private val employeeDao: EmployeeDao,
     private val sharedPref: SharedPref,
     private val backupRepository: BackupRepository) :ViewModel() {
 
@@ -22,8 +20,8 @@ class PreferencesViewModel @ViewModelInject constructor(
     val userData: LiveData<FirebaseUser> = _userData
 
     suspend fun logOut(){
-        sharedPref.setUserHasBusinessRegisteredPref(false)
-        businessDao.deleteAll()
+        sharedPref.setWelcomeUiPref(false)
+        employeeDao.deleteAll()
         userRepository.singOutCurrentUser()
     }
 

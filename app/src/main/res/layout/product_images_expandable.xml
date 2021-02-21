@@ -40,7 +40,6 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button3"
-                app:strokeColor="@color/purple_200"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 loadImageButtonText="@{viewModel.productImage}"
                 android:layout_width="0dp"

@@ -2,31 +2,26 @@ package com.puntogris.blint.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.RoomUser
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
-    private val businessDao: BusinessDao,
-    private val usersDao: UsersDao
+    private val usersDao: UsersDao,
+    private val eventsDao: EventsDao,
+    productsDao: ProductsDao,
+    suppliersDao: SuppliersDao,
+    clientsDao: ClientsDao
 ):ViewModel() {
 
-    private val _businesses = MutableStateFlow(listOf(Business()))
-    val businesses: StateFlow<List<Business>> = _businesses
+    val productsCount = productsDao.getCount()
+    val clientsCount = clientsDao.getCount()
+    val suppliersCount = suppliersDao.getCount()
 
-    fun getBusiness(){
-        viewModelScope.launch {
-            _businesses.emit(businessDao.getBusinesses())
-        }
-    }
-
-    suspend fun getCurrentBusiness() = usersDao.getUser()
+    private val _businesses = MutableStateFlow(listOf(Employee()))
 
     fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 
@@ -35,9 +30,12 @@ class MainViewModel @ViewModelInject constructor(
         usersDao.insert(RoomUser(
             id = "1",
             currentBusinessId = business.businessId,
-            currentBusinessType = business.type,
+            currentBusinessType = business.businessType,
             currentBusinessName = business.name,
             currentUid = userRepository.getCurrentUID()
         ))
     }
+
+    fun getLastEvents() = eventsDao.getLastThreeEvents()
+
 }

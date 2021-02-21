@@ -8,9 +8,7 @@ import com.puntogris.blint.databinding.FragmentRegisterLocalBusinessBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.login.LoginViewModel
-import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.StringValidator
-import com.puntogris.blint.utils.createShortSnackBar
 import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +30,7 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
         when(val validator = StringValidator.from(binding.businessNameText.getString())){
             is StringValidator.Valid -> {
                 lifecycleScope.launch {
-                    sharedPref.setUserHasBusinessRegisteredPref(true)
+                    sharedPref.setWelcomeUiPref(true)
                     viewModel.registerNewBusiness(validator.value)
                     findNavController().navigate(R.id.mainFragment)
                 }

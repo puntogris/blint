@@ -8,7 +8,7 @@ import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Converters
 
 @Database(entities = [
-    Business::class,
+    Employee::class,
     Client::class,
     Product::class,
     Record::class,
@@ -16,11 +16,13 @@ import com.puntogris.blint.utils.Converters
     RoomUser::class,
     ProductSupplierCrossRef::class,
     Event::class,
-    Statistic::class
+    Statistic::class,
+    Category::class,
+    ProductCategoryCrossRef::class
                      ], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun businessDao(): BusinessDao
+    abstract fun employeesDao(): EmployeeDao
     abstract fun clientsDao(): ClientsDao
     abstract fun productsDao(): ProductsDao
     abstract fun recordsDao(): RecordsDao
@@ -28,4 +30,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UsersDao
     abstract fun eventsDao(): EventsDao
     abstract fun statisticsDao(): StatisticsDao
+    abstract fun categoriesDao(): CategoriesDao
 }

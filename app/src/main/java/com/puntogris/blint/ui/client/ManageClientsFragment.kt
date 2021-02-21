@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.client
 
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -36,6 +38,9 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
                 }
             }
         }
+        getParentFab().setOnClickListener {
+            findNavController().navigate(R.id.editClientFragment)
+        }
     }
 
     private fun onClientClickListener(client: Client){
@@ -52,7 +57,12 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         menu.findItem(R.id.manageClientsFragmentMenu).isVisible = true
     }
 
-    override fun onNewClientClicked() {
-        findNavController().navigate(R.id.editClientFragment)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.newClient) {
+            findNavController().navigate(R.id.editClientFragment)
+            true
+        }
+        else super.onOptionsItemSelected(item)
     }
+
 }

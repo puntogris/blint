@@ -8,8 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="primaryColor">#EBB0A5</color>
+    <color name="orange">#E1973D</color>
+    <color name="colorSecondary">#4340C1</color>
+
+    <color name="nightBackground">#121212</color>
+
     <color name="logoBackground">#281D33</color>
-    <color name="logo">#A451E8</color>
+    <color name="logo">#F47D0E</color>
 
     <color name="green_500">#4CAF50</color>
     <color name="rally_dark_green">#0C4B44</color>

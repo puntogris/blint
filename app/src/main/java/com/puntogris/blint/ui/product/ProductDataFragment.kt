@@ -22,7 +22,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
             getInt("product_key").let {
                 lifecycleScope.launch {
-                    val product = viewModel.getProductWithSuppliers(it)
+                    val product = viewModel.getProductWithSuppliersCategories(it)
                     viewModel.setProductData(product.product)
 
                     if (product.suppliers.isNotEmpty()){
@@ -33,6 +33,17 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                                     (requireParentFragment() as ProductFragment).navigateToSupplier(supplier.supplierId)
                                 }
                                 binding.supplierChipGroup.addView(this)
+                            }
+                        }
+                    }
+                    if (product.categories.isNotEmpty()){
+                        product.categories.forEach { category ->
+                            Chip(requireContext()).apply {
+                                text = category.name
+                                setOnClickListener {
+
+                                }
+                                binding.categoriesChipGroup.addView(this)
                             }
                         }
                     }

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_mainFragment_to_registerBusiness"
             app:destination="@id/registerBusinessFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_eventInfoBottomSheet"
+            app:destination="@id/eventInfoBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/registerBusinessFragment"
@@ -122,21 +125,13 @@
             android:id="@+id/action_loginFragment_to_loginProblemsFragment"
             app:destination="@id/loginProblemsFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_welcomeNewUserFragment"
-            app:destination="@id/welcomeNewUserFragment" />
+            android:id="@+id/action_loginFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginProblemsFragment"
         android:name="com.puntogris.blint.ui.login.LoginProblemsFragment"
         android:label="Ayuda" />
-    <fragment
-        android:id="@+id/welcomeNewUserFragment"
-        android:name="com.puntogris.blint.ui.business.WelcomeNewUserFragment"
-        android:label="" >
-        <action
-            android:id="@+id/action_welcomeNewUserFragment_to_businessWaitingRoomFragment"
-            app:destination="@id/businessWaitingRoomFragment" />
-    </fragment>
     <fragment
         android:id="@+id/registerLocalBusinessFragment"
         android:name="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment"
@@ -206,10 +201,6 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
-    <fragment
-        android:id="@+id/businessWaitingRoomFragment"
-        android:name="com.puntogris.blint.ui.business.BusinessWaitingRoomFragment"
-        android:label="" />
     <fragment
         android:id="@+id/joinBusinessFragment"
         android:name="com.puntogris.blint.ui.business.JoinBusinessFragment"
@@ -325,4 +316,81 @@
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>
+    <fragment
+        android:id="@+id/manageCategoriesFragment"
+        android:name="com.puntogris.blint.ui.categories.ManageCategoriesFragment"
+        android:label="Categorias" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.puntogris.blint.ui.login.WelcomeFragment"
+        android:label="" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.puntogris.blint.ui.login.IntroFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_introFragment_to_firstSyncFragment"
+            app:destination="@id/firstSyncFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstSyncFragment"
+        android:name="com.puntogris.blint.ui.login.FirstSyncFragment"
+        android:label="" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="userCountry"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.ManageBusinessFragment"
+        android:label="Mis negocios" >
+        <action
+            android:id="@+id/action_manageBusinessFragment_to_businessFragment"
+            app:destination="@id/businessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/businessFragment"
+        android:name="com.puntogris.blint.ui.business.BusinessFragment"
+        android:label="Mi negocio" >
+        <argument
+            android:name="employee"
+            app:argType="com.puntogris.blint.model.Employee" />
+        <action
+            android:id="@+id/action_businessFragment_to_employeeFragment"
+            app:destination="@id/employeeFragment" />
+        <action
+            android:id="@+id/action_businessFragment_to_deleteBusinessFragment"
+            app:destination="@id/deleteBusinessFragment" />
+        <action
+            android:id="@+id/action_businessFragment_to_addBusinessEmployee"
+            app:destination="@id/addBusinessEmployee" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="com.puntogris.blint.ui.business.EmployeeFragment"
+        android:label="Empleado" >
+        <argument
+            android:name="employee"
+            app:argType="com.puntogris.blint.model.Employee" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.DeleteBusinessFragment"
+        android:label="Eliminar negocio" >
+        <argument
+            android:name="business"
+            app:argType="com.puntogris.blint.model.Employee" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBusinessEmployee"
+        android:name="com.puntogris.blint.ui.business.AddBusinessEmployee"
+        android:label="Nuevo empleado" />
 </navigation>

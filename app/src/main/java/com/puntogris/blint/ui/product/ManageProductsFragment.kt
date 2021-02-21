@@ -1,15 +1,20 @@
 package com.puntogris.blint.ui.product
 
 import android.view.Menu
+import android.view.MenuItem
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
+import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -38,6 +43,9 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 }
             }
         }
+        getParentFab().setOnClickListener {
+            findNavController().navigate(R.id.editProductFragment)
+        }
     }
 
     private fun onProductClickListener(product: Product){
@@ -54,7 +62,17 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         menu.findItem(R.id.manageProductFragmentMenu).isVisible = true
     }
 
-    override fun onNewProductClicked() {
-        findNavController().navigate(R.id.editProductFragment)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.newProduct -> {
+                findNavController().navigate(R.id.editProductFragment)
+                true
+            }
+            R.id.manageCategories -> {
+                findNavController().navigate(R.id.manageCategoriesFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

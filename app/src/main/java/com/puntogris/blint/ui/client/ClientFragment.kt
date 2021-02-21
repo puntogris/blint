@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.client
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -54,27 +55,33 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
     }
 
-    override fun onEditButtonClicked() {
-        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientID)
-        findNavController().navigate(action)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.editOption -> {
+                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientID)
+                findNavController().navigate(action)
+                true
+            }
+            R.id.deleteOption -> {
+                InfoSheet().build(requireContext()) {
+                    title("Queres eliminar este cliente?")
+                    content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
+                    onNegative("Cancelar")
+                    onPositive("Si") {
+                        viewModel.deleteClientDatabase(args.clientID)
+                        showLongSnackBarAboveFab("Cliente eliminado correctamente.")
+                        findNavController().navigateUp()
+                    }
+                }.show(parentFragmentManager, "")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun navigateToInfoRecord(record: Record){
         val action = ClientFragmentDirections.actionClientFragmentToRecordInfoBottomSheet(record)
         findNavController().navigate(action)
-    }
-
-    override fun onDeleteButtonClicked() {
-        InfoSheet().build(requireContext()) {
-            title("Queres eliminar este cliente?")
-            content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") {
-                viewModel.deleteClientDatabase(args.clientID)
-                showLongSnackBarAboveFab("Cliente eliminado correctamente.")
-                findNavController().navigateUp()
-            }
-        }.show(parentFragmentManager, "")
     }
 
     override fun onDestroyView() {

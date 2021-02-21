@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.supplier
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,6 +17,7 @@ import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.client.ClientFragmentDirections
 import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
@@ -53,22 +55,28 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             }
     }
 
-    override fun onEditButtonClicked() {
-        val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplierID)
-        findNavController().navigate(action)
-    }
-
-    override fun onDeleteButtonClicked() {
-        InfoSheet().build(requireContext()) {
-            title("Queres eliminar este proveedor?")
-            content("Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") {
-                viewModel.deleteSupplierDatabase(args.supplierID)
-                showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
-                findNavController().navigateUp()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.editOption -> {
+                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplierID)
+                findNavController().navigate(action)
+                true
             }
-        }.show(parentFragmentManager, "")
+            R.id.deleteOption -> {
+                InfoSheet().build(requireContext()) {
+                    title("Queres eliminar este proveedor?")
+                    content("Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta accion es irreversible.")
+                    onNegative("Cancelar")
+                    onPositive("Si") {
+                        viewModel.deleteSupplierDatabase(args.supplierID)
+                        showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
+                        findNavController().navigateUp()
+                    }
+                }.show(parentFragmentManager, "")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun navigateToInfoRecord(record: Record){

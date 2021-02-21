@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.login
 
+import android.animation.ObjectAnimator
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -27,9 +28,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initializeViews() {
         binding.loginFragment = this
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
+        binding.root.setOnClickListener {
+            onLoginButtonClicked()
+        }
     }
 
-    fun onLoginButtonClicked(){
+    private fun onLoginButtonClicked(){
+        ObjectAnimator
+            .ofFloat(binding.textView118,"translationX", 0f, 25f, -25f, 25f, -25f,15f, -15f, 6f, -6f, 0f)
+            .setDuration(800L)
+            .start()
         oneTapLogin.showSingInUI(activityResultLauncher)
     }
 
@@ -56,8 +64,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun onSuccessLogIn(result: AuthResult.Success){
         lifecycleScope.launch {
             when(viewModel.lookUpUserBusinessData(result.user)){
-                SimpleResult.Success -> findNavController().navigate(R.id.action_loginFragment_to_welcomeNewUserFragment)
-                SimpleResult.Failure -> showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
+                SimpleResult.Success -> {
+                    binding.logInProgressBar.gone()
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(result.user.displayName.toString())
+                    findNavController().navigate(action)
+                }
+                SimpleResult.Failure -> {
+                    binding.logInProgressBar.gone()
+                    showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
+                }
             }
         }
     }

@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/notificationsFragment"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="Notificaciones"
+        app:showAsAction="always">
+    </item>
+
+    <item
         android:id="@+id/moreOptions"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
@@ -30,6 +38,9 @@
         <menu >
             <item android:id="@+id/newProduct"
                 android:title="Nuevo producto" />
+
+            <item android:id="@+id/manageCategories"
+                android:title="Categorias" />
 
         </menu>
     </item>
@@ -72,5 +83,49 @@
 
         </menu>
     </item>
+
+    <item
+        android:id="@+id/manageBusinessMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newBusiness"
+                android:title="Nuevo negocio" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/businessFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/newEmployee"
+                android:title="Agregar empleado/a" />
+            <item android:id="@+id/deleteBusiness"
+                android:title="Eliminar negocio" />
+        </menu>
+    </item>
+
+
+    <item
+        android:id="@+id/employeeFragmentMenu"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="Opciones"
+        app:showAsAction="always">
+        <menu >
+            <item android:id="@+id/deleteEmployee"
+                android:title="Eliminar empleado" />
+            <item android:id="@+id/changeEmployeeRole"
+                android:title="Cambiar rol" />
+        </menu>
+    </item>
+
+
 
 </menu>

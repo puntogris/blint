@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Client
@@ -20,7 +21,7 @@ interface ClientsDao {
     suspend fun getClient(id:Int):Client
 
     @Query("SELECT COUNT(*) FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
-    suspend fun getCount(): Int
+    fun getCount(): LiveData<Int>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")

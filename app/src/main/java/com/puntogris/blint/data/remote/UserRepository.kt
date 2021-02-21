@@ -5,9 +5,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.local.dao.BusinessDao
-import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.AuthResult
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
@@ -16,15 +16,15 @@ import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.UserBusiness
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val usersDao: UsersDao, private val businessDao: BusinessDao) : IUserRepository {
+class UserRepository @Inject constructor(private val employeeDao: EmployeeDao) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -39,19 +39,21 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
 
     override fun getCurrentUser() = auth.currentUser
 
-    override fun getOwnerBusiness(): StateFlow<RepoResult<List<Business>>> =
-        MutableStateFlow<RepoResult<List<Business>>>(RepoResult.InProgress).also { result ->
+    override fun getOwnerBusiness(): StateFlow<RepoResult<List<Employee>>> =
+        MutableStateFlow<RepoResult<List<Employee>>>(RepoResult.InProgress).also { result ->
             firestore.collectionGroup("business").whereEqualTo("owner", getCurrentUID()).get()
                 .addOnSuccessListener { snap ->
                     if (!snap?.documents.isNullOrEmpty()) {
                         val data = snap!!.documents.map { doc ->
-                            Business(
+                            Employee(
+                                businessName = doc["businessName"].toString(),
                                 name = doc["name"].toString(),
                                 businessId = doc["businessId"].toString(),
-                                userRole = doc["userRole"].toString(),
-                                type = doc["type"].toString(),
+                                role = doc["role"].toString(),
+                                businessType = doc["type"].toString(),
                                 owner = doc["owner"].toString(),
-                                userID = doc["userID"].toString()
+                                employeeId = doc["employeeId"].toString(),
+                                email = doc["email"].toString()
                             )
                         }
                         result.value = RepoResult.Success(data)
@@ -62,22 +64,79 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
                 }
             }
 
+    override fun getBusinessEmployees(businessId:String): StateFlow<UserBusiness>  =
+    MutableStateFlow<UserBusiness>(UserBusiness.InProgress).also { result->
+        firestore.collectionGroup("employees").whereEqualTo("businessId", businessId).get()
+            .addOnSuccessListener {
+                if (!it.documents.isNullOrEmpty()){
+                    val data = it.documents.map { doc->
+                        Employee(
+                            businessName = doc["businessName"].toString(),
+                            name = doc["name"].toString(),
+                            businessId = doc["businessId"].toString(),
+                            role = doc["role"].toString(),
+                            businessType = doc["type"].toString(),
+                            owner = doc["owner"].toString(),
+                            employeeId = doc["employeeId"].toString(),
+                            businessTimestamp = doc.getTimestamp("creationTimestamp")!!,
+                            email = doc["email"].toString()
+                        )
+                    }
+                    result.value = UserBusiness.Success(data)
+                } else result.value = UserBusiness.NotFound
+            }
+            .addOnFailureListener {
+                result.value = UserBusiness.Error(it)
+            }
+
+    }
+
+    override suspend fun updateUserNameCountry(username: String, country: String):SimpleResult {
+        return try {
+            firestore.collection("users").document(getCurrentUID()).update("name", username,"country", country)
+            SimpleResult.Success
+        }catch (e:Exception){
+            SimpleResult.Failure
+        }
+    }
+
+    override suspend fun checkIfUserExistWithEmail(email: String): SimpleResult = withContext(Dispatchers.IO) {
+        try {
+            val result = firestore.collection("users").whereEqualTo("email", email).get().await()
+            if (!result.isEmpty){
+                SimpleResult.Success
+            }else{
+                SimpleResult.Failure
+            }
+        }
+        catch (e:Exception){
+            SimpleResult.Failure
+        }
+    }
+
 
     override suspend fun registerNewBusiness(name: String) = withContext(Dispatchers.IO) {
         try {
-            val ref = firestore.collection("users").document(getCurrentUID()).collection("business").document()
+            val employeeId = getCurrentUID()
+            val ref = firestore.collection("users").document(employeeId).collection("business").document()
             val business = Business(
                 businessId = ref.id,
-                name = name,
+                businessName = name,
                 type = "LOCAL",
-                owner = getCurrentUID(),
-                userRole = "ADMINISTRATOR",
-                userID = getCurrentUID()
+                owner = employeeId
+                )
+            val employee = Employee(
+                businessId = ref.id,
+                businessName = name,
+                businessType = "LOCAL",
+                owner = employeeId,
+                role = "ADMINISTRATOR",
+                employeeId = employeeId,
+                email = getCurrentUser()?.email.toString()
             )
             ref.set(business).await()
-            business.userID = getCurrentUID()
-            ref.collection("employees").document().set(business)
-            businessDao.insert(business)
+            ref.collection("employees").document().set(employee)
+            employeeDao.insert(employee)
         }catch (e:Exception){
 
         }
@@ -124,23 +183,30 @@ class UserRepository @Inject constructor(private val usersDao: UsersDao, private
         }
     }
 
-     override fun getEmployeeBusiness(): StateFlow<List<Business>>  =
-        MutableStateFlow(listOf<Business>()).also {
-            firestore.collectionGroup("employees").whereEqualTo("userID", getCurrentUID()).addSnapshotListener { snap, _ ->
-                if (!snap?.documents.isNullOrEmpty()){
-                    val data = snap!!.documents.map { doc->
-                        Business(
-                            name = doc["name"].toString(),
-                            businessId = doc["businessId"].toString(),
-                            userRole = doc["userRole"].toString(),
-                            type = doc["type"].toString(),
-                            owner = doc["owner"].toString(),
-                            userID = doc["userID"].toString()
-                        )
-                    }
-                    it.value = data
+     override fun getEmployeeBusiness(): StateFlow<UserBusiness>  =
+        MutableStateFlow<UserBusiness>(UserBusiness.InProgress).also { result->
+            firestore.collectionGroup("employees").whereEqualTo("userID", getCurrentUID()).get()
+                .addOnSuccessListener {
+                    if (!it.documents.isNullOrEmpty()){
+                        val data = it.documents.map { doc->
+                            Employee(
+                                businessName = doc["businessName"].toString(),
+                                name = doc["name"].toString(),
+                                businessId = doc["businessId"].toString(),
+                                role = doc["role"].toString(),
+                                businessType = doc["type"].toString(),
+                                owner = doc["owner"].toString(),
+                                employeeId = doc["employeeId"].toString(),
+                                businessTimestamp = doc.getTimestamp("creationTimestamp")!!,
+                                email = doc["email"].toString()
+                            )
+                        }
+                        result.value = UserBusiness.Success(data)
+                    } else result.value = UserBusiness.NotFound
                 }
-                else it.value = emptyList()
-            }
+                .addOnFailureListener {
+                    result.value = UserBusiness.Error(it)
+                }
+
         }
 }

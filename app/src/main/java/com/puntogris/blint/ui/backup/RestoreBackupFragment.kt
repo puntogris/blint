@@ -7,7 +7,7 @@ import com.airbnb.lottie.LottieDrawable
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRestoreBackupBinding
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.*
@@ -42,7 +42,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
         binding.loadingBusinessSummary.text = "No encontramos ningun negocio local enlazado a tu cuenta."
     }
 
-    private fun showBusinessUI(data: List<Business>){
+    private fun showBusinessUI(data: List<Employee>){
         backupAdapter.submitList(data)
         binding.apply {
             businessesCardView.visible()
@@ -70,12 +70,12 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
         }
     }
 
-    private fun businessClickListener(business: Business){
+    private fun businessClickListener(employee: Employee){
         InfoSheet().show(requireParentFragment().requireContext()){
             title("Estas seguro de esta accion?")
             content("Esto restaura todo tu negocio desde la ultima copia que subiste a la nube, toda la informacion que tengas se borrara y reemplazara por la copia de seguridad. Ten en cuenta que las imagenes no se restableceran.")
             onNegative("Cancelar")
-            onPositive("Restaurar") { startBusinessBackup(business.businessId) }
+            onPositive("Restaurar") { startBusinessBackup(employee.businessId) }
         }
     }
 

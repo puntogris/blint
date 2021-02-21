@@ -7,7 +7,7 @@ import com.airbnb.lottie.LottieDrawable
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateBackUpBinding
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.*
@@ -42,7 +42,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         binding.loadingBusinessSummary.text = "No encontramos ningun negocio local enlazado a tu cuenta."
     }
 
-    private fun showBusinessUI(data: List<Business>){
+    private fun showBusinessUI(data: List<Employee>){
         backupAdapter.submitList(data)
         binding.apply {
             businessesCardView.visible()
@@ -70,12 +70,12 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun businessClickListener(business: Business){
+    private fun businessClickListener(employee: Employee){
         InfoSheet().show(requireParentFragment().requireContext()){
             title("Estas seguro de esta accion?")
             content("Esto reemplazara a un respaldo de tu negocio ya existente en el caso de que exista. Ten en cuenta que no podemos guardar tus imagenes asi que no estan cubiertas por el respaldo.")
             onNegative("Cancelar")
-            onPositive("Respaldar") {  startBusinessBackup(business.businessId) }
+            onPositive("Respaldar") {  startBusinessBackup(employee.businessId) }
         }
     }
 

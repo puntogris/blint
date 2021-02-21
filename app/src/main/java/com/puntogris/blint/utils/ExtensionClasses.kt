@@ -50,3 +50,10 @@ sealed class ExportResult{
     class Error(val exception: Exception): ExportResult()
     object InProgress: ExportResult()
 }
+
+sealed class UserBusiness(){
+    class Success(val data:List<Employee>) : UserBusiness()
+    class Error(val exception: Exception): UserBusiness()
+    object NotFound: UserBusiness()
+    object InProgress: UserBusiness()
+}

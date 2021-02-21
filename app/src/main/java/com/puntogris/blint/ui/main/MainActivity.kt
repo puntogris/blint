@@ -4,8 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -13,6 +12,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
@@ -26,37 +27,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var clicked = false
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     @Inject
     lateinit var sharedPref: SharedPref
-
-    private val rotateOpen: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.rotate_open_anim
-        )
-    }
-    private val rotateClose: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.rotate_close_anim
-        )
-    }
-    private val fromBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.from_bottom_anim
-        )
-    }
-    private val toBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.to_bottom_anim
-        )
-    }
-
     private val viewModel: MainViewModel by viewModels()
 
     override fun preInitViews() {
@@ -89,8 +63,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             .apply {
                 startDestination =
                     if (viewModel.isUserLoggedIn()) {
-                        if (sharedPref.getUserHasBusinessRegisteredPref()) R.id.mainFragment
-                        else R.id.welcomeNewUserFragment
+                        if (sharedPref.getWelcomeUiPref()) R.id.mainFragment
+                        else R.id.welcomeFragment
                     } else R.id.loginFragment
             }
 
@@ -103,7 +77,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 R.id.registerBusinessFragment,
                 R.id.preferencesFragment,
                 R.id.loginFragment,
-                R.id.welcomeNewUserFragment
+                R.id.manageBusinessFragment,
+                R.id.welcomeFragment,
+                R.id.introFragment,
+                R.id.firstSyncFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -112,60 +89,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             setNavigationOnClickListener {
                 if (navController.currentDestination?.id != R.id.mainFragment)
                     navController.navigate(R.id.mainFragment)
-                if (clicked) onParentFabClicked()
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
     }
 
-    private fun onParentFabClicked() {
-        setAnimation(clicked)
-        setVisibility(clicked)
-        setClickable(clicked)
-        clicked = !clicked
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        binding.apply {
-            if (!clicked) {
-                addClientFab.apply {
-                    visible()
-                    setOnClickListener { navController.navigate(R.id.editClientFragment) }
-                }
-                addProductFab.apply {
-                    visible()
-                    setOnClickListener { navController.navigate(R.id.editProductFragment) }
-                }
-                addSupplierFab.apply {
-                    visible()
-                    setOnClickListener { navController.navigate(R.id.editSupplierFragment) }
-                }
-            } else listOf(addClientFab, addProductFab, addSupplierFab).makeInvisible()
-        }
-    }
-
-    private fun setAnimation(clicked: Boolean) {
-        binding.apply {
-            if (!clicked) {
-                addFav.startAnimation(rotateOpen)
-                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(fromBottom)
-            } else {
-                addFav.startAnimation(rotateClose)
-                listOf(addClientFab, addProductFab, addSupplierFab).setGroupAnimation(toBottom)
-            }
-        }
-    }
-
-    private fun setClickable(clicked: Boolean) {
-        binding.apply {
-            if (!clicked) listOf(
-                addClientFab,
-                addProductFab,
-                addSupplierFab
-            ).setGroupClickable(true)
-            else listOf(addClientFab, addProductFab, addSupplierFab).setGroupClickable(false)
-        }
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -177,15 +105,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         arguments: Bundle?
     ) {
         if (
-            destination.id == R.id.loginFragment ||
-            destination.id == R.id.welcomeNewUserFragment ||
             destination.id == R.id.registerBusinessFragment ||
             destination.id == R.id.registerLocalBusinessFragment ||
             destination.id == R.id.registerOnlineBusinessFragment ||
             destination.id == R.id.loginProblemsFragment ||
-            destination.id == R.id.businessWaitingRoomFragment ||
             destination.id == R.id.joinBusinessFragment ||
-            destination.id == R.id.calendarFragment ||
             destination.id == R.id.eventInfoBottomSheet
         ) {
             binding.addFav.isClickable = false
@@ -200,21 +124,71 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
+            binding.toolbar.gone()
+        }
+       else if(destination.id == R.id.welcomeFragment ||
+                destination.id == R.id.loginFragment ||
+                destination.id == R.id.introFragment ||
+                destination.id == R.id.firstSyncFragment){
+            window.statusBarColor = resources.getColor(R.color.colorSecondary)
+            binding.addFav.isClickable = false
+            binding.bottomAppBar.gone()
+            binding.addFav.hide()
+            binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
+
+        }else if(destination.id == R.id.mainFragment){
+            binding.addFav.hide()
+            binding.bottomAppBar.visible()
+            binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
+            window.statusBarColor = resources.getColor(R.color.colorSecondary)
+        }else if(destination.id == R.id.calendarFragment){
+            setupToolbarAndStatusBar()
+            binding.addFav.isClickable = false
+            binding.bottomAppBar.gone()
+            binding.addFav.hide()
+        }else if(destination.id == R.id.manageBusinessFragment){
+            setupToolbarAndStatusBar()
+            binding.addFav.isClickable = false
+            binding.bottomAppBar.visible()
+            binding.addFav.hide()
         }
         else {
+            setupToolbarAndStatusBar()
             binding.bottomAppBar.visible()
             binding.addFav.show()
             binding.bottomAppBar.performShow()
         }
         binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-        binding.addFav.setOnClickListener { onParentFabClicked() }
-        if (clicked) onParentFabClicked()
+    }
+
+    private fun setupToolbarAndStatusBar(){
+        if (isDarkThemeOn()){
+            window.statusBarColor = resources.getColor(R.color.nightBackground)
+            binding.toolbar.setBackgroundColor(getColor(R.color.nightBackground))
+            val view = window.decorView
+            view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+        }else{
+            window.statusBarColor = resources.getColor(R.color.grey_5)
+            binding.toolbar.setBackgroundColor(getColor(R.color.grey_5))
+            val view = window.decorView
+            view.setSystemUiVisibility(view.getSystemUiVisibility() or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        }
+    }
+
+    @com.google.android.material.badge.ExperimentalBadgeUtils
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val badge = BadgeDrawable.create(this)
+        badge.number = 4
+        BadgeUtils.attachBadgeDrawable(badge, binding.toolbar, R.id.notificationsFragment)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
             R.id.scannerFragment -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             R.id.preferencesFragment -> navController.navigate(R.id.preferencesFragment)
+            R.id.notificationsFragment -> navController.navigate(R.id.notificationsFragment)
+            R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
         }
         return true
     }
