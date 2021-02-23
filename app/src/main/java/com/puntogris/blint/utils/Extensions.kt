@@ -2,9 +2,11 @@ package com.puntogris.blint.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.drawable.InsetDrawable
+import android.net.Uri
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -235,3 +237,10 @@ fun Fragment.isDarkThemeOn() =
 fun Activity.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+
+
+fun Fragment.launchWebBrowserIntent(uri: String){
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse(uri)
+    startActivity(intent)
+}

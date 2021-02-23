@@ -2,6 +2,8 @@ package com.puntogris.blint.utils
 
 import android.content.Context
 import android.content.res.Configuration
+import com.puntogris.blint.utils.Constants.NOTIFICATIONS_SUB_COLLECTION
+import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import java.io.*
 import java.nio.channels.FileChannel
 import java.util.zip.ZipEntry
@@ -45,5 +47,10 @@ object Util {
             }
         }
     }
+
+
+    fun getPathToUserReceivedNotifications(uid:String) =
+        "${USERS_COLLECTION}/$uid/${NOTIFICATIONS_SUB_COLLECTION}"
+
 
 }

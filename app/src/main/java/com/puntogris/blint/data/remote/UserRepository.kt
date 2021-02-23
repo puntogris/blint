@@ -8,15 +8,13 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.EmployeeRequest
 import com.puntogris.blint.model.FirestoreUser
-import com.puntogris.blint.utils.AuthResult
+import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.UserBusiness
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -100,19 +98,22 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao) :
         }
     }
 
-    override suspend fun checkIfUserExistWithEmail(email: String): SimpleResult = withContext(Dispatchers.IO) {
-        try {
-            val result = firestore.collection("users").whereEqualTo("email", email).get().await()
-            if (!result.isEmpty){
-                SimpleResult.Success
-            }else{
-                SimpleResult.Failure
-            }
+    override fun sendEmployeeRequest(request: EmployeeRequest) =
+        MutableStateFlow<RequestResult>(RequestResult.InProgress).also { result ->
+            firestore.collection("users").whereEqualTo("email", request.email).get()
+                .addOnSuccessListener {
+                    if (it.isEmpty){
+                        result.value = RequestResult.NotFound
+                    }else{
+                        request.employeeId = it.documents.first().id
+                        request.ownerId = getCurrentUID()
+                        firestore.collection("employee_requests").document().set(request)
+                            .addOnSuccessListener { result.value = RequestResult.Success }
+                            .addOnFailureListener { result.value = RequestResult.Error }
+                    }
+                }
+                .addOnFailureListener { result.value = RequestResult.Error }
         }
-        catch (e:Exception){
-            SimpleResult.Failure
-        }
-    }
 
 
     override suspend fun registerNewBusiness(name: String) = withContext(Dispatchers.IO) {

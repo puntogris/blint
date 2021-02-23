@@ -2,11 +2,9 @@ package com.puntogris.blint.data.remote
 
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.EmployeeRequest
 import com.puntogris.blint.model.FirestoreUser
-import com.puntogris.blint.utils.AuthResult
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.UserBusiness
+import com.puntogris.blint.utils.*
 import kotlinx.coroutines.flow.StateFlow
 
 interface IUserRepository {
@@ -22,6 +20,6 @@ interface IUserRepository {
     fun getOwnerBusiness(): StateFlow<RepoResult<List<Employee>>>
     fun getBusinessEmployees(businessId:String):StateFlow<UserBusiness>
     suspend fun updateUserNameCountry(username:String, country:String):SimpleResult
-    suspend fun checkIfUserExistWithEmail(email:String): SimpleResult
+    fun sendEmployeeRequest(request: EmployeeRequest): StateFlow<RequestResult>
 
 }

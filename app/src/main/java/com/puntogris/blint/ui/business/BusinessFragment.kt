@@ -74,7 +74,8 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 true
             }
             R.id.newEmployee -> {
-                findNavController().navigate(R.id.action_businessFragment_to_addBusinessEmployee)
+                val action = BusinessFragmentDirections.actionBusinessFragmentToAddBusinessEmployee(args.employee)
+                findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -392,5 +392,13 @@
     <fragment
         android:id="@+id/addBusinessEmployee"
         android:name="com.puntogris.blint.ui.business.AddBusinessEmployee"
-        android:label="Nuevo empleado" />
+        android:label="Nuevo empleado" >
+        <argument
+            android:name="business"
+            app:argType="com.puntogris.blint.model.Employee" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.puntogris.blint.ui.notifications.NotificationsFragment"
+        android:label="Notificaciones" />
 </navigation>

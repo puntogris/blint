@@ -4,6 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.EmployeeRequest
 
 class BusinessViewModel @ViewModelInject constructor(
     private val employeeDao: EmployeeDao,
@@ -17,6 +19,6 @@ class BusinessViewModel @ViewModelInject constructor(
         return employeeDao.getBusinessUserRole(employeeId) == "ADMINISTRATOR"
     }
 
-    suspend fun checkIfUserExists(email:String) = userRepository.checkIfUserExistWithEmail(email)
+    fun sendRequest(request: EmployeeRequest) = userRepository.sendEmployeeRequest(request)
 
 }

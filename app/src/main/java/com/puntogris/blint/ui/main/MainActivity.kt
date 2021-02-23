@@ -159,6 +159,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.bottomAppBar.performShow()
         }
         binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+
     }
 
     private fun setupToolbarAndStatusBar(){
@@ -175,13 +176,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    @com.google.android.material.badge.ExperimentalBadgeUtils
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val badge = BadgeDrawable.create(this)
-        badge.number = 4
-        BadgeUtils.attachBadgeDrawable(badge, binding.toolbar, R.id.notificationsFragment)
-        return super.onPrepareOptionsMenu(menu)
-    }
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
