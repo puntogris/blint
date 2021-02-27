@@ -9,4 +9,6 @@ class EmploymentResponseEmployeeNotif(
     val timestamp: Timestamp = Timestamp.now(),
     val businessName:String ="",
     val wasRead: Boolean = true,
+    val type: String = "",
+    val businessId:String = ""
 )

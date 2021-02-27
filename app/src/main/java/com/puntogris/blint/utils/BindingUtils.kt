@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.notifications.EmploymentRequestReceivedNotif
+import com.puntogris.blint.model.notifications.EmploymentRequestSentNotif
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
@@ -49,7 +51,6 @@ fun ImageView.setImageFullSize(image: HashMap<String,String>?){
         visible()
     }else gone()
 }
-
 
 @BindingAdapter("menuCardIcon")
 fun ImageView.setMenuCardIcon(menuCard: MenuCard){
@@ -194,8 +195,22 @@ fun View.setEventStatusColor(status:String){
     }
 }
 
-
 @BindingAdapter("businessType")
 fun TextView.setBusinessType(type:String){
     text = if(type == "LOCAL") "Local" else "Online"
+}
+
+@BindingAdapter("employmentRequestSentMessage")
+fun TextView.setEmploymentRequestSentMessage(request: EmploymentRequestSentNotif){
+    text = "Se envio una solicitud de empleo para el negocio ${request.businessName} al email ${request.employeeEmail}."
+}
+
+@BindingAdapter("employmentRequestReceivedMessage")
+fun TextView.setEmploymentRequestReceivedMessage(request: EmploymentRequestReceivedNotif){
+    text = "Recibiste una solicitud de empleo para el negocio ${request.businessName}."
+}
+
+@BindingAdapter("timerFromSeconds")
+fun TextView.setTimerFromSeconds(seconds:Int){
+    text = "${seconds / 60}m. ${seconds % 60}s."
 }

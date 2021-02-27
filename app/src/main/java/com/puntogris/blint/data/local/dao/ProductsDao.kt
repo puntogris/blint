@@ -24,18 +24,18 @@ interface ProductsDao {
     suspend fun getProduct(id: Int): Product
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND barcode = :barcode")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): Product?
 
-    @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
+    @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount(): LiveData<Int>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY name ASC")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY name ASC")
     fun getAllPaged(): PagingSource<Int, Product>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND name LIKE :name")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name")
     fun getPagedSearch(name: String): PagingSource<Int, Product>
 
     @Query("UPDATE product SET amount = :amount WHERE productId = :id")
@@ -112,7 +112,7 @@ interface ProductsDao {
                     FROM product p 
                     JOIN roomuser u ON p.businessId = u.currentBusinessId 
                     JOIN productsuppliercrossref r ON r.productId = p.productId
-                    WHERE u.id = '1' and r.supplierId = :supplierId)
+                    WHERE u.userId = '1' and r.supplierId = :supplierId)
             """
     )
     suspend fun updateSupplierProductsPrices(

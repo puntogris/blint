@@ -23,6 +23,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     private lateinit var businessAdapter: ManageBusinessAdapter
 
     override fun initializeViews() {
+        binding.fragment = this
         lifecycleScope.launchWhenStarted {
             val businesses = viewModel.getBusiness()
             if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
@@ -38,26 +39,37 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
             layoutManager = LinearLayoutManager(requireContext())
             businessAdapter.submitList(employees)
         }
-
     }
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.manageBusinessMenu).isVisible = true
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.newBusiness) {
-            findNavController().navigate(R.id.registerBusinessFragment)
-            true
+        return when (item.itemId) {
+            R.id.newBusiness -> {
+                findNavController().navigate(R.id.registerBusinessFragment)
+                true
+            }
+            R.id.joinBusiness -> {
+                findNavController().navigate(R.id.joinBusinessFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        else super.onOptionsItemSelected(item)
     }
 
     private fun onBusinessEmptyUi(){
         binding.progressBar.gone()
         binding.businessEmptyUi.visible()
+    }
+
+    fun onCreateNewBusinessClicked(){
+        findNavController().navigate(R.id.registerBusinessFragment)
+    }
+
+    fun onJoinBusinessClicked(){
+        findNavController().navigate(R.id.joinBusinessFragment)
     }
 
     private fun onBusinessClicked(employee: Employee){

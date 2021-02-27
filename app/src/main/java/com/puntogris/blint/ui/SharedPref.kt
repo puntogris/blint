@@ -17,5 +17,10 @@ class SharedPref @Inject constructor(@ApplicationContext private val context: Co
 
     fun getThemePref() = sharedPref.getString("theme_pref", "1")?.toInt() ?: 1
 
+    fun getUserHasBusinessPref() = sharedPref.getBoolean("user_has_business", false)
+
+    fun setUserHasBusinessPref(value:Boolean){
+        sharedPref.edit().putBoolean("user_has_business", value).apply()
+    }
 
 }

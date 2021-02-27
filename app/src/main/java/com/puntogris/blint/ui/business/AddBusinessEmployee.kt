@@ -1,93 +1,84 @@
 package com.puntogris.blint.ui.business
 
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.google.zxing.WriterException
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAddBusinessEmployeeBinding
-import com.puntogris.blint.model.EmployeeRequest
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.layout.fragment_add_business_employee) {
 
     private val viewModel: BusinessViewModel by viewModels()
-    private val args:AddBusinessEmployeeArgs by navArgs()
-    private var role = ""
+    private val args: AddBusinessEmployeeArgs by navArgs()
+
     override fun initializeViews() {
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_send_24)
-            setOnClickListener { onSendButtonClicked() }
-        }
-        setUpDropDownMenu()
-    }
-
-    private fun setUpDropDownMenu(){
-        val items = listOf("Co-Administrador/a", "Empleado/a")
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
-        (binding.employeeRole.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-        binding.employeeRoleText.setOnItemClickListener { _, _, i, _ ->
-            when(i){
-                0 -> role = "CO_OWNER"
-                1 -> role = "EMPLOYEE"
-            }
-        }
-    }
-
-    private fun onSendButtonClicked(){
-        if (checkIfEmailIsValid() && checkIfRoleIsValid()){
-            lifecycleScope.launch {
-                val request = EmployeeRequest(
-                    email = binding.employeeEmailText.getString(),
-                    businessName = args.business.businessName,
-                    businessId = args.business.businessId,
-                    role = role,
-                    businessTimestamp = args.business.businessTimestamp)
-                viewModel.sendRequest(request).collect {
-                    when(it){
-                        RequestResult.Error -> {
-                            showLongSnackBarAboveFab("Ocurrio un error al procesar la solicitud. Intente nuevamente.")
-                            binding.progressBar.gone()
-                        }
-                        RequestResult.InProgress -> {
-                            binding.progressBar.visible()
-                        }
-                        RequestResult.NotFound -> {
-                            showLongSnackBarAboveFab("No se encontro un usuario con ese mail.")
-                            binding.progressBar.gone()
-                        }
-                        RequestResult.Success -> {
-                            showLongSnackBarAboveFab("Se envio correctamente la solicitud. Se procesara en unos minutos.")
-                            binding.progressBar.gone()
-                        }
-                    }
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.fragment = this
+        lifecycleScope.launchWhenStarted {
+            when(val result = viewModel.fetchJoiningCode(args.business.businessId)){
+                is RepoResult.Error -> {
+                    binding.loadingGroup.gone()
+                }
+                is RepoResult.Success -> {
+                    binding.loadedGroup.visible()
+                    binding.loadingGroup.gone()
+                    binding.addEmployeeSummary.visible()
+                    binding.joinBusinessCode.text = result.data.id
+                    binding.addEmployeeTitle.text = "Codigo generado."
+                    generateQRImage(result.data.id)
+                    viewModel.codeExpirationCountDown(result.data.timestamp)
                 }
             }
         }
     }
 
-    private fun checkIfEmailIsValid(): Boolean{
-        return when (val result = StringValidator.from(binding.employeeEmailText.getString(), allowSpecialChars = true)){
-            is StringValidator.NotValid -> {
-                showLongSnackBarAboveFab("El email no puede estar vacio.")
-                false
-            }
-            is StringValidator.Valid -> true
+    private fun generateQRImage(code: String){
+        val qrgEncoder = QRGEncoder(code, null, QRGContents.Type.TEXT, 300)
+        qrgEncoder.colorBlack = Color.WHITE
+        qrgEncoder.colorWhite = ContextCompat.getColor(requireContext(), R.color.nightBackground)
+        try {
+            val bitmap = qrgEncoder.bitmap
+            binding.qrCodeImage.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+
         }
     }
 
-    private fun checkIfRoleIsValid(): Boolean{
-        return if (role.isNotEmpty()){
-            true
-        }else{
-            showLongSnackBarAboveFab("El rol no puede estar vacio.")
-            false
+    fun onCopyCodeClicked(){
+        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip: ClipData = ClipData.newPlainText("simple text", binding.joinBusinessCode.text)
+        clipboard.setPrimaryClip(clip)
+        showLongSnackBarAboveFab("Codigo copiado al portapapeles.")
+    }
+
+    fun onShareCodeClicked(){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, binding.joinBusinessCode.text.toString())
+            type = "text/plain"
         }
+
+        val shareIntent = Intent.createChooser(sendIntent, "Unite a mi negocio en Blint con este codigo!")
+        startActivity(shareIntent)
+    }
+
+    override fun onDestroyView() {
+        viewModel.cancelExpirationTimer()
+        super.onDestroyView()
     }
 }

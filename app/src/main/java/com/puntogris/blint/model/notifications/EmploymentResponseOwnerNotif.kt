@@ -11,5 +11,6 @@ class EmploymentResponseOwnerNotif(
     val id:String = "",
     val employeeEmail: String = "",
     val wasRead: Boolean = true,
+    val type: String = "",
     val timestamp: Timestamp = Timestamp.now()
 ):Parcelable

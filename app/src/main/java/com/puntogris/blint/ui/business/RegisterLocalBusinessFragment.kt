@@ -31,6 +31,7 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
             is StringValidator.Valid -> {
                 lifecycleScope.launch {
                     sharedPref.setWelcomeUiPref(true)
+                    sharedPref.setUserHasBusinessPref(true)
                     viewModel.registerNewBusiness(validator.value)
                     findNavController().navigate(R.id.mainFragment)
                 }

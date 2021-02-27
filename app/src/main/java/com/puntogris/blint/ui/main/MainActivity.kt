@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
@@ -20,6 +22,9 @@ import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,8 +68,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             .apply {
                 startDestination =
                     if (viewModel.isUserLoggedIn()) {
-                        if (sharedPref.getWelcomeUiPref()) R.id.mainFragment
-                        else R.id.welcomeFragment
+                        when {
+                            !sharedPref.getWelcomeUiPref() -> R.id.welcomeFragment
+                            !sharedPref.getUserHasBusinessPref() -> R.id.newUserFragment
+                            else -> R.id.mainFragment
+                        }
                     } else R.id.loginFragment
             }
 
@@ -80,15 +88,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 R.id.manageBusinessFragment,
                 R.id.welcomeFragment,
                 R.id.introFragment,
-                R.id.firstSyncFragment
+                R.id.firstSyncFragment,
+                R.id.newUserFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
-                if (navController.currentDestination?.id != R.id.mainFragment)
-                    navController.navigate(R.id.mainFragment)
+                if(sharedPref.getUserHasBusinessPref()){
+                    if (navController.currentDestination?.id != R.id.mainFragment)
+                        navController.navigate(R.id.mainFragment)
+                }else navController.navigate(R.id.newUserFragment)
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
@@ -109,7 +120,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             destination.id == R.id.registerLocalBusinessFragment ||
             destination.id == R.id.registerOnlineBusinessFragment ||
             destination.id == R.id.loginProblemsFragment ||
-            destination.id == R.id.joinBusinessFragment ||
             destination.id == R.id.eventInfoBottomSheet
         ) {
             binding.addFav.isClickable = false
@@ -124,7 +134,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ) {
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
-            binding.toolbar.gone()
         }
        else if(destination.id == R.id.welcomeFragment ||
                 destination.id == R.id.loginFragment ||
@@ -136,7 +145,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.hide()
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
 
-        }else if(destination.id == R.id.mainFragment){
+        }else if(destination.id == R.id.mainFragment ||
+            destination.id == R.id.newUserFragment
+        ){
             binding.addFav.hide()
             binding.bottomAppBar.visible()
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
@@ -146,10 +157,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.isClickable = false
             binding.bottomAppBar.gone()
             binding.addFav.hide()
-        }else if(destination.id == R.id.manageBusinessFragment){
+        }else if(destination.id == R.id.manageBusinessFragment ||
+                destination.id == R.id.preferencesFragment){
             setupToolbarAndStatusBar()
             binding.addFav.isClickable = false
             binding.bottomAppBar.visible()
+            binding.addFav.hide()
+            binding.bottomAppBar.performShow()
+        }else if(destination.id == R.id.addBusinessEmployee){
+            binding.addFav.isClickable = false
             binding.addFav.hide()
         }
         else {
@@ -179,11 +195,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
-            R.id.scannerFragment -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            R.id.scannerFragment -> {
+                if (checkIfBusinessExist()) requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
             R.id.preferencesFragment -> navController.navigate(R.id.preferencesFragment)
             R.id.notificationsFragment -> navController.navigate(R.id.notificationsFragment)
             R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
         }
         return true
+    }
+
+    private fun checkIfBusinessExist():Boolean{
+        return if (sharedPref.getUserHasBusinessPref()){
+            true
+        }else{
+            showLongSnackBarAboveFab("No puedes acceder a esta funcion sin pertenecer a un negocio.")
+            false
+        }
     }
 }

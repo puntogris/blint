@@ -53,7 +53,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     }
     private fun showBackupInProgressUI(){
         binding.apply {
-            animationView.repeatCount =LottieDrawable.INFINITE
+            animationView.repeatCount = LottieDrawable.INFINITE
             animationView.visible()
             animationView.playAnimation()
             businessesCardView.gone()

@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.main
 
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.*
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragment
@@ -23,8 +27,11 @@ import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import me.farahani.spaceitemdecoration.SpaceItemDecoration
 
 @AndroidEntryPoint
@@ -35,13 +42,13 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var badge: BadgeDrawable
 
-    private lateinit var billingClient: BillingClient
-
     override fun initializeViews() {
         binding.lifecycleOwner= this
         binding.viewModel = viewModel
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
+        setupBadgeListener()
+
 
 //        val purchasesUpdateListener =
 //            PurchasesUpdatedListener { billingResult, purchases ->
@@ -89,10 +96,20 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 //        })
     }
 
+    private fun setupBadgeListener(){
+        badge = BadgeDrawable.create(requireContext())
+        lifecycleScope.launchWhenStarted {
+            viewModel.getUnreadNotificationsCount().collect {
+                badge.apply {
+                    number = it
+                    isVisible = it != 0
+                }
+            }
+        }
+    }
+
     @com.google.android.material.badge.ExperimentalBadgeUtils
     override fun onPrepareOptionsMenu(menu: Menu) {
-        badge = BadgeDrawable.create(requireContext())
-        badge.number = 4
         BadgeUtils.attachBadgeDrawable(badge, requireActivity().findViewById(R.id.toolbar), R.id.notificationsFragment)
         return super.onPrepareOptionsMenu(menu)
     }
@@ -101,8 +118,14 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
         lifecycleScope.launch(Dispatchers.IO) {
             val events = viewModel.getLastEvents()
-            mainCalendarAdapter.submitList(events)
+            if (events.isEmpty()){
+
+            }else{
+                binding.materialCardView2.gone()
+                mainCalendarAdapter.submitList(events)
+            }
         }
+
         binding.calendarRecyclerView.apply {
             adapter = mainCalendarAdapter
             layoutManager = LinearLayoutManager(requireContext())

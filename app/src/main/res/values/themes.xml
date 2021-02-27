@@ -13,13 +13,16 @@
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Surface</item>
         <item name="colorSurface">@color/grey_5</item>
         <item name="android:statusBarColor">@color/grey_5</item>
-        <item name="android:windowBackground">@color/grey_5</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
     <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
         <item name="backgroundTint">@color/grey_20</item>
+    </style>
+
+    <style name="Theme.Blint.Notifications" parent="Base.Theme.Blint" >
+        <item name="android:background" >@color/cardview_light_background</item>
     </style>
 
     <style name="Theme.Blint.Calendar">

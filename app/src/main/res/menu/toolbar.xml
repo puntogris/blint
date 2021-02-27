@@ -91,9 +91,12 @@
         android:title="Opciones"
         app:showAsAction="always">
         <menu >
-            <item android:id="@+id/newBusiness"
+            <item
+                android:id="@+id/newBusiness"
                 android:title="Nuevo negocio" />
-
+            <item
+                android:id="@+id/joinBusiness"
+                android:title="Unirme a un negocio" />
         </menu>
     </item>
 

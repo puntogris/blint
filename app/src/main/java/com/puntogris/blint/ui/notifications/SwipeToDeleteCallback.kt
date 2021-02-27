@@ -16,8 +16,6 @@ abstract class SwipeToDeleteCallback: ItemTouchHelper.SimpleCallback(0, ItemTouc
         textPaint.textSize = 40F
     }
 
-
-
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,

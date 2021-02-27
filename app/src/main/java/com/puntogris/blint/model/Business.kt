@@ -8,5 +8,5 @@ data class Business(
     val type: String = "",
     val owner: String = "",
     val valid: Boolean = true,
-    val creationTimestamp: Timestamp = Timestamp.now()
+    val businessCreatedAt: Timestamp = Timestamp.now()
 )

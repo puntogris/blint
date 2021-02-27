@@ -9,6 +9,7 @@ import com.puntogris.blint.databinding.FragmentFirstSyncBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.UserBusiness
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,15 +32,19 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         lifecycleScope.launch {
             viewModel.getUserBusiness().collect {
                 when(it){
-                    is UserBusiness.Error -> showLongSnackBarAboveFab("Se produjo un error.")
-                    UserBusiness.InProgress -> {}
+                    is UserBusiness.Error -> {
+                        showLongSnackBarAboveFab("Se produjo un error.")
+                    }
+                    UserBusiness.InProgress -> {
+                    }
                     UserBusiness.NotFound -> onEmployeeDataNotFound()
                     is UserBusiness.Success -> onEmployeeDataFound(it.data)
                 }
             }
         }
         binding.button12.setOnClickListener {
-            findNavController().navigate(R.id.mainFragment)
+            if (sharedPref.getUserHasBusinessPref()) findNavController().navigate(R.id.mainFragment)
+            else findNavController().navigate(R.id.newUserFragment)
         }
         binding.button112.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
@@ -47,18 +52,29 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
     }
 
     private fun onEmployeeDataFound(employees:List<Employee>){
-        lifecycleScope.launch(Dispatchers.IO) {
-            sharedPref.setWelcomeUiPref(true)
-            viewModel.updateUserData(args.username, args.userCountry)
-            viewModel.saveBusinessToLocalDatabase(employees)
-            withContext(Dispatchers.Main){
-                binding.animationView.apply {
-                    setAnimation(R.raw.done)
-                    repeatCount = 0
-                    playAnimation()
+        lifecycleScope.launch {
+            when(viewModel.updateUserData(args.username, args.userCountry)){
+                SimpleResult.Failure -> {
+                    binding.animationView.apply {
+                        setAnimation(R.raw.error)
+                        repeatCount = 0
+                        playAnimation()
+                    }
+                    binding.textView107.text = "Hubo un problema al conectarnos con nuestros servidores. Intenta nuevamente.!"
+                    binding.textView117.text = "Se encontro un error."
                 }
-                binding.textView107.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-                binding.textView117.text = "Cuenta creada correctamente."
+                SimpleResult.Success -> {
+                    withContext(Dispatchers.IO){ viewModel.saveBusinessToLocalDatabase(employees, args.username, args.userCountry) }
+                    sharedPref.setWelcomeUiPref(true)
+                    binding.animationView.apply {
+                        setAnimation(R.raw.done)
+                        repeatCount = 0
+                        playAnimation()
+                    }
+                    binding.button12.isEnabled = true
+                    binding.textView107.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
+                    binding.textView117.text = "Cuenta creada correctamente."
+                }
             }
         }
     }
@@ -66,6 +82,18 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
     private fun onEmployeeDataNotFound(){
         lifecycleScope.launch {
             viewModel.updateUserData(args.username, args.userCountry)
+            sharedPref.setWelcomeUiPref(true)
+            withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
+            withContext(Dispatchers.Main){
+                binding.animationView.apply {
+                    setAnimation(R.raw.done)
+                    repeatCount = 0
+                    playAnimation()
+                }
+                binding.button12.isEnabled = true
+                binding.textView107.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
+                binding.textView117.text = "Cuenta creada correctamente."
+            }
         }
     }
 }

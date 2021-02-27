@@ -8,7 +8,13 @@ import androidx.room.PrimaryKey
 @Entity
 class RoomUser(
         @PrimaryKey(autoGenerate = false)
-        val id:String = "1",
+        val userId:String = "1",
+
+        @ColumnInfo
+        val country: String = "",
+
+        @ColumnInfo
+        val username:String = "",
 
         @ColumnInfo
         val currentUid:String = "",

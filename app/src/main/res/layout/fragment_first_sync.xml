@@ -63,6 +63,7 @@
             android:layout_marginBottom="16dp"
             app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:text="Finalizar"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

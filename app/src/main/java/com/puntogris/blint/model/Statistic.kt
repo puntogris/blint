@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Statistic(
+data class Statistic(
 
     @PrimaryKey(autoGenerate = true)
     val statisticId: Int = 0,

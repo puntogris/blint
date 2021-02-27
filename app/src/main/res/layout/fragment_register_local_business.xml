@@ -51,13 +51,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:text="Finalizar"
             android:onClick="@{()-> registerLocalBusinessFragment.onEndRegistrationButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"

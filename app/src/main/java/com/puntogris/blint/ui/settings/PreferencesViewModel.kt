@@ -21,6 +21,7 @@ class PreferencesViewModel @ViewModelInject constructor(
 
     suspend fun logOut(){
         sharedPref.setWelcomeUiPref(false)
+        sharedPref.setUserHasBusinessPref(false)
         employeeDao.deleteAll()
         userRepository.singOutCurrentUser()
     }

@@ -20,13 +20,13 @@ interface EmployeeDao {
     suspend fun update(employee: Employee)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE id = '1'")
+    @Query("SELECT * FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getEmployeesList(): List<Employee>
 
-    @Query("SELECT COUNT(*) FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE id = '1'")
+    @Query("SELECT COUNT(*) FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getCount(): Int
 
-    @Query("SELECT role FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE id = '1' AND employeeId = :employeeId")
+    @Query("SELECT role FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1' AND employeeId = :employeeId")
     suspend fun getBusinessUserRole(employeeId:String):String
 
 }

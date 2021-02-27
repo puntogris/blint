@@ -16,10 +16,10 @@ interface CategoriesDao {
     suspend fun deleteCategory(category: Category)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
+    @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getAllCategories(): List<Category>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
+    @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getAllCategoriesFlow(): Flow<List<Category>>
 }

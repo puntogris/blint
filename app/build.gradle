@@ -175,4 +175,7 @@ dependencies {
     def billing_version = "3.0.0"
 
     implementation "com.android.billingclient:billing-ktx:$billing_version"
+
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+    implementation 'com.google.zxing:core:3.3.2'
 }

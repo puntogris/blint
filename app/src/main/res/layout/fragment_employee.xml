@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Theme.Blint.DataTextView"
-            dateFromTimestamp="@{employee.employeeTimestamp}"
+            dateFromTimestamp="@{employee.employeeCreatedAt}"
             app:layout_constraintStart_toStartOf="@+id/textView139"
             app:layout_constraintTop_toBottomOf="@+id/textView139" />
 

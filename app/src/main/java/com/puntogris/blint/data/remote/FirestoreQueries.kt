@@ -17,11 +17,11 @@ class FirestoreQueries @Inject constructor(){
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private val currentUID = auth.currentUser?.uid.toString()
+    private val currentUserId = auth.currentUser?.uid.toString()
 
     fun getUserNotificationsQuery() =
         firestore
-            .collection(getPathToUserReceivedNotifications(currentUID))
+            .collection(getPathToUserReceivedNotifications(currentUserId))
             .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
             .limit(15)
             .get()
@@ -29,7 +29,7 @@ class FirestoreQueries @Inject constructor(){
 
     fun getUserNotificationsAfterLastQuery(lastVisible: DocumentSnapshot) =
         firestore
-            .collection(getPathToUserReceivedNotifications(currentUID))
+            .collection(getPathToUserReceivedNotifications(currentUserId))
             .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
             .limit(15)
             .startAfter(lastVisible)
@@ -38,16 +38,16 @@ class FirestoreQueries @Inject constructor(){
     fun getAllUnreadNotificationsQuery() =
         firestore
             .collection(USERS_COLLECTION)
-            .document(currentUID)
+            .document(currentUserId)
             .collection(NOTIFICATIONS_SUB_COLLECTION)
             .whereEqualTo(WAS_READ_FIELD, false)
             .limit(11)
 
     fun updateNotificationsReadStateQuery() =
         firestore.collection(USERS_COLLECTION)
-            .document(currentUID)
+            .document(currentUserId)
             .collection(NOTIFICATIONS_SUB_COLLECTION)
 
     fun deleteNotificationQuery() =
-        firestore.collection(getPathToUserReceivedNotifications(currentUID))
+        firestore.collection(getPathToUserReceivedNotifications(currentUserId))
 }

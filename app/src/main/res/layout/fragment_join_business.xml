@@ -14,126 +14,108 @@
         android:layout_height="match_parent"
         tools:context=".ui.business.JoinBusinessFragment">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/setDataGroup"
+            android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="textView31,joinBusinessCode,textView142,button16" />
 
         <TextView
-            android:id="@+id/textView25"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:id="@+id/fragmentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
+            android:fontFamily="@font/versatile_bold"
             android:text="Unite a un negocio."
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/accountMessage"
-            style="@style/Theme.Blint.CardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25">
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                android:text="Tu cuenta ya ha sido activada y esta lista para que te agreguen a un negocio.\n\nLo unico que necesita hacer el administrador del negocio es agregarte en la app con el e-mail que te registraste.\n\nA los segundos lo detectaremos y podras continuar."
-                android:textSize="17sp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/joinBusinessCode"
+            style="@style/Theme.Blint.TextInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="44dp"
-            android:indeterminate="true"
-            app:layout_constraintBottom_toTopOf="@+id/exitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/fillJokeMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="Parece que alguien esta durmiendo..\n\nMomento de preparar un cafe y volver mas tarde."
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="50dp"
+            android:hint="Codigo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accountMessage" />
+            app:layout_constraintTop_toBottomOf="@+id/textView31">
 
-        <Button
-            android:id="@+id/exitButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Salir"
-            android:onClick="@{()->fragment.onCloseButtonClicked()}"
-            app:icon="@drawable/ic_baseline_close_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/continueButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{()->fragment.onContinueButtonClicked()}"
-            android:visibility="gone"
-            app:icon="@drawable/ic_baseline_navigate_next_24"
-            android:text="Continuar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/recyclerViewCard"
-            style="@style/Theme.Blint.CardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/businessFoundMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="250dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/joinBusinessCodeText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button16"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Escanear codigo"
+            android:onClick="@{()-> fragment.onScannerButtonClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView142" />
 
         <TextView
-            android:id="@+id/businessFoundMessage"
-            android:layout_width="match_parent"
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginTop="152dp"
+            android:text="Manualmente"
+            android:fontFamily="@font/versatile_bold"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTitle" />
+
+        <TextView
+            android:id="@+id/textView142"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Con codigo QR"
+            android:fontFamily="@font/versatile_bold"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/joinBusinessCode" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:visibility="gone"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="35dp"
-            android:text="Encontramos estos negocios enlazados a tu cuenta.\n\nSi esta informacion es valida continua o espera y automaticamente seguiremos buscando el negocio al que perteneces."
+            app:layout_constraintBottom_toTopOf="@+id/summaryMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentTitle"
+            app:lottie_autoPlay="false"
+            app:lottie_rawRes="@raw/loading" />
+
+        <TextView
+            android:id="@+id/summaryMessage"
+            android:layout_width="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/exitButton"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="160dp"
+            android:text="Estamos enlazando tus datos al negocio, no cierres ni minimizes la aplicacion."
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

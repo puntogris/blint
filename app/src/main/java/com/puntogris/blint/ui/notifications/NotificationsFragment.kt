@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.NotificationsState
 import com.puntogris.blint.utils.launchWebBrowserIntent
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.emitAll
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.emitAll
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layout.fragment_notifications) {
 
     private val viewModel: NotificationsViewModel by viewModels()
-
 
     override fun initializeViews() {
         val adapter = NotificationsAdapter(

@@ -7,7 +7,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 class AdvertisementNotification(
     val id: String = "",
     val message: String = "",
-    val notificationId: String = "",
     val uriToShow: String = "",
     val wasRead: Boolean = true,
     val timestamp: Timestamp = Timestamp.now()

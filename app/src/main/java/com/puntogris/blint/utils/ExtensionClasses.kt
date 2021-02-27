@@ -85,3 +85,11 @@ sealed class RequestResult{
     object Error: RequestResult()
     object NotFound: RequestResult()
 }
+
+sealed class JoinBusiness{
+    object InProgress: JoinBusiness()
+    object Success: JoinBusiness()
+    object Error: JoinBusiness()
+    object CodeInvalid: JoinBusiness()
+    object AlreadyJoined: JoinBusiness()
+}

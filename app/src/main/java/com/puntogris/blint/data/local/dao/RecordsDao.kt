@@ -13,11 +13,11 @@ interface RecordsDao {
     @Update
     suspend fun update(record: Record)
 
-    @Query("SELECT COUNT(*) FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1'")
+    @Query("SELECT COUNT(*) FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getCount(): Int
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' ORDER BY timestamp DESC")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
     fun getAllPaged(): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
@@ -25,14 +25,14 @@ interface RecordsDao {
     fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
     fun getPagedSearch(productName: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND externalID = :externalID AND type = 'IN'")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND externalID = :externalID AND type = 'IN'")
     fun getSupplierRecords(externalID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1' AND externalID = :externalID AND type = 'OUT'")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND externalID = :externalID AND type = 'OUT'")
     fun getClientsRecords(externalID: Int): PagingSource<Int, Record>
 }

@@ -9,15 +9,8 @@ import java.util.*
 
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_welcome) {
 
-    private val args:WelcomeFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        val username = if (args.username.isNotBlank()){
-            args.username.substringBefore(" ").capitalize(Locale.getDefault())
-        }else{
-            "terricola"
-        }
-        binding.textView106.text = "Hola ${username}!"
         binding.button12.setOnClickListener {
             findNavController().navigate(R.id.introFragment)
         }

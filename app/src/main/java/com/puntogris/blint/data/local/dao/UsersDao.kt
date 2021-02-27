@@ -13,7 +13,7 @@ interface UsersDao {
     @Update
     suspend fun update(roomUser: RoomUser)
 
-    @Query("SELECT * FROM roomuser WHERE id = '1' ")
+    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
     suspend fun getUser(): RoomUser
 
 }

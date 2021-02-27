@@ -16,7 +16,11 @@ export const createContactRequestChilds = functions.firestore.document('employee
         const employeeDoc = await admin.firestore().collection('users').doc(employeeId).get()
         const employeeName = employeeDoc.get("name")
 
-        const newEmployeeRef = admin.firestore().collection('users')
+        const newEmployeeRef = admin.firestore().collection('users').doc(ownerId).collection('business').doc(businessId).collection('employees').doc()
+        const ownerNotificationRef = admin.firestore().collection('users').doc(ownerId).collection('notifications').doc()
+        const employeeNotificationRef = admin.firestore().collection('users').doc(employeeId).collection('notifications').doc()
+        const requestReceivedRef = admin.firestore().collection('users').doc(employeeId).collection('requests_received').doc()
+        const requestSentRef = admin.firestore().collection('users').doc(ownerId).collection('requests_sent').doc()
 
         const employeeEntry = {
             businessId: businessId,
@@ -33,19 +37,42 @@ export const createContactRequestChilds = functions.firestore.document('employee
         }
 
         const ownerNotification = {
-            email: employeeDoc.get("email"),
-            type: "EMPLOYEE_NOTIFICATION_SENT"
+            id: ownerNotificationRef.id,
+            employeeEmail: employeeDoc.get("email"),
+            type: "EMPLOYMENT_REQUEST_SENT_NOTIFICATION",
+            wasRead: false,
+            businessName: businessName,
+            timestamp: admin.firestore.FieldValue.serverTimestamp()
         }
 
         const employeeNotification = {
+            id: employeeNotificationRef.id,
             businessName: businessName,
-            type: "EMPLOYEE_NOTIFICATION_RECEIVED",
-            businessId: newEmployeeRef.id
+            parentRequestId: requestId,
+            type: "EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION",
+            businessId: newEmployeeRef.id,
+            wasRead: false,
+            timestamp: admin.firestore.FieldValue.serverTimestamp()
         }
 
-        await newEmployeeRef.doc(ownerId).collection('business').doc(businessId).collection('employees').doc().set(employeeEntry)
-        await admin.firestore().collection('users').doc(ownerId).collection('notifications').doc().set(ownerNotification)
-        await admin.firestore().collection('users').doc(employeeId).collection('notifications').doc().set(employeeNotification)
+        const requestReceived = {
+            parentRequestId: requestId,
+
+        }
+
+        const requestSent = {
+            parentRequestId: requestId,
+        }
+
+        const batch = admin.firestore().batch()
+
+        batch.set(newEmployeeRef, employeeEntry)
+        batch.set(ownerNotificationRef, ownerNotification)
+        batch.set(employeeNotificationRef, employeeNotification)
+        batch.set(requestReceivedRef, requestReceived)
+        batch.set(requestSentRef, requestSent)
+
+        await batch.commit()
 
         return true
     } catch (error) {

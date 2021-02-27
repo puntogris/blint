@@ -66,8 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             when(viewModel.lookUpUserBusinessData(result.user)){
                 SimpleResult.Success -> {
                     binding.logInProgressBar.gone()
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(result.user.displayName.toString())
-                    findNavController().navigate(action)
+                    findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
                 }
                 SimpleResult.Failure -> {
                     binding.logInProgressBar.gone()

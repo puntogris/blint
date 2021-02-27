@@ -12,6 +12,7 @@ import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.model.Statistic
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.launch
 
@@ -43,9 +44,11 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun getUserBusiness() = userRepository.getEmployeeBusiness()
 
-    suspend fun saveBusinessToLocalDatabase(employees:List<Employee>){
+    suspend fun saveBusinessToLocalDatabase(employees:List<Employee>, username: String, country: String){
         employeeDao.insert(employees)
         usersDao.insert(RoomUser(
+            username = username,
+            country = country,
             currentBusinessId = employees.first().businessId,
             currentBusinessType = employees.first().businessType,
             currentBusinessName = employees.first().name,
@@ -56,12 +59,36 @@ class LoginViewModel @ViewModelInject constructor(
         })
     }
 
-    suspend fun registerNewBusiness(name: String){
-        userRepository.getOwnerBusiness()
-        userRepository.registerNewBusiness(name)
+    suspend fun saveUserData(username: String, country: String){
+        usersDao.insert(RoomUser(
+            username = username,
+            country = country,
+            currentUid = userRepository.getCurrentUID()
+        ))
     }
 
-    suspend fun updateUserData(username:String, country:String) =
+    suspend fun registerNewBusiness(name: String){
+        userRepository.getOwnerBusiness()
+        when(val result = userRepository.registerNewBusiness(name)){
+            is RepoResult.Error -> {}
+            is RepoResult.Success -> {
+                statisticsDao.insert(Statistic(businessId = result.data))
+            }
+        }
+
+    }
+
+    suspend fun updateCurrentBusiness(business:Employee){
+        usersDao.insert(RoomUser(
+            currentBusinessId = business.businessId,
+            currentBusinessType = business.businessType,
+            currentBusinessName = business.name,
+            currentUid = userRepository.getCurrentUID()
+        ))
+    }
+
+
+    suspend fun updateUserData(username:String, country: String) =
         userRepository.updateUserNameCountry(username,country)
 
 }

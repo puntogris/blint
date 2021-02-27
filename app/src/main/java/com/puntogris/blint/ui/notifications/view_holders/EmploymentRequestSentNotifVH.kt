@@ -12,7 +12,6 @@ class EmploymentRequestSentNotifVH private constructor(private val binding: Empl
     fun bind(notification: EmploymentRequestSentNotif, clickListener: (EmploymentRequestSentNotif) -> Unit){
         binding.notification = notification
         binding.root.setOnClickListener { clickListener(notification) }
-
     }
 
     companion object{

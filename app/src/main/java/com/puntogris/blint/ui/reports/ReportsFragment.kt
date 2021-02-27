@@ -39,12 +39,13 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
         lifecycleScope.launchWhenStarted {
             val statistics = viewModel.getStatistics()
-            val data = listOf(
-                DashboardItem("Productos", statistics.totalProducts.toString()),
-                DashboardItem("Proveedores", statistics.totalSuppliers.toString()),
-                DashboardItem("Clientes", statistics.totalClients.toString())
-                )
-            reportDashboardAdapter.submitList(data)
+            println(statistics)
+//            val data = listOf(
+//                DashboardItem("Productos", statistics.totalProducts.toString()),
+//                DashboardItem("Proveedores", statistics.totalSuppliers.toString()),
+//                DashboardItem("Clientes", statistics.totalClients.toString())
+//                )
+           // reportDashboardAdapter.submitList(data)
         }
     }
 

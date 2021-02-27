@@ -5,13 +5,19 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 
+@IgnoreExtraProperties
 @Parcelize
 @Entity
 data class Employee(
 
-        @PrimaryKey(autoGenerate = false)
+        @PrimaryKey(autoGenerate = true)
+        @get:Exclude val id: Int = 0,
+
+        @ColumnInfo
         var employeeId: String = "",
 
         @ColumnInfo
@@ -27,16 +33,16 @@ data class Employee(
         val businessType: String = "",
 
         @ColumnInfo
-        val owner: String = "",
+        val businessOwner: String = "",
 
         @ColumnInfo
         val role:String = "",
 
         @ColumnInfo
-        val employeeTimestamp: Timestamp = Timestamp.now(),
+        val employeeCreatedAt: Timestamp = Timestamp.now(),
 
         @ColumnInfo
-        val businessTimestamp: Timestamp = Timestamp.now(),
+        val businessCreatedAt: Timestamp = Timestamp.now(),
 
         @ColumnInfo
         val email:String = ""
