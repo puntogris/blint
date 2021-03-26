@@ -3,78 +3,42 @@ import * as admin from 'firebase-admin'
 admin.initializeApp()
 
 
-export const createContactRequestChilds = functions.firestore.document('employee_requests/{requestId}').onCreate(async(snap, context) =>{
-    const requestId = context.params.requestId
-    const employeeId = snap.get("employeeId")
-    const businessName = snap.get("businessName")
-    const businessId = snap.get("businessId")
-    const role = snap.get("role")
-    const ownerId = snap.get("ownerId")
-    const businessTimestamp = snap.get("businessTimestamp")
-   
+export const sendJoinedEmployeeNotifications = functions.firestore.document('users/{userId}/business/{businessId}/employees/{employeeId}').onCreate(async(snap, context) =>{
     try {
-        const employeeDoc = await admin.firestore().collection('users').doc(employeeId).get()
-        const employeeName = employeeDoc.get("name")
-
-        const newEmployeeRef = admin.firestore().collection('users').doc(ownerId).collection('business').doc(businessId).collection('employees').doc()
-        const ownerNotificationRef = admin.firestore().collection('users').doc(ownerId).collection('notifications').doc()
-        const employeeNotificationRef = admin.firestore().collection('users').doc(employeeId).collection('notifications').doc()
-        const requestReceivedRef = admin.firestore().collection('users').doc(employeeId).collection('requests_received').doc()
-        const requestSentRef = admin.firestore().collection('users').doc(ownerId).collection('requests_sent').doc()
-
-        const employeeEntry = {
-            businessId: businessId,
-            employeeId: employeeId,
-            name: employeeName,
-            businessName: businessName,
-            businessType: "ONLINE",
-            owner: ownerId,
-            role: role,
-            employeeTimestamp: admin.firestore.FieldValue.serverTimestamp(),
-            businessTimestamp: businessTimestamp,
-            parentRequestId: requestId,
-            requestState: "PENDING"
-        }
-
-        const ownerNotification = {
-            id: ownerNotificationRef.id,
-            employeeEmail: employeeDoc.get("email"),
-            type: "EMPLOYMENT_REQUEST_SENT_NOTIFICATION",
+        const ownerId = context.params.get('ownerId')
+        const businessId = context.params.get('businessId')
+        const employeeName = snap.get('name')
+        const employeeId = snap.get('employeeId')
+        //to send a notification with how to start using the app and welcome
+        //the new user into the business
+        const newEmployeeNotif = {
+            type: 'WELCOME_EMPLOYEE_NOTIFICATION',
             wasRead: false,
-            businessName: businessName,
-            timestamp: admin.firestore.FieldValue.serverTimestamp()
+            timestamp : admin.firestore.FieldValue.serverTimestamp(),
         }
 
-        const employeeNotification = {
-            id: employeeNotificationRef.id,
-            businessName: businessName,
-            parentRequestId: requestId,
-            type: "EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION",
-            businessId: newEmployeeRef.id,
+        //to welcome the new user
+        const currentEmployeesNotif = {
+            type: 'WELCOME_EMPLOYEE_BUSINESS_NOTIFICATION',
             wasRead: false,
-            timestamp: admin.firestore.FieldValue.serverTimestamp()
-        }
-
-        const requestReceived = {
-            parentRequestId: requestId,
-
-        }
-
-        const requestSent = {
-            parentRequestId: requestId,
+            timestamp : admin.firestore.FieldValue.serverTimestamp(),
+            employeeName: employeeName
         }
 
         const batch = admin.firestore().batch()
 
-        batch.set(newEmployeeRef, employeeEntry)
-        batch.set(ownerNotificationRef, ownerNotification)
-        batch.set(employeeNotificationRef, employeeNotification)
-        batch.set(requestReceivedRef, requestReceived)
-        batch.set(requestSentRef, requestSent)
+        const employees = await admin.firestore().collection('users').doc(ownerId).collection('business').doc(businessId).collection('employees').get()
 
-        await batch.commit()
+        employees.forEach(employee => {
+            const notificationRef = admin.firestore().collection('users').doc(employee.get('employeeId')).collection('notifications').doc()
 
-        return true
+            if(employee.get('employeeId') == employeeId){
+                batch.set(notificationRef, newEmployeeNotif)
+            }else {
+                batch.set(notificationRef, currentEmployeesNotif)
+            }
+        })
+        return batch.commit()
     } catch (error) {
         return error
     }

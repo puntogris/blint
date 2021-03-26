@@ -43,6 +43,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 }
             }
         }
+
         getParentFab().setOnClickListener {
             findNavController().navigate(R.id.editProductFragment)
         }

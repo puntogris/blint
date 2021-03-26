@@ -14,6 +14,10 @@
         <item name="android:statusBarColor">@color/purple_200</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+        <item name="scrimBackground">@color/reply_black_900_alpha_087</item>
+        <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
+
     </style>
 
     <style name="Theme.Blint.Notifications" parent="Base.Theme.Blint" >

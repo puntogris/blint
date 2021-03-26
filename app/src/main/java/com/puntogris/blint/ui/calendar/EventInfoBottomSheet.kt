@@ -44,7 +44,7 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
                 previousBackStackEntry!!.savedStateHandle.set("dismiss_key", true)
                 popBackStack()
             }
-            showShortSnackBar("Se actualizo el estado del evento correctamente.")
+            showLongSnackBarAboveFab("Se actualizo el estado del evento correctamente.")
         }
     }
 }

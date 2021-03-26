@@ -49,7 +49,6 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="Vas a necesitar entrar a un negocio para poder operar en Blint.\nPero no te preocupes es tan facil como andar en bicicleta."
-                android:textColor="@color/grey_5"
                 android:textSize="16sp" />
 
         </com.google.android.material.card.MaterialCardView>

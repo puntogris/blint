@@ -418,4 +418,8 @@
         android:name="com.puntogris.blint.ui.main.NewUserFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_new_user" />
+    <dialog
+        android:id="@+id/addProductRecordBottomSheet"
+        android:name="com.puntogris.blint.ui.record.AddProductRecordBottomSheet"
+        android:label="Agregar producto" />
 </navigation>

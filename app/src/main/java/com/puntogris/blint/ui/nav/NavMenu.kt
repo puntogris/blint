@@ -1,0 +1,5 @@
+package com.puntogris.blint.ui.nav
+
+enum class NavMenu {
+  HOME, PRODUCTOS, CLIENTES, PROVEEDORES, MOVIMIENTOS, INFORME, AGENDA , CUENTA, NOTIFICACIONES, CONFIGURACION
+}

@@ -38,6 +38,10 @@ interface ProductsDao {
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name")
     fun getPagedSearch(name: String): PagingSource<Int, Product>
 
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name LIMIT 30")
+    suspend fun getProductsWithName(name: String): List<Product>
+
     @Query("UPDATE product SET amount = :amount WHERE productId = :id")
     suspend fun updateProductAmount(id: Int, amount: Int)
 

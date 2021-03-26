@@ -9,6 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageRecordsBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,6 +20,9 @@ class ManageRecordsFragment : BaseFragment<FragmentManageRecordsBinding>(R.layou
     private val viewModel: RecordsViewModel by viewModels()
 
     override fun initializeViews() {
+        getParentFab().setOnClickListener {
+            findNavController().navigate(R.id.createRecordFragment)
+        }
         val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

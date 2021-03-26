@@ -2,29 +2,30 @@ package com.puntogris.blint.ui.main
 
 import android.Manifest
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.MenuRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.lifecycleScope
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.transition.MaterialFadeThrough
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
+import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,6 +34,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
+        supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
+    }
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -46,6 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setUpTheme()
         setUpNavigation()
         setUpScanner()
+        setUpBottomDrawer()
     }
 
     private fun setUpTheme() {
@@ -96,18 +102,78 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
-                if(sharedPref.getUserHasBusinessPref()){
-                    if (navController.currentDestination?.id != R.id.mainFragment)
-                        navController.navigate(R.id.mainFragment)
-                }else navController.navigate(R.id.newUserFragment)
+                bottomNavDrawer.toggle()
+
+//                if(sharedPref.getUserHasBusinessPref()){
+//                    if (navController.currentDestination?.id != R.id.mainFragment)
+//                        navController.navigate(R.id.mainFragment)
+//                }else navController.navigate(R.id.newUserFragment)
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
     }
 
+    private fun navigateToMenuDestinations(@StringRes titleRes: Int, navMenu: NavMenu) {
+        when(navMenu){
+            NavMenu.HOME -> navController.navigate(R.id.mainFragment)
+            NavMenu.PRODUCTOS -> navController.navigate(R.id.manageProductsFragment)
+            NavMenu.CLIENTES -> navController.navigate(R.id.manageClientsFragment)
+            NavMenu.PROVEEDORES -> navController.navigate(R.id.manageSuppliersFragment)
+            NavMenu.MOVIMIENTOS -> navController.navigate(R.id.manageRecordsFragment)
+            NavMenu.INFORME -> navController.navigate(R.id.reportsFragment)
+            NavMenu.AGENDA -> navController.navigate(R.id.calendarFragment)
+            NavMenu.CUENTA -> navController.navigate(R.id.accountPreferences)
+            NavMenu.NOTIFICACIONES -> navController.navigate(R.id.notificationsFragment)
+            NavMenu.CONFIGURACION -> navController.navigate(R.id.preferencesFragment)
+        }
+     //   binding.bottomAppBarTitle.text = getString(titleRes)
+        bottomNavDrawer.close()
+    }
+
+
+    private fun setUpBottomDrawer(){
+        bottomNavDrawer.apply {
+            addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+            addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
+            addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
+//                 Toggle between the current destination's BAB menu and the menu which should
+//                 be displayed when the BottomNavigationDrawer is open.
+                binding.bottomAppBar.replaceMenu(if (showSettings) {
+                    R.menu.bottom_app_bar_settings_menu
+                } else {
+                    getBottomAppBarMenuForDestination()
+                })
+            })
+
+            addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+            addNavigationListener(this@MainActivity)
+        }
+
+        binding.bottomAppBarContentContainer.setOnClickListener {
+            bottomNavDrawer.toggle()
+        }
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    @MenuRes
+    private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
+        val dest = destination ?: findNavController(R.id.nav_host_fragment).currentDestination
+        return when (dest?.id) {
+            R.id.mainFragment -> R.menu.bottom_app_bar_home_menu
+            else -> R.menu.bottom_app_bar_home_menu
+        }
+    }
+
+    private fun setBottomAppBarForHome(@MenuRes menuRes: Int) {
+        binding.run {
+            bottomAppBar.visibility = View.VISIBLE
+            bottomAppBar.replaceMenu(menuRes)
+            bottomAppBarTitle.visibility = View.VISIBLE
+            bottomAppBar.performShow()
+        }
     }
 
     override fun onDestinationChanged(
@@ -146,19 +212,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
 
         }else if(destination.id == R.id.mainFragment ||
-            destination.id == R.id.newUserFragment
-        ){
+            destination.id == R.id.newUserFragment){
+            if (destination.id == R.id.mainFragment){
+                setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
+            }
             binding.addFav.hide()
             binding.bottomAppBar.visible()
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
             window.statusBarColor = resources.getColor(R.color.colorSecondary)
-        }else if(destination.id == R.id.calendarFragment){
+        }else if(destination.id == R.id.calendarFragment ){
             setupToolbarAndStatusBar()
             binding.addFav.isClickable = false
             binding.bottomAppBar.gone()
             binding.addFav.hide()
+            binding.addFav.gone()
         }else if(destination.id == R.id.manageBusinessFragment ||
-                destination.id == R.id.preferencesFragment){
+                destination.id == R.id.employeeFragment ||
+                destination.id == R.id.reportsFragment ||
+                destination.id == R.id.businessFragment ||
+                destination.id == R.id.manageCategoriesFragment ||
+                destination.id == R.id.preferencesFragment ){
             setupToolbarAndStatusBar()
             binding.addFav.isClickable = false
             binding.bottomAppBar.visible()
@@ -168,6 +241,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.isClickable = false
             binding.addFav.hide()
         }
+        else if(destination.id == R.id.createRecordFragment){
+            binding.addFav.show()
+            binding.bottomAppBar.performHide()
+        }
         else {
             setupToolbarAndStatusBar()
             binding.bottomAppBar.visible()
@@ -175,18 +252,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.bottomAppBar.performShow()
         }
         binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.addFav, binding.addFav.isVisible))
 
     }
 
     private fun setupToolbarAndStatusBar(){
         if (isDarkThemeOn()){
-            window.statusBarColor = resources.getColor(R.color.nightBackground)
-            binding.toolbar.setBackgroundColor(getColor(R.color.nightBackground))
+            ContextCompat.getColor(this, R.color.nightBackground).apply {
+                window.statusBarColor = this
+                binding.toolbar.setBackgroundColor(this)
+            }
             val view = window.decorView
+
             view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
         }else{
-            window.statusBarColor = resources.getColor(R.color.grey_5)
-            binding.toolbar.setBackgroundColor(getColor(R.color.grey_5))
+            ContextCompat.getColor(this, R.color.grey_5).apply {
+                window.statusBarColor = this
+                binding.toolbar.setBackgroundColor(this)
+            }
+            
             val view = window.decorView
             view.setSystemUiVisibility(view.getSystemUiVisibility() or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
@@ -195,14 +279,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
-            R.id.scannerFragment -> {
-                if (checkIfBusinessExist()) requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            R.id.menu_settings -> {
+                bottomNavDrawer.close()
+                navController.navigate(R.id.preferencesFragment)
             }
-            R.id.preferencesFragment -> navController.navigate(R.id.preferencesFragment)
-            R.id.notificationsFragment -> navController.navigate(R.id.notificationsFragment)
+            R.id.menu_search -> if (checkIfBusinessExist()) requestPermissionLauncher.launch(
+                Manifest.permission.CAMERA
+            )
             R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
         }
         return true
+    }
+
+    override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
+        navigateToMenuDestinations(item.titleRes, item.navMenu)
     }
 
     private fun checkIfBusinessExist():Boolean{

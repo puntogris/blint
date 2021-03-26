@@ -34,5 +34,5 @@ class MainViewModel @ViewModelInject constructor(
 
     fun getLastEvents() = eventsDao.getLastThreeEvents()
 
-
+    fun getEmployeeBusiness() = employeeDao.getEmployeesListLiveData()
 }

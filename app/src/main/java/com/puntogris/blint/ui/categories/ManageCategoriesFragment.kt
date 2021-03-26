@@ -10,6 +10,7 @@ import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,14 +23,14 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     override fun initializeViews() {
         lifecycleScope.launchWhenStarted {
             viewModel.getAllCategoriesFlow().collect {
-                if (it.isNullOrEmpty()) showEmptyUi()
-                else showChipsUi(it)
+                showChipsUi(it)
             }
         }
         binding.button11.setOnClickListener {
             lifecycleScope.launch {
                 val name = binding.categoryNameText.getString()
                 viewModel.insertCategory(name)
+                showLongSnackBarAboveFab("Categoria guardada correctamente.")
             }
         }
     }
@@ -54,9 +55,5 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
                 binding.categoriesChipGroup.addView(this)
             }
         }
-    }
-
-    private fun showEmptyUi(){
-
     }
 }

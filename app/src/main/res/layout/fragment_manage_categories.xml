@@ -49,9 +49,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button11"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/colorSecondary"
-            android:textColor="@color/colorSecondary"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

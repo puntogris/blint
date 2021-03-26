@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Business
@@ -22,6 +23,10 @@ interface EmployeeDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getEmployeesList(): List<Employee>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
+    fun getEmployeesListLiveData(): LiveData<List<Employee>>
 
     @Query("SELECT COUNT(*) FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getCount(): Int

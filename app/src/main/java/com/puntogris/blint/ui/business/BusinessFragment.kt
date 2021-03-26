@@ -38,6 +38,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 }
             }
         }
+
     }
 
     private fun onDataNotFound(){
@@ -62,6 +63,8 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         lifecycleScope.launchWhenStarted {
             if (viewModel.hasUserOwnerPermissions(args.employee.employeeId)){
                 menu.findItem(R.id.businessFragmentMenu).isVisible = true
+                if(args.employee.businessType == "LOCAL")
+                    menu.findItem(R.id.newEmployee).isVisible = false
             }
         }
     }

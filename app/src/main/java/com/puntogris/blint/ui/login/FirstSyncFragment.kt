@@ -66,6 +66,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                 SimpleResult.Success -> {
                     withContext(Dispatchers.IO){ viewModel.saveBusinessToLocalDatabase(employees, args.username, args.userCountry) }
                     sharedPref.setWelcomeUiPref(true)
+                    sharedPref.setUserHasBusinessPref(true)
                     binding.animationView.apply {
                         setAnimation(R.raw.done)
                         repeatCount = 0
@@ -83,6 +84,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         lifecycleScope.launch {
             viewModel.updateUserData(args.username, args.userCountry)
             sharedPref.setWelcomeUiPref(true)
+            sharedPref.setUserHasBusinessPref(true)
             withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
             withContext(Dispatchers.Main){
                 binding.animationView.apply {

@@ -9,12 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import com.puntogris.blint.R
+import com.puntogris.blint.ui.nav.NavigationAdapter
 import com.puntogris.blint.utils.getNavHostFragment
 
 abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
     AppCompatActivity(),
     NavController.OnDestinationChangedListener,
-    Toolbar.OnMenuItemClickListener{
+    Toolbar.OnMenuItemClickListener,
+    NavigationAdapter.NavigationAdapterListener {
 
     private var _binding : T? = null
     val binding get() = _binding!!

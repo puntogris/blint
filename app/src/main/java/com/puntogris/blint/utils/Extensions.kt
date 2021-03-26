@@ -1,10 +1,13 @@
 package com.puntogris.blint.utils
 
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Point
 import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import android.util.DisplayMetrics
@@ -12,10 +15,12 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DimenRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -44,6 +49,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.io.path.createTempDirectory
 
 fun View.gone(){
     visibility = View.GONE
@@ -87,6 +93,14 @@ fun Fragment.showLongSnackBarAboveFab(message: String){
             .make(snackLayout, message, Snackbar.LENGTH_LONG)
             .setAnchorView(getParentFab())
             .show()
+}
+
+fun Fragment.createLongSnackBarAboveFab(message: String): Snackbar{
+    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
+    val snack = Snackbar
+        .make(snackLayout, message, Snackbar.LENGTH_LONG)
+        snack.anchorView = getParentFab()
+    return snack
 }
 
 fun Activity.showLongSnackBarAboveFab(message: String){
@@ -244,3 +258,37 @@ fun Fragment.launchWebBrowserIntent(uri: String){
     intent.data = Uri.parse(uri)
     startActivity(intent)
 }
+
+inline val Context.screenWidth: Int
+    get() = Point().also { (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(it) }.x
+
+inline val View.screenWidth: Int
+    get() = context!!.screenWidth
+
+inline val Int.dp: Int
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics).toInt()
+
+inline val Float.dp: Float
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
+
+inline fun getValueAnimator(
+    forward: Boolean = true,
+    duration: Long,
+    interpolator: TimeInterpolator,
+    crossinline updateListener: (progress: Float) -> Unit
+): ValueAnimator {
+    val a =
+        if (forward) ValueAnimator.ofFloat(0f, 1f)
+        else ValueAnimator.ofFloat(1f, 0f)
+    a.addUpdateListener { updateListener(it.animatedValue as Float) }
+    a.duration = duration
+    a.interpolator = interpolator
+    return a
+}
+
+fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
+    context.resources.getDimension(id)
+}
+

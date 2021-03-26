@@ -2,6 +2,16 @@
     <string name="app_name">Blint</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Inicio</string>
+    <string name="products">Productos</string>
+    <string name="clients">Clientes</string>
+    <string name="records">Movimientos</string>
+    <string name="reports">Informes</string>
+    <string name="calendar">Agenda</string>
+    <string name="suppliers">Proveedores</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="settings">Configuracion</string>
+    <string name="account">Cuenta</string>
 
     <string-array name="theme_names">
         <item>Claro</item>

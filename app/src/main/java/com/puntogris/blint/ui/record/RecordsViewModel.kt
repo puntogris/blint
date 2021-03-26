@@ -103,6 +103,8 @@ class RecordsViewModel @ViewModelInject constructor(
         }
     }
 
+    suspend fun getProductWithName(name: String) = productsDao.getProductsWithName(name)
+
     private fun getNewStockAmount(type:String, amount:Int): Int{
         val newAmount :Int
         when(type){

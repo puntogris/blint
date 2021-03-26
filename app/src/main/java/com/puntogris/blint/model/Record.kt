@@ -27,7 +27,7 @@ data class Record(
     val timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    val amount: Int = 0,
+    var amount: Int = 0,
 
     @ColumnInfo
     val productID: Int = 0,
@@ -39,5 +39,11 @@ data class Record(
     val author: String = "",
 
     @ColumnInfo
-    var businessId:String = ""
+    var businessId:String = "",
+
+    @ColumnInfo
+    var productUnitPrice: Int = 0,
+
+    @ColumnInfo
+    val parentRecordId: String = ""
 ):Parcelable

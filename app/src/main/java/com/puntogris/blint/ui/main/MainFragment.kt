@@ -43,6 +43,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var badge: BadgeDrawable
 
     override fun initializeViews() {
+        binding.fragment = this
         binding.lifecycleOwner= this
         binding.viewModel = viewModel
         setupMenuRecyclerView()
@@ -119,10 +120,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         lifecycleScope.launch(Dispatchers.IO) {
             val events = viewModel.getLastEvents()
             if (events.isEmpty()){
-
+                binding.button17.visible()
+                binding.textView151.visible()
             }else{
-                binding.materialCardView2.gone()
                 mainCalendarAdapter.submitList(events)
+                binding.materialCardView2.visible()
             }
         }
 
@@ -168,6 +170,10 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
             true
         }
         else super.onOptionsItemSelected(item)
+    }
+
+    fun onAddEventClicked(){
+        findNavController().navigate(R.id.createEventFragment)
     }
 
     @com.google.android.material.badge.ExperimentalBadgeUtils
