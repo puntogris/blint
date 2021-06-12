@@ -8,10 +8,6 @@ import androidx.core.animation.doOnStart
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,9 +21,9 @@ import com.puntogris.blint.utils.getValueAnimator
 import com.puntogris.blint.utils.screenWidth
 
 class CreateRecordsAdapter(private val context: Context,
-                           private val amountListener: (Int) -> (Unit),
+                           private val amountListener: (Float) -> (Unit),
                            private val clickListener: (ProductWithRecord) -> Unit,
-                            private val deleteListener: (ProductWithRecord) -> Unit):
+                           private val deleteListener: (ProductWithRecord) -> Unit):
     ListAdapter<ProductWithRecord, RecyclerView.ViewHolder>(ProductWithRecordItemDiffCallBack()) {
 
     var recordsList = mutableListOf<ProductWithRecord>()
@@ -46,7 +42,7 @@ class CreateRecordsAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return RecordItemViewHolder.from(parent, context)
+        return OrderItemViewHolder.from(parent, context)
     }
     private var expandedModel: ProductWithRecord? = null
 
@@ -66,10 +62,10 @@ class CreateRecordsAdapter(private val context: Context,
         this.recyclerView = recyclerView
     }
 
-    fun getRecordTotalPrice() = recordsList.sumBy { it.record.productUnitPrice * it.record.amount }
+    fun getRecordTotalPrice() = recordsList.sumByDouble { it.record.value.toDouble() }.toFloat()
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as RecordItemViewHolder).bind(recordsList[position], clickListener,
+        (holder as OrderItemViewHolder).bind(recordsList[position], clickListener,
             { amountListener.invoke(getRecordTotalPrice())})
 
         expandItem(holder, getItem(position) == expandedModel, animate = false)
@@ -94,7 +90,7 @@ class CreateRecordsAdapter(private val context: Context,
                     // collapse previously expanded view
                     val expandedModelPosition = recordsList.indexOf(expandedModel!!)
                     val oldViewHolder =
-                        recyclerView.findViewHolderForAdapterPosition(expandedModelPosition) as? RecordItemViewHolder
+                        recyclerView.findViewHolderForAdapterPosition(expandedModelPosition) as? OrderItemViewHolder
                     if (oldViewHolder != null) expandItem(oldViewHolder, expand = false, animate = true)
 
                     // expand clicked view
@@ -132,7 +128,7 @@ class CreateRecordsAdapter(private val context: Context,
 //        return animator
 //    }
 
-    private fun setScaleDownProgress(holder: RecordItemViewHolder, position: Int, progress: Float) {
+    private fun setScaleDownProgress(holder: OrderItemViewHolder, position: Int, progress: Float) {
         val itemExpanded = position >= 0 && getItem(position) == expandedModel
         holder.binding.cardContainer.layoutParams.apply {
             width = ((if (itemExpanded) expandedWidth else originalWidth) * (1 - 0.1f * progress)).toInt()
@@ -155,7 +151,7 @@ class CreateRecordsAdapter(private val context: Context,
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder as RecordItemViewHolder
+        holder as OrderItemViewHolder
 
         if (expandedHeight < 0) {
             expandedHeight = 0 // so that this block is only called once
@@ -178,7 +174,7 @@ class CreateRecordsAdapter(private val context: Context,
 
     private val listItemExpandDuration: Long get() = (300L / animationPlaybackSpeed).toLong()
 
-    private fun expandItem(holder: RecordItemViewHolder, expand: Boolean, animate: Boolean) {
+    private fun expandItem(holder: OrderItemViewHolder, expand: Boolean, animate: Boolean) {
         if (animate) {
             val animator = getValueAnimator(
                 expand, listItemExpandDuration, AccelerateDecelerateInterpolator()
@@ -197,14 +193,14 @@ class CreateRecordsAdapter(private val context: Context,
     }
 
     /** Convenience method for calling from onBindViewHolder */
-    private fun scaleDownItem(holder: RecordItemViewHolder, position: Int, isScaleDown: Boolean) {
+    private fun scaleDownItem(holder: OrderItemViewHolder, position: Int, isScaleDown: Boolean) {
         setScaleDownProgress(holder, position, if (isScaleDown) 1f else 0f)
     }
 
     private val originalWidth = context.screenWidth - 48.dp
     private val expandedWidth = context.screenWidth - 24.dp
 
-    private fun setExpandProgress(holder: RecordItemViewHolder, progress: Float) {
+    private fun setExpandProgress(holder: OrderItemViewHolder, progress: Float) {
         if (expandedHeight > 0 && originalHeight > 0) {
             holder.binding.cardContainer.layoutParams.height =
                 (originalHeight + (expandedHeight - originalHeight) * progress).toInt()

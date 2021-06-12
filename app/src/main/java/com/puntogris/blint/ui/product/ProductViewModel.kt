@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel @ViewModelInject constructor(
     private val productsDao: ProductsDao,
-    private val recordsDao: RecordsDao,
+    private val ordersDao: OrdersDao,
     private val suppliersDao: SuppliersDao,
     private val userRepository: UserRepository,
     private val usersDao: UsersDao,
@@ -49,7 +49,7 @@ class ProductViewModel @ViewModelInject constructor(
                 maxSize = 200
             )
         ){
-            recordsDao.getProductRecordsPaged(productID)
+            ordersDao.getProductRecordsPaged(productID)
         }.flow
     }
 
@@ -70,13 +70,13 @@ class ProductViewModel @ViewModelInject constructor(
         val record = Record(
             type = "IN",
             amount = _currentProduct.value.amount,
-            productID = productID.toInt(),
+            productId = productID.toInt(),
             productName = _currentProduct.value.name,
             timestamp = Timestamp.now(),
             author = userRepository.getCurrentUser()?.email.toString(),
             businessId = usersDao.getUser().currentBusinessId
         )
-        recordsDao.insert(record)
+        ordersDao.insert(record)
     }
 
     private suspend fun saveProductSuppliersCrossRef(productId: Int){

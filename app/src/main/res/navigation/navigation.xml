@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_clientFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
+        <action
+            android:id="@+id/action_clientFragment_to_debtStatusFragment"
+            app:destination="@id/debtStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/supplierFragment"
@@ -73,6 +76,9 @@
         <action
             android:id="@+id/action_supplierFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
+        <action
+            android:id="@+id/action_supplierFragment_to_debtStatusFragment"
+            app:destination="@id/debtStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"
@@ -109,14 +115,14 @@
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
         <action
-            android:id="@+id/action_productFragment_to_createRecordFragment"
-            app:destination="@id/createRecordFragment" />
-        <action
             android:id="@+id/action_productFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
         <action
             android:id="@+id/action_productFragment_to_supplierFragment"
             app:destination="@id/supplierFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_orderTypeFragment"
+            app:destination="@id/newOrderGraphNav" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -241,19 +247,13 @@
     <fragment
         android:id="@+id/manageRecordsFragment"
         android:name="com.puntogris.blint.ui.record.ManageRecordsFragment"
-        android:label="Movimientos" >
+        android:label="Ordenes" >
         <action
             android:id="@+id/action_manageRecordsFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
-    </fragment>
-    <fragment
-        android:id="@+id/createRecordFragment"
-        android:name="com.puntogris.blint.ui.record.CreateRecordFragment"
-        android:label="Nuevo movimiento" >
-        <argument
-            android:name="productID"
-            app:argType="integer"
-            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_manageRecordsFragment_to_orderInfoBottomSheet"
+            app:destination="@id/orderInfoBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/recordInfoBottomSheet"
@@ -268,6 +268,9 @@
         <action
             android:id="@+id/action_recordInfoBottomSheet_to_clientFragment"
             app:destination="@id/clientFragment" />
+        <action
+            android:id="@+id/action_recordInfoBottomSheet_to_orderFragment"
+            app:destination="@id/orderFragment" />
     </dialog>
     <fragment
         android:id="@+id/operationsFragment"
@@ -418,8 +421,122 @@
         android:name="com.puntogris.blint.ui.main.NewUserFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_new_user" />
+    <navigation android:id="@+id/newOrderGraphNav"
+        app:startDestination="@id/orderTypeFragment">
+        <fragment
+            android:id="@+id/orderTypeFragment"
+            android:name="com.puntogris.blint.ui.record.OrderTypeFragment"
+            android:label="">
+            <action
+                android:id="@+id/action_orderTypeFragment_to_addOrderClientSupplierBottomSheet"
+                app:destination="@id/addOrderClientSupplierBottomSheet" />
+            <action
+                android:id="@+id/action_orderTypeFragment_to_createRecordFragment"
+                app:destination="@id/createRecordFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/reviewRecordFragment"
+            android:name="com.puntogris.blint.ui.record.ReviewRecordFragment"
+            android:label="Revisar orden">
+            <action
+                android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
+                app:destination="@id/publishOrderFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/addOrderClientSupplierBottomSheet"
+            android:name="com.puntogris.blint.ui.record.AddOrderClientSupplierBottomSheet"
+            android:label="AddOrderClientSupplierBottomSheet">
+            <argument
+                android:name="orderType"
+                app:argType="string" />
+            <action
+                android:id="@+id/action_addOrderClientSupplierBottomSheet_to_createRecordFragment"
+                app:destination="@id/createRecordFragment" />
+        </dialog>
+        <fragment
+            android:id="@+id/publishOrderFragment"
+            android:name="com.puntogris.blint.ui.record.PublishOrderFragment"
+            android:label="Publicar order" />
+        <fragment
+            android:id="@+id/createRecordFragment"
+            android:name="com.puntogris.blint.ui.record.CreateRecordFragment"
+            android:label="Nueva orden">
+            <argument
+                android:name="productID"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <action
+                android:id="@+id/action_createRecordFragment_to_reviewRecordFragment"
+                app:destination="@id/reviewRecordFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/addProductRecordBottomSheet"
+            android:name="com.puntogris.blint.ui.record.AddProductRecordBottomSheet"
+            android:label="Agregar producto" />
+    </navigation>
     <dialog
-        android:id="@+id/addProductRecordBottomSheet"
-        android:name="com.puntogris.blint.ui.record.AddProductRecordBottomSheet"
-        android:label="Agregar producto" />
+        android:id="@+id/orderInfoBottomSheet"
+        android:name="com.puntogris.blint.ui.record.OrderInfoBottomSheet"
+        android:label="OrderInfoBottomSheet" >
+        <argument
+            android:name="order"
+            app:argType="com.puntogris.blint.model.Order" />
+        <action
+            android:id="@+id/action_orderInfoBottomSheet_to_supplierFragment"
+            app:destination="@id/supplierFragment" />
+        <action
+            android:id="@+id/action_orderInfoBottomSheet_to_orderFragment"
+            app:destination="@id/orderFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.puntogris.blint.ui.record.OrderFragment"
+        android:label="Orden" >
+        <argument
+            android:name="orderId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="order"
+            app:argType="com.puntogris.blint.model.Order"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_orderFragment_to_generateOrderReceiptBottomSheet"
+            app:destination="@id/generateOrderReceiptBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/generateOrderReceiptBottomSheet"
+        android:name="com.puntogris.blint.ui.record.GenerateOrderReceiptBottomSheet"
+        android:label="" />
+    <fragment
+        android:id="@+id/manageDebtFragment"
+        android:name="com.puntogris.blint.ui.debt.ManageDebtFragment"
+        android:label="Deudas" />
+    <fragment
+        android:id="@+id/debtStatusFragment"
+        android:name="com.puntogris.blint.ui.debt.DebtStatusFragment"
+        android:label="Deuda" >
+        <action
+            android:id="@+id/action_debtStatusFragment_to_modifyDebtFragment"
+            app:destination="@id/modifyDebtFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="debtType"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifyDebtFragment"
+        android:name="com.puntogris.blint.ui.debt.ModifyDebtFragment"
+        android:label="Actualizar deuda"
+        tools:layout="@layout/fragment_modify_debt" >
+        <argument
+            android:name="debt"
+            app:argType="com.puntogris.blint.model.Debt" />
+        <argument
+            android:name="debtType"
+            app:argType="integer" />
+    </fragment>
 </navigation>

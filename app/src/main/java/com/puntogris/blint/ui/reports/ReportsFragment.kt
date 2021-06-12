@@ -97,7 +97,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
                     CalendarSheet().build(requireContext()) {
                         title("Seleccionar periodo de tiempo.")
                         selectionMode(SelectionMode.RANGE)
-                        showButtons(true)
+                        //showButtons(true)
                         onPositive("OK") { dateStart, dateEnd ->
                             val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(
                                 reportCode = code,

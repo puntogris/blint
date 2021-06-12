@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.Product
 
 @Dao
 interface ClientsDao {
@@ -17,6 +18,7 @@ interface ClientsDao {
     @Query("DELETE FROM client WHERE clientId = :id")
     suspend fun delete(id: Int)
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client WHERE clientId = :id")
     suspend fun getClient(id:Int):Client
 
@@ -34,5 +36,13 @@ interface ClientsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getAllClients(): List<Client>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name LIMIT 30")
+    suspend fun getClientWithName(name: String): List<Client>
+
+    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
+    suspend fun updateClientDebt(clientId: Int, amount: Float)
+
 
 }

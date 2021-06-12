@@ -4,13 +4,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.MenuCardDiffCallback
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
+import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
+import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 
 class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapter<MenuCard, MenuCardViewHolder>(MenuCardDiffCallback()) {
@@ -20,10 +20,11 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos"),
             MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes"),
             MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores"),
-            MenuCard(RECORDS_CARD_CODE, "Movimientos"),
+            MenuCard(RECORDS_CARD_CODE, "Ordenes"),
             MenuCard(CHARTS_CARD_CODE, "Informes"),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda")
-       //     MenuCard(OPERATIONS_CARD_CODE, "Herramientas")
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),
+            MenuCard(TOOLS_CARD_CODE, "Herramientas"),
+            MenuCard(DEB_CARD_CODE, "Deudas")
             )
         submitList(list)
     }

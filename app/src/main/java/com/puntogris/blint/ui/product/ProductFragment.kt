@@ -86,8 +86,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 true
             }
             R.id.createRecord -> {
-                val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
-                findNavController().navigate(action)
+//                val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
+//                findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)

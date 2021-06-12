@@ -2,37 +2,30 @@ package com.puntogris.blint.ui.main
 
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.billingclient.api.*
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
+import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
+import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
-import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import me.farahani.spaceitemdecoration.SpaceItemDecoration
 
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
@@ -44,11 +37,39 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     override fun initializeViews() {
         binding.fragment = this
-        binding.lifecycleOwner= this
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
         setupBadgeListener()
+
+//        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
+//        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)
+//            .colorMode(DocumentInfo.ColorMode.COLOR)
+//            .paperSize(PrintAttributes.MediaSize.ISO_A4)
+//            .margin(DocumentInfo.Margins.DEFAULT)
+//            .paperOrientation(DocumentInfo.Orientation.PORTRAIT)
+//            .build()
+//
+//        val textProperties = TextProperties()
+//        textProperties.textSize = 24
+//        textProperties.textColor = "#000000"
+//        textProperties.alignment = Layout.Alignment.ALIGN_CENTER
+//        textProperties.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+//
+//        val textComposer = TextComposer(simplyPdfDocument)
+//        textComposer.write("Demonstrate the usage of TextComposer.", textProperties)
+//
+//        val table = TableProperties()
+//        table.borderColor = "#000000"
+//        table.borderWidth = 2
+//
+//        val paparer = PrintAttributes.MediaSize.ISO_A4
+//        val tableText = TableComposer(simplyPdfDocument)
+//        println(paparer)
+//        tableText.draw(listOf(listOf(TextCell("sdfsdfsdf", textProperties, 340))))
+//        tableText.draw(listOf(listOf(TextCell("sdfsdfsdf", textProperties, 340))))
+//        simplyPdfDocument.finish()
 
 
 //        val purchasesUpdateListener =
@@ -111,7 +132,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     @com.google.android.material.badge.ExperimentalBadgeUtils
     override fun onPrepareOptionsMenu(menu: Menu) {
-        BadgeUtils.attachBadgeDrawable(badge, requireActivity().findViewById(R.id.toolbar), R.id.notificationsFragment)
+        BadgeUtils.attachBadgeDrawable(
+            badge,
+            requireActivity().findViewById(R.id.toolbar),
+            R.id.notificationsFragment
+        )
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -144,7 +169,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
-            addItemDecoration(SpaceItemDecoration(10, true))
+         //   addItemDecoration(SpaceItemDecoration(10, true))
         }
     }
 
@@ -155,8 +180,9 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
             ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
             ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
             RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
-            OPERATIONS_CARD_CODE -> findNavController().navigate(R.id.operationsFragment)
+            TOOLS_CARD_CODE -> findNavController().navigate(R.id.operationsFragment)
             CHARTS_CARD_CODE -> findNavController().navigate(R.id.reportsFragment)
+            DEB_CARD_CODE -> findNavController().navigate(R.id.manageDebtFragment)
         }
     }
 
@@ -178,7 +204,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     @com.google.android.material.badge.ExperimentalBadgeUtils
     override fun onDestroyView() {
-        BadgeUtils.detachBadgeDrawable(badge, requireActivity().findViewById(R.id.toolbar), R.id.notificationsFragment)
+        BadgeUtils.detachBadgeDrawable(
+            badge,
+            requireActivity().findViewById(R.id.toolbar),
+            R.id.notificationsFragment
+        )
         binding.recyclerView.adapter = null
         super.onDestroyView()
     }

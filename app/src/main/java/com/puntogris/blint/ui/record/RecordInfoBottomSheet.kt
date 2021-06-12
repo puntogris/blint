@@ -16,17 +16,22 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
     }
 
     fun onExternalChipClicked(){
-        if(args.record.externalID != 0){
+        if(args.record.traderId != 0){
             when(args.record.type){
                 "IN"-> {
-                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(args.record.externalID)
+                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(args.record.traderId)
                     findNavController().navigate(action)
                 }
                 "OUT" -> {
-                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToClientFragment(args.record.externalID)
+                    val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToClientFragment(args.record.traderId)
                     findNavController().navigate(action)
                 }
             }
         }
+    }
+
+    fun onNavigateToFullOrder(){
+        val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToOrderFragment()
+        findNavController().navigate(action)
     }
 }

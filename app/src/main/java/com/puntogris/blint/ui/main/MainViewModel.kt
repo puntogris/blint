@@ -1,15 +1,17 @@
 package com.puntogris.blint.ui.main
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.NotificationsRepository
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.RoomUser
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val usersDao: UsersDao,
     private val eventsDao: EventsDao,

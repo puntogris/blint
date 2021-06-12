@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,6 +21,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.AddProductRecordBottomSheetBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
+import com.puntogris.blint.utils.changeIconFromDrawable
+import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.hideKeyboard
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,7 @@ import org.apache.poi.ss.formula.functions.T
 @AndroidEntryPoint
 class AddProductRecordBottomSheet: BaseBottomSheetFragment<AddProductRecordBottomSheetBinding>(R.layout.add_product_record_bottom_sheet){
 
-    private val viewModel: RecordsViewModel by viewModels()
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -52,7 +55,12 @@ class AddProductRecordBottomSheet: BaseBottomSheetFragment<AddProductRecordBotto
     }
 
     override fun initializeViews() {
+
         var products = emptyList<Product>()
+
+        binding.button21.setOnClickListener {
+            dismiss()
+        }
         binding.productSearchText.apply {
             addTextChangedListener {
                 lifecycleScope.launch {

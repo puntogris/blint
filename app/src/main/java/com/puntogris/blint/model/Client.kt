@@ -32,6 +32,9 @@ data class Client(
     val discount: Float = 0F,
 
     @ColumnInfo
-    var businessId:String = ""
+    var businessId:String = "",
+
+    @ColumnInfo
+    var debt: Float = 0F
 
 ):Parcelable

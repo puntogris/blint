@@ -8,14 +8,14 @@ import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.ui.SharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class RecordsViewModel @ViewModelInject constructor(
-    private val recordsDao: RecordsDao,
+    private val ordersDao: OrdersDao,
     private val productsDao: ProductsDao,
     private val suppliersDao: SuppliersDao,
     private val clientsDao: ClientsDao,
@@ -32,6 +32,13 @@ class RecordsViewModel @ViewModelInject constructor(
     private var externalID = 0
     private var externalName = ""
 
+    fun updateRecordType(code: Int){
+        recordType = when(code){
+            0 -> "IN"
+            else -> "OUT"
+        }
+    }
+
     fun updateExternalInfo(id:Int, name: String){
         externalID = id
         externalName = name
@@ -46,13 +53,6 @@ class RecordsViewModel @ViewModelInject constructor(
         _currentProduct.value = product
     }
 
-    fun updateRecordType(code: Int){
-        recordType = when(code){
-            0 -> "IN"
-            else -> "OUT"
-        }
-    }
-
     fun getProductRecords(): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
@@ -61,9 +61,22 @@ class RecordsViewModel @ViewModelInject constructor(
             maxSize = 200
         )
         ){
-            recordsDao.getAllPaged()
+            ordersDao.getAllRecordsPaged()
         }.flow
     }
+
+    fun getOrders(): Flow<PagingData<Order>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ){
+            ordersDao.getAllOrdersPaged()
+        }.flow
+    }
+
 
     fun getRecordsWithName(name: String): Flow<PagingData<Record>> {
         return Pager(
@@ -73,7 +86,7 @@ class RecordsViewModel @ViewModelInject constructor(
                 maxSize = 200
             )
         ) {
-            recordsDao.getPagedSearch("%${name}%")
+            ordersDao.getPagedSearch("%${name}%")
         }.flow
     }
 
@@ -81,13 +94,13 @@ class RecordsViewModel @ViewModelInject constructor(
 
     suspend fun saveRecordAndUpdateStock(amount: Int): Boolean{
         val record = Record(
-            productID = _currentProduct.value.productId,
+            productId = _currentProduct.value.productId,
             productName = _currentProduct.value.name,
             amount = amount,
             type = recordType,
             timestamp = Timestamp.now(),
-            externalID = externalID,
-            externalName = externalName,
+            traderId = externalID,
+            traderName = externalName,
             author = userRepository.getCurrentUser()?.email.toString(),
             businessId = usersDao.getUser().currentBusinessId
         )
@@ -95,7 +108,7 @@ class RecordsViewModel @ViewModelInject constructor(
         return if (newAmount < 0){
             false
         }else{
-            recordsDao.insert(record)
+            ordersDao.insert(record)
             _currentProduct.value.amount = newAmount
             _currentProduct.value.lastRecordTimestamp = Timestamp.now()
             productsDao.update(_currentProduct.value)
@@ -103,7 +116,8 @@ class RecordsViewModel @ViewModelInject constructor(
         }
     }
 
-    suspend fun getProductWithName(name: String) = productsDao.getProductsWithName(name)
+    suspend fun fetchOrderRecords(orderId:Int) = ordersDao.getAllOrderRecords(orderId)
+
 
     private fun getNewStockAmount(type:String, amount:Int): Int{
         val newAmount :Int
@@ -128,9 +142,10 @@ class RecordsViewModel @ViewModelInject constructor(
         _barcodeScanned.value = barcode
     }
 
-    fun getBarcodeScanned() = _barcodeScanned.value.toString()
+    fun getCodeScanned() = _barcodeScanned.value.toString()
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
     suspend fun getAllClients() = clientsDao.getAllClients()
+
 }

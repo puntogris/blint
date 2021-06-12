@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.record.ReviewRecordFragment">
+
+        <TextView
+            android:id="@+id/textView162"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="La nueva orden esta lista para ser creada."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView164"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Valor total:"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/textView167"
+            app:layout_constraintTop_toBottomOf="@+id/textView167" />
+
+        <TextView
+            android:id="@+id/textView166"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView164"
+            app:layout_constraintStart_toEndOf="@+id/textView164"
+            app:layout_constraintTop_toTopOf="@+id/textView164" />
+
+        <TextView
+            android:id="@+id/textView167"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Cantidad de productos:"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView162" />
+
+        <TextView
+            android:id="@+id/textView168"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView167"
+            app:layout_constraintStart_toEndOf="@+id/textView167"
+            app:layout_constraintTop_toTopOf="@+id/textView167" />
+
+        <TextView
+            android:id="@+id/textView170"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Fecha:"
+            app:layout_constraintStart_toStartOf="@+id/textView164"
+            app:layout_constraintTop_toBottomOf="@+id/textView177" />
+
+        <TextView
+            android:id="@+id/textView171"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView170"
+            app:layout_constraintStart_toEndOf="@+id/textView170"
+            app:layout_constraintTop_toTopOf="@+id/textView170" />
+
+        <TextView
+            android:id="@+id/textView174"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Autor:"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/textView170"
+            app:layout_constraintTop_toBottomOf="@+id/textView170" />
+
+        <TextView
+            android:id="@+id/textView175"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView174"
+            app:layout_constraintStart_toEndOf="@+id/textView174"
+            app:layout_constraintTop_toTopOf="@+id/textView174" />
+
+        <TextView
+            android:id="@+id/textView176"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="156dp"
+            android:layout_marginEnd="24dp"
+            android:textAlignment="center"
+            android:text="*Al continuar esta orden sera generada y enviada a los servidores, generando una factura y modificando el stock de los productos incluidos."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView174" />
+
+        <TextView
+            android:id="@+id/textView177"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Proveedor/ Cliente:"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/textView164"
+            app:layout_constraintTop_toBottomOf="@+id/textView164" />
+
+        <TextView
+            android:id="@+id/textView178"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="No especificado."
+            style="@style/Theme.Blint.DataTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView177"
+            app:layout_constraintStart_toEndOf="@+id/textView177"
+            app:layout_constraintTop_toTopOf="@+id/textView177" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

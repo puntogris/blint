@@ -23,6 +23,10 @@
                 android:visible="false"
                 android:id="@+id/createRecord"
                 android:title="Nuevo movimiento" />
+
+            <item android:id="@+id/debtStatus"
+                android:visible="false"
+                android:title="Deudas" />
             <item android:id="@+id/deleteOption"
                 android:title="Eliminar" />
 

@@ -15,13 +15,13 @@ data class Record(
     val recordId: Int = 0,
 
     @ColumnInfo
-    val type: String = "",
+    var type: String = "",
 
     @ColumnInfo
-    val externalID: Int = 0,
+    var traderId: Int = 0,
 
     @ColumnInfo
-    val externalName :String = "",
+    var traderName :String = "",
 
     @ColumnInfo
     val timestamp: Timestamp = Timestamp.now(),
@@ -30,20 +30,23 @@ data class Record(
     var amount: Int = 0,
 
     @ColumnInfo
-    val productID: Int = 0,
+    val productId: Int = 0,
 
     @ColumnInfo
     val productName:String = "",
 
     @ColumnInfo
-    val author: String = "",
+    var author: String = "",
 
     @ColumnInfo
     var businessId:String = "",
 
     @ColumnInfo
-    var productUnitPrice: Int = 0,
+    var productUnitPrice: Float = 0F,
 
     @ColumnInfo
-    val parentRecordId: String = ""
+    var orderId: String = "",
+
+    @ColumnInfo
+    var value: Float = 0F
 ):Parcelable

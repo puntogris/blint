@@ -9,12 +9,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.CreateRecordItemVhBinding
-import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.OrderItem
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.model.Record
 
-class RecordItemViewHolder private constructor(val binding: CreateRecordItemVhBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root){
+class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(productWithRecord: ProductWithRecord, clickListener: (ProductWithRecord)-> Unit, amountListener: () -> Unit) {
         binding.item = productWithRecord
@@ -36,11 +35,13 @@ class RecordItemViewHolder private constructor(val binding: CreateRecordItemVhBi
             amountListener.invoke()
         }
 
+
+
         binding.recordPriceText.addTextChangedListener {
             if (it.toString().isNotEmpty()){
-                productWithRecord.record.productUnitPrice = it.toString().toInt()
+                productWithRecord.record.productUnitPrice = it.toString().toFloat()
             }else{
-                productWithRecord.record.productUnitPrice = 0
+                productWithRecord.record.productUnitPrice = 0F
             }
             updateTotalProductValue(productWithRecord.record)
             amountListener.invoke()
@@ -53,10 +54,10 @@ class RecordItemViewHolder private constructor(val binding: CreateRecordItemVhBi
     }
 
     companion object{
-        fun from(parent: ViewGroup, context: Context) :RecordItemViewHolder {
+        fun from(parent: ViewGroup, context: Context) :OrderItemViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = CreateRecordItemVhBinding.inflate(layoutInflater,parent, false)
-            return RecordItemViewHolder(binding, context)
+            return OrderItemViewHolder(binding, context)
         }
     }
 }

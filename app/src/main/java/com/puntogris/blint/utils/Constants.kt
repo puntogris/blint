@@ -8,7 +8,8 @@ object Constants {
     const val ACCOUNTING_CARD_CODE = 104
     const val RECORDS_CARD_CODE = 105
     const val CHARTS_CARD_CODE = 106
-    const val OPERATIONS_CARD_CODE = 107
+    const val TOOLS_CARD_CODE = 107
+    const val DEB_CARD_CODE = 108
 
     const val WEB_CLIENT_ID = "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
     const val FIX_GOOGLE_PLAY_SERVICES_URL = "https://support.google.com/googleplay/answer/9037938"
@@ -55,4 +56,8 @@ object Constants {
     const val NOTIFICATIONS_SUB_COLLECTION = "notifications"
     const val SENT_EMPLOYEE_REQUEST_SUB_COLLECTION = "sent_employee_requests"
     const val RECEIVED_EMPLOYEE_REQUEST_SUB_COLLECTION = "received_employee_requests"
+
+    //Debt Type
+    const val CLIENT_DEBT = 0
+    const val SUPPLIER_DEBT = 1
 }

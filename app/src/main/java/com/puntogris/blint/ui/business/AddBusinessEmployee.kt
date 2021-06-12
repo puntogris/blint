@@ -4,19 +4,21 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
-import androidmads.library.qrgenearator.QRGContents
-import androidmads.library.qrgenearator.QRGEncoder
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAddBusinessEmployeeBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -47,16 +49,21 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
         }
     }
 
-    private fun generateQRImage(code: String){
-        val qrgEncoder = QRGEncoder(code, null, QRGContents.Type.TEXT, 300)
-        qrgEncoder.colorBlack = Color.WHITE
-        qrgEncoder.colorWhite = ContextCompat.getColor(requireContext(), R.color.nightBackground)
-        try {
-            val bitmap = qrgEncoder.bitmap
-            binding.qrCodeImage.setImageBitmap(bitmap)
-        } catch (e: WriterException) {
 
+    private fun generateQRImage(code: String){
+
+        val writer = QRCodeWriter()
+        val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, 512, 512)
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+            }
         }
+        binding.qrCodeImage.setImageBitmap(bitmap)
+
     }
 
     fun onCopyCodeClicked(){

@@ -45,6 +45,9 @@ interface ProductsDao {
     @Query("UPDATE product SET amount = :amount WHERE productId = :id")
     suspend fun updateProductAmount(id: Int, amount: Int)
 
+    @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
+    suspend fun updateProductAmountWithType(id: Int, amount: Int, type: String)
+
     @Query("UPDATE product SET image = :empty")
     suspend fun clearImages(empty: HashMap<String, String>)
 
@@ -54,7 +57,6 @@ interface ProductsDao {
 
     @Insert
     suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
-
 
     @Insert
     suspend fun insertProductCategoriesCrossRef(items: List<ProductCategoryCrossRef>)

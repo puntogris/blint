@@ -9,7 +9,7 @@
             type="com.puntogris.blint.ui.record.CreateRecordFragment" />
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.record.RecordsViewModel" />
+            type="com.puntogris.blint.ui.record.NewOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="$1230"
+            android:text="$0"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView154"
             app:layout_constraintEnd_toEndOf="parent"

@@ -28,7 +28,8 @@ import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.OPERATIONS_CARD_CODE
+import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
+import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import java.util.*
 import kotlin.collections.HashMap
@@ -61,7 +62,8 @@ fun ImageView.setMenuCardIcon(menuCard: MenuCard){
         ACCOUNTING_CARD_CODE -> R.drawable.ic_calendar
         RECORDS_CARD_CODE -> R.drawable.ic_report
         CHARTS_CARD_CODE -> R.drawable.ic_analytics
-        OPERATIONS_CARD_CODE -> R.drawable.ic_baseline_grain_24
+        TOOLS_CARD_CODE -> R.drawable.ic_customer_support
+        DEB_CARD_CODE -> R.drawable.ic_loan
         else -> R.drawable.ic_baseline_add_24
     }.also {
         setImageDrawable(ContextCompat.getDrawable(context, it))
@@ -213,4 +215,22 @@ fun TextView.setEmploymentRequestReceivedMessage(request: EmploymentRequestRecei
 @BindingAdapter("timerFromSeconds")
 fun TextView.setTimerFromSeconds(seconds:Int){
     text = "${seconds / 60}m. ${seconds % 60}s."
+}
+
+
+@BindingAdapter("orderNumberTitle")
+fun TextView.setOrderNumberTitle(order: Int){
+    text = "Orden $order"
+}
+
+@BindingAdapter("debtColor")
+fun TextView.setDebtColor(amount: Float){
+    if (amount >= 0){
+        text = "+$amount $"
+        setTextColor(ContextCompat.getColor(context, R.color.card6))
+    }else{
+        text = "$amount $"
+        setTextColor(ContextCompat.getColor(context, R.color.card1))
+    }
+
 }

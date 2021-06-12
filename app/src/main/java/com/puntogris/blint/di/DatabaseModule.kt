@@ -6,11 +6,11 @@ import com.puntogris.blint.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {
 
@@ -24,7 +24,7 @@ class DatabaseModule {
     fun providesProductsDao(appDatabase: AppDatabase) = appDatabase.productsDao()
 
     @Provides
-    fun providesRecordsDao(appDatabase: AppDatabase) = appDatabase.recordsDao()
+    fun providesOrdersDao(appDatabase: AppDatabase) = appDatabase.ordersDao()
 
     @Provides
     fun providesSuppliersDao(appDatabase: AppDatabase) = appDatabase.suppliersDao()
@@ -40,6 +40,9 @@ class DatabaseModule {
 
     @Provides
     fun providesCategoriesDao(appDatabase: AppDatabase) = appDatabase.categoriesDao()
+
+    @Provides
+    fun provideDebtsDao(appDatabase: AppDatabase) = appDatabase.debtDao()
 
     @Provides
     @Singleton

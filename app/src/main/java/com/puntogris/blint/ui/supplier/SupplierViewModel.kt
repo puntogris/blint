@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.local.dao.UsersDao
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class SupplierViewModel @ViewModelInject constructor(
     private val suppliersDao: SuppliersDao,
-    private val recordsDao: RecordsDao,
+    private val ordersDao: OrdersDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao
 ):ViewModel() {
@@ -87,7 +87,7 @@ class SupplierViewModel @ViewModelInject constructor(
                 maxSize = 200
             )
         ){
-            recordsDao.getSupplierRecords(supplierID)
+            ordersDao.getSupplierRecords(supplierID)
         }.flow
     }
 

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="order"
+            type="com.puntogris.blint.model.Order" />
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.record.OrderFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.record.OrderFragment">
+
+        <TextView
+            android:id="@+id/textView75"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Fecha del movimiento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView80" />
+
+
+        <TextView
+            android:id="@+id/textView76"
+            style="@style/Theme.Blint.DataTextView"
+            dateFromTimestampWithTime="@{order.timestamp}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="@+id/textView75"
+            app:layout_constraintTop_toBottomOf="@+id/textView75" />
+
+        <TextView
+            android:id="@+id/textView77"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Autor"
+            app:layout_constraintStart_toStartOf="@+id/textView76"
+            app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+        <TextView
+            android:id="@+id/textView78"
+            style="@style/Theme.Blint.DataTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@{order.author}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView77"
+            app:layout_constraintTop_toBottomOf="@+id/textView77"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView79"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="Tipo"
+            app:layout_constraintEnd_toStartOf="@+id/textView82"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView80"
+            style="@style/Theme.Blint.DataTextView"
+            recordTypeString="@{order.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/textView79"
+            app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+        <TextView
+            android:id="@+id/textView82"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="Valor"
+            app:layout_constraintBottom_toBottomOf="@+id/textView79"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView79"
+            app:layout_constraintTop_toTopOf="@+id/textView79" />
+
+        <TextView
+            android:id="@+id/textView83"
+            style="@style/Theme.Blint.DataTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(order.value)}"
+            app:layout_constraintStart_toStartOf="@+id/textView82"
+            app:layout_constraintTop_toBottomOf="@+id/textView82" />
+
+        <TextView
+            android:id="@+id/externalNameTitle"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            clientOrSupplierTitleWithRecordType="@{order.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/textView78"
+            app:layout_constraintTop_toBottomOf="@+id/textView78" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/externalNameTitle"
+            app:layout_constraintTop_toBottomOf="@+id/externalNameTitle">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                externalChipName="@{order.traderName}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->fragment.onExternalChipClicked()}" />
+        </com.google.android.material.chip.ChipGroup>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/button24"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="@color/primaryColor"
+            android:text="generar factura"
+            android:textColor="@color/almostBlack"
+            android:onClick="@{()->fragment.onGenerateOrderReceiptClicked()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

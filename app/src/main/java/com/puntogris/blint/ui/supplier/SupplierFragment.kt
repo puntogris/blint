@@ -21,6 +21,8 @@ import com.puntogris.blint.ui.client.ClientFragmentDirections
 import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
+import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,6 +77,11 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                 }.show(parentFragmentManager, "")
                 true
             }
+            R.id.debtStatus -> {
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplierID.toString())
+                findNavController().navigate(action)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -93,5 +100,6 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.moreOptions).isVisible = true
+        menu.findItem(R.id.debtStatus).isVisible = true
     }
 }

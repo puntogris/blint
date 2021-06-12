@@ -3,7 +3,6 @@ package com.puntogris.blint.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.Business
 
 @Dao
 interface EmployeeDao {

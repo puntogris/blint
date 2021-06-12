@@ -31,6 +31,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private val viewModel: MainViewModel by viewModels()
+
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
@@ -41,7 +43,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     @Inject
     lateinit var sharedPref: SharedPref
-    private val viewModel: MainViewModel by viewModels()
 
     override fun preInitViews() {
         setTheme(R.style.Theme_Blint)
@@ -196,7 +197,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             destination.id == R.id.termsConditionsFragment ||
             destination.id == R.id.privacyPolicyFragment ||
             destination.id == R.id.createBackupFragment ||
-            destination.id == R.id.restoreBackupFragment
+            destination.id == R.id.restoreBackupFragment ||
+            destination.id == R.id.addProductRecordBottomSheet ||
+                    destination.id == R.id.addOrderClientSupplierBottomSheet ||
+                    destination.id == R.id.addProductRecordBottomSheet
         ) {
             binding.bottomAppBar.performHide()
             binding.addFav.hide()
@@ -241,7 +245,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.isClickable = false
             binding.addFav.hide()
         }
-        else if(destination.id == R.id.createRecordFragment){
+        else if(destination.id == R.id.createRecordFragment ||
+                destination.id == R.id.orderTypeFragment ||
+                destination.id == R.id.reviewRecordFragment ||
+                destination.id == R.id.publishOrderFragment){
             binding.addFav.show()
             binding.bottomAppBar.performHide()
         }
@@ -251,8 +258,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.show()
             binding.bottomAppBar.performShow()
         }
-        binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+        if (destination.id == R.id.createRecordFragment ||
+            destination.id == R.id.orderTypeFragment ||
+            destination.id == R.id.reviewRecordFragment ||
+            destination.id == R.id.createRecordFragment||
+            destination.id == R.id.publishOrderFragment ||
+            destination.id == R.id.addProductRecordBottomSheet ||
+            destination.id == R.id.addOrderClientSupplierBottomSheet){
+            //rehacer
+        }else{
+            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+        }
         bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.addFav, binding.addFav.isVisible))
+
 
     }
 

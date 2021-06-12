@@ -41,7 +41,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
         binding.sendSuggestion.setOnClickListener {
             InputSheet().show(requireParentFragment().requireContext()) {
                 title("Problemas y consejos")
-                content("Reporta un problema o envianos tus consejos.")
+                //content("Reporta un problema o envianos tus consejos.")
                 with(InputEditText {
                     required()
                     label("Que nos queres contar?")

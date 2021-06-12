@@ -6,8 +6,6 @@ import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.ajts.androidmads.library.SQLiteToExcel
-import com.ajts.androidmads.library.SQLiteToExcel.ExportListener
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import com.puntogris.blint.model.ClientRecordExcel
@@ -22,10 +20,7 @@ import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -95,29 +90,29 @@ class GenerateReportFragment :
                     viewModel.getSuppliersRecords(args.timeCode, args.startTime, args.endTime)
 
                 records.forEach {
-                    if (it.externalID != lastSupplierId) {
+                    if (it.traderId != lastSupplierId) {
                         recordExcel.add(
                             SupplierRecordExcel(
                                 it.productName,
-                                it.externalName,
+                                it.traderName,
                                 it.amount,
-                                it.productID,
-                                it.externalID
+                                it.productId,
+                                it.traderId
                             )
                         )
                     } else {
-                        if (recordExcel.last().productId == it.productID) recordExcel.last().amount += it.amount
+                        if (recordExcel.last().productId == it.productId) recordExcel.last().amount += it.amount
                         else recordExcel.add(
                             SupplierRecordExcel(
                                 it.productName,
-                                it.externalName,
+                                it.traderName,
                                 it.amount,
-                                it.productID,
-                                it.externalID
+                                it.productId,
+                                it.traderId
                             )
                         )
                     }
-                    lastSupplierId = it.externalID
+                    lastSupplierId = it.traderId
                 }
 
                 recordExcel.sortBy { it.supplierName }
@@ -165,29 +160,29 @@ class GenerateReportFragment :
                 val records = viewModel.getClientRecords(args.timeCode, args.startTime, args.endTime)
 
                 records.forEach {
-                    if (it.externalID != lastClientId) {
+                    if (it.traderId != lastClientId) {
                         recordExcel.add(
                             ClientRecordExcel(
                                 it.productName,
-                                it.externalName,
+                                it.traderName,
                                 it.amount,
-                                it.productID,
-                                it.externalID
+                                it.productId,
+                                it.traderId
                             )
                         )
                     } else {
-                        if (recordExcel.last().productId == it.productID) recordExcel.last().amount += it.amount
+                        if (recordExcel.last().productId == it.productId) recordExcel.last().amount += it.amount
                         else recordExcel.add(
                             ClientRecordExcel(
                                 it.productName,
-                                it.externalName,
+                                it.traderName,
                                 it.amount,
-                                it.productID,
-                                it.externalID
+                                it.productId,
+                                it.traderId
                             )
                         )
                     }
-                    lastClientId = it.externalID
+                    lastClientId = it.traderId
                 }
 
                 recordExcel.sortBy { it.clientName }
@@ -236,7 +231,7 @@ class GenerateReportFragment :
                 val records = viewModel.getProductRecords(args.timeCode, args.startTime, args.endTime)
 
                 records.forEach {
-                    if (it.productID != lastProductId) {
+                    if (it.productId != lastProductId) {
                         if (it.type == "IN") recordExcel.add(
                             ProductRecordExcel(
                                 it.productName,
@@ -249,7 +244,7 @@ class GenerateReportFragment :
                         if (it.type == "IN") recordExcel.last().inAmount += it.amount
                         else recordExcel.last().outAmount += it.amount
                     }
-                    lastProductId = it.productID
+                    lastProductId = it.productId
                 }
 
                 recordExcel.sortBy { it.name }
@@ -320,81 +315,81 @@ class GenerateReportFragment :
 
     private fun exportSupplierList(downloadFileUri: Uri) {
 
-        val sqliteToExcel = SQLiteToExcel(
-            requireContext(),
-            "blint_database",
-            requireContext().filesDir.path
-        )
-        val prettyNameMapping = hashMapOf<String, String>()
-        sqliteToExcel.setExcludeColumns(listOf("supplierId", "businessId"))
-        sqliteToExcel.exportSingleTable(
-            "Supplier", "supplier.xls", exportTableListener(
-                downloadFileUri
-            )
-        )
+//        val sqliteToExcel = SQLiteToExcel(
+//            requireContext(),
+//            "blint_database",
+//            requireContext().filesDir.path
+//        )
+//        val prettyNameMapping = hashMapOf<String, String>()
+//        sqliteToExcel.setExcludeColumns(listOf("supplierId", "businessId"))
+//        sqliteToExcel.exportSingleTable(
+//            "Supplier", "supplier.xls", exportTableListener(
+//                downloadFileUri
+//            )
+//        )
     }
 
     private fun exportClientList(downloadFileUri: Uri) {
-        val sqliteToExcel = SQLiteToExcel(
-            requireContext(),
-            "blint_database",
-            requireContext().filesDir.path
-        )
-        val prettyNameMapping = hashMapOf<String, String>()
-        sqliteToExcel.setExcludeColumns(listOf("clientId", "businessId"))
-        sqliteToExcel.exportSingleTable(
-            "Client",
-            "clients.xls",
-            exportTableListener(downloadFileUri)
-        )
+//        val sqliteToExcel = SQLiteToExcel(
+//            requireContext(),
+//            "blint_database",
+//            requireContext().filesDir.path
+//        )
+//        val prettyNameMapping = hashMapOf<String, String>()
+//        sqliteToExcel.setExcludeColumns(listOf("clientId", "businessId"))
+//        sqliteToExcel.exportSingleTable(
+//            "Client",
+//            "clients.xls",
+//            exportTableListener(downloadFileUri)
+//        )
     }
 
 
     private fun exportProductList(downloadFileUri: Uri) {
-        val sqliteToExcel = SQLiteToExcel(
-            requireContext(),
-            "blint_database",
-            requireContext().filesDir.path
-        )
-        val prettyNameMapping = hashMapOf<String, String>()
-        val columnsToExclude = listOf(
-            "productId",
-            "image",
-            "lastRecordTimestamp",
-            "suppliers",
-            "businessId",
-            "totalInStock",
-            "totalOutStock"
-        )
-        sqliteToExcel.setExcludeColumns(columnsToExclude)
-        sqliteToExcel.exportSingleTable(
-            "Product", "/productos.xls", exportTableListener(
-                downloadFileUri
-            )
-        )
+//        val sqliteToExcel = SQLiteToExcel(
+//            requireContext(),
+//            "blint_database",
+//            requireContext().filesDir.path
+//        )
+//        val prettyNameMapping = hashMapOf<String, String>()
+//        val columnsToExclude = listOf(
+//            "productId",
+//            "image",
+//            "lastRecordTimestamp",
+//            "suppliers",
+//            "businessId",
+//            "totalInStock",
+//            "totalOutStock"
+//        )
+//        sqliteToExcel.setExcludeColumns(columnsToExclude)
+//        sqliteToExcel.exportSingleTable(
+//            "Product", "/productos.xls", exportTableListener(
+//                downloadFileUri
+//            )
+//        )
     }
 
-    private fun exportTableListener(downloadFileUri: Uri): ExportListener {
-        return object : ExportListener {
-            override fun onStart() {}
-            override fun onCompleted(filePath: String) {
-                try {
-                    requireActivity().contentResolver.openInputStream(Uri.fromFile(File(filePath)))
-                        ?.use { inputStream ->
-                            requireActivity().contentResolver.openOutputStream(downloadFileUri)?.let {
-                                inputStream.copyTo(it)
-                                it.close()
-                            }
-                        }
-                    viewModel.updateExportState(ExportResult.Success)
-                }catch (e:Exception){
-                    viewModel.updateExportState(ExportResult.Error(e))
-                }
-            }
-            override fun onError(e: Exception) {
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
-        }
-    }
+   // private fun exportTableListener(downloadFileUri: Uri): ExportListener {
+//        return object : ExportListener {
+//            override fun onStart() {}
+//            override fun onCompleted(filePath: String) {
+//                try {
+//                    requireActivity().contentResolver.openInputStream(Uri.fromFile(File(filePath)))
+//                        ?.use { inputStream ->
+//                            requireActivity().contentResolver.openOutputStream(downloadFileUri)?.let {
+//                                inputStream.copyTo(it)
+//                                it.close()
+//                            }
+//                        }
+//                    viewModel.updateExportState(ExportResult.Success)
+//                }catch (e:Exception){
+//                    viewModel.updateExportState(ExportResult.Error(e))
+//                }
+//            }
+//            override fun onError(e: Exception) {
+//                viewModel.updateExportState(ExportResult.Error(e))
+//            }
+//        }
+ //   }
 
 }

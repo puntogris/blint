@@ -2,10 +2,12 @@ package com.puntogris.blint.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrdersTableItem
 import com.puntogris.blint.model.Record
 
 @Dao
-interface RecordsDao {
+interface OrdersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(record: Record)
@@ -18,10 +20,10 @@ interface RecordsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
-    fun getAllPaged(): PagingSource<Int, Record>
+    fun getAllRecordsPaged(): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record WHERE :productID = productID ORDER BY timestamp DESC")
+    @Query("SELECT * FROM record WHERE :productID = productId ORDER BY timestamp DESC")
     fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
@@ -29,10 +31,21 @@ interface RecordsDao {
     fun getPagedSearch(productName: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND externalID = :externalID AND type = 'IN'")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'IN'")
     fun getSupplierRecords(externalID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND externalID = :externalID AND type = 'OUT'")
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'OUT'")
     fun getClientsRecords(externalID: Int): PagingSource<Int, Record>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(order: Order):Long
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
+    fun getAllOrdersPaged(): PagingSource<Int, Order>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN roomuser on businessId = currentBusinessId WHERE userId = '1' AND orderId = :orderId")
+    suspend fun getAllOrderRecords(orderId:Int): List<OrdersTableItem>
 }

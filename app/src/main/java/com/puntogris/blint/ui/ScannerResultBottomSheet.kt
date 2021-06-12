@@ -173,7 +173,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
 
     fun onCreateNewProductClicked(){
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getBarcodeScanned())
+        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getCodeScanned())
         findNavController().navigate(action)
     }
 

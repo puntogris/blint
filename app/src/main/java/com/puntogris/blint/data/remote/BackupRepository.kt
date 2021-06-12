@@ -48,7 +48,6 @@ class BackupRepository @Inject constructor(
         }
     }
 
-
     override suspend fun restoreBackupForBusiness(businessID: String, path: String): SimpleResult  {
         return try {
             appDatabase.close()

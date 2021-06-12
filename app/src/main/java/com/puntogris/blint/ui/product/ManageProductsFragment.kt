@@ -7,18 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {

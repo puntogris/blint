@@ -9,19 +9,22 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.dao.ClientsDao
-import com.puntogris.blint.data.local.dao.RecordsDao
+import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ClientViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ClientViewModel @Inject constructor(
     private val clientsDao: ClientsDao,
-    private val recordsDao: RecordsDao,
+    private val ordersDao: OrdersDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao
 ) : ViewModel() {
@@ -88,7 +91,7 @@ class ClientViewModel @ViewModelInject constructor(
                 maxSize = 200
             )
         ){
-            recordsDao.getClientsRecords(clientID)
+            ordersDao.getClientsRecords(clientID)
         }.flow
     }
 
