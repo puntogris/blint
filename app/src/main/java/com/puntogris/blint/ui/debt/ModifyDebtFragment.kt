@@ -26,7 +26,6 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     private val args: ModifyDebtFragmentArgs by navArgs()
 
     override fun initializeViews() {
-
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener { onSaveDebtClicked() }

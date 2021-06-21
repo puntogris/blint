@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.login
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
@@ -12,11 +11,15 @@ import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.model.Statistic
+import com.puntogris.blint.utils.RegistrationData
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val employeeDao: EmployeeDao,
     private val usersDao: UsersDao,
@@ -32,7 +35,7 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
-    suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser): SimpleResult {
+    suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser): RegistrationData {
         val user = FirestoreUser(
             firebaseUser.uid,
             firebaseUser.displayName.toString(),

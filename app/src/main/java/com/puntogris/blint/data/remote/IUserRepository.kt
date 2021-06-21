@@ -13,7 +13,7 @@ interface IUserRepository {
     fun checkIfUserIsLogged():Boolean
     fun singOutCurrentUser()
     fun logInUserWithCredentialToken(credentialToken: String):StateFlow<AuthResult>
-    suspend fun checkUserDataInFirestore(user: FirestoreUser): SimpleResult
+    suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData
     suspend fun sendReportToFirestore(message: String): SimpleResult
     fun getEmployeeBusiness(): StateFlow<UserBusiness>
     fun getCurrentUID() :String

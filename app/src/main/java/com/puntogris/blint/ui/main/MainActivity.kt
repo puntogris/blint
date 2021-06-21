@@ -235,7 +235,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 destination.id == R.id.reportsFragment ||
                 destination.id == R.id.businessFragment ||
                 destination.id == R.id.manageCategoriesFragment ||
-                destination.id == R.id.preferencesFragment ){
+                destination.id == R.id.preferencesFragment  ||
+                destination.id == R.id.manageDebtFragment ){
             setupToolbarAndStatusBar()
             binding.addFav.isClickable = false
             binding.bottomAppBar.visible()

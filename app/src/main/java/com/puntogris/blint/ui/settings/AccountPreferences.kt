@@ -22,7 +22,7 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
             true
         }
         findPreference<Preference>("user_business_pref")?.setOnPreferenceClickListener {
-
+            findNavController().navigate(R.id.manageBusinessFragment)
             true
         }
         findPreference<Preference>("payments_pref")?.setOnPreferenceClickListener {

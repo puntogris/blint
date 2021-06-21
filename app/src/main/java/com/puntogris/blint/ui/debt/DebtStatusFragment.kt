@@ -1,21 +1,13 @@
 package com.puntogris.blint.ui.debt
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDebtStatusBinding
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.createLongSnackBar
@@ -32,9 +24,11 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
+
         getParentFab().setOnClickListener {
             onModifyDebtButtonClicked()
         }
+        
         lifecycleScope.launch {
             if (args.debtType == CLIENT_DEBT){
                 val client = viewModel.getClientFromDb(args.id.toInt())
@@ -47,8 +41,6 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
             }
             val debts = viewModel.getLastDebts(args.id.toInt())
             setUpDebtsRecyclerView(debts)
-
-
         }
     }
 

@@ -63,14 +63,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun onSuccessLogIn(result: AuthResult.Success){
         lifecycleScope.launch {
-            when(viewModel.lookUpUserBusinessData(result.user)){
-                SimpleResult.Success -> {
+            when(val data = viewModel.lookUpUserBusinessData(result.user)){
+                is RegistrationData.Complete -> {
                     binding.logInProgressBar.gone()
-                    findNavController().navigate(R.id.action_loginFragment_to_welcomeFragment)
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(false, data.username, data.userCountry)
+                    findNavController().navigate(action)
                 }
-                SimpleResult.Failure -> {
+                RegistrationData.Error -> {
                     binding.logInProgressBar.gone()
                     showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
+                }
+                RegistrationData.Incomplete -> {
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(true)
+                    findNavController().navigate(action)
+                }
+                RegistrationData.NotFound -> {
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(true)
+                    findNavController().navigate(action)
                 }
             }
         }

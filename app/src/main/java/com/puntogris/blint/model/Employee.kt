@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.google.firebase.encoders.annotations.Encodable
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
@@ -45,5 +46,11 @@ data class Employee(
         val businessCreatedAt: Timestamp = Timestamp.now(),
 
         @ColumnInfo
-        val email:String = ""
+        val email:String = "",
+
+        @ColumnInfo
+        @get:Exclude val clientsDebt: Float = 0F,
+
+        @ColumnInfo
+        @get:Exclude val suppliersDebt: Float = 0F
 ):Parcelable

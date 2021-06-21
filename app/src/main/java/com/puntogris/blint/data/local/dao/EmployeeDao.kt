@@ -2,6 +2,7 @@ package com.puntogris.blint.data.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.puntogris.blint.model.BusinessItem
 import com.puntogris.blint.model.Employee
 
 @Dao

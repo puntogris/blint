@@ -26,6 +26,7 @@ import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
@@ -35,10 +36,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBottomNavDrawerBinding
+import com.puntogris.blint.model.BusinessItem
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.math.abs
 
@@ -231,17 +234,28 @@ class BottomNavDrawerFragment :
 
             val accountAdapter = AccountAdapter(this@BottomNavDrawerFragment)
             accountRecyclerView.adapter = accountAdapter
-            viewModel.getEmployeeBusiness().observe(viewLifecycleOwner, {
-                var accs = it.map { asd->
-                    Account(2,3L,asd.businessName,"","","",R.drawable.ic_baseline_storefront_24, true)
+
+                viewModel.getCurrentBusiness().observe(viewLifecycleOwner){
+                    lifecycleScope.launch {
+
+                        val dataForAdapter = viewModel.getBusinessList().map { employee ->
+                            val tempBusiness = BusinessItem(
+                                employee.businessId,
+                                employee.businessName,
+                                employee.businessType,
+                                R.drawable.ic_baseline_storefront_24, false)
+
+                            if(tempBusiness.businessId == it.currentBusinessId){
+                                tempBusiness.isCurrentAccount = true
+                                binding.currentUserAccount = tempBusiness
+                            }
+                            tempBusiness
+                        }
+                        accountAdapter.submitList(dataForAdapter)
+                    }
                 }
-                if (accs.isEmpty()) {
-                        accs = listOf(Account(2,3L,"businessName","","","",R.drawable.ic_baseline_storefront_24, true))
-                }
-                accountAdapter.submitList(accs)
-                currentUserAccount = accs.first { acc -> acc.isCurrentAccount }
-            })
-        }
+            }
+
     }
 
     fun toggle() {
@@ -288,8 +302,10 @@ class BottomNavDrawerFragment :
         navigationListeners.forEach { it.onNavMenuItemClicked(item) }
     }
 
-    override fun onAccountClicked(account: Account) {
-        AccountStore.setCurrentUserAccount(account.id)
+    override fun onAccountClicked(employee: BusinessItem) {
+        lifecycleScope.launch {
+            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType)
+        }
         toggleSandwich()
     }
 

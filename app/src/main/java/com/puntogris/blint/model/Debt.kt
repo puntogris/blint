@@ -33,5 +33,8 @@ data class Debt(
     var author: String = "",
 
     @ColumnInfo
-    var businessId: String = ""
+    var businessId: String = "",
+
+    @ColumnInfo
+    var type: String = ""
 ):Parcelable

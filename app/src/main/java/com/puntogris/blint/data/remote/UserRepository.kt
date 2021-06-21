@@ -203,16 +203,25 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
                 }
     }
 
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
         try {
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+            val username = document.get("name").toString()
+            val country = document.get("country").toString()
+            //new user
             if (!document.exists()){
                 firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
+                RegistrationData.NotFound
+            }//user created but no name or country data, uncompleted registration
+            else if (username.isBlank() || country.isBlank()){
+                    RegistrationData.Incomplete
+            }else{
+                //user fully registered
+                RegistrationData.Complete(username, country)
             }
-            SimpleResult.Success
         }
         catch (e:Exception){
-            SimpleResult.Failure
+            RegistrationData.Error
         }
     }
 

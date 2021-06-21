@@ -332,6 +332,24 @@
         android:id="@+id/welcomeFragment"
         android:name="com.puntogris.blint.ui.login.WelcomeFragment"
         android:label="" >
+        <argument
+            android:name="showIntro"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_firstSyncFragment"
+            app:destination="@id/firstSyncFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_introFragment"
+            app:destination="@id/introFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="userCountry"
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -512,7 +530,14 @@
     <fragment
         android:id="@+id/manageDebtFragment"
         android:name="com.puntogris.blint.ui.debt.ManageDebtFragment"
-        android:label="Deudas" />
+        android:label="Deudas" >
+        <action
+            android:id="@+id/action_manageDebtFragment_to_showDebtsFragment"
+            app:destination="@id/showDebtsFragment" />
+        <action
+            android:id="@+id/action_manageDebtFragment_to_selectTraderForDebt"
+            app:destination="@id/selectTraderForDebt" />
+    </fragment>
     <fragment
         android:id="@+id/debtStatusFragment"
         android:name="com.puntogris.blint.ui.debt.DebtStatusFragment"
@@ -535,6 +560,25 @@
         <argument
             android:name="debt"
             app:argType="com.puntogris.blint.model.Debt" />
+        <argument
+            android:name="debtType"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/showDebtsFragment"
+        android:name="com.puntogris.blint.ui.debt.ShowDebtsFragment"
+        android:label="Deudas" >
+        <argument
+            android:name="debtType"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectTraderForDebt"
+        android:name="com.puntogris.blint.ui.debt.SelectTraderForDebt"
+        android:label="SelectTraderForDebt" >
+        <action
+            android:id="@+id/action_selectTraderForDebt_to_modifyDebtFragment"
+            app:destination="@id/modifyDebtFragment" />
         <argument
             android:name="debtType"
             app:argType="integer" />

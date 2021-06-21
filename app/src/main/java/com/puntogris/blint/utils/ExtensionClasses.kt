@@ -93,3 +93,10 @@ sealed class JoinBusiness{
     object CodeInvalid: JoinBusiness()
     object AlreadyJoined: JoinBusiness()
 }
+
+sealed class RegistrationData(){
+    object NotFound: RegistrationData()
+    class Complete(val username:String, val userCountry: String): RegistrationData()
+    object Incomplete: RegistrationData()
+    object Error: RegistrationData()
+}

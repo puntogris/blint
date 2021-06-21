@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -51,19 +52,28 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
 
 
     private fun generateQRImage(code: String){
-
         val writer = QRCodeWriter()
-        val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, 700, 700)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+
+        val darkThemeOn = isDarkThemeOn()
+        val background = getQrCodeWithTheme(darkThemeOn)
+        val qrCode = getQrCodeWithTheme(!darkThemeOn)
+
         for (x in 0 until width) {
             for (y in 0 until height) {
-                bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+                bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) qrCode else background)
             }
         }
-        binding.qrCodeImage.setImageBitmap(bitmap)
 
+        binding.qrCodeImage.setImageBitmap(bitmap)
+    }
+
+    private fun getQrCodeWithTheme(darkThemeOn: Boolean): Int{
+        return if (darkThemeOn) ContextCompat.getColor(requireContext(), R.color.nightBackground)
+        else ContextCompat.getColor(requireContext(), R.color.grey_5)
     }
 
     fun onCopyCodeClicked(){

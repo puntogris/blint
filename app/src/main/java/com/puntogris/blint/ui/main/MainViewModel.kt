@@ -37,4 +37,10 @@ class MainViewModel @Inject constructor(
     fun getLastEvents() = eventsDao.getLastThreeEvents()
 
     fun getEmployeeBusiness() = employeeDao.getEmployeesListLiveData()
+
+    fun getCurrentBusiness() = usersDao.getUserLiveData()
+
+    suspend fun getBusinessList() = employeeDao.getEmployeesList()
+
+    suspend fun updateCurrentBusiness(id:String, name:String, type:String) = usersDao.updateCurrentBusiness(id, name, type)
 }

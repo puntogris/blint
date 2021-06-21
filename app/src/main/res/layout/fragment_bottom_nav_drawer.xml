@@ -19,7 +19,7 @@
     <data>
         <variable
             name="currentUserAccount"
-            type="com.puntogris.blint.ui.nav.Account" />
+            type="com.puntogris.blint.model.BusinessItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
