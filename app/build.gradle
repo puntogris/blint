@@ -60,7 +60,7 @@ ext {
     lottieVersion = "3.5.0"
     oneTapLogin_version = "19.0.0"
     billing_version = "4.0.0"
-
+    barcode_scanner = "16.1.2"
 }
 
 dependencies {
@@ -85,15 +85,15 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
 
     //Mlk kit barcode
-    implementation 'com.google.mlkit:barcode-scanning:16.1.1'
+    implementation "com.google.mlkit:barcode-scanning:$barcode_scanner"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // CameraX
-    implementation "androidx.camera:camera-camera2:${camerax_version}"
-    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.camera:camera-view:1.0.0-alpha20"
 //    // If you want to additionally use the CameraX Extensions library
 //    implementation "androidx.camera:camera-extensions:1.0.0-alpha20"

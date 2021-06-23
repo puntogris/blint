@@ -43,7 +43,6 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
             }
         }
 
-
     }
 
     fun showClientsDebts(){

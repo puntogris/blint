@@ -20,9 +20,11 @@ import kotlinx.coroutines.launch
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
 
     private val viewModel: ProductViewModel by viewModels()
-
+    private lateinit var manageProductsAdapter : ManageProductsAdapter
     override fun initializeViews() {
-        val manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
+        binding.fragment = this
+
+        manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -33,20 +35,39 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         }
 
         binding.productSearchText.addTextChangedListener {
-            lifecycleScope.launch {
-                viewModel.getProductWithName(it.toString()).collect {
-                    manageProductsAdapter.submitData(it)
-                }
-            }
+            searchProductAndFillAdapter(it.toString())
         }
 
         getParentFab().setOnClickListener {
             findNavController().navigate(R.id.editProductFragment)
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
+            viewLifecycleOwner) {
+            it?.let { code ->
+                binding.productSearchText.setText(code)
+                searchProductAndFillAdapter(code)
+            }
+
+
+        }
+    }
+
+    private fun searchProductAndFillAdapter(text: String){
+        lifecycleScope.launch {
+            viewModel.getProductWithName(text).collect { data ->
+                manageProductsAdapter.submitData(data)
+            }
+        }
     }
 
     private fun onProductClickListener(product: Product){
         val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product.productId)
+        findNavController().navigate(action)
+    }
+
+    fun onSearchCodeClicked(){
+        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(1)
         findNavController().navigate(action)
     }
 
