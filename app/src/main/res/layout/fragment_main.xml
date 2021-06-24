@@ -29,16 +29,14 @@
             android:visibility="visible"
             android:layout_height="match_parent"/>
 
-
         <ImageView
             android:id="@+id/imageView11"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/top_background_round_corners" />
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
@@ -54,130 +52,95 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:id="@+id/divider3"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
-                    android:background="?android:attr/listDivider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView109" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView108"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@{String.valueOf(viewModel.productsCount)}"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/textView109"
-                    app:layout_constraintStart_toStartOf="@+id/textView109"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/textView108"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@{String.valueOf(viewModel.productsCount)}"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/textView109"
+                        app:layout_constraintStart_toStartOf="@+id/textView109"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView109"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_medium"
-                    android:text="Productos"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView113"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView108" />
+                    <TextView
+                        android:id="@+id/textView109"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Productos"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView113"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView108"
+                        app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:id="@+id/textView110"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@{String.valueOf(viewModel.clientsCount)}"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/textView111"
-                    app:layout_constraintStart_toStartOf="@+id/textView111"
-                    app:layout_constraintTop_toBottomOf="@+id/divider3" />
+                    <TextView
+                        android:id="@+id/textView110"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@{String.valueOf(viewModel.clientsCount)}"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView112"
+                        app:layout_constraintEnd_toEndOf="@+id/textView111"
+                        app:layout_constraintStart_toStartOf="@+id/textView111"
+                        app:layout_constraintTop_toTopOf="@+id/textView112" />
 
-                <TextView
-                    android:id="@+id/textView111"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:fontFamily="@font/avenir_medium"
-                    android:text="Clientes"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView115"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView110" />
+                    <TextView
+                        android:id="@+id/textView111"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Clientes"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView113"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView113"
+                        app:layout_constraintTop_toTopOf="@+id/textView113" />
 
-                <TextView
-                    android:id="@+id/textView112"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@{String.valueOf(viewModel.suppliersCount)}"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView113"
-                    app:layout_constraintEnd_toEndOf="@+id/textView113"
-                    app:layout_constraintStart_toStartOf="@+id/textView113" />
+                    <TextView
+                        android:id="@+id/textView112"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@{String.valueOf(viewModel.suppliersCount)}"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView108"
+                        app:layout_constraintEnd_toEndOf="@+id/textView113"
+                        app:layout_constraintStart_toStartOf="@+id/textView113"
+                        app:layout_constraintTop_toTopOf="@+id/textView108" />
 
-                <TextView
-                    android:id="@+id/textView113"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_medium"
-                    android:text="Distribuidores"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView109"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView109"
-                    app:layout_constraintTop_toBottomOf="@+id/textView108" />
+                    <TextView
+                        android:id="@+id/textView113"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="Distribuidores"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView109"
+                        app:layout_constraintEnd_toStartOf="@+id/textView111"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView109"
+                        app:layout_constraintTop_toTopOf="@+id/textView109" />
 
-                <TextView
-                    android:id="@+id/textView114"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="55"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView115"
-                    app:layout_constraintEnd_toEndOf="@+id/textView115"
-                    app:layout_constraintStart_toStartOf="@+id/textView115"
-                    app:layout_constraintTop_toTopOf="@+id/textView110" />
-
-                <TextView
-                    android:id="@+id/textView115"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_medium"
-                    android:text="Movimientos"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView111"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView111"
-                    app:layout_constraintTop_toBottomOf="@+id/textView110"
-                    app:layout_constraintVertical_bias="1.0" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
 

@@ -1,12 +1,19 @@
 package com.puntogris.blint.ui.main
 
+import android.graphics.BlurMaskFilter
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.Coil
+import coil.transform.BlurTransformation
+import com.bumptech.glide.Glide
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
@@ -15,6 +22,7 @@ import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
+import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
@@ -24,6 +32,7 @@ import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
@@ -42,6 +51,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
         setupBadgeListener()
+
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
 //        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)
@@ -175,15 +185,17 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     private fun onMenuCardClicked(menuCard: MenuCard){
         when(menuCard.code){
-            ALL_PRODUCTS_CARD_CODE -> findNavController().navigate(R.id.manageProductsFragment)
-            ALL_CLIENTS_CARD_CODE -> findNavController().navigate(R.id.manageClientsFragment)
-            ALL_SUPPLIERS_CARD_CODE -> findNavController().navigate(R.id.manageSuppliersFragment)
-            ACCOUNTING_CARD_CODE -> findNavController().navigate(R.id.calendarFragment)
-            RECORDS_CARD_CODE -> findNavController().navigate(R.id.manageRecordsFragment)
-            TOOLS_CARD_CODE -> findNavController().navigate(R.id.operationsFragment)
-            CHARTS_CARD_CODE -> findNavController().navigate(R.id.reportsFragment)
-            DEB_CARD_CODE -> findNavController().navigate(R.id.manageDebtFragment)
-        }
+            ALL_PRODUCTS_CARD_CODE -> R.id.manageProductsFragment
+            ALL_CLIENTS_CARD_CODE -> R.id.manageClientsFragment
+            ALL_SUPPLIERS_CARD_CODE -> R.id.manageSuppliersFragment
+            ACCOUNTING_CARD_CODE -> R.id.calendarFragment
+            RECORDS_CARD_CODE -> R.id.manageRecordsFragment
+            TOOLS_CARD_CODE -> R.id.operationsFragment
+            CHARTS_CARD_CODE -> R.id.reportsFragment
+            DEB_CARD_CODE -> R.id.manageDebtFragment
+            ACCOUNT_CARD_CODE -> R.id.accountPreferences
+            else -> R.id.mainFragment
+        }.apply { findNavController().navigate(this) }
     }
 
     override fun setUpMenuOptions(menu: Menu) {

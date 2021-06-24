@@ -54,4 +54,5 @@
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
 
+
 </resources>

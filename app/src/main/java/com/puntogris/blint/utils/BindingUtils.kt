@@ -24,6 +24,7 @@ import com.puntogris.blint.model.notifications.EmploymentRequestSentNotif
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
+import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
@@ -64,6 +65,7 @@ fun ImageView.setMenuCardIcon(menuCard: MenuCard){
         CHARTS_CARD_CODE -> R.drawable.ic_analytics
         TOOLS_CARD_CODE -> R.drawable.ic_customer_support
         DEB_CARD_CODE -> R.drawable.ic_loan
+        ACCOUNT_CARD_CODE -> R.drawable.ic_profile
         else -> R.drawable.ic_baseline_add_24
     }.also {
         setImageDrawable(ContextCompat.getDrawable(context, it))

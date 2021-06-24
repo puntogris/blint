@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.client
 
 import android.Manifest
+import android.graphics.Color
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
@@ -17,6 +18,7 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

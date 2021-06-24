@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.MenuCardDiffCallback
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
+import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
@@ -24,7 +25,8 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(CHARTS_CARD_CODE, "Informes"),
             MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),
             MenuCard(TOOLS_CARD_CODE, "Herramientas"),
-            MenuCard(DEB_CARD_CODE, "Deudas")
+            MenuCard(DEB_CARD_CODE, "Deudas"),
+            MenuCard(ACCOUNT_CARD_CODE,"Cuenta")
             )
         submitList(list)
     }

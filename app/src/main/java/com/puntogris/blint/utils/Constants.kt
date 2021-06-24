@@ -10,6 +10,7 @@ object Constants {
     const val CHARTS_CARD_CODE = 106
     const val TOOLS_CARD_CODE = 107
     const val DEB_CARD_CODE = 108
+    const val ACCOUNT_CARD_CODE = 109
 
     const val WEB_CLIENT_ID = "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
     const val FIX_GOOGLE_PLAY_SERVICES_URL = "https://support.google.com/googleplay/answer/9037938"

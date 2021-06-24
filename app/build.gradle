@@ -179,6 +179,6 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.2'
 
     implementation 'com.github.wwdablu:SimplyPDF:1.1.2'
-
+    implementation 'jp.wasabeef:blurry:4.0.0'
 
 }
