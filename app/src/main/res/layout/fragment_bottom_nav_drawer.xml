@@ -41,7 +41,7 @@
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:behavior_hideable="true"
             app:behavior_skipCollapsed="true"
-            app:behavior_halfExpandedRatio="0.6">
+            app:behavior_halfExpandedRatio="0.9">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/account_recycler_view"

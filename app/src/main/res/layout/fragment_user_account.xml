@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/primaryColor"
             android:padding="8dp"
             android:foreground="?selectableItemBackground"
             android:textSize="16sp"

@@ -19,8 +19,8 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
     init {
         val list = listOf(
             MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos"),
-            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes"),
             MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores"),
+            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes"),
             MenuCard(RECORDS_CARD_CODE, "Ordenes"),
             MenuCard(CHARTS_CARD_CODE, "Informes"),
             MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),

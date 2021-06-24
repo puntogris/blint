@@ -17,7 +17,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.record.CreateRecordFragment">
 
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"

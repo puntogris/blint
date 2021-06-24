@@ -5,7 +5,7 @@
     <string name="home">Inicio</string>
     <string name="products">Productos</string>
     <string name="clients">Clientes</string>
-    <string name="records">Movimientos</string>
+    <string name="records">Ordenes</string>
     <string name="reports">Informes</string>
     <string name="calendar">Agenda</string>
     <string name="suppliers">Proveedores</string>
@@ -13,6 +13,8 @@
     <string name="settings">Configuracion</string>
     <string name="account">Cuenta</string>
     <string name="name_or_code_search">Nombre o codigo</string>
+    <string name="tools">Herramientas</string>
+    <string name="debts">Deuda</string>
 
     <string-array name="theme_names">
         <item>Claro</item>

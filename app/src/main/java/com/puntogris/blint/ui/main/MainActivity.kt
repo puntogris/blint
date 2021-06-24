@@ -8,17 +8,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.transition.MaterialFadeThrough
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
@@ -114,19 +110,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun navigateToMenuDestinations(@StringRes titleRes: Int, navMenu: NavMenu) {
+    private fun navigateToMenuDestinations(navMenu: NavMenu) {
         when(navMenu){
-            NavMenu.HOME -> navController.navigate(R.id.mainFragment)
-            NavMenu.PRODUCTOS -> navController.navigate(R.id.manageProductsFragment)
-            NavMenu.CLIENTES -> navController.navigate(R.id.manageClientsFragment)
-            NavMenu.PROVEEDORES -> navController.navigate(R.id.manageSuppliersFragment)
-            NavMenu.MOVIMIENTOS -> navController.navigate(R.id.manageRecordsFragment)
-            NavMenu.INFORME -> navController.navigate(R.id.reportsFragment)
-            NavMenu.AGENDA -> navController.navigate(R.id.calendarFragment)
-            NavMenu.CUENTA -> navController.navigate(R.id.accountPreferences)
-            NavMenu.NOTIFICACIONES -> navController.navigate(R.id.notificationsFragment)
-            NavMenu.CONFIGURACION -> navController.navigate(R.id.preferencesFragment)
-        }
+            NavMenu.HOME -> R.id.mainFragment
+            NavMenu.PRODUCTS -> R.id.manageProductsFragment
+            NavMenu.CLIENTS -> R.id.manageClientsFragment
+            NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
+            NavMenu.ORDERS -> R.id.manageRecordsFragment
+            NavMenu.RECORDS -> R.id.reportsFragment
+            NavMenu.EVENTS -> R.id.calendarFragment
+            NavMenu.ACCOUNT -> R.id.accountPreferences
+            NavMenu.NOTIFICATIONS -> R.id.notificationsFragment
+            NavMenu.SETTINGS -> R.id.preferencesFragment
+            NavMenu.DEBTS -> R.id.manageDebtFragment
+            NavMenu.TOOLS -> R.id.preferencesFragment
+        }.apply { navController.navigate(this) }
      //   binding.bottomAppBarTitle.text = getString(titleRes)
         bottomNavDrawer.close()
     }
@@ -312,7 +310,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
-        navigateToMenuDestinations(item.titleRes, item.navMenu)
+        navigateToMenuDestinations(item.navMenu)
     }
 
     private fun checkIfBusinessExist():Boolean{

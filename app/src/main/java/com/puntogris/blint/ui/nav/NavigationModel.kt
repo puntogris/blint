@@ -50,65 +50,79 @@ object NavigationModel {
             icon = R.drawable.ic_twotone_inventory_2_24,
             titleRes = R.string.products,
             checked = false,
-            navMenu = NavMenu.PRODUCTOS
+            navMenu = NavMenu.PRODUCTS
         ),
         NavigationModelItem.NavMenuItem(
             id = SUPPLIERS_ID,
             icon = R.drawable.ic_twotone_local_shipping_24,
             titleRes = R.string.suppliers,
             checked = false,
-            navMenu = NavMenu.PROVEEDORES
+            navMenu = NavMenu.SUPPLIERS
         ),
         NavigationModelItem.NavMenuItem(
             id = CLIENTS_ID,
             icon = R.drawable.ic_twotone_people_24,
             titleRes = R.string.clients,
             checked = false,
-            navMenu = NavMenu.CLIENTES
+            navMenu = NavMenu.CLIENTS
         ),
         NavigationModelItem.NavMenuItem(
             id = RECORDS_ID,
-            icon = R.drawable.ic_baseline_grain_24,
+            icon = R.drawable.ic_twotone_article_24,
             titleRes = R.string.records,
             checked = false,
-            navMenu = NavMenu.MOVIMIENTOS
+            navMenu = NavMenu.ORDERS
         ),
         NavigationModelItem.NavMenuItem(
             id = REPORTS_ID,
             icon = R.drawable.ic_twotone_insert_chart_24,
             titleRes = R.string.reports,
             checked = false,
-            navMenu = NavMenu.INFORME
+            navMenu = NavMenu.RECORDS
         ),
         NavigationModelItem.NavMenuItem(
             id = CALENDAR_ID,
             icon = R.drawable.ic_twotone_calendar_today_24,
             titleRes = R.string.calendar,
             checked = false,
-            navMenu = NavMenu.AGENDA
+            navMenu = NavMenu.EVENTS
+        ),
+        NavigationModelItem.NavMenuItem(
+            id = CALENDAR_ID,
+            icon = R.drawable.ic_baseline_grain_24,
+            titleRes = R.string.tools,
+            checked = false,
+            navMenu = NavMenu.TOOLS
+        ),
+        NavigationModelItem.NavMenuItem(
+            id = CALENDAR_ID,
+            icon = R.drawable.ic_twotone_monetization_on_24,
+            titleRes = R.string.debts,
+            checked = false,
+            navMenu = NavMenu.DEBTS
+        ),NavigationModelItem.NavMenuItem(
+            id = CALENDAR_ID,
+            icon = R.drawable.ic_twotone_account_circle_24,
+            titleRes = R.string.account,
+            checked = false,
+            navMenu = NavMenu.ACCOUNT
         )
     )
 
     private val secondaryItems= listOf(
         NavigationModelItem.NavMenuItem(
-            id = ACCOUNT_ID,
-            icon = R.drawable.ic_twotone_account_circle_24,
-            titleRes = R.string.account,
-            checked = false,
-            navMenu = NavMenu.CUENTA),
-        NavigationModelItem.NavMenuItem(
             id = NOTIFICATIONS_ID,
             icon = R.drawable.ic_baseline_notifications_24,
             titleRes = R.string.notifications,
             checked = false,
-            navMenu = NavMenu.NOTIFICACIONES
+            navMenu = NavMenu.NOTIFICATIONS
         ),
         NavigationModelItem.NavMenuItem(
             id = SETTINGS_ID,
             icon = R.drawable.ic_twotone_settings_24,
             titleRes = R.string.settings,
             checked = false,
-            navMenu = NavMenu.CONFIGURACION
+            navMenu = NavMenu.SETTINGS
         ))
 
     private val _navigationList: MutableLiveData<List<NavigationModelItem>> = MutableLiveData()
