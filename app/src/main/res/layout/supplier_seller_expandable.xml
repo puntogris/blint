@@ -19,7 +19,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp">
 
                 <TextView
                     android:id="@+id/supplierSellerButton"
@@ -37,7 +39,6 @@
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:hint="Nombre"
                     app:layout_constraintEnd_toStartOf="@+id/nameButton"
@@ -51,6 +52,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
                         android:singleLine="true"
+                        android:imeOptions="actionDone"
                         android:text="@{viewModel.currentSupplier.sellerName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -59,7 +61,7 @@
                     android:id="@+id/nameButton"
                     style="@style/Theme.Blint.ImageButton"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="24dp"
+                    android:onClick="@{()-> fragment.onSellerAddContactInfoClicked()}"
                     app:layout_constraintBottom_toBottomOf="@+id/supplierSellerName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -72,48 +74,34 @@
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:hint="Telefono"
-                    app:layout_constraintEnd_toStartOf="@+id/phoneNumberButton"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/supplierSellerName">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierSellerPhoneText"
-                        android:text="@{viewModel.currentSupplier.sellerPhone}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:text="@{viewModel.currentSupplier.sellerPhone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/phoneNumberButton"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="24dp"
-                    style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/supplierSellerPhone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/supplierSellerPhone"
-                    app:layout_constraintTop_toTopOf="@+id/supplierSellerPhone"
-                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierSellerEmail"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
                     android:hint="Email"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/emailButton"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/supplierSellerPhone">
@@ -124,21 +112,10 @@
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
                         android:singleLine="true"
+                        android:imeOptions="actionDone"
                         android:text="@{viewModel.currentSupplier.sellerEmail}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/emailButton"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="24dp"
-                    style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/supplierSellerEmail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/supplierSellerEmail"
-                    app:layout_constraintTop_toTopOf="@+id/supplierSellerEmail"
-                    app:srcCompat="@drawable/ic_baseline_email_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

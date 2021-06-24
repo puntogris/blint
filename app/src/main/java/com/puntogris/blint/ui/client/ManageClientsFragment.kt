@@ -1,7 +1,10 @@
 package com.puntogris.blint.ui.client
 
+import android.Manifest
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +15,7 @@ import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,6 +26,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
     private val viewModel: ClientViewModel by viewModels()
 
     override fun initializeViews() {
+
         val manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

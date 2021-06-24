@@ -39,8 +39,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
                     android:hint="Informacion de pagos"
-                    app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clientExtraButton">
@@ -49,23 +50,12 @@
                         android:id="@+id/clientPaymentInfoText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:text="@{viewModel.currentClient.paymentInfo}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/scanBarcodeButton"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="24dp"
-                    style="@style/Theme.Blint.ImageButton"
-                    app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/clientPaymentInfo"
-                    app:layout_constraintTop_toTopOf="@+id/clientPaymentInfo"
-                    app:srcCompat="@drawable/ic_baseline_content_copy_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/clientDiscount"
@@ -88,6 +78,7 @@
                         emptyEditTextWithNumber="@{viewModel.currentClient.discount}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
                         android:inputType="numberDecimal"
                         android:singleLine="true" />
 

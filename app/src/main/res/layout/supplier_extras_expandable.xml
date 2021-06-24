@@ -20,6 +20,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -38,11 +40,9 @@
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:hint="Informacion de pagos"
-                    app:layout_constraintEnd_toStartOf="@+id/scanBarcodeButton"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/supplierExtrasButton">
@@ -52,31 +52,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
+                        android:imeOptions="actionDone"
                         android:singleLine="true"
                         android:text="@{viewModel.currentSupplier.companyPaymentInfo}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/scanBarcodeButton"
-                    style="@style/Theme.Blint.ImageButton"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/supplierPaymentInfo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/supplierPaymentInfo"
-                    app:layout_constraintTop_toTopOf="@+id/supplierPaymentInfo"
-                    app:srcCompat="@drawable/ic_baseline_content_copy_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierNotes"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="24dp"
                     android:hint="Notas"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:imeOptions="actionDone"
                         android:singleLine="true"
                         android:text="@{viewModel.currentSupplier.notes}" />
 
