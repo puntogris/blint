@@ -15,33 +15,27 @@
 
         <ProgressBar
             android:id="@+id/loadingBusinessProgressBar"
-            style="?android:attr/progressBarStyle"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminateTint="@color/primaryColor"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/backupSummary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loadingBusinessSummary" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/businessesCardView"
-            style="@style/Theme.Blint.CardView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_max="210dp"
+            app:layout_constraintHeight_default="wrap"
             android:layout_marginTop="32dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessTitle">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
         <TextView
             android:id="@+id/businessTitle"
@@ -49,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:text="Tus negocios locales"
             android:visibility="gone"
-            android:text="Tus negocios"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,21 +55,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="64dp"
             android:lineSpacingExtra="4dp"
             android:text="*Tene en cuenta que solo los negocios locales se pueden respaldar ya que en los online tu negocio ya esta en la nube."
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView73"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessesCardView" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/loadingBusinessSummary"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
+            android:layout_marginTop="116dp"
             android:text="Buscando tu informacion en los servidores..."
             android:textSize="17sp"
-            app:layout_constraintBottom_toTopOf="@+id/backupSummary"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
@@ -85,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/primaryColor"
             android:text="Leer mas sobre copias de seguridad."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,8 +99,58 @@
             app:layout_constraintBottom_toTopOf="@+id/backupSummary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessTitle"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/loading" />
+
+        <TextView
+            android:id="@+id/textView69"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="El respaldo afectara a estos negocios, el respaldo no es de un local individual, respalda todo."
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Respaldar negocios"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/backupSummary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView70"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+
+        <TextView
+            android:id="@+id/textView70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:text="Ultimo respaldo:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+        <TextView
+            android:id="@+id/textView71"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/Theme.Blint.DataTextView"
+            android:text="Cargando.."
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textView70"
+            app:layout_constraintStart_toEndOf="@+id/textView70"
+            app:layout_constraintTop_toTopOf="@+id/textView70" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

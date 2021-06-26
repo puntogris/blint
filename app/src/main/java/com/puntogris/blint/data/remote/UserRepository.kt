@@ -44,7 +44,7 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
         MutableStateFlow<RepoResult<List<Employee>>>(RepoResult.InProgress).also { result ->
             firestore.collectionGroup("business").whereEqualTo("owner", getCurrentUID()).get()
                 .addOnSuccessListener { snap ->
-                    if (!snap?.documents.isNullOrEmpty()) {
+                    if (!snap.documents.isNullOrEmpty()) {
                         result.value = RepoResult.Success(snap.toObjects(Employee::class.java))
                     }
                 }

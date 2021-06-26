@@ -490,7 +490,7 @@
                 android:id="@+id/action_createRecordFragment_to_reviewRecordFragment"
                 app:destination="@id/reviewRecordFragment" />
         </fragment>
-        <dialog
+        <fragment
             android:id="@+id/addProductRecordBottomSheet"
             android:name="com.puntogris.blint.ui.record.AddProductRecordBottomSheet"
             android:label="Agregar producto" />

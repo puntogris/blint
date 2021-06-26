@@ -9,6 +9,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/joaco/Documentos/.keys/blint.p12')
+            storePassword 'Blackblack1'
+            keyPassword 'Blackblack1'
+            keyAlias 'blint_key'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -20,6 +28,7 @@ android {
         versionName "0.4.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {

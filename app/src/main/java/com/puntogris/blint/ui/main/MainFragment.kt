@@ -82,50 +82,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 //        simplyPdfDocument.finish()
 
 
-//        val purchasesUpdateListener =
-//            PurchasesUpdatedListener { billingResult, purchases ->
-//                // To be implemented in a later section.
-//            }
-//
-//        billingClient = BillingClient.newBuilder(requireActivity())
-//            .setListener(purchasesUpdateListener)
-//            .enablePendingPurchases()
-//            .build()
-//
-//        billingClient.startConnection(object : BillingClientStateListener {
-//            override fun onBillingSetupFinished(billingResult: BillingResult) {
-//                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
-//                // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
-//                    val params = SkuDetailsParams.newBuilder()
-//                    params.setSkusList(listOf("online_business_tier_1"))
-//                    params.setType(BillingClient.SkuType.SUBS)
-//                    val test = params.build()
-//                    billingClient.querySkuDetailsAsync(test, object :SkuDetailsResponseListener{
-//                        override fun onSkuDetailsResponse(
-//                            p0: BillingResult,
-//                            p1: MutableList<SkuDetails>?
-//                        ) {
-//
-//                            val flowParams = p1?.get(0)?.let {
-//                                BillingFlowParams.newBuilder()
-//                                    .setSkuDetails(it)
-//                                    .build()
-//                            }
-//                            val responseCode = flowParams?.let {
-//                                billingClient.launchBillingFlow(requireActivity(),
-//                                    it
-//                                ).responseCode
-//                            }
-//                        }
-//                    })
-//
-//                }
-//            }
-//            override fun onBillingServiceDisconnected() {
-//                // Try to restart the connection on the next request to
-//                // Google Play by calling the startConnection() method.
-//            }
-//        })
     }
 
     private fun setupBadgeListener(){

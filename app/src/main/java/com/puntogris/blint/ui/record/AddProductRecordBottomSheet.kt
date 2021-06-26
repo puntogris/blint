@@ -21,6 +21,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.AddProductRecordBottomSheetBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
+import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.hideKeyboard
@@ -32,35 +33,32 @@ import kotlinx.coroutines.withContext
 import org.apache.poi.ss.formula.functions.T
 
 @AndroidEntryPoint
-class AddProductRecordBottomSheet: BaseBottomSheetFragment<AddProductRecordBottomSheetBinding>(R.layout.add_product_record_bottom_sheet){
+class AddProductRecordBottomSheet: BaseFragment<AddProductRecordBottomSheetBinding>(R.layout.add_product_record_bottom_sheet){
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-
-        bottomSheetDialog.setOnShowListener {
-            val bottomSheet =
-                bottomSheetDialog.findViewById<FrameLayout>(
-                    com.google.android.material.R.id.design_bottom_sheet
-                )
-            bottomSheet?.let {
-                setupFullHeight(it)
-            }
-            val behavior = BottomSheetBehavior.from(bottomSheet!!)
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
-        }
-        return bottomSheetDialog
-    }
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+//
+//        bottomSheetDialog.setOnShowListener {
+//            val bottomSheet =
+//                bottomSheetDialog.findViewById<FrameLayout>(
+//                    com.google.android.material.R.id.design_bottom_sheet
+//                )
+//            bottomSheet?.let {
+//                setupFullHeight(it)
+//            }
+//            val behavior = BottomSheetBehavior.from(bottomSheet!!)
+//            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+//
+//        }
+//        return bottomSheetDialog
+//    }
 
     override fun initializeViews() {
 
         var products = emptyList<Product>()
 
-        binding.button21.setOnClickListener {
-            dismiss()
-        }
         binding.productSearchText.apply {
             addTextChangedListener {
                 lifecycleScope.launch {
@@ -86,6 +84,9 @@ class AddProductRecordBottomSheet: BaseBottomSheetFragment<AddProductRecordBotto
                 }
 
             }
+        }
+        binding.imageView8.setOnClickListener {
+            findNavController().navigate(R.id.scannerFragment)
         }
 
 

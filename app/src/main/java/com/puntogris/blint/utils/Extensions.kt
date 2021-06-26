@@ -34,6 +34,7 @@ import androidx.paging.map
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.parser.IntegerParser
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -76,6 +77,14 @@ fun EditText.getFloat(): Float{
 
 fun Fragment.getParentFab(): FloatingActionButton =
     requireActivity().findViewById(R.id.addFav)
+
+fun Fragment.getParentBottomAppBar(): BottomAppBar =
+    requireActivity().findViewById(R.id.bottomAppBar)
+
+fun Fragment.setParentFabAlignment(alignment: Int){
+    requireActivity().findViewById<BottomAppBar>(R.id.bottomAppBar).fabAlignmentMode = alignment
+
+}
 
 fun FloatingActionButton.changeIconFromDrawable(icon: Int){
     setImageDrawable(ContextCompat.getDrawable(context, icon))

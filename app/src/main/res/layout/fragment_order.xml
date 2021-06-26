@@ -149,12 +149,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:backgroundTint="@color/primaryColor"
+            android:onClick="@{()->fragment.onGenerateOrderReceiptClicked()}"
             android:text="generar factura"
             android:textColor="@color/almostBlack"
-            android:onClick="@{()->fragment.onGenerateOrderReceiptClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
     </androidx.constraintlayout.widget.ConstraintLayout>

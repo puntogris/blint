@@ -3,7 +3,7 @@ package com.puntogris.blint.diffcallback
 import androidx.recyclerview.widget.DiffUtil
 import com.puntogris.blint.model.Employee
 
-class BusinessDiffCallback : DiffUtil.ItemCallback<Employee>() {
+class EmployeeDiffCallBack : DiffUtil.ItemCallback<Employee>() {
     override fun areItemsTheSame(oldItem: Employee, newItem: Employee): Boolean {
         return oldItem.name == newItem.name
     }

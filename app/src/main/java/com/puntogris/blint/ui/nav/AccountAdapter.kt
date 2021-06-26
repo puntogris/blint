@@ -20,10 +20,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.databinding.AccountItemLayoutBinding
-import com.puntogris.blint.diffcallback.BusinessDiffCallback
 import com.puntogris.blint.diffcallback.BusinessItemDiffCallBack
 import com.puntogris.blint.model.BusinessItem
-import com.puntogris.blint.model.Employee
 
 /**
  * An adapter which holds a list of selectable accounts owned by the current user.

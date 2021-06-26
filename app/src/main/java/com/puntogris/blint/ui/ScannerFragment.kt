@@ -33,7 +33,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun initializeViews() {
-
         cameraExecutor = Executors.newSingleThreadExecutor()
         binding.overlay.post {
             binding.overlay.setViewFinder()
@@ -44,6 +43,8 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             val cameraProvider = cameraProviderFuture.get()
             bindPreview(cameraProvider)
         }, ContextCompat.getMainExecutor(requireContext()))
+        //findNavController().navigateUp()
+
 
     }
 

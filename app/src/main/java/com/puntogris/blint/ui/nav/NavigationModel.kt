@@ -35,7 +35,8 @@ object NavigationModel {
     const val ACCOUNT_ID = 7
     const val NOTIFICATIONS_ID = 8
     const val SETTINGS_ID = 9
-
+    const val TOOLS_ID = 10
+    const val DEBT_ID = 11
 
     private var navigationMenuItems = mutableListOf(
         NavigationModelItem.NavMenuItem(
@@ -88,20 +89,20 @@ object NavigationModel {
             navMenu = NavMenu.EVENTS
         ),
         NavigationModelItem.NavMenuItem(
-            id = CALENDAR_ID,
+            id = TOOLS_ID,
             icon = R.drawable.ic_baseline_grain_24,
             titleRes = R.string.tools,
             checked = false,
             navMenu = NavMenu.TOOLS
         ),
         NavigationModelItem.NavMenuItem(
-            id = CALENDAR_ID,
+            id = DEBT_ID,
             icon = R.drawable.ic_twotone_monetization_on_24,
             titleRes = R.string.debts,
             checked = false,
             navMenu = NavMenu.DEBTS
         ),NavigationModelItem.NavMenuItem(
-            id = CALENDAR_ID,
+            id = ACCOUNT_ID,
             icon = R.drawable.ic_twotone_account_circle_24,
             titleRes = R.string.account,
             checked = false,

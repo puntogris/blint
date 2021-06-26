@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.record
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateRecordBinding
 import com.puntogris.blint.model.Product
@@ -25,6 +26,8 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
 
         setUpRecyclerView()
 
+        setParentFabAlignment(BottomAppBar.FAB_ALIGNMENT_MODE_END)
+
 //        lifecycleScope.launchWhenStarted {
 //            if (args.productID != 0){
 //                lifecycleScope.launch {
@@ -40,9 +43,9 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
             getParentFab().changeIconFromDrawable(R.drawable.ic_baseline_add_24)
         }
 
-        binding.button19.setOnClickListener {
-            findNavController().navigate(R.id.addProductRecordBottomSheet)
-        }
+//        binding.button19.setOnClickListener {
+//            findNavController().navigate(R.id.addProductRecordBottomSheet)
+//        }
 
         getParentFab().apply {
             changeIconFromDrawable(R.drawable.ic_baseline_arrow_forward_24)
