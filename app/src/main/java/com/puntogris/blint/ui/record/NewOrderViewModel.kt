@@ -6,8 +6,11 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.ProductWithRecord
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class NewOrderViewModel @ViewModelInject constructor(
+@HiltViewModel
+class NewOrderViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val clientsDao: ClientsDao,
     private val suppliersDao: SuppliersDao,
@@ -33,7 +36,7 @@ class NewOrderViewModel @ViewModelInject constructor(
     }
 
     fun updateOrderExternalInfo(name:String, id:String){
-        order.traderId = id.toInt()
+        order.traderId = id
         order.traderName = name
     }
 

@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.calendar
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -9,21 +8,19 @@ import androidx.paging.*
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.remote.EventRepository
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.utils.EventUi
-import com.puntogris.blint.utils.getDateFormattedString
-import com.puntogris.blint.utils.getMonthAndYeah
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.toEventUiFlow
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.time.seconds
+import javax.inject.Inject
 
-class CalendarViewModel @ViewModelInject constructor(
-    private val eventsDao: EventsDao,
-    private val usersDao: UsersDao
+@HiltViewModel
+class CalendarViewModel @Inject constructor(
+    private val usersDao: UsersDao,
+    private val eventRepository: EventRepository
 ):ViewModel() {
 
     private val _event = MutableStateFlow(Event())
@@ -51,26 +48,20 @@ class CalendarViewModel @ViewModelInject constructor(
 
     @ExperimentalCoroutinesApi
     val events = eventsFilter.flatMapLatest {
-        Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            if (it == "ALL") eventsDao.getAllPaged()
-            else eventsDao.getPagedEventsWithFilter(it)
-
-        }.flow.toEventUiFlow().cachedIn(viewModelScope)
+        eventRepository.getEventPagingDataFlow(it).toEventUiFlow()
     }
 
-    suspend fun createEvent(title:String, message:String){
-        eventsDao.insert(Event(
+    suspend fun createEvent(title:String, message:String): SimpleResult{
+        val event = Event(
             title = title,
             message = message,
-            timestamp = timestamp,
-            businessId = usersDao.getUser().currentBusinessId))
+            timestamp = timestamp)
+        return eventRepository.createEventDatabase(event)
     }
+
+    suspend fun deleteEvent(eventId: String) = eventRepository.deleteEventDatabase(eventId)
+
+    suspend fun updateEvent() = eventRepository.updateEventStatusDatabase(_event.value)
 
     fun updateEventDate(timeInMillis:Long){
         timestamp = Timestamp(timeInMillis / 1000,0)
@@ -80,9 +71,7 @@ class CalendarViewModel @ViewModelInject constructor(
         _event.value.status = if (position == 0) "PENDING" else "FINISHED"
     }
 
-    suspend fun saveEvent(){
-        eventsDao.updateEvent(_event.value)
-    }
+
 
 //    fun getDayEvents(date:Date){
 //        val flow = Pager(

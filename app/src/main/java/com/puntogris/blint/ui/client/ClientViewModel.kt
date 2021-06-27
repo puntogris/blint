@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.remote.ClientRepository
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,23 +27,13 @@ class ClientViewModel @Inject constructor(
     private val clientsDao: ClientsDao,
     private val ordersDao: OrdersDao,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao
+    private val clientRepository: ClientRepository
 ) : ViewModel() {
 
     private val _currentClient = MutableStateFlow(Client())
     val currentClient : LiveData<Client> = _currentClient.asLiveData()
 
-    fun getAllClients(): Flow<PagingData<Client>> {
-        return Pager(
-            PagingConfig(
-            pageSize = 30,
-            enablePlaceholders = true,
-            maxSize = 200
-        )
-        ){
-            clientsDao.getAllPaged()
-        }.flow
-    }
+    suspend fun getClientPaging() = clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
 
     fun getClientsWithName(name: String): Flow<PagingData<Client>> {
         return Pager(
@@ -55,34 +47,22 @@ class ClientViewModel @Inject constructor(
         }.flow
     }
 
-    suspend fun getClient(id:Int) = clientsDao.getClient(id)
+    suspend fun getClient(clientId:String) = clientsDao.getClient(clientId)
 
     fun setClientData(client: Client){
         _currentClient.value = client
     }
 
-    fun saveClientDatabase(){
-        viewModelScope.launch(Dispatchers.IO) {
-            _currentClient.value.businessId = getCurrentBusiness().currentBusinessId
-            clientsDao.insert(_currentClient.value)
-            if (_currentClient.value.clientId == 0 ) statisticsDao.incrementTotalClients()
-        }
-    }
+    suspend fun saveClientDatabase() = clientRepository.saveClientDatabase(_currentClient.value)
 
-    fun deleteClientDatabase(id:Int){
-        viewModelScope.launch {
-            clientsDao.delete(id)
-            statisticsDao.decrementTotalClients()
-        }
-    }
+    suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
 
     fun updateClientData(client: Client){
         client.clientId = _currentClient.value.clientId
         _currentClient.value = client
     }
 
-
-    fun getClientsRecords(clientID:Int):Flow<PagingData<Record>> {
+    fun getClientsRecords(clientID: String):Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -95,6 +75,5 @@ class ClientViewModel @Inject constructor(
     }
 
     suspend fun getCurrentBusiness() = usersDao.getUser()
-
 
 }

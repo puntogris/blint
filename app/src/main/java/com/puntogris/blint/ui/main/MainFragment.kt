@@ -38,6 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import java.util.*
 
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
@@ -54,6 +55,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
         setupBadgeListener()
+
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
 //        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)

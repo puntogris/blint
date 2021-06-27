@@ -27,7 +27,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        if (args.orderId != 0){
+        if (args.orderId.isNotEmpty()){
             lifecycleScope.launch {
                 val orderItems = viewModel.fetchOrderRecords(args.orderId)
                 adapter.submitList(orderItems)

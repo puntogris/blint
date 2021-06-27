@@ -24,7 +24,7 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getInt("supplier_key").let {
+            getString("supplier_key")?.let {
                 lifecycleScope.launchWhenStarted {
                     viewModel.getSupplierRecords(it).collect {
                         productsRecordsAdapter.submitData(it)

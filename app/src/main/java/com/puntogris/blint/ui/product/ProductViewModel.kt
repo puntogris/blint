@@ -30,21 +30,21 @@ class ProductViewModel @Inject constructor(
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
 
-    private val suppliers = MutableLiveData(listOf<Int>())
-    private val categories = MutableLiveData(listOf<Int>())
+    private val suppliers = MutableLiveData(listOf<String>())
+    private val categories = MutableLiveData(listOf<String>())
 
-    fun updateSuppliers(suppliers:List<Int>){
+    fun updateSuppliers(suppliers:List<String>){
         this.suppliers.value = suppliers
     }
 
-    fun updateCategories(categories:List<Int>){
+    fun updateCategories(categories:List<String>){
         this.categories.value = categories
     }
 
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
-    fun getProductRecords(productID:Int): Flow<PagingData<Record>> {
+    fun getProductRecords(productId:String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -52,7 +52,7 @@ class ProductViewModel @Inject constructor(
                 maxSize = 200
             )
         ){
-            ordersDao.getProductRecordsPaged(productID)
+            ordersDao.getProductRecordsPaged(productId)
         }.flow
     }
 
@@ -88,9 +88,9 @@ class ProductViewModel @Inject constructor(
 
     suspend fun getProductsPaging() = productRepository.getProductsPagingDataFlow().cachedIn(viewModelScope)
 
-    suspend fun getProduct(id: Int) = productsDao.getProduct(id)
+    suspend fun getProduct(id: String) = productsDao.getProduct(id)
 
-    suspend fun getProductWithSuppliersCategories(id: Int) = productsDao.getProductWithSuppliersCategories(id)
+    suspend fun getProductWithSuppliersCategories(id: String) = productsDao.getProductWithSuppliersCategories(id)
 
     fun getProductWithName(name: String): Flow<PagingData<Product>> {
         return Pager(

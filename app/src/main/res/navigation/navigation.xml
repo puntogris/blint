@@ -51,8 +51,8 @@
         android:name="com.puntogris.blint.ui.client.ClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="clientID"
-            app:argType="integer" />
+            android:name="clientId"
+            app:argType="string" />
         <action
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
@@ -68,8 +68,8 @@
         android:name="com.puntogris.blint.ui.supplier.SupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplierID"
-            app:argType="integer" />
+            android:name="supplierId"
+            app:argType="string" />
         <action
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
@@ -112,8 +112,8 @@
         android:name="com.puntogris.blint.ui.product.ProductFragment"
         android:label="Producto" >
         <argument
-            android:name="productID"
-            app:argType="integer" />
+            android:name="productId"
+            app:argType="string" />
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
@@ -182,9 +182,9 @@
         android:name="com.puntogris.blint.ui.product.EditProductFragment"
         android:label="Producto" >
         <argument
-            android:name="productID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="productId"
+            app:argType="string"
+            android:defaultValue=" " />
         <action
             android:id="@+id/action_editProductFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
@@ -198,18 +198,16 @@
         android:name="com.puntogris.blint.ui.client.EditClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="clientID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="clientId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editSupplierFragment"
         android:name="com.puntogris.blint.ui.supplier.EditSupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplierID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="supplierId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/joinBusinessFragment"
@@ -515,8 +513,8 @@
         android:label="Orden" >
         <argument
             android:name="orderId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            app:argType="string"
+            android:defaultValue=" " />
         <argument
             android:name="order"
             app:argType="com.puntogris.blint.model.Order"

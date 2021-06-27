@@ -29,7 +29,7 @@ class RecordsViewModel @ViewModelInject constructor(
     val barcodeScanned: LiveData<String> = _barcodeScanned
 
     private var recordType = "NONE"
-    private var externalID = 0
+    private var externalID = ""
     private var externalName = ""
 
     fun updateRecordType(code: Int){
@@ -39,14 +39,14 @@ class RecordsViewModel @ViewModelInject constructor(
         }
     }
 
-    fun updateExternalInfo(id:Int, name: String){
+    fun updateExternalInfo(id:String, name: String){
         externalID = id
         externalName = name
     }
 
     fun resetExternalInfo(){
         externalName = ""
-        externalID = 0
+        externalID = ""
     }
 
     fun setProductData(product: Product){
@@ -90,7 +90,7 @@ class RecordsViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    suspend fun getProduct(id: Int) = productsDao.getProduct(id)
+    suspend fun getProduct(id: String) = productsDao.getProduct(id)
 
     suspend fun saveRecordAndUpdateStock(amount: Int): Boolean{
         val record = Record(
@@ -116,7 +116,7 @@ class RecordsViewModel @ViewModelInject constructor(
         }
     }
 
-    suspend fun fetchOrderRecords(orderId:Int) = ordersDao.getAllOrderRecords(orderId)
+    suspend fun fetchOrderRecords(orderId:String) = ordersDao.getAllOrderRecords(orderId)
 
 
     private fun getNewStockAmount(type:String, amount:Int): Int{

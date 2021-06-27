@@ -31,15 +31,15 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         
         lifecycleScope.launch {
             if (args.debtType == CLIENT_DEBT){
-                val client = viewModel.getClientFromDb(args.id.toInt())
+                val client = viewModel.getClientFromDb(args.id)
                 binding.textView184.text = client.debt.toString() + " $"
                 viewModel.updateDebtWithTraderInfo(client.clientId, client.name, client.businessId)
             }else {
-                val supplier = viewModel.getSupplierFromDb(args.id.toInt())
+                val supplier = viewModel.getSupplierFromDb(args.id)
                 binding.textView184.text = supplier.debt.toString() + " $"
                 viewModel.updateDebtWithTraderInfo(supplier.supplierId, supplier.companyName, supplier.businessId)
             }
-            val debts = viewModel.getLastDebts(args.id.toInt())
+            val debts = viewModel.getLastDebts(args.id)
             setUpDebtsRecyclerView(debts)
         }
     }
@@ -57,7 +57,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     fun onModifyDebtButtonClicked(){
         val debt = viewModel.getDebtData()
-        if (debt.traderId != 0 && debt.traderName.isNotBlank()){
+        if (debt.traderId.isNotEmpty() && debt.traderName.isNotBlank()){
             val action = DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(debt = debt,debtType = args.debtType)
             findNavController().navigate(action)
         }else{

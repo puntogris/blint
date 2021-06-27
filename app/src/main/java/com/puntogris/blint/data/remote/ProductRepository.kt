@@ -24,7 +24,8 @@ class ProductRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val productsDao: ProductsDao,
     private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao
+    private val ordersDao: OrdersDao,
+    private val firestoreQueries: FirestoreQueries
 ): IProductRepository {
 
     private val firestore = Firebase.firestore
@@ -33,58 +34,42 @@ class ProductRepository @Inject constructor(
     private suspend fun currentBusiness() = usersDao.getUser()
     private fun getCurrentUid() = auth.currentUser
 
-    override suspend fun saveProductDatabase(product: Product, suppliers:List<Int>, categories: List<Int>): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun saveProductDatabase(product: Product, suppliers:List<String>, categories: List<String>): SimpleResult = withContext(Dispatchers.IO){
         try {
-            val business = currentBusiness()
-            product.businessId = business.currentBusinessId
-            if (business.currentBusinessType == "ONLINE"){
-                val productRef =
-                    firestore
-                        .collection("users")
-                        .document(business.currentBusinessOwner)
-                        .collection("business")
-                        .document(business.currentBusinessId)
-                        .collection("products")
-                        .document()
+            val user = currentBusiness()
+            val productRef = firestoreQueries.getProductsCollectionQuery(user).document()
 
-                val productCounterRef =
-                    firestore
-                        .collection("users")
-                        .document(business.currentBusinessOwner)
-                        .collection("business")
-                        .document(business.currentBusinessId)
+            product.apply {
+                productId = productRef.id
+                businessId = user.currentBusinessId
+            }
+            val record = Record(
+                type = "IN",
+                amount = product.amount,
+                productId = product.productId,
+                productName = product.name,
+                timestamp = Timestamp.now(),
+                author = getCurrentUid()?.email.toString(),
+                businessId = user.currentBusinessId
+            )
+
+            if (user.currentBusinessIsOnline()){
+                val productCounterRef = firestoreQueries.getBusinessCollectionQuery(user)
 
                 firestore.runBatch {
                     it.set(productRef, product)
                     //If the product is not new, up the counter.
-                    if (product.productId == 0)
+                    if (product.productId == "")
                         it.update(productCounterRef,"products_counter", FieldValue.increment(1))
 
                     if (product.amount != 0){
-                        val record = Record(
-                            type = "IN",
-                            amount = product.amount,
-                            productId = product.productId,
-                            productName = product.name,
-                            timestamp = Timestamp.now(),
-                            author = getCurrentUid()?.email.toString(),
-                            businessId = business.currentBusinessId
-                        )
-                        val recordRef =
-                            firestore
-                                .collection("users")
-                                .document(business.currentBusinessOwner)
-                                .collection("business")
-                                .document(business.currentBusinessId)
-                                .collection("records")
-                                .document()
-                    it.set(recordRef, record)
+                        val recordRef = firestoreQueries.getRecordsCollectionQuery(user).document()
+                        it.set(recordRef, record)
                     }
                 }.await()
             }else{
                 productsDao.insert(product)
-                if (product.productId == 0)
-                    statisticsDao.incrementTotalProducts()
+                if (product.productId == "") statisticsDao.incrementTotalProducts()
 
                 //CrossRef data for suppliers and categories.
                 suppliers.map {
@@ -97,20 +82,8 @@ class ProductRepository @Inject constructor(
                 }.let {
                     productsDao.insertProductCategoriesCrossRef(it)
                 }
-
                 //Create initial stock record.
-                if (product.amount != 0){
-                    val record = Record(
-                        type = "IN",
-                        amount = product.amount,
-                        productId = product.productId,
-                        productName = product.name,
-                        timestamp = Timestamp.now(),
-                        author = getCurrentUid()?.email.toString(),
-                        businessId = business.currentBusinessId
-                    )
-                    ordersDao.insert(record)
-                }
+                if (product.amount != 0) ordersDao.insert(record)
             }
             SimpleResult.Success
         }catch (e:Exception){
@@ -119,43 +92,31 @@ class ProductRepository @Inject constructor(
     }
 
     override suspend fun getProductsPagingDataFlow(): Flow<PagingData<Product>> = withContext(Dispatchers.IO) {
-        val business = currentBusiness()
+        val user = currentBusiness()
         Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if(business.currentBusinessType == "ONLINE"){
-                val query = firestore
-                    .collection("users")
-                    .document(business.currentBusinessOwner)
-                    .collection("business")
-                    .document(business.currentBusinessId)
-                    .collection("products")
+            if(user.currentBusinessIsOnline()){
+                val query = firestoreQueries.getProductsCollectionQuery(user)
                 FirestoreProductsPagingSource(query)
             }
-            else{
-                productsDao.getAllPaged()
-            }
+            else{ productsDao.getAllPaged() }
         }.flow
     }
 
     override suspend fun deleteProductDatabase(productId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
-            val business = currentBusiness()
-            if (business.typeIsOnline()){
-                firestore
-                    .collection("users")
-                    .document(business.currentBusinessOwner)
-                    .collection("business")
-                    .document(business.currentBusinessId)
-                    .collection("products")
+            val user = currentBusiness()
+            if (user.currentBusinessIsOnline()){
+                firestoreQueries.getProductsCollectionQuery(user)
                     .document(productId)
                     .delete()
                     .await()
             }else{
-                productsDao.delete(productId.toInt())
+                productsDao.delete(productId)
                 statisticsDao.decrementTotalProducts()
             }
             SimpleResult.Success

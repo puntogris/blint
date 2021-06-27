@@ -37,9 +37,9 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         if (!viewModel.viewsLoaded) {
-            if (args.productID != 0){
+            if (args.productId.isNotEmpty()){
                 lifecycleScope.launch {
-                    val productWithSuppAndCat = viewModel.getProductWithSuppliersCategories(args.productID)
+                    val productWithSuppAndCat = viewModel.getProductWithSuppliersCategories(args.productId)
                     viewModel.setProductData(productWithSuppAndCat.product)
 
                     if (productWithSuppAndCat.suppliers.isNotEmpty()){
@@ -71,7 +71,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             viewModel.viewsLoaded = true
         }
 
-        if (args.productID == 0) {
+        if (args.productId.isEmpty()) {
             binding.pricesLayout.apply {
                 productAmount.visible()
                 increaseAmountButton.visible()

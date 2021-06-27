@@ -19,6 +19,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.product.EditProductFragmentArgs
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.fragment_edit_supplier) {
@@ -33,23 +34,30 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        if (args.supplierID != 0){
+        if (args.supplierId.isNotEmpty()){
             lifecycleScope.launchWhenStarted {
-                val supplier = viewModel.getSupplier(args.supplierID)
+                val supplier = viewModel.getSupplier(args.supplierId)
                 viewModel.setSupplierData(supplier)
             }
         }
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
+        getParentFab().let { fab ->
+            fab.changeIconFromDrawable(R.drawable.ic_baseline_save_24)
+            fab.setOnClickListener {
                 viewModel.updateSupplierData(getSupplierFromViews())
                 when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.saveSupplierDatabase()
-                        createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(this).show()
-                        findNavController().navigateUp()
+                        lifecycleScope.launch {
+                            when(viewModel.saveSupplierDatabase()){
+                                SimpleResult.Failure ->
+                                    createShortSnackBar("Ocurrio un error al guardar el proveedor.").setAnchorView(fab).show()
+                                SimpleResult.Success -> {
+                                    createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(fab).show()
+                                    findNavController().navigateUp()
+                                }
+                            }
+                        }
                     }
-                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
+                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(fab).show()
                 }
             }
         }
@@ -59,7 +67,6 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
     }
 
-
     fun onCompanyAddContactInfoClicked(){
         requestPermissionCompanyContact.launch(Manifest.permission.READ_CONTACTS)
     }
@@ -67,7 +74,6 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
     fun onSellerAddContactInfoClicked(){
         requestPermissionSellerContact.launch(Manifest.permission.READ_CONTACTS)
     }
-
 
     private fun getPermissionLauncher(requestCode: Int) =
         registerForActivityResult(ActivityResultContracts.RequestPermission())
@@ -103,8 +109,6 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                         }
                     }
                 }
-
-
                 cursorLookUpKey?.close()
             }
         }

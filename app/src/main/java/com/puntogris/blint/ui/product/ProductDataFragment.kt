@@ -20,7 +20,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getInt("product_key").let {
+            getString("product_key")?.let {
                 lifecycleScope.launch {
                     val product = viewModel.getProductWithSuppliersCategories(it)
                     viewModel.setProductData(product.product)

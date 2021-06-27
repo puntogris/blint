@@ -30,7 +30,6 @@ class CalendarEventsAdapter(private val clickListener: (Event) -> Unit): PagingD
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val eventUi = getItem(position)!!
-
         eventUi.let {
             when(eventUi){
                 is EventUi.EventItem ->{

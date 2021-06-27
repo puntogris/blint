@@ -11,6 +11,9 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(event: Event)
 
+    @Query("DELETE FROM event WHERE eventId = :eventId")
+    suspend fun delete(eventId: String)
+
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC")
     fun getAllPaged(): PagingSource<Int, Event>

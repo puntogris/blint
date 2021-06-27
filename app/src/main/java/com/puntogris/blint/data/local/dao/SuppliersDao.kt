@@ -16,10 +16,10 @@ interface SuppliersDao {
     suspend fun update(supplier: Supplier)
 
     @Query("DELETE FROM supplier WHERE supplierId = :id")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: String)
 
     @Query("SELECT * FROM supplier WHERE supplierId = :id")
-    suspend fun getSupplier(id: Int): Supplier
+    suspend fun getSupplier(id: String): Supplier
 
     @Query("SELECT COUNT(*) FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount(): LiveData<Int>
@@ -41,6 +41,6 @@ interface SuppliersDao {
     suspend fun getSupplierWithName(name: String): List<Supplier>
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
+    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
 
 }

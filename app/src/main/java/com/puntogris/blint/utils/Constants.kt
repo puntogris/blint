@@ -57,6 +57,13 @@ object Constants {
     const val NOTIFICATIONS_SUB_COLLECTION = "notifications"
     const val SENT_EMPLOYEE_REQUEST_SUB_COLLECTION = "sent_employee_requests"
     const val RECEIVED_EMPLOYEE_REQUEST_SUB_COLLECTION = "received_employee_requests"
+    const val BUSINESS_COLLECTION = "business"
+    const val EVENTS_COLLECTION = "events"
+    const val PRODUCTS_COLLECTION = "products"
+    const val RECORDS_COLLECTION = "records"
+    const val CLIENTS_COLLECTION = "clients"
+    const val SUPPLIERS_COLLECTION = "suppliers"
+
 
     //Debt Type
     const val CLIENT_DEBT = 0

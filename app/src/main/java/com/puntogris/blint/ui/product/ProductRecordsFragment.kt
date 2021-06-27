@@ -30,14 +30,14 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getInt("product_key").let { productID ->
+            getString("product_key")?.let { productId ->
                 lifecycleScope.launch {
-                    viewModel.getProductRecords(productID).collect {
+                    viewModel.getProductRecords(productId).collect {
                         productsRecordsAdapter.submitData(it)
                     }
                 }
                 lifecycleScope.launch {
-                    setUpPieView(viewModel.getProduct(productID))
+                    setUpPieView(viewModel.getProduct(productId))
                 }
             }
         }

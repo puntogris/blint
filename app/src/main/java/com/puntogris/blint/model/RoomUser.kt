@@ -33,6 +33,6 @@ class RoomUser(
         @ColumnInfo
         val currentBusinessOwner:String = "",
 ){
-        fun typeIsOnline() = currentBusinessType == "ONLINE"
+        fun currentBusinessIsOnline() = currentBusinessType == "ONLINE"
 
 }

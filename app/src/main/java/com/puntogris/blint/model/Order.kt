@@ -29,7 +29,7 @@ data class Order(
     val author:String = "",
 
     @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName: String = "",

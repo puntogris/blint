@@ -26,7 +26,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launchWhenStarted {
-            viewModel.getAllSuppliers().collect {
+            viewModel.getSuppliersPaging().collect {
                 manageProductsAdapter.submitData(it)
             }
         }

@@ -25,11 +25,16 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
             changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             setOnClickListener {
                 lifecycleScope.launch {
-                    viewModel.createEvent(
+                    when(viewModel.createEvent(
                         title = binding.eventTitleText.getString(),
-                        message = binding.eventMessageText.getString())
-                    showLongSnackBarAboveFab("Evento creado satisfactoriamente.")
-                    this@CreateEventFragment.findNavController().navigateUp()
+                        message = binding.eventMessageText.getString())){
+                        SimpleResult.Failure ->
+                            showLongSnackBarAboveFab("Ocurrio un error al crear el evento.")
+                        SimpleResult.Success -> {
+                            showLongSnackBarAboveFab("Evento creado satisfactoriamente.")
+                            findNavController().navigateUp()
+                        }
+                    }
                 }
             }
         }

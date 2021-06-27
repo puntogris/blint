@@ -24,7 +24,7 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record WHERE :productID = productId ORDER BY timestamp DESC")
-    fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
+    fun getProductRecordsPaged(productID: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
@@ -32,11 +32,11 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'IN'")
-    fun getSupplierRecords(externalID: Int): PagingSource<Int, Record>
+    fun getSupplierRecords(externalID: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'OUT'")
-    fun getClientsRecords(externalID: Int): PagingSource<Int, Record>
+    fun getClientsRecords(externalID: String): PagingSource<Int, Record>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(order: Order):Long
@@ -47,5 +47,5 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser on businessId = currentBusinessId WHERE userId = '1' AND orderId = :orderId")
-    suspend fun getAllOrderRecords(orderId:Int): List<OrdersTableItem>
+    suspend fun getAllOrderRecords(orderId:String): List<OrdersTableItem>
 }

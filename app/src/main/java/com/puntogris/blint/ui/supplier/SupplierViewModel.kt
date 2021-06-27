@@ -8,38 +8,32 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.remote.SupplierRepository
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SupplierViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SupplierViewModel @Inject constructor(
     private val suppliersDao: SuppliersDao,
     private val ordersDao: OrdersDao,
-    private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao
+    private val supplierRepository: SupplierRepository
 ):ViewModel() {
 
     private val _currentSupplier = MutableStateFlow(Supplier())
     val currentSupplier : LiveData<Supplier> = _currentSupplier.asLiveData()
 
-    fun getAllSuppliers(): Flow<PagingData<Supplier>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            suppliersDao.getAllPaged()
-        }.flow
-    }
+    suspend fun getSuppliersPaging() = supplierRepository.getSupplierPagingDataFlow().cachedIn(viewModelScope)
 
     fun getSuppliersWithName(name: String): Flow<PagingData<Supplier>> {
         return Pager(
@@ -53,7 +47,7 @@ class SupplierViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    suspend fun getSupplier(id:Int) = suppliersDao.getSupplier(id)
+    suspend fun getSupplier(id:String) = suppliersDao.getSupplier(id)
 
     fun updateSupplierData(supplier: Supplier){
         supplier.supplierId = _currentSupplier.value.supplierId
@@ -64,22 +58,11 @@ class SupplierViewModel @ViewModelInject constructor(
         _currentSupplier.value = supplier
     }
 
-    fun deleteSupplierDatabase(id: Int){
-        viewModelScope.launch {
-            suppliersDao.delete(id)
-            statisticsDao.decrementTotalSuppliers()
-        }
-    }
+    suspend fun deleteSupplierDatabase(supplierId: String) = supplierRepository.deleteSupplierDatabase(supplierId)
 
-    fun saveSupplierDatabase(){
-        viewModelScope.launch(Dispatchers.IO) {
-            _currentSupplier.value.businessId = usersDao.getUser().currentBusinessId
-            suppliersDao.insert(_currentSupplier.value)
-            if (_currentSupplier.value.supplierId == 0) statisticsDao.incrementTotalSuppliers()
-        }
-    }
+    suspend fun saveSupplierDatabase() = supplierRepository.saveSupplierDatabase(_currentSupplier.value)
 
-    fun getSupplierRecords(supplierID:Int):Flow<PagingData<Record>> {
+    fun getSupplierRecords(supplierID: String):Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

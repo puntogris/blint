@@ -81,7 +81,7 @@ class GenerateReportFragment :
         row0.createCell(1).setCellValue("Product")
         row0.createCell(2).setCellValue("In")
         var numberOfRows = 0
-        var lastSupplierId = 0
+        var lastSupplierId = ""
         val recordExcel = mutableListOf<SupplierRecordExcel>()
 
         lifecycleScope.launch {
@@ -117,7 +117,7 @@ class GenerateReportFragment :
 
                 recordExcel.sortBy { it.supplierName }
 
-                lastSupplierId = 0
+                lastSupplierId = ""
                 recordExcel.forEach {
                     if (it.clientId != lastSupplierId) {
                         numberOfRows += 1
@@ -152,7 +152,7 @@ class GenerateReportFragment :
         row0.createCell(1).setCellValue("Product")
         row0.createCell(2).setCellValue("Out")
         var numberOfRows = 0
-        var lastClientId = 0
+        var lastClientId = ""
         val recordExcel = mutableListOf<ClientRecordExcel>()
 
         lifecycleScope.launch {
@@ -187,7 +187,7 @@ class GenerateReportFragment :
 
                 recordExcel.sortBy { it.clientName }
 
-                lastClientId = 0
+                lastClientId = ""
                 recordExcel.forEach {
                     if (it.clientId != lastClientId) {
                         numberOfRows += 1
@@ -223,7 +223,7 @@ class GenerateReportFragment :
         row0.createCell(1).setCellValue("In")
         row0.createCell(2).setCellValue("Out")
         var numberOfRows = 0
-        var lastProductId = 0
+        var lastProductId = ""
         val recordExcel = mutableListOf<ProductRecordExcel>()
 
         lifecycleScope.launch {

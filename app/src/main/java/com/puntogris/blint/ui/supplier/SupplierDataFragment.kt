@@ -31,7 +31,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getInt("supplier_key").let {
+            getString("supplier_key")?.let {
                 lifecycleScope.launchWhenStarted {
                     val supplier = viewModel.getSupplier(it)
                     viewModel.setSupplierData(supplier)

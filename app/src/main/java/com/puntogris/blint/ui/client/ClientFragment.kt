@@ -7,6 +7,7 @@ import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -22,8 +23,10 @@ import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
@@ -51,7 +54,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) ClientDataFragment() else ClientRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putInt("client_key", args.clientID)
+                    putString("client_key", args.clientId)
                 }
             }
     }
@@ -59,7 +62,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientID)
+                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientId)
                 findNavController().navigate(action)
                 true
             }
@@ -68,20 +71,29 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                     title("Queres eliminar este cliente?")
                     content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
                     onNegative("Cancelar")
-                    onPositive("Si") {
-                        viewModel.deleteClientDatabase(args.clientID)
-                        showLongSnackBarAboveFab("Cliente eliminado correctamente.")
-                        findNavController().navigateUp()
-                    }
+                    onPositive("Si") { onDeleteClientConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = CLIENT_DEBT,id = args.clientID.toString())
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = CLIENT_DEBT,id = args.clientId)
                 findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onDeleteClientConfirmed(){
+        lifecycleScope.launch {
+            when(viewModel.deleteClientDatabase(args.clientId)){
+                SimpleResult.Failure ->
+                    showLongSnackBarAboveFab("Ocurrio un error al eliminar al cliente.")
+                SimpleResult.Success -> {
+                    showLongSnackBarAboveFab("Cliente eliminado correctamente.")
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 

@@ -16,6 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
+            android:onClick="@{()->fragment.onSaveButtonClicked()}"
+            android:text="Guardar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            android:backgroundTint="@color/primaryColor"
+            android:textColor="@color/almostBlack"
+            app:layout_constraintTop_toBottomOf="@+id/eventStatus" />
+
         <TextView
             android:id="@+id/textView95"
             android:layout_width="wrap_content"
@@ -104,21 +121,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button10"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
-            android:layout_width="0dp"
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@style/Theme.Blint.ImageButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
-            android:onClick="@{()->fragment.onSaveButtonClicked()}"
-            android:text="Guardar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/almostBlack"
+            android:onClick="@{()-> fragment.onDeleteEventButtonClicked()}"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="@+id/button10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventStatus" />
+            app:layout_constraintTop_toTopOf="@+id/button10" />
 
         <TextView
             android:id="@+id/textView96"
@@ -130,5 +144,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

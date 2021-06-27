@@ -16,7 +16,7 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
     }
 
     fun onExternalChipClicked(){
-        if(args.record.traderId != 0){
+        if(args.record.traderId.isNotEmpty()){
             when(args.record.type){
                 "IN"-> {
                     val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(args.record.traderId)

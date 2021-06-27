@@ -18,10 +18,10 @@ interface ProductsDao {
     suspend fun update(product: Product)
 
     @Query("DELETE FROM product WHERE productId = :id")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: String)
 
     @Query("SELECT * FROM product WHERE productId = :id ")
-    suspend fun getProduct(id: Int): Product
+    suspend fun getProduct(id: String): Product
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
@@ -43,17 +43,17 @@ interface ProductsDao {
     suspend fun getProductsWithName(name: String): List<Product>
 
     @Query("UPDATE product SET amount = :amount WHERE productId = :id")
-    suspend fun updateProductAmount(id: Int, amount: Int)
+    suspend fun updateProductAmount(id: String, amount: Int)
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
-    suspend fun updateProductAmountWithType(id: Int, amount: Int, type: String)
+    suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
 
     @Query("UPDATE product SET image = :empty")
     suspend fun clearImages(empty: HashMap<String, String>)
 
     @Transaction
     @Query("SELECT * FROM product WHERE productId = :id")
-    suspend fun getProductWithSuppliersCategories(id: Int): ProductWithSuppliersCategories
+    suspend fun getProductWithSuppliersCategories(id: String): ProductWithSuppliersCategories
 
     @Insert
     suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
@@ -123,7 +123,7 @@ interface ProductsDao {
     )
     suspend fun updateSupplierProductsPrices(
         newPrice: Float,
-        supplierId: Int,
+        supplierId: String,
         valueType: String,
         isValueUp: Boolean,
         affectsBuyPrice : Boolean,

@@ -11,8 +11,8 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class Event (
 
-    @PrimaryKey(autoGenerate = true)
-    val eventId: Int = 0,
+    @PrimaryKey
+    var eventId: String = "",
 
     @ColumnInfo
     var timestamp: Timestamp = Timestamp.now(),

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -23,8 +24,10 @@ import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
@@ -52,7 +55,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) SupplierDataFragment() else SupplierRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putInt("supplier_key", args.supplierID)
+                    putString("supplier_key", args.supplierId)
                 }
             }
     }
@@ -60,7 +63,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplierID)
+                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplierId)
                 findNavController().navigate(action)
                 true
             }
@@ -69,20 +72,29 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                     title("Queres eliminar este proveedor?")
                     content("Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta accion es irreversible.")
                     onNegative("Cancelar")
-                    onPositive("Si") {
-                        viewModel.deleteSupplierDatabase(args.supplierID)
-                        showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
-                        findNavController().navigateUp()
-                    }
+                    onPositive("Si") { onDeleteSupplierConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplierID.toString())
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplierId)
                 findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onDeleteSupplierConfirmed(){
+        lifecycleScope.launch {
+            when(viewModel.deleteSupplierDatabase(args.supplierId)){
+                SimpleResult.Failure ->
+                    showLongSnackBarAboveFab("Ocurrio un error al eliminar el proveedor.")
+                SimpleResult.Success -> {
+                    showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 

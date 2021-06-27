@@ -34,24 +34,31 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
 
         setupContactPermissions()
 
-        if (args.clientID != 0){
+        if (args.clientId.isNotEmpty()){
             lifecycleScope.launch {
-                val client = viewModel.getClient(args.clientID)
+                val client = viewModel.getClient(args.clientId)
                 viewModel.setClientData(client)
             }
         }
 
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
+        getParentFab().let { fab ->
+            fab.changeIconFromDrawable(R.drawable.ic_baseline_save_24)
+            fab.setOnClickListener {
                 viewModel.updateClientData(getClientFromViews())
                 when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
-                        viewModel.saveClientDatabase()
-                        createShortSnackBar("Se guardo el cliente satisfactoriamente.").setAnchorView(this).show()
-                        findNavController().navigateUp()
+                        lifecycleScope.launch {
+                            when(viewModel.saveClientDatabase()){
+                                SimpleResult.Failure ->
+                                    createShortSnackBar("Ocurrio un error al guardar el cliente.").setAnchorView(fab).show()
+                                SimpleResult.Success -> {
+                                    createShortSnackBar("Se guardo el cliente satisfactoriamente.").setAnchorView(fab).show()
+                                    findNavController().navigateUp()
+                                }
+                            }
+                        }
                     }
-                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
+                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(fab).show()
                 }
             }
         }

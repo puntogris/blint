@@ -10,8 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class Product(
-    @PrimaryKey(autoGenerate = true)
-    var productId: Int = 0,
+    @PrimaryKey
+    var productId: String = "",
 
     @ColumnInfo
     val name: String = "",

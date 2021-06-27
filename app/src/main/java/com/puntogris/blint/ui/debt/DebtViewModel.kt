@@ -29,7 +29,7 @@ class DebtViewModel @Inject constructor(
 
     private val debt = Debt()
 
-    fun updateDebtWithTraderInfo(id: Int, name: String, businessId:String){
+    fun updateDebtWithTraderInfo(id: String, name: String, businessId:String){
         debt.traderId = id
         debt.traderName = name
         debt.businessId = businessId
@@ -53,11 +53,11 @@ class DebtViewModel @Inject constructor(
 
     }
 
-    suspend fun getClientFromDb(clientId:Int) = clientsDao.getClient(clientId)
+    suspend fun getClientFromDb(clientId:String) = clientsDao.getClient(clientId)
 
-    suspend fun getSupplierFromDb(supplierId:Int) = suppliersDao.getSupplier(supplierId)
+    suspend fun getSupplierFromDb(supplierId:String) = suppliersDao.getSupplier(supplierId)
 
-    suspend fun getLastDebts(traderId: Int) = debtsDao.getDebtsWithId(traderId)
+    suspend fun getLastDebts(traderId: String) = debtsDao.getDebtsWithId(traderId)
 
     fun getAllClients(): Flow<PagingData<SimpleDebt>> {
         return Pager(

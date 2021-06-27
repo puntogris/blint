@@ -14,7 +14,7 @@ interface DebtsDao {
     suspend fun insert(debt: Debt)
 
     @Query("SELECT * FROM debt WHERE traderId = :traderId ORDER BY timestamp DESC LIMIT 5")
-    suspend fun getDebtsWithId(traderId: Int): List<Debt>
+    suspend fun getDebtsWithId(traderId: String): List<Debt>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")

@@ -11,14 +11,14 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class Record(
 
-    @PrimaryKey(autoGenerate = true)
-    val recordId: Int = 0,
+    @PrimaryKey
+    val recordId: String = "",
 
     @ColumnInfo
     var type: String = "",
 
     @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName :String = "",
@@ -30,7 +30,7 @@ data class Record(
     var amount: Int = 0,
 
     @ColumnInfo
-    val productId: Int = 0,
+    val productId: String = "",
 
     @ColumnInfo
     val productName:String = "",

@@ -28,7 +28,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("client_key") }?.apply {
-            getInt("client_key").let {
+            getString("client_key")?.let {
                 lifecycleScope.launchWhenStarted {
                     val client = viewModel.getClient(it)
                     viewModel.setClientData(client)

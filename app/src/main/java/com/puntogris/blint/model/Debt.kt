@@ -11,8 +11,8 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class Debt(
 
-    @PrimaryKey(autoGenerate = true)
-    val debtId: Int = 0,
+    @PrimaryKey
+    val debtId: String = "",
 
     @ColumnInfo
     var amount: Float = 0F,
@@ -21,7 +21,7 @@ data class Debt(
     var orderId: String = "",
 
     @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName :String = "",

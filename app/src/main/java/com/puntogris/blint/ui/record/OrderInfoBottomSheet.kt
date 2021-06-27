@@ -16,7 +16,7 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
     }
 
     fun onExternalChipClicked(){
-        if(args.order.traderId != 0){
+        if(args.order.traderId.isNotEmpty()){
             when(args.order.type){
                 "IN"-> {
                     val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(args.order.traderId)

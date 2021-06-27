@@ -48,7 +48,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) ProductDataFragment() else ProductRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putInt("product_key", args.productID)
+                    putString("product_key", args.productId)
                 }
             }
     }
@@ -64,7 +64,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.productID)
+                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.productId)
                 findNavController().navigate(action)
                 true
             }
@@ -88,7 +88,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private fun onDeleteProductConfirmed(){
         lifecycleScope.launch {
-            when (viewModel.deleteProductDatabase(args.productID.toString())) {
+            when (viewModel.deleteProductDatabase(args.productId)) {
                 SimpleResult.Failure ->
                     showLongSnackBarAboveFab("Se produjo un error al eliminar el producto.")
                 SimpleResult.Success -> {
@@ -104,7 +104,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         findNavController().navigate(action)
     }
 
-    fun navigateToSupplier(supplierId:Int){
+    fun navigateToSupplier(supplierId:String){
         val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(supplierId)
         findNavController().navigate(action)
     }

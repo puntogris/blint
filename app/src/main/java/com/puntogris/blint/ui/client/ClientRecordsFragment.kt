@@ -23,7 +23,7 @@ class ClientRecordsFragment : BaseFragment<FragmentClientRecordsBinding>(R.layou
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("client_key") }?.apply {
-            getInt("client_key").let {
+            getString("client_key")?.let {
                 lifecycleScope.launchWhenStarted {
                     viewModel.getClientsRecords(it).collect {
                         productsRecordsAdapter.submitData(it)

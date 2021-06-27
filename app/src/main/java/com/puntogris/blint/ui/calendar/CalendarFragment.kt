@@ -7,13 +7,17 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.EventUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import org.apache.commons.math3.stat.descriptive.summary.Product
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint

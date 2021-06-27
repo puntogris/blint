@@ -1,11 +1,7 @@
 package com.puntogris.blint.ui.client
 
-import android.Manifest
-import android.graphics.Color
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,9 +12,7 @@ import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.blurry.Blurry
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -33,7 +27,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launchWhenStarted {
-            viewModel.getAllClients().collect {
+            viewModel.getClientPaging().collect {
                 manageProductsAdapter.submitData(it)
             }
         }

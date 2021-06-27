@@ -5,17 +5,20 @@ import androidx.lifecycle.ViewModel
 import com.google.mlkit.vision.barcode.Barcode
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OperationsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class OperationsViewModel @Inject constructor(
     private val suppliersDao: SuppliersDao,
     private val productsDao: ProductsDao
 ): ViewModel() {
 
-    private var supplierId: Int = 0
+    private var supplierId: String = ""
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
-    fun updateSupplierId(supplierId: Int){
+    fun updateSupplierId(supplierId: String){
         this.supplierId = supplierId
     }
 
