@@ -52,6 +52,7 @@ class LoginViewModel @Inject constructor(
         usersDao.insert(RoomUser(
             username = username,
             country = country,
+            currentBusinessOwner = employees.first().businessOwner,
             currentBusinessId = employees.first().businessId,
             currentBusinessType = employees.first().businessType,
             currentBusinessName = employees.first().name,
@@ -83,6 +84,7 @@ class LoginViewModel @Inject constructor(
 
     suspend fun updateCurrentBusiness(business:Employee){
         usersDao.insert(RoomUser(
+            currentBusinessOwner = business.businessOwner,
             currentBusinessId = business.businessId,
             currentBusinessType = business.businessType,
             currentBusinessName = business.name,

@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.main
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.NotificationsRepository
+import com.puntogris.blint.data.remote.ProductRepository
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.RoomUser
@@ -42,5 +43,5 @@ class MainViewModel @Inject constructor(
 
     suspend fun getBusinessList() = employeeDao.getEmployeesList()
 
-    suspend fun updateCurrentBusiness(id:String, name:String, type:String) = usersDao.updateCurrentBusiness(id, name, type)
+    suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner: String) = usersDao.updateCurrentBusiness(id, name, type, owner)
 }

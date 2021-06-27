@@ -92,11 +92,16 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
                     is StringValidator.Valid -> {
                         lifecycleScope.launch {
-                            withContext(Dispatchers.IO){
-                                viewModel.saveProductDatabase()
+                            when(viewModel.saveProductDatabase()){
+                                SimpleResult.Failure ->
+                                    createShortSnackBar("Error al crear el producto.").setAnchorView(this@apply).show()
+                                SimpleResult.Success -> {
+                                    createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(
+                                        this@apply
+                                    ).show()
+                                    findNavController().navigateUp()
+                                }
                             }
-                            createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this@apply).show()
-                            findNavController().navigateUp()
                         }
                     }
                     is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
@@ -128,10 +133,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),
             size = binding.productExtrasLayout.productSizeText.getString())
-    }
-
-    fun onSearchButtonClicked(){
-
     }
 
     fun onScanButtonClicked(){

@@ -87,7 +87,7 @@ class BackupRepository @Inject constructor(
     override suspend fun restoreBackupForBusiness(path: String): SimpleResult  {
         return try {
             appDatabase.close()
-            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup1")
+            val dbRef = storage.child("users/${auth.currentUser?.uid}/backup")
 
             val localFile = File(context.filesDir.path + "/backup")
 

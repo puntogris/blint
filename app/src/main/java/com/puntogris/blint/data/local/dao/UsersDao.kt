@@ -20,7 +20,7 @@ interface UsersDao {
     @Query("SELECT * FROM roomuser WHERE userId = '1' ")
     fun getUserLiveData(): LiveData<RoomUser>
 
-    @Query("UPDATE roomuser SET currentBusinessId = :id, currentBusinessName = :name, currentBusinessType = :type WHERE userId = '1' ")
-    suspend fun updateCurrentBusiness(id:String, name:String, type:String)
+    @Query("UPDATE roomuser SET currentBusinessId = :id, currentBusinessName = :name, currentBusinessType = :type, currentBusinessOwner = :owner WHERE userId = '1' ")
+    suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner:String)
 
 }

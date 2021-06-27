@@ -6,25 +6,21 @@ import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.client.ClientFragmentDirections
-import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
-import com.puntogris.blint.utils.changeIconFromDrawable
-import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product) {
@@ -77,11 +73,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                     title("Queres eliminar este producto?")
                     content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
                     onNegative("Cancelar")
-                    onPositive("Si") {
-                        viewModel.deleteProductDatabase(args.productID)
-                        showLongSnackBarAboveFab("Producto eliminado correctamente.")
-                        findNavController().navigateUp()
-                    }
+                    onPositive("Si") { onDeleteProductConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
@@ -91,6 +83,19 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onDeleteProductConfirmed(){
+        lifecycleScope.launch {
+            when (viewModel.deleteProductDatabase(args.productID.toString())) {
+                SimpleResult.Failure ->
+                    showLongSnackBarAboveFab("Se produjo un error al eliminar el producto.")
+                SimpleResult.Success -> {
+                    showLongSnackBarAboveFab("Producto eliminado correctamente.")
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 

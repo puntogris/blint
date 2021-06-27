@@ -27,6 +27,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
@@ -243,6 +244,7 @@ class BottomNavDrawerFragment :
                                 employee.businessId,
                                 employee.businessName,
                                 employee.businessType,
+                                employee.businessOwner,
                                 R.drawable.ic_baseline_storefront_24, false)
 
                             if(tempBusiness.businessId == it.currentBusinessId){
@@ -304,7 +306,8 @@ class BottomNavDrawerFragment :
 
     override fun onAccountClicked(employee: BusinessItem) {
         lifecycleScope.launch {
-            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType)
+            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType, employee.businessOwner)
+            findNavController().navigate(R.id.mainFragment)
         }
         toggleSandwich()
     }

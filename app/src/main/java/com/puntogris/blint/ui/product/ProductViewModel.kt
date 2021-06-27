@@ -1,25 +1,28 @@
 package com.puntogris.blint.ui.product
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
+import com.puntogris.blint.data.remote.ProductRepository
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ProductViewModel @Inject constructor(
     private val productsDao: ProductsDao,
     private val ordersDao: OrdersDao,
     private val suppliersDao: SuppliersDao,
-    private val userRepository: UserRepository,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao,
-    private val categoriesDao: CategoriesDao
+    private val categoriesDao: CategoriesDao,
+    private val productRepository: ProductRepository
 ):ViewModel() {
 
     var viewsLoaded = false
@@ -53,54 +56,15 @@ class ProductViewModel @ViewModelInject constructor(
         }.flow
     }
 
-    suspend fun saveProductDatabase(){
-        _currentProduct.value.businessId = usersDao.getUser().currentBusinessId
-        val productId = productsDao.insert(_currentProduct.value)
-        saveRecordToDatabase(productId)
-        if (_currentProduct.value.productId == 0) statisticsDao.incrementTotalProducts()
-        saveProductSuppliersCrossRef(productId.toInt())
-        saveProductCategoryCrossRef(productId.toInt())
-    }
+    suspend fun saveProductDatabase() =
+        productRepository.saveProductDatabase(_currentProduct.value, suppliers.value!!, categories.value!!)
+
 
     fun updateCurrentProductBarcode(barcode: String){
         _currentProduct.value.barcode = barcode
     }
 
-    private suspend fun saveRecordToDatabase(productID: Long){
-        val record = Record(
-            type = "IN",
-            amount = _currentProduct.value.amount,
-            productId = productID.toInt(),
-            productName = _currentProduct.value.name,
-            timestamp = Timestamp.now(),
-            author = userRepository.getCurrentUser()?.email.toString(),
-            businessId = usersDao.getUser().currentBusinessId
-        )
-        ordersDao.insert(record)
-    }
-
-    private suspend fun saveProductSuppliersCrossRef(productId: Int){
-        suppliers.value?.map {
-            ProductSupplierCrossRef(productId, it)
-        }?.let {
-            productsDao.insertProductSupplierCrossRef(it)
-        }
-    }
-
-    private suspend fun saveProductCategoryCrossRef(productId: Int){
-        categories.value?.map {
-            ProductCategoryCrossRef(productId, it)
-        }?.let {
-            productsDao.insertProductCategoriesCrossRef(it)
-        }
-    }
-
-    fun deleteProductDatabase(id: Int){
-        viewModelScope.launch {
-            productsDao.delete(id)
-            statisticsDao.decrementTotalProducts()
-        }
-    }
+    suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 
     fun updateProductData(product: Product){
         product.productId = _currentProduct.value.productId
@@ -122,15 +86,7 @@ class ProductViewModel @ViewModelInject constructor(
         _currentProduct.value.image = imageMap
     }
 
-    fun getAllProducts(): Flow<PagingData<Product>> {
-        return Pager(PagingConfig(
-            pageSize = 30,
-            enablePlaceholders = true,
-            maxSize = 200
-        )){
-            productsDao.getAllPaged()
-        }.flow
-    }
+    suspend fun getProductsPaging() = productRepository.getProductsPagingDataFlow().cachedIn(viewModelScope)
 
     suspend fun getProduct(id: Int) = productsDao.getProduct(id)
 

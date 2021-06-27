@@ -21,6 +21,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
 
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var manageProductsAdapter : ManageProductsAdapter
+
     override fun initializeViews() {
         binding.fragment = this
 
@@ -29,7 +30,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launchWhenStarted {
-            viewModel.getAllProducts().collect {
+            viewModel.getProductsPaging().collect {
                 manageProductsAdapter.submitData(it)
             }
         }
@@ -48,8 +49,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 binding.productSearchText.setText(code)
                 searchProductAndFillAdapter(code)
             }
-
-
         }
     }
 

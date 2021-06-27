@@ -16,10 +16,13 @@ import coil.transform.BlurTransformation
 import com.bumptech.glide.Glide
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
@@ -51,7 +54,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
         setupBadgeListener()
-
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
 //        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)
