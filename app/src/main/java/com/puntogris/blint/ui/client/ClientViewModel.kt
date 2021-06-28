@@ -25,7 +25,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ClientViewModel @Inject constructor(
     private val clientsDao: ClientsDao,
-    private val ordersDao: OrdersDao,
     private val usersDao: UsersDao,
     private val clientRepository: ClientRepository
 ) : ViewModel() {
@@ -34,6 +33,13 @@ class ClientViewModel @Inject constructor(
     val currentClient : LiveData<Client> = _currentClient.asLiveData()
 
     suspend fun getClientPaging() = clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
+
+    suspend fun getClientsRecords(clientId: String) =
+        clientRepository.getClientRecordsPagingDataFlow(clientId).cachedIn(viewModelScope)
+
+    suspend fun saveClientDatabase() = clientRepository.saveClientDatabase(_currentClient.value)
+
+    suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
 
     fun getClientsWithName(name: String): Flow<PagingData<Client>> {
         return Pager(
@@ -53,25 +59,9 @@ class ClientViewModel @Inject constructor(
         _currentClient.value = client
     }
 
-    suspend fun saveClientDatabase() = clientRepository.saveClientDatabase(_currentClient.value)
-
-    suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
-
     fun updateClientData(client: Client){
         client.clientId = _currentClient.value.clientId
         _currentClient.value = client
-    }
-
-    fun getClientsRecords(clientID: String):Flow<PagingData<Record>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            ordersDao.getClientsRecords(clientID)
-        }.flow
     }
 
     suspend fun getCurrentBusiness() = usersDao.getUser()

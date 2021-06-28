@@ -16,18 +16,18 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
     }
 
     fun onExternalChipClicked(){
-        if(args.order.traderId.isNotEmpty()){
-            when(args.order.type){
-                "IN"-> {
-                    val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(args.order.traderId)
-                    findNavController().navigate(action)
-                }
-                "OUT" -> {
-                    val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(args.order.traderId)
-                    findNavController().navigate(action)
-                }
-            }
-        }
+//        if(args.order.traderId.isNotEmpty()){
+//            when(args.order.type){
+//                "IN"-> {
+//                    val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(args.order.traderId)
+//                    findNavController().navigate(action)
+//                }
+//                "OUT" -> {
+//                    val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(args.order.traderId)
+//                    findNavController().navigate(action)
+//                }
+//            }
+//        }
     }
 
     fun onNavigateToFullOrder(){

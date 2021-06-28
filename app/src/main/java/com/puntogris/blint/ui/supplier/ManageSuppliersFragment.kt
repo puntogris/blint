@@ -44,7 +44,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
-        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier.supplierId)
+        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier)
         findNavController().navigate(action)
     }
 

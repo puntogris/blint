@@ -12,6 +12,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientDataBinding
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +29,9 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("client_key") }?.apply {
-            getString("client_key")?.let {
+            getParcelable<Client>("client_key")?.let {
                 lifecycleScope.launchWhenStarted {
-                    val client = viewModel.getClient(it)
-                    viewModel.setClientData(client)
+                    viewModel.setClientData(it)
                 }
             }
         }

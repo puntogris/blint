@@ -105,8 +105,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     }
 
     fun navigateToSupplier(supplierId:String){
-        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(supplierId)
-        findNavController().navigate(action)
+//        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(supplierId)
+//        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {

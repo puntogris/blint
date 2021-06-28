@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierRecordsBinding
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.record.ManageRecordsFragmentDirections
 import com.puntogris.blint.ui.record.ProductsRecordsAdapter
@@ -24,9 +25,9 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getString("supplier_key")?.let {
+            getParcelable<Supplier>("supplier_key")?.let {
                 lifecycleScope.launchWhenStarted {
-                    viewModel.getSupplierRecords(it).collect {
+                    viewModel.getSupplierRecords(it.supplierId).collect {
                         productsRecordsAdapter.submitData(it)
                     }
                 }

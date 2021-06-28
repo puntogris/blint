@@ -34,7 +34,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
 
         setupContactPermissions()
 
-        if (args.clientId.isNotEmpty()){
+        if (args.clientId.isNotBlank()){
             lifecycleScope.launch {
                 val client = viewModel.getClient(args.clientId)
                 viewModel.setClientData(client)

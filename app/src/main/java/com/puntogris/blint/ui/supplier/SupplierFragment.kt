@@ -16,6 +16,7 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.client.ClientFragmentDirections
@@ -55,7 +56,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) SupplierDataFragment() else SupplierRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putString("supplier_key", args.supplierId)
+                    putParcelable("supplier_key", args.supplier)
                 }
             }
     }
@@ -63,7 +64,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplierId)
+                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplier.supplierId)
                 findNavController().navigate(action)
                 true
             }
@@ -77,7 +78,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplierId)
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplier.supplierId)
                 findNavController().navigate(action)
                 true
             }
@@ -87,7 +88,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
 
     private fun onDeleteSupplierConfirmed(){
         lifecycleScope.launch {
-            when(viewModel.deleteSupplierDatabase(args.supplierId)){
+            when(viewModel.deleteSupplierDatabase(args.supplier.supplierId)){
                 SimpleResult.Failure ->
                     showLongSnackBarAboveFab("Ocurrio un error al eliminar el proveedor.")
                 SimpleResult.Success -> {

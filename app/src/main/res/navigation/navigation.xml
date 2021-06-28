@@ -51,8 +51,8 @@
         android:name="com.puntogris.blint.ui.client.ClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="clientId"
-            app:argType="string" />
+            android:name="client"
+            app:argType="com.puntogris.blint.model.Client" />
         <action
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
@@ -68,8 +68,8 @@
         android:name="com.puntogris.blint.ui.supplier.SupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplierId"
-            app:argType="string" />
+            android:name="supplier"
+            app:argType="com.puntogris.blint.model.Supplier" />
         <action
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
@@ -199,7 +199,8 @@
         android:label="Cliente" >
         <argument
             android:name="clientId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/editSupplierFragment"
@@ -207,7 +208,8 @@
         android:label="Proveedor" >
         <argument
             android:name="supplierId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/joinBusinessFragment"

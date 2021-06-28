@@ -26,7 +26,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SupplierViewModel @Inject constructor(
     private val suppliersDao: SuppliersDao,
-    private val ordersDao: OrdersDao,
     private val supplierRepository: SupplierRepository
 ):ViewModel() {
 
@@ -34,6 +33,13 @@ class SupplierViewModel @Inject constructor(
     val currentSupplier : LiveData<Supplier> = _currentSupplier.asLiveData()
 
     suspend fun getSuppliersPaging() = supplierRepository.getSupplierPagingDataFlow().cachedIn(viewModelScope)
+
+    suspend fun deleteSupplierDatabase(supplierId: String) = supplierRepository.deleteSupplierDatabase(supplierId)
+
+    suspend fun saveSupplierDatabase() = supplierRepository.saveSupplierDatabase(_currentSupplier.value)
+
+    suspend fun getSupplierRecords(supplierId: String) =
+        supplierRepository.getSupplierRecordsPagingDataFlow(supplierId).cachedIn(viewModelScope)
 
     fun getSuppliersWithName(name: String): Flow<PagingData<Supplier>> {
         return Pager(
@@ -58,20 +64,5 @@ class SupplierViewModel @Inject constructor(
         _currentSupplier.value = supplier
     }
 
-    suspend fun deleteSupplierDatabase(supplierId: String) = supplierRepository.deleteSupplierDatabase(supplierId)
-
-    suspend fun saveSupplierDatabase() = supplierRepository.saveSupplierDatabase(_currentSupplier.value)
-
-    fun getSupplierRecords(supplierID: String):Flow<PagingData<Record>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            ordersDao.getSupplierRecords(supplierID)
-        }.flow
-    }
 
 }

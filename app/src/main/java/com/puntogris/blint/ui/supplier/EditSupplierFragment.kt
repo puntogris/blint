@@ -34,7 +34,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        if (args.supplierId.isNotEmpty()){
+        if (args.supplierId.isNotBlank()){
             lifecycleScope.launchWhenStarted {
                 val supplier = viewModel.getSupplier(args.supplierId)
                 viewModel.setSupplierData(supplier)

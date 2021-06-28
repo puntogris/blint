@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
@@ -54,7 +55,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) ClientDataFragment() else ClientRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putString("client_key", args.clientId)
+                    putParcelable("client_key", args.client)
                 }
             }
     }
@@ -62,7 +63,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.clientId)
+                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client.clientId)
                 findNavController().navigate(action)
                 true
             }
@@ -76,7 +77,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = CLIENT_DEBT,id = args.clientId)
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = CLIENT_DEBT, id = args.client.clientId)
                 findNavController().navigate(action)
                 true
             }
@@ -86,7 +87,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     private fun onDeleteClientConfirmed(){
         lifecycleScope.launch {
-            when(viewModel.deleteClientDatabase(args.clientId)){
+            when(viewModel.deleteClientDatabase(args.client.clientId)){
                 SimpleResult.Failure ->
                     showLongSnackBarAboveFab("Ocurrio un error al eliminar al cliente.")
                 SimpleResult.Success -> {

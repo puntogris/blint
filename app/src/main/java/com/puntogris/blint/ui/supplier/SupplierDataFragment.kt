@@ -13,6 +13,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierDataBinding
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,10 +32,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getString("supplier_key")?.let {
+            getParcelable<Supplier>("supplier_key")?.let {
                 lifecycleScope.launchWhenStarted {
-                    val supplier = viewModel.getSupplier(it)
-                    viewModel.setSupplierData(supplier)
+                    viewModel.setSupplierData(it)
                 }
             }
         }
