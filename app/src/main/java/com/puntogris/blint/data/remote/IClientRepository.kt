@@ -11,4 +11,5 @@ interface IClientRepository{
     suspend fun getClientPagingDataFlow(): Flow<PagingData<Client>>
     suspend fun deleteClientDatabase(clientId: String): SimpleResult
     suspend fun getClientRecordsPagingDataFlow(clientId: String): Flow<PagingData<Record>>
+    suspend fun getClientWithNamePagingDataFlow(name:String): Flow<PagingData<Client>>
 }

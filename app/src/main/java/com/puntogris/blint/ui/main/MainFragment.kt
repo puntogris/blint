@@ -1,28 +1,19 @@
 package com.puntogris.blint.ui.main
 
-import android.graphics.BlurMaskFilter
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.Coil
-import coil.transform.BlurTransformation
-import com.bumptech.glide.Glide
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
 import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
@@ -31,14 +22,15 @@ import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
 import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
-import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
+import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import jp.wasabeef.blurry.Blurry
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import java.util.*
+import kotlinx.coroutines.launch
+import kotlin.time.ExperimentalTime
+
 
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
@@ -48,6 +40,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var badge: BadgeDrawable
 
+    @ExperimentalTime
     override fun initializeViews() {
         binding.fragment = this
         binding.lifecycleOwner = this
@@ -55,6 +48,61 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
         setupBadgeListener()
+
+
+      //  val appID = ApplicationID("T9JVC6GCMX")
+       // val apiKey = APIKey("5a99602f5b7c591435cdcb99a696ced4")
+
+        //val client = ClientSearch(appID, apiKey)
+
+      //  val cli = client.initIndex(IndexName("clients"))
+     //   val contact = Contact("Jimmie", "Barninger", "New York", ObjectID("myID"))
+//
+     //   val test = Json.encodeToJsonElement(contact).jsonObject
+
+      //  lifecycleScope.launch {
+          //  Test(objectID = ObjectID("")).se
+           // cli.saveObject(test)
+//           val time = measureTime {
+//               val data = cli.getObject(ObjectID("myID"))
+//               val obj = Json.decodeFromJsonElement<Contact>(data)
+//               println(obj)
+//           }
+//            println(time)
+//        lifecycleScope.launch {
+//            val time = measureTime {
+//                val deoc = Firebase.firestore.collection("test")
+//                   // .whereEqualTo("firstname","firstname")
+//                    .whereArrayContains("search", "cola")
+//                    .get().await()
+//
+//                val asd = deoc.map {
+//                    Contact(
+//                        it.get("name").toString(),
+//                        it.get("firstname").toString(),
+//                        it.get("lastname").toString()
+//                        )
+//                }
+//                println(asd)
+//            }
+//            println(time)
+//        }
+//
+//        val text = "coca cola"
+//        val list = mutableListOf<String>()
+//
+//        text.forEachIndexed { index, c ->
+//            if (c != ' '){
+//                for (i in 1..text.length - index){
+//                    list.add(text.substring(index, index + i))
+//                }
+//            }
+//        }
+//
+//        val test = list.sumBy {
+//            it.length
+//        }
+//        println(test)
 
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")

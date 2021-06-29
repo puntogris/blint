@@ -64,7 +64,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(args.supplier.supplierId)
+                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(supplier = args.supplier)
                 findNavController().navigate(action)
                 true
             }

@@ -34,12 +34,12 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        if (args.supplierId.isNotBlank()){
-            lifecycleScope.launchWhenStarted {
-                val supplier = viewModel.getSupplier(args.supplierId)
-                viewModel.setSupplierData(supplier)
+        lifecycleScope.launchWhenStarted {
+            args.supplier?.let {
+                viewModel.setSupplierData(it)
             }
         }
+
         getParentFab().let { fab ->
             fab.changeIconFromDrawable(R.drawable.ic_baseline_save_24)
             fab.setOnClickListener {

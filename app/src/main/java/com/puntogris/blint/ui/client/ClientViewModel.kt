@@ -41,17 +41,8 @@ class ClientViewModel @Inject constructor(
 
     suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
 
-    fun getClientsWithName(name: String): Flow<PagingData<Client>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            clientsDao.getPagedSearch("%${name}%")
-        }.flow
-    }
+    suspend fun getClientsWithName(name: String) =
+        clientRepository.getClientWithNamePagingDataFlow(name).cachedIn(viewModelScope)
 
     suspend fun getClient(clientId:String) = clientsDao.getClient(clientId)
 

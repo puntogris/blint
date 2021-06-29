@@ -20,26 +20,39 @@ import kotlinx.coroutines.launch
 class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
 
     private val viewModel: SupplierViewModel by viewModels()
-
+    private lateinit var manageProductsAdapter: ManageSuppliersAdapter
+    
     override fun initializeViews() {
-        val manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
+        manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         lifecycleScope.launchWhenStarted {
-            viewModel.getSuppliersPaging().collect {
-                manageProductsAdapter.submitData(it)
-            }
+            getAllSuppliersAndFillAdapter()
         }
 
         binding.supplierSearchText.addTextChangedListener {
             lifecycleScope.launch {
-                viewModel.getSuppliersWithName(it.toString()).collect {
-                    manageProductsAdapter.submitData(it)
+                it.toString().let {
+                    if (it.isBlank()) getAllSuppliersAndFillAdapter()
+                    else getAllSuppliersWithNameAndFillAdapter(it)
                 }
             }
         }
         getParentFab().setOnClickListener {
             findNavController().navigate(R.id.editSupplierFragment)
+        }
+    }
+
+    private suspend fun getAllSuppliersWithNameAndFillAdapter(text:String){
+        viewModel.getSuppliersWithName(text).collect {
+            manageProductsAdapter.submitData(it)
+        }
+    }
+
+    private suspend fun getAllSuppliersAndFillAdapter(){
+        viewModel.getSuppliersPaging().collect {
+            manageProductsAdapter.submitData(it)
         }
     }
 

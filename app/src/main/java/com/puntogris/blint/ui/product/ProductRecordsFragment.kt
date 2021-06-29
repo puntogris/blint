@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
@@ -30,15 +31,13 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getString("product_key")?.let { productId ->
+            getParcelable<ProductWithSuppliersCategories>("product_key")?.let { product ->
                 lifecycleScope.launch {
-                    viewModel.getProductRecords(productId).collect {
+                    viewModel.getProductRecords(product.product.productId).collect {
                         productsRecordsAdapter.submitData(it)
                     }
                 }
-                lifecycleScope.launch {
-                    setUpPieView(viewModel.getProduct(productId))
-                }
+                setUpPieView(product.product)
             }
         }
     }

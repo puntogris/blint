@@ -5,8 +5,9 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageProductsDiffCallback
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 
-class ManageProductsAdapter(private val clickListener: (Product) -> Unit): PagingDataAdapter<Product, ManageProductsViewHolder>(ManageProductsDiffCallback()) {
+class ManageProductsAdapter(private val clickListener: (ProductWithSuppliersCategories) -> Unit): PagingDataAdapter<ProductWithSuppliersCategories, ManageProductsViewHolder>(ManageProductsDiffCallback()) {
 
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageProductsViewHolder {
         return ManageProductsViewHolder.from(parent)

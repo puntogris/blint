@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.chip.Chip
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDataProductBinding
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,13 +21,12 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getString("product_key")?.let {
+            getParcelable<ProductWithSuppliersCategories>("product_key")?.let {
                 lifecycleScope.launch {
-                    val product = viewModel.getProductWithSuppliersCategories(it)
-                    viewModel.setProductData(product.product)
+                    viewModel.setProductData(it.product)
 
-                    if (product.suppliers.isNotEmpty()){
-                        product.suppliers.forEach { supplier->
+                    if (!it.suppliers.isNullOrEmpty()){
+                        it.suppliers.forEach { supplier->
                             Chip(requireContext()).apply {
                                 text = supplier.companyName
                                 setOnClickListener {
@@ -36,8 +36,8 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                             }
                         }
                     }
-                    if (product.categories.isNotEmpty()){
-                        product.categories.forEach { category ->
+                    if (!it.categories.isNullOrEmpty()){
+                        it.categories.forEach { category ->
                             Chip(requireContext()).apply {
                                 text = category.name
                                 setOnClickListener {

@@ -1,16 +1,19 @@
 package com.puntogris.blint.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Category(
     @PrimaryKey
-    val categoryId: String = "",
+    var categoryId: String = "",
 
     @ColumnInfo
     val name:String,
 
     @ColumnInfo
-    val businessId:String)
+    var businessId: String = ""):Parcelable

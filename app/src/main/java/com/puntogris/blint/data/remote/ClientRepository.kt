@@ -102,4 +102,24 @@ class ClientRepository @Inject constructor(
         }.flow
     }
 
+    override suspend fun getClientWithNamePagingDataFlow(name: String): Flow<PagingData<Client>> = withContext(Dispatchers.IO) {
+        val user = currentBusiness()
+        Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200                )
+        ) {
+            if (user.currentBusinessIsOnline()){
+                val query = firestoreQueries
+                    .getClientsCollectionQuery(user)
+                    .whereArrayContains("search_name", name)
+                    .limit(5)
+
+                FirestoreClientsPagingSource(query)
+            }
+            else{ clientsDao.getPagedSearch("%${name}%") }
+        }.flow
+    }
+
 }

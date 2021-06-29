@@ -6,7 +6,7 @@
     <data>
         <variable
             name="product"
-            type="com.puntogris.blint.model.Product" />
+            type="com.puntogris.blint.model.ProductWithSuppliersCategories" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
             android:id="@+id/bar"
             android:layout_width="4dp"
             android:layout_height="0dp"
-            verticalIndicatorProgress="@{product.amount}"
+            verticalIndicatorProgress="@{product.product.amount}"
             app:layout_constraintTop_toTopOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="@id/tvUsed"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Coffee Shops"
-            android:text="@{product.name}"
+            android:text="@{product.product.name}"
             android:layout_marginTop="@dimen/spacing_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/bar"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             tools:text="$45.49"
             android:letterSpacing="0.2"
-            productPrices="@{product}"
+            productPrices="@{product.product}"
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +85,7 @@
             tools:text="1200.00"
             android:letterSpacing="0.2"
             style="?attr/textAppearanceSubtitle1"
-            android:text="@{String.valueOf(product.amount)}"
+            android:text="@{String.valueOf(product.product.amount)}"
             app:layout_constraintTop_toTopOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="@id/tvUsed"
             app:layout_constraintEnd_toStartOf="@id/ivArrow"

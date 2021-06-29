@@ -12,6 +12,7 @@ import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -98,6 +99,26 @@ class SupplierRepository @Inject constructor(
                 FirestoreRecordsPagingSource(query)
             }
             else{ ordersDao.getSupplierRecords(supplierId) }
+        }.flow
+    }
+
+    override suspend fun getSupplierWithNamePagingDataFlow(name: String): Flow<PagingData<Supplier>> = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200                )
+        ) {
+            if (user.currentBusinessIsOnline()){
+                val query = firestoreQueries
+                    .getSuppliersCollectionQuery(user)
+                    .whereArrayContains("search_name", name)
+                    .limit(5)
+
+                FirestoreSuppliersPagingSource(query)
+            }
+            else{ suppliersDao.getPagedSearch("%${name}%") }
         }.flow
     }
 

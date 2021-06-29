@@ -10,6 +10,7 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.ProductRepository
 import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,9 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val productsDao: ProductsDao,
-    private val ordersDao: OrdersDao,
     private val suppliersDao: SuppliersDao,
-    private val usersDao: UsersDao,
     private val categoriesDao: CategoriesDao,
     private val productRepository: ProductRepository
 ):ViewModel() {
@@ -29,9 +28,10 @@ class ProductViewModel @Inject constructor(
 
     private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
     val productImage: LiveData<HashMap<String, String>> = _productImage
-
     private val suppliers = MutableLiveData(listOf<String>())
     private val categories = MutableLiveData(listOf<String>())
+    private val _currentProduct = MutableStateFlow(Product())
+    val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
 
     fun updateSuppliers(suppliers:List<String>){
         this.suppliers.value = suppliers
@@ -41,30 +41,17 @@ class ProductViewModel @Inject constructor(
         this.categories.value = categories
     }
 
-    private val _currentProduct = MutableStateFlow(Product())
-    val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
+    fun getAllCategoriesFlow() = categoriesDao.getAllCategoriesFlow()
 
-    fun getProductRecords(productId:String): Flow<PagingData<Record>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            ordersDao.getProductRecordsPaged(productId)
-        }.flow
+    fun removeCurrentImage(){
+        val imageMap = hashMapOf("uri" to "", "path" to "")
+        _productImage.value = imageMap
+        _currentProduct.value.image = imageMap
     }
-
-    suspend fun saveProductDatabase() =
-        productRepository.saveProductDatabase(_currentProduct.value, suppliers.value!!, categories.value!!)
-
 
     fun updateCurrentProductBarcode(barcode: String){
         _currentProduct.value.barcode = barcode
     }
-
-    suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 
     fun updateProductData(product: Product){
         product.productId = _currentProduct.value.productId
@@ -80,39 +67,30 @@ class ProductViewModel @Inject constructor(
         _currentProduct.value.image = imageMap
     }
 
-    fun removeCurrentImage(){
-        val imageMap = hashMapOf("uri" to "", "path" to "")
-        _productImage.value = imageMap
-        _currentProduct.value.image = imageMap
-    }
+    suspend fun getProductRecords(productId:String) =
+        productRepository.getProductRecordsPagingDataFlow(productId).cachedIn(viewModelScope)
+
+    suspend fun saveProductDatabase() =
+        productRepository.saveProductDatabase(_currentProduct.value, suppliers.value!!, categories.value!!)
+
+    suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 
     suspend fun getProductsPaging() = productRepository.getProductsPagingDataFlow().cachedIn(viewModelScope)
 
-    suspend fun getProduct(id: String) = productsDao.getProduct(id)
+    suspend fun getProductWithSuppliersCategories(id: String) =
+        productsDao.getProductWithSuppliersCategories(id)
 
-    suspend fun getProductWithSuppliersCategories(id: String) = productsDao.getProductWithSuppliersCategories(id)
-
-    fun getProductWithName(name: String): Flow<PagingData<Product>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            productsDao.getPagedSearch("%${name}%")
-        }.flow
-    }
+    suspend fun getProductWithName(productName: String) =
+        productRepository.getProductsWithNamePagingDataFlow(productName)
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
     suspend fun getAllCategories() = categoriesDao.getAllCategories()
-    fun getAllCategoriesFlow() = categoriesDao.getAllCategoriesFlow()
-    suspend fun deleteCategory(category: Category){
-        categoriesDao.deleteCategory(category)
-    }
 
-    suspend fun insertCategory(name: String){
-        categoriesDao.insert(Category(name = name, businessId = usersDao.getUser().currentBusinessId))
-    }
+    suspend fun deleteCategory(category: Category) =
+        productRepository.deleteProductCategoryDatabase(category)
+
+    suspend fun insertCategory(name: String) =
+        productRepository.saveProductCategoryDatabase(Category(name = name))
+
 }

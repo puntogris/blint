@@ -8,10 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.local.dao.OrdersDao
-import com.puntogris.blint.data.local.dao.ProductsDao
-import com.puntogris.blint.data.local.dao.StatisticsDao
-import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +22,8 @@ class ProductRepository @Inject constructor(
     private val productsDao: ProductsDao,
     private val statisticsDao: StatisticsDao,
     private val ordersDao: OrdersDao,
-    private val firestoreQueries: FirestoreQueries
+    private val firestoreQueries: FirestoreQueries,
+    private val categoriesDao: CategoriesDao
 ): IProductRepository {
 
     private val firestore = Firebase.firestore
@@ -91,7 +89,7 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    override suspend fun getProductsPagingDataFlow(): Flow<PagingData<Product>> = withContext(Dispatchers.IO) {
+    override suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>> = withContext(Dispatchers.IO) {
         val user = currentBusiness()
         Pager(
             PagingConfig(
@@ -123,6 +121,74 @@ class ProductRepository @Inject constructor(
         }catch (e:Exception){
             SimpleResult.Failure
         }
+    }
+
+    override suspend fun getProductsWithNamePagingDataFlow(name: String) = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200                )
+        ) {
+            if (user.currentBusinessIsOnline()){
+                val query = firestoreQueries
+                    .getProductsCollectionQuery(user)
+                    .whereArrayContains("search_name", name)
+                    .limit(5)
+
+                FirestoreProductsPagingSource(query)
+            }
+            else{ productsDao.getPagedSearch("%${name}%") }
+        }.flow
+    }
+
+    override suspend fun getProductRecordsPagingDataFlow(productId: String) = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200                )
+        ) {
+            if (user.currentBusinessIsOnline()){
+                val query = firestoreQueries
+                    .getRecordsCollectionQuery(user)
+                    .whereEqualTo("productId", productId)
+                FirestoreRecordsPagingSource(query)
+            }
+            else{ ordersDao.getProductRecordsPaged(productId) }
+        }.flow
+    }
+
+    override suspend fun deleteProductCategoryDatabase(category: Category): SimpleResult = withContext(Dispatchers.IO) {
+        try {
+            val user = currentBusiness()
+            if (user.currentBusinessIsOnline()) {
+                firestoreQueries
+                    .getCategoriesCollectionQuery(user)
+                    .document(category.categoryId)
+                    .delete()
+                    .await()
+            }
+            else categoriesDao.deleteCategory(category)
+            SimpleResult.Success
+        } catch (e: Exception) {
+            SimpleResult.Failure }
+    }
+
+    override suspend fun saveProductCategoryDatabase(category: Category): SimpleResult = withContext(Dispatchers.IO){
+        try {
+            val user = currentBusiness()
+            val categoryRef = firestoreQueries.getCategoriesCollectionQuery(user).document()
+            category.apply {
+                businessId = user.currentBusinessId
+                categoryId = categoryRef.id
+            }
+            if (user.currentBusinessIsOnline()) categoryRef.set(category)
+            else categoriesDao.insert(category)
+            SimpleResult.Success
+        }catch (e:Exception){ SimpleResult.Failure }
     }
 
 }

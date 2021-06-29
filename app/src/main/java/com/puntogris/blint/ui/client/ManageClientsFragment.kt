@@ -20,27 +20,39 @@ import kotlinx.coroutines.launch
 class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
 
     private val viewModel: ClientViewModel by viewModels()
+    private lateinit var manageProductsAdapter: ManageClientsAdapter
 
     override fun initializeViews() {
-
-        val manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
+        manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         lifecycleScope.launchWhenStarted {
-            viewModel.getClientPaging().collect {
-                manageProductsAdapter.submitData(it)
-            }
+            getAllClientsAndFillAdapter()
         }
 
         binding.productSearchText.addTextChangedListener {
             lifecycleScope.launch {
-                viewModel.getClientsWithName(it.toString()).collect {
-                    manageProductsAdapter.submitData(it)
+                it.toString().let {
+                    if (it.isBlank()) getAllClientsAndFillAdapter()
+                    else getAllClientsWithNameAndFillAdapter(it)
                 }
             }
         }
         getParentFab().setOnClickListener {
             findNavController().navigate(R.id.editClientFragment)
+        }
+    }
+
+    private suspend fun getAllClientsWithNameAndFillAdapter(text:String){
+        viewModel.getClientsWithName(text).collect {
+            manageProductsAdapter.submitData(it)
+        }
+    }
+
+    private suspend fun getAllClientsAndFillAdapter(){
+        viewModel.getClientPaging().collect {
+            manageProductsAdapter.submitData(it)
         }
     }
 

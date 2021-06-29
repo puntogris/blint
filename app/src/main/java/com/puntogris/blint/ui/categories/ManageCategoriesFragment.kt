@@ -9,6 +9,7 @@ import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.product.ProductViewModel
+import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +30,12 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         binding.button11.setOnClickListener {
             lifecycleScope.launch {
                 val name = binding.categoryNameText.getString()
-                viewModel.insertCategory(name)
-                showLongSnackBarAboveFab("Categoria guardada correctamente.")
+                when(viewModel.insertCategory(name)){
+                    SimpleResult.Failure ->
+                        showLongSnackBarAboveFab("Ocurrio un erro al crear la categoria.")
+                    SimpleResult.Success ->
+                        showLongSnackBarAboveFab("Categoria guardada correctamente.")
+                }
             }
         }
     }
@@ -45,14 +50,21 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
                         title("Eliminar categoria")
                         content("Estas por eliminar la categoria '${category.name}', esta accion es irreversible.")
                         onNegative("No")
-                        onPositive("Eliminar") {
-                            this@ManageCategoriesFragment.lifecycleScope.launch {
-                                this@ManageCategoriesFragment.viewModel.deleteCategory(category)
-                            }
-                        }
+                        onPositive("Eliminar") { onDeleteCategoryConfirmed(category) }
                     }.show(parentFragmentManager, "")
                 }
                 binding.categoriesChipGroup.addView(this)
+            }
+        }
+    }
+
+    private fun onDeleteCategoryConfirmed(category: Category){
+        lifecycleScope.launch {
+            when(viewModel.deleteCategory(category)){
+                SimpleResult.Failure ->
+                    showLongSnackBarAboveFab("Ocurrio un error al eliminar la categoria.")
+                SimpleResult.Success ->
+                    showLongSnackBarAboveFab("Categoria eliminada satisfactoriamente.")
             }
         }
     }

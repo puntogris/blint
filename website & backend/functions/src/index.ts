@@ -43,3 +43,52 @@ export const sendJoinedEmployeeNotifications = functions.firestore.document('use
         return error
     }
 })
+
+export const createSearchArrayForNewClient = functions.firestore.document('users/{userId}/business/{businessId}/clients/{clientId}').onCreate(async(snap, context) =>{
+    const name = snap.get("name")
+    const businessId = context.params.businessId
+    const userId = context.params.userId
+    const clientId = context.params.clientId
+    
+    return admin.firestore().collection('users').doc(userId).collection('business').doc(businessId).collection('clients').doc(clientId).update({
+        "search_name": getArrayForNameSearch(name)
+    })
+})
+
+export const createSearchArrayForNewSupplier = functions.firestore.document('users/{userId}/business/{businessId}/suppliers/{supplierId}').onCreate(async(snap, context) =>{
+    const name = snap.get("name")
+    const businessId = context.params.businessId
+    const userId = context.params.userId
+    const supplierId = context.params.supplierId
+    
+    return admin.firestore().collection('users').doc(userId).collection('business').doc(businessId).collection('suppliers').doc(supplierId).update({
+        "search_name": getArrayForNameSearch(name)
+    })
+})
+
+export const createSearchArrayForNewProduct = functions.firestore.document('users/{userId}/business/{businessId}/products/{productId}').onCreate(async(snap, context) =>{
+    const name = snap.get("name")
+    const businessId = context.params.businessId
+    const userId = context.params.userId
+    const productId = context.params.productId
+    
+    return admin.firestore().collection('users').doc(userId).collection('business').doc(businessId).collection('products').doc(productId).update({
+        "search_name": getArrayForNameSearch(name)
+    })
+})
+
+function getArrayForNameSearch(name:string):string[]{
+    const list:string[] = []
+    
+    const process = (character:string, index:number) => {
+      if(character !== ' '){
+          for(let i = 1; i <= name.length - index ; i++){
+            list.push(name.substring(index, index + i))
+          }
+      }
+    }
+    
+    [...name].forEach(process)
+
+    return list
+}

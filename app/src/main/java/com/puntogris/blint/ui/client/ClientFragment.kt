@@ -63,7 +63,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client.clientId)
+                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
                 findNavController().navigate(action)
                 true
             }

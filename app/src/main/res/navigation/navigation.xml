@@ -112,8 +112,10 @@
         android:name="com.puntogris.blint.ui.product.ProductFragment"
         android:label="Producto" >
         <argument
-            android:name="productId"
-            app:argType="string" />
+            android:name="product"
+            app:argType="com.puntogris.blint.model.ProductWithSuppliersCategories"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
@@ -182,9 +184,10 @@
         android:name="com.puntogris.blint.ui.product.EditProductFragment"
         android:label="Producto" >
         <argument
-            android:name="productId"
-            app:argType="string"
-            android:defaultValue=" " />
+            android:name="productWithSuppCate"
+            app:argType="com.puntogris.blint.model.ProductWithSuppliersCategories"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_editProductFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
@@ -198,18 +201,20 @@
         android:name="com.puntogris.blint.ui.client.EditClientFragment"
         android:label="Cliente" >
         <argument
-            android:name="clientId"
-            app:argType="string"
-            android:defaultValue=" " />
+            android:name="client"
+            app:argType="com.puntogris.blint.model.Client"
+            android:defaultValue="@null"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/editSupplierFragment"
         android:name="com.puntogris.blint.ui.supplier.EditSupplierFragment"
         android:label="Proveedor" >
         <argument
-            android:name="supplierId"
-            app:argType="string"
-            android:defaultValue=" " />
+            android:name="supplier"
+            app:argType="com.puntogris.blint.model.Supplier"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/joinBusinessFragment"

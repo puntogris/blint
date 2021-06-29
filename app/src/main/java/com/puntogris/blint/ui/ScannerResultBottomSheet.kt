@@ -145,8 +145,8 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
     fun onGoToProductClicked(){
         returnAndActivateCamera = false
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.getProductID())
-        findNavController().navigate(action)
+      //  val action = ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.getProductID())
+     //   findNavController().navigate(action)
     }
 
     fun onSaveProductClicked(){

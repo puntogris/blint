@@ -37,41 +37,36 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         if (!viewModel.viewsLoaded) {
-            if (args.productId.isNotEmpty()){
+            args.productWithSuppCate?.let{
                 lifecycleScope.launch {
-                    val productWithSuppAndCat = viewModel.getProductWithSuppliersCategories(args.productId)
-                    viewModel.setProductData(productWithSuppAndCat.product)
+                    viewModel.setProductData(it.product)
 
-                    if (productWithSuppAndCat.suppliers.isNotEmpty()){
-                        productWithSuppAndCat.suppliers.forEach { supplier->
-                            Chip(requireContext()).apply {
-                                text = supplier.companyName
-                                setOnClickListener {
+                    it.suppliers?.forEach { supplier ->
+                        Chip(requireContext()).apply {
+                            text = supplier.companyName
+                            setOnClickListener {
 
-                                }
-                                binding.scopeLayout.supplierChipGroup.addView(this)
                             }
+                            binding.scopeLayout.supplierChipGroup.addView(this)
                         }
                     }
-                    if (productWithSuppAndCat.categories.isNotEmpty()){
-                        productWithSuppAndCat.categories.forEach { category ->
-                            Chip(requireContext()).apply {
-                                text = category.name
-                                setOnClickListener {
 
-                                }
-                                binding.productExtrasLayout.categoriesChipGroup.addView(this)
+                    it.categories?.forEach { category ->
+                        Chip(requireContext()).apply {
+                            text = category.name
+                            setOnClickListener {
+
                             }
+                            binding.productExtrasLayout.categoriesChipGroup.addView(this)
                         }
                     }
                 }
-
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true
         }
 
-        if (args.productId.isEmpty()) {
+        if (args.productWithSuppCate == null) {
             binding.pricesLayout.apply {
                 productAmount.visible()
                 increaseAmountButton.visible()
@@ -96,9 +91,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                                 SimpleResult.Failure ->
                                     createShortSnackBar("Error al crear el producto.").setAnchorView(this@apply).show()
                                 SimpleResult.Success -> {
-                                    createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(
-                                        this@apply
-                                    ).show()
+                                    createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this@apply).show()
                                     findNavController().navigateUp()
                                 }
                             }

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
+import com.puntogris.blint.utils.Constants.CATEGORIES_COLLECTION
 import com.puntogris.blint.utils.Constants.CLIENTS_COLLECTION
 import com.puntogris.blint.utils.Constants.EVENTS_COLLECTION
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_SUB_COLLECTION
@@ -72,6 +73,9 @@ class FirestoreQueries @Inject constructor(){
     fun getClientsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(CLIENTS_COLLECTION)
 
     fun getSuppliersCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(SUPPLIERS_COLLECTION)
+
+    fun getCategoriesCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(CATEGORIES_COLLECTION)
+
 
     fun getRecordsWithTraderIdQuery(user: RoomUser, traderId: String) =
         getRecordsCollectionQuery(user).whereEqualTo("traderId", traderId)

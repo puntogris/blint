@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,13 +30,16 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launchWhenStarted {
-            viewModel.getProductsPaging().collect {
-                manageProductsAdapter.submitData(it)
-            }
+            searchProductAndFillAdapter()
         }
 
         binding.productSearchText.addTextChangedListener {
-            searchProductAndFillAdapter(it.toString())
+            lifecycleScope.launch {
+                it.toString().let {
+                    if (it.isBlank()) searchProductAndFillAdapter()
+                    else searchProductWithNameAndFillAdapter(it)
+                }
+            }
         }
 
         getParentFab().setOnClickListener {
@@ -47,21 +50,27 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             viewLifecycleOwner) {
             it?.let { code ->
                 binding.productSearchText.setText(code)
-                searchProductAndFillAdapter(code)
+                lifecycleScope.launch {
+                    searchProductWithNameAndFillAdapter(code)
+                }
             }
         }
     }
 
-    private fun searchProductAndFillAdapter(text: String){
-        lifecycleScope.launch {
-            viewModel.getProductWithName(text).collect { data ->
-                manageProductsAdapter.submitData(data)
-            }
+    private suspend fun searchProductAndFillAdapter(){
+        viewModel.getProductsPaging().collect {
+            manageProductsAdapter.submitData(it)
         }
     }
 
-    private fun onProductClickListener(product: Product){
-        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product.productId)
+    private suspend fun searchProductWithNameAndFillAdapter(text: String){
+        viewModel.getProductWithName(text).collect { data ->
+            manageProductsAdapter.submitData(data)
+        }
+    }
+
+    private fun onProductClickListener(product: ProductWithSuppliersCategories){
+        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
         findNavController().navigate(action)
     }
 
