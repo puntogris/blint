@@ -71,8 +71,6 @@ class CalendarViewModel @Inject constructor(
         _event.value.status = if (position == 0) "PENDING" else "FINISHED"
     }
 
-
-
 //    fun getDayEvents(date:Date){
 //        val flow = Pager(
 //            PagingConfig(

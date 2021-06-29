@@ -28,7 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 
 @AndroidEntryPoint
-class GenerateReportFragment :
+class GenerateReportFragment:
     BaseFragment<FragmentGenerateReportBinding>(R.layout.fragment_generate_report) {
 
     private val viewModel: ReportsViewModel by viewModels()

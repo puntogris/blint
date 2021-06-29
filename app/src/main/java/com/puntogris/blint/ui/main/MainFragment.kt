@@ -3,11 +3,17 @@ package com.puntogris.blint.ui.main
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
@@ -24,11 +30,14 @@ import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
 import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
 import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
+import com.puntogris.blint.utils.EventsDashboard
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.time.ExperimentalTime
 
 
@@ -37,7 +46,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var badge: BadgeDrawable
 
     @ExperimentalTime
@@ -46,64 +55,8 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupMenuRecyclerView()
-        setupCalendarRecyclerView()
         setupBadgeListener()
-
-
-      //  val appID = ApplicationID("T9JVC6GCMX")
-       // val apiKey = APIKey("5a99602f5b7c591435cdcb99a696ced4")
-
-        //val client = ClientSearch(appID, apiKey)
-
-      //  val cli = client.initIndex(IndexName("clients"))
-     //   val contact = Contact("Jimmie", "Barninger", "New York", ObjectID("myID"))
-//
-     //   val test = Json.encodeToJsonElement(contact).jsonObject
-
-      //  lifecycleScope.launch {
-          //  Test(objectID = ObjectID("")).se
-           // cli.saveObject(test)
-//           val time = measureTime {
-//               val data = cli.getObject(ObjectID("myID"))
-//               val obj = Json.decodeFromJsonElement<Contact>(data)
-//               println(obj)
-//           }
-//            println(time)
-//        lifecycleScope.launch {
-//            val time = measureTime {
-//                val deoc = Firebase.firestore.collection("test")
-//                   // .whereEqualTo("firstname","firstname")
-//                    .whereArrayContains("search", "cola")
-//                    .get().await()
-//
-//                val asd = deoc.map {
-//                    Contact(
-//                        it.get("name").toString(),
-//                        it.get("firstname").toString(),
-//                        it.get("lastname").toString()
-//                        )
-//                }
-//                println(asd)
-//            }
-//            println(time)
-//        }
-//
-//        val text = "coca cola"
-//        val list = mutableListOf<String>()
-//
-//        text.forEachIndexed { index, c ->
-//            if (c != ' '){
-//                for (i in 1..text.length - index){
-//                    list.add(text.substring(index, index + i))
-//                }
-//            }
-//        }
-//
-//        val test = list.sumBy {
-//            it.length
-//        }
-//        println(test)
-
+        setupCalendarRecyclerView()
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
 //        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)
@@ -133,7 +86,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 //        tableText.draw(listOf(listOf(TextCell("sdfsdfsdf", textProperties, 340))))
 //        simplyPdfDocument.finish()
 
-
     }
 
     private fun setupBadgeListener(){
@@ -160,20 +112,34 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     private fun setupCalendarRecyclerView(){
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
-        lifecycleScope.launch(Dispatchers.IO) {
-            val events = viewModel.getLastEvents()
-            if (events.isEmpty()){
-                binding.button17.visible()
-                binding.textView151.visible()
-            }else{
-                mainCalendarAdapter.submitList(events)
-                binding.materialCardView2.visible()
+
+        lifecycleScope.launch {
+            when(val data = viewModel.getLastEvents()){
+                EventsDashboard.DataNotFound -> {
+                    view?.findViewById<Button>(R.id.button17)?.visible()
+                    view?.findViewById<TextView>(R.id.textView151)?.visible()
+                }
+                is EventsDashboard.Error -> {
+                    view?.findViewById<Button>(R.id.textView151)?.apply {
+                        text = "Error al retirar la informacion."
+                        visible()
+                    }
+                }
+                is EventsDashboard.Success -> {
+                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
+                    mainCalendarAdapter.submitList(data.data)
+                }
             }
         }
 
         binding.calendarRecyclerView.apply {
             adapter = mainCalendarAdapter
             layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("dismiss_key")?.observe(
+            viewLifecycleOwner) {
+            if (it) mainCalendarAdapter.notifyDataSetChanged()
         }
     }
 
@@ -187,23 +153,12 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
-         //   addItemDecoration(SpaceItemDecoration(10, true))
+           // addItemDecoration(I(requireContext(), DividerItemDecoration.))
         }
     }
 
     private fun onMenuCardClicked(menuCard: MenuCard){
-        when(menuCard.code){
-            ALL_PRODUCTS_CARD_CODE -> R.id.manageProductsFragment
-            ALL_CLIENTS_CARD_CODE -> R.id.manageClientsFragment
-            ALL_SUPPLIERS_CARD_CODE -> R.id.manageSuppliersFragment
-            ACCOUNTING_CARD_CODE -> R.id.calendarFragment
-            RECORDS_CARD_CODE -> R.id.manageRecordsFragment
-            TOOLS_CARD_CODE -> R.id.operationsFragment
-            CHARTS_CARD_CODE -> R.id.reportsFragment
-            DEB_CARD_CODE -> R.id.manageDebtFragment
-            ACCOUNT_CARD_CODE -> R.id.accountPreferences
-            else -> R.id.mainFragment
-        }.apply { findNavController().navigate(this) }
+        findNavController().navigate(menuCard.navigationId)
     }
 
     override fun setUpMenuOptions(menu: Menu) {

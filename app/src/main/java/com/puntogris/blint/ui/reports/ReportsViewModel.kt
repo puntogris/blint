@@ -4,13 +4,18 @@ import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.StatisticsDao
+import com.puntogris.blint.data.remote.StatisticRepository
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.ExportResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
-class ReportsViewModel @ViewModelInject constructor(
-    private val statisticsDao: StatisticsDao
+@HiltViewModel
+class ReportsViewModel @Inject constructor(
+    private val statisticsDao: StatisticsDao,
+    private val statisticRepository: StatisticRepository
 ):ViewModel() {
 
     suspend fun getStatistics() = statisticsDao.getStatistics()

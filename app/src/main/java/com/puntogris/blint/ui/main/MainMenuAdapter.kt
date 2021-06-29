@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.main
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.MenuCardDiffCallback
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
@@ -18,15 +19,15 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
 
     init {
         val list = listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos"),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores"),
-            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes"),
-            MenuCard(RECORDS_CARD_CODE, "Ordenes"),
-            MenuCard(CHARTS_CARD_CODE, "Informes"),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda"),
-            MenuCard(TOOLS_CARD_CODE, "Herramientas"),
-            MenuCard(DEB_CARD_CODE, "Deudas"),
-            MenuCard(ACCOUNT_CARD_CODE,"Cuenta")
+            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", R.id.manageProductsFragment),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", R.id.manageSuppliersFragment),
+            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", R.id.manageClientsFragment),
+            MenuCard(RECORDS_CARD_CODE, "Ordenes", R.id.manageRecordsFragment),
+            MenuCard(CHARTS_CARD_CODE, "Informes", R.id.reportsFragment),
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", R.id.calendarFragment),
+            MenuCard(TOOLS_CARD_CODE, "Herramientas", R.id.operationsFragment),
+            MenuCard(DEB_CARD_CODE, "Deudas", R.id.manageDebtFragment),
+            MenuCard(ACCOUNT_CARD_CODE,"Cuenta", R.id.accountPreferences)
             )
         submitList(list)
     }

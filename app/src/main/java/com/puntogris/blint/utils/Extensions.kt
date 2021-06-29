@@ -25,6 +25,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -301,3 +302,11 @@ fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMo
     context.resources.getDimension(id)
 }
 
+fun Fragment.showSnackBarVisibilityAppBar(text:String){
+    getParentBottomAppBar().let {
+        if (it.isVisible)
+            createLongSnackBar(text).setAnchorView(it).show()
+        else
+            showShortSnackBar(text)
+    }
+}

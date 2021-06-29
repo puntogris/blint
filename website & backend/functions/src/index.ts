@@ -56,7 +56,7 @@ export const createSearchArrayForNewClient = functions.firestore.document('users
 })
 
 export const createSearchArrayForNewSupplier = functions.firestore.document('users/{userId}/business/{businessId}/suppliers/{supplierId}').onCreate(async(snap, context) =>{
-    const name = snap.get("name")
+    const name = snap.get("companyName")
     const businessId = context.params.businessId
     const userId = context.params.userId
     const supplierId = context.params.supplierId

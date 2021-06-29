@@ -2,4 +2,5 @@ package com.puntogris.blint.model
 
 data class MenuCard(
     val code: Int,
-    val title:String)
+    val title: String,
+    val navigationId: Int)

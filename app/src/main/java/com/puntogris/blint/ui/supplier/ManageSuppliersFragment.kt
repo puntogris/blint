@@ -21,7 +21,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
 
     private val viewModel: SupplierViewModel by viewModels()
     private lateinit var manageProductsAdapter: ManageSuppliersAdapter
-    
+
     override fun initializeViews() {
         manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
         binding.recyclerView.adapter = manageProductsAdapter

@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.calendar
 
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -10,8 +11,7 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -20,7 +20,7 @@ import java.util.*
 class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(R.layout.event_info_bottom_sheet) {
 
     private val viewModel: CalendarViewModel by viewModels()
-    private val args:EventInfoBottomSheetArgs by navArgs()
+    private val args: EventInfoBottomSheetArgs by navArgs()
 
     override fun initializeViews() {
         binding.fragment = this
@@ -50,11 +50,11 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
 
     fun onDeleteEventConfirmed(){
         lifecycleScope.launch {
-            when (viewModel.deleteEvent(args.event.eventId.toString())) {
+            when (viewModel.deleteEvent(args.event.eventId)) {
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Se produjo un error al eliminar el evento.")
+                    showSnackBarVisibilityAppBar("Se produjo un error al eliminar el evento.")
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab("Evento eliminado correctamente.")
+                    showSnackBarVisibilityAppBar("Evento eliminado correctamente.")
                     findNavController().navigateUp()
                 }
             }
@@ -65,16 +65,15 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         lifecycleScope.launch {
             when(viewModel.updateEvent()){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al tratar de actualizar el evento.")
+                    showSnackBarVisibilityAppBar("Ocurrio un error al tratar de actualizar el evento.")
                 SimpleResult.Success -> {
-                findNavController().apply {
-                    previousBackStackEntry!!.savedStateHandle.set("dismiss_key", true)
-                    popBackStack()
-                    showLongSnackBarAboveFab("Se actualizo el estado del evento correctamente.")
-                }
+                    findNavController().apply {
+                        previousBackStackEntry!!.savedStateHandle.set("dismiss_key", true)
+                        popBackStack()
+                        showSnackBarVisibilityAppBar("Se actualizo el estado del evento correctamente.")
+                    }
                 }
             }
-
         }
     }
 }

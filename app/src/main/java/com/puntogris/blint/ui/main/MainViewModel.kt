@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.*
+import com.puntogris.blint.data.remote.MainRepository
 import com.puntogris.blint.data.remote.NotificationsRepository
 import com.puntogris.blint.data.remote.ProductRepository
 import com.puntogris.blint.data.remote.UserRepository
@@ -20,7 +21,8 @@ class MainViewModel @Inject constructor(
     private val employeeDao: EmployeeDao,
     productsDao: ProductsDao,
     suppliersDao: SuppliersDao,
-    clientsDao: ClientsDao
+    clientsDao: ClientsDao,
+    private val mainRepository: MainRepository
 ):ViewModel() {
 
     val productsCount = productsDao.getCount()
@@ -35,7 +37,7 @@ class MainViewModel @Inject constructor(
 
     fun getUnreadNotificationsCount() = notificationsRepository.getAllUnreadNotifications()
 
-    fun getLastEvents() = eventsDao.getLastThreeEvents()
+    suspend fun getLastEvents() = mainRepository.getLastBusinessEvents()
 
     fun getEmployeeBusiness() = employeeDao.getEmployeesListLiveData()
 

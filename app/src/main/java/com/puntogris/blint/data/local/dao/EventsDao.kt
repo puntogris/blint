@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.google.firebase.Timestamp
 import com.puntogris.blint.model.Event
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventsDao {
@@ -31,6 +32,9 @@ interface EventsDao {
 
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
     fun getLastThreeEvents():List<Event>
+
+    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
+    fun getLastThreeEventsFlow(): Flow<List<Event>>
 
     @Query("SELECT COUNT(*) FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount() :Int

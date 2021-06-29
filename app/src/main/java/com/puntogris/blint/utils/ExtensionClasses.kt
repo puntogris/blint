@@ -52,6 +52,12 @@ sealed class ExportResult{
     object InProgress: ExportResult()
 }
 
+sealed class EventsDashboard{
+    class Success(val data:List<Event>):EventsDashboard()
+    class Error(val exception: Exception):EventsDashboard()
+    object DataNotFound: EventsDashboard()
+}
+
 sealed class UserBusiness(){
     class Success(val data:List<Employee>) : UserBusiness()
     class Error(val exception: Exception): UserBusiness()
