@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorSecondaryVariant">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
@@ -17,19 +17,20 @@
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
         <item name="scrimBackground">@color/reply_black_900_alpha_087</item>
         <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
+        <item name="bottomSheetDayNight">#121212</item>
+    </style>
 
+    <style name="Theme.Blint.CheckedTextNav" >
+        <item name="android:textColor">@color/color_navigation_drawer_menu_item</item>
+        <item name="drawableTint">@color/color_navigation_drawer_menu_item</item>
+    </style>
+
+    <style name="Theme.Blint.ImageView" >
+        <item name="android:tint">@color/grey_20</item>
     </style>
 
     <style name="Theme.Blint.Notifications" parent="Base.Theme.Blint" >
         <item name="android:background" >@color/almostBlack</item>
-    </style>
-
-    <style name="Theme.Blint.Calendar">
-        <item name="compactCalendarBackgroundColor">#121212</item>
-        <item name="compactCalendarCurrentDayBackgroundColor">@color/purple_200</item>
-        <item name="compactCalendarCurrentSelectedDayBackgroundColor">#E57373</item>
-        <item name="compactCalendarMultiEventIndicatorColor">#fff</item>
-        <item name="compactCalendarTextColor">#fff</item>
     </style>
 
     <style name="Theme.Blint.CalendarSeparator">
@@ -37,9 +38,8 @@
     </style>
 
     <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">@color/purple_200</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
-
 
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
@@ -54,5 +54,10 @@
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
 
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+    </style>
 
 </resources>

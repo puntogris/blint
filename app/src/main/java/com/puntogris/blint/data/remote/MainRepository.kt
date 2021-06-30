@@ -8,6 +8,8 @@ import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.EventsDashboard
 import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,7 +23,7 @@ class MainRepository @Inject constructor(
     private val firestore = Firebase.firestore
     private suspend fun currentBusiness() = usersDao.getUser()
 
-    override suspend fun getLastBusinessEvents(): EventsDashboard = withContext(Dispatchers.IO) {
+    override suspend fun getBusinessLastEventsDatabase(): EventsDashboard = withContext(Dispatchers.IO) {
         try {
             val user = currentBusiness()
             val events =
@@ -37,4 +39,14 @@ class MainRepository @Inject constructor(
             EventsDashboard.Error(e)
         }
     }
+
+    override fun getAllUnreadNotifications(): StateFlow<Int> =
+        MutableStateFlow(0).also { stateFlow ->
+            firestoreQueries.getAllUnreadNotificationsQuery()
+                .addSnapshotListener { snap, _ ->
+                    snap?.documents?.let { docs ->
+                        stateFlow.value = docs.size
+                    }
+                }
+        }
 }

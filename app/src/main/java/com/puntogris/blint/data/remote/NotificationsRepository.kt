@@ -47,16 +47,6 @@ class NotificationsRepository @Inject constructor(private val firestoreQueries: 
             firestoreQueries.deleteNotificationQuery().document(notificationId).delete()
     }
 
-    override fun getAllUnreadNotifications(): StateFlow<Int> =
-        MutableStateFlow(0).also { stateFlow ->
-            firestoreQueries.getAllUnreadNotificationsQuery()
-                .addSnapshotListener { snap, _ ->
-                    snap?.documents?.let { docs ->
-                        stateFlow.value = docs.size
-                    }
-                }
-        }
-
 
     override fun updateNotificationReadState(notificationId: String) {
         firestoreQueries.updateNotificationsReadStateQuery()

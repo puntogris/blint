@@ -2,18 +2,14 @@ package com.puntogris.blint.ui.main
 
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
@@ -21,25 +17,12 @@ import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
-import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
-import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
-import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
-import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
 import com.puntogris.blint.utils.EventsDashboard
-import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.time.ExperimentalTime
-
 
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
@@ -114,7 +97,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
 
         lifecycleScope.launch {
-            when(val data = viewModel.getLastEvents()){
+            when(val data = viewModel.getBusinessLastEvents()){
                 EventsDashboard.DataNotFound -> {
                     view?.findViewById<Button>(R.id.button17)?.visible()
                     view?.findViewById<TextView>(R.id.textView151)?.visible()

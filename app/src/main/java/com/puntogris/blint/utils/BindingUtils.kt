@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -55,22 +56,8 @@ fun ImageView.setImageFullSize(image: HashMap<String,String>?){
 }
 
 @BindingAdapter("menuCardIcon")
-fun ImageView.setMenuCardIcon(menuCard: MenuCard){
-    when(menuCard.code){
-        ALL_PRODUCTS_CARD_CODE -> R.drawable.ic_packages
-        ALL_CLIENTS_CARD_CODE -> R.drawable.ic_rating
-        ALL_SUPPLIERS_CARD_CODE -> R.drawable.ic_shipped
-        ACCOUNTING_CARD_CODE -> R.drawable.ic_calendar
-        RECORDS_CARD_CODE -> R.drawable.ic_report
-        CHARTS_CARD_CODE -> R.drawable.ic_analytics
-        TOOLS_CARD_CODE -> R.drawable.ic_customer_support
-        DEB_CARD_CODE -> R.drawable.ic_loan
-        ACCOUNT_CARD_CODE -> R.drawable.ic_profile
-        else -> R.drawable.ic_baseline_add_24
-    }.also {
-        setImageDrawable(ContextCompat.getDrawable(context, it))
-    }
-    setColorFilter(Color.WHITE)
+fun ImageView.setMenuCardIcon(@DrawableRes icon:Int){
+    setImageDrawable(ContextCompat.getDrawable(context, icon))
 }
 
 @BindingAdapter("loadImageButtonText")

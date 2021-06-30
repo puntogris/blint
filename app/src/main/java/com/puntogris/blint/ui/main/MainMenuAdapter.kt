@@ -19,15 +19,15 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
 
     init {
         val list = listOf(
-            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", R.id.manageProductsFragment),
-            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", R.id.manageSuppliersFragment),
-            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", R.id.manageClientsFragment),
-            MenuCard(RECORDS_CARD_CODE, "Ordenes", R.id.manageRecordsFragment),
-            MenuCard(CHARTS_CARD_CODE, "Informes", R.id.reportsFragment),
-            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", R.id.calendarFragment),
-            MenuCard(TOOLS_CARD_CODE, "Herramientas", R.id.operationsFragment),
-            MenuCard(DEB_CARD_CODE, "Deudas", R.id.manageDebtFragment),
-            MenuCard(ACCOUNT_CARD_CODE,"Cuenta", R.id.accountPreferences)
+            MenuCard(ALL_PRODUCTS_CARD_CODE, "Productos", R.id.manageProductsFragment,R.drawable.ic_packages),
+            MenuCard(ALL_SUPPLIERS_CARD_CODE, "Proveedores", R.id.manageSuppliersFragment,R.drawable.ic_shipped),
+            MenuCard(ALL_CLIENTS_CARD_CODE, "Clientes", R.id.manageClientsFragment,R.drawable.ic_rating),
+            MenuCard(RECORDS_CARD_CODE, "Ordenes", R.id.manageRecordsFragment, R.drawable.ic_report),
+            MenuCard(CHARTS_CARD_CODE, "Informes", R.id.reportsFragment, R.drawable.ic_analytics),
+            MenuCard(ACCOUNTING_CARD_CODE, "Agenda", R.id.calendarFragment, R.drawable.ic_calendar),
+            MenuCard(TOOLS_CARD_CODE, "Herramientas", R.id.operationsFragment, R.drawable.ic_customer_support),
+            MenuCard(DEB_CARD_CODE, "Deudas", R.id.manageDebtFragment, R.drawable.ic_loan),
+            MenuCard(ACCOUNT_CARD_CODE,"Cuenta", R.id.accountPreferences, R.drawable.ic_profile)
             )
         submitList(list)
     }

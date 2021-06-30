@@ -212,7 +212,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.bottomAppBar.gone()
             binding.addFav.hide()
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+            if (!isDarkThemeOn()){
+                val view = window.decorView
 
+                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+            }
         }else if(destination.id == R.id.mainFragment ||
             destination.id == R.id.newUserFragment){
             if (destination.id == R.id.mainFragment){
@@ -222,6 +227,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.bottomAppBar.visible()
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
             window.statusBarColor = resources.getColor(R.color.colorSecondary)
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+            if (!isDarkThemeOn()){
+                val view = window.decorView
+
+                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+            }
+
         }else if(destination.id == R.id.calendarFragment ){
             setupToolbarAndStatusBar()
             binding.addFav.isClickable = false
@@ -252,6 +264,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.bottomAppBar.performHide()
         }
         else {
+            if (!isDarkThemeOn()) {
+                val view = window.decorView
+
+                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+
+                binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
+            }
+
             setupToolbarAndStatusBar()
             binding.bottomAppBar.visible()
             binding.addFav.show()
@@ -269,8 +289,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
         }
         bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.addFav, binding.addFav.isVisible))
+        if(destination.id == R.id.manageProductsFragment){
+            binding.toolbar.gone()
+        }else{
+            binding.toolbar.visible()
 
-
+        }
     }
 
     private fun setupToolbarAndStatusBar(){
@@ -283,7 +307,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
         }else{
-            ContextCompat.getColor(this, R.color.grey_5).apply {
+            ContextCompat.getColor(this, R.color.grey_3).apply {
                 window.statusBarColor = this
                 binding.toolbar.setBackgroundColor(this)
             }
@@ -292,8 +316,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             view.setSystemUiVisibility(view.getSystemUiVisibility() or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
     }
-
-
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {

@@ -15,8 +15,7 @@
         <attr name="tabTextAppearance" format="reference"/>
     </declare-styleable>
 
-
-
+    <attr name="bottomSheetDayNight" format="color" />
 
     <!--A variant of primarySurface which corresponds to colorPrimaryVariant in light theme-->
     <!--and colorSurface in dark theme-->

@@ -178,7 +178,6 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/avenir_medium"
             android:text="Ultimos eventos de la agenda"
-            android:textColor="@color/white"
             android:textSize="19sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />

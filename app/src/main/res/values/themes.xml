@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
@@ -14,7 +14,17 @@
         <item name="colorSurface">@color/grey_5</item>
         <item name="android:statusBarColor">@color/grey_5</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:colorBackground">@color/grey_3</item>
+        <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
+        <item name="bottomSheetDayNight">@color/grey_3</item>
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
+
+    </style>
+
+    <style name="Theme.Blint.CheckedTextNav" >
+        <item name="android:textColor">@color/color_navigation_drawer_menu_item_dark</item>
+        <item name="drawableTint">@color/color_navigation_drawer_menu_item_dark</item>
     </style>
 
     <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
@@ -25,15 +35,9 @@
         <item name="android:background" >@color/cardview_light_background</item>
     </style>
 
-    <style name="Theme.Blint.Calendar">
-        <item name="compactCalendarBackgroundColor">@color/grey_5</item>
-        <item name="compactCalendarCurrentDayBackgroundColor">@color/purple_200</item>
-        <item name="compactCalendarCurrentSelectedDayBackgroundColor">#E57373</item>
-        <item name="compactCalendarMultiEventIndicatorColor">#fff</item>
-        <item name="compactCalendarTextColor">#121212</item>
+    <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="titleTextColor">@color/grey_60</item>
     </style>
-
-    <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
@@ -46,7 +50,6 @@
         <item name="fontFamily">@font/avenir_medium</item>
     </style>
 
-<!--    chart-->
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
     </style>
 
@@ -74,6 +77,9 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <style name="Theme.Blint.ImageView" >
+        <item name="android:tint">@color/grey_60</item>
+    </style>
 
     <style name="Theme.Blint.DataTextView" parent="@style/TextAppearance.MaterialComponents.Body2">
         <item name="android:textSize">16sp</item>
