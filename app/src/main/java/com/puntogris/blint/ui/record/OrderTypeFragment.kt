@@ -3,12 +3,14 @@ package com.puntogris.blint.ui.record
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.changeIconFromDrawable
+import com.puntogris.blint.utils.getParentBottomAppBar
 import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +20,10 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
-
+        getParentBottomAppBar().apply {
+            performHide()
+            fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+        }
         binding.recordTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("Entrada", "Salida")))
 
         binding.recordTypeText.setOnItemClickListener { _, _, i, _ ->

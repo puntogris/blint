@@ -11,7 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,6 +23,9 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
     private lateinit var manageProductsAdapter: ManageClientsAdapter
 
     override fun initializeViews() {
+        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        setUpUi(showToolbar = false, showAppBar = true, showFab = true)
+
         manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -31,7 +34,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
             getAllClientsAndFillAdapter()
         }
 
-        binding.productSearchText.addTextChangedListener {
+        binding.clientSearch.addTextChangedListener {
             lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllClientsAndFillAdapter()
@@ -57,6 +60,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
     }
 
     private fun onClientClickListener(client: Client){
+        hideKeyboard()
         val action = ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
         findNavController().navigate(action)
     }

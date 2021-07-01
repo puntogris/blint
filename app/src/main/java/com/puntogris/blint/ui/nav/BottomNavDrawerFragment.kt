@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -39,8 +40,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBottomNavDrawerBinding
 import com.puntogris.blint.model.BusinessItem
 import com.puntogris.blint.ui.main.MainViewModel
-import com.puntogris.blint.utils.gone
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
@@ -273,9 +273,11 @@ class BottomNavDrawerFragment :
 
     fun open() {
         behavior.state = STATE_HALF_EXPANDED
+        getParentBottomAppBar().setNavigationIcon(R.drawable.ic_baseline_close_24)
     }
 
     fun close() {
+        getParentBottomAppBar().setNavigationIcon(R.drawable.ic_baseline_menu_24)
         behavior.state = STATE_HIDDEN
     }
 

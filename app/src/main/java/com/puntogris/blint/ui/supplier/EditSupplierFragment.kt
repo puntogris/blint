@@ -34,31 +34,28 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        lifecycleScope.launchWhenStarted {
-            args.supplier?.let {
-                viewModel.setSupplierData(it)
-            }
-        }
-
-        getParentFab().let { fab ->
-            fab.changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            fab.setOnClickListener {
-                viewModel.updateSupplierData(getSupplierFromViews())
-                when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
-                    is StringValidator.Valid -> {
-                        lifecycleScope.launch {
-                            when(viewModel.saveSupplierDatabase()){
-                                SimpleResult.Failure ->
-                                    createShortSnackBar("Ocurrio un error al guardar el proveedor.").setAnchorView(fab).show()
-                                SimpleResult.Success -> {
-                                    createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(fab).show()
-                                    findNavController().navigateUp()
-                                }
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+            viewModel.updateSupplierData(getSupplierFromViews())
+            when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
+                is StringValidator.Valid -> {
+                    lifecycleScope.launch {
+                        when(viewModel.saveSupplierDatabase()){
+                            SimpleResult.Failure ->
+                                createShortSnackBar("Ocurrio un error al guardar el proveedor.").setAnchorView(it).show()
+                            SimpleResult.Success -> {
+                                createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(it).show()
+                                findNavController().navigateUp()
                             }
                         }
                     }
-                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(fab).show()
                 }
+                is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            args.supplier?.let {
+                viewModel.setSupplierData(it)
             }
         }
 

@@ -21,6 +21,8 @@ import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
+import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +32,8 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     override fun initializeViews() {
         binding.fragment = this
+
+        setUpUi(showFab = false)
 
         val reportDashboardAdapter = ReportsDashboardAdapter()
         binding.dashboardRv.apply {

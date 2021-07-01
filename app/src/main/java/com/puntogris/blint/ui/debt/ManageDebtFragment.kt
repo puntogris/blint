@@ -17,6 +17,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -29,8 +30,9 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        setUpUi(showFab = true)
 
-        val debtPagingAdapter = DebtPagingAdapter(){}
+        val debtPagingAdapter = DebtPagingAdapter{}
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

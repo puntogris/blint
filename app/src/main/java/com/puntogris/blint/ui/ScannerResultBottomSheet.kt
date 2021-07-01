@@ -77,7 +77,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
         lifecycleScope.launch {
             val clients = viewModel.getAllClients()
             if (clients.isNullOrEmpty()){
-                showSackBarAboveBotomSheet("No se encontraron clientes registrados.")
+                showSackBarAboveBottomSheet("No se encontraron clientes registrados.")
             }else{
                 val optionClients = clients.map { Option(it.name) }.toMutableList()
                 OptionsSheet().build(requireContext()) {
@@ -100,7 +100,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
         lifecycleScope.launch {
             val suppliers = viewModel.getAllSuppliers()
             if (suppliers.isNullOrEmpty()){
-                showSackBarAboveBotomSheet("No se encontraron proveedores registrados.")
+                showSackBarAboveBottomSheet("No se encontraron proveedores registrados.")
             }else{
                 val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
                 OptionsSheet().build(requireContext()){
@@ -152,10 +152,10 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
     fun onSaveProductClicked(){
         when {
             binding.recordTypeText.text.isNullOrBlank() -> {
-                showSackBarAboveBotomSheet("Especifica el tipo de movimiento.")
+                showSackBarAboveBottomSheet("Especifica el tipo de movimiento.")
             }
             binding.productAmountText.getInt() == 0  || binding.productAmountText.text.isNullOrBlank() -> {
-                showSackBarAboveBotomSheet("El campo de cantidad no puede estar vacio.")
+                showSackBarAboveBottomSheet("El campo de cantidad no puede estar vacio.")
             }
             else -> {
                 lifecycleScope.launchWhenStarted {
@@ -164,7 +164,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         showLongSnackBarAboveFab("Se actualizo el producto correctamente.")
                     }
                     else{
-                        showSackBarAboveBotomSheet("No dispone del stock para realizar esta accion.")
+                        showSackBarAboveBottomSheet("No dispone del stock para realizar esta accion.")
                     }
                 }
             }

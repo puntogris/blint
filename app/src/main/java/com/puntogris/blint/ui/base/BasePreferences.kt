@@ -11,6 +11,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.puntogris.blint.R
+import com.puntogris.blint.utils.setUpUi
 
 abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompat() {
 
@@ -23,6 +24,7 @@ abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setUpUi()
         initializeViews()
         return super.onCreateView(inflater, container, savedInstanceState)
     }

@@ -1,10 +1,12 @@
 package com.puntogris.blint.ui.login
 
 import android.animation.ObjectAnimator
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private lateinit var activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>
 
     override fun initializeViews() {
+        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+       // getParentBottomAppBar().gone()
+        getParentToolbar().setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorSecondary))
+
+        val window = requireActivity().window
+        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorSecondary)
+        if (!isDarkThemeOn()){
+            val view = window.decorView
+            view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+        }
+
         binding.loginFragment = this
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
         binding.root.setOnClickListener {

@@ -26,6 +26,7 @@ import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,6 +39,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     private val viewModel: SupplierViewModel by viewModels()
 
     override fun initializeViews() {
+        setUpUi(showFab = true)
         val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

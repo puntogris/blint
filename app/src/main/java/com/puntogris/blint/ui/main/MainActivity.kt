@@ -4,19 +4,26 @@ import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
+import com.puntogris.blint.di.App
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
@@ -24,11 +31,11 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val viewModel: MainViewModel by viewModels()
-
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
@@ -100,7 +107,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
                 bottomNavDrawer.toggle()
-
 //                if(sharedPref.getUserHasBusinessPref()){
 //                    if (navController.currentDestination?.id != R.id.mainFragment)
 //                        navController.navigate(R.id.mainFragment)
@@ -108,6 +114,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
+    }
+
+    fun changeFabStateBottomSheet(value: Boolean) {
+        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.mainFab, value))
     }
 
     private fun navigateToMenuDestinations(navMenu: NavMenu) {
@@ -132,8 +142,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun setUpBottomDrawer(){
         bottomNavDrawer.apply {
-            addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
-            addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
+          //  addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+       //     addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
             addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
 //                 Toggle between the current destination's BAB menu and the menu which should
 //                 be displayed when the BottomNavigationDrawer is open.
@@ -144,13 +154,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 })
             })
 
-            addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+           // addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addNavigationListener(this@MainActivity)
         }
 
-        binding.bottomAppBarContentContainer.setOnClickListener {
-            bottomNavDrawer.toggle()
-        }
+//        binding.bottomAppBarContentContainer.setOnClickListener {
+//            bottomNavDrawer.toggle()
+//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -170,7 +180,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.run {
             bottomAppBar.visibility = View.VISIBLE
             bottomAppBar.replaceMenu(menuRes)
-            bottomAppBarTitle.visibility = View.VISIBLE
+         //   bottomAppBarTitle.visibility = View.VISIBLE
             bottomAppBar.performShow()
         }
     }
@@ -180,140 +190,37 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        if (
-            destination.id == R.id.registerBusinessFragment ||
-            destination.id == R.id.registerLocalBusinessFragment ||
-            destination.id == R.id.registerOnlineBusinessFragment ||
-            destination.id == R.id.loginProblemsFragment ||
-            destination.id == R.id.eventInfoBottomSheet
-        ) {
-            binding.addFav.isClickable = false
-            binding.bottomAppBar.gone()
-            binding.addFav.hide()
-        } else if (
-            destination.id == R.id.aboutFragment ||
-            destination.id == R.id.termsConditionsFragment ||
-            destination.id == R.id.privacyPolicyFragment ||
-            destination.id == R.id.createBackupFragment ||
-            destination.id == R.id.restoreBackupFragment ||
-            destination.id == R.id.addProductRecordBottomSheet ||
-                    destination.id == R.id.addOrderClientSupplierBottomSheet ||
-                    destination.id == R.id.addProductRecordBottomSheet
-        ) {
-            binding.bottomAppBar.performHide()
-            binding.addFav.hide()
-        }
-       else if(destination.id == R.id.welcomeFragment ||
-                destination.id == R.id.loginFragment ||
-                destination.id == R.id.introFragment ||
-                destination.id == R.id.firstSyncFragment){
-            window.statusBarColor = resources.getColor(R.color.colorSecondary)
-            binding.addFav.isClickable = false
-            binding.bottomAppBar.gone()
-            binding.addFav.hide()
+        if(destination.id == R.id.mainFragment){
             binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
             binding.toolbar.setTitleTextColor(getColor(R.color.white))
+            window.statusBarColor = getColor(R.color.colorSecondary)
+            binding.mainFab.hide()
+            setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
             if (!isDarkThemeOn()){
                 val view = window.decorView
-
                 view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
             }
-        }else if(destination.id == R.id.mainFragment ||
-            destination.id == R.id.newUserFragment){
-            if (destination.id == R.id.mainFragment){
-                setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
-            }
-            binding.addFav.hide()
-            binding.bottomAppBar.visible()
-            binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
-            window.statusBarColor = resources.getColor(R.color.colorSecondary)
-            binding.toolbar.setTitleTextColor(getColor(R.color.white))
-            if (!isDarkThemeOn()){
-                val view = window.decorView
-
-                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
-            }
-
-        }else if(destination.id == R.id.calendarFragment ){
-            setupToolbarAndStatusBar()
-            binding.addFav.isClickable = false
-            binding.bottomAppBar.gone()
-            binding.addFav.hide()
-            binding.addFav.gone()
-        }else if(destination.id == R.id.manageBusinessFragment ||
-                destination.id == R.id.employeeFragment ||
-                destination.id == R.id.reportsFragment ||
-                destination.id == R.id.businessFragment ||
-                destination.id == R.id.manageCategoriesFragment ||
-                destination.id == R.id.preferencesFragment  ||
-                destination.id == R.id.manageDebtFragment ){
-            setupToolbarAndStatusBar()
-            binding.addFav.isClickable = false
-            binding.bottomAppBar.visible()
-            binding.addFav.hide()
-            binding.bottomAppBar.performShow()
-        }else if(destination.id == R.id.addBusinessEmployee){
-            binding.addFav.isClickable = false
-            binding.addFav.hide()
-        }
-        else if(destination.id == R.id.createRecordFragment ||
-                destination.id == R.id.orderTypeFragment ||
-                destination.id == R.id.reviewRecordFragment ||
-                destination.id == R.id.publishOrderFragment){
-            binding.addFav.show()
-            binding.bottomAppBar.performHide()
-        }
-        else {
-            if (!isDarkThemeOn()) {
-                val view = window.decorView
-
-                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
-
-                binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
-            }
-
-            setupToolbarAndStatusBar()
-            binding.bottomAppBar.visible()
-            binding.addFav.show()
-            binding.bottomAppBar.performShow()
-        }
-        if (destination.id == R.id.createRecordFragment ||
-            destination.id == R.id.orderTypeFragment ||
-            destination.id == R.id.reviewRecordFragment ||
-            destination.id == R.id.createRecordFragment||
-            destination.id == R.id.publishOrderFragment ||
-            destination.id == R.id.addProductRecordBottomSheet ||
-            destination.id == R.id.addOrderClientSupplierBottomSheet){
-            //rehacer
         }else{
-            binding.addFav.changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-        }
-        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.addFav, binding.addFav.isVisible))
-        if(destination.id == R.id.manageProductsFragment){
-            binding.toolbar.gone()
-        }else{
-            binding.toolbar.visible()
-
+            setupToolbarAndStatusBar()
         }
     }
 
     private fun setupToolbarAndStatusBar(){
+        val view = window.decorView
+
         if (isDarkThemeOn()){
             ContextCompat.getColor(this, R.color.nightBackground).apply {
                 window.statusBarColor = this
                 binding.toolbar.setBackgroundColor(this)
             }
-            val view = window.decorView
 
-            view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+            view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         }else{
             ContextCompat.getColor(this, R.color.grey_3).apply {
                 window.statusBarColor = this
                 binding.toolbar.setBackgroundColor(this)
             }
-            
-            val view = window.decorView
-            view.setSystemUiVisibility(view.getSystemUiVisibility() or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 

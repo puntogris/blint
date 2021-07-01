@@ -7,6 +7,7 @@ import androidx.preference.Preference
 import com.puntogris.blint.R
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BasePreferences
+import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
 
     private val viewModel: PreferencesViewModel by viewModels()
     override fun initializeViews() {
-
+        getParentFab().hide()
         findPreference<Preference>("user_data_pref")?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.userAccountFragment)
             true

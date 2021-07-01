@@ -9,8 +9,18 @@
             type="com.puntogris.blint.model.ProductWithSuppliersCategories" />
     </data>
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        style="@style/Theme.Blint.CardView"
+
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
@@ -105,4 +115,6 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>

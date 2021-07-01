@@ -4,7 +4,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,13 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.transition.MaterialElevationScale
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.EventsDashboard
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -34,12 +36,15 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     @ExperimentalTime
     override fun initializeViews() {
+        setUpUi(showFab = false)
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupMenuRecyclerView()
         setupBadgeListener()
         setupCalendarRecyclerView()
+
+        //view?.doOnPreDraw { startPostponedEnterTransition() }
 
 //        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
 //        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)

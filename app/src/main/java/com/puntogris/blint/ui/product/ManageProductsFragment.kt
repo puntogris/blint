@@ -5,7 +5,9 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.marginTop
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,12 +18,12 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.gone
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
+import com.puntogris.blint.ui.nav.ShowHideFabStateAction
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
@@ -30,17 +32,18 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     private lateinit var manageProductsAdapter : ManageProductsAdapter
 
     override fun initializeViews() {
-
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-        }
-        //requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).gone()
+        binding.productSearch.clearFocus()
+        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         binding.fragment = this
-        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
+
+        setUpUi(showToolbar = false, showAppBar = true, showFab = true){
+            findNavController().navigate(R.id.editProductFragment)
+        }
+
+        requireActivity().findViewById<FragmentContainerView>(R.id.bottom_nav_drawer).getFragment<BottomNavDrawerFragment>()
+            ?.addOnStateChangedAction(ShowHideFabStateAction(getParentFab(), true))
 
         manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
@@ -50,26 +53,30 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             searchProductAndFillAdapter()
         }
 
-//        binding.productSearchText.addTextChangedListener {
-//            lifecycleScope.launch {
-//                it.toString().let {
-//                    if (it.isBlank()) searchProductAndFillAdapter()
-//                    else searchProductWithNameAndFillAdapter(it)
-//                }
-//            }
-//        }
+        binding.apply {
+            productSearch.setOnFocusChangeListener { view, b ->
+                btn1.visible()
+                btn2.visible()
+                btn3.visible()
+            }
+        }
 
-        getParentFab().setOnClickListener {
-            findNavController().navigate(R.id.editProductFragment)
+        binding.productSearch.addTextChangedListener {
+            lifecycleScope.launch {
+                it.toString().let {
+                    if (it.isBlank()) searchProductAndFillAdapter()
+                    else searchProductWithNameAndFillAdapter(it)
+                }
+            }
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
             viewLifecycleOwner) {
             it?.let { code ->
-//                binding.productSearchText.setText(code)
-//                lifecycleScope.launch {
-//                    searchProductWithNameAndFillAdapter(code)
-//                }
+                binding.productSearch.setText(code)
+                lifecycleScope.launch {
+                    searchProductWithNameAndFillAdapter(code)
+                }
             }
         }
     }
@@ -87,6 +94,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     }
 
     private fun onProductClickListener(product: ProductWithSuppliersCategories){
+        hideKeyboard()
         val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
         findNavController().navigate(action)
     }
@@ -97,6 +105,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     }
 
     override fun onDestroyView() {
+        binding.productSearch.clearFocus()
         binding.recyclerView.adapter = null
         super.onDestroyView()
     }

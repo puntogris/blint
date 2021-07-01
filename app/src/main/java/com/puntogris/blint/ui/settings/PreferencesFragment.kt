@@ -6,6 +6,8 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.puntogris.blint.R
 import com.puntogris.blint.ui.base.BasePreferences
+import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -4,11 +4,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageRecordsBinding
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setParentFabAlignment
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -18,9 +21,11 @@ class ManageRecordsFragment : BaseFragment<FragmentManageRecordsBinding>(R.layou
    private val viewModel: RecordsViewModel by viewModels()
 
     override fun initializeViews() {
+        setUpUi(showFab = true)
         getParentFab().setOnClickListener {
             findNavController().navigate(R.id.newOrderGraphNav)
         }
+
         val ordersAdapter = OrdersAdapter { onOrderClickListener(it) }
         binding.recyclerView.adapter = ordersAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

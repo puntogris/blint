@@ -5,10 +5,12 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.puntogris.blint.R
 import com.puntogris.blint.ui.base.BasePreferences
+import com.puntogris.blint.utils.getParentFab
 
 class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
+        getParentFab().hide()
         findPreference<SwitchPreference>("auto_backup_pref")?.setOnPreferenceClickListener {
             true
         }

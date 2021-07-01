@@ -11,7 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,6 +23,9 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
     private lateinit var manageProductsAdapter: ManageSuppliersAdapter
 
     override fun initializeViews() {
+        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        setUpUi(showToolbar = false, showAppBar = true, showFab = true)
+
         manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -31,7 +34,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
             getAllSuppliersAndFillAdapter()
         }
 
-        binding.supplierSearchText.addTextChangedListener {
+        binding.supplierSearch.addTextChangedListener {
             lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllSuppliersAndFillAdapter()
@@ -57,9 +60,11 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
     }
 
     private fun onSupplierClickListener(supplier: Supplier){
+        hideKeyboard()
         val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier)
         findNavController().navigate(action)
     }
+
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null

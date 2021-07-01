@@ -10,10 +10,7 @@ import com.puntogris.blint.model.notifications.AdvertisementNotification
 import com.puntogris.blint.model.notifications.EmploymentRequestReceivedNotif
 import com.puntogris.blint.model.notifications.EmploymentResponseEmployeeNotif
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.NotificationsState
-import com.puntogris.blint.utils.launchWebBrowserIntent
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.emitAll
@@ -24,6 +21,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     private val viewModel: NotificationsViewModel by viewModels()
 
     override fun initializeViews() {
+        getParentFab().hide()
         val adapter = NotificationsAdapter(
             clickListener = { notificationClickListener(it)},
             newNotificationListener = { newNotificationListener(it)})

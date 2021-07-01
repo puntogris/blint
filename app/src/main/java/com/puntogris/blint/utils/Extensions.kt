@@ -8,42 +8,44 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Point
-import android.graphics.drawable.InsetDrawable
 import android.net.Uri
+import android.opengl.Visibility
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.parser.IntegerParser
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
+import com.puntogris.blint.ui.main.MainActivity
+import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
+import com.puntogris.blint.ui.nav.ShowHideFabStateAction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.text.DecimalFormat
@@ -51,7 +53,6 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.io.path.createTempDirectory
 
 fun View.gone(){
     visibility = View.GONE
@@ -77,14 +78,13 @@ fun EditText.getFloat(): Float{
 }
 
 fun Fragment.getParentFab(): FloatingActionButton =
-    requireActivity().findViewById(R.id.addFav)
+    requireActivity().findViewById(R.id.mainFab)
 
 fun Fragment.getParentBottomAppBar(): BottomAppBar =
     requireActivity().findViewById(R.id.bottomAppBar)
 
 fun Fragment.setParentFabAlignment(alignment: Int){
     requireActivity().findViewById<BottomAppBar>(R.id.bottomAppBar).fabAlignmentMode = alignment
-
 }
 
 fun FloatingActionButton.changeIconFromDrawable(icon: Int){
@@ -117,7 +117,7 @@ fun Activity.showLongSnackBarAboveFab(message: String){
     val snackLayout = findViewById<View>(android.R.id.content)
     Snackbar
         .make(snackLayout, message, Snackbar.LENGTH_LONG)
-        .setAnchorView(findViewById(R.id.addFav))
+        .setAnchorView(findViewById(R.id.mainFab))
         .show()
 }
 
@@ -126,7 +126,7 @@ fun Fragment.createLongSnackBar(message: String): Snackbar{
     return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
 }
 
-fun BottomSheetDialogFragment.showSackBarAboveBotomSheet(message:String){
+fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message:String){
     Snackbar.make(
         dialog?.window!!.decorView,
         message,
@@ -172,7 +172,7 @@ fun String.isLengthInvalid(validLength: Int) = length < validLength
 
 fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
     Chip(requireContext()).apply {
-        text = "$name"
+        text = name
         isCloseIconVisible = true
         closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
         setOnClickListener { chipGroup.removeView(it) }
@@ -202,6 +202,24 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
             return this.removeSuffix(".00")
         }
     }
+}
+/**
+ * Shrink an ExtendedFloatingActionButton when the associated RecyclerView is scrolled down.
+ *
+ * @param recycler [RecyclerView] that the FAB should shrink/extend in response to.
+ */
+fun ExtendedFloatingActionButton.shrinkOnScroll(recycler: RecyclerView): RecyclerView.OnScrollListener {
+    val listener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if (dy <= 0) {
+                extend()
+            } else {
+                shrink()
+            }
+        }
+    }
+    recycler.addOnScrollListener(listener)
+    return listener
 }
 
 fun Date.getDateFormattedString() =
@@ -308,5 +326,34 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
             createLongSnackBar(text).setAnchorView(it).show()
         else
             showShortSnackBar(text)
+    }
+}
+
+fun Fragment.getParentToolbar() = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+
+fun Fragment.setUpUi(showFab: Boolean = false,
+                     showAppBar: Boolean = true,
+                     showToolbar: Boolean = true,
+                     showFabCenter: Boolean = true,
+                     @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
+                     fabListener: View.OnClickListener? = null
+){
+    (requireActivity() as MainActivity).apply {
+        findViewById<Toolbar>(R.id.toolbar).visibility = if (showToolbar) View.VISIBLE else View.GONE
+        val fab = findViewById<FloatingActionButton>(R.id.mainFab)
+        val appBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
+        if (showFab) {
+            fab.apply {
+                show()
+                changeIconFromDrawable(fabIcon)
+                setOnClickListener(fabListener)
+            }
+            appBar.fabAlignmentMode =
+                if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                else BottomAppBar.FAB_ALIGNMENT_MODE_END
+
+        } else fab.hide()
+        changeFabStateBottomSheet(showFab)
+        if (showAppBar) appBar.performShow() else appBar.performHide()
     }
 }

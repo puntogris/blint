@@ -32,33 +32,29 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+            viewModel.updateClientData(getClientFromViews())
+            when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
+                is StringValidator.Valid -> {
+                    lifecycleScope.launch {
+                        when(viewModel.saveClientDatabase()){
+                            SimpleResult.Failure ->
+                                createShortSnackBar("Ocurrio un error al guardar el cliente.").setAnchorView(it).show()
+                            SimpleResult.Success -> {
+                                createShortSnackBar("Se guardo el cliente satisfactoriamente.").setAnchorView(it).show()
+                                findNavController().navigateUp()
+                            }
+                        }
+                    }
+                }
+                is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
+            }
+        }
         setupContactPermissions()
 
         lifecycleScope.launch {
             args.client?.let {
                 viewModel.setClientData(it)
-            }
-        }
-
-        getParentFab().let { fab ->
-            fab.changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            fab.setOnClickListener {
-                viewModel.updateClientData(getClientFromViews())
-                when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
-                    is StringValidator.Valid -> {
-                        lifecycleScope.launch {
-                            when(viewModel.saveClientDatabase()){
-                                SimpleResult.Failure ->
-                                    createShortSnackBar("Ocurrio un error al guardar el cliente.").setAnchorView(fab).show()
-                                SimpleResult.Success -> {
-                                    createShortSnackBar("Se guardo el cliente satisfactoriamente.").setAnchorView(fab).show()
-                                    findNavController().navigateUp()
-                                }
-                            }
-                        }
-                    }
-                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(fab).show()
-                }
             }
         }
     }

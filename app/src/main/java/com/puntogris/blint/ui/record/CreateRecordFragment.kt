@@ -26,7 +26,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
 
         setUpRecyclerView()
 
-        setParentFabAlignment(BottomAppBar.FAB_ALIGNMENT_MODE_END)
+        setUpUi(showFab = true, showAppBar = false, showFabCenter = false)
 
 //        lifecycleScope.launchWhenStarted {
 //            if (args.productID != 0){

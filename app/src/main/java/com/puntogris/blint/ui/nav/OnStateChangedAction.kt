@@ -17,9 +17,11 @@
 package com.puntogris.blint.ui.nav
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.puntogris.blint.utils.visible
 
 /**
  * An action to be performed when a bottom sheet's state is changed.
@@ -56,14 +58,14 @@ class ChangeSettingsMenuStateAction(
  * when the sheet is not hidden.
  */
 class ShowHideFabStateAction(
-    private val fab: FloatingActionButton, private val isVisible:Boolean
-) : OnStateChangedAction {
-
+    private val fab: FloatingActionButton,
+    private val isFabShowing: Boolean
+    ) : OnStateChangedAction {
     //If is the FAB was visible before this we show it after else we don't.
     override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN && isVisible) {
-            fab.show()
-        } else {
+        if (newState == BottomSheetBehavior.STATE_HIDDEN && isFabShowing) {
+            if (isFabShowing) fab.show()
+        }else{
             fab.hide()
         }
     }

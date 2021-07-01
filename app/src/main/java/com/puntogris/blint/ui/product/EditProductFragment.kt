@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.product
 
 import android.Manifest
 import android.content.Intent
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -35,6 +36,25 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+            viewModel.updateProductData(getProductDataFromViews())
+            when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
+                is StringValidator.Valid -> {
+                    lifecycleScope.launch {
+                        when(viewModel.saveProductDatabase()){
+                            SimpleResult.Failure ->
+                                createShortSnackBar("Error al crear el producto.").setAnchorView(it).show()
+                            SimpleResult.Success -> {
+                                createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(it).show()
+                                findNavController().navigateUp()
+                            }
+                        }
+                    }
+                }
+                is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
+            }
+        }
 
         if (!viewModel.viewsLoaded) {
             args.productWithSuppCate?.let{
@@ -80,27 +100,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
-                viewModel.updateProductData(getProductDataFromViews())
-                when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
-                    is StringValidator.Valid -> {
-                        lifecycleScope.launch {
-                            when(viewModel.saveProductDatabase()){
-                                SimpleResult.Failure ->
-                                    createShortSnackBar("Error al crear el producto.").setAnchorView(this@apply).show()
-                                SimpleResult.Success -> {
-                                    createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(this@apply).show()
-                                    findNavController().navigateUp()
-                                }
-                            }
-                        }
-                    }
-                    is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(this).show()
-                }
-            }
-        }
 
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
