@@ -191,9 +191,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         arguments: Bundle?
     ) {
         if(destination.id == R.id.mainFragment){
-            binding.toolbar.setBackgroundColor(getColor(R.color.colorSecondary))
+            setToolbarAndStatusBarColor(R.color.colorSecondary)
             binding.toolbar.setTitleTextColor(getColor(R.color.white))
-            window.statusBarColor = getColor(R.color.colorSecondary)
             binding.mainFab.hide()
             setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
             if (!isDarkThemeOn()){
@@ -207,19 +206,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun setupToolbarAndStatusBar(){
         val view = window.decorView
-
         if (isDarkThemeOn()){
-            ContextCompat.getColor(this, R.color.nightBackground).apply {
-                window.statusBarColor = this
-                binding.toolbar.setBackgroundColor(this)
-            }
-
+            setToolbarAndStatusBarColor(R.color.nightBackground)
             view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         }else{
-            ContextCompat.getColor(this, R.color.grey_3).apply {
-                window.statusBarColor = this
-                binding.toolbar.setBackgroundColor(this)
-            }
+            setToolbarAndStatusBarColor(R.color.grey_3)
+            binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
             view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }

@@ -357,3 +357,10 @@ fun Fragment.setUpUi(showFab: Boolean = false,
         if (showAppBar) appBar.performShow() else appBar.performHide()
     }
 }
+
+fun Activity.setToolbarAndStatusBarColor(color: Int){
+    ContextCompat.getColor(this, color).apply {
+        window.statusBarColor = this
+        findViewById<Toolbar>(R.id.toolbar).setBackgroundColor(this)
+    }
+}

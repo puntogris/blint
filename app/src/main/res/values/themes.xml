@@ -39,6 +39,10 @@
         <item name="titleTextColor">@color/grey_60</item>
     </style>
 
+    <style name="Theme.Blint.CustomToolbar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/grey_3</item>
+    </style>
+
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>
