@@ -12,6 +12,7 @@ import com.puntogris.blint.data.remote.UserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,7 +42,8 @@ class ProductViewModel @Inject constructor(
         this.categories.value = categories
     }
 
-    fun getAllCategoriesFlow() = categoriesDao.getAllCategoriesFlow()
+    @ExperimentalCoroutinesApi
+    suspend fun getProductCategories() = productRepository.getProductCategoriesDatabase()
 
     fun removeCurrentImage(){
         val imageMap = hashMapOf("uri" to "", "path" to "")
@@ -87,10 +89,13 @@ class ProductViewModel @Inject constructor(
 
     suspend fun getAllCategories() = categoriesDao.getAllCategories()
 
-    suspend fun deleteCategory(category: Category) =
-        productRepository.deleteProductCategoryDatabase(category)
+    suspend fun deleteCategory(categories: List<Category>) =
+        productRepository.deleteProductCategoryDatabase(categories)
 
-    suspend fun insertCategory(name: String) =
+    suspend fun saveCategoryDatabase(name: String) =
         productRepository.saveProductCategoryDatabase(Category(name = name))
+
+    suspend fun updateCategoryDatabase(category: Category) =
+        productRepository.updateProductCategoryDatabase(category)
 
 }

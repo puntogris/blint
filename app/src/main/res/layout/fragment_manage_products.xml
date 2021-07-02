@@ -14,9 +14,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:focusableInTouchMode="true"
-        tools:context=".ui.product.ManageProductsFragment">
+        tools:context=".ui.product.ManageProductsFragment"
+        android:animateLayoutChanges="true">
 
-        <androidx.appcompat.widget.Toolbar
+
+    <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +57,13 @@
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
                     app:srcCompat="@drawable/ic_barcode" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/actionBarItemBackground"
+                    android:padding="@dimen/grid_2"
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

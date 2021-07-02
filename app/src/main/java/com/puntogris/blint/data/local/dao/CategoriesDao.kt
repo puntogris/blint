@@ -10,10 +10,15 @@ interface CategoriesDao {
 
     @Insert
     suspend fun insert(category: Category)
-  //  @Query("UPDATE statistic SET totalProducts = totalProducts + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE id = '1') ")
+
+    @Update
+    suspend fun update(category: Category)
 
     @Delete
     suspend fun deleteCategory(category: Category)
+
+    @Delete
+    suspend fun deleteCategory(categories: List<Category>)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
@@ -22,4 +27,5 @@ interface CategoriesDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM category INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getAllCategoriesFlow(): Flow<List<Category>>
+
 }

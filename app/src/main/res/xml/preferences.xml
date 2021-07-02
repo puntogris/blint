@@ -19,6 +19,11 @@
         android:icon="@drawable/ic_baseline_backup_24"
         android:fragment="com.puntogris.blint.ui.settings.BackupPreferences"/>
 
+    <Preference
+        android:title="Categorias"
+        app:icon="@drawable/ic_outline_label_24"
+        android:key="categories_pref"/>
+
     <ListPreference
         android:title="Temas"
         app:icon="@drawable/ic_baseline_style_24"

@@ -94,9 +94,7 @@
         <item name="fontFamily">@font/avenir_medium</item>
     </style>
 
-    <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="android:backgroundTint">@color/grey_10</item>
-    </style>
+    <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
 
     <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
         <item name="cornerFamily">rounded</item>

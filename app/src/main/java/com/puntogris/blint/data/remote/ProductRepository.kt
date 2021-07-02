@@ -1,19 +1,24 @@
 package com.puntogris.blint.data.remote
 
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -162,17 +167,19 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteProductCategoryDatabase(category: Category): SimpleResult = withContext(Dispatchers.IO) {
+    override suspend fun deleteProductCategoryDatabase(categories: List<Category>): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val user = currentBusiness()
             if (user.currentBusinessIsOnline()) {
-                firestoreQueries
-                    .getCategoriesCollectionQuery(user)
-                    .document(category.categoryId)
-                    .delete()
-                    .await()
+                val categoryRef = firestoreQueries.getCategoriesCollectionQuery(user)
+
+                firestore.runBatch { batch ->
+                    categories.forEach {
+                        batch.delete(categoryRef.document(it.categoryId))
+                    }
+                }.await()
             }
-            else categoriesDao.deleteCategory(category)
+            else categoriesDao.deleteCategory(categories)
             SimpleResult.Success
         } catch (e: Exception) {
             SimpleResult.Failure }
@@ -192,4 +199,33 @@ class ProductRepository @Inject constructor(
         }catch (e:Exception){ SimpleResult.Failure }
     }
 
+    @ExperimentalCoroutinesApi
+    override suspend fun getProductCategoriesDatabase(): Flow<List<Category>> = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        return@withContext if(user.currentBusinessIsOnline()) {
+            callbackFlow {
+                val ref = firestoreQueries.getCategoriesCollectionQuery(user)
+                    .addSnapshotListener { snapshot, _ ->
+                        if (snapshot != null) {
+                            val data = snapshot.toObjects(Category::class.java)
+                            this.trySend(data)
+                        }
+                    }
+                awaitClose { ref.remove() }
+            }
+        }else{ categoriesDao.getAllCategoriesFlow().asLiveData().asFlow() }
+    }
+
+    override suspend fun updateProductCategoryDatabase(category: Category): SimpleResult = withContext(Dispatchers.IO){
+        try {
+            val user = currentBusiness()
+            if (user.currentBusinessIsOnline()) {
+                firestoreQueries.getCategoriesCollectionQuery(user)
+                    .document(category.categoryId)
+                    .update("name", category.name).await()
+            }
+            else categoriesDao.update(category)
+            SimpleResult.Success
+        }catch (e:Exception){ SimpleResult.Failure }
+    }
 }

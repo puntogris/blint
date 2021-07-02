@@ -3,10 +3,7 @@ package com.puntogris.blint.utils
 import android.graphics.Color
 import android.os.Build
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -18,6 +15,7 @@ import com.google.android.material.chip.Chip
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
+import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.notifications.EmploymentRequestReceivedNotif
@@ -221,5 +219,18 @@ fun TextView.setDebtColor(amount: Float){
         text = "$amount $"
         setTextColor(ContextCompat.getColor(context, R.color.card1))
     }
+}
+
+@BindingAdapter("categoriesCheckTv")
+fun CheckedTextView.setCategoriesCheckTv(category: Category){
+    text = category.name
+    val color = if (isDarkThemeOn()){
+        if (category.selected) R.color.grey_60
+        else R.color.almostBlack
+    }else{
+        if (category.selected) R.color.grey_20
+        else R.color.grey_10
+    }
+    setBackgroundColor(context.getColor(color))
 
 }
