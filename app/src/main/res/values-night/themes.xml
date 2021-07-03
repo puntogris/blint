@@ -20,6 +20,10 @@
         <item name="bottomSheetDayNight">#121212</item>
     </style>
 
+    <style name="Theme.Blint.TabLayout" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/nightBackground</item>
+    </style>
+
     <style name="Theme.Blint.CheckedTextNav" >
         <item name="android:textColor">@color/color_navigation_drawer_menu_item</item>
         <item name="drawableTint">@color/color_navigation_drawer_menu_item</item>

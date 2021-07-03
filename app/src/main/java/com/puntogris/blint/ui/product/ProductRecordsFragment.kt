@@ -15,7 +15,9 @@ import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
 import com.puntogris.blint.ui.record.ProductsRecordsAdapter
+import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.toUSDFormatted
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,6 +28,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
+        getParentFab().visible()
         val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

@@ -43,6 +43,10 @@
         <item name="android:background">@color/grey_3</item>
     </style>
 
+    <style name="Theme.Blint.TabLayout" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/grey_3</item>
+    </style>
+
     <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconPadding">0dp</item>
         <item name="iconGravity">textStart</item>

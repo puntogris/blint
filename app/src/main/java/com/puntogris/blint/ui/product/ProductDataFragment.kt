@@ -7,6 +7,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDataProductBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.gone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

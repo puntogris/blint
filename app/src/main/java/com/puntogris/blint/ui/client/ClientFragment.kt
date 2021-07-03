@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
@@ -23,10 +24,8 @@ import com.puntogris.blint.ui.product.ProductDataFragment
 import com.puntogris.blint.ui.product.ProductFragmentDirections
 import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
+import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +47,34 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
         }
         mediator?.attach()
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab?.position){
+                    0 -> {
+                        getParentFab().apply {
+                            changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
+                            setOnClickListener {
+                                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
+                                findNavController().navigate(action)
+                            }
+                        }
+                    }
+                    else -> {
+                        getParentFab().apply {
+                            changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+                            setOnClickListener {
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {

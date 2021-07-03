@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.product
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TableLayout
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,15 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -40,6 +40,33 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 else -> "MOVIMIENTOS"
             }
         }
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab?.position){
+                    0 -> {
+                        getParentFab().apply {
+                            changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
+                            setOnClickListener {
+                                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
+                                findNavController().navigate(action)
+                            }
+                        }
+                    }
+                    else -> {
+                        getParentFab().apply {
+                            changeIconFromDrawable(R.drawable.ic_baseline_add_24)
+                            setOnClickListener {
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
         mediator?.attach()
     }
 
@@ -48,7 +75,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0 ) ProductDataFragment() else ProductRecordsFragment()).apply {
+            (if (position == 0 ) ProductDataFragment()
+             else ProductRecordsFragment()).apply {
                 arguments = Bundle().apply {
                     putParcelable("product_key", args.product)
                 }
