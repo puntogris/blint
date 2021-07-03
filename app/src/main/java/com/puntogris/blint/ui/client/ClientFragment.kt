@@ -37,9 +37,10 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     private val viewModel:ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true)
-        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = pagerAdapter
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+            navigateToEditClientFragment()
+        }
+        binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
@@ -54,10 +55,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                     0 -> {
                         getParentFab().apply {
                             changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener {
-                                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
-                                findNavController().navigate(action)
-                            }
+                            setOnClickListener { navigateToEditClientFragment() }
                         }
                     }
                     else -> {
@@ -70,11 +68,14 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                     }
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
+
+    private fun navigateToEditClientFragment(){
+        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
+        findNavController().navigate(action)
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
@@ -92,8 +93,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
-                findNavController().navigate(action)
+                navigateToEditClientFragment()
                 true
             }
             R.id.deleteOption -> {

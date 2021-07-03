@@ -31,25 +31,26 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true)
-        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = pagerAdapter
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+            navigateToEditProductFragment()
+        }
+
+        binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
                 else -> "MOVIMIENTOS"
             }
         }
+
+        mediator?.attach()
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
                         getParentFab().apply {
                             changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener {
-                                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
-                                findNavController().navigate(action)
-                            }
+                            setOnClickListener { navigateToEditProductFragment() }
                         }
                     }
                     else -> {
@@ -62,12 +63,14 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                     }
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-        mediator?.attach()
+    }
+
+    private fun navigateToEditProductFragment(){
+        val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
+        findNavController().navigate(action)
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
@@ -94,8 +97,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
-                findNavController().navigate(action)
+                navigateToEditProductFragment()
                 true
             }
             R.id.deleteOption -> {

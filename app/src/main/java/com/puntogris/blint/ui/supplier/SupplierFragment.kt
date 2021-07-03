@@ -17,13 +17,8 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.model.Supplier
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.client.ClientFragmentDirections
-import com.puntogris.blint.ui.product.ProductDataFragment
-import com.puntogris.blint.ui.product.ProductFragmentDirections
-import com.puntogris.blint.ui.product.ProductRecordsFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,13 +28,14 @@ import kotlinx.coroutines.launch
 class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
     private val args: SupplierFragmentArgs by navArgs()
-    private var mediator: TabLayoutMediator? = null
     private val viewModel: SupplierViewModel by viewModels()
+    private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        setUpUi(showFab = true)
-        val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = pagerAdapter
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+            navigateToEditSupplierFragment()
+        }
+        binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
                 0 -> "DATOS"
@@ -54,10 +50,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                     0 -> {
                         getParentFab().apply {
                             changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener {
-                                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(supplier = args.supplier)
-                                findNavController().navigate(action)
-                            }
+                            setOnClickListener { navigateToEditSupplierFragment() }
                         }
                     }
                     else -> {
@@ -70,13 +63,14 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                     }
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+    }
 
-
+    private fun navigateToEditSupplierFragment(){
+        val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(supplier = args.supplier)
+        findNavController().navigate(action)
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
@@ -94,8 +88,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editOption -> {
-                val action = SupplierFragmentDirections.actionSupplierFragmentToEditSupplierFragment(supplier = args.supplier)
-                findNavController().navigate(action)
+                navigateToEditSupplierFragment()
                 true
             }
             R.id.deleteOption -> {
