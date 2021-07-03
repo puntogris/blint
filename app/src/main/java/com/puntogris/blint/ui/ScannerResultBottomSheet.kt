@@ -15,7 +15,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.ui.record.RecordsViewModel
+import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ScannerResultBottomSheet(private val listener: DialogDismissListener): BaseBottomSheetFragment<ScannerResultDialogBinding>(R.layout.scanner_result_dialog) {
 
-    private val viewModel: RecordsViewModel by viewModels()
+    private val viewModel: OrdersViewModel by viewModels()
     private var returnAndActivateCamera = true
 
     override fun initializeViews() {

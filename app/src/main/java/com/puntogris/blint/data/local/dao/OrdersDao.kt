@@ -12,6 +12,23 @@ interface OrdersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(record: Record)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(record: List<Record>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(order: Order)
+
+    @Transaction
+    suspend fun insertOrderWithRecords(order: Order){
+        insert(order.items)
+        order.items.forEach {
+            updateProductAmountWithType(it.productId, it.amount, it.type)
+        }
+    }
+
+    @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
+    suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
+
     @Update
     suspend fun update(record: Record)
 
@@ -37,9 +54,6 @@ interface OrdersDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'OUT'")
     fun getClientsRecords(externalID: String): PagingSource<Int, Record>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(order: Order):Long
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")

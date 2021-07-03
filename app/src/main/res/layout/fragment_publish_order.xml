@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.record.PublishOrderFragment">
+        tools:context=".ui.orders.new_order.PublishOrderFragment">
 
 
         <com.airbnb.lottie.LottieAnimationView

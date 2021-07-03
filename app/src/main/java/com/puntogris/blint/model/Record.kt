@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class Record(
 
     @PrimaryKey
-    val recordId: String = "",
+    var recordId: String = "",
 
     @ColumnInfo
     var type: String = "",

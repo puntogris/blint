@@ -22,6 +22,10 @@
 
     </style>
 
+    <style name="Theme.Blint.ListHolderLayout" >
+        <item name="background">@color/grey_20</item>
+    </style>
+
     <style name="Theme.Blint.CheckedTextNav" >
         <item name="android:textColor">@color/color_navigation_drawer_menu_item_dark</item>
         <item name="drawableTint">@color/color_navigation_drawer_menu_item_dark</item>

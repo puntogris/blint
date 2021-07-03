@@ -9,7 +9,7 @@ import kotlinx.coroutines.tasks.await
 
 class FirestoreEventsPagingSource(
     private val query: Query
-    ) : PagingSource<QuerySnapshot, Event>() {
+) : PagingSource<QuerySnapshot, Event>() {
 
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Event> {
         return try {
@@ -17,17 +17,25 @@ class FirestoreEventsPagingSource(
                 .get()
                 .await()
 
-            val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
+            if (currentPage.size() != 0) {
+                val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
 
-            val nextPage = query.startAfter(lastDocumentSnapshot)
-                .get()
-                .await()
+                val nextPage = query.startAfter(lastDocumentSnapshot)
+                    .get()
+                    .await()
 
                 LoadResult.Page(
                     data = currentPage.toObjects(Event::class.java),
                     prevKey = null,
                     nextKey = nextPage
                 )
+            } else {
+                LoadResult.Page(
+                    data = emptyList(),
+                    prevKey = null,
+                    nextKey = null
+                )
+            }
 
         } catch (e: Exception) {
             LoadResult.Error(e)

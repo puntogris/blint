@@ -1,5 +1,8 @@
 package com.puntogris.blint.ui.product
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.chip.Chip

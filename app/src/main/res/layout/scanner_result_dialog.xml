@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.record.RecordsViewModel" />
+            type="com.puntogris.blint.ui.orders.OrdersViewModel" />
 
         <variable
             name="product"

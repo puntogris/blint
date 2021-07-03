@@ -332,7 +332,7 @@ fun Fragment.setUpUi(showFab: Boolean = false,
 
         } else fab.hide()
         changeFabStateBottomSheet(showFab)
-        if (showAppBar) appBar.performShow() else appBar.performHide()
+        if (showAppBar) appBar.visible() else appBar.gone()
     }
 }
 

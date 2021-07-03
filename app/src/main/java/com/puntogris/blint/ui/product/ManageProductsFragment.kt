@@ -34,9 +34,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     override fun initializeViews() {
         binding.productSearch.clearFocus()
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
         binding.fragment = this
-
 
         setUpUi(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editProductFragment)

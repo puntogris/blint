@@ -11,6 +11,7 @@ import com.puntogris.blint.utils.Constants.CATEGORIES_COLLECTION
 import com.puntogris.blint.utils.Constants.CLIENTS_COLLECTION
 import com.puntogris.blint.utils.Constants.EVENTS_COLLECTION
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_SUB_COLLECTION
+import com.puntogris.blint.utils.Constants.ORDERS_COLLECTION
 import com.puntogris.blint.utils.Constants.PRODUCTS_COLLECTION
 import com.puntogris.blint.utils.Constants.RECORDS_COLLECTION
 import com.puntogris.blint.utils.Constants.SUPPLIERS_COLLECTION
@@ -26,6 +27,7 @@ class FirestoreQueries @Inject constructor(){
     private val auth = FirebaseAuth.getInstance()
 
     private val currentUserId = auth.currentUser?.uid.toString()
+
 
     fun getUserNotificationsQuery() =
         firestore
@@ -76,6 +78,7 @@ class FirestoreQueries @Inject constructor(){
 
     fun getCategoriesCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(CATEGORIES_COLLECTION)
 
+    fun getOrdersCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(ORDERS_COLLECTION)
 
     fun getRecordsWithTraderIdQuery(user: RoomUser, traderId: String) =
         getRecordsCollectionQuery(user).whereEqualTo("traderId", traderId)

@@ -2,15 +2,13 @@ package com.puntogris.blint.ui.supplier
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierRecordsBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.record.ManageRecordsFragmentDirections
-import com.puntogris.blint.ui.record.ProductsRecordsAdapter
+import com.puntogris.blint.ui.orders.ProductsRecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

@@ -9,13 +9,13 @@
             type="com.puntogris.blint.model.Order" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.record.OrderFragment" />
+            type="com.puntogris.blint.ui.orders.OrderFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.record.OrderFragment">
+        tools:context=".ui.orders.OrderFragment">
 
         <TextView
             android:id="@+id/textView75"

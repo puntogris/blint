@@ -3,7 +3,6 @@ package com.puntogris.blint.ui.product
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TableLayout
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -34,7 +33,6 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditProductFragment()
         }
-
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
@@ -84,14 +82,6 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                     putParcelable("product_key", args.product)
                 }
             }
-    }
-
-    override fun onDestroyView() {
-        mediator?.detach()
-        mediator = null
-        binding.viewPager.adapter = null
-        super.onDestroyView()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -144,5 +134,13 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.moreOptions).isVisible = true
         menu.findItem(R.id.createRecord).isVisible = true
+    }
+
+    override fun onDestroyView() {
+        mediator?.detach()
+        mediator = null
+        binding.viewPager.adapter = null
+        super.onDestroyView()
+
     }
 }

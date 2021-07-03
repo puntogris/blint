@@ -20,6 +20,10 @@
         <item name="bottomSheetDayNight">#121212</item>
     </style>
 
+    <style name="Theme.Blint.ListHolderLayout" >
+        <item name="android:background">#0E0E0E</item>
+    </style>
+
     <style name="Theme.Blint.TabLayout" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/nightBackground</item>
     </style>

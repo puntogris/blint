@@ -21,7 +21,6 @@ object Constants {
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
 
-
     const val SUPPLIERS_LIST = 101
     const val CLIENTS_LIST = 102
     const val PRODUCTS_LIST = 103
@@ -30,16 +29,11 @@ object Constants {
     const val PRODUCTS_RECORDS = 106
 
     //Types for notifications adapter on app and server side
-    const val ADVERTISEMENT_NOTIFICATION = 1
     const val ADVERTISEMENT_NOTIFICATION_SERVER = "ADVERTISEMENT_NOTIFICATION"
     const val EMPLOYMENT_REQUEST_SENT_NOTIFICATION = 2
     const val EMPLOYMENT_REQUEST_SENT_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_SENT_NOTIFICATION"
-    const val EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION = 3
     const val EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION"
-    const val EMPLOYMENT_REQUEST_OWNER_RESPONSE_NOTIFICATION = 4
     const val EMPLOYMENT_REQUEST_OWNER_RESPONSE_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_OWNER_RESPONSE_NOTIFICATION"
-    const val EMPLOYMENT_REQUEST_EMPLOYEE_RESPONSE_NOTIFICATION = 5
-    const val EMPLOYMENT_REQUEST_EMPLOYEE_RESPONSE_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_EMPLOYEE_RESPONSE_NOTIFICATION"
 
 
     //Contact requests states
@@ -62,6 +56,7 @@ object Constants {
     const val CLIENTS_COLLECTION = "clients"
     const val SUPPLIERS_COLLECTION = "suppliers"
     const val CATEGORIES_COLLECTION = "categories"
+    const val ORDERS_COLLECTION = "orders"
 
     //Debt Type
     const val CLIENT_DEBT = 0

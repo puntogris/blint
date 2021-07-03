@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="product"
+            type="com.puntogris.blint.model.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?selectableItemBackground"
+        style="@style/Theme.Blint.ListHolderLayout">
+
+        <TextView
+            android:id="@+id/textView102"
+            style="?attr/textAppearanceSubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{product.name}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView114"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Stock"
+            app:layout_constraintBottom_toBottomOf="@+id/textView102"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView102" />
+
+        <TextView
+            android:id="@+id/textView115"
+            android:letterSpacing="0.2"
+            style="?attr/textAppearanceSubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{String.valueOf(product.amount)}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView114"
+            app:layout_constraintEnd_toStartOf="@+id/textView114"
+            app:layout_constraintTop_toTopOf="@+id/textView114" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

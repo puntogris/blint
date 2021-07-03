@@ -253,19 +253,19 @@
         android:name="com.puntogris.blint.ui.backup.CreateBackupFragment"
         android:label="Respaldar negocio" />
     <fragment
-        android:id="@+id/manageRecordsFragment"
-        android:name="com.puntogris.blint.ui.record.ManageRecordsFragment"
+        android:id="@+id/manageOrdersFragment"
+        android:name="com.puntogris.blint.ui.orders.ManageOrdersFragment"
         android:label="Ordenes" >
         <action
-            android:id="@+id/action_manageRecordsFragment_to_recordInfoBottomSheet"
+            android:id="@+id/action_manageOrdersFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
         <action
-            android:id="@+id/action_manageRecordsFragment_to_orderInfoBottomSheet"
+            android:id="@+id/action_manageOrdersFragment_to_OrderInfoBottomSheet"
             app:destination="@id/orderInfoBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/recordInfoBottomSheet"
-        android:name="com.puntogris.blint.ui.record.RecordInfoBottomSheet"
+        android:name="com.puntogris.blint.ui.orders.RecordInfoBottomSheet"
         android:label="RecordInfoBottomSheet" >
         <argument
             android:name="record"
@@ -447,7 +447,7 @@
         app:startDestination="@id/orderTypeFragment">
         <fragment
             android:id="@+id/orderTypeFragment"
-            android:name="com.puntogris.blint.ui.record.OrderTypeFragment"
+            android:name="com.puntogris.blint.ui.orders.new_order.OrderTypeFragment"
             android:label="">
             <action
                 android:id="@+id/action_orderTypeFragment_to_addOrderClientSupplierBottomSheet"
@@ -458,7 +458,7 @@
         </fragment>
         <fragment
             android:id="@+id/reviewRecordFragment"
-            android:name="com.puntogris.blint.ui.record.ReviewRecordFragment"
+            android:name="com.puntogris.blint.ui.orders.new_order.ReviewRecordFragment"
             android:label="Revisar orden">
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
@@ -466,7 +466,7 @@
         </fragment>
         <dialog
             android:id="@+id/addOrderClientSupplierBottomSheet"
-            android:name="com.puntogris.blint.ui.record.AddOrderClientSupplierBottomSheet"
+            android:name="com.puntogris.blint.ui.orders.new_order.AddOrderClientSupplierBottomSheet"
             android:label="AddOrderClientSupplierBottomSheet">
             <argument
                 android:name="orderType"
@@ -477,11 +477,11 @@
         </dialog>
         <fragment
             android:id="@+id/publishOrderFragment"
-            android:name="com.puntogris.blint.ui.record.PublishOrderFragment"
+            android:name="com.puntogris.blint.ui.orders.new_order.PublishOrderFragment"
             android:label="Publicar order" />
         <fragment
             android:id="@+id/createRecordFragment"
-            android:name="com.puntogris.blint.ui.record.CreateRecordFragment"
+            android:name="com.puntogris.blint.ui.orders.new_order.CreateRecordFragment"
             android:label="Nueva orden">
             <argument
                 android:name="productID"
@@ -493,12 +493,12 @@
         </fragment>
         <fragment
             android:id="@+id/addProductRecordBottomSheet"
-            android:name="com.puntogris.blint.ui.record.AddProductRecordBottomSheet"
+            android:name="com.puntogris.blint.ui.orders.AddProductRecordBottomSheet"
             android:label="Agregar producto" />
     </navigation>
     <dialog
         android:id="@+id/orderInfoBottomSheet"
-        android:name="com.puntogris.blint.ui.record.OrderInfoBottomSheet"
+        android:name="com.puntogris.blint.ui.orders.OrderInfoBottomSheet"
         android:label="OrderInfoBottomSheet" >
         <argument
             android:name="order"
@@ -512,7 +512,7 @@
     </dialog>
     <fragment
         android:id="@+id/orderFragment"
-        android:name="com.puntogris.blint.ui.record.OrderFragment"
+        android:name="com.puntogris.blint.ui.orders.OrderFragment"
         android:label="Orden" >
         <argument
             android:name="orderId"
@@ -529,7 +529,7 @@
     </fragment>
     <dialog
         android:id="@+id/generateOrderReceiptBottomSheet"
-        android:name="com.puntogris.blint.ui.record.GenerateOrderReceiptBottomSheet"
+        android:name="com.puntogris.blint.ui.orders.GenerateOrderReceiptBottomSheet"
         android:label="" />
     <fragment
         android:id="@+id/manageDebtFragment"

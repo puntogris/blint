@@ -18,18 +18,26 @@ class FirestoreProductsPagingSource(
                 .get()
                 .await()
 
-            val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
+            if (currentPage.size() != 0) {
+                val lastDocumentSnapshot = currentPage.documents[currentPage.size() - 1]
 
-            val nextPage = query.startAfter(lastDocumentSnapshot)
-                .get()
-                .await()
+                val nextPage = query.startAfter(lastDocumentSnapshot)
+                    .get()
+                    .await()
 
-            LoadResult.Page(
-                data = currentPage.toObjects(Product::class.java)
-                    .map { ProductWithSuppliersCategories(product = it) },
-                prevKey = null,
-                nextKey = nextPage
-            )
+                LoadResult.Page(
+                    data = currentPage.toObjects(Product::class.java)
+                        .map { ProductWithSuppliersCategories(product = it) },
+                    prevKey = null,
+                    nextKey = nextPage
+                )
+            } else {
+                LoadResult.Page(
+                    data = emptyList(),
+                    prevKey = null,
+                    nextKey = null
+                )
+            }
 
         } catch (e: Exception) {
             LoadResult.Error(e)

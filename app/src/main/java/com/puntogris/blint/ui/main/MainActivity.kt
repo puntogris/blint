@@ -4,26 +4,17 @@ import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
-import com.puntogris.blint.di.App
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
@@ -126,7 +117,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             NavMenu.PRODUCTS -> R.id.manageProductsFragment
             NavMenu.CLIENTS -> R.id.manageClientsFragment
             NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
-            NavMenu.ORDERS -> R.id.manageRecordsFragment
+            NavMenu.ORDERS -> R.id.manageOrdersFragment
             NavMenu.RECORDS -> R.id.reportsFragment
             NavMenu.EVENTS -> R.id.calendarFragment
             NavMenu.ACCOUNT -> R.id.accountPreferences

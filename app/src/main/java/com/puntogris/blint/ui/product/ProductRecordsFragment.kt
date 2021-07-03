@@ -3,7 +3,6 @@ package com.puntogris.blint.ui.product
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
@@ -14,10 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
-import com.puntogris.blint.ui.record.ProductsRecordsAdapter
-import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.toUSDFormatted
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.ui.orders.ProductsRecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -28,7 +24,6 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        getParentFab().visible()
         val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

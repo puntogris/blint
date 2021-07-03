@@ -14,6 +14,7 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
+import com.puntogris.blint.data.repo.imp.IProductRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers

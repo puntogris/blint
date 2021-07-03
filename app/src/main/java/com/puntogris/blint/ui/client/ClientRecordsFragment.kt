@@ -8,8 +8,7 @@ import com.puntogris.blint.databinding.FragmentClientRecordsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.record.ProductsRecordsAdapter
-import com.puntogris.blint.ui.supplier.SupplierFragment
+import com.puntogris.blint.ui.orders.ProductsRecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

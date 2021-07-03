@@ -31,9 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/list_item_horizontal_padding"
-                android:paddingTop="@dimen/list_item_vertical_padding"
+                android:paddingTop="16dp"
                 android:paddingRight="@dimen/list_item_horizontal_padding"
-                android:paddingBottom="@dimen/list_item_vertical_padding"
+                android:paddingBottom="16dp"
                 android:transformPivotX="0dp">
 
                 <ImageView
@@ -108,7 +108,9 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/amountText"
-                            android:text="0"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:text="@{String.valueOf(item.record.amount)}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -127,6 +129,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/recordPriceText"
+                            android:inputType="numberDecimal"
+                            android:imeOptions="actionDone"
                             android:text="@{String.valueOf(item.record.productUnitPrice)}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -147,6 +151,8 @@
                         app:layout_constraintTop_toBottomOf="@+id/textField2">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
