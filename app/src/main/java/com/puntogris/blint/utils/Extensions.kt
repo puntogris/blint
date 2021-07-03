@@ -307,13 +307,7 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
     }
 }
 
-//inline val View.screenWidth: Int
-//    get() = context!!.screenWidth
-
-inline val Fragment.parentToolbar3: Toolbar
-    get() = requireActivity().findViewById(R.id.toolbar)
-
-fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.toolbar)
 
 fun Fragment.setUpUi(showFab: Boolean = false,
                      showAppBar: Boolean = true,
