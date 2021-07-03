@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import androidx.paging.PagingData
 import com.puntogris.blint.model.Record

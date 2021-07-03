@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
@@ -11,8 +11,10 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.*
+import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
+import com.puntogris.blint.data.remote.FirestoreQueries
+import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

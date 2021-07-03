@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
-import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
@@ -20,7 +20,8 @@ class RecordsViewModel @ViewModelInject constructor(
     private val suppliersDao: SuppliersDao,
     private val clientsDao: ClientsDao,
     private val usersDao: UsersDao,
-    private val userRepository: UserRepository): ViewModel() {
+    private val userRepository: UserRepository
+): ViewModel() {
 
     private val _currentProduct = MutableStateFlow(Product())
     val currentProduct : LiveData<Product> = _currentProduct.asLiveData()

@@ -1,18 +1,19 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import com.google.firebase.firestore.DocumentSnapshot
-import com.puntogris.blint.data.local.transformation.QuerySnapshotNotificationsTransformation
+import com.puntogris.blint.data.remote.FirestoreQueries
+import com.puntogris.blint.model.Notification
 import com.puntogris.blint.utils.Constants.WAS_READ_FIELD
-import com.puntogris.blint.utils.NotificationType
 import com.puntogris.blint.utils.NotificationsState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class NotificationsRepository @Inject constructor(private val firestoreQueries: FirestoreQueries): INotificationsRepository {
+class NotificationsRepository @Inject constructor(private val firestoreQueries: FirestoreQueries):
+    INotificationsRepository {
 
     private lateinit var lastVisible: DocumentSnapshot
-    private val list = mutableListOf<NotificationType>()
+    private val list = mutableListOf<Notification>()
 
     override fun getFirstBatchNotifications(): StateFlow<NotificationsState> =
         MutableStateFlow<NotificationsState>(NotificationsState.Idle).also {
@@ -20,7 +21,7 @@ class NotificationsRepository @Inject constructor(private val firestoreQueries: 
                 .addOnSuccessListener { snap ->
                     if (snap.documents.isNotEmpty()){
                         lastVisible = snap.documents.last()
-                        list.addAll(QuerySnapshotNotificationsTransformation.transform(snap))
+                        list.addAll(snap.toObjects(Notification::class.java))
                         it.value = NotificationsState.Success(list)
                     }else it.value = NotificationsState.CollectionEmpty
                 }.addOnFailureListener { e ->
@@ -34,7 +35,7 @@ class NotificationsRepository @Inject constructor(private val firestoreQueries: 
                 firestoreQueries.getUserNotificationsAfterLastQuery(lastVisible)
                     .addOnSuccessListener { snap ->
                         if (snap.documents.isNotEmpty()) {
-                            list.addAll(QuerySnapshotNotificationsTransformation.transform(snap))
+                            list.addAll(snap.toObjects(Notification::class.java))
                             lastVisible = snap.documents.last()
                             if (snap.documents.size < 15) it.value = NotificationsState.CollectionEmpty
                             it.value = NotificationsState.Success(list)

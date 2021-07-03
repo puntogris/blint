@@ -2,6 +2,7 @@ package com.puntogris.blint.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -117,8 +118,7 @@ fun Activity.showLongSnackBarAboveFab(message: String){
     val snackLayout = findViewById<View>(android.R.id.content)
     Snackbar
         .make(snackLayout, message, Snackbar.LENGTH_LONG)
-        .setAnchorView(findViewById(R.id.mainFab))
-        .show()
+        .setAnchorView(findViewById(R.id.mainFab)).show()
 }
 
 fun Fragment.createLongSnackBar(message: String): Snackbar{
@@ -161,14 +161,11 @@ fun Context.pxToDp(px : Int) : Float {
     return px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)
 }
 
-fun Float.toUSDFormatted() : String {
-    return NumberFormat.getCurrencyInstance(Locale.US).format(this)
-}
+fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
 
 fun String.containsInvalidCharacters() = !all { it.isLetter() }
 
 fun String.isLengthInvalid(validLength: Int) = length < validLength
-
 
 fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
     Chip(requireContext()).apply {
@@ -195,31 +192,12 @@ fun ViewGroup.inflate(@LayoutRes res: Int): View {
         .inflate(res, this, false)
 }
 
-
 fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
     return DecimalFormat("###,###,##0.00").format(this).apply {
         if(removeSuffix){
             return this.removeSuffix(".00")
         }
     }
-}
-/**
- * Shrink an ExtendedFloatingActionButton when the associated RecyclerView is scrolled down.
- *
- * @param recycler [RecyclerView] that the FAB should shrink/extend in response to.
- */
-fun ExtendedFloatingActionButton.shrinkOnScroll(recycler: RecyclerView): RecyclerView.OnScrollListener {
-    val listener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            if (dy <= 0) {
-                extend()
-            } else {
-                shrink()
-            }
-        }
-    }
-    recycler.addOnScrollListener(listener)
-    return listener
 }
 
 fun Date.getDateFormattedString() =
@@ -329,7 +307,13 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
     }
 }
 
-fun Fragment.getParentToolbar() = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+//inline val View.screenWidth: Int
+//    get() = context!!.screenWidth
+
+inline val Fragment.parentToolbar3: Toolbar
+    get() = requireActivity().findViewById(R.id.toolbar)
+
+fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
 
 fun Fragment.setUpUi(showFab: Boolean = false,
                      showAppBar: Boolean = true,

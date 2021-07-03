@@ -2,28 +2,14 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin'
 admin.initializeApp()
 
-
-export const sendJoinedEmployeeNotifications = functions.firestore.document('users/{userId}/business/{businessId}/employees/{employeeId}').onCreate(async(snap, context) =>{
+/**
+ * It sends a welcoming notification to all the employess of a business when a new employee joins.
+ */
+export const sendBusinessEmployeesNewEmployeeNotification = functions.firestore.document('users/{userId}/business/{businessId}/employees/{employeeId}').onCreate(async(snap, context) =>{
     try {
         const ownerId = context.params.get('ownerId')
         const businessId = context.params.get('businessId')
         const employeeName = snap.get('name')
-        const employeeId = snap.get('employeeId')
-        //to send a notification with how to start using the app and welcome
-        //the new user into the business
-        const newEmployeeNotif = {
-            type: 'WELCOME_EMPLOYEE_NOTIFICATION',
-            wasRead: false,
-            timestamp : admin.firestore.FieldValue.serverTimestamp(),
-        }
-
-        //to welcome the new user
-        const currentEmployeesNotif = {
-            type: 'WELCOME_EMPLOYEE_BUSINESS_NOTIFICATION',
-            wasRead: false,
-            timestamp : admin.firestore.FieldValue.serverTimestamp(),
-            employeeName: employeeName
-        }
 
         const batch = admin.firestore().batch()
 
@@ -32,11 +18,14 @@ export const sendJoinedEmployeeNotifications = functions.firestore.document('use
         employees.forEach(employee => {
             const notificationRef = admin.firestore().collection('users').doc(employee.get('employeeId')).collection('notifications').doc()
 
-            if(employee.get('employeeId') == employeeId){
-                batch.set(notificationRef, newEmployeeNotif)
-            }else {
-                batch.set(notificationRef, currentEmployeesNotif)
+            const notification = {
+                id: notificationRef.id,
+                message: employeeName,
+                timestamp: admin.firestore.FieldValue.serverTimestamp(),
+                wasRead: false,
+                type: "NEW_EMPLOYEE"
             }
+            batch.set(notificationRef, notification)
         })
         return batch.commit()
     } catch (error) {
@@ -44,6 +33,41 @@ export const sendJoinedEmployeeNotifications = functions.firestore.document('use
     }
 })
 
+/**
+ * It sends a welcoming notification when a new user joins.
+ */
+export const sendNewUserNotification = functions.firestore.document('users/{userId}').onCreate(async(snap, context) =>{
+    const userId = context.params.userId
+    const notification = {
+        id: userId,
+        imageUri: "",
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        wasRead: false,
+        navigationUri: "https://blint.app",
+        type: "NEW_USER"
+    }
+    return admin.firestore().collection("users").doc(userId).collection("notifications").add(notification)
+})
+
+/**
+ * It sends a notification to the owner when it creates a new business.
+ */
+export const sendNewBusinessNotification = functions.firestore.document('users/{userId}/business/{businessId}').onCreate(async(snap, context) =>{
+    const userId = context.params.userId
+    const notification = {
+        id: userId,
+        imageUri: "",
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        wasRead: false,
+        navigationUri: "https://blint.app",
+        type: "NEW_BUSINESS"
+    }
+    return admin.firestore().collection("users").doc(userId).collection("notifications").add(notification)
+})
+
+/**
+ * Creates a new field when a new client its create to query if we need to search by name.
+ */
 export const createSearchArrayForNewClient = functions.firestore.document('users/{userId}/business/{businessId}/clients/{clientId}').onCreate(async(snap, context) =>{
     const name = snap.get("name")
     const businessId = context.params.businessId
@@ -55,6 +79,9 @@ export const createSearchArrayForNewClient = functions.firestore.document('users
     })
 })
 
+/**
+ * Creates a new field when a new supplier its create to query if we need to search by name.
+ */
 export const createSearchArrayForNewSupplier = functions.firestore.document('users/{userId}/business/{businessId}/suppliers/{supplierId}').onCreate(async(snap, context) =>{
     const name = snap.get("companyName")
     const businessId = context.params.businessId
@@ -66,6 +93,9 @@ export const createSearchArrayForNewSupplier = functions.firestore.document('use
     })
 })
 
+/**
+ * Creates a new field when a new product its create to query if we need to search by name.
+ */
 export const createSearchArrayForNewProduct = functions.firestore.document('users/{userId}/business/{businessId}/products/{productId}').onCreate(async(snap, context) =>{
     const name = snap.get("name")
     const businessId = context.params.businessId
@@ -77,7 +107,10 @@ export const createSearchArrayForNewProduct = functions.firestore.document('user
     })
 })
 
-function getArrayForNameSearch(name:string):string[]{
+/**
+ * Creates a array with various combinations of a name to make it posible to query in firestore.
+ */
+function getArrayForNameSearch(name: string): string[]{
     const list:string[] = []
     
     const process = (character:string, index:number) => {
@@ -87,8 +120,6 @@ function getArrayForNameSearch(name:string):string[]{
           }
       }
     }
-    
     [...name].forEach(process)
-
     return list
 }

@@ -5,10 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNotificationsBinding
-import com.puntogris.blint.model.notifications.EmploymentResponseOwnerNotif
-import com.puntogris.blint.model.notifications.AdvertisementNotification
-import com.puntogris.blint.model.notifications.EmploymentRequestReceivedNotif
-import com.puntogris.blint.model.notifications.EmploymentResponseEmployeeNotif
+import com.puntogris.blint.model.Notification
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +18,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     private val viewModel: NotificationsViewModel by viewModels()
 
     override fun initializeViews() {
-        getParentFab().hide()
+        setUpUi()
         val adapter = NotificationsAdapter(
             clickListener = { notificationClickListener(it)},
             newNotificationListener = { newNotificationListener(it)})
@@ -31,6 +28,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
+
         lifecycleScope.launchWhenCreated {
             viewModel.notificationsFetchResult.collect {
                 when(it){
@@ -64,15 +62,11 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
         viewModel.changeReadStatusNotification(notificationID)
     }
 
-    private fun notificationClickListener(notification: Any){
-        when(notification){
-            is AdvertisementNotification -> {
-                launchWebBrowserIntent(notification.uriToShow)
-            }
-            is EmploymentRequestReceivedNotif -> {
-            }
-            is EmploymentResponseOwnerNotif -> {}
-            is EmploymentResponseEmployeeNotif -> {}
+    private fun notificationClickListener(notification: Notification){
+        try {
+            launchWebBrowserIntent(notification.navigationUri)
+        }catch (e:Exception){
+            showSnackBarVisibilityAppBar("Ups, algo se rompio. Visita Blint.app para mas info.")
         }
     }
 

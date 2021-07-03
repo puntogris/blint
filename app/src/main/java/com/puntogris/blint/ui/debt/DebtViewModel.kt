@@ -7,12 +7,9 @@ import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.DebtsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
-import com.puntogris.blint.data.local.dao.UsersDao
-import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Client
+import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.SimpleDebt
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

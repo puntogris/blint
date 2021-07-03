@@ -2,7 +2,6 @@ package com.puntogris.blint.utils
 
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.model.*
-import com.puntogris.blint.model.notifications.*
 import java.lang.Exception
 
 sealed class StringValidator{
@@ -66,7 +65,7 @@ sealed class UserBusiness(){
 }
 
 sealed class NotificationsState{
-    class Success(val result:MutableList<NotificationType>): NotificationsState()
+    class Success(val result:MutableList<Notification>): NotificationsState()
     class Error(val exception: Exception): NotificationsState()
     object CollectionEmpty: NotificationsState()
     class OnDelete(val id: String): NotificationsState()
@@ -77,13 +76,7 @@ sealed class NotificationsState{
     object Idle: NotificationsState()
 
 }
-sealed class NotificationType{
-    class Advertisement(val notification: AdvertisementNotification): NotificationType()
-    class OwnerRequestResponse(val notification: EmploymentResponseOwnerNotif): NotificationType()
-    class ReceivedRequest(val notification: EmploymentRequestReceivedNotif): NotificationType()
-    class EmployeeRequestResponse(val notification: EmploymentResponseEmployeeNotif):NotificationType()
-    class SentRequest(val notification: EmploymentRequestSentNotif): NotificationType()
-}
+
 
 sealed class RequestResult{
     object InProgress: RequestResult()

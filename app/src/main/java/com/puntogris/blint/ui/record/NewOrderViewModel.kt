@@ -1,9 +1,8 @@
 package com.puntogris.blint.ui.record
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.*
-import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.ProductWithRecord
 import dagger.hilt.android.lifecycle.HiltViewModel

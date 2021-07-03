@@ -1,10 +1,12 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.remote.FirestoreEventsPagingSource
+import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,7 @@ class EventRepository @Inject constructor(
     private val eventsDao: EventsDao,
     private val usersDao: UsersDao,
     private val firestoreQueries: FirestoreQueries
-): IEventRepository{
+): IEventRepository {
 
     private suspend fun currentUser() = usersDao.getUser()
 
@@ -44,7 +46,7 @@ class EventRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200)
         ) {
-            if(user.currentBusinessType == "ONLINE"){
+            if(user.currentBusinessIsOnline()){
                 val query = firestoreQueries.getEventsCollectionQuery(user)
 
                 if (filter == "ALL") FirestoreEventsPagingSource(query)

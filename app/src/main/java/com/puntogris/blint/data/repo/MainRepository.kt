@@ -1,12 +1,12 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.EventsDashboard
-import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

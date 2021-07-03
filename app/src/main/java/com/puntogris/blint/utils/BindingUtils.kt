@@ -1,6 +1,5 @@
 package com.puntogris.blint.utils
 
-import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.widget.*
@@ -16,21 +15,10 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.model.Notification
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.notifications.EmploymentRequestReceivedNotif
-import com.puntogris.blint.model.notifications.EmploymentRequestSentNotif
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
-import com.puntogris.blint.utils.Constants.ACCOUNTING_CARD_CODE
-import com.puntogris.blint.utils.Constants.ACCOUNT_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_CLIENTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_PRODUCTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.ALL_SUPPLIERS_CARD_CODE
-import com.puntogris.blint.utils.Constants.CHARTS_CARD_CODE
-import com.puntogris.blint.utils.Constants.DEB_CARD_CODE
-import com.puntogris.blint.utils.Constants.TOOLS_CARD_CODE
-import com.puntogris.blint.utils.Constants.RECORDS_CARD_CODE
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -189,15 +177,6 @@ fun TextView.setBusinessType(type:String){
     text = if(type == "LOCAL") "Local" else "Online"
 }
 
-@BindingAdapter("employmentRequestSentMessage")
-fun TextView.setEmploymentRequestSentMessage(request: EmploymentRequestSentNotif){
-    text = "Se envio una solicitud de empleo para el negocio ${request.businessName} al email ${request.employeeEmail}."
-}
-
-@BindingAdapter("employmentRequestReceivedMessage")
-fun TextView.setEmploymentRequestReceivedMessage(request: EmploymentRequestReceivedNotif){
-    text = "Recibiste una solicitud de empleo para el negocio ${request.businessName}."
-}
 
 @BindingAdapter("timerFromSeconds")
 fun TextView.setTimerFromSeconds(seconds:Int){
@@ -232,5 +211,49 @@ fun CheckedTextView.setCategoriesCheckTv(category: Category){
         else R.color.grey_10
     }
     setBackgroundColor(context.getColor(color))
+}
 
+@BindingAdapter("notificationImage")
+fun ImageView.setNotificationImage(uri:String){
+    Glide.with(context)
+        .load(uri)
+        .transform(CenterCrop(),RoundedCorners(4))
+        .into(this)
+}
+
+@BindingAdapter("timeSinceCreated")
+fun TextView.setTimeSinceCreated(timestamp: Timestamp){
+    val time = (Timestamp.now().seconds - timestamp.seconds) / 60
+    text =
+        when {
+            time < 60 -> "$time mins."
+            time in 61..1440 -> "${(time / 60).toInt()} hrs."
+            else -> "${(time / 60 / 24).toInt()} dias"
+        }
+}
+
+@BindingAdapter("notificationTypeTitle")
+fun TextView.setNotificationTypeTitle(notification: Notification){
+    text = when(notification.type){
+        "NEW_USER" -> "Bienvenido a Blint!"
+        "NEW_BUSINESS" -> "Felicitaciones!"
+        "NEW_EMPLOYEE" -> "Novedad!"
+        else -> {
+            if (notification.title.isBlank()) gone()
+            notification.title
+        }
+    }
+}
+
+@BindingAdapter("notificationTypeMessage")
+fun TextView.setNotificationTypeMessage(notification: Notification){
+    text = when(notification.type){
+        "NEW_USER" -> "Te recomendamos que veas esta guia para poder aprovechar al maximo la app."
+        "NEW_BUSINESS" -> "Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella."
+        "NEW_EMPLOYEE" -> "El negocio se agranda, le damos la bienvenida a ${notification.message}."
+        else -> {
+            if (notification.message.isBlank()) gone()
+            notification.message
+        }
+    }
 }

@@ -7,14 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EmployeeDao
-import com.puntogris.blint.data.remote.UserRepository
-import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.EmployeeRequest
-import com.puntogris.blint.model.JoinCode
+import com.puntogris.blint.data.repo.UserRepository
 
 class BusinessViewModel @ViewModelInject constructor(
     private val employeeDao: EmployeeDao,
-    private val userRepository: UserRepository): ViewModel() {
+    private val userRepository: UserRepository
+): ViewModel() {
 
     private var expirationTimer:CountDownTimer? = null
 

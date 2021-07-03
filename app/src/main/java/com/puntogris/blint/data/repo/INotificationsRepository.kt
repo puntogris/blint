@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import com.puntogris.blint.utils.NotificationsState
 import kotlinx.coroutines.flow.StateFlow

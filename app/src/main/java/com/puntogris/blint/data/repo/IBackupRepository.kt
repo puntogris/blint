@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.utils.RepoResult

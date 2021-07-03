@@ -1,31 +1,29 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
-import com.puntogris.blint.utils.Constants.NOTIFICATIONS_SUB_COLLECTION
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.Util.isTimeStampExpired
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, private val usersDao: UsersDao) : IUserRepository {
+class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, private val usersDao: UsersDao) :
+    IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -249,6 +247,5 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
                 .addOnFailureListener {
                     result.value = UserBusiness.Error(it)
                 }
-
         }
 }

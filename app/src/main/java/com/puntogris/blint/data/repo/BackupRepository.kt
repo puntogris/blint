@@ -1,16 +1,12 @@
-package com.puntogris.blint.data.remote
+package com.puntogris.blint.data.repo
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.data.local.AppDatabase
-import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.Util.copyFile
@@ -22,14 +18,12 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.nio.channels.FileChannel
 import javax.inject.Inject
 
 class BackupRepository @Inject constructor(
     @ApplicationContext val context: Context,
     private val appDatabase: AppDatabase
-    ):IBackupRepository {
+    ): IBackupRepository {
 
     private val storage =  Firebase.storage.reference
     private val auth = FirebaseAuth.getInstance()

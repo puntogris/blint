@@ -2,8 +2,8 @@ package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.local.dao.*
-import com.puntogris.blint.data.remote.MainRepository
-import com.puntogris.blint.data.remote.UserRepository
+import com.puntogris.blint.data.repo.MainRepository
+import com.puntogris.blint.data.repo.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

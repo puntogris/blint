@@ -1,15 +1,17 @@
 package com.puntogris.blint.ui.notifications
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.data.remote.NotificationsRepository
+import com.puntogris.blint.data.repo.NotificationsRepository
 import com.puntogris.blint.utils.NotificationsState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NotificationsViewModel @ViewModelInject constructor(private val notificationsRepository: NotificationsRepository): ViewModel() {
+@HiltViewModel
+class NotificationsViewModel @Inject constructor(private val notificationsRepository: NotificationsRepository): ViewModel() {
 
     val notificationsFetchResult = MutableStateFlow<NotificationsState>(NotificationsState.Working.LoadFirstBatch)
 

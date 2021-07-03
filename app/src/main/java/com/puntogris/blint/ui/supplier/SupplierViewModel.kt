@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.SuppliersDao
-import com.puntogris.blint.data.remote.SupplierRepository
+import com.puntogris.blint.data.repo.SupplierRepository
 import com.puntogris.blint.model.Supplier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
