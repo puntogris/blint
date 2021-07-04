@@ -33,7 +33,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
             viewModel.getUserBusiness().collect {
                 when(it){
                     is UserBusiness.Error -> {
-                        showLongSnackBarAboveFab("Se produjo un error.")
+                        showLongSnackBarAboveFab(getString(R.string.snack_an_error_ocurred))
                     }
                     UserBusiness.InProgress -> {}
                     UserBusiness.NotFound -> onEmployeeDataNotFound()
@@ -61,8 +61,8 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.subtitle.text = "Hubo un problema al conectarnos con nuestros servidores. Intenta nuevamente.!"
-                    binding.title.text = "Se encontro un error."
+                    binding.subtitle.text = getText(R.string.snack_error_connection_server_try_later)
+                    binding.title.text = getString(R.string.snack_an_error_ocurred)
                 }
                 SimpleResult.Success -> {
                     withContext(Dispatchers.IO){ viewModel.saveBusinessToLocalDatabase(employees, args.username, args.userCountry) }
@@ -74,8 +74,8 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                         playAnimation()
                     }
                     binding.continueButton.isEnabled = true
-                    binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-                    binding.title.text = "Cuenta creada correctamente."
+                    binding.subtitle.text = getString(R.string.account_created_cheers_message)
+                    binding.title.text = getString(R.string.account_created_succes)
                 }
             }
         }

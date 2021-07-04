@@ -35,6 +35,8 @@
     <string name="action_exit">Salir</string>
     <string name="action_next">Siguiente</string>
     <string name="action_add">Agregar</string>
+    <string name="action_back">Atras</string>
+    <string name="action_finish">Finalizar</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Problemas y consejos</string>
@@ -130,6 +132,18 @@
     <string name="welcome_you">Hola terricola!</string>
     <string name="start_yout_business_in_blint">Empeza tu negocio\nen Blint</string>
     <string name="take_your_business_with_you">Lleva tu negocio siempre con vos\nasi no te perdes ninguna oportunidad</string>
+    <string name="read_more">Leer Mas.</string>
+    <string name="action_accept_terms_and_conditions">Acepto los terminos y condiciones.</string>
+    <string name="select_country">Seleccionar pais</string>
+    <string name="selected_country">Pais seleccionado</string>
+    <string name="tell_us_about_you">Contanos sobre vos</string>
+    <string name="set_name_alert">*Tene en cuenta que este nombre lo veran la gente de tu negocio. Puede ser cambiado mas tarde.</string>
+    <string name="snack_accept_our_conditions_to_continue">Acepta nuestra condiciones para poder continuar.</string>
+    <string name="snack_terms_and_conditions_are_necesary">Es necesario que aceptes los terminos y condiciones.</string>
+    <string name="snack_name_can_not_be_empt">El nombre no puede estar vacio ni ser menor de 3 caracteres.</string>
+    <string name="snack_country_can_not_be_empty">Necesitas seleccionar el pais de residencia.</string>
+    <string name="account_creation_in_progress_title">Generando cuenta..</string>
+    <string name="account_creation_in_progress_message">Estamos terminando de preparar tu cuenta</string>
 
     <!-- Calendar -->
     <string name="action_add_event">Agregar evento</string>
@@ -211,6 +225,8 @@
     <string name="local">Local</string>
     <string name="online">Online</string>
     <string name="seller">Vendedor</string>
+    <string name="account_created_succes">Cuenta creada correctamente.</string>
+    <string name="account_created_cheers_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
 
     <!-- Prefs-->
     <string-array name="theme_names">

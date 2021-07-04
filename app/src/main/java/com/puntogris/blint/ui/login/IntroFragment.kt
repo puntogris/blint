@@ -5,35 +5,39 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentIntroBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.setupStatusBarForLoginBackground
 import com.puntogris.blint.utils.showShortSnackBar
 import com.ybs.countrypicker.CountryPicker
 import dagger.hilt.android.AndroidEntryPoint
 
-class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro) {
+@AndroidEntryPoint
+class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro) {
 
     private var country = ""
 
     override fun initializeViews() {
         binding.fragment = this
-
-        binding.button112.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
-        }
+        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+        setupStatusBarForLoginBackground()
     }
 
     fun onReadMoreAboutPolicesClicked(){
         findNavController().navigate(R.id.termsConditionsFragment)
     }
 
+    fun onExitButtonClicked(){
+        findNavController().navigate(R.id.loginFragment)
+    }
 
     fun onGoToSyncUserBusiness(){
         val username = binding.usernameText.getString()
         if (!isCheckBoxChecked()){
-            showShortSnackBar("Es necesario que acepter los terminos y condiciones.")
+            showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
         }else if (country.isEmpty()){
-            showShortSnackBar("Necesitas seleccionar el pais de residencia.")
+            showShortSnackBar(getString(R.string.snack_country_can_not_be_empty))
         }else if(username.isBlank() || username.length < 3){
-            showShortSnackBar("El nombre no puede estar vacio ni ser menor de 3 caracteres.")
+            showShortSnackBar(getString(R.string.snack_name_can_not_be_empt))
         }else{
             val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(
                 username = username,
@@ -44,7 +48,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
     }
 
     fun onSelectCountryClicked(){
-        val picker = CountryPicker.newInstance("Seleccionar pais")
+        val picker = CountryPicker.newInstance(getString(R.string.select_country))
         picker.setListener { name, code, _, _ ->
             country = code
             binding.textView132.text = name
@@ -56,7 +60,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
     private fun isCheckBoxChecked(): Boolean{
         return if(binding.termsAndConditionsCheckBox.isChecked) true
         else{
-            showShortSnackBar("Acepta nuestra condiciones para poder continuar.")
+            showShortSnackBar(getString(R.string.snack_accept_our_conditions_to_continue))
             false
         }
     }
