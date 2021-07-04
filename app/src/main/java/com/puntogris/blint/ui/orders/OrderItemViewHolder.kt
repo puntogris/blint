@@ -26,7 +26,6 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
                 productWithRecord.record.amount = it.toString().toInt()
                 binding.recordAmount.text = it.toString()
             }else{
-
                 productWithRecord.record.amount = 0
                 binding.recordAmount.text = ""
             }
@@ -43,6 +42,7 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
             }
             productWithRecord.record.value = productWithRecord.record.productUnitPrice * productWithRecord.record.amount
             updateTotalProductValue(productWithRecord.record.value)
+            amountListener.invoke()
         }
         binding.executePendingBindings()
     }

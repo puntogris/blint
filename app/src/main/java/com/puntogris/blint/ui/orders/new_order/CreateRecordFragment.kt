@@ -155,6 +155,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
     }
 
     private fun onDataChanged(){
+        println(recordsAdapter.recordsList)
         val newAmount = recordsAdapter.getRecordTotalPrice()
         viewModel.updateOrderValue(newAmount)
         binding.textView155.text = newAmount.toString()
