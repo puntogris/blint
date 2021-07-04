@@ -189,5 +189,6 @@ dependencies {
     implementation 'com.github.wwdablu:SimplyPDF:1.1.2'
     implementation 'jp.wasabeef:blurry:4.0.0'
 
+    implementation 'com.nex3z:notification-badge:1.0.4'
 
 }

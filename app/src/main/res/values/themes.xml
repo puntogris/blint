@@ -39,10 +39,6 @@
         <item name="android:background" >@color/cardview_light_background</item>
     </style>
 
-    <style name="Theme.Blint.Toolbar" parent="ThemeOverlay.AppCompat.Light">
-        <item name="titleTextColor">@color/grey_60</item>
-    </style>
-
     <style name="Theme.Blint.CustomToolbar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/grey_3</item>
     </style>

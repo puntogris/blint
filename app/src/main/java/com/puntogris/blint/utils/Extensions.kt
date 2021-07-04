@@ -42,6 +42,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.ui.main.MainActivity
@@ -308,6 +309,8 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
 }
 
 fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.toolbar)
+
+fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById<NotificationBadge>(R.id.badge)
 
 fun Fragment.setUpUi(showFab: Boolean = false,
                      showAppBar: Boolean = true,

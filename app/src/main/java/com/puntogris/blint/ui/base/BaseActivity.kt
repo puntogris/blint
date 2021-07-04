@@ -47,7 +47,7 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar, menu)
+        menuInflater.inflate(R.menu.top_app_bar_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 }

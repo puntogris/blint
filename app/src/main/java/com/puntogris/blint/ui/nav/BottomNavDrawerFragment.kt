@@ -46,9 +46,6 @@ import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.math.abs
 
-/**
- * A [Fragment] which acts as a bottom navigation drawer.
- */
 @AndroidEntryPoint
 class BottomNavDrawerFragment :
     Fragment(),
@@ -273,11 +270,9 @@ class BottomNavDrawerFragment :
 
     fun open() {
         behavior.state = STATE_HALF_EXPANDED
-        getParentBottomAppBar().setNavigationIcon(R.drawable.ic_baseline_close_24)
     }
 
     fun close() {
-        getParentBottomAppBar().setNavigationIcon(R.drawable.ic_baseline_menu_24)
         behavior.state = STATE_HIDDEN
     }
 

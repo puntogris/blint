@@ -29,14 +29,9 @@ object NavigationModel {
     const val PRODUCTS_ID = 1
     const val SUPPLIERS_ID = 2
     const val CLIENTS_ID = 3
-    const val RECORDS_ID = 4
-    const val REPORTS_ID = 5
-    const val CALENDAR_ID = 6
-    const val ACCOUNT_ID = 7
+    const val ORDERS_ID = 4
     const val NOTIFICATIONS_ID = 8
     const val SETTINGS_ID = 9
-    const val TOOLS_ID = 10
-    const val DEBT_ID = 11
 
     private var navigationMenuItems = mutableListOf(
         NavigationModelItem.NavMenuItem(
@@ -68,45 +63,11 @@ object NavigationModel {
             navMenu = NavMenu.CLIENTS
         ),
         NavigationModelItem.NavMenuItem(
-            id = RECORDS_ID,
+            id = ORDERS_ID,
             icon = R.drawable.ic_twotone_article_24,
             titleRes = R.string.records_label,
             checked = false,
             navMenu = NavMenu.ORDERS
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = REPORTS_ID,
-            icon = R.drawable.ic_twotone_insert_chart_24,
-            titleRes = R.string.reports_label,
-            checked = false,
-            navMenu = NavMenu.RECORDS
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = CALENDAR_ID,
-            icon = R.drawable.ic_twotone_calendar_today_24,
-            titleRes = R.string.calendar_label,
-            checked = false,
-            navMenu = NavMenu.EVENTS
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = TOOLS_ID,
-            icon = R.drawable.ic_baseline_grain_24,
-            titleRes = R.string.tools_label,
-            checked = false,
-            navMenu = NavMenu.TOOLS
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = DEBT_ID,
-            icon = R.drawable.ic_twotone_monetization_on_24,
-            titleRes = R.string.debts_label,
-            checked = false,
-            navMenu = NavMenu.DEBTS
-        ),NavigationModelItem.NavMenuItem(
-            id = ACCOUNT_ID,
-            icon = R.drawable.ic_twotone_account_circle_24,
-            titleRes = R.string.account_label,
-            checked = false,
-            navMenu = NavMenu.ACCOUNT
         )
     )
 
@@ -155,7 +116,6 @@ object NavigationModel {
     private fun postListUpdate() {
         val newList = navigationMenuItems +
                     (NavigationModelItem.NavDivider("Configuracion")) + secondaryItems
-
 
         _navigationList.value = newList
     }

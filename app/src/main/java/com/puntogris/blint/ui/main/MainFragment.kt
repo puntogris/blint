@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
@@ -29,7 +30,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var badge: BadgeDrawable
 
     @ExperimentalTime
     override fun initializeViews() {
@@ -74,25 +74,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     }
 
     private fun setupBadgeListener(){
-        badge = BadgeDrawable.create(requireContext())
         lifecycleScope.launchWhenStarted {
             viewModel.getUnreadNotificationsCount().collect {
-                badge.apply {
-                    number = it
-                    isVisible = it != 0
-                }
+                getParentBadge().setNumber(it)
             }
         }
-    }
-
-    @com.google.android.material.badge.ExperimentalBadgeUtils
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        BadgeUtils.attachBadgeDrawable(
-            badge,
-            requireActivity().findViewById(R.id.toolbar),
-            R.id.notificationsFragment
-        )
-        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun setupCalendarRecyclerView(){
@@ -146,29 +132,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         findNavController().navigate(menuCard.navigationId)
     }
 
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.notificationsFragment).isVisible = true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.notificationsFragment){
-            findNavController().navigate(R.id.notificationsFragment)
-            true
-        }
-        else super.onOptionsItemSelected(item)
-    }
-
     fun onAddEventClicked(){
         findNavController().navigate(R.id.createEventFragment)
     }
 
-    @com.google.android.material.badge.ExperimentalBadgeUtils
     override fun onDestroyView() {
-        BadgeUtils.detachBadgeDrawable(
-            badge,
-            requireActivity().findViewById(R.id.toolbar),
-            R.id.notificationsFragment
-        )
         binding.recyclerView.adapter = null
         super.onDestroyView()
     }

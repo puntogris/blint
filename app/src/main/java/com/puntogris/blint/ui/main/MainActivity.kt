@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
@@ -58,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) navController.navigate(R.id.scannerFragment)
-                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
             }
     }
 
@@ -84,9 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             setOf(
                 R.id.mainFragment,
                 R.id.registerBusinessFragment,
-                R.id.preferencesFragment,
                 R.id.loginFragment,
-                R.id.manageBusinessFragment,
                 R.id.welcomeFragment,
                 R.id.introFragment,
                 R.id.firstSyncFragment,
@@ -105,6 +104,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
+        binding.notification.setOnClickListener {
+            navController.navigate(R.id.notificationsFragment)
+        }
     }
 
     fun changeFabStateBottomSheet(value: Boolean) {
@@ -118,40 +120,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             NavMenu.CLIENTS -> R.id.manageClientsFragment
             NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
             NavMenu.ORDERS -> R.id.manageOrdersFragment
-            NavMenu.RECORDS -> R.id.reportsFragment
-            NavMenu.EVENTS -> R.id.calendarFragment
-            NavMenu.ACCOUNT -> R.id.accountPreferences
             NavMenu.NOTIFICATIONS -> R.id.notificationsFragment
             NavMenu.SETTINGS -> R.id.preferencesFragment
-            NavMenu.DEBTS -> R.id.manageDebtFragment
-            NavMenu.TOOLS -> R.id.preferencesFragment
         }.apply { navController.navigate(this) }
-     //   binding.bottomAppBarTitle.text = getString(titleRes)
         bottomNavDrawer.close()
     }
 
 
     private fun setUpBottomDrawer(){
         bottomNavDrawer.apply {
-          //  addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
-       //     addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
             addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
-//                 Toggle between the current destination's BAB menu and the menu which should
-//                 be displayed when the BottomNavigationDrawer is open.
-                binding.bottomAppBar.replaceMenu(if (showSettings) {
-                    R.menu.bottom_app_bar_settings_menu
-                } else {
-                    getBottomAppBarMenuForDestination()
-                })
+                binding.bottomAppBar.replaceMenu(
+                    if (showSettings) R.menu.bottom_app_bar_settings_menu
+                    else getBottomAppBarMenuForDestination()
+                )
             })
-
-           // addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addNavigationListener(this@MainActivity)
         }
-
-//        binding.bottomAppBarContentContainer.setOnClickListener {
-//            bottomNavDrawer.toggle()
-//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -171,7 +156,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.run {
             bottomAppBar.visibility = View.VISIBLE
             bottomAppBar.replaceMenu(menuRes)
-         //   bottomAppBarTitle.visibility = View.VISIBLE
             bottomAppBar.performShow()
         }
     }
@@ -186,11 +170,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.toolbar.setTitleTextColor(getColor(R.color.white))
             binding.mainFab.hide()
             setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
+            binding.notification.visible()
+            binding.badge.visible()
             if (!isDarkThemeOn()){
                 val view = window.decorView
                 view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
             }
         }else{
+            binding.badge.gone()
+            binding.notification.gone()
             setupToolbarAndStatusBar()
         }
     }
