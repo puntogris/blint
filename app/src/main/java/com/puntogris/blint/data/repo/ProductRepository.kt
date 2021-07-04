@@ -16,7 +16,9 @@ import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.data.repo.imp.IProductRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.StringValidator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -132,23 +134,37 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    override suspend fun getProductsWithNamePagingDataFlow(name: String) = withContext(Dispatchers.IO){
+    override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) = withContext(Dispatchers.IO){
         val user = currentBusiness()
         Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
-                maxSize = 200                )
+                maxSize = 200
+            )
         ) {
             if (user.currentBusinessIsOnline()){
-                val query = firestoreQueries
-                    .getProductsCollectionQuery(user)
-                    .whereArrayContains("search_name", name)
-                    .limit(5)
-
+                val query =
+                    when(search){
+                        is SearchText.InternalCode -> {
+                            firestoreQueries
+                                .getProductsCollectionQuery(user)
+                                .whereEqualTo("internalCode", search.text)
+                        }
+                        is SearchText.Name -> {
+                            firestoreQueries
+                                .getProductsCollectionQuery(user)
+                                .whereArrayContains("search_name", search.text)
+                        }
+                        is SearchText.QrCode -> {
+                            firestoreQueries
+                                .getProductsCollectionQuery(user)
+                                .whereEqualTo("barcode", search.text)
+                        }
+                    }
                 FirestoreProductsPagingSource(query)
             }
-            else{ productsDao.getPagedSearch("%${name}%") }
+            else{ productsDao.getPagedSearch("%${search.getData()}%") }
         }.flow
     }
 

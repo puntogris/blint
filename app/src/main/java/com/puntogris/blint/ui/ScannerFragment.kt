@@ -14,6 +14,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.BarcodeAnalyzer
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
@@ -33,6 +34,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun initializeViews() {
+        setUpUi(showAppBar = false, showFab = true, fabIcon = R.drawable.ic_baseline_flash_off_24)
         cameraExecutor = Executors.newSingleThreadExecutor()
         binding.overlay.post {
             binding.overlay.setViewFinder()

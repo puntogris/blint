@@ -23,7 +23,7 @@
     </style>
 
     <style name="Theme.Blint.ListHolderLayout" >
-        <item name="background">@color/grey_20</item>
+        <item name="android:background">@color/grey_20</item>
     </style>
 
     <style name="Theme.Blint.CheckedTextNav" >

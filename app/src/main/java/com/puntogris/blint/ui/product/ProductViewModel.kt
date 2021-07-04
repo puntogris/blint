@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.ProductRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.SearchText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -75,8 +76,8 @@ class ProductViewModel @Inject constructor(
     suspend fun getProductWithSuppliersCategories(id: String) =
         productsDao.getProductWithSuppliersCategories(id)
 
-    suspend fun getProductWithName(productName: String) =
-        productRepository.getProductsWithNamePagingDataFlow(productName)
+    suspend fun getProductWithName(search: SearchText) =
+        productRepository.getProductsWithNamePagingDataFlow(search)
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 

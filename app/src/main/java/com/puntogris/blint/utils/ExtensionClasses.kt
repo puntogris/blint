@@ -99,3 +99,17 @@ sealed class RegistrationData(){
     object Incomplete: RegistrationData()
     object Error: RegistrationData()
 }
+
+sealed class SearchText{
+    class QrCode(val text: String): SearchText()
+    class Name(val text: String): SearchText()
+    class InternalCode(val text: String): SearchText()
+
+    fun getData(): String{
+        return when(this){
+            is InternalCode -> this.text
+            is Name -> this.text
+            is QrCode -> this.text
+        }
+    }
+}

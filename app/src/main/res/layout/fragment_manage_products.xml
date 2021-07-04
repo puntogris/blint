@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
+                    android:onClick="@{()->fragment.onScanBarcodeClicked()}"
                     app:srcCompat="@drawable/ic_barcode" />
 
                 <ImageButton
@@ -67,56 +68,47 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            android:animateLayoutChanges="true">
-
-            <RadioButton
-                android:id="@+id/btn1"
-                android:layout_width="wrap_content"
+            <com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
+                android:id="@+id/searchTypeRadioGroup"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:checked="true"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/btn2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioButton
-                android:id="@+id/btn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cod. Interno"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/btn3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn1"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioButton
-                android:id="@+id/btn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QR"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
 
-            <com.puntogris.blint.ui.custom_views.ConstraintRadioButtonGroup
-                android:id="@+id/searchTypeRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="btn1, btn2, btn3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    android:id="@+id/nameSearchType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:checked="true"
+                    app:layout_constraintEnd_toStartOf="@+id/internalCodeSearchType"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <RadioButton
+                    android:id="@+id/internalCodeSearchType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cod. Interno"
+                    app:layout_constraintEnd_toStartOf="@+id/qrSearchType"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/nameSearchType"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <RadioButton
+                    android:id="@+id/qrSearchType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QR"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/internalCodeSearchType"
+                    tools:layout_editor_absoluteY="0dp" />
+
+            </com.puntogris.blint.ui.custom_views.ConstraintRadioGroup>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

@@ -40,7 +40,7 @@
             android:text="Estamos terminando de preparar tu cuenta"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/button12"
+            app:layout_constraintBottom_toTopOf="@+id/continueButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

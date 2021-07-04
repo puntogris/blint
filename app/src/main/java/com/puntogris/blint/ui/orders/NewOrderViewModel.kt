@@ -9,6 +9,7 @@ import com.puntogris.blint.data.repo.ProductRepository
 import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.utils.SearchText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -57,7 +58,7 @@ class NewOrderViewModel @Inject constructor(
 
     suspend fun getSuppliersWithName(name: String) = suppliersDao.getSupplierWithName(name)
 
-    suspend fun getProductWithName(name: String) = productRepository.getProductsWithNamePagingDataFlow(name).cachedIn(viewModelScope)
+    suspend fun getProductWithName(searchText: SearchText) = productRepository.getProductsWithNamePagingDataFlow(searchText).cachedIn(viewModelScope)
 
     fun getCurrentUserEmail() = userRepository.getCurrentUser()?.email
 
