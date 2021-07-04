@@ -26,6 +26,7 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
                 productWithRecord.record.amount = it.toString().toInt()
                 binding.recordAmount.text = it.toString()
             }else{
+
                 productWithRecord.record.amount = 0
                 binding.recordAmount.text = ""
             }
