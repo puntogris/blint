@@ -58,7 +58,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.fragmentTitle.text = getString(R.string.snack_an_error_ocurred)
+                    binding.fragmentTitle.text = getString(R.string.snack_an_error_occurred)
                     binding.summaryMessage.text = getString(R.string.snack_error_connection_server_try_later)
                 }
                 JoinBusiness.InProgress -> {}

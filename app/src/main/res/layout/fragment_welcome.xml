@@ -35,7 +35,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/versatile_bold"
             android:lineSpacingExtra="-10dp"
-            android:text="@string/start_yout_business_in_blint"
+            android:text="@string/start_your_business_in_blint"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="25sp"

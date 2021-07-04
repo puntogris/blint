@@ -31,7 +31,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         lifecycleScope.launchWhenStarted {
             viewModel.getBusinessEmployees(args.employee.businessId).collect {
                 when(it){
-                    is UserBusiness.Error -> showLongSnackBarAboveFab(getString(R.string.snack_an_error_ocurred))
+                    is UserBusiness.Error -> showLongSnackBarAboveFab(getString(R.string.snack_an_error_occurred))
                     UserBusiness.InProgress -> binding.progressBar.visible()
                     UserBusiness.NotFound -> onDataNotFound()
                     is UserBusiness.Success -> onDataFound(it.data)

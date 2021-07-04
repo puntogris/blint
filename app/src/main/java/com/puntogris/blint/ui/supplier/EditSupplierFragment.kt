@@ -41,7 +41,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                             SimpleResult.Failure ->
                                 createShortSnackBar(getString(R.string.snack_save_supplier_error)).setAnchorView(it).show()
                             SimpleResult.Success -> {
-                                createShortSnackBar(getString(R.string.snack_save_supplier_succes)).setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_save_supplier_success)).setAnchorView(it).show()
                                 findNavController().navigateUp()
                             }
                         }

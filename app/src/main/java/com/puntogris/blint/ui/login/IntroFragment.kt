@@ -37,7 +37,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         }else if (country.isEmpty()){
             showShortSnackBar(getString(R.string.snack_country_can_not_be_empty))
         }else if(username.isBlank() || username.length < 3){
-            showShortSnackBar(getString(R.string.snack_name_can_not_be_empt))
+            showShortSnackBar(getString(R.string.snack_name_can_not_be_empty))
         }else{
             val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(
                 username = username,
