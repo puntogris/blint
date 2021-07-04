@@ -29,15 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initializeViews() {
         setUpUi(showFab = false, showAppBar = false, showToolbar = false)
-       // getParentBottomAppBar().gone()
-        getParentToolbar().setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorSecondary))
-
-        val window = requireActivity().window
-        window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorSecondary)
-        if (!isDarkThemeOn()){
-            val view = window.decorView
-            view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
-        }
+        setupStatusBarForLoginBackground()
 
         binding.loginFragment = this
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }

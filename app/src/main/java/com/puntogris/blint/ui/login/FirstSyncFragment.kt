@@ -9,9 +9,7 @@ import com.puntogris.blint.databinding.FragmentFirstSyncBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.UserBusiness
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -23,32 +21,35 @@ import javax.inject.Inject
 class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragment_first_sync) {
 
     private val viewModel: LoginViewModel by viewModels()
-    @Inject
-    lateinit var sharedPref: SharedPref
-
     private val args: FirstSyncFragmentArgs by navArgs()
+    @Inject lateinit var sharedPref: SharedPref
 
     override fun initializeViews() {
-        lifecycleScope.launch {
+        binding.fragment = this
+        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+        setupStatusBarForLoginBackground()
+
+        lifecycleScope.launchWhenStarted {
             viewModel.getUserBusiness().collect {
                 when(it){
                     is UserBusiness.Error -> {
                         showLongSnackBarAboveFab("Se produjo un error.")
                     }
-                    UserBusiness.InProgress -> {
-                    }
+                    UserBusiness.InProgress -> {}
                     UserBusiness.NotFound -> onEmployeeDataNotFound()
                     is UserBusiness.Success -> onEmployeeDataFound(it.data)
                 }
             }
         }
-        binding.button12.setOnClickListener {
-            if (sharedPref.getUserHasBusinessPref()) findNavController().navigate(R.id.mainFragment)
-            else findNavController().navigate(R.id.newUserFragment)
-        }
-        binding.button112.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
-        }
+    }
+
+    fun onExitButtonClicked(){
+        findNavController().navigate(R.id.loginFragment)
+    }
+
+    fun onContinueButtonClicked(){
+        if (sharedPref.getUserHasBusinessPref()) findNavController().navigate(R.id.mainFragment)
+        else findNavController().navigate(R.id.newUserFragment)
     }
 
     private fun onEmployeeDataFound(employees:List<Employee>){
@@ -60,8 +61,8 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.textView107.text = "Hubo un problema al conectarnos con nuestros servidores. Intenta nuevamente.!"
-                    binding.textView117.text = "Se encontro un error."
+                    binding.subtitle.text = "Hubo un problema al conectarnos con nuestros servidores. Intenta nuevamente.!"
+                    binding.title.text = "Se encontro un error."
                 }
                 SimpleResult.Success -> {
                     withContext(Dispatchers.IO){ viewModel.saveBusinessToLocalDatabase(employees, args.username, args.userCountry) }
@@ -72,30 +73,34 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.button12.isEnabled = true
-                    binding.textView107.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-                    binding.textView117.text = "Cuenta creada correctamente."
+                    binding.continueButton.isEnabled = true
+                    binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
+                    binding.title.text = "Cuenta creada correctamente."
                 }
             }
         }
     }
 
     private fun onEmployeeDataNotFound(){
-        lifecycleScope.launch {
-            viewModel.updateUserData(args.username, args.userCountry)
-            sharedPref.setWelcomeUiPref(true)
-            sharedPref.setUserHasBusinessPref(true)
-            withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
-            withContext(Dispatchers.Main){
-                binding.animationView.apply {
-                    setAnimation(R.raw.done)
-                    repeatCount = 0
-                    playAnimation()
-                }
-                binding.button12.isEnabled = true
-                binding.textView107.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-                binding.textView117.text = "Cuenta creada correctamente."
-            }
-        }
+        // crear una pantalla donde te haga crear o unirte o sino
+        // podemos mostrar el inicio con un negocio vacio
+        // o mostrar algo en ves del inicio y no dejando acceder a nada
+
+//        lifecycleScope.launch {
+//            viewModel.updateUserData(args.username, args.userCountry)
+//            sharedPref.setWelcomeUiPref(true)
+//            sharedPref.setUserHasBusinessPref(true)
+//            withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
+//            withContext(Dispatchers.Main){
+//                binding.animationView.apply {
+//                    setAnimation(R.raw.done)
+//                    repeatCount = 0
+//                    playAnimation()
+//                }
+//                binding.continueButton.isEnabled = true
+//                binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
+//                binding.title.text = "Cuenta creada correctamente."
+//            }
+//        }
     }
 }

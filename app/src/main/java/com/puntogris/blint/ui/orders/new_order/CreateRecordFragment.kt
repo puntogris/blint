@@ -31,6 +31,12 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
 
         setUpRecyclerView()
 
+        setUpUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+            viewModel.updateOrdersItems(recordsAdapter.recordsList)
+            viewModel.productWithRecords = recordsAdapter.recordsList
+            findNavController().navigate(R.id.scannerFragment)
+        }
+
         if (recordsAdapter.currentList.isEmpty()){
             if (viewModel.productWithRecords.isNotEmpty()) {
                 viewModel.productWithRecords.forEach {
@@ -39,12 +45,6 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
                 recordsAdapter.submitList(viewModel.productWithRecords)
                 recordsAdapter.notifyDataSetChanged()
             }
-        }
-
-        setUpUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
-            viewModel.updateOrdersItems(recordsAdapter.recordsList)
-            viewModel.productWithRecords = recordsAdapter.recordsList
-            findNavController().navigate(R.id.action_createRecordFragment_to_reviewRecordFragment)
         }
 
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }

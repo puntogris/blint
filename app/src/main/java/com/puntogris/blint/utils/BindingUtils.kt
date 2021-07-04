@@ -185,7 +185,7 @@ fun TextView.setTimerFromSeconds(seconds:Int){
 
 
 @BindingAdapter("orderNumberTitle")
-fun TextView.setOrderNumberTitle(order: Int){
+fun TextView.setOrderNumberTitle(order: String){
     text = "Orden $order"
 }
 

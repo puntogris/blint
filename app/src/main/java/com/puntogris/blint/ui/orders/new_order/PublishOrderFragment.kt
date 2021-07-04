@@ -37,7 +37,8 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
     private fun onPublishOrderSuccessUi(){
         isOperationInProgress = false
         showSnackBarVisibilityAppBar("Se creo correctamente la orden.")
-        binding.textView172.text = "*Se creo correctamente la orden. Que tengas un muy buen dia!"
+        binding.title.text = "Creacion satisfactoria."
+        binding.subtitle.text = "*Se creo correctamente la orden. Que tengas un muy buen dia!"
         binding.animationView.apply {
             setAnimation(R.raw.done)
             repeatCount = 0
@@ -47,7 +48,8 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
 
     private fun onPublishOrderFailureUi(){
         isOperationInProgress = false
-        binding.textView172.text = "No se pudo crear tu orden. Revisa tu conexcion a internet y intenta nuevamente."
+        binding.title.text = "Creacion fallida."
+        binding.subtitle.text = "No se pudo crear tu orden. Revisa tu conexcion a internet y intenta nuevamente."
         showSnackBarVisibilityAppBar("Ocurrio un error creando tu orden. Intenta nuevamente")
         binding.animationView.apply {
             setAnimation(R.raw.error)

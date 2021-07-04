@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "Orders")
 data class Order(
 
-    @PrimaryKey()
+    @PrimaryKey
     var orderId: String = "",
 
     @ColumnInfo
@@ -38,6 +38,8 @@ data class Order(
     @ColumnInfo
     var businessId:String = "",
 
+    @ColumnInfo
+    var number: Int = 0
 
 ):Parcelable{
     @Ignore
