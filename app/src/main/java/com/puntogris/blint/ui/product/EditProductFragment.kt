@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.product
 
 import android.Manifest
 import android.content.Intent
-import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -21,9 +20,7 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
@@ -108,7 +105,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     val action = EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permition))
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
             }
     }
 

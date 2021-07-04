@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +16,6 @@ import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.jar.Manifest
 
 @AndroidEntryPoint
 class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
@@ -38,6 +36,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                 }
             }
         }
+
         requestPermissionContactCompany =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
@@ -105,9 +104,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24,"Llamar"),
-                Option(R.drawable.ic_baseline_message_24, "Mensaje"),
-                Option(R.drawable.ic_whatsapp, "WhatsApp")
+                Option(R.drawable.ic_baseline_call_24,getString(R.string.action_call)),
+                Option(R.drawable.ic_baseline_message_24, getString(R.string.action_message)),
+                Option(R.drawable.ic_whatsapp, getString(R.string.action_whats_app))
             )
             onPositive { index: Int, _: Option ->
                 when(index){

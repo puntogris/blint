@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Empresa"
+                    android:text="@string/company"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Nombre"
+                    android:hint="@string/name"
                     app:layout_constraintEnd_toStartOf="@+id/nameButton"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,14 +68,13 @@
                     app:layout_constraintTop_toTopOf="@+id/supplierCompanyName"
                     app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierCompanyPhone"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Telefono"
+                    android:hint="@string/phone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Email"
+                    android:hint="@string/e_mail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +114,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierCompanyAddress"
                     style="@style/Theme.Blint.TextInput"
@@ -123,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
-                    android:hint="Direccion"
+                    android:hint="@string/address"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -140,8 +138,6 @@
                         android:text="@{viewModel.currentSupplier.address}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

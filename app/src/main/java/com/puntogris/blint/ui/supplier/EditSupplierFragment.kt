@@ -7,7 +7,6 @@ import android.content.Intent
 import android.provider.ContactsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditSupplierBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.EditProductFragmentArgs
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -41,9 +39,9 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                     lifecycleScope.launch {
                         when(viewModel.saveSupplierDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar("Ocurrio un error al guardar el proveedor.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_save_supplier_error)).setAnchorView(it).show()
                             SimpleResult.Success -> {
-                                createShortSnackBar("Se guardo el proveedor satisfactoriamente.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_save_supplier_succes)).setAnchorView(it).show()
                                 findNavController().navigateUp()
                             }
                         }
@@ -85,7 +83,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                     startActivityForResult(intent, requestCode)
                 }
             }
-            else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para ver tus contactos.")
+            else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
         }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

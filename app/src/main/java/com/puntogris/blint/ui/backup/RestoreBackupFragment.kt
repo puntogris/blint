@@ -93,7 +93,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
             textView71.gone()
             businessTitle.visible()
             businessTitle.text = getString(R.string.create_backup_in_progress)
-            backupSummary.text = getString(R.string.dont_close_window_until_backup_is_done)
+            backupSummary.text = getString(R.string.do_not_close_window_until_backup_is_done)
         }
     }
 
@@ -107,7 +107,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     private fun showConfirmationDialogForBackUp(){
         InfoSheet().show(requireParentFragment().requireContext()){
-            title(getString(R.string.are_you_sure_about_this_action))
+            title(getString(R.string.ask_user_action_confirmation))
             content(getString(R.string.restore_backup_warning))
             onNegative(getString(R.string.action_cancel))
             onPositive(getString(R.string.action_restore_backup)) {  startBusinessBackup() }

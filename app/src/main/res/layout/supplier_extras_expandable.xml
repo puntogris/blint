@@ -17,8 +17,8 @@
         style="@style/Theme.Blint.CardView"
         android:layout_height="wrap_content">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
@@ -30,22 +30,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Extras"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_gravity="center"
+                    android:text="@string/extras"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierPaymentInfo"
                     style="@style/Theme.Blint.TextInput"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Informacion de pagos"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierExtrasButton">
+                    android:hint="@string/payment_information">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierPaymentInfoText"
@@ -65,11 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
-                    android:hint="Notas"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierPaymentInfo">
+                    android:hint="@string/notes">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierNotesText"
@@ -82,7 +72,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -55,7 +55,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                         startActivityForResult(intent, 1)
                     }
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permition))
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
             }
     }
 

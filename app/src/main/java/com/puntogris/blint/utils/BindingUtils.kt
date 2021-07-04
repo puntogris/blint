@@ -19,6 +19,12 @@ import com.puntogris.blint.model.Notification
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
+import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.LOCAL
+import com.puntogris.blint.utils.Constants.NEW_BUSINESS
+import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
+import com.puntogris.blint.utils.Constants.NEW_USER
+import com.puntogris.blint.utils.Constants.PENDING
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -49,16 +55,15 @@ fun ImageView.setMenuCardIcon(@DrawableRes icon:Int){
 @BindingAdapter("loadImageButtonText")
 fun Button.setLoadImageButtonText(image: HashMap<String, String>){
     text = if (image.containsImage()) {
-        "Cambiar"
+        context.getString(R.string.action_change)
     } else {
-        "Agregar imagen"
+        context.getString(R.string.action_add_image)
     }
 }
 
 @BindingAdapter("removeImageVisibility")
 fun Button.setRemoveImageVisibility(image: HashMap<String, String>){
     if (image.containsImage()) visible() else gone()
-
 }
 
 @BindingAdapter("verticalIndicatorProgress")
@@ -113,7 +118,9 @@ fun TextView.setUpperCaseToLowerCapitalize(role:String){
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
-    text = if(type == "IN") "Proveedor" else "Cliente"
+    text = 
+        if(type == IN) context.getString(R.string.suppliers_label)
+        else context.getString(R.string.clients_label)
 }
 
 @BindingAdapter("dateFromTimestampWithTime")
@@ -123,12 +130,14 @@ fun TextView.setDateFromTimestampWithTime(timestamp: Timestamp){
 
 @BindingAdapter("amountSymbolWithRecordType")
 fun TextView.setAmountSymbolWithRecordType(type:String){
-    text =  if(type == "IN") "+" else "-"
+    text =  if(type == IN) "+" else "-"
 }
 
 @BindingAdapter("recordTypeString")
 fun TextView.setRecordTypeString(type:String){
-    text =  if(type == "IN") "Entrada" else "Salida"
+    text =  
+        if(type == IN) context.getString(R.string.in_entry)
+        else context.getString(R.string.out_entry)
 }
 
 
@@ -141,7 +150,7 @@ fun TextView.setDateFromTimestamp(timestamp: Timestamp?){
 
 @BindingAdapter("recordType")
 fun View.setRecordType(type:String){
-    if (type == "IN"){
+    if (type == IN){
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))
@@ -153,19 +162,21 @@ fun Chip.setExternalChipName(name: String){
     if (name.isNotEmpty()){
         text = name
     }else{
-        text = "No especificado"
+        text = context.getString(R.string.not_specified)
         isEnabled = false
     }
 }
 
 @BindingAdapter("eventStatus")
 fun TextView.setEventStatus(status: String){
-    text = if (status == "PENDING") "Pendiente" else "Finalizado"
+    text = 
+        if (status == PENDING) context.getString(R.string.pending)
+        else context.getString(R.string.finished)
 }
 
 @BindingAdapter("eventStatusColor")
 fun View.setEventStatusColor(status:String){
-    if (status == "PENDING"){
+    if (status == PENDING){
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card7, null))
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
@@ -174,7 +185,7 @@ fun View.setEventStatusColor(status:String){
 
 @BindingAdapter("businessType")
 fun TextView.setBusinessType(type:String){
-    text = if(type == "LOCAL") "Local" else "Online"
+    text = if(type == LOCAL) context.getString(R.string.local) else context.getString(R.string.online)
 }
 
 
@@ -235,9 +246,9 @@ fun TextView.setTimeSinceCreated(timestamp: Timestamp){
 @BindingAdapter("notificationTypeTitle")
 fun TextView.setNotificationTypeTitle(notification: Notification){
     text = when(notification.type){
-        "NEW_USER" -> "Bienvenido a Blint!"
-        "NEW_BUSINESS" -> "Felicitaciones!"
-        "NEW_EMPLOYEE" -> "Novedad!"
+        NEW_USER -> "Bienvenido a Blint!"
+        NEW_BUSINESS -> "Felicitaciones!"
+        NEW_EMPLOYEE -> "Novedad!"
         else -> {
             if (notification.title.isBlank()) gone()
             notification.title
@@ -248,9 +259,9 @@ fun TextView.setNotificationTypeTitle(notification: Notification){
 @BindingAdapter("notificationTypeMessage")
 fun TextView.setNotificationTypeMessage(notification: Notification){
     text = when(notification.type){
-        "NEW_USER" -> "Te recomendamos que veas esta guia para poder aprovechar al maximo la app."
-        "NEW_BUSINESS" -> "Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella."
-        "NEW_EMPLOYEE" -> "El negocio se agranda, le damos la bienvenida a ${notification.message}."
+        NEW_USER -> "Te recomendamos que veas esta guia para poder aprovechar al maximo la app."
+        NEW_BUSINESS -> "Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella."
+        NEW_EMPLOYEE -> "El negocio se agranda, le damos la bienvenida a ${notification.message}."
         else -> {
             if (notification.message.isBlank()) gone()
             notification.message

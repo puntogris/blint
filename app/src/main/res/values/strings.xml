@@ -43,13 +43,13 @@
 
      <!-- Backup -->
     <string name="create_backup_in_progress">Respaldo en progreso..</string>
-    <string name="dont_close_window_until_backup_is_done">*No cierres esta ventana hasta que finalize el backup.</string>
+    <string name="do_not_close_window_until_backup_is_done">*No cierres esta ventana hasta que finalize el backup.</string>
     <string name="create_backup_success_title">Respaldo realizado.</string>
     <string name="create_backup_error_title">Respaldo erroneo.</string>
     <string name="create_backup_success_message">*Respaldo realizado satisfactoriamente. Que tengas un muy buen dia.</string>
     <string name="create_backup_error_message">*Ocurrio un problema respaldando tu negocio. Intenta nuevamente mas tarde.</string>
     <string name="create_backup_warning">Esto reemplazara a al ultimo respaldo de tus negocios ya existente o creara uno nuevo. Ten en cuenta que no podemos guardar tus imagenes asi que no estan cubiertas por el respaldo.</string>
-    <string name="are_you_sure_about_this_action">Estas seguro de esta accion?</string>
+    <string name="ask_user_action_confirmation">Estas seguro de esta accion?</string>
     <string name="searching_your_info_server">Buscando tu informacion en los servidores…</string>
     <string name="action_read_more_about_backups">Leer mas sobre copias de seguridad.</string>
     <string name="last_backup">Ultimo respaldo:</string>
@@ -84,10 +84,10 @@
 
     <!-- Snack -->
     <string name="snack_an_error_ocurred">Se produjo un error.</string>
-    <string name="snack_require_contact_permition">Necesitamos acceso a tu agenda para crear un contacto.</string>
+    <string name="snack_require_contact_permission">Necesitamos acceso a tu agenda para crear un contacto.</string>
     <string name="snack_error_connection_server_try_later">Hubo un problema conectandose con los servidores. Intenta nuevamente.</string>
     <string name="snack_ups_visit_blint">Ups, algo se rompio. Visita Blint.app para mas info.</string>
-    <string name="snack_require_camera_permition">Necesitamos acceso a la camara para poder abrir el escaner.</string>
+    <string name="snack_require_camera_permission">Necesitamos acceso a la camara para poder abrir el escaner.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Queres eliminar este negocio?</string>
@@ -116,39 +116,6 @@
     <string name="snack_category_modify_success">Categoria modificada correctamente.</string>
     <string name="add_categories">Agregar categorias</string>
 
-    <!-- Text -->
-    <string name="suggestions">Sugerencias</string>
-    <string name="privacy_policy">Politicas de Privacidad</string>
-    <string name="terms_and_conditions">Terminos y Condiciones</string>
-    <string name="user_name">Nombre de usuario</string>
-    <string name="creation_date">Fecha de creacion</string>
-    <string name="e_mail">E-mail</string>
-    <string name="not_found">No encontrado.</string>
-    <string name="local_business_not_found_in_account">No encontramos negocios locales enlazados a tu cuenta.</string>
-    <string name="loading_with_dots">Cargando..</string>
-    <string name="helper_text_obligatory">*Obligatorio</string>
-    <string name="business_name_hint">Nombre del negocio</string>
-    <string name="role">Role</string>
-    <string name="joined_date">Fecha de ingreso</string>
-    <string name="details">Detalles</string>
-    <string name="manually">Manualmente</string>
-    <string name="name">Nombre</string>
-    <string name="type">Tipo</string>
-    <string name="billing">Facturacion</string>
-    <string name="employees">Empleados</string>
-    <string name="information">Informacion</string>
-    <string name="phone">Telefono</string>
-    <string name="adress">Direccion</string>
-    <string name="extras">Extras</string>
-    <string name="payment_info">Informacion de pagos</string>
-    <string name="discount">Descuento</string>
-    <string name="payment_information">Informacion de pagos</string>
-    <string name="tab_data">DATOS</string>
-    <string name="tab_records">MOVIMIENTOS</string>
-    <string name="retrieve_information_error">Error al retirar la informacion.</string>
-    <string name="no_notifications_found">No tienes notificaciones</string>
-    <string name="image_picker_folder_title">Imagenes</string>
-
     <!-- Login -->
     <string name="action_solve_login_problems">Solucionar problemas para entrar</string>
     <string name="action_tap_login">Tap para entrar</string>
@@ -174,7 +141,7 @@
     <string name="barcode">Codigo de barras</string>
     <string name="buy_price">Compra</string>
     <string name="sell_price">Venta</string>
-    <string name="sugested_sell_price">Sugerido</string>
+    <string name="suggested_sell_price">Sugerido</string>
     <string name="initial_stock">Stock inicial</string>
     <string name="prices_and_initial_stock">Precios y Stock inicial</string>
     <string name="prices">Precios</string>
@@ -198,8 +165,52 @@
 
     <!-- Supplier -->
     <string name="add_suppliers">Agregar proveedores</string>
+    <string name="snack_save_supplier_succes">Se guardo el proveedor satisfactoriamente.</string>
+    <string name="snack_save_supplier_error">Ocurrio un error al guardar el proveedor.</string>
+    <string name="notes">Notas</string>
+    <string name="company">Empresa</string>
 
-
+    <!-- Text -->
+    <string name="suggestions">Sugerencias</string>
+    <string name="privacy_policy">Politicas de Privacidad</string>
+    <string name="terms_and_conditions">Terminos y Condiciones</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="creation_date">Fecha de creacion</string>
+    <string name="e_mail">E-mail</string>
+    <string name="not_found">No encontrado.</string>
+    <string name="local_business_not_found_in_account">No encontramos negocios locales enlazados a tu cuenta.</string>
+    <string name="loading_with_dots">Cargando..</string>
+    <string name="helper_text_obligatory">*Obligatorio</string>
+    <string name="business_name_hint">Nombre del negocio</string>
+    <string name="role">Role</string>
+    <string name="joined_date">Fecha de ingreso</string>
+    <string name="details">Detalles</string>
+    <string name="manually">Manualmente</string>
+    <string name="name">Nombre</string>
+    <string name="type">Tipo</string>
+    <string name="billing">Facturacion</string>
+    <string name="employees">Empleados</string>
+    <string name="information">Informacion</string>
+    <string name="phone">Telefono</string>
+    <string name="address">Direccion</string>
+    <string name="extras">Extras</string>
+    <string name="payment_information">Informacion de pagos</string>
+    <string name="discount">Descuento</string>
+    <string name="tab_data">DATOS</string>
+    <string name="tab_records">MOVIMIENTOS</string>
+    <string name="retrieve_information_error">Error al retirar la informacion.</string>
+    <string name="no_notifications_found">No tienes notificaciones</string>
+    <string name="image_picker_folder_title">Imagenes</string>
+    <string name="action_change">Cambiar</string>
+    <string name="action_add_image">Agregar imagen</string>
+    <string name="in_entry">Entrada</string>
+    <string name="out_entry">Salida</string>
+    <string name="pending">Pendiente</string>
+    <string name="finished">Finalizado</string>
+    <string name="not_specified">No especificado</string>
+    <string name="local">Local</string>
+    <string name="online">Online</string>
+    <string name="seller">Vendedor</string>
 
     <!-- Prefs-->
     <string-array name="theme_names">

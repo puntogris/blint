@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="24dp"
-                android:hint="@string/sugested_sell_price"
+                android:hint="@string/suggested_sell_price"
                 app:prefixText="$"
                 app:layout_constraintBottom_toBottomOf="@+id/productSellPrice"
                 app:layout_constraintEnd_toEndOf="parent"

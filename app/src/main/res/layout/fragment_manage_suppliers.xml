@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="Buscar.."
+                    android:hint="@string/name"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="textNoSuggestions" />
 

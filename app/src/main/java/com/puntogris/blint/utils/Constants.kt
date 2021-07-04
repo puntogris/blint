@@ -35,11 +35,22 @@ object Constants {
     const val EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_RECEIVED_NOTIFICATION"
     const val EMPLOYMENT_REQUEST_OWNER_RESPONSE_NOTIFICATION_SERVER = "EMPLOYMENT_REQUEST_OWNER_RESPONSE_NOTIFICATION"
 
+    //Calendar event status
+    const val PENDING = "PENDING"
+    const val FINISHED = "DENIED"
 
-    //Contact requests states
-    const val ACCEPTED_STATE = "ACCEPTED"
-    const val PENDING_STATE = "PENDING"
-    const val DENIED_STATE = "DENIED"
+    //Business type
+    const val ONLINE = "ONLINE"
+    const val LOCAL = "LOCAL"
+
+    //Product record/ order type
+    const val IN = "IN"
+    const val OUT = "OUT"
+
+    //Notification type
+    const val NEW_USER = "NEW_USER"
+    const val NEW_BUSINESS = "NEW_BUSINESS"
+    const val NEW_EMPLOYEE = "NEW_EMPLOYEE"
 
     //Firestore paths
     const val WAS_READ_FIELD = "wasRead"
