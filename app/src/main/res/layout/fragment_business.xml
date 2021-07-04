@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/versatile_bold"
-            android:text="Empleados"
+            android:text="@string/employees"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/versatile_bold"
-            android:text="Facturacion"
+            android:text="@string/billing"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/versatile_bold"
-            android:text="Detalles"
+            android:text="@string/details"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             style="@style/Theme.Blint.DataSubTitleTextView"
-            android:text="Nombre"
+            android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textVie2w103" />
 
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Fecha de creacion"
+            android:text="@string/creation_date"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView125"
             app:layout_constraintTop_toBottomOf="@+id/textView125" />
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Tipo"
+            android:text="@string/type"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView127"
             app:layout_constraintTop_toBottomOf="@+id/textView127" />

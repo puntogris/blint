@@ -23,7 +23,7 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
         binding.sendEmail.setOnClickListener {
             val email = Intent(Intent.ACTION_SENDTO)
             email.data = Uri.parse("mailto:$SUPPORT_EMAIL")
-            email.putExtra(Intent.EXTRA_SUBJECT, "Problema con mi cuenta de Blint")
+            email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.problem_with_blint_account))
             startActivity(email)
         }
     }

@@ -42,69 +42,69 @@ object NavigationModel {
         NavigationModelItem.NavMenuItem(
             id = HOME_ID,
             icon = R.drawable.ic_twotone_home_24,
-            titleRes = R.string.home,
+            titleRes = R.string.home_label,
             checked = false,
             navMenu = NavMenu.HOME
         ),
         NavigationModelItem.NavMenuItem(
             id = PRODUCTS_ID,
             icon = R.drawable.ic_twotone_inventory_2_24,
-            titleRes = R.string.products,
+            titleRes = R.string.products_label,
             checked = false,
             navMenu = NavMenu.PRODUCTS
         ),
         NavigationModelItem.NavMenuItem(
             id = SUPPLIERS_ID,
             icon = R.drawable.ic_twotone_local_shipping_24,
-            titleRes = R.string.suppliers,
+            titleRes = R.string.suppliers_label,
             checked = false,
             navMenu = NavMenu.SUPPLIERS
         ),
         NavigationModelItem.NavMenuItem(
             id = CLIENTS_ID,
             icon = R.drawable.ic_twotone_people_24,
-            titleRes = R.string.clients,
+            titleRes = R.string.clients_label,
             checked = false,
             navMenu = NavMenu.CLIENTS
         ),
         NavigationModelItem.NavMenuItem(
             id = RECORDS_ID,
             icon = R.drawable.ic_twotone_article_24,
-            titleRes = R.string.records,
+            titleRes = R.string.records_label,
             checked = false,
             navMenu = NavMenu.ORDERS
         ),
         NavigationModelItem.NavMenuItem(
             id = REPORTS_ID,
             icon = R.drawable.ic_twotone_insert_chart_24,
-            titleRes = R.string.reports,
+            titleRes = R.string.reports_label,
             checked = false,
             navMenu = NavMenu.RECORDS
         ),
         NavigationModelItem.NavMenuItem(
             id = CALENDAR_ID,
             icon = R.drawable.ic_twotone_calendar_today_24,
-            titleRes = R.string.calendar,
+            titleRes = R.string.calendar_label,
             checked = false,
             navMenu = NavMenu.EVENTS
         ),
         NavigationModelItem.NavMenuItem(
             id = TOOLS_ID,
             icon = R.drawable.ic_baseline_grain_24,
-            titleRes = R.string.tools,
+            titleRes = R.string.tools_label,
             checked = false,
             navMenu = NavMenu.TOOLS
         ),
         NavigationModelItem.NavMenuItem(
             id = DEBT_ID,
             icon = R.drawable.ic_twotone_monetization_on_24,
-            titleRes = R.string.debts,
+            titleRes = R.string.debts_label,
             checked = false,
             navMenu = NavMenu.DEBTS
         ),NavigationModelItem.NavMenuItem(
             id = ACCOUNT_ID,
             icon = R.drawable.ic_twotone_account_circle_24,
-            titleRes = R.string.account,
+            titleRes = R.string.account_label,
             checked = false,
             navMenu = NavMenu.ACCOUNT
         )
@@ -114,14 +114,14 @@ object NavigationModel {
         NavigationModelItem.NavMenuItem(
             id = NOTIFICATIONS_ID,
             icon = R.drawable.ic_baseline_notifications_24,
-            titleRes = R.string.notifications,
+            titleRes = R.string.notifications_label,
             checked = false,
             navMenu = NavMenu.NOTIFICATIONS
         ),
         NavigationModelItem.NavMenuItem(
             id = SETTINGS_ID,
             icon = R.drawable.ic_twotone_settings_24,
-            titleRes = R.string.settings,
+            titleRes = R.string.settings_label,
             checked = false,
             navMenu = NavMenu.SETTINGS
         ))

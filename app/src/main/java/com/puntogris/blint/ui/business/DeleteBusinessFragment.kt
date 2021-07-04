@@ -23,7 +23,7 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
                 if (binding.businessNameText.getString() == args.business.businessName){
                     showDeleteBusinessUi()
                 }else{
-                    showLongSnackBarAboveFab("El nombre no coincide con el del negocio.")
+                    showLongSnackBarAboveFab(context.getString(R.string.snack_business_name_does_not_match))
                 }
             }
         }
@@ -31,12 +31,12 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
 
     private fun showDeleteBusinessUi(){
         InfoSheet().build(requireContext()){
-            title("Queres eliminar este negocio?")
-            content("Zona de peligro! Tene en cuenta que esta accion pondra a tu negocio desactivado por 15 dias y luego sera eliminado definitivamente.")
-            onNegative("No") {
+            title(getString(R.string.do_you_want_to_delete_business))
+            content(getString(R.string.delete_business_warning_dialog))
+            onNegative(getString(R.string.action_no)) {
                 // Handle event
             }
-            onPositive("Eliminar") {
+            onPositive(getString(R.string.action_delete)) {
                 // Handle event
             }
         }.show(parentFragmentManager, "")

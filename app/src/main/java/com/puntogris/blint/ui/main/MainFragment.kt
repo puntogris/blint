@@ -106,7 +106,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
                 }
                 is EventsDashboard.Error -> {
                     view?.findViewById<Button>(R.id.textView151)?.apply {
-                        text = "Error al retirar la informacion."
+                        text = context.getString(R.string.retrieve_information_error)
                         visible()
                     }
                 }

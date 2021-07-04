@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
-            android:text="E-mail"
+            android:text="@string/e_mail"
             android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="50dp"
-            android:text="Nombre de usuario"
+            android:text="@string/user_name"
             android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +86,7 @@
             android:foreground="?selectableItemBackground"
             android:textSize="16sp"
             android:onClick="@{()->fragment.onReadPrivacyPolicyClicked()}"
-            android:text="Leer nuestras Politicas de Privacidad."
+            android:text="@string/action_read_privacy_policy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:textAppearance="@style/Theme.Blint.DataSubTitleTextView"
-            android:text="Fecha de creacion"
+            android:text="@string/creation_date"
             app:layout_constraintStart_toStartOf="@+id/userEmail"
             app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 

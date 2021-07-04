@@ -40,16 +40,16 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
         }
         binding.sendSuggestion.setOnClickListener {
             InputSheet().show(requireParentFragment().requireContext()) {
-                title("Problemas y consejos")
+                title(getString(R.string.problems_and_advice))
                 //content("Reporta un problema o envianos tus consejos.")
                 with(InputEditText {
                     required()
-                    label("Que nos queres contar?")
-                    hint("Mensaje.")
-                    onPositive("Enviar") {
+                    label(getString(R.string.tell_us_more))
+                    hint(getString(R.string.message_hint))
+                    onPositive(getString(R.string.action_send)) {
                         onResultSendReport(value.toString())
                     }
-                    onNegative("Cancelar")
+                    onNegative(getString(R.string.action_cancel))
                 })
             }
         }

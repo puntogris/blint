@@ -35,7 +35,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
                     is NotificationsState.Success ->
                         adapter.updateList(it.result)
                     is NotificationsState.Error ->
-                        showLongSnackBarAboveFab("Ocurrio un error buscando las notificaciones. Intente nuevamente.")
+                        showLongSnackBarAboveFab(getString(R.string.snack_error_connection_server_try_later))
                     NotificationsState.Working.LoadFirstBatch ->
                         viewModel.getFirstBatchNotifications()
                     NotificationsState.Working.LoadMore ->
@@ -66,7 +66,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
         try {
             launchWebBrowserIntent(notification.navigationUri)
         }catch (e:Exception){
-            showSnackBarVisibilityAppBar("Ups, algo se rompio. Visita Blint.app para mas info.")
+            showSnackBarVisibilityAppBar(getString(R.string.snack_ups_visit_blint))
         }
     }
 

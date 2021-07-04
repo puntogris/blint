@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.categories
 
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -76,12 +75,12 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         val category = categoriesAdapter.getSelectedCategories().first()
         InputSheet().build(requireContext()){
             style(SheetStyle.DIALOG)
-            title("Renombrar categoria")
+            title(getString(R.string.rename_category))
             with(InputEditText{
                 required(true)
-                hint("Nombre")
-                onNegative("Cancelar")
-                onPositive("Aceptar"){
+                hint(getString(R.string.name))
+                onNegative(getString(R.string.action_cancel))
+                onPositive(getString(R.string.action_accept)){
                     category.name = it["0"].toString()
                     onEditCategoryConfirmed(category)
                 }
@@ -93,9 +92,9 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         lifecycleScope.launch {
             when(viewModel.updateCategoryDatabase(category)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al modificar la categoria.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_category_modify_error))
                 SimpleResult.Success ->
-                    showLongSnackBarAboveFab("Categoria modificada correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_category_modify_success))
             }
         }
     }
@@ -103,12 +102,12 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     private fun showCreateCategoryDialog(){
         InputSheet().build(requireContext()){
             style(SheetStyle.DIALOG)
-            title("Agregar categoria")
+            title(getString(R.string.add_category))
             with(InputEditText{
                 required(true)
-                hint("Nombre")
-                onNegative("Cancelar")
-                onPositive("Aceptar"){
+                hint(getString(R.string.name))
+                onNegative(getString(R.string.action_cancel))
+                onPositive(getString(R.string.action_accept)){
                     onCreateCategoryConfirmed(it["0"].toString())
                     hideKeyboard()
                 }
@@ -120,19 +119,19 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         lifecycleScope.launch {
             when(viewModel.saveCategoryDatabase(name)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al crear la categoria.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_category_create_error))
                 SimpleResult.Success ->
-                    showLongSnackBarAboveFab("Categoria guardada correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_category_create_success))
             }
         }
     }
 
     fun onDeleteCategoriesClicked(){
         InfoSheet().build(requireContext()) {
-            title("Eliminar categorias")
-            content("Estas por eliminar las categorias ,esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Eliminar") { onDeleteCategoryConfirmed() }
+            title(getString(R.string.delete_category))
+            content(getString(R.string.delete_categories_warning))
+            onNegative(getString(R.string.action_cancel))
+            onPositive(getString(R.string.action_delete)) { onDeleteCategoryConfirmed() }
         }.show(parentFragmentManager, "")
     }
 
@@ -140,13 +139,13 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         lifecycleScope.launch {
             when(viewModel.deleteCategory(categoriesAdapter.getSelectedCategories())){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al eliminar las categorias.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_categories_delete_error))
                 SimpleResult.Success ->{
                     showSelectionUi()
                     categoriesAdapter.notifyItemRemoved(0)
                     categoriesAdapter.clearSelected()
                     categoriesAdapter.notifyDataSetChanged()
-                    showLongSnackBarAboveFab("Categorias eliminadas satisfactoriamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_categories_delete_success))
                 }
             }
         }

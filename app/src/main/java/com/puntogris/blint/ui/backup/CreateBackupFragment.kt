@@ -46,7 +46,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
     private fun showNoBusinessFoundUI(){
         binding.loadingBusinessProgressBar.gone()
-        binding.loadingBusinessSummary.text = "No encontramos negocios locales enlazados a tu cuenta."
+        binding.loadingBusinessSummary.text = getString(R.string.local_business_not_found_in_account)
     }
 
     private fun showBusinessUI(data: List<Business>){
@@ -69,7 +69,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
             viewModel.getLastBackUpDate().collect {
                 when(it){
                     is RepoResult.Error -> {
-                        binding.textView71.text = "No encontrado."
+                        binding.textView71.text = getString(R.string.not_found)
                     }
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -92,8 +92,8 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
             textView70.gone()
             textView71.gone()
             businessTitle.visible()
-            businessTitle.text = "Respaldo en progreso.."
-            backupSummary.text = "*No cierres esta ventana hasta que finalize el respaldo."
+            businessTitle.text = getString(R.string.create_backup_in_progress)
+            backupSummary.text = getString(R.string.dont_close_window_until_backup_is_done)
         }
     }
 
@@ -107,10 +107,10 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
     private fun showConfirmationDialogForBackUp(){
         InfoSheet().show(requireParentFragment().requireContext()){
-            title("Estas seguro de esta accion?")
-            content("Esto reemplazara a al ultimo respaldo de tus negocios ya existente o creara uno nuevo. Ten en cuenta que no podemos guardar tus imagenes asi que no estan cubiertas por el respaldo.")
-            onNegative("Cancelar")
-            onPositive("Respaldar") {  startBusinessBackup() }
+            title(getString(R.string.are_you_sure_about_this_action))
+            content(getString(R.string.create_backup_warning))
+            onNegative(getString(R.string.action_cancel))
+            onPositive(getString(R.string.action_create_backup)) {  startBusinessBackup() }
         }
     }
 
@@ -129,8 +129,8 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     }
 
     private fun showSuccessfulBackupUI(){
-        binding.backupSummary.text = "*Respaldo realizado satisfactoriamente. Que tengas un muy buen dia."
-        binding.businessTitle.text = "Respaldo realizado."
+        binding.backupSummary.text = getString(R.string.create_backup_success_message)
+        binding.businessTitle.text = getString(R.string.create_backup_success_title)
         binding.animationView.apply {
             setAnimation(R.raw.done)
             repeatCount = 0
@@ -139,8 +139,8 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     }
 
     private fun showFailureBackupUI(){
-        binding.businessTitle.text = "Respaldo erroneo."
-        binding.backupSummary.text = "*Ocurrio un problema respaldando tu negocio. Intenta nuevamente mas tarde."
+        binding.businessTitle.text = getString(R.string.create_backup_error_title)
+        binding.backupSummary.text = getString(R.string.create_backup_error_message)
         binding.animationView.apply {
             setAnimation(R.raw.error)
             repeatCount = 0

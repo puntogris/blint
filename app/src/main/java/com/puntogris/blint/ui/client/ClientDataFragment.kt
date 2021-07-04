@@ -35,7 +35,6 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                 }
             }
         }
-
         setupContactPermissions()
     }
 
@@ -56,7 +55,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                         startActivityForResult(intent, 1)
                     }
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para crear un contacto.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permition))
             }
     }
 
@@ -68,9 +67,9 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24,"Llamar"),
-                Option(R.drawable.ic_baseline_message_24, "Mensaje"),
-                Option(R.drawable.ic_whatsapp, "WhatsApp")
+                Option(R.drawable.ic_baseline_call_24,getString(R.string.action_call)),
+                Option(R.drawable.ic_baseline_message_24, getString(R.string.action_message)),
+                Option(R.drawable.ic_whatsapp, getString(R.string.action_whats_app))
             )
             onPositive { index: Int, _: Option ->
                 val phone = viewModel.currentClient.value!!.phone

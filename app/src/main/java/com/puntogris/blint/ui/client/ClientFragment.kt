@@ -43,8 +43,8 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "DATOS"
-                else -> "MOVIMIENTOS"
+                0 -> getString(R.string.tab_data)
+                else -> getString(R.string.tab_records)
             }
         }
         mediator?.attach()
@@ -98,10 +98,10 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title("Queres eliminar este cliente?")
-                    content("Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta accion es irreversible.")
-                    onNegative("Cancelar")
-                    onPositive("Si") { onDeleteClientConfirmed() }
+                    title(getString(R.string.do_you_want_to_delete_client))
+                    content(getString(R.string.delete_client_warning))
+                    onNegative(getString(R.string.action_cancel))
+                    onPositive(getString(R.string.action_yes)) { onDeleteClientConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
@@ -118,9 +118,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         lifecycleScope.launch {
             when(viewModel.deleteClientDatabase(args.client.clientId)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al eliminar al cliente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_client_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab("Cliente eliminado correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_client_success))
                     findNavController().navigateUp()
                 }
             }

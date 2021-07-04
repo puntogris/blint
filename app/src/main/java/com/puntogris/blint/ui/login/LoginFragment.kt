@@ -76,7 +76,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 }
                 RegistrationData.Error -> {
                     binding.logInProgressBar.gone()
-                    showShortSnackBar("Error buscando tu informacion en los servidores. Verifica tu conexion y intenta nuevamente.")
+                    showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
                 }
                 RegistrationData.Incomplete -> {
                     val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(true)

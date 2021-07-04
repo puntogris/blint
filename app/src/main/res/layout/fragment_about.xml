@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="44dp"
-            android:text="Blint"
+            android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_app_logo" />
+            app:srcCompat="@drawable/ic_app_logo"/>
 
         <TextView
             android:id="@+id/textView21"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:text="Version"
+            android:text="@string/app_version"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/grey_40"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             android:id="@+id/appVersionNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.4.1"
+            android:text="@string/app_version_number"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -73,7 +73,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="20dp"
-            android:text="Calificar en la Play Store"
+            android:text="@string/action_rate_us_on_google_play"
             app:layout_constraintBottom_toTopOf="@+id/sendSuggestion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Sugerencias"
+            android:text="@string/suggestions"
             android:textColor="@color/primaryColor"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +97,7 @@
             android:layout_marginTop="24dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:text="Politicas de Privacidad"
+            android:text="@string/privacy_policy"
             app:layout_constraintStart_toStartOf="@+id/termsConditions"
             app:layout_constraintTop_toBottomOf="@+id/termsConditions" />
 
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Terminos y Condiciones"
+            android:text="@string/terms_and_conditions"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="@+id/appVersionNumber"

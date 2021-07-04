@@ -8,7 +8,6 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRestoreBackupBinding
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.*
@@ -47,7 +46,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     private fun showNoBusinessFoundUI(){
         binding.loadingBusinessProgressBar.gone()
-        binding.loadingBusinessSummary.text = "No encontramos negocios locales enlazados a tu cuenta."
+        binding.loadingBusinessSummary.text = getString(R.string.local_business_not_found_in_account)
     }
 
     private fun showBusinessUI(data: List<Business>){
@@ -70,7 +69,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
             viewModel.getLastBackUpDate().collect {
                 when(it){
                     is RepoResult.Error -> {
-                        binding.textView71.text = "No encontrado."
+                        binding.textView71.text = getString(R.string.not_found)
                     }
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -93,8 +92,8 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
             textView70.gone()
             textView71.gone()
             businessTitle.visible()
-            businessTitle.text = "Respaldo en progreso.."
-            backupSummary.text = "*No cierres esta ventana hasta que finalize el respaldo."
+            businessTitle.text = getString(R.string.create_backup_in_progress)
+            backupSummary.text = getString(R.string.dont_close_window_until_backup_is_done)
         }
     }
 
@@ -108,10 +107,10 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     private fun showConfirmationDialogForBackUp(){
         InfoSheet().show(requireParentFragment().requireContext()){
-            title("Estas seguro de esta accion?")
-            content("Esto restaurara tus negocios desde la ultima copia que subiste a la nube, toda la informacion que tengas se borrara y reemplazara por la copia de seguridad. Ten en cuenta que las imagenes no se restableceran.")
-            onNegative("Cancelar")
-            onPositive("Restaurar") {  startBusinessBackup() }
+            title(getString(R.string.are_you_sure_about_this_action))
+            content(getString(R.string.restore_backup_warning))
+            onNegative(getString(R.string.action_cancel))
+            onPositive(getString(R.string.action_restore_backup)) {  startBusinessBackup() }
         }
     }
 
@@ -130,8 +129,8 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     }
 
     private fun showSuccessfulBackupUI(){
-        binding.backupSummary.text = "*Restauracion realizada satisfactoriamente. Que tengas un muy buen dia."
-        binding.businessTitle.text = "Restauracion realizada."
+        binding.backupSummary.text = getString(R.string.restore_backup_success_message)
+        binding.businessTitle.text = getString(R.string.restore_backup_success_title)
         binding.animationView.apply {
             setAnimation(R.raw.done)
             repeatCount = 0
@@ -140,8 +139,8 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     }
 
     private fun showFailureBackupUI(){
-        binding.businessTitle.text = "Restauracion erronea."
-        binding.backupSummary.text = "*Ocurrio un problema restaurando tu negocio. Esto se puede deber a que no se encontro un respaldo previamente o problemas del servidor.\nIntenta nuevamente mas tarde."
+        binding.businessTitle.text = getString(R.string.restore_backup_error_title)
+        binding.backupSummary.text = getString(R.string.restore_backup_error_message)
         binding.animationView.apply {
             setAnimation(R.raw.error)
             repeatCount = 0

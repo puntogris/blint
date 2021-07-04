@@ -3,14 +3,11 @@ package com.puntogris.blint.ui.business
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
-import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.login.LoginViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,7 +26,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
             setOnClickListener {
                 val text = binding.joinBusinessCodeText.getString()
                 if(text.isEmpty()){
-                    showLongSnackBarAboveFab("Ingresa un codigo o escanea el mismo para continuar.")
+                    showLongSnackBarAboveFab(context.getString(R.string.snack_type_or_scan_code_to_continue))
                 }else{
                     joinBusinessWithCode(text)
                 }
@@ -47,7 +44,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
         binding.setDataGroup.gone()
         binding.animationView.visible()
         binding.summaryMessage.visible()
-        binding.fragmentTitle.text = "Uniendote al negocio.."
+        binding.fragmentTitle.text = getString(R.string.joining_business_progress)
         binding.animationView.apply {
             repeatCount = LottieDrawable.INFINITE
             visible()
@@ -61,8 +58,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.fragmentTitle.text = "Encontramos un Error"
-                    binding.summaryMessage.text = "Hubo un problema conectandose con los servidores. Intenta nuevamente."
+                    binding.fragmentTitle.text = getString(R.string.snack_an_error_ocurred)
+                    binding.summaryMessage.text = getString(R.string.snack_error_connection_server_try_later)
                 }
                 JoinBusiness.InProgress -> {}
                 JoinBusiness.CodeInvalid -> {
@@ -71,8 +68,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.fragmentTitle.text = "Codigo incorrecto"
-                    binding.summaryMessage.text = "El codigo es incorrecto o expiro, pidele al administrador/a que verifique la validez del mismo."
+                    binding.fragmentTitle.text = getString(R.string.incorrect_code)
+                    binding.summaryMessage.text = getString(R.string.incorrect_or_expired_code)
                 }
                 JoinBusiness.Success -> {
                     sharedPref.setUserHasBusinessPref(true)
@@ -93,8 +90,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                         repeatCount = 0
                         playAnimation()
                     }
-                    binding.fragmentTitle.text = "Conflicto de empleados"
-                    binding.summaryMessage.text = "Esta cuenta ya se encuentra enlazada en este negocio."
+                    binding.fragmentTitle.text = getString(R.string.employee_conflict)
+                    binding.summaryMessage.text = getString(R.string.account_already_joined_business)
                 }
             }
         }

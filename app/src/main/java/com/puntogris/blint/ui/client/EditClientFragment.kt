@@ -19,7 +19,6 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.fragment_edit_client) {
 
@@ -39,9 +38,9 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                     lifecycleScope.launch {
                         when(viewModel.saveClientDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar("Ocurrio un error al guardar el cliente.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_save_client_error)).setAnchorView(it).show()
                             SimpleResult.Success -> {
-                                createShortSnackBar("Se guardo el cliente satisfactoriamente.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_save_client_success)).setAnchorView(it).show()
                                 findNavController().navigateUp()
                             }
                         }
@@ -73,7 +72,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                         startActivityForResult(intent, 1)
                     }
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para ver tus contactos.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permition))
             }
     }
 

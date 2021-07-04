@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.backup.RestoreBackupFragment">
 
-
         <ProgressBar
             android:id="@+id/loadingBusinessProgressBar"
             style="?android:attr/progressBarStyleLarge"
@@ -43,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Tus negocios locales"
+            android:text="@string/your_local_business"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +56,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="64dp"
             android:lineSpacingExtra="4dp"
-            android:text="*Tene en cuenta que solo los negocios locales se pueden restaurar ya que en los online tu negocio ya esta en la nube."
+            android:text="@string/backup_only_for_local_business_alert"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/textView73"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +71,7 @@
             android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="116dp"
-            android:text="Buscando tu informacion en los servidores..."
+            android:text="@string/searching_your_info_server"
             android:textSize="17sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:textColor="@color/primaryColor"
-            android:text="Leer mas sobre copias de seguridad."
+            android:text="@string/action_read_more_about_backups"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -110,7 +109,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:text="La restauracion afectara a estos negocios, el respaldo no es de un local individual, respalda todo."
+            android:text="@string/restore_backup_affects_this_businesses_alert"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +119,7 @@
             android:id="@+id/button19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurar negocios"
+            android:text="@string/action_restore_backup"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/backupSummary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +135,7 @@
             android:layout_marginTop="24dp"
             android:visibility="gone"
             style="@style/Theme.Blint.DataSubTitleTextView"
-            android:text="Ultimo respaldo:"
+            android:text="@string/last_backup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
@@ -146,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             style="@style/Theme.Blint.DataTextView"
-            android:text="Cargando.."
+            android:text="@string/loading_with_dots"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView70"
             app:layout_constraintStart_toEndOf="@+id/textView70"

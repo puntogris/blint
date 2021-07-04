@@ -26,7 +26,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:text="Proveedores"
+                    android:text="@string/suppliers_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{()->fragment.openBottomSheetForSuppliers()}"
-                        android:text="Agregar Proveedor"
+                        android:text="@string/add_suppliers"
                         app:chipIcon="@drawable/ic_baseline_add_24" />
                 </com.google.android.material.chip.ChipGroup>
 

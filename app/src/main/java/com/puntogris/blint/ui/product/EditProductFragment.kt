@@ -44,9 +44,9 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     lifecycleScope.launch {
                         when(viewModel.saveProductDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar("Error al crear el producto.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_create_product_success)).setAnchorView(it).show()
                             SimpleResult.Success -> {
-                                createShortSnackBar("Se guardo el producto satisfactoriamente.").setAnchorView(it).show()
+                                createShortSnackBar(getString(R.string.snack_create_product_error)).setAnchorView(it).show()
                                 findNavController().navigateUp()
                             }
                         }
@@ -91,7 +91,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 productAmount.visible()
                 increaseAmountButton.visible()
                 decreaseAmountButton.visible()
-                productPricesTitle.text = "Precios"
+                productPricesTitle.text = getString(R.string.prices)
             }
         }
 
@@ -108,7 +108,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     val action = EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permition))
             }
     }
 
@@ -135,11 +135,11 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     fun onAddImageButtonClicked(){
         ImagePicker.with(this)
             .setFolderMode(true)
-            .setFolderTitle("Imagenes")
+            .setFolderTitle(getString(R.string.image_picker_folder_title))
             .setStatusBarColor(resources.getString(0 + R.color.almostBlack))
             .setMultipleMode(false)
             .setRootDirectoryName(Config.ROOT_DIR_DCIM)
-            .setDirectoryName("Blint")
+            .setDirectoryName(getString(R.string.app_name))
             .setShowNumberIndicator(true)
             .start()
     }
@@ -180,17 +180,17 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             }else{
                 val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
                 OptionsSheet().build(requireContext()){
-                    title("Agregar Proveedores")
+                    title(getString(R.string.add_suppliers))
                     displayMode(DisplayMode.LIST)
                     multipleChoices(true)
                     with(optionSuppliers)
-                    onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                    onPositiveMultiple(getString(R.string.action_add)) { selectedIndices: MutableList<Int>, _ ->
                         viewModel.updateSuppliers(selectedIndices.map { suppliers[it].supplierId })
                         selectedIndices.forEach {
                             createNewChipAndAddItToGroup(suppliers[it].companyName, binding.scopeLayout.supplierChipGroup)
                         }
                     }
-                    onNegative("Cancelar")
+                    onNegative(getString(R.string.action_cancel))
                 }.show(parentFragmentManager, "")
             }
         }
@@ -204,17 +204,17 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             }else{
                 val optionSuppliers = categories.map { Option(it.name) }.toMutableList()
                 OptionsSheet().build(requireContext()){
-                    title("Agregar Categorias")
+                    title(getString(R.string.add_categories))
                     displayMode(DisplayMode.LIST)
                     multipleChoices(true)
                     with(optionSuppliers)
-                    onPositiveMultiple("Agregar") { selectedIndices: MutableList<Int>, _ ->
+                    onPositiveMultiple(getString(R.string.action_add)) { selectedIndices: MutableList<Int>, _ ->
                         viewModel.updateCategories(selectedIndices.map { categories[it].categoryId })
                         selectedIndices.forEach {
                             createNewChipAndAddItToGroup(categories[it].name, binding.scopeLayout.supplierChipGroup)
                         }
                     }
-                    onNegative("Cancelar")
+                    onNegative(getString(R.string.action_cancel))
                 }.show(parentFragmentManager, "")
             }
         }

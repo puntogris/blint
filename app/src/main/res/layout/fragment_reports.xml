@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.reports.ReportsFragment" />
@@ -13,7 +12,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -145,7 +143,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Productos"
+                    android:text="@string/products_label"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -170,7 +168,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Clientes"
+                    android:text="@string/clients_label"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -196,7 +194,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Proveedores"
+                    android:text="@string/suppliers_label"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 

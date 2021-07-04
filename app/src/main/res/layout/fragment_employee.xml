@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Nombre"
+            android:text="@string/name"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView143" />
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Role"
+            android:text="@string/role"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView136"
             app:layout_constraintTop_toBottomOf="@+id/textView136" />
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Fecha de ingreso"
+            android:text="@string/joined_date"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView138"
             app:layout_constraintTop_toBottomOf="@+id/textView138" />
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Detalles"
+            android:text="@string/details"
             android:fontFamily="@font/versatile_bold"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="E-mail"
+            android:text="@string/e_mail"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView140"
             app:layout_constraintTop_toBottomOf="@+id/textView140" />

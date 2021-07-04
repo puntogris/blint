@@ -36,8 +36,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "DATOS"
-                else -> "MOVIMIENTOS"
+                0 -> getString(R.string.tab_data)
+                else -> getString(R.string.tab_records)
             }
         }
 
@@ -92,10 +92,10 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title("Queres eliminar este producto?")
-                    content("Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta accion es irreversible.")
-                    onNegative("Cancelar")
-                    onPositive("Si") { onDeleteProductConfirmed() }
+                    title(getString(R.string.do_you_want_to_delete_product))
+                    content(getString(R.string.delete_product_warning))
+                    onNegative(getString(R.string.action_cancel))
+                    onPositive(getString(R.string.action_yes)) { onDeleteProductConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
@@ -112,9 +112,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         lifecycleScope.launch {
             when (viewModel.deleteProductDatabase(args.product?.product!!.productId)) {
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Se produjo un error al eliminar el producto.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_product_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab("Producto eliminado correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_product_success))
                     findNavController().navigateUp()
                 }
             }
