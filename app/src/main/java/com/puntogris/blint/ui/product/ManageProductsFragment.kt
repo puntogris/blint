@@ -1,23 +1,14 @@
 package com.puntogris.blint.ui.product
 
 import android.Manifest
-import android.view.Menu
-import android.view.MenuItem
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.MarginLayoutParamsCompat
-import androidx.core.view.isVisible
-import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialSharedAxis
-import com.puntogris.blint.NewOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
@@ -49,7 +40,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         requireActivity().findViewById<FragmentContainerView>(R.id.bottom_nav_drawer).getFragment<BottomNavDrawerFragment>()
             ?.addOnStateChangedAction(ShowHideFabStateAction(getParentFab(), true))
 
-        manageProductsAdapter = ManageProductsAdapter { onProductClickListener(it) }
+        manageProductsAdapter = ManageProductsAdapter({onProductShortClickListener(it)},{onProductLongClickListener(it)})
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -136,33 +127,35 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         }
     }
 
-    private fun onProductClickListener(product: ProductWithSuppliersCategories){
+    private fun onProductShortClickListener(product: ProductWithSuppliersCategories){
         hideKeyboard()
         val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
         findNavController().navigate(action)
     }
 
+    private fun onProductLongClickListener(product: ProductWithSuppliersCategories){
+        showOrderPickerAndNavigate(product.product)
+    }
+
+
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.newProduct -> {
+//                findNavController().navigate(R.id.editProductFragment)
+//                true
+//            }
+//            R.id.manageCategories -> {
+//                findNavController().navigate(R.id.manageCategoriesFragment)
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+
     override fun onDestroyView() {
         binding.productSearch.clearFocus()
         binding.recyclerView.adapter = null
         super.onDestroyView()
-    }
-
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.manageProductFragmentMenu).isVisible = true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.newProduct -> {
-                findNavController().navigate(R.id.editProductFragment)
-                true
-            }
-            R.id.manageCategories -> {
-                findNavController().navigate(R.id.manageCategoriesFragment)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

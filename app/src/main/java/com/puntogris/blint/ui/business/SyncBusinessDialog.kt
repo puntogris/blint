@@ -12,20 +12,16 @@ class SyncBusinessDialog: DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
-
             val inflater = requireActivity().layoutInflater
-
             builder.setView(inflater.inflate(R.layout.sync_business_dialog, null))
-                // Add action buttons
                 .setTitle("Sincronizando negocios")
                 .setMessage("Cerrar esta ventana cancelara la sincronizacion.")
 //                .setPositiveButton(R.string.signin,
 //                    DialogInterface.OnClickListener { dialog, id ->
 //                        // sign in the user ...
 //                    })
-                .setNegativeButton("Cerrar") { dialog, id ->
+                .setNegativeButton(getString(R.string.action_close)) { dialog, id ->
                     getDialog()?.cancel()
                     showSnackBarVisibilityAppBar("Sincronizacion cancelada")
                 }

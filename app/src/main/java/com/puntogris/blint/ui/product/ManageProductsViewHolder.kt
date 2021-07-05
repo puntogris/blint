@@ -8,9 +8,16 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 
 class ManageProductsViewHolder private constructor(val binding: ManageProductsVhBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind(product: ProductWithSuppliersCategories, clickListener: (ProductWithSuppliersCategories)-> Unit) {
+    fun bind(
+        product: ProductWithSuppliersCategories,
+        shortClickListener: (ProductWithSuppliersCategories)-> Unit,
+        longClickListener: (ProductWithSuppliersCategories)-> Unit) {
         binding.product = product
-        binding.root.setOnClickListener { clickListener(product) }
+        binding.root.setOnClickListener { shortClickListener(product) }
+        binding.root.setOnLongClickListener {
+            longClickListener(product)
+            true
+        }
         binding.executePendingBindings()
     }
 

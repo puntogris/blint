@@ -35,13 +35,14 @@ class LoginViewModel @Inject constructor(
     }
 
     suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser): RegistrationData {
-        val user = FirestoreUser(
-            firebaseUser.uid,
-            firebaseUser.displayName.toString(),
-            firebaseUser.photoUrl.toString(),
-            firebaseUser.email.toString()
+        return userRepository.checkUserDataInFirestore(
+                FirestoreUser(
+                firebaseUser.uid,
+                firebaseUser.displayName.toString(),
+                firebaseUser.photoUrl.toString(),
+                firebaseUser.email.toString()
+                )
         )
-        return userRepository.checkUserDataInFirestore(user)
     }
 
     fun getUserBusiness() = userRepository.getEmployeeBusiness()

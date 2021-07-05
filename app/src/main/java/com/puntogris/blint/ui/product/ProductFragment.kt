@@ -13,9 +13,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.info.InfoSheet
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
@@ -54,9 +59,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                     else -> {
                         getParentFab().apply {
                             changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-                            setOnClickListener {
-
-                            }
+                            setOnClickListener { showOrderPickerAndNavigate(args.product?.product) }
                         }
                     }
                 }
@@ -92,22 +95,20 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title(getString(R.string.do_you_want_to_delete_product))
-                    content(getString(R.string.delete_product_warning))
-                    onNegative(getString(R.string.action_cancel))
-                    onPositive(getString(R.string.action_yes)) { onDeleteProductConfirmed() }
+                    title(this@ProductFragment.getString(R.string.do_you_want_to_delete_product))
+                    content(this@ProductFragment.getString(R.string.delete_product_warning))
+                    onNegative(this@ProductFragment.getString(R.string.action_cancel))
+                    onPositive(this@ProductFragment.getString(R.string.action_yes)) { onDeleteProductConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
             R.id.createRecord -> {
-//                val action = ProductFragmentDirections.actionProductFragmentToCreateRecordFragment(args.productID)
-//                findNavController().navigate(action)
+                showOrderPickerAndNavigate(args.product?.product)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
     private fun onDeleteProductConfirmed(){
         lifecycleScope.launch {
             when (viewModel.deleteProductDatabase(args.product?.product!!.productId)) {
@@ -141,6 +142,5 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         mediator = null
         binding.viewPager.adapter = null
         super.onDestroyView()
-
     }
 }

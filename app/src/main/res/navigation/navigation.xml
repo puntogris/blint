@@ -125,9 +125,7 @@
         <action
             android:id="@+id/action_productFragment_to_supplierFragment"
             app:destination="@id/supplierFragment" />
-        <action
-            android:id="@+id/action_productFragment_to_orderTypeFragment"
-            app:destination="@id/newOrderGraphNav" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -448,6 +446,10 @@
         android:label="@string/app_name" />
     <navigation android:id="@+id/newOrderGraphNav"
         app:startDestination="@id/orderTypeFragment">
+        <argument
+            android:name="product"
+            app:argType="com.puntogris.blint.model.Product"
+            app:nullable="true" />
         <fragment
             android:id="@+id/orderTypeFragment"
             android:name="com.puntogris.blint.ui.orders.new_order.OrderTypeFragment"
@@ -458,6 +460,7 @@
             <action
                 android:id="@+id/action_orderTypeFragment_to_createRecordFragment"
                 app:destination="@id/createRecordFragment" />
+
         </fragment>
         <fragment
             android:id="@+id/reviewRecordFragment"
@@ -595,5 +598,14 @@
     <dialog
         android:id="@+id/syncBusinessDialog"
         android:name="com.puntogris.blint.ui.business.SyncBusinessDialog"
-        android:label="SyncBusinessDialog" />
+        android:label="" />
+    <action
+        android:id="@+id/action_global_newOrderGraphNav"
+        app:destination="@id/newOrderGraphNav">
+        <argument
+            app:argType="com.puntogris.blint.model.Product"
+            android:name="product"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </action>
 </navigation>

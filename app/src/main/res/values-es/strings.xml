@@ -37,6 +37,7 @@
     <string name="action_add">Agregar</string>
     <string name="action_back">Atras</string>
     <string name="action_finish">Finalizar</string>
+    <string name="action_close">Cerrar</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Problemas y consejos</string>
@@ -168,6 +169,8 @@
     <string name="do_you_want_to_delete_product">Queres eliminar este producto?</string>
     <string name="delete_product_warning">Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta acción es irreversible.</string>
     <string name="internal_code">Codigo interno</string>
+    <string name="create_simple_order">Crear orden rápida.</string>
+    <string name="create_detailed_order">Crear orden detallada.</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>
@@ -212,6 +215,7 @@
     <string name="discount">Descuento</string>
     <string name="tab_data">DATOS</string>
     <string name="tab_records">MOVIMIENTOS</string>
+    <string name="tab_orders">ORDENES</string>
     <string name="retrieve_information_error">Error al retirar la informacion.</string>
     <string name="no_notifications_found">No tienes notificaciones</string>
     <string name="image_picker_folder_title">Imágenes</string>
@@ -227,6 +231,14 @@
     <string name="seller">Vendedor</string>
     <string name="account_created_success">Cuenta creada correctamente.</string>
     <string name="account_created_cheers_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
+    <string name="select_supplier">Seleccionar Proveedor</string>
+    <string name="select_client">Seleccionar Cliente</string>
+
+
+    <string-array name="order_type">
+        <item>Entrada</item>
+        <item>Salida</item>
+    </string-array>
 
     <!-- Prefs-->
     <string-array name="theme_names">

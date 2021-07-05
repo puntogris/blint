@@ -6,9 +6,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.puntogris.blint.NewOrderGraphNavArgs
 import com.puntogris.blint.NewOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateRecordBinding

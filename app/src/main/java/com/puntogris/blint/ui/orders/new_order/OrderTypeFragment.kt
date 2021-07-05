@@ -2,11 +2,15 @@ package com.puntogris.blint.ui.orders.new_order
 
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.puntogris.blint.NewOrderGraphNavArgs
+import com.puntogris.blint.NewOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.NewOrderViewModel
@@ -20,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragment_order_type) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
+    private val args: NewOrderGraphNavArgs by navArgs()
 
     override fun initializeViews() {
         setUpUi(
@@ -31,12 +36,12 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToCreateRecordFragment()
             findNavController().navigate(action)
         }
-        binding.recordTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("Entrada", "Salida")))
+        binding.recordTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, resources.getStringArray(R.array.order_type)))
 
         binding.recordTypeText.setOnItemClickListener { _, _, i, _ ->
             when(i){
-                0 -> binding.button22.text = "Seleccionar Proveedor"
-                1 -> binding.button22.text = "Seleccionar Cliente"
+                0 -> binding.button22.text = getString(R.string.select_supplier)
+                1 -> binding.button22.text = getString(R.string.select_client)
             }
             viewModel.updateRecordType(i)
         }

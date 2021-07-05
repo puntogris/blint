@@ -3,7 +3,12 @@ package com.puntogris.blint.ui.product
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.maxkeppeler.sheets.core.SheetStyle
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.model.Product
@@ -14,6 +19,8 @@ import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
 import com.puntogris.blint.ui.orders.ProductsRecordsAdapter
+import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -24,6 +31,10 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
+        setUpUi(showFab = true){
+            showOrderPickerAndNavigate()
+        }
+
         val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -38,6 +49,10 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
                 setUpPieView(product.product)
             }
         }
+    }
+
+    fun onCreateDetailedOrderClicked(){
+        findNavController().navigate(R.id.newOrderGraphNav)
     }
 
     private fun setUpPieView(product:Product) {
@@ -56,5 +71,4 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private fun onRecordClickListener(record: Record){
         (requireParentFragment() as ProductFragment).navigateToInfoRecord(record)
     }
-
 }

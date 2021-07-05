@@ -31,6 +31,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
@@ -44,9 +45,15 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.maxkeppeler.sheets.core.SheetStyle
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.nex3z.notificationbadge.NotificationBadge
+import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.MainActivity
 import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
 import com.puntogris.blint.ui.nav.ShowHideFabStateAction
@@ -362,4 +369,24 @@ fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
     setAnimation(animation)
     repeatCount = 0
     playAnimation()
+}
+
+fun Fragment.showOrderPickerAndNavigate(product: Product? = null){
+    OptionsSheet().build(requireContext()){
+        displayMode(DisplayMode.GRID_HORIZONTAL)
+        style(SheetStyle.DIALOG)
+        with(
+            Option(R.drawable.ic_baseline_speed_24, this@showOrderPickerAndNavigate.getString(R.string.create_simple_order)),
+            Option(R.drawable.ic_baseline_timer_24, this@showOrderPickerAndNavigate.getString(R.string.create_detailed_order)),
+        )
+        onPositive { index: Int, _ ->
+            if (index == 0){
+
+            }else{
+                val action = NavigationDirections.actionGlobalNewOrderGraphNav(product)
+                findNavController().navigate(action)
+            }
+        }
+    }.show(parentFragmentManager,"")
+
 }
