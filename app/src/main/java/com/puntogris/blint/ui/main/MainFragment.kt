@@ -86,24 +86,24 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun setupCalendarRecyclerView(){
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
 
-        lifecycleScope.launch {
-            when(val data = viewModel.getBusinessLastEvents()){
-                EventsDashboard.DataNotFound -> {
-                    view?.findViewById<Button>(R.id.button17)?.visible()
-                    view?.findViewById<TextView>(R.id.textView151)?.visible()
-                }
-                is EventsDashboard.Error -> {
-                    view?.findViewById<Button>(R.id.textView151)?.apply {
-                        text = context.getString(R.string.retrieve_information_error)
-                        visible()
-                    }
-                }
-                is EventsDashboard.Success -> {
-                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
-                    mainCalendarAdapter.submitList(data.data)
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            when(val data = viewModel.getBusinessLastEvents()){
+//                EventsDashboard.DataNotFound -> {
+//                    view?.findViewById<Button>(R.id.button17)?.visible()
+//                    view?.findViewById<TextView>(R.id.textView151)?.visible()
+//                }
+//                is EventsDashboard.Error -> {
+//                    view?.findViewById<Button>(R.id.textView151)?.apply {
+//                        text = context.getString(R.string.retrieve_information_error)
+//                        visible()
+//                    }
+//                }
+//                is EventsDashboard.Success -> {
+//                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
+//                    mainCalendarAdapter.submitList(data.data)
+//                }
+//            }
+//        }
 
         binding.calendarRecyclerView.apply {
             adapter = mainCalendarAdapter

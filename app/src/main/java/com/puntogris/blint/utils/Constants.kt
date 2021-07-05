@@ -9,6 +9,7 @@ object Constants {
     const val PLAY_STORE_PACKAGE= "com.android.vending"
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
+    const val APP_VERSION = "0.4.0"
 
     //Report types
     const val SUPPLIERS_LIST = 101

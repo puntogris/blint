@@ -90,7 +90,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
 
-
     // Material design
     implementation "com.google.android.material:material:$material_version"
 

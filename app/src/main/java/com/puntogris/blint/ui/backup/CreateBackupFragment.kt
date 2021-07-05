@@ -120,19 +120,12 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     }
 
     private fun startBusinessBackup(){
-        showBackupInProgressUI()
         lifecycleScope.launch {
             viewModel.backupBusiness(getDatabasePath()).collectLatest {
                 when(it){
-                    is BackupState.Error -> {
-                        showFailureBackupUI()
-                    }
-                    is BackupState.InProgress -> {
-                        println(it.progress)
-                    }
-                    BackupState.Success -> {
-                        showSuccessfulBackupUI()
-                    }
+                    is BackupState.Error -> showFailureBackupUI()
+                    is BackupState.InProgress -> showBackupInProgressUI()
+                    BackupState.Success -> showSuccessfulBackupUI()
                 }
             }
         }

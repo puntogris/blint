@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.utils.Constants.APP_VERSION
 import com.puntogris.blint.utils.Constants.BACKUP_PATH
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
 import com.puntogris.blint.utils.Constants.CATEGORIES_COLLECTION
@@ -37,7 +38,7 @@ class FirestoreQueries @Inject constructor(){
     private fun currentUserId() = auth.currentUser?.uid.toString()
     private val storage =  Firebase.storage.reference
 
-    fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/$BACKUP_PATH")
+    fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/${BACKUP_PATH}_$APP_VERSION")
 
     fun getUserLocalBusinessQuery() =
         firestore
