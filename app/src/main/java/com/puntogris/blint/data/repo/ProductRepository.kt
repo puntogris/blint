@@ -45,13 +45,16 @@ class ProductRepository @Inject constructor(
 
     override suspend fun saveProductDatabase(product: Product, suppliers:List<String>, categories: List<String>): SimpleResult = withContext(Dispatchers.IO){
         try {
+            val isNewProduct = product.productId.isEmpty()
             val user = currentBusiness()
-            val productRef = firestoreQueries.getProductsCollectionQuery(user).document()
-
-            product.apply {
-                productId = productRef.id
-                businessId = user.currentBusinessId
+            val productRef = firestoreQueries.getProductsCollectionQuery(user)
+            if (isNewProduct){
+                product.apply {
+                    productId = productRef.document().id
+                    businessId = user.currentBusinessId
+                }
             }
+
             val record = Record(
                 type = "IN",
                 amount = product.amount,
@@ -66,9 +69,9 @@ class ProductRepository @Inject constructor(
                 val productCounterRef = firestoreQueries.getBusinessCollectionQuery(user)
 
                 firestore.runBatch {
-                    it.set(productRef, product)
+                    it.set(productRef.document(product.productId), product)
                     //If the product is not new, up the counter.
-                    if (product.productId == "")
+                    if (isNewProduct)
                         it.update(productCounterRef,"products_counter", FieldValue.increment(1))
 
                     if (product.amount != 0){
@@ -78,7 +81,7 @@ class ProductRepository @Inject constructor(
                 }.await()
             }else{
                 productsDao.insert(product)
-                if (product.productId == "") statisticsDao.incrementTotalProducts()
+                if (isNewProduct) statisticsDao.incrementTotalProducts()
 
                 //CrossRef data for suppliers and categories.
                 suppliers.map {

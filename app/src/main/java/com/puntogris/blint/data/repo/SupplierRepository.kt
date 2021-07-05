@@ -37,22 +37,27 @@ class SupplierRepository @Inject constructor(
 
     override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult = withContext(Dispatchers.IO){
         try {
+            val isNewSupplier = supplier.supplierId.isEmpty()
             val user = currentBusiness()
-            val supplierRef = firestoreQueries.getSuppliersCollectionQuery(user).document()
-            supplier.apply {
-                businessId = user.currentBusinessId
-                supplierId = supplierRef.id
+            val supplierRef = firestoreQueries.getSuppliersCollectionQuery(user)
+            if (isNewSupplier){
+                supplier.apply {
+                    businessId = user.currentBusinessId
+                    supplierId = supplierRef.document().id
+                }
             }
+
             if (user.currentBusinessIsOnline()){
-                val supplierRefCounter = firestoreQueries.getBusinessCollectionQuery(user)
                 firestore.runBatch {
-                    it.set(supplierRef, supplier)
-                    if (supplier.supplierId == "")
+                    it.set(supplierRef.document(supplier.supplierId), supplier)
+                    if (isNewSupplier){
+                        val supplierRefCounter = firestoreQueries.getBusinessCollectionQuery(user)
                         it.update(supplierRefCounter, "suppliers_counter", FieldValue.increment(1))
+                    }
                 }.await()
             }else{
                 suppliersDao.insert(supplier)
-                if (supplier.supplierId == "") statisticsDao.incrementTotalSuppliers()
+                if (isNewSupplier) statisticsDao.incrementTotalSuppliers()
             }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }

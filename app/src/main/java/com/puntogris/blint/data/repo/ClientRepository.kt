@@ -37,22 +37,25 @@ class ClientRepository @Inject constructor(
 
     override suspend fun saveClientDatabase(client: Client): SimpleResult = withContext(Dispatchers.IO){
         try {
+            val isNewClient = client.clientId.isEmpty()
             val user = currentBusiness()
-            val clientRef = firestoreQueries.getClientsCollectionQuery(user).document()
-            client.apply {
-                businessId = user.currentBusinessId
-                clientId = clientRef.id
+            val clientRef = firestoreQueries.getClientsCollectionQuery(user)
+            if (isNewClient){
+                client.apply {
+                    businessId = user.currentBusinessId
+                    clientId = clientRef.document().id
+                }
             }
             if (user.currentBusinessIsOnline()){
                 val clientRefCounter = firestoreQueries.getBusinessCollectionQuery(user)
                 firestore.runBatch {
-                    it.set(clientRef, client)
-                    if (client.clientId == "")
+                    it.set(clientRef.document(client.clientId), client)
+                    if (isNewClient)
                         it.update(clientRefCounter, "clients_counter", FieldValue.increment(1))
                 }.await()
             }else{
                 clientsDao.insert(client)
-                if (client.clientId == "") statisticsDao.incrementTotalClients()
+                if (isNewClient) statisticsDao.incrementTotalClients()
             }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
