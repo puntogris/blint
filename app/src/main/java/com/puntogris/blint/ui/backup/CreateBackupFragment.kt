@@ -135,7 +135,6 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         binding.backupSummary.text = getString(R.string.create_backup_success_message)
         binding.businessTitle.text = getString(R.string.create_backup_success_title)
         binding.animationView.playAnimationOnce(R.raw.done)
-
     }
 
     private fun showFailureBackupUI(){
