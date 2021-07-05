@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.repo
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EventsDao
@@ -30,7 +31,11 @@ class MainRepository @Inject constructor(
     private val statisticsDao: StatisticsDao
 ): IMainRepository {
 
+    private val auth = FirebaseAuth.getInstance()
+
     private suspend fun currentBusiness() = usersDao.getUser()
+
+    override fun checkIfUserIsLogged() = auth.currentUser != null
 
     override suspend fun getBusinessLastEventsDatabase(): EventsDashboard = withContext(Dispatchers.IO) {
         try {
@@ -67,14 +72,12 @@ class MainRepository @Inject constructor(
                 val ref = firestoreQueries.getBusinessCollectionQuery(user).addSnapshotListener { doc, _ ->
                     if (doc != null) {
                         doc.toObject(BusinessCounters::class.java)?.let {
-                            this.trySend(it)
+                            trySend(it)
                         }
                     }
                 }
                 awaitClose { ref.remove() }
             }
-        } else{
-            statisticsDao.getBusinessStatisticsFlow()
-        }
+        } else{ statisticsDao.getBusinessStatisticsFlow() }
     }
 }

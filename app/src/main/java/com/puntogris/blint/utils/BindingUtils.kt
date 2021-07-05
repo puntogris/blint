@@ -268,4 +268,3 @@ fun TextView.setNotificationTypeMessage(notification: Notification){
         }
     }
 }
-

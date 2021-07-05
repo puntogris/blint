@@ -109,7 +109,7 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun createEmployeeWithCode(code:String):JoinBusiness = withContext(Dispatchers.IO){
+    override suspend fun createEmployeeWithCode(code:String): JoinBusiness = withContext(Dispatchers.IO){
         try {
             val joinCode = firestore.collection("joining_businesses_codes").document(code).get().await()
 

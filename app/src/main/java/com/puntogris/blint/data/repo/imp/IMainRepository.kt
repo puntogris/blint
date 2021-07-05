@@ -10,4 +10,5 @@ interface IMainRepository {
     suspend fun getBusinessLastEventsDatabase(): EventsDashboard
     fun getAllUnreadNotifications(): StateFlow<Int>
     suspend fun getBusinessCounterFlow(): Flow<BusinessCounters>
+    fun checkIfUserIsLogged():Boolean
 }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.backup.RestoreBackupFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -121,6 +123,7 @@
             android:layout_height="wrap_content"
             android:text="@string/action_restore_backup"
             android:visibility="gone"
+            android:onClick="@{()->fragment.onRestorationButtonClicked()}"
             app:layout_constraintBottom_toTopOf="@+id/backupSummary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

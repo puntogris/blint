@@ -33,11 +33,9 @@ class PreferencesViewModel @Inject constructor(
     suspend fun sendReport(message: String) =
         userRepository.sendReportToFirestore(message)
 
-    suspend fun backupBusiness(path: String) =
-        backupRepository.createBackupForBusiness(path)
+    fun backupBusiness(path: String) = backupRepository.createBackupForBusiness(path)
 
-    suspend fun restoreBackup(path: String) =
-        backupRepository.restoreBackupForBusiness(path)
+    fun restoreBackup(path: String) = backupRepository.restoreBackupForBusiness(path)
 
     fun getBackUpRequirements() = backupRepository.checkBackUpRequirements()
 

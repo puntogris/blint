@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -23,16 +24,12 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     private lateinit var backupAdapter: BackupAdapter
 
     override fun initializeViews() {
+        binding.fragment = this
+        setUpUi(showAppBar = false)
         setUpRecyclerView()
         getUserBusiness()
 
-        binding.button19.setOnClickListener {
-            showConfirmationDialogForBackUp()
-        }
-    }
-
-    private fun getUserBusiness(){
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.getBackUpRequirements().collect {
                 when(it){
                     is RepoResult.Success -> showBusinessUI(it.data)
@@ -43,6 +40,13 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
+    private fun getUserBusiness(){
+
+    }
+
+    fun onBackupButtonClicked(){
+        showConfirmationDialogForBackUp()
+    }
 
     private fun showNoBusinessFoundUI(){
         binding.loadingBusinessProgressBar.gone()
@@ -107,22 +111,28 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
     private fun showConfirmationDialogForBackUp(){
         InfoSheet().show(requireParentFragment().requireContext()){
-            title(getString(R.string.ask_user_action_confirmation))
-            content(getString(R.string.create_backup_warning))
-            onNegative(getString(R.string.action_cancel))
-            onPositive(getString(R.string.action_create_backup)) {  startBusinessBackup() }
+            title(this@CreateBackupFragment.getString(R.string.ask_user_action_confirmation))
+            content(this@CreateBackupFragment.getString(R.string.create_backup_warning))
+            onNegative(this@CreateBackupFragment.getString(R.string.action_cancel))
+            onPositive(this@CreateBackupFragment.getString(R.string.action_create_backup))
+            { startBusinessBackup() }
         }
     }
 
     private fun startBusinessBackup(){
         showBackupInProgressUI()
         lifecycleScope.launch {
-            when(viewModel.backupBusiness(getDatabasePath())){
-                SimpleResult.Success -> {
-                    showSuccessfulBackupUI()
-                }
-                SimpleResult.Failure -> {
-                    showFailureBackupUI()
+            viewModel.backupBusiness(getDatabasePath()).collectLatest {
+                when(it){
+                    is BackupState.Error -> {
+                        showFailureBackupUI()
+                    }
+                    is BackupState.InProgress -> {
+                        println(it.progress)
+                    }
+                    BackupState.Success -> {
+                        showSuccessfulBackupUI()
+                    }
                 }
             }
         }
@@ -131,20 +141,13 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
     private fun showSuccessfulBackupUI(){
         binding.backupSummary.text = getString(R.string.create_backup_success_message)
         binding.businessTitle.text = getString(R.string.create_backup_success_title)
-        binding.animationView.apply {
-            setAnimation(R.raw.done)
-            repeatCount = 0
-            playAnimation()
-        }
+        binding.animationView.playAnimationOnce(R.raw.done)
+
     }
 
     private fun showFailureBackupUI(){
         binding.businessTitle.text = getString(R.string.create_backup_error_title)
         binding.backupSummary.text = getString(R.string.create_backup_error_message)
-        binding.animationView.apply {
-            setAnimation(R.raw.error)
-            repeatCount = 0
-            playAnimation()
-        }
+        binding.animationView.playAnimationOnce(R.raw.error)
     }
 }

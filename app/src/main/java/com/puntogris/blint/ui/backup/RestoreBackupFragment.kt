@@ -23,16 +23,11 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     private lateinit var backupAdapter: BackupAdapter
 
     override fun initializeViews() {
+        binding.fragment = this
+        setUpUi(showAppBar = false)
         setUpRecyclerView()
-        getUserBusiness()
 
-        binding.button19.setOnClickListener {
-            showConfirmationDialogForBackUp()
-        }
-    }
-
-    private fun getUserBusiness(){
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.getBackUpRequirements().collect {
                 when(it){
                     is RepoResult.Success -> showBusinessUI(it.data)
@@ -41,8 +36,12 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
                 }
             }
         }
+
     }
 
+    fun onRestorationButtonClicked(){
+        showConfirmationDialogForBackUp()
+    }
 
     private fun showNoBusinessFoundUI(){
         binding.loadingBusinessProgressBar.gone()
@@ -107,22 +106,28 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     private fun showConfirmationDialogForBackUp(){
         InfoSheet().show(requireParentFragment().requireContext()){
-            title(getString(R.string.ask_user_action_confirmation))
-            content(getString(R.string.restore_backup_warning))
-            onNegative(getString(R.string.action_cancel))
-            onPositive(getString(R.string.action_restore_backup)) {  startBusinessBackup() }
+            title(this@RestoreBackupFragment.getString(R.string.ask_user_action_confirmation))
+            content(this@RestoreBackupFragment.getString(R.string.restore_backup_warning))
+            onNegative(this@RestoreBackupFragment.getString(R.string.action_cancel))
+            onPositive(this@RestoreBackupFragment.getString(R.string.action_restore_backup))
+            { startBusinessBackup() }
         }
     }
 
     private fun startBusinessBackup(){
         showBackupInProgressUI()
         lifecycleScope.launch {
-            when(viewModel.restoreBackup(getDatabasePath())){
-                SimpleResult.Success -> {
-                    showSuccessfulBackupUI()
-                }
-                SimpleResult.Failure -> {
-                    showFailureBackupUI()
+            viewModel.restoreBackup(getDatabasePath()).collect {
+                when(it){
+                    is BackupState.Error -> {
+                        showFailureBackupUI()
+                    }
+                    is BackupState.InProgress -> {
+
+                    }
+                    BackupState.Success -> {
+                        showSuccessfulBackupUI()
+                    }
                 }
             }
         }
@@ -131,20 +136,13 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
     private fun showSuccessfulBackupUI(){
         binding.backupSummary.text = getString(R.string.restore_backup_success_message)
         binding.businessTitle.text = getString(R.string.restore_backup_success_title)
-        binding.animationView.apply {
-            setAnimation(R.raw.done)
-            repeatCount = 0
-            playAnimation()
-        }
+        binding.animationView.playAnimationOnce(R.raw.done)
     }
 
     private fun showFailureBackupUI(){
         binding.businessTitle.text = getString(R.string.restore_backup_error_title)
         binding.backupSummary.text = getString(R.string.restore_backup_error_message)
-        binding.animationView.apply {
-            setAnimation(R.raw.error)
-            repeatCount = 0
-            playAnimation()
-        }
+        binding.animationView.playAnimationOnce(R.raw.error)
+
     }
 }

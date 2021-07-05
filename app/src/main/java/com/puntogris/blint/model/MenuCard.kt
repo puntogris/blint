@@ -1,9 +1,11 @@
 package com.puntogris.blint.model
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 
 data class MenuCard(
-    val code: Int,
-    val title: String,
-    val navigationId: Int,
-    @DrawableRes val icon: Int)
+    @StringRes val title: Int,
+    @IdRes val navigationId: Int,
+    @DrawableRes val icon: Int
+    )

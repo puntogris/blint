@@ -23,6 +23,12 @@ sealed class StringValidator{
     }
 }
 
+sealed class BackupState{
+    object Success: BackupState()
+    class Error(val exception: Exception): BackupState()
+    class InProgress(val progress: Long = 0L): BackupState()
+}
+
 sealed class AuthResult{
     class Success(val user: FirebaseUser) : AuthResult()
     class Error(val exception: Exception): AuthResult()

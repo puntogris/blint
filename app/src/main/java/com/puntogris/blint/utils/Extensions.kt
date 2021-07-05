@@ -22,6 +22,7 @@ import android.widget.EditText
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -34,6 +35,7 @@ import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -354,4 +356,10 @@ fun Fragment.setupStatusBarForLoginBackground(){
         val view = window.decorView
         view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
     }
+}
+
+fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
+    setAnimation(animation)
+    repeatCount = 0
+    playAnimation()
 }

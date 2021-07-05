@@ -15,7 +15,6 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userRepository: UserRepository,
     private val usersDao: UsersDao,
     private val employeeDao: EmployeeDao,
     private val mainRepository: MainRepository
@@ -25,17 +24,11 @@ class MainViewModel @Inject constructor(
         emitSource(mainRepository.getBusinessCounterFlow().asLiveData())
     }
 
-    init {
-        println("inicio viewmo xdxdxdx")
-    }
-
-    fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
+    fun isUserLoggedIn() = mainRepository.checkIfUserIsLogged()
 
     fun getUnreadNotificationsCount() = mainRepository.getAllUnreadNotifications()
 
     suspend fun getBusinessLastEvents() = mainRepository.getBusinessLastEventsDatabase()
-
-    fun getEmployeeBusiness() = employeeDao.getEmployeesListLiveData()
 
     fun getCurrentBusiness() = usersDao.getUserLiveData()
 

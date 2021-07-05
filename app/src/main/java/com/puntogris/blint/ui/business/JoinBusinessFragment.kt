@@ -21,15 +21,13 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
 
     override fun initializeViews() {
         binding.fragment = this
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_check_24)
-            setOnClickListener {
-                val text = binding.joinBusinessCodeText.getString()
-                if(text.isEmpty()){
-                    showLongSnackBarAboveFab(context.getString(R.string.snack_type_or_scan_code_to_continue))
-                }else{
-                    joinBusinessWithCode(text)
-                }
+
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_check_24){
+            val text = binding.joinBusinessCodeText.getString()
+            if(text.isEmpty()){
+                showLongSnackBarAboveFab(getString(R.string.snack_type_or_scan_code_to_continue))
+            }else{
+                joinBusinessWithCode(text)
             }
         }
 
@@ -53,43 +51,24 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
         lifecycleScope.launch {
             when(viewModel.createEmployee(code)){
                 JoinBusiness.Error -> {
-                    binding.animationView.apply {
-                        setAnimation(R.raw.error)
-                        repeatCount = 0
-                        playAnimation()
-                    }
+                    binding.animationView.playAnimationOnce(R.raw.error)
                     binding.fragmentTitle.text = getString(R.string.snack_an_error_occurred)
                     binding.summaryMessage.text = getString(R.string.snack_error_connection_server_try_later)
                 }
-                JoinBusiness.InProgress -> {}
+                JoinBusiness.InProgress -> {
+
+                }
                 JoinBusiness.CodeInvalid -> {
-                    binding.animationView.apply {
-                        setAnimation(R.raw.error)
-                        repeatCount = 0
-                        playAnimation()
-                    }
+                    binding.animationView.playAnimationOnce(R.raw.error)
                     binding.fragmentTitle.text = getString(R.string.incorrect_code)
                     binding.summaryMessage.text = getString(R.string.incorrect_or_expired_code)
                 }
                 JoinBusiness.Success -> {
                     sharedPref.setUserHasBusinessPref(true)
-                    binding.animationView.apply {
-                        binding.animationView.apply {
-                            setAnimation(R.raw.done)
-                            repeatCount = 0
-                            playAnimation()
-                        }
-                        setAnimation(R.raw.done)
-                        repeatCount = 0
-                        playAnimation()
-                    }
+                    binding.animationView.playAnimationOnce(R.raw.done)
                 }
                 JoinBusiness.AlreadyJoined -> {
-                    binding.animationView.apply {
-                        setAnimation(R.raw.error)
-                        repeatCount = 0
-                        playAnimation()
-                    }
+                    binding.animationView.playAnimationOnce(R.raw.error)
                     binding.fragmentTitle.text = getString(R.string.employee_conflict)
                     binding.summaryMessage.text = getString(R.string.account_already_joined_business)
                 }
@@ -101,5 +80,4 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
         val action = JoinBusinessFragmentDirections.actionJoinBusinessFragmentToScannerFragment(1)
         findNavController().navigate(action)
     }
-
 }

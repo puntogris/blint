@@ -5,40 +5,56 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.utils.Constants.BACKUP_PATH
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
 import com.puntogris.blint.utils.Constants.CATEGORIES_COLLECTION
 import com.puntogris.blint.utils.Constants.CLIENTS_COLLECTION
 import com.puntogris.blint.utils.Constants.EVENTS_COLLECTION
+import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_SUB_COLLECTION
 import com.puntogris.blint.utils.Constants.ORDERS_COLLECTION
+import com.puntogris.blint.utils.Constants.OWNER_FIELD
 import com.puntogris.blint.utils.Constants.PRODUCTS_COLLECTION
 import com.puntogris.blint.utils.Constants.RECORDS_COLLECTION
 import com.puntogris.blint.utils.Constants.SUPPLIERS_COLLECTION
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD
+import com.puntogris.blint.utils.Constants.TYPE_FIELD
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import com.puntogris.blint.utils.Constants.USERS_PATH
 import com.puntogris.blint.utils.Constants.WAS_READ_FIELD
 import com.puntogris.blint.utils.Util.getPathToUserReceivedNotifications
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class FirestoreQueries @Inject constructor(){
 
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private val currentUserId = auth.currentUser?.uid.toString()
+    private fun currentUserId() = auth.currentUser?.uid.toString()
+    private val storage =  Firebase.storage.reference
 
+    fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/$BACKUP_PATH")
+
+    fun getUserLocalBusinessQuery() =
+        firestore
+            .collectionGroup(BUSINESS_COLLECTION)
+            .whereEqualTo(OWNER_FIELD, currentUserId())
+            .whereEqualTo(TYPE_FIELD, LOCAL)
 
     fun getUserNotificationsQuery() =
         firestore
-            .collection(getPathToUserReceivedNotifications(currentUserId))
+            .collection(getPathToUserReceivedNotifications(currentUserId()))
             .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
             .limit(15)
             .get()
 
     fun getUserNotificationsAfterLastQuery(lastVisible: DocumentSnapshot) =
         firestore
-            .collection(getPathToUserReceivedNotifications(currentUserId))
+            .collection(getPathToUserReceivedNotifications(currentUserId()))
             .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
             .limit(15)
             .startAfter(lastVisible)
@@ -47,18 +63,18 @@ class FirestoreQueries @Inject constructor(){
     fun getAllUnreadNotificationsQuery() =
         firestore
             .collection(USERS_COLLECTION)
-            .document(currentUserId)
+            .document(currentUserId())
             .collection(NOTIFICATIONS_SUB_COLLECTION)
             .whereEqualTo(WAS_READ_FIELD, false)
             .limit(11)
 
     fun updateNotificationsReadStateQuery() =
         firestore.collection(USERS_COLLECTION)
-            .document(currentUserId)
+            .document(currentUserId())
             .collection(NOTIFICATIONS_SUB_COLLECTION)
 
     fun deleteNotificationQuery() =
-        firestore.collection(getPathToUserReceivedNotifications(currentUserId))
+        firestore.collection(getPathToUserReceivedNotifications(currentUserId()))
 
     fun getBusinessCollectionQuery(user: RoomUser) = firestore
         .collection(USERS_COLLECTION)
