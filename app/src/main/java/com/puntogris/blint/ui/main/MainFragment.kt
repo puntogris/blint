@@ -20,10 +20,12 @@ import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
 

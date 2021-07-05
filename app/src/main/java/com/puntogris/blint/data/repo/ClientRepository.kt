@@ -51,7 +51,7 @@ class ClientRepository @Inject constructor(
                 firestore.runBatch {
                     it.set(clientRef.document(client.clientId), client)
                     if (isNewClient)
-                        it.update(clientRefCounter, "clients_counter", FieldValue.increment(1))
+                        it.update(clientRefCounter, "totalClients", FieldValue.increment(1))
                 }.await()
             }else{
                 clientsDao.insert(client)

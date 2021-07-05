@@ -1,26 +1,33 @@
 package com.puntogris.blint.ui.main
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.MainRepository
 import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Statistic
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val usersDao: UsersDao,
     private val employeeDao: EmployeeDao,
-    productsDao: ProductsDao,
-    suppliersDao: SuppliersDao,
-    clientsDao: ClientsDao,
     private val mainRepository: MainRepository
 ):ViewModel() {
 
-    val productsCount = productsDao.getCount()
-    val clientsCount = clientsDao.getCount()
-    val suppliersCount = suppliersDao.getCount()
+    val businessCounter:LiveData<BusinessCounters> = liveData {
+        emitSource(mainRepository.getBusinessCounterFlow().asLiveData())
+    }
+
+    init {
+        println("inicio viewmo xdxdxdx")
+    }
 
     fun isUserLoggedIn() = userRepository.checkIfUserIsLogged()
 

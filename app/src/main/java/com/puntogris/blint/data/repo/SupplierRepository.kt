@@ -52,7 +52,7 @@ class SupplierRepository @Inject constructor(
                     it.set(supplierRef.document(supplier.supplierId), supplier)
                     if (isNewSupplier){
                         val supplierRefCounter = firestoreQueries.getBusinessCollectionQuery(user)
-                        it.update(supplierRefCounter, "suppliers_counter", FieldValue.increment(1))
+                        it.update(supplierRefCounter, "totalSuppliers", FieldValue.increment(1))
                     }
                 }.await()
             }else{

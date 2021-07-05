@@ -2,6 +2,7 @@ package com.puntogris.blint.data.local.dao
 
 import androidx.room.*
 import com.puntogris.blint.model.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StatisticsDao {
@@ -33,6 +34,10 @@ interface StatisticsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getStatistics(): Statistic
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    fun getBusinessStatisticsFlow(): Flow<BusinessCounters>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")

@@ -3,14 +3,22 @@ package com.puntogris.blint.data.repo
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EventsDao
+import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.repo.imp.IMainRepository
+import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.EventsDashboard
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,10 +26,10 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val eventsDao: EventsDao,
-    private val firestoreQueries: FirestoreQueries
+    private val firestoreQueries: FirestoreQueries,
+    private val statisticsDao: StatisticsDao
 ): IMainRepository {
 
-    private val firestore = Firebase.firestore
     private suspend fun currentBusiness() = usersDao.getUser()
 
     override suspend fun getBusinessLastEventsDatabase(): EventsDashboard = withContext(Dispatchers.IO) {
@@ -50,4 +58,23 @@ class MainRepository @Inject constructor(
                     }
                 }
         }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun getBusinessCounterFlow(): Flow<BusinessCounters> = withContext(Dispatchers.IO) {
+        val user = currentBusiness()
+        return@withContext if (user.currentBusinessIsOnline()){
+            callbackFlow {
+                val ref = firestoreQueries.getBusinessCollectionQuery(user).addSnapshotListener { doc, _ ->
+                    if (doc != null) {
+                        doc.toObject(BusinessCounters::class.java)?.let {
+                            this.trySend(it)
+                        }
+                    }
+                }
+                awaitClose { ref.remove() }
+            }
+        } else{
+            statisticsDao.getBusinessStatisticsFlow()
+        }
+    }
 }

@@ -21,9 +21,10 @@ import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 

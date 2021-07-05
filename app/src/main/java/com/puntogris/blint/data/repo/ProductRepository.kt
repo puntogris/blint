@@ -72,7 +72,7 @@ class ProductRepository @Inject constructor(
                     it.set(productRef.document(product.productId), product)
                     //If the product is not new, up the counter.
                     if (isNewProduct)
-                        it.update(productCounterRef,"products_counter", FieldValue.increment(1))
+                        it.update(productCounterRef,"totalProducts", FieldValue.increment(1))
 
                     if (product.amount != 0){
                         val recordRef = firestoreQueries.getRecordsCollectionQuery(user).document()
@@ -235,7 +235,7 @@ class ProductRepository @Inject constructor(
                     }
                 awaitClose { ref.remove() }
             }
-        }else{ categoriesDao.getAllCategoriesFlow().asLiveData().asFlow() }
+        }else{ categoriesDao.getAllCategoriesFlow() }
     }
 
     override suspend fun updateProductCategoryDatabase(category: Category): SimpleResult = withContext(Dispatchers.IO){
