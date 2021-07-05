@@ -84,6 +84,7 @@
     <string name="snack_type_or_scan_code_to_continue">Ingresa un codigo o escanea el mismo para continuar.</string>
     <string name="incorrect_code">Codigo incorrecto</string>
     <string name="incorrect_or_expired_code">El codigo es incorrecto o expiro, pidele al administrador/a que verifique la validez del mismo.</string>
+    <string name="qr">QR</string>
 
     <!-- Snack -->
     <string name="snack_an_error_occurred">Se produjo un error.</string>
@@ -221,8 +222,6 @@
     <string name="image_picker_folder_title">Imágenes</string>
     <string name="action_change">Cambiar</string>
     <string name="action_add_image">Agregar imagen</string>
-    <string name="in_entry">Entrada</string>
-    <string name="out_entry">Salida</string>
     <string name="pending">Pendiente</string>
     <string name="finished">Finalizado</string>
     <string name="not_specified">No especificado</string>
@@ -231,10 +230,14 @@
     <string name="seller">Vendedor</string>
     <string name="account_created_success">Cuenta creada correctamente.</string>
     <string name="account_created_cheers_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
+
+    <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
     <string name="select_client">Seleccionar Cliente</string>
-
-
+    <string name="ask_order_type_title">Que tipo de orden es?</string>
+    <string name="in_entry">In</string>
+    <string name="out_entry">Out</string>
+    <string name="order_type_alert">*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio.</string>
     <string-array name="order_type">
         <item>Entrada</item>
         <item>Salida</item>

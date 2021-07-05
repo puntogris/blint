@@ -57,6 +57,7 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.MainActivity
 import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
 import com.puntogris.blint.ui.nav.ShowHideFabStateAction
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.text.DecimalFormat
@@ -321,6 +322,7 @@ fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.t
 
 fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById<NotificationBadge>(R.id.badge)
 
+@ExperimentalCoroutinesApi
 fun Fragment.setUpUi(showFab: Boolean = false,
                      showAppBar: Boolean = true,
                      showToolbar: Boolean = true,
@@ -344,7 +346,10 @@ fun Fragment.setUpUi(showFab: Boolean = false,
 
         } else fab.hide()
         changeFabStateBottomSheet(showFab)
-        if (showAppBar) appBar.visible() else appBar.gone()
+        if (showAppBar) {
+            appBar.visible()
+            appBar.performShow()
+        } else appBar.gone()
     }
 }
 

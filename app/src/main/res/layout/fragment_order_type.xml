@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:fontFamily="@font/versatile_bold"
-            android:text="Que tipo de orden es?"
+            android:text="@string/ask_order_type_title"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:hint="Tipo"
+            android:hint="@string/type"
             app:layout_constraintBottom_toTopOf="@+id/textView169"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="Entrada" />
+                android:text="@string/in_entry" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Seleccionar proveedor"
+            android:text="@string/select_supplier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recordType"
@@ -66,7 +66,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="130dp"
-            android:text="*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio."
+            android:text="@string/order_type_alert"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

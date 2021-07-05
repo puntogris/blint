@@ -84,6 +84,7 @@
     <string name="snack_type_or_scan_code_to_continue">Type a code or scan the QR code to continue</string>
     <string name="incorrect_code">Incorrect code</string>
     <string name="incorrect_or_expired_code">The code is incorrect or it has expired, ask the business administrator to verify it</string>
+    <string name="qr">QR</string>
 
     <!-- Snack -->
     <string name="snack_an_error_occurred">A problem occurred.</string>
@@ -221,8 +222,6 @@
     <string name="image_picker_folder_title">Images</string>
     <string name="action_change">Modify</string>
     <string name="action_add_image">Add image</string>
-    <string name="in_entry">In</string>
-    <string name="out_entry">Out</string>
     <string name="pending">Pending</string>
     <string name="finished">Finished</string>
     <string name="not_specified">Not specified</string>
@@ -231,9 +230,14 @@
     <string name="seller">Seller</string>
     <string name="account_created_success">Account created successfully.</string>
     <string name="account_created_cheers_message">Your account is ready to start a new adventure!</string>
+
+    <!-- Orders -->
     <string name="select_supplier">Select supplier</string>
     <string name="select_client">Select client</string>
-
+    <string name="ask_order_type_title">What is the type of the order?</string>
+    <string name="in_entry">In</string>
+    <string name="out_entry">Out</string>
+    <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your business well organized.</string>
 
     <string-array name="order_type">
         <item>In</item>
