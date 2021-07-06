@@ -61,7 +61,7 @@
 
                     <ImageButton
                         android:id="@+id/contactButton"
-                        android:onClick="@{()-> fragment.onCreateContactCompanyClicked()}"
+                        android:onClick="@{()-> fragment.onCreateContactClicked(1)}"
                         style="@style/Theme.Blint.ImageButton"
                         app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyName"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -194,7 +194,7 @@
                     <ImageButton
                         android:id="@+id/contactButtonSeller"
                         style="@style/Theme.Blint.ImageButton"
-                        android:onClick="@{()-> fragment.onCreateContactSellerClicked()}"
+                        android:onClick="@{()-> fragment.onCreateContactClicked(2)}"
                         app:layout_constraintBottom_toBottomOf="@+id/supplierSellerName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView290"

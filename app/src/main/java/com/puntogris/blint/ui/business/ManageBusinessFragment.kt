@@ -13,6 +13,7 @@ import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
 
     override fun initializeViews() {
         binding.fragment = this
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             val businesses = viewModel.getBusiness()
             if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
             else onBusinessFoundUi(businesses)

@@ -30,7 +30,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         binding.recyclerView.adapter = manageProductsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             getAllClientsAndFillAdapter()
         }
 

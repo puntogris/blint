@@ -27,7 +27,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
         setUpUi(showAppBar = false)
         setUpRecyclerView()
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getBackUpRequirements().collect {
                 when(it){
                     is RepoResult.Success -> showBusinessUI(it.data)

@@ -41,49 +41,53 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             ?.addOnStateChangedAction(ShowHideFabStateAction(getParentFab(), true))
 
         manageProductsAdapter = ManageProductsAdapter({onProductShortClickListener(it)},{onProductLongClickListener(it)})
-        binding.recyclerView.adapter = manageProductsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        lifecycleScope.launchWhenStarted {
+        binding.recyclerView.apply {
+            adapter = manageProductsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        launchAndRepeatWithViewLifecycle {
             searchProductAndFillAdapter()
         }
 
-        binding.apply {
-            productSearch.setOnFocusChangeListener { _, _ ->
+        binding.productSearch.apply {
+            setOnFocusChangeListener { _, _ ->
                 binding.searchTypeRadioGroup.visible()
             }
-        }
-
-        binding.searchTypeRadioGroup.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener{
-            override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
-               if (binding.productSearch.getString().isNotEmpty()){
-                   lifecycleScope.launch {
-                       val text = binding.productSearch.getString()
-                       val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
-                           R.id.qrSearchType -> SearchText.QrCode(text)
-                           R.id.internalCodeSearchType -> SearchText.InternalCode(text)
-                           else -> SearchText.Name(text)
-                       }
-                       searchProductWithNameAndFillAdapter(data)
-                   }
-               }
-            }
-        })
-
-        binding.productSearch.addTextChangedListener {
-            lifecycleScope.launch {
-                it.toString().let { text ->
-                    if (text.isBlank()) searchProductAndFillAdapter()
-                    else {
-                        val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
-                            R.id.qrSearchType -> SearchText.QrCode(text)
-                            R.id.internalCodeSearchType -> SearchText.InternalCode(text)
-                            else -> SearchText.Name(text)
+            addTextChangedListener {
+                lifecycleScope.launch {
+                    it.toString().let { text ->
+                        if (text.isBlank()) searchProductAndFillAdapter()
+                        else {
+                            val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
+                                R.id.qrSearchType -> SearchText.QrCode(text)
+                                R.id.internalCodeSearchType -> SearchText.InternalCode(text)
+                                else -> SearchText.Name(text)
+                            }
+                            searchProductWithNameAndFillAdapter(data)
                         }
-                        searchProductWithNameAndFillAdapter(data)
                     }
                 }
             }
+        }
+
+        binding.searchTypeRadioGroup.let {
+            it.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener{
+                override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
+                    val text = binding.productSearch.getString()
+                    if (text.isNotEmpty()){
+                        lifecycleScope.launch {
+                            searchProductWithNameAndFillAdapter(
+                                when(it.checkedRadioButtonId){
+                                R.id.qrSearchType -> SearchText.QrCode(text)
+                                R.id.internalCodeSearchType -> SearchText.InternalCode(text)
+                                else -> SearchText.Name(text)
+                            })
+                        }
+                    }
+                }
+            })
         }
 
         requestPermissionLauncher =
@@ -93,7 +97,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                     val action = ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
@@ -102,7 +106,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 binding.productSearch.setText(code)
                 binding.searchTypeRadioGroup.visible()
                 binding.searchTypeRadioGroup.check(R.id.qrSearchType)
-                lifecycleScope.launch {
+                launchAndRepeatWithViewLifecycle {
                     searchProductWithNameAndFillAdapter(SearchText.QrCode(code))
                 }
             }

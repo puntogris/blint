@@ -8,6 +8,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrdersTabBinding
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -23,7 +24,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getBusinessOrders().collect {
                 ordersAdapter.submitData(it)
             }
@@ -33,5 +34,10 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
     private fun onOrderClickListener(order: Order){
         val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderInfoBottomSheet(order)
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }

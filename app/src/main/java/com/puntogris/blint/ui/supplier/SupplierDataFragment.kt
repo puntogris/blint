@@ -21,9 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
 
     private val viewModel: SupplierViewModel by viewModels()
-    lateinit var requestPermissionContactCompany: ActivityResultLauncher<String>
-    lateinit var requestPermissionContactSeller: ActivityResultLauncher<String>
+    lateinit var requestPermissionContact: ActivityResultLauncher<String>
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private var permissionCode = 0
 
     override fun initializeViews() {
         binding.fragment = this
@@ -40,54 +40,31 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
 
-
-        requestPermissionContactCompany =
+        requestPermissionContact =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val intent = Intent(Intent.ACTION_INSERT).apply {
-                        type = ContactsContract.Contacts.CONTENT_TYPE
-                        putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.companyName)
-                        putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.companyPhone)
-                        putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.companyEmail)
-                        putExtra(ContactsContract.Intents.Insert.POSTAL, viewModel.currentSupplier.value!!.address)
-                    }
-
-                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        activityResultLauncher.launch(intent)
-                    }
+                        Intent(Intent.ACTION_INSERT).apply {
+                            type = ContactsContract.Contacts.CONTENT_TYPE
+                            if (permissionCode == 1){
+                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
+                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)
+                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.sellerEmail)
+                            }else{
+                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
+                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)
+                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.sellerEmail)
+                            }
+                        }.also { activityResultLauncher.launch(it) }
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para crear un contacto.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
             }
-
-        requestPermissionContactSeller =
-            registerForActivityResult(ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
-                if (isGranted) {
-                    val intent = Intent(Intent.ACTION_INSERT).apply {
-                        type = ContactsContract.Contacts.CONTENT_TYPE
-                        putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
-                        putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)
-                        putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.sellerEmail)
-                    }
-
-                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        activityResultLauncher.launch(intent)
-                    }
-                }
-                else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para crear un contacto.")
-            }
-
     }
 
-    fun onCreateContactCompanyClicked(){
-        requestPermissionContactCompany.launch(android.Manifest.permission.WRITE_CONTACTS)
+    fun onCreateContactClicked(code: Int){
+        permissionCode = code
+        requestPermissionContact.launch(android.Manifest.permission.WRITE_CONTACTS)
     }
-
-    fun onCreateContactSellerClicked(){
-        requestPermissionContactSeller.launch(android.Manifest.permission.WRITE_CONTACTS)
-    }
-
 
     fun onEmailButtonClicked(code:Int){
         val email =
@@ -108,9 +85,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24,getString(R.string.action_call)),
-                Option(R.drawable.ic_baseline_message_24, getString(R.string.action_message)),
-                Option(R.drawable.ic_whatsapp, getString(R.string.action_whats_app))
+                Option(R.drawable.ic_baseline_call_24, this@SupplierDataFragment.getString(R.string.action_call)),
+                Option(R.drawable.ic_baseline_message_24, this@SupplierDataFragment.getString(R.string.action_message)),
+                Option(R.drawable.ic_whatsapp, this@SupplierDataFragment.getString(R.string.action_whats_app))
             )
             onPositive { index: Int, _: Option ->
                 when(index){

@@ -53,10 +53,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                         putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentClient.value!!.email)
                         putExtra(ContactsContract.Intents.Insert.POSTAL, viewModel.currentClient.value!!.address)
                     }
-
-                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        activityResultLauncher.launch(intent)
-                    }
+                    activityResultLauncher.launch(intent)
                 }
                 else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
             }
@@ -70,9 +67,9 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24,getString(R.string.action_call)),
-                Option(R.drawable.ic_baseline_message_24, getString(R.string.action_message)),
-                Option(R.drawable.ic_whatsapp, getString(R.string.action_whats_app))
+                Option(R.drawable.ic_baseline_call_24, this@ClientDataFragment.getString(R.string.action_call)),
+                Option(R.drawable.ic_baseline_message_24, this@ClientDataFragment.getString(R.string.action_message)),
+                Option(R.drawable.ic_whatsapp, this@ClientDataFragment.getString(R.string.action_whats_app))
             )
             onPositive { index: Int, _: Option ->
                 val phone = viewModel.currentClient.value!!.phone
@@ -80,18 +77,18 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                     0 -> {
                         val uri = Uri.fromParts("tel", phone, null)
                         val intent = Intent(Intent.ACTION_DIAL, uri)
-                        startActivity(intent)
+                        activityResultLauncher.launch(intent)
                     }
                     1 -> {
                         val uri = Uri.parse("smsto:$phone")
                         val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        startActivity(intent)
+                        activityResultLauncher.launch(intent)
                     }
                     2 -> {
                         val uri = Uri.parse("smsto:$phone")
                         val intent = Intent(Intent.ACTION_SENDTO, uri)
                         intent.setPackage("com.whatsapp")
-                        startActivity(intent)
+                        activityResultLauncher.launch(intent)
                     }
                 }
             }
@@ -102,9 +99,6 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:${viewModel.currentClient.value!!.email}")
         }
-        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(intent)
-        }
-
+        activityResultLauncher.launch(intent)
     }
 }

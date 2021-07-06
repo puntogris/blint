@@ -38,8 +38,8 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "DATOS"
-                else -> "MOVIMIENTOS"
+                0 -> getString(R.string.tab_data)
+                else -> getString(R.string.tab_records)
             }
         }
         mediator?.attach()
@@ -93,10 +93,10 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title("Queres eliminar este proveedor?")
-                    content("Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta accion es irreversible.")
-                    onNegative("Cancelar")
-                    onPositive("Si") { onDeleteSupplierConfirmed() }
+                    title(this@SupplierFragment.getString(R.string.ask_delete_supplier_title))
+                    content(this@SupplierFragment.getString(R.string.delete_supplier_warning))
+                    onNegative(this@SupplierFragment.getString(R.string.action_cancel))
+                    onPositive(this@SupplierFragment.getString(R.string.action_yes)) { onDeleteSupplierConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }
@@ -113,9 +113,9 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         lifecycleScope.launch {
             when(viewModel.deleteSupplierDatabase(args.supplier.supplierId)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab("Ocurrio un error al eliminar el proveedor.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_supplier_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab("Proveedor eliminado correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_delete_supplier_success))
                     findNavController().navigateUp()
                 }
             }

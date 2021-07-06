@@ -34,10 +34,6 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
         mediator?.attach()
     }
 
-    fun onCreateDetailedOrderClicked(){
-        findNavController().navigate(R.id.detailedOrderGraphNav)
-    }
-
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2

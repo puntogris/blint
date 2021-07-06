@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEmployeeBinding
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,11 +20,10 @@ class EmployeeFragment : BaseFragmentOptions<FragmentEmployeeBinding>(R.layout.f
 
     override fun initializeViews() {
         binding.employee = args.employee
-
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             if(viewModel.hasUserOwnerPermissions(args.employee.employeeId))
                 menu.findItem(R.id.employeeFragmentMenu).isVisible = true
         }

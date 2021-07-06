@@ -7,6 +7,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -22,7 +23,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getBusinessRecords().collect {
                 recordsAdapter.submitData(it)
             }
@@ -31,6 +32,11 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
 
     private fun onRecordClickedListener(record:Record){
 
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 
 }

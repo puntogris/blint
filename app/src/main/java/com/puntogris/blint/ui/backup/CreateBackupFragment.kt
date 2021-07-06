@@ -29,7 +29,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         setUpRecyclerView()
         getUserBusiness()
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getBackUpRequirements().collect {
                 when(it){
                     is RepoResult.Success -> showBusinessUI(it.data)

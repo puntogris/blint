@@ -35,7 +35,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
             adapter = categoriesAdapter
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getProductCategories().collect {
                 categoriesAdapter.submitList(it)
             }
@@ -75,12 +75,12 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         val category = categoriesAdapter.getSelectedCategories().first()
         InputSheet().build(requireContext()){
             style(SheetStyle.DIALOG)
-            title(getString(R.string.rename_category))
+            title(this@ManageCategoriesFragment.getString(R.string.rename_category))
             with(InputEditText{
                 required(true)
-                hint(getString(R.string.name))
-                onNegative(getString(R.string.action_cancel))
-                onPositive(getString(R.string.action_accept)){
+                hint(this@ManageCategoriesFragment.getString(R.string.name))
+                onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))
+                onPositive(this@ManageCategoriesFragment.getString(R.string.action_accept)){
                     category.name = it["0"].toString()
                     onEditCategoryConfirmed(category)
                 }
@@ -102,12 +102,12 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     private fun showCreateCategoryDialog(){
         InputSheet().build(requireContext()){
             style(SheetStyle.DIALOG)
-            title(getString(R.string.add_category))
+            title(this@ManageCategoriesFragment.getString(R.string.add_category))
             with(InputEditText{
                 required(true)
-                hint(getString(R.string.name))
-                onNegative(getString(R.string.action_cancel))
-                onPositive(getString(R.string.action_accept)){
+                hint(this@ManageCategoriesFragment.getString(R.string.name))
+                onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))
+                onPositive(this@ManageCategoriesFragment.getString(R.string.action_accept)){
                     onCreateCategoryConfirmed(it["0"].toString())
                     hideKeyboard()
                 }
@@ -128,10 +128,10 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
 
     fun onDeleteCategoriesClicked(){
         InfoSheet().build(requireContext()) {
-            title(getString(R.string.delete_category))
-            content(getString(R.string.delete_categories_warning))
-            onNegative(getString(R.string.action_cancel))
-            onPositive(getString(R.string.action_delete)) { onDeleteCategoryConfirmed() }
+            title(this@ManageCategoriesFragment.getString(R.string.delete_category))
+            content(this@ManageCategoriesFragment.getString(R.string.delete_categories_warning))
+            onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))
+            onPositive(this@ManageCategoriesFragment.getString(R.string.action_delete)) { onDeleteCategoryConfirmed() }
         }.show(parentFragmentManager, "")
     }
 
@@ -149,5 +149,10 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }

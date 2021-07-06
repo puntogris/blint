@@ -1,7 +1,12 @@
 package com.puntogris.blint.ui.main
 
+import android.widget.Button
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,13 +15,12 @@ import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.getParentBadge
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
-
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -35,8 +39,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupBadgeListener()
         setupCalendarRecyclerView()
-
-
 
         //view?.doOnPreDraw { startPostponedEnterTransition() }
 
@@ -70,7 +72,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     }
     private fun setupBadgeListener(){
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getUnreadNotificationsCount().collect {
                 getParentBadge().setNumber(it)
             }
@@ -80,24 +82,24 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun setupCalendarRecyclerView(){
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
 
-//        lifecycleScope.launch {
-//            when(val data = viewModel.getBusinessLastEvents()){
-//                EventsDashboard.DataNotFound -> {
-//                    view?.findViewById<Button>(R.id.button17)?.visible()
-//                    view?.findViewById<TextView>(R.id.textView151)?.visible()
-//                }
-//                is EventsDashboard.Error -> {
-//                    view?.findViewById<Button>(R.id.textView151)?.apply {
-//                        text = context.getString(R.string.retrieve_information_error)
-//                        visible()
-//                    }
-//                }
-//                is EventsDashboard.Success -> {
-//                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
-//                    mainCalendarAdapter.submitList(data.data)
-//                }
-//            }
-//        }
+        launchAndRepeatWithViewLifecycle {
+            when(val data = viewModel.getBusinessLastEvents()){
+                EventsDashboard.DataNotFound -> {
+                    view?.findViewById<Button>(R.id.button17)?.visible()
+                    view?.findViewById<TextView>(R.id.textView151)?.visible()
+                }
+                is EventsDashboard.Error -> {
+                    view?.findViewById<Button>(R.id.textView151)?.apply {
+                        text = context.getString(R.string.retrieve_information_error)
+                        visible()
+                    }
+                }
+                is EventsDashboard.Success -> {
+                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
+                    mainCalendarAdapter.submitList(data.data)
+                }
+            }
+        }
 
         binding.calendarRecyclerView.apply {
             adapter = mainCalendarAdapter

@@ -3,7 +3,6 @@ package com.puntogris.blint.ui.business
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,10 +10,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.UserBusiness
-import com.puntogris.blint.utils.gone
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.LOCAL
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -28,7 +25,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     override fun initializeViews() {
         binding.employee = args.employee
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getBusinessEmployees(args.employee.businessId).collect {
                 when(it){
                     is UserBusiness.Error -> showLongSnackBarAboveFab(getString(R.string.snack_an_error_occurred))
@@ -59,10 +56,10 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             if (viewModel.hasUserOwnerPermissions(args.employee.employeeId)){
                 menu.findItem(R.id.businessFragmentMenu).isVisible = true
-                if(args.employee.businessType == "LOCAL") {
+                if(args.employee.businessType == LOCAL) {
                     menu.findItem(R.id.newEmployee).isVisible = false
                 }
             }

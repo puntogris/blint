@@ -167,7 +167,7 @@
     <string name="product_observation">Talle, tamaño, cantidad, etc..</string>
     <string name="snack_delete_product_error">Se produjo un error al eliminar el producto.</string>
     <string name="snack_delete_product_success">Producto eliminado correctamente.</string>
-    <string name="do_you_want_to_delete_product">Queres eliminar este producto?</string>
+    <string name="ask_delete_product_title">Queres eliminar este producto?</string>
     <string name="delete_product_warning">Zona de peligro! Estas por eliminar un producto. Tene en cuenta que esta acción es irreversible.</string>
     <string name="internal_code">Codigo interno</string>
     <string name="create_simple_order">Crear orden rápida.</string>
@@ -181,7 +181,7 @@
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>
     <string name="snack_delete_client_success">Cliente eliminado correctamente.</string>
     <string name="delete_client_warning">Zona de peligro! Estas por eliminar un cliente. Tene en cuenta que esta acción es irreversible.</string>
-    <string name="do_you_want_to_delete_client">Queres eliminar este cliente?</string>
+    <string name="ask_delete_client_title">Queres eliminar este cliente?</string>
     <string name="snack_save_client_error">Ocurrio un error al guardar el cliente.</string>
     <string name="snack_save_client_success">Se guardo el cliente satisfactoriamente.</string>
 
@@ -191,6 +191,10 @@
     <string name="snack_save_supplier_error">Ocurrio un error al guardar el proveedor.</string>
     <string name="notes">Notas</string>
     <string name="company">Empresa</string>
+    <string name="snack_delete_supplier_success">Proveedor eliminado correctamente.</string>
+    <string name="snack_delete_supplier_error">Ocurrio un error al eliminar el proveedor.</string>
+    <string name="ask_delete_supplier_title">Queres eliminar este proveedor?</string>
+    <string name="delete_supplier_warning">Zona de peligro! Estas por eliminar un proveedor. Tene en cuenta que esta acción es irreversible.</string>
 
     <!-- Text -->
     <string name="suggestions">Sugerencias</string>

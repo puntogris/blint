@@ -16,14 +16,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.product.ProductDataFragment
-import com.puntogris.blint.ui.product.ProductFragmentDirections
-import com.puntogris.blint.ui.product.ProductRecordsFragment
-import com.puntogris.blint.ui.supplier.SupplierFragmentDirections
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import dagger.hilt.android.AndroidEntryPoint
@@ -98,10 +92,10 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title(getString(R.string.do_you_want_to_delete_client))
-                    content(getString(R.string.delete_client_warning))
-                    onNegative(getString(R.string.action_cancel))
-                    onPositive(getString(R.string.action_yes)) { onDeleteClientConfirmed() }
+                    title(this@ClientFragment.getString(R.string.ask_delete_client_title))
+                    content(this@ClientFragment.getString(R.string.delete_client_warning))
+                    onNegative(this@ClientFragment.getString(R.string.action_cancel))
+                    onPositive(this@ClientFragment.getString(R.string.action_yes)) { onDeleteClientConfirmed() }
                 }.show(parentFragmentManager, "")
                 true
             }

@@ -13,14 +13,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.info.InfoSheet
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
@@ -95,7 +90,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             }
             R.id.deleteOption -> {
                 InfoSheet().build(requireContext()) {
-                    title(this@ProductFragment.getString(R.string.do_you_want_to_delete_product))
+                    title(this@ProductFragment.getString(R.string.ask_delete_product_title))
                     content(this@ProductFragment.getString(R.string.delete_product_warning))
                     onNegative(this@ProductFragment.getString(R.string.action_cancel))
                     onPositive(this@ProductFragment.getString(R.string.action_yes)) { onDeleteProductConfirmed() }
