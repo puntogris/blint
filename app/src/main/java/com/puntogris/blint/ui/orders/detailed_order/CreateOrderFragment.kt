@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.Manifest
 import androidx.activity.result.ActivityResultLauncher
@@ -6,29 +6,26 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.puntogris.blint.NewOrderGraphNavArgs
-import com.puntogris.blint.NewOrderGraphNavDirections
+import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
-import com.puntogris.blint.databinding.FragmentCreateRecordBinding
+import com.puntogris.blint.databinding.FragmentCreateOrderBinding
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.ui.orders.CreateRecordsAdapter
 import com.puntogris.blint.ui.orders.NewOrderViewModel
-import com.puntogris.blint.ui.product.EditProductFragmentDirections
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.fragment_create_record) {
+class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fragment_create_order) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private lateinit var recordsAdapter: CreateRecordsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
@@ -128,7 +125,7 @@ class CreateRecordFragment : BaseFragment<FragmentCreateRecordBinding>(R.layout.
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val action = NewOrderGraphNavDirections.actionGlobalScannerFragment(1)
+                    val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(1)
                     findNavController().navigate(action)
                 }
                 else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")

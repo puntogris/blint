@@ -1,8 +1,6 @@
 package com.puntogris.blint.ui.operations
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.google.mlkit.vision.barcode.Barcode
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
 import dagger.hilt.android.lifecycle.HiltViewModel

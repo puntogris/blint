@@ -1,29 +1,22 @@
 package com.puntogris.blint.ui.main
 
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
-import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.getParentBadge
+import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
+
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -42,6 +35,8 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupBadgeListener()
         setupCalendarRecyclerView()
+
+
 
         //view?.doOnPreDraw { startPostponedEnterTransition() }
 
@@ -74,7 +69,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 //        simplyPdfDocument.finish()
 
     }
-
     private fun setupBadgeListener(){
         lifecycleScope.launchWhenStarted {
             viewModel.getUnreadNotificationsCount().collect {

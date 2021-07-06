@@ -29,20 +29,13 @@ import java.util.*
 import kotlin.collections.HashMap
 
 @BindingAdapter("imageFullSize")
-fun ImageView.setImageFullSize(image: HashMap<String,String>?){
-    if(image != null && image.containsImage()){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            GlideApp.with(context)
-                    .load(image["uri"])
-                    .transform(CenterCrop(), RoundedCorners(5))
-                    .into(this)
-        } else {
-            GlideApp.with(context)
-                    .load(image["path"])
-                    .transform(CenterCrop(), RoundedCorners(5))
-                    .transform()
-                    .into(this)
-        }
+fun ImageView.setImageFullSize(image: String){
+    if(image.isNotEmpty()){
+        GlideApp.with(context)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(5))
+                .transform()
+                .into(this)
         visible()
     }else gone()
 }
@@ -53,17 +46,16 @@ fun ImageView.setMenuCardIcon(@DrawableRes icon:Int){
 }
 
 @BindingAdapter("loadImageButtonText")
-fun Button.setLoadImageButtonText(image: HashMap<String, String>){
-    text = if (image.containsImage()) {
-        context.getString(R.string.action_change)
-    } else {
-        context.getString(R.string.action_add_image)
-    }
+fun Button.setLoadImageButtonText(image: String){
+    text =
+        if (image.isNotEmpty()) context.getString(R.string.action_change)
+        else context.getString(R.string.action_add_image)
+
 }
 
 @BindingAdapter("removeImageVisibility")
-fun Button.setRemoveImageVisibility(image: HashMap<String, String>){
-    if (image.containsImage()) visible() else gone()
+fun Button.setRemoveImageVisibility(image: String){
+    if (image.isNotEmpty()) visible() else gone()
 }
 
 @BindingAdapter("verticalIndicatorProgress")

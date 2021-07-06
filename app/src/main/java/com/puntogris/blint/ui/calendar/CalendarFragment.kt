@@ -76,6 +76,5 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         binding.recyclerView.adapter = null
         super.onDestroyView()
     }
-
 }
 

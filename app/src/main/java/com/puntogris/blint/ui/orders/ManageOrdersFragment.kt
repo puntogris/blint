@@ -5,16 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.maxkeppeler.sheets.core.SheetStyle
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +35,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     }
 
     fun onCreateDetailedOrderClicked(){
-        findNavController().navigate(R.id.newOrderGraphNav)
+        findNavController().navigate(R.id.detailedOrderGraphNav)
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {

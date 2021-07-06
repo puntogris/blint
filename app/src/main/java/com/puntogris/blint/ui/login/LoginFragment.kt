@@ -1,12 +1,10 @@
 package com.puntogris.blint.ui.login
 
 import android.animation.ObjectAnimator
-import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,14 +29,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         setUpUi(showFab = false, showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
 
-        binding.loginFragment = this
+        binding.fragment = this
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
         binding.root.setOnClickListener {
             onLoginButtonClicked()
         }
     }
 
-    private fun onLoginButtonClicked(){
+    fun onLoginButtonClicked(){
         ObjectAnimator
             .ofFloat(binding.textView118,"translationX", 0f, 25f, -25f, 25f, -25f,15f, -15f, 6f, -6f, 0f)
             .setDuration(800L)

@@ -60,7 +60,7 @@
                     android:id="@+id/nameButton"
                     style="@style/Theme.Blint.ImageButton"
                     android:layout_marginStart="16dp"
-                    android:onClick="@{()-> fragment.onCompanyAddContactInfoClicked()}"
+                    android:onClick="@{()-> fragment.onAddContactInfoClicked(1)}"
                     app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

@@ -20,6 +20,7 @@ interface OrdersDao {
 
     @Transaction
     suspend fun insertOrderWithRecords(order: Order){
+        insert(order)
         insert(order.items)
         order.items.forEach {
             updateProductAmountWithType(it.productId, it.amount, it.type)

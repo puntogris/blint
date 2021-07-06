@@ -140,7 +140,8 @@ dependencies {
     implementation "com.maxkeppeler.sheets:calendar:$cool_bottom_sheets_version"
 
     //ImagePicker
-    implementation "com.github.nguyenhoanglam:ImagePicker:$imagePicker_version"
+  //  implementation "com.github.nguyenhoanglam:ImagePicker:$imagePicker_version"
+  //  implementation 'com.github.ming-xi:MXMediaPicker:1.0.8'
 
     //Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
@@ -189,5 +190,6 @@ dependencies {
     implementation 'jp.wasabeef:blurry:4.0.0'
 
     implementation 'com.nex3z:notification-badge:1.0.4'
+    implementation 'id.zelory:compressor:3.0.1'
 
 }

@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

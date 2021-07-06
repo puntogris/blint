@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.app.Dialog
 import android.os.Bundle
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSupplierBottomSheetBinding>(R.layout.add_order_client_supplier_bottom_sheet) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private val args:AddOrderClientSupplierBottomSheetArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

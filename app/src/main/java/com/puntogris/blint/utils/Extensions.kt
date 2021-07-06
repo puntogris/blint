@@ -187,6 +187,10 @@ fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
         chipGroup.addView(this)
     }
 
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
 fun Fragment.hideKeyboard() {
     view?.let { requireActivity().hideKeyboard(it) }
 }
@@ -236,12 +240,10 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
             it.insertSeparators { before, after ->
 
                 if (after == null) {
-                    // we're at the end of the list
                     return@insertSeparators null
                 }
 
                 if (before == null) {
-                    // we're at the beginning of the list
                     EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalize(Locale.getDefault()))
                 }
 
@@ -268,7 +270,6 @@ fun Fragment.isDarkThemeOn() =
 fun Activity.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
-
 
 fun Fragment.launchWebBrowserIntent(uri: String){
     val intent = Intent(Intent.ACTION_VIEW)
@@ -320,9 +321,8 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
 
 fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.toolbar)
 
-fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById<NotificationBadge>(R.id.badge)
+fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById(R.id.badge)
 
-@ExperimentalCoroutinesApi
 fun Fragment.setUpUi(showFab: Boolean = false,
                      showAppBar: Boolean = true,
                      showToolbar: Boolean = true,
@@ -393,5 +393,4 @@ fun Fragment.showOrderPickerAndNavigate(product: Product? = null){
             }
         }
     }.show(parentFragmentManager,"")
-
 }

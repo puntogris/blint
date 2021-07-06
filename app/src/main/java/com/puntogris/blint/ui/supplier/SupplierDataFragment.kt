@@ -23,6 +23,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
     private val viewModel: SupplierViewModel by viewModels()
     lateinit var requestPermissionContactCompany: ActivityResultLauncher<String>
     lateinit var requestPermissionContactSeller: ActivityResultLauncher<String>
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -37,6 +38,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
             }
         }
 
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
+
+
         requestPermissionContactCompany =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
@@ -50,7 +54,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                     }
 
                     if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        startActivityForResult(intent, 1)
+                        activityResultLauncher.launch(intent)
                     }
                 }
                 else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para crear un contacto.")
@@ -68,7 +72,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                     }
 
                     if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        startActivityForResult(intent, 2)
+                        activityResultLauncher.launch(intent)
                     }
                 }
                 else showLongSnackBarAboveFab("Necesitamos acceso a tu agenda para crear un contacto.")

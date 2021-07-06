@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentIntroBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.TERMS_AND_CONDITIONS_URI
 import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.setupStatusBarForLoginBackground
@@ -23,7 +24,8 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     }
 
     fun onReadMoreAboutPolicesClicked(){
-        findNavController().navigate(R.id.termsConditionsFragment)
+        val action = IntroFragmentDirections.actionIntroFragmentToWebPageFragment(TERMS_AND_CONDITIONS_URI)
+        findNavController().navigate(action)
     }
 
     fun onExitButtonClicked(){

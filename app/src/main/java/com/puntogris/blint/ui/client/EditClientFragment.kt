@@ -25,6 +25,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
     private val viewModel:ClientViewModel by viewModels()
     private val args:EditClientFragmentArgs by navArgs()
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -49,6 +50,29 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                 is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
             }
         }
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    val contactUri = it.data!!
+                    val resolver = requireActivity().contentResolver
+                    val cursorLookUpKey = resolver.query(contactUri, arrayOf(ContactsContract.Data.LOOKUP_KEY), null, null, null)
+
+                    cursorLookUpKey?.let { cursor ->
+                        if (cursor.moveToFirst()){
+                            val lookUpKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
+                            if (lookUpKey != null){
+                                getEmailWithLookUpKey(lookUpKey)
+                                getPhoneAndNameWithLookUpKey(lookUpKey)
+                                loadAddressWithLookUpKey(lookUpKey)
+                            }
+                        }
+                    }
+                    cursorLookUpKey?.close()
+                }
+            }
+        }
+
         setupContactPermissions()
 
         lifecycleScope.launch {
@@ -66,41 +90,10 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                     val intent = Intent(Intent.ACTION_PICK).apply {
                         type = ContactsContract.Contacts.CONTENT_TYPE
                     }
-                    intent.type = ContactsContract.Contacts.CONTENT_TYPE
-
-                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        startActivityForResult(intent, 1)
-                    }
+                    activityResultLauncher.launch(intent)
                 }
                 else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
             }
-    }
-
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            data?.let {
-                val contactUri = it.data!!
-                val resolver = requireActivity().contentResolver
-                val cursorLookUpKey = resolver.query(contactUri, arrayOf(ContactsContract.Data.LOOKUP_KEY), null, null, null)
-
-                cursorLookUpKey?.let { cursor ->
-                    if (cursor.moveToFirst()){
-                        val lookUpKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
-                        if (lookUpKey != null){
-                            getEmailWithLookUpKey(lookUpKey)
-                            getPhoneAndNameWithLookUpKey(lookUpKey)
-                            loadAdressWithLookUpKey(lookUpKey)
-                        }
-                    }
-                }
-
-
-                cursorLookUpKey?.close()
-            }
-        }
     }
 
     private fun getEmailWithLookUpKey(key: String){
@@ -125,10 +118,9 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
             if (!emailId.isNullOrEmpty()) binding.clientInformationLayout.clientEmailText.setText(emailId)
         }
         emailCursor.close()
-
     }
 
-    private fun loadAdressWithLookUpKey(key: String){
+    private fun loadAddressWithLookUpKey(key: String){
         val addrWhere =
             ContactsContract.Data.LOOKUP_KEY + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?"
         val addrWhereParams =

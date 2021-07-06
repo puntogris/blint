@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.supplier
 
 import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.ContentResolver
 import android.content.Intent
 import android.provider.ContactsContract
@@ -24,8 +25,9 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
     private val viewModel: SupplierViewModel by viewModels()
     private val args: EditSupplierFragmentArgs by navArgs()
-    lateinit var requestPermissionCompanyContact: ActivityResultLauncher<String>
-    lateinit var requestPermissionSellerContact: ActivityResultLauncher<String>
+    lateinit var requestPermissionContact: ActivityResultLauncher<String>
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private var activityResultCode = 0
 
     override fun initializeViews() {
         binding.fragment = this
@@ -57,57 +59,48 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
             }
         }
 
-        requestPermissionCompanyContact = getPermissionLauncher(1)
-        requestPermissionSellerContact = getPermissionLauncher(2)
+        requestPermissionContact = getPermissionLauncher()
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    val contactUri = it.data!!
+                    val resolver = requireActivity().contentResolver
+                    val cursorLookUpKey = resolver.query(contactUri, arrayOf(ContactsContract.Data.LOOKUP_KEY), null, null, null)
+
+                    cursorLookUpKey?.let { cursor ->
+                        if (cursor.moveToFirst()){
+                            val lookUpKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
+                            if (lookUpKey != null){
+                                getEmailWithLookUpKey(lookUpKey, activityResultCode)
+                                getPhoneAndNameWithLookUpKey(lookUpKey, activityResultCode)
+                                if (activityResultCode == 1) loadAddressWithLookUpKey(lookUpKey)
+                            }
+                        }
+                    }
+                    cursorLookUpKey?.close()
+                }
+            }
+        }
 
     }
 
-    fun onCompanyAddContactInfoClicked(){
-        requestPermissionCompanyContact.launch(Manifest.permission.READ_CONTACTS)
+    fun onAddContactInfoClicked(code: Int){
+        activityResultCode = code
+        requestPermissionContact.launch(Manifest.permission.READ_CONTACTS)
     }
 
-    fun onSellerAddContactInfoClicked(){
-        requestPermissionSellerContact.launch(Manifest.permission.READ_CONTACTS)
-    }
-
-    private fun getPermissionLauncher(requestCode: Int) =
+    private fun getPermissionLauncher() =
         registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
             if (isGranted) {
                 val intent = Intent(Intent.ACTION_PICK).apply {
                     type = ContactsContract.Contacts.CONTENT_TYPE
                 }
-                intent.type = ContactsContract.Contacts.CONTENT_TYPE
-
-                if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                    startActivityForResult(intent, requestCode)
-                }
+                activityResultLauncher.launch(intent)
             }
             else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
         }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 || requestCode == 2 && resultCode == Activity.RESULT_OK) {
-            data?.let {
-                val contactUri = it.data!!
-                val resolver = requireActivity().contentResolver
-                val cursorLookUpKey = resolver.query(contactUri, arrayOf(ContactsContract.Data.LOOKUP_KEY), null, null, null)
-
-                cursorLookUpKey?.let { cursor ->
-                    if (cursor.moveToFirst()){
-                        val lookUpKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
-                        if (lookUpKey != null){
-                            getEmailWithLookUpKey(lookUpKey, requestCode)
-                            getPhoneAndNameWithLookUpKey(lookUpKey, requestCode)
-                            if (requestCode == 1) loadAdressWithLookUpKey(lookUpKey)
-                        }
-                    }
-                }
-                cursorLookUpKey?.close()
-            }
-        }
-    }
 
     private fun getEmailWithLookUpKey(key: String, requestCode: Int){
         val emailWhere =
@@ -137,7 +130,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
     }
 
-    private fun loadAdressWithLookUpKey(key: String){
+    private fun loadAddressWithLookUpKey(key: String){
         val addrWhere =
             ContactsContract.Data.LOOKUP_KEY + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?"
         val addrWhereParams =

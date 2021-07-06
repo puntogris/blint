@@ -30,9 +30,11 @@ interface EventsDao {
     @Update
     suspend fun updateEvent(event: Event)
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
     fun getLastThreeEvents():List<Event>
 
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
     fun getLastThreeEventsFlow(): Flow<List<Event>>
 

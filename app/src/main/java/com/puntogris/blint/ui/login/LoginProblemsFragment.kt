@@ -12,19 +12,24 @@ import com.puntogris.blint.utils.Constants.SUPPORT_EMAIL
 class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layout.fragment_login_problems) {
 
     override fun initializeViews() {
-        binding.goBackButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        binding.enableAccountLink.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(FIX_GOOGLE_PLAY_SERVICES_URL)
-            startActivity(intent)
-        }
-        binding.sendEmail.setOnClickListener {
-            val email = Intent(Intent.ACTION_SENDTO)
-            email.data = Uri.parse("mailto:$SUPPORT_EMAIL")
-            email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.problem_with_blint_account))
-            startActivity(email)
-        }
+        binding.fragment = this
+    }
+
+    fun onGoBackButtonClicked(){
+        findNavController().navigateUp()
+
+    }
+
+    fun onSendEmailClicked(){
+        val email = Intent(Intent.ACTION_SENDTO)
+        email.data = Uri.parse("mailto:$SUPPORT_EMAIL")
+        email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.problem_with_blint_account))
+        startActivity(email)
+    }
+
+    fun onEnableAccountClicked(){
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(FIX_GOOGLE_PLAY_SERVICES_URL)
+        startActivity(intent)
     }
 }

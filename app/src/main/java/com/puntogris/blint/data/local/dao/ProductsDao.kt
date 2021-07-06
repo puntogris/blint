@@ -14,6 +14,29 @@ interface ProductsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(product: Product): Long
 
+
+
+    @Transaction
+    suspend fun insertProduct(product: ProductWithSuppliersCategories){
+
+        insert(product.product)
+
+        //if (isNewProduct) statisticsDao.incrementTotalProducts()
+
+        product.suppliers?.map {
+            ProductSupplierCrossRef(product.product.productId, it.supplierId)
+        }?.let {
+            insertProductSupplierCrossRef(it)
+        }
+        product.categories?.map {
+            ProductCategoryCrossRef(product.product.productId, it.categoryId)
+        }?.let {
+            insertProductCategoriesCrossRef(it)
+        }
+       // if (product.product.amount != 0) ordersDao.insert(record)
+//
+    }
+
     @Update
     suspend fun update(product: Product)
 
@@ -30,10 +53,12 @@ interface ProductsDao {
     @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount(): LiveData<Int>
 
+    @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY name ASC")
     fun getAllPaged(): PagingSource<Int, ProductWithSuppliersCategories>
 
+    @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :text OR barcode LIKE :text OR internalCode LIKE :text")
     fun getPagedSearch(text: String): PagingSource<Int, ProductWithSuppliersCategories>

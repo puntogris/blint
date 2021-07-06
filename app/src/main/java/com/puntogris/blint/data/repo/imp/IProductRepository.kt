@@ -10,7 +10,7 @@ import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IProductRepository {
-    suspend fun saveProductDatabase(product: Product, suppliers:List<String>, categories: List<String>): SimpleResult
+    suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean = false): SimpleResult
     suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>>
     suspend fun deleteProductDatabase(productId:String): SimpleResult
     suspend fun getProductsWithNamePagingDataFlow(search: SearchText): Flow<PagingData<ProductWithSuppliersCategories>>

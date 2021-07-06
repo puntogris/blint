@@ -78,21 +78,21 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         // podemos mostrar el inicio con un negocio vacio
         // o mostrar algo en ves del inicio y no dejando acceder a nada
 
-//        lifecycleScope.launch {
-//            viewModel.updateUserData(args.username, args.userCountry)
-//            sharedPref.setWelcomeUiPref(true)
-//            sharedPref.setUserHasBusinessPref(true)
-//            withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
-//            withContext(Dispatchers.Main){
-//                binding.animationView.apply {
-//                    setAnimation(R.raw.done)
-//                    repeatCount = 0
-//                    playAnimation()
-//                }
-//                binding.continueButton.isEnabled = true
-//                binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-//                binding.title.text = "Cuenta creada correctamente."
-//            }
-//        }
+        lifecycleScope.launch {
+            viewModel.updateUserData(args.username, args.userCountry)
+            sharedPref.setWelcomeUiPref(true)
+            sharedPref.setUserHasBusinessPref(true)
+            withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
+            withContext(Dispatchers.Main){
+                binding.animationView.apply {
+                    setAnimation(R.raw.done)
+                    repeatCount = 0
+                    playAnimation()
+                }
+                binding.continueButton.isEnabled = true
+                binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
+                binding.title.text = "Cuenta creada correctamente."
+            }
+        }
     }
 }

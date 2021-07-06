@@ -4,8 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.*
 import kotlinx.coroutines.tasks.await
 
 class FirestoreProductsPagingSource(
@@ -26,8 +25,7 @@ class FirestoreProductsPagingSource(
                     .await()
 
                 LoadResult.Page(
-                    data = currentPage.toObjects(Product::class.java)
-                        .map { ProductWithSuppliersCategories(product = it) },
+                    data = currentPage.toObjects(ProductWithSuppliersCategories::class.java) ,
                     prevKey = null,
                     nextKey = nextPage
                 )
@@ -47,4 +45,5 @@ class FirestoreProductsPagingSource(
     override fun getRefreshKey(state: PagingState<QuerySnapshot, ProductWithSuppliersCategories>): QuerySnapshot? {
         return null
     }
+
 }

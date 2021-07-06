@@ -1,21 +1,17 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.puntogris.blint.NewOrderGraphNavArgs
-import com.puntogris.blint.NewOrderGraphNavDirections
+import com.puntogris.blint.DetailedOrderGraphNavArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.Client
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.changeIconFromDrawable
-import com.puntogris.blint.utils.getParentBottomAppBar
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragment_order_type) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
-    private val args: NewOrderGraphNavArgs by navArgs()
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
+    private val args: DetailedOrderGraphNavArgs by navArgs()
 
     override fun initializeViews() {
         setUpUi(

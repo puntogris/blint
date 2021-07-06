@@ -5,10 +5,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.maxkeppeler.sheets.core.SheetStyle
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.model.Product
@@ -52,7 +48,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     }
 
     fun onCreateDetailedOrderClicked(){
-        findNavController().navigate(R.id.newOrderGraphNav)
+        findNavController().navigate(R.id.detailedOrderGraphNav)
     }
 
     private fun setUpPieView(product:Product) {

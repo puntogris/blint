@@ -1,7 +1,10 @@
 package com.puntogris.blint.data.repo
 
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.asLiveData
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -10,15 +13,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.*
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.data.repo.imp.IProductRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.StringValidator
+import dagger.hilt.android.qualifiers.ApplicationContext
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -26,6 +33,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.InputStream
+import java.io.InputStreamReader
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -34,7 +45,8 @@ class ProductRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
     private val ordersDao: OrdersDao,
     private val firestoreQueries: FirestoreQueries,
-    private val categoriesDao: CategoriesDao
+    private val categoriesDao: CategoriesDao,
+    @ApplicationContext private val context: Context
 ): IProductRepository {
 
     private val firestore = Firebase.firestore
@@ -43,62 +55,78 @@ class ProductRepository @Inject constructor(
     private suspend fun currentBusiness() = usersDao.getUser()
     private fun getCurrentUid() = auth.currentUser
 
-    override suspend fun saveProductDatabase(product: Product, suppliers:List<String>, categories: List<String>): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){
         try {
-            val isNewProduct = product.productId.isEmpty()
+            val isNewProduct = product.product.productId.isEmpty()
             val user = currentBusiness()
             val productRef = firestoreQueries.getProductsCollectionQuery(user)
             if (isNewProduct){
-                product.apply {
+                product.product.apply {
                     productId = productRef.document().id
                     businessId = user.currentBusinessId
                 }
             }
 
             val record = Record(
-                type = "IN",
-                amount = product.amount,
-                productId = product.productId,
-                productName = product.name,
+                type = IN,
+                amount = product.product.amount,
+                productId = product.product.productId,
+                productName = product.product.name,
                 timestamp = Timestamp.now(),
                 author = getCurrentUid()?.email.toString(),
                 businessId = user.currentBusinessId
             )
 
             if (user.currentBusinessIsOnline()){
+                if (imageChanged){
+                    product.product.image =
+                    if (product.product.image.isNotEmpty()){
+                        val imageCompressedName = "${user.currentBusinessId}_${product.product.productId}"
+//                        val compressedImageFile = Compressor.compress(context, File(imagePath)) {
+//                            resolution(544, 306)
+//                            quality(50)
+//                            format(Bitmap.CompressFormat.JPEG)
+//                            size(80_000)
+//                        }
+                        val uri: Uri = Uri.parse(product.product.image)
+                        val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
+                        val baos = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+                        val data = baos.toByteArray()
+                        bitmap.recycle()
+
+                        val storageRef = firestoreQueries.getUserBusinessProductImagesQuery(user, imageCompressedName)
+                        val task = storageRef.putBytes(data).await().task
+                        task.continueWithTask { uriTask ->
+                            if (!uriTask.isSuccessful){
+                                uriTask.exception?.let {
+                                    throw it
+                                }
+                            }
+                            storageRef.downloadUrl
+                        }.await().toString()
+                    }else ""
+                }
+
                 val productCounterRef = firestoreQueries.getBusinessCollectionQuery(user)
 
                 firestore.runBatch {
-                    it.set(productRef.document(product.productId), product)
-                    //If the product is not new, up the counter.
+                    it.set(productRef.document(product.product.productId), FirestoreProduct.from(product))
                     if (isNewProduct)
                         it.update(productCounterRef,"totalProducts", FieldValue.increment(1))
-
-                    if (product.amount != 0){
+                    if (product.product.amount != 0){
                         val recordRef = firestoreQueries.getRecordsCollectionQuery(user).document()
                         it.set(recordRef, record)
                     }
                 }.await()
             }else{
-                productsDao.insert(product)
+                productsDao.insertProduct(product)
                 if (isNewProduct) statisticsDao.incrementTotalProducts()
-
-                //CrossRef data for suppliers and categories.
-                suppliers.map {
-                    ProductSupplierCrossRef(product.productId, it)
-                }.let {
-                    productsDao.insertProductSupplierCrossRef(it)
-                }
-                categories.map {
-                    ProductCategoryCrossRef(product.productId, it)
-                }.let {
-                    productsDao.insertProductCategoriesCrossRef(it)
-                }
-                //Create initial stock record.
-                if (product.amount != 0) ordersDao.insert(record)
+                if (product.product.amount != 0) ordersDao.insert(record)
             }
             SimpleResult.Success
         }catch (e:Exception){
+            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }

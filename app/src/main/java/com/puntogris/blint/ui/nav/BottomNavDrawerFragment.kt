@@ -42,6 +42,7 @@ import com.puntogris.blint.model.BusinessItem
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.math.abs
@@ -182,6 +183,7 @@ class BottomNavDrawerFragment :
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {

@@ -44,7 +44,7 @@
     <string name="tell_us_more">What do you want to tell us?</string>
     <string name="message_hint">Message</string>
 
-     <!-- Backup -->
+    <!-- Backup -->
     <string name="create_backup_in_progress">Backup in progress..</string>
     <string name="do_not_close_window_until_backup_is_done">*Do not leave the app until the backup is done.</string>
     <string name="create_backup_success_title">Backup done.</string>
@@ -172,6 +172,10 @@
     <string name="internal_code">Internal code</string>
     <string name="create_simple_order">Create simple order.</string>
     <string name="create_detailed_order">Create detailed order.</string>
+    <string name="stock">Stock</string>
+    <string name="images">Images</string>
+    <string name="image">Image</string>
+    <string name="prices_and_stock">Prices and stock</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">A problem occurred when deleting the client</string>
@@ -239,6 +243,7 @@
     <string name="out_entry">Out</string>
     <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your business well organized.</string>
 
+
     <string-array name="order_type">
         <item>In</item>
         <item>Out</item>
@@ -256,4 +261,6 @@
         <item>2</item>
         <item>-1</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

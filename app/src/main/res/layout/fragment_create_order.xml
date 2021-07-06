@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.orders.new_order.CreateRecordFragment" />
+            type="com.puntogris.blint.ui.orders.detailed_order.CreateOrderFragment" />
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.orders.NewOrderViewModel" />
@@ -17,7 +17,7 @@
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.orders.new_order.CreateRecordFragment">
+        tools:context=".ui.orders.detailed_order.CreateOrderFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"

@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_gravity="center"
-                        android:text="Descripcion"/>
+                        android:text="@string/description"/>
 
                     <TextView
                         android:id="@+id/textView19"
@@ -55,14 +55,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Nombre"/>
+                        android:text="@string/name"/>
 
                     <TextView
                         android:id="@+id/productName"
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.name}" />
+                        android:text="@{viewModel.currentProduct.product.name}" />
 
 
                     <TextView
@@ -71,14 +71,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Codigo de barras"/>
+                        android:text="@string/barcode"/>
 
                     <TextView
                         android:id="@+id/productBarcode"
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.barcode}"/>
+                        android:text="@{viewModel.currentProduct.product.barcode}"/>
 
                     <TextView
                         android:id="@+id/textView218"
@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Descripcion"/>
+                        android:text="@string/description"/>
 
                     <TextView
                         android:id="@+id/productDescription"
@@ -94,7 +94,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="@{viewModel.currentProduct.description}"/>
+                        android:text="@{viewModel.currentProduct.product.description}"/>
+
+                    <TextView
+                        android:id="@+id/textView39"
+                        style="@style/Theme.Blint.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/image" />
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        imageFullSize="@{viewModel.currentProduct.product.image}"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="24dp"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
                 </LinearLayout>
 
 
@@ -120,7 +139,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Precios y stock"
+                        android:text="@string/prices_and_stock"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +149,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Compra"
+                        android:text="@string/buy_price"
                         app:layout_constraintEnd_toStartOf="@+id/textView30"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -142,7 +161,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.currentProduct.buyPrice)}"
+                        android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -152,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Venta"
+                        android:text="@string/sell_price"
                         app:layout_constraintEnd_toStartOf="@+id/textView34"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView28"
@@ -163,7 +182,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.currentProduct.sellPrice)}"
+                        android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
                         app:layout_constraintStart_toStartOf="@+id/textView30"
                         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -173,7 +192,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Venta sugerido"
+                        android:text="@string/suggested_sell_price"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -184,7 +203,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.currentProduct.suggestedSellPrice)}"
+                        android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
                         app:layout_constraintStart_toStartOf="@+id/textView34"
                         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
@@ -194,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Stock"
+                        android:text="@string/stock"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
@@ -205,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        android:text="@{String.valueOf(viewModel.currentProduct.amount)}"
+                        android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView47" />
@@ -234,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:text="Proveedores"/>
+                        android:text="@string/suppliers_label"/>
 
 
                     <com.google.android.material.chip.ChipGroup
@@ -250,41 +269,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Theme.Blint.CardView"
-                android:layout_marginTop="24dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        style="@style/Theme.Blint.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="24dp"
-                        android:text="imagenes" />
-
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        imageFullSize="@{viewModel.currentProduct.image}"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="24dp"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-                </LinearLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -305,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Extras"
+                        android:text="@string/extras"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -316,7 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Codigo interno"
+                        android:text="@string/internal_code"
                         app:layout_constraintEnd_toStartOf="@+id/textView45"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -328,7 +312,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.internalCode}"
+                        android:text="@{viewModel.currentProduct.product.internalCode}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
@@ -338,7 +322,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Marca"
+                        android:text="@string/brand"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/productInternalCode" />
 
@@ -348,7 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        android:text="@{viewModel.currentProduct.brand}"
+                        android:text="@{viewModel.currentProduct.product.brand}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView43"
                         app:layout_constraintTop_toBottomOf="@+id/textView43" />
@@ -358,7 +342,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Talle, tamaño, etc"
+                        android:text="@string/product_observation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView41"
@@ -369,7 +353,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.size}"
+                        android:text="@{viewModel.currentProduct.product.size}"
                         app:layout_constraintStart_toStartOf="@+id/textView45"
                         app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
@@ -387,7 +371,7 @@
                             android:id="@+id/addCategoryChip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Agregar Categorias"
+                            android:text="@string/add_categories"
                             app:chipIcon="@drawable/ic_baseline_add_24" />
                     </com.google.android.material.chip.ChipGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>

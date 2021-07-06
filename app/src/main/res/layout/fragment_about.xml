@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.about.AboutFragment" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,6 +78,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="20dp"
+            android:onClick="@{()-> fragment.onRateAppClicked()}"
             android:text="@string/action_rate_us_on_google_play"
             app:layout_constraintBottom_toTopOf="@+id/sendSuggestion"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@string/suggestions"
+            android:onClick="@{()-> fragment.onSendSuggestionClicked()}"
             android:textColor="@color/primaryColor"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:onClick="@{()-> fragment.onPrivacyPolicyClicked()}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="@string/privacy_policy"
@@ -106,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:onClick="@{()-> fragment.onTermsAndConditionsClicked()}"
             android:text="@string/terms_and_conditions"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

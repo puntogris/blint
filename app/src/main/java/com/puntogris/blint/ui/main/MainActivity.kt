@@ -169,7 +169,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         if(destination.id == R.id.mainFragment){
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             binding.toolbar.setTitleTextColor(getColor(R.color.white))
-            binding.mainFab.hide()
             setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
             binding.notification.visible()
             binding.badge.visible()
@@ -182,6 +181,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             binding.notification.gone()
             setupToolbarAndStatusBar()
         }
+        hideKeyboard()
     }
 
     private fun setupToolbarAndStatusBar(){

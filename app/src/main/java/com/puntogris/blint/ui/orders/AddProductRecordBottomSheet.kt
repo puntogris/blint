@@ -2,9 +2,7 @@ package com.puntogris.blint.ui.orders
 
 import android.view.View
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
@@ -14,12 +12,11 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.hideKeyboard
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddProductRecordBottomSheet: BaseFragment<AddProductRecordBottomSheetBinding>(R.layout.add_product_record_bottom_sheet){
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
 //    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 //        val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog

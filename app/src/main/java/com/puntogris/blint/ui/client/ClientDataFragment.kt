@@ -22,6 +22,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
 
     private val viewModel: ClientViewModel by viewModels()
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -36,6 +37,8 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
             }
         }
         setupContactPermissions()
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
     }
 
     private fun setupContactPermissions(){
@@ -52,7 +55,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                     }
 
                     if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                        startActivityForResult(intent, 1)
+                        activityResultLauncher.launch(intent)
                     }
                 }
                 else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))

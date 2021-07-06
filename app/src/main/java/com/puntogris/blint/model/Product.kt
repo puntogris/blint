@@ -1,15 +1,14 @@
 package com.puntogris.blint.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
+@IgnoreExtraProperties
 data class Product(
     @PrimaryKey
     var productId: String = "",
@@ -27,7 +26,7 @@ data class Product(
     var amount: Int = 0,
 
     @ColumnInfo
-    var image: HashMap<String, String> = hashMapOf("uri" to "", "path" to ""),
+    var image: String = "",
 
     @ColumnInfo
     val sellPrice:Float = 0F,
@@ -57,5 +56,6 @@ data class Product(
     var totalOutStock: Int = 0,
 
     @ColumnInfo
-    var businessId:String = ""
+    var businessId:String = "",
+
 ):Parcelable

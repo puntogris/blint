@@ -9,6 +9,7 @@ import com.puntogris.blint.utils.SearchText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,53 +22,53 @@ class ProductViewModel @Inject constructor(
 
     var viewsLoaded = false
 
-    private val _productImage = MutableLiveData(hashMapOf("uri" to "", "path" to ""))
-    val productImage: LiveData<HashMap<String, String>> = _productImage
-    private val suppliers = MutableLiveData(listOf<String>())
-    private val categories = MutableLiveData(listOf<String>())
-    private val _currentProduct = MutableStateFlow(Product())
-    val currentProduct :LiveData<Product> = _currentProduct.asLiveData()
+    private var imageChanged = false
+    private val _productImage = MutableLiveData("")
+    val productImage: LiveData<String> = _productImage
+    private val _currentProduct = MutableStateFlow(ProductWithSuppliersCategories())
+    val currentProduct: LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
 
-    fun updateSuppliers(suppliers:List<String>){
-        this.suppliers.value = suppliers
+    fun updateSuppliers(suppliers: List<Supplier>){
+        _currentProduct.value.suppliers = suppliers
     }
 
-    fun updateCategories(categories:List<String>){
-        this.categories.value = categories
+    fun updateCategories(categories: List<Category>){
+        _currentProduct.value.categories = categories
     }
 
     @ExperimentalCoroutinesApi
     suspend fun getProductCategories() = productRepository.getProductCategoriesDatabase()
 
     fun removeCurrentImage(){
-        val imageMap = hashMapOf("uri" to "", "path" to "")
-        _productImage.value = imageMap
-        _currentProduct.value.image = imageMap
+        val image = ""
+        _productImage.value = image
+        _currentProduct.value.product.image = image
     }
 
     fun updateCurrentProductBarcode(barcode: String){
-        _currentProduct.value.barcode = barcode
+        _currentProduct.value.product.barcode = barcode
     }
 
     fun updateProductData(product: Product){
-        product.productId = _currentProduct.value.productId
-        _currentProduct.value = product
+        product.productId = _currentProduct.value.product.productId
+        _currentProduct.value.product = product
     }
 
     fun setProductData(product: Product){
-        _currentProduct.value = product
+        _currentProduct.value.product = product
     }
 
-    fun updateProductImage(imageMap: HashMap<String, String>){
-        _productImage.value = imageMap
-        _currentProduct.value.image = imageMap
+    fun updateProductImage(image: String){
+        imageChanged = true
+        _productImage.value = image
+        _currentProduct.value.product.image = image
     }
 
     suspend fun getProductRecords(productId:String) =
         productRepository.getProductRecordsPagingDataFlow(productId).cachedIn(viewModelScope)
 
     suspend fun saveProductDatabase() =
-        productRepository.saveProductDatabase(_currentProduct.value, suppliers.value!!, categories.value!!)
+        productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
 
     suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 

@@ -40,6 +40,11 @@ class FirestoreQueries @Inject constructor(){
 
     fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/${BACKUP_PATH}_$APP_VERSION")
 
+    fun test() = storage.child("users/test.webp").metadata
+
+    fun getUserBusinessProductImagesQuery(user: RoomUser, imageName:String) =
+        storage.child("users/${user.currentBusinessOwner}/business/${user.currentBusinessId}/products_images/$imageName")
+
     fun getUserLocalBusinessQuery() =
         firestore
             .collectionGroup(BUSINESS_COLLECTION)

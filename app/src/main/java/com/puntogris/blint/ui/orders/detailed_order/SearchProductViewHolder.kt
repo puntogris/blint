@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

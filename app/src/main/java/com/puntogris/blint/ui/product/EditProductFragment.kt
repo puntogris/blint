@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.product
 
 import android.Manifest
-import android.content.Intent
+import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -12,10 +12,9 @@ import com.google.android.material.chip.Chip
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
-import com.nguyenhoanglam.imagepicker.model.Config
-import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
+import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
@@ -28,15 +27,22 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     private val viewModel: ProductViewModel by viewModels()
     private val args: EditProductFragmentArgs by navArgs()
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var getContent: ActivityResultLauncher<String>
 
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            viewModel.updateProductImage(uri.toString())
+            binding.descriptionLayout.productImage.setImageURI(uri)
+            binding.descriptionLayout.productImage.visible()
+        }
+
         setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateProductData(getProductDataFromViews())
-            when(val validator = StringValidator.from(viewModel.currentProduct.value!!.name, allowSpecialChars = true)){
+            when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveProductDatabase()){
@@ -88,7 +94,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 productAmount.visible()
                 increaseAmountButton.visible()
                 decreaseAmountButton.visible()
-                productPricesTitle.text = getString(R.string.prices)
+                productPricesTitle.text = getString(R.string.prices_and_initial_stock)
             }
         }
 
@@ -97,6 +103,9 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<Category>>("categories_key")?.observe(
+            viewLifecycleOwner) {
+        }
 
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
@@ -130,28 +139,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun onAddImageButtonClicked(){
-        ImagePicker.with(this)
-            .setFolderMode(true)
-            .setFolderTitle(getString(R.string.image_picker_folder_title))
-            .setStatusBarColor(resources.getString(0 + R.color.almostBlack))
-            .setMultipleMode(false)
-            .setRootDirectoryName(Config.ROOT_DIR_DCIM)
-            .setDirectoryName(getString(R.string.app_name))
-            .setShowNumberIndicator(true)
-            .start()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (ImagePicker.shouldHandleResult(requestCode, resultCode, data)) {
-            ImagePicker.getImages(data).let {
-                if (it.isNotEmpty()) {
-                    val imageMap = hashMapOf("uri" to it.first().uri.toString(), "path" to it.first().path)
-                    viewModel.updateProductImage(imageMap)
-                    binding.imagesLayout.productImage.visible()
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
+        getContent.launch("image/*")
     }
 
     fun onRemoveImageButtonClicked(){
@@ -171,6 +159,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
     fun openBottomSheetForSuppliers(){
         lifecycleScope.launch {
+
             val suppliers = viewModel.getAllSuppliers()
             if (suppliers.isNullOrEmpty()){
                 showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
@@ -182,10 +171,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     multipleChoices(true)
                     with(optionSuppliers)
                     onPositiveMultiple(getString(R.string.action_add)) { selectedIndices: MutableList<Int>, _ ->
-                        viewModel.updateSuppliers(selectedIndices.map { suppliers[it].supplierId })
-                        selectedIndices.forEach {
-                            createNewChipAndAddItToGroup(suppliers[it].companyName, binding.scopeLayout.supplierChipGroup)
-                        }
+//                        viewModel.updateSuppliers(selectedIndices.map { suppliers[it].supplierId })
+//                        selectedIndices.forEach {
+//                            createNewChipAndAddItToGroup(suppliers[it].companyName, binding.scopeLayout.supplierChipGroup)
+//                        }
                     }
                     onNegative(getString(R.string.action_cancel))
                 }.show(parentFragmentManager, "")
@@ -194,26 +183,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun openBottomSheetForCategories(){
-        lifecycleScope.launch {
-            val categories = viewModel.getAllCategories()
-            if (categories.isNullOrEmpty()){
-                showLongSnackBarAboveFab("No se encontraron categorias registrados.")
-            }else{
-                val optionSuppliers = categories.map { Option(it.name) }.toMutableList()
-                OptionsSheet().build(requireContext()){
-                    title(getString(R.string.add_categories))
-                    displayMode(DisplayMode.LIST)
-                    multipleChoices(true)
-                    with(optionSuppliers)
-                    onPositiveMultiple(getString(R.string.action_add)) { selectedIndices: MutableList<Int>, _ ->
-                        viewModel.updateCategories(selectedIndices.map { categories[it].categoryId })
-                        selectedIndices.forEach {
-                            createNewChipAndAddItToGroup(categories[it].name, binding.scopeLayout.supplierChipGroup)
-                        }
-                    }
-                    onNegative(getString(R.string.action_cancel))
-                }.show(parentFragmentManager, "")
-            }
-        }
+        findNavController().navigate(R.id.productCategoriesBottomSheet)
+
     }
 }

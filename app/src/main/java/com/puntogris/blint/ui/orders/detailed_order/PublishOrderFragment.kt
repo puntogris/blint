@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders.new_order
+package com.puntogris.blint.ui.orders.detailed_order
 
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.fragment_publish_order) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.newOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private var isOperationInProgress = true
 
     override fun initializeViews() {

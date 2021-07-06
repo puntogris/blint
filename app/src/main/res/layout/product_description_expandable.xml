@@ -54,7 +54,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentProduct.name}" />
+                        android:text="@{viewModel.currentProduct.product.name}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +79,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentProduct.barcode}" />
+                        android:text="@{viewModel.currentProduct.product.barcode}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,9 +104,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
                     android:hint="@string/description"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productBarcode">
@@ -118,9 +116,75 @@
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentProduct.description}" />
+                        android:text="@{viewModel.currentProduct.product.description}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/productImageButton"
+                    style="@style/Theme.Blint.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/images"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productDescription" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button3"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    loadImageButtonText="@{viewModel.productImage}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{()->fragment.onAddImageButtonClicked()}"
+                    android:text=""
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productImageButton"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/productImage"
+                    imageFullSize="@{viewModel.productImage}"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+                <Button
+                    android:id="@+id/button4"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    removeImageVisibility="@{viewModel.productImage}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:onClick="@{()->fragment.onRemoveImageButtonClicked()}"
+                    android:text="@string/action_delete"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/button3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button3"
+                    app:layout_constraintTop_toTopOf="@+id/button3" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

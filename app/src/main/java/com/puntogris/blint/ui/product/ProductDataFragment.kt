@@ -31,7 +31,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                     viewModel.setProductData(it.product)
 
                     if (!it.suppliers.isNullOrEmpty()){
-                        it.suppliers.forEach { supplier->
+                        it.suppliers?.forEach { supplier->
                             Chip(requireContext()).apply {
                                 text = supplier.companyName
                                 setOnClickListener {
@@ -42,7 +42,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
                         }
                     }
                     if (!it.categories.isNullOrEmpty()){
-                        it.categories.forEach { category ->
+                        it.categories?.forEach { category ->
                             Chip(requireContext()).apply {
                                 text = category.name
                                 setOnClickListener {

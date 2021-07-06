@@ -70,7 +70,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productInternalCodeText"
                     android:layout_width="match_parent"
-                    android:text="@{viewModel.currentProduct.internalCode}"
+                    android:text="@{viewModel.currentProduct.product.internalCode}"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
@@ -96,7 +96,7 @@
                     android:id="@+id/productBrandText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.brand}"
+                    android:text="@{viewModel.currentProduct.product.brand}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true" />
@@ -125,7 +125,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true"
-                    android:text="@{viewModel.currentProduct.size}" />
+                    android:text="@{viewModel.currentProduct.product.size}" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -163,20 +163,9 @@
         android:name="com.puntogris.blint.ui.about.AboutFragment"
         android:label="Sobre Blint" >
         <action
-            android:id="@+id/action_aboutFragment_to_termsConditionsFragment"
-            app:destination="@id/termsConditionsFragment" />
-        <action
-            android:id="@+id/action_aboutFragment_to_privacyPolicyFragment"
-            app:destination="@id/privacyPolicyFragment" />
+            android:id="@+id/action_aboutFragment_to_webPageFragment"
+            app:destination="@id/webPageFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/termsConditionsFragment"
-        android:name="com.puntogris.blint.ui.about.TermsConditionsFragment"
-        android:label="Terminos y condiciones" />
-    <fragment
-        android:id="@+id/privacyPolicyFragment"
-        android:name="com.puntogris.blint.ui.about.PrivacyPolicyFragment"
-        android:label="Politica de privacidad" />
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.puntogris.blint.ui.product.EditProductFragment"
@@ -241,7 +230,11 @@
     <fragment
         android:id="@+id/userAccountFragment"
         android:name="com.puntogris.blint.ui.account.UserAccountFragment"
-        android:label="Mi datos" />
+        android:label="Mi datos" >
+        <action
+            android:id="@+id/action_userAccountFragment_to_webPageFragment"
+            app:destination="@id/webPageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/restoreBackupFragment"
         android:name="com.puntogris.blint.ui.backup.RestoreBackupFragment"
@@ -364,6 +357,9 @@
         <action
             android:id="@+id/action_introFragment_to_firstSyncFragment"
             app:destination="@id/firstSyncFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_webPageFragment"
+            app:destination="@id/webPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstSyncFragment"
@@ -444,7 +440,7 @@
         android:id="@+id/newUserFragment"
         android:name="com.puntogris.blint.ui.main.NewUserFragment"
         android:label="@string/app_name" />
-    <navigation android:id="@+id/newOrderGraphNav"
+    <navigation android:id="@+id/detailedOrderGraphNav"
         app:startDestination="@id/orderTypeFragment">
         <argument
             android:name="product"
@@ -452,19 +448,19 @@
             app:nullable="true" />
         <fragment
             android:id="@+id/orderTypeFragment"
-            android:name="com.puntogris.blint.ui.orders.new_order.OrderTypeFragment"
+            android:name="com.puntogris.blint.ui.orders.detailed_order.OrderTypeFragment"
             android:label="">
             <action
                 android:id="@+id/action_orderTypeFragment_to_addOrderClientSupplierBottomSheet"
                 app:destination="@id/addOrderClientSupplierBottomSheet" />
             <action
                 android:id="@+id/action_orderTypeFragment_to_createRecordFragment"
-                app:destination="@id/createRecordFragment" />
+                app:destination="@id/createOrderFragment" />
 
         </fragment>
         <fragment
             android:id="@+id/reviewRecordFragment"
-            android:name="com.puntogris.blint.ui.orders.new_order.ReviewRecordFragment"
+            android:name="com.puntogris.blint.ui.orders.detailed_order.ReviewRecordFragment"
             android:label="Revisar orden">
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
@@ -472,22 +468,22 @@
         </fragment>
         <dialog
             android:id="@+id/addOrderClientSupplierBottomSheet"
-            android:name="com.puntogris.blint.ui.orders.new_order.AddOrderClientSupplierBottomSheet"
+            android:name="com.puntogris.blint.ui.orders.detailed_order.AddOrderClientSupplierBottomSheet"
             android:label="AddOrderClientSupplierBottomSheet">
             <argument
                 android:name="orderType"
                 app:argType="string" />
             <action
                 android:id="@+id/action_addOrderClientSupplierBottomSheet_to_createRecordFragment"
-                app:destination="@id/createRecordFragment" />
+                app:destination="@id/createOrderFragment" />
         </dialog>
         <fragment
             android:id="@+id/publishOrderFragment"
-            android:name="com.puntogris.blint.ui.orders.new_order.PublishOrderFragment"
+            android:name="com.puntogris.blint.ui.orders.detailed_order.PublishOrderFragment"
             android:label="Publicar order" />
         <fragment
-            android:id="@+id/createRecordFragment"
-            android:name="com.puntogris.blint.ui.orders.new_order.CreateRecordFragment"
+            android:id="@+id/createOrderFragment"
+            android:name="com.puntogris.blint.ui.orders.detailed_order.CreateOrderFragment"
             android:label="Nueva orden">
             <argument
                 android:name="productID"
@@ -601,11 +597,23 @@
         android:label="" />
     <action
         android:id="@+id/action_global_newOrderGraphNav"
-        app:destination="@id/newOrderGraphNav">
+        app:destination="@id/detailedOrderGraphNav">
         <argument
             app:argType="com.puntogris.blint.model.Product"
             android:name="product"
             app:nullable="true"
             android:defaultValue="@null" />
     </action>
+    <dialog
+        android:id="@+id/productCategoriesBottomSheet"
+        android:name="com.puntogris.blint.ui.categories.ProductCategoriesBottomSheet"
+        android:label="" />
+    <fragment
+        android:id="@+id/webPageFragment"
+        android:name="com.puntogris.blint.ui.WebPageFragment"
+        android:label="WebPageFragment" >
+        <argument
+            android:name="uri"
+            app:argType="string" />
+    </fragment>
 </navigation>

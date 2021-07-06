@@ -110,7 +110,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tvLeft"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:text="Stock"
+            android:text="@string/stock"
             style="@style/TextAppearance.MaterialComponents.Caption"
             />
 

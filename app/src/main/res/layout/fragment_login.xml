@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="loginFragment"
+            name="fragment"
             type="com.puntogris.blint.ui.login.LoginFragment" />
     </data>
 
@@ -13,6 +13,7 @@
         android:background="@drawable/ic_simple_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:onClick="@{()-> fragment.onLoginButtonClicked()}"
         tools:context=".ui.login.LoginFragment">
 
         <ImageView
@@ -51,7 +52,7 @@
             android:layout_marginBottom="32dp"
             android:padding="10dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()-> loginFragment.onLoginProblemsClicked()}"
+            android:onClick="@{()-> fragment.onLoginProblemsClicked()}"
             android:text="@string/action_solve_login_problems"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"

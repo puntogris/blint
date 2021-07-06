@@ -172,6 +172,10 @@
     <string name="internal_code">Codigo interno</string>
     <string name="create_simple_order">Crear orden rápida.</string>
     <string name="create_detailed_order">Crear orden detallada.</string>
+    <string name="stock">Stock</string>
+    <string name="images">Images</string>
+    <string name="image">Imagen</string>
+    <string name="prices_and_stock">Prices and stock</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>

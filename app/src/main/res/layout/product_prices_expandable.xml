@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/prices_and_initial_stock"
+                android:text="@string/prices_and_stock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productBuyPriceText"
-                    emptyEditTextWithNumber="@{viewModel.currentProduct.buyPrice}"
+                    emptyEditTextWithNumber="@{viewModel.currentProduct.product.buyPrice}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -81,7 +81,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSellPriceText"
-                    emptyEditTextWithNumber="@{viewModel.currentProduct.sellPrice}"
+                    emptyEditTextWithNumber="@{viewModel.currentProduct.product.sellPrice}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -108,7 +108,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSuggestedSellPriceText"
-                    emptyEditTextWithNumber="@{viewModel.currentProduct.suggestedSellPrice}"
+                    emptyEditTextWithNumber="@{viewModel.currentProduct.product.suggestedSellPrice}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -134,7 +134,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productAmountText"
-                    emptyEditTextWithNumber="@{viewModel.currentProduct.amount}"
+                    emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
                     android:layout_width="match_parent"
                     android:layout_height="61dp"
                     android:imeOptions="actionDone"
