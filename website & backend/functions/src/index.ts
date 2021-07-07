@@ -38,15 +38,16 @@ export const sendBusinessEmployeesNewEmployeeNotification = functions.firestore.
  */
 export const sendNewUserNotification = functions.firestore.document('users/{userId}').onCreate(async(snap, context) =>{
     const userId = context.params.userId
+    const ref = admin.firestore().collection("users").doc(userId).collection("notifications").doc()
     const notification = {
-        id: userId,
+        id: ref.id,
         imageUri: "",
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
         wasRead: false,
         navigationUri: "https://blint.app",
         type: "NEW_USER"
     }
-    return admin.firestore().collection("users").doc(userId).collection("notifications").add(notification)
+    return ref.set(notification)
 })
 
 /**
@@ -54,15 +55,16 @@ export const sendNewUserNotification = functions.firestore.document('users/{user
  */
 export const sendNewBusinessNotification = functions.firestore.document('users/{userId}/business/{businessId}').onCreate(async(snap, context) =>{
     const userId = context.params.userId
+    const ref = admin.firestore().collection("users").doc(userId).collection("notifications").doc()
     const notification = {
-        id: userId,
+        id: ref.id,
         imageUri: "",
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
         wasRead: false,
         navigationUri: "https://blint.app",
         type: "NEW_BUSINESS"
     }
-    return admin.firestore().collection("users").doc(userId).collection("notifications").add(notification)
+    return ref.set(notification)
 })
 
 /**

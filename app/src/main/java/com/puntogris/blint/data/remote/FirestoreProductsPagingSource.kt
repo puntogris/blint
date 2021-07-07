@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.puntogris.blint.data.remote.deserializers.ProductDeserializer
+import com.puntogris.blint.data.remote.deserializers.ProductQueryTransformation
 import com.puntogris.blint.model.*
 import kotlinx.coroutines.tasks.await
 
@@ -25,7 +27,7 @@ class FirestoreProductsPagingSource(
                     .await()
 
                 LoadResult.Page(
-                    data = currentPage.toObjects(ProductWithSuppliersCategories::class.java) ,
+                    data = ProductQueryTransformation.transform(currentPage),
                     prevKey = null,
                     nextKey = nextPage
                 )
@@ -38,6 +40,7 @@ class FirestoreProductsPagingSource(
             }
 
         } catch (e: Exception) {
+            println(e.localizedMessage)
             LoadResult.Error(e)
         }
     }

@@ -136,6 +136,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
+        binding.calendarRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

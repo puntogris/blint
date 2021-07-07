@@ -128,7 +128,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                     val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab("Necesitamos acceso a la camara para poder abrir el escaner.")
+                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
             }
     }
 
@@ -154,7 +154,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     }
 
     private fun onDataChanged(){
-        println(recordsAdapter.recordsList)
         val newAmount = recordsAdapter.getRecordTotalPrice()
         viewModel.updateOrderValue(newAmount)
         binding.textView155.text = newAmount.toString()
@@ -169,6 +168,12 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             ProductWithRecord(product, Record(productName = product.name, productId = product.productId))
         recordsAdapter.recordsList.add(productWithRecord)
         recordsAdapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        binding.productSearchRecyclerView.adapter = null
+        super.onDestroyView()
     }
 }
 

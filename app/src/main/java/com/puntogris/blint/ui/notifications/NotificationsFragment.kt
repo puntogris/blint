@@ -53,7 +53,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.notificationsFetchResult.emitAll(adapter.state)
         }
     }

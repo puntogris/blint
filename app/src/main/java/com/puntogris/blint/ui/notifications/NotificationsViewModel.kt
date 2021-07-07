@@ -27,12 +27,12 @@ class NotificationsViewModel @Inject constructor(private val notificationsReposi
         }
     }
 
-    fun deleteNotification(notificationID:String){
-        notificationsRepository.deleteNotification(notificationID)
+    fun deleteNotification(notificationId:String){
+        notificationsRepository.deleteNotification(notificationId)
     }
 
-    fun changeReadStatusNotification(notificationID: String){
-        notificationsRepository.updateNotificationReadState(notificationID)
+    fun changeReadStatusNotification(notificationId: String){
+        notificationsRepository.updateNotificationReadState(notificationId)
     }
 
 }

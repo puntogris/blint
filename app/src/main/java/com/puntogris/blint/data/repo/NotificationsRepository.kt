@@ -51,6 +51,7 @@ class NotificationsRepository @Inject constructor(private val firestoreQueries: 
 
 
     override fun updateNotificationReadState(notificationId: String) {
+        println(notificationId)
         firestoreQueries.updateNotificationsReadStateQuery()
             .document(notificationId)
             .update(WAS_READ_FIELD, true)
