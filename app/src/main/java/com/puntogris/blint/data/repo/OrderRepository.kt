@@ -68,24 +68,25 @@ class OrderRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun saveOrderIntoDatabase(order:Order): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun saveOrderIntoDatabase(order: Order): SimpleResult = withContext(Dispatchers.IO){
         val user = currentBusiness()
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
             val recordRef = firestoreQueries.getRecordsCollectionQuery(user)
             order.updateOrderData(user.currentBusinessId, orderRef, recordRef)
-            if (user.currentBusinessIsOnline()){
+            if (user.currentBusinessIsOnline()) {
+                val countersRef = firestoreQueries.getBusinessCountersQuery(user)
+                countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.number = it }
                 firestore.runBatch { batch ->
                     batch.set(orderRef.document(order.orderId), order)
                     order.items.forEach {
                         val productRef = firestoreQueries.getProductsCollectionQuery(user).document(it.productId)
                         batch.update(productRef,"amount", FieldValue.increment(it.amount.toLong()))
+                        batch.set(countersRef, hashMapOf("totalOrders" to FieldValue.increment(1)), SetOptions.merge())
                         batch.set(recordRef.document(it.recordId), it)
                     }
                 }.await()
-            }else{
-                ordersDao.insertOrderWithRecords(order)
-            }
+            }else{ ordersDao.insertOrderWithRecords(order) }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
     }

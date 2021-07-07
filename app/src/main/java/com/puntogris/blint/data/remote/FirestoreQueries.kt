@@ -88,6 +88,8 @@ class FirestoreQueries @Inject constructor(){
         .collection(BUSINESS_COLLECTION)
         .document(user.currentBusinessId)
 
+    fun getBusinessCountersQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("statistics").document("counters")
+
     fun getEventsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(EVENTS_COLLECTION)
 
     fun getProductsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(PRODUCTS_COLLECTION)

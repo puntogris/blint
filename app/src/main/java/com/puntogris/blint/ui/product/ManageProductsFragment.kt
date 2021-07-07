@@ -142,22 +142,8 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     }
 
 
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.newProduct -> {
-//                findNavController().navigate(R.id.editProductFragment)
-//                true
-//            }
-//            R.id.manageCategories -> {
-//                findNavController().navigate(R.id.manageCategoriesFragment)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-
     override fun onDestroyView() {
+        binding.searchToolbar.setNavigationOnClickListener(null)
         binding.productSearch.clearFocus()
         binding.recyclerView.adapter = null
         super.onDestroyView()

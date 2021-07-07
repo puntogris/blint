@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.layout.fragment_product_records) {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: ProductViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
         setUpUi(showFab = true){

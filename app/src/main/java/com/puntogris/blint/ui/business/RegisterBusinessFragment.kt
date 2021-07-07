@@ -22,8 +22,8 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when(position){
-                0 -> "LOCAL"
-                else -> "ONLINE"
+                0 -> getString(R.string.local)
+                else -> getString(R.string.online)
             }
         }
         mediator?.attach()

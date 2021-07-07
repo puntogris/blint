@@ -14,6 +14,7 @@ class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layou
     private val viewModel: MainViewModel by activityViewModels()
 
         override fun initializeViews() {
+            setUpUi(showAppBar = false)
             binding.localBusinessFragment = this
             binding.animationView.setPadding(-400)
         }

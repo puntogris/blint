@@ -120,7 +120,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
                 <TextView
                     android:id="@+id/productImageButton"
                     style="@style/Theme.Blint.TextButton"
@@ -129,16 +128,14 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
-                    android:text="@string/images"
+                    android:text="@string/image"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productDescription" />
 
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button3"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     loadImageButtonText="@{viewModel.productImage}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -147,13 +144,13 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
                     android:onClick="@{()->fragment.onAddImageButtonClicked()}"
-                    android:text=""
+                    android:textColor="@color/almostBlack"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button4"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productImageButton"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/productImage"
+                    app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
 
                 <ImageView
                     android:id="@+id/productImage"
@@ -163,22 +160,21 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="16dp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button3" />
+                    app:layout_constraintTop_toBottomOf="@+id/productImageButton" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/button4"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     removeImageVisibility="@{viewModel.productImage}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
+                    app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
                     android:onClick="@{()->fragment.onRemoveImageButtonClicked()}"
                     android:text="@string/action_delete"
+                    android:textColor="@color/almostBlack"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/button3"
                     app:layout_constraintEnd_toEndOf="parent"

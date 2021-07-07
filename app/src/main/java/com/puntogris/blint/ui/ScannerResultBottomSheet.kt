@@ -32,7 +32,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
         binding.viewModel = viewModel
         binding.fragment = this
 
-        val items = listOf("Entrada", "Salida")
+        val items = resources.getStringArray(R.array.order_type)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
@@ -64,8 +64,8 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
     private fun setUpExternalChipGroup(position:Int){
         binding.addExternalChip.text =
             when(position){
-                0-> "Agregar proveedor"
-                1-> "Agregar cliente"
+                0-> getString(R.string.add_supplier)
+                1-> getString(R.string.add_client)
                 else -> ""
             }
         viewModel.resetExternalInfo()
@@ -90,7 +90,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         binding.externalChip.text = clients[index].name
                         binding.externalChip.visible()
                     }
-                    onNegative("Cancelar")
+                    onNegative(this@ScannerResultBottomSheet.getString(R.string.action_cancel))
                 }.show(parentFragmentManager, "")
             }
         }
@@ -113,7 +113,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         binding.externalChip.text = suppliers[index].companyName
                         binding.externalChip.visible()
                     }
-                    onNegative("Cancelar")
+                    onNegative(this@ScannerResultBottomSheet.getString(R.string.action_cancel))
                 }.show(parentFragmentManager, "")
             }
         }

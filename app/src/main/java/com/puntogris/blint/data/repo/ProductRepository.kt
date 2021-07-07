@@ -11,6 +11,7 @@ import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.*
@@ -108,12 +109,12 @@ class ProductRepository @Inject constructor(
                     }else ""
                 }
 
-                val productCounterRef = firestoreQueries.getBusinessCollectionQuery(user)
+                val productCounterRef = firestoreQueries.getBusinessCountersQuery(user)
 
                 firestore.runBatch {
                     it.set(productRef.document(product.product.productId), FirestoreProduct.from(product))
                     if (isNewProduct)
-                        it.update(productCounterRef,"totalProducts", FieldValue.increment(1))
+                        it.set(productCounterRef, hashMapOf("totalProducts" to FieldValue.increment(1)), SetOptions.merge())
                     if (product.product.amount != 0){
                         val recordRef = firestoreQueries.getRecordsCollectionQuery(user).document()
                         it.set(recordRef, record)

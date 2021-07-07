@@ -47,7 +47,7 @@ class ClientRepository @Inject constructor(
                 }
             }
             if (user.currentBusinessIsOnline()){
-                val clientRefCounter = firestoreQueries.getBusinessCollectionQuery(user)
+                val clientRefCounter = firestoreQueries.getBusinessCountersQuery(user)
                 firestore.runBatch {
                     it.set(clientRef.document(client.clientId), client)
                     if (isNewClient)

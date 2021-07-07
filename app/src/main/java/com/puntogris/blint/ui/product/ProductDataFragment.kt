@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fragment_data_product) {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: ProductViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
         binding.fragment = this

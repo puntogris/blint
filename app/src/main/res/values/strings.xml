@@ -38,6 +38,7 @@
     <string name="action_back">Previous</string>
     <string name="action_finish">Finish</string>
     <string name="action_close">Close</string>
+    <string name="action_save">Save</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Problems and advice</string>
@@ -187,6 +188,7 @@
 
     <!-- Supplier -->
     <string name="add_suppliers">Add suppliers</string>
+    <string name="add_supplier">Add supplier</string>
     <string name="snack_save_supplier_success">Supplier saved successfully</string>
     <string name="snack_save_supplier_error">A problem occurred when saving the supplier</string>
     <string name="notes">Notes</string>
@@ -246,6 +248,8 @@
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
     <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your business well organized.</string>
+    <string name="amount">Amount</string>
+    <string name="add_client">Add client</string>
 
 
     <string-array name="order_type">

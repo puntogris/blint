@@ -9,13 +9,15 @@ import com.puntogris.blint.databinding.FragmentOrdersTabBinding
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragment_orders_tab) {
 
-    private val viewModel: OrdersViewModel by viewModels()
+    private val viewModel: OrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
         val ordersAdapter = OrdersAdapter{onOrderClickListener(it)}

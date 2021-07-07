@@ -616,4 +616,15 @@
             android:name="uri"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/simpleOrderBottomSheet"
+        android:name="com.puntogris.blint.ui.orders.simple_order.SimpleOrderBottomSheet"
+        android:label="" >
+        <argument
+            android:name="product"
+            app:argType="com.puntogris.blint.model.Product" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_simpleOrderBottomSheet"
+        app:destination="@id/simpleOrderBottomSheet" />
 </navigation>

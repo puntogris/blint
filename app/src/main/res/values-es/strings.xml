@@ -38,6 +38,7 @@
     <string name="action_back">Atras</string>
     <string name="action_finish">Finalizar</string>
     <string name="action_close">Cerrar</string>
+    <string name="action_save">Guardar</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Problemas y consejos</string>
@@ -173,7 +174,7 @@
     <string name="create_simple_order">Crear orden rápida.</string>
     <string name="create_detailed_order">Crear orden detallada.</string>
     <string name="stock">Stock</string>
-    <string name="images">Images</string>
+    <string name="images">Imágenes</string>
     <string name="image">Imagen</string>
     <string name="prices_and_stock">Prices and stock</string>
 
@@ -187,6 +188,7 @@
 
     <!-- Supplier -->
     <string name="add_suppliers">Agregar proveedores</string>
+    <string name="add_supplier">Agregar proveedor</string>
     <string name="snack_save_supplier_success">Se guardo el proveedor satisfactoriamente.</string>
     <string name="snack_save_supplier_error">Ocurrio un error al guardar el proveedor.</string>
     <string name="notes">Notas</string>
@@ -246,6 +248,10 @@
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
     <string name="order_type_alert">*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio.</string>
+    <string name="amount">Cantidad</string>
+    <string name="add_client">Agregar cliente</string>
+
+
     <string-array name="order_type">
         <item>Entrada</item>
         <item>Salida</item>

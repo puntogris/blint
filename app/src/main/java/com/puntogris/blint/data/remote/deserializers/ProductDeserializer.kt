@@ -13,7 +13,7 @@ internal object ProductDeserializer :
 
     override fun deserialize(input: DocumentSnapshot?): ProductWithSuppliersCategories {
         val product = Product(
-            input?.get("name") as? String ?: "",
+            input?.get("productId") as? String ?: "",
             input?.get("name") as? String ?: "",
             input?.get("barcode") as? String ?: "",
             input?.get("description") as? String ?: "",

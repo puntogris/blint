@@ -386,14 +386,15 @@ fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
 fun Fragment.showOrderPickerAndNavigate(product: Product? = null){
     OptionsSheet().build(requireContext()){
         displayMode(DisplayMode.GRID_HORIZONTAL)
-        style(SheetStyle.DIALOG)
+        style(SheetStyle.BOTTOM_SHEET)
         with(
             Option(R.drawable.ic_baseline_speed_24, this@showOrderPickerAndNavigate.getString(R.string.create_simple_order)),
             Option(R.drawable.ic_baseline_timer_24, this@showOrderPickerAndNavigate.getString(R.string.create_detailed_order)),
         )
         onPositive { index: Int, _ ->
             if (index == 0){
-
+                val action = NavigationDirections.actionGlobalSimpleOrderBottomSheet(product!!)
+                findNavController().navigate(action)
             }else{
                 val action = NavigationDirections.actionGlobalNewOrderGraphNav(product)
                 findNavController().navigate(action)

@@ -1,15 +1,17 @@
 package com.puntogris.blint.ui.business
 
 import android.os.CountDownTimer
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.repo.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BusinessViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BusinessViewModel @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val userRepository: UserRepository
 ): ViewModel() {

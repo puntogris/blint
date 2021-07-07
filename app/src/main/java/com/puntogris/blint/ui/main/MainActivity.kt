@@ -85,7 +85,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.mainFragment,
-                R.id.registerBusinessFragment,
                 R.id.loginFragment,
                 R.id.welcomeFragment,
                 R.id.introFragment,

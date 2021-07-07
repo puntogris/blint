@@ -27,7 +27,7 @@
             android:id="@+id/productFoundGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             app:constraint_referenced_ids="button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordType,textView61,textView60,textView58,textView15,button6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

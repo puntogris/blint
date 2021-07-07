@@ -1,6 +1,5 @@
 package com.puntogris.blint.utils
 
-import android.os.Build
 import android.view.View
 import android.widget.*
 import androidx.annotation.DrawableRes
@@ -26,7 +25,6 @@ import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
 import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
 import java.util.*
-import kotlin.collections.HashMap
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String){
@@ -188,8 +186,8 @@ fun TextView.setTimerFromSeconds(seconds:Int){
 
 
 @BindingAdapter("orderNumberTitle")
-fun TextView.setOrderNumberTitle(order: String){
-    text = "Orden $order"
+fun TextView.setOrderNumberTitle(number: Int){
+    text = "Orden $number"
 }
 
 @BindingAdapter("debtColor")

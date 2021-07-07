@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
-            orderNumberTitle="@{order.orderId}"
+            orderNumberTitle="@{order.number}"
             app:layout_constraintEnd_toStartOf="@+id/textView85"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/bar"

@@ -6,8 +6,10 @@ import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.OrderRepository
 import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -114,5 +116,13 @@ class OrdersViewModel @Inject constructor(
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
     suspend fun getAllClients() = clientsDao.getAllClients()
+
+    suspend fun createSimpleOrder(record: Record): SimpleResult{
+        val order = Order()
+        order.value = record.value
+        order.type = record.type
+        order.items = listOf(record)
+        return orderRepository.saveOrderIntoDatabase(order)
+    }
 
 }

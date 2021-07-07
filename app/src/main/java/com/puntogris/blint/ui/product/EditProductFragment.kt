@@ -35,9 +35,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
 
         getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            viewModel.updateProductImage(uri.toString())
-            binding.descriptionLayout.productImage.setImageURI(uri)
-            binding.descriptionLayout.productImage.visible()
+            uri?.let {
+                viewModel.updateProductImage(uri.toString())
+                binding.descriptionLayout.productImage.visible()
+            }
         }
 
         setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){

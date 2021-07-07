@@ -3,8 +3,10 @@ package com.puntogris.blint.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Exclude
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,19 +14,19 @@ import kotlinx.parcelize.Parcelize
 data class Record(
 
     @PrimaryKey
-    var recordId: String = "",
+    @get:Exclude var recordId: String = "",
 
     @ColumnInfo
-    var type: String = "",
+    @get:Exclude var type: String = "",
 
     @ColumnInfo
-    var traderId: String = "",
+    @get:Exclude var traderId: String = "",
 
     @ColumnInfo
-    var traderName :String = "",
+    @get:Exclude var traderName :String = "",
 
     @ColumnInfo
-    val timestamp: Timestamp = Timestamp.now(),
+    @get:Exclude val timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
     var amount: Int = 0,
@@ -36,16 +38,16 @@ data class Record(
     val productName:String = "",
 
     @ColumnInfo
-    var author: String = "",
+    @get:Exclude var author: String = "",
 
     @ColumnInfo
-    var businessId:String = "",
+    @get:Exclude var businessId:String = "",
 
     @ColumnInfo
-    var productUnitPrice: Float = 0F,
+    @get:Exclude var productUnitPrice: Float = 0F,
 
     @ColumnInfo
-    var orderId: String = "",
+    @get:Exclude var orderId: String = "",
 
     @ColumnInfo
     var value: Float = 0F

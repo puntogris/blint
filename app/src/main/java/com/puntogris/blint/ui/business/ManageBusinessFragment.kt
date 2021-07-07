@@ -14,6 +14,7 @@ import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +25,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     private lateinit var businessAdapter: ManageBusinessAdapter
 
     override fun initializeViews() {
+        setUpUi()
         binding.fragment = this
         launchAndRepeatWithViewLifecycle {
             val businesses = viewModel.getBusiness()
@@ -80,5 +82,10 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     private fun onBusinessClicked(employee: Employee){
         val action = ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(employee)
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }
