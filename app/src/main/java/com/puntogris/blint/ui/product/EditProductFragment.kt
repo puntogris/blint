@@ -149,6 +149,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun onAddImageButtonClicked(){
+        viewModel.updateProductData(getProductDataFromViews())
         getContent.launch("image/*")
     }
 
@@ -168,12 +169,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
     }
 
     fun navigateToProductSuppliers(){
+        viewModel.updateProductData(getProductDataFromViews())
         val action = EditProductFragmentDirections
             .actionEditProductFragmentToProductSupplierFragment(viewModel.currentProduct.value?.suppliers?.toTypedArray())
         findNavController().navigate(action)
     }
 
     fun navigateToProductCategories(){
+        viewModel.updateProductData(getProductDataFromViews())
         val action = EditProductFragmentDirections
             .actionEditProductFragmentToProductCategoryFragment(viewModel.currentProduct.value?.categories?.toTypedArray())
         findNavController().navigate(action)

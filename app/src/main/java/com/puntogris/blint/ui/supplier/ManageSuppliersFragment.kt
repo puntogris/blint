@@ -24,7 +24,10 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpUi(showToolbar = false, showAppBar = true, showFab = true)
+        setUpUi(showToolbar = false, showAppBar = true, showFab = true){
+            findNavController().navigate(R.id.editSupplierFragment)
+
+        }
 
         manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
         binding.recyclerView.adapter = manageProductsAdapter
@@ -41,9 +44,6 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
                     else getAllSuppliersWithNameAndFillAdapter(it)
                 }
             }
-        }
-        getParentFab().setOnClickListener {
-            findNavController().navigate(R.id.editSupplierFragment)
         }
     }
 

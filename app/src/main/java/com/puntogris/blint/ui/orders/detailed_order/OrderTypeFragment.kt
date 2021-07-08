@@ -8,6 +8,8 @@ import com.puntogris.blint.DetailedOrderGraphNavArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.changeIconFromDrawable
@@ -31,6 +33,13 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToCreateRecordFragment()
             findNavController().navigate(action)
         }
+        if (args.product != null){
+            viewModel.productWithRecords.add(
+                ProductWithRecord(
+                    args.product!!,
+                    Record(productName = args.product!!.name, productId = args.product!!.productId)))
+        }
+
         binding.recordTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, resources.getStringArray(R.array.order_type)))
 
         binding.recordTypeText.setOnItemClickListener { _, _, i, _ ->
@@ -44,22 +53,6 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
         binding.button22.setOnClickListener {
             val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToAddOrderClientSupplierBottomSheet(viewModel.getOrderType())
             findNavController().navigate(action)
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Client>("client_for_order")?.observe(
-            viewLifecycleOwner) {
-            it?.let {
-                viewModel.updateOrderExternalInfo(it.name, it.clientId)
-            }
-            getParentFab().changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Supplier>("supplier_for_order")?.observe(
-            viewLifecycleOwner) {
-            it?.let {
-                viewModel.updateOrderExternalInfo(it.companyName, it.supplierId)
-            }
-            getParentFab().changeIconFromDrawable(R.drawable.ic_baseline_add_24)
         }
     }
 }

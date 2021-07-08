@@ -32,7 +32,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.fragment = this
         binding.viewModel = viewModel
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
         setUpRecyclerView()
 
         setUpUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
@@ -40,6 +39,8 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             viewModel.productWithRecords = recordsAdapter.recordsList
             findNavController().navigate(R.id.reviewRecordFragment)
         }
+
+
 
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }
         binding.productSearchRecyclerView.adapter = searchAdapter
@@ -67,9 +68,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         }
                         viewModel.getProductWithName(data).collect { pagingData ->
                             binding.productSearchRecyclerView.visible()
-                            searchAdapter.submitData(pagingData.map { product->
-                                product.product
-                            })
+                            searchAdapter.submitData(pagingData)
                         }
                     }
                 }
@@ -88,9 +87,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         viewModel.getProductWithName(data).collect { pagingData ->
                             binding.productSearchRecyclerView.visible()
                             binding.searchTypeRadioGroup.visible()
-                            searchAdapter.submitData(pagingData.map { product->
-                                product.product
-                            })
+                            searchAdapter.submitData(pagingData)
                         }
                     }
                     binding.clearTextButton.visible()
@@ -112,9 +109,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                 binding.searchTypeRadioGroup.visible()
                 viewModel.getProductWithName(SearchText.QrCode(it)).collect { pagingData ->
                     binding.productSearchRecyclerView.visible()
-                    searchAdapter.submitData(pagingData.map { product->
-                        product.product
-                    })
+                    searchAdapter.submitData(pagingData)
                 }
             }
         }

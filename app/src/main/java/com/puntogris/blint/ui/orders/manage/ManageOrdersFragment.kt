@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -20,7 +21,8 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
 
     override fun initializeViews() {
         setUpUi(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
-            showOrderPickerAndNavigate()
+           // showOrderPickerAndNavigate()
+            findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
@@ -39,7 +41,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0 ) OrdersTabFragment() else RecordsTabFragment())
+            (if (position == 0) OrdersTabFragment() else RecordsTabFragment())
     }
 
     override fun onDestroyView() {

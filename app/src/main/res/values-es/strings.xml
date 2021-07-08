@@ -245,12 +245,11 @@
     <string name="select_supplier">Seleccionar Proveedor</string>
     <string name="select_client">Seleccionar Cliente</string>
     <string name="ask_order_type_title">Que tipo de orden es?</string>
-    <string name="in_entry">In</string>
-    <string name="out_entry">Out</string>
+    <string name="in_entry">Entrada</string>
+    <string name="out_entry">Salida</string>
     <string name="order_type_alert">*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio.</string>
     <string name="amount">Cantidad</string>
     <string name="add_client">Agregar cliente</string>
-
 
     <string-array name="order_type">
         <item>Entrada</item>

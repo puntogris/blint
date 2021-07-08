@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.puntogris.blint.R
@@ -18,8 +19,11 @@ import com.puntogris.blint.databinding.AddOrderClientSupplierBottomSheetBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
+import com.puntogris.blint.ui.client.ManageClientsAdapter
+import com.puntogris.blint.ui.supplier.ManageSuppliersAdapter
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -27,6 +31,8 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private val args:AddOrderClientSupplierBottomSheetArgs by navArgs()
+    private lateinit var manageSuppliersAdapter: ManageSuppliersAdapter
+    private lateinit var manageClientsAdapter: ManageClientsAdapter
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -41,11 +47,38 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
             }
             val behavior = BottomSheetBehavior.from(bottomSheet!!)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
         }
         return bottomSheetDialog
     }
 
+    private suspend fun getAllWithNameAndFillAdapter(text:String){
+        if (args.orderType == "IN"){
+            viewModel.getSuppliersWithName(text).collect {
+                manageSuppliersAdapter.submitData(it)
+            }
+        }else{
+            viewModel.getClientsWithName(text).collect {
+                manageClientsAdapter.submitData(it)
+            }
+        }
+    }
+
+    private suspend fun getAllAndFillAdapter(){
+        if (args.orderType == "IN"){
+            viewModel.getSuppliersPaging().collect {
+                manageSuppliersAdapter.submitData(it)
+            }
+        }else{
+            viewModel.getClientPaging().collect {
+                manageClientsAdapter.submitData(it)
+            }
+        }
+    }
+
+    override fun dismiss() {
+        hideKeyboard()
+        super.dismiss()
+    }
 
     private fun setupFullHeight(bottomSheet: View) {
         val layoutParams = bottomSheet.layoutParams
@@ -54,53 +87,49 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
     }
 
     override fun initializeViews() {
+        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-        var clients = emptyList<Client>()
-        var suppliers = emptyList<Supplier>()
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.button21.setOnClickListener {
+        val adapter = if (args.orderType == "IN"){
+            manageSuppliersAdapter = ManageSuppliersAdapter{ onSupplierClicked(it) }
+            manageSuppliersAdapter
+        }else{
+            manageClientsAdapter = ManageClientsAdapter{ onClientClicked(it)}
+            manageClientsAdapter
+        }
+        binding.recyclerView.adapter = adapter
+
+        launchAndRepeatWithViewLifecycle {
+            getAllAndFillAdapter()
+        }
+
+        binding.supplierSearch.addTextChangedListener {
+            lifecycleScope.launch {
+                it.toString().let {
+                    if (it.isBlank()) getAllAndFillAdapter()
+                    else getAllWithNameAndFillAdapter(it)
+                }
+            }
+        }
+
+        binding.closeButton.setOnClickListener {
             dismiss()
         }
-        binding.productSearchText.apply {
-            addTextChangedListener {
-                lifecycleScope.launch {
-                    val names = if (args.orderType == "IN"){
-                        suppliers = viewModel.getSuppliersWithName("%${it.toString()}%")
-                        suppliers.map { it.companyName }
-                    }else{
-                        clients = viewModel.getClientsWithName("%${it.toString()}%")
-                        clients.map { it.name }
-                    }
-                    val adapter = ArrayAdapter(requireContext(),R.layout.dropdown_item_list, names)
-                    binding.productSearchText.setAdapter(adapter)
-                }
-            }
 
-            setOnItemClickListener { _, _, i, _ ->
-                hideKeyboard()
-                binding.foundProductGroup.visible()
+    }
 
-                val name: String
-                val id: String
+    private fun onClientClicked(client: Client){
+        viewModel.updateOrderExternalInfo(client.name, client.clientId)
+        findNavController().navigate(R.id.createOrderFragment)
+        showLongSnackBarAboveFab("Cliente ${client.name} agregado a la orden.")
 
-                if (args.orderType == "IN"){
-                    binding.textView165.text = "Proveedor seleccionado"
-                    binding.productName.text = suppliers[i].companyName
-                    name = suppliers[i].companyName
-                    id = suppliers[i].supplierId.toString()
+    }
 
-                }else {
-                    binding.productName.text = clients[i].name
-                    binding.textView165.text = "Cliente seleccionado"
-                    name = clients[i].name
-                    id = clients[i].clientId.toString()
-                }
+    private fun onSupplierClicked(supplier: Supplier){
+        viewModel.updateOrderExternalInfo(supplier.companyName, supplier.supplierId)
+        findNavController().navigate(R.id.createOrderFragment)
+        showLongSnackBarAboveFab("Proveedor ${supplier.companyName} agregado a la orden.")
 
-                binding.button18.setOnClickListener {
-                    viewModel.updateOrderExternalInfo(name, id)
-                    findNavController().navigate(R.id.action_addOrderClientSupplierBottomSheet_to_createRecordFragment)
-                }
-            }
-        }
     }
 }

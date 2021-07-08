@@ -40,7 +40,6 @@ class ProductViewModel @Inject constructor(
             _currentProduct.value.categories =
                 _currentProduct.value.categories!!.union(categories).toList()
         }else _currentProduct.value.categories = categories
-        println(_currentProduct.value.categories)
     }
 
     @ExperimentalCoroutinesApi
@@ -100,8 +99,10 @@ class ProductViewModel @Inject constructor(
     suspend fun updateCategoryDatabase(category: Category) =
         productRepository.updateProductCategoryDatabase(category)
 
-    suspend fun getCategoriesWithName(name:String) = productRepository.getCategoriesWithNameDatabase(name)
+    suspend fun getCategoriesWithName(name:String) =
+        productRepository.getCategoriesWithNameDatabase(name)
 
-    suspend fun getSuppliersWithName(name: String) = productRepository.getSuppliersWithNameDatabase(name)
+    suspend fun getSuppliersWithName(name: String) =
+        productRepository.getSuppliersWithNameDatabase(name)
 
 }

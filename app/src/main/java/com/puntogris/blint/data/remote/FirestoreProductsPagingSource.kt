@@ -40,7 +40,6 @@ class FirestoreProductsPagingSource(
             }
 
         } catch (e: Exception) {
-            println(e.localizedMessage)
             LoadResult.Error(e)
         }
     }

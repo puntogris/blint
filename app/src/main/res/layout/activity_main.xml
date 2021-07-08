@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:foreground="?attr/actionBarItemBackground"
             android:background="?attr/actionBarItemBackground"
-            app:tint="@color/grey_20"
+            app:tint="@color/grey_5"
             android:layout_marginEnd="20dp"
             app:layout_anchor="@id/toolbar"
             app:layout_anchorGravity="center_vertical|end"

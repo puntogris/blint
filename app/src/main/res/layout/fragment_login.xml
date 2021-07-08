@@ -10,40 +10,27 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/ic_simple_background"
+        android:background="@drawable/ic_squares_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClick="@{()-> fragment.onLoginButtonClicked()}"
         tools:context=".ui.login.LoginFragment">
 
-        <ImageView
-            android:id="@+id/textView11"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="80dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/purple_200"
-            android:textSize="55sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_app_logo" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/versatile_bold"
             android:lineSpacingExtra="-15dp"
-            android:text="@string/app_slogan"
+            android:text="blint."
             android:textAlignment="center"
-            android:textColor="@color/grey_5"
+            android:textColor="@color/almostBlack"
             android:textSize="55sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView118"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/loginProblems"
@@ -51,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:padding="10dp"
+            android:textColor="@color/almostBlack"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{()-> fragment.onLoginProblemsClicked()}"
             android:text="@string/action_solve_login_problems"
@@ -75,14 +63,25 @@
             android:id="@+id/textView118"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="108dp"
             android:fontFamily="@font/versatile_bold"
             android:text="@string/action_tap_login"
-            android:textColor="#EBB0A5"
+            android:textColor="@color/almostBlack"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/loginProblems"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView107"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <TextView
+            android:id="@+id/textView107"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="make it simpler"
+            app:layout_constraintEnd_toEndOf="@+id/textView13"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
