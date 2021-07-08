@@ -1,10 +1,8 @@
-package com.puntogris.blint.ui.product
+package com.puntogris.blint.ui.product.manage
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageProductsDiffCallback
-import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 
 class ManageProductsAdapter(

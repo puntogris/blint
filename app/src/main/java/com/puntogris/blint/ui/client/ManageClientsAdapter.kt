@@ -3,10 +3,7 @@ package com.puntogris.blint.ui.client
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageClientsDiffCallBack
-import com.puntogris.blint.diffcallback.ManageProductsDiffCallback
 import com.puntogris.blint.model.Client
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.ui.product.ManageProductsViewHolder
 
 class ManageClientsAdapter(private val clickListener: (Client) -> Unit): PagingDataAdapter<Client, ManageClientViewHolder>(
     ManageClientsDiffCallBack()

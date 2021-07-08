@@ -5,7 +5,6 @@ import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentReviewRecordBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.getDateWithTimeFormattedString
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint

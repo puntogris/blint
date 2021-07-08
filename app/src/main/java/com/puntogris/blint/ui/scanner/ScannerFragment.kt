@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui
+package com.puntogris.blint.ui.scanner
 
 import android.util.Size
 import android.view.*
@@ -45,9 +45,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             val cameraProvider = cameraProviderFuture.get()
             bindPreview(cameraProvider)
         }, ContextCompat.getMainExecutor(requireContext()))
-        //findNavController().navigateUp()
-
-
     }
 
     private fun bindPreview(cameraProvider: ProcessCameraProvider?) {
@@ -86,8 +83,9 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     imageAnalysis.clearAnalyzer()
                     cameraProvider?.unbindAll()
                     if (args.originDestination == 0){
-                            ScannerResultBottomSheet
-                                .newInstance(it, object : ScannerResultBottomSheet.DialogDismissListener {
+                            ScannerResultBottomSheet.newInstance(
+                                it,
+                                object : ScannerResultBottomSheet.DialogDismissListener {
                                     override fun onDismiss() {
                                         bindPreview(cameraProvider)
                                     }

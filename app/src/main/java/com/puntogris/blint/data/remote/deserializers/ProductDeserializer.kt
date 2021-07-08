@@ -2,11 +2,7 @@ package com.puntogris.blint.data.remote.deserializers
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
-import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductWithSuppliersCategories
-import com.puntogris.blint.model.Supplier
-
+import com.puntogris.blint.model.*
 
 internal object ProductDeserializer :
     DocumentSnapshotDeserializer<ProductWithSuppliersCategories> {
@@ -30,14 +26,15 @@ internal object ProductDeserializer :
             input?.get("totalOutStock") as? Int ?: 0,
             input?.get("businessId") as? String ?: "",
         )
+
         val categories = (input?.get("categories") as? List<*>)?.map {
             it as HashMap<*, *>
-            Category(name = it["name"].toString())
+            FirestoreCategory(name = it["name"].toString(), categoryId = it["categoryId"].toString())
         }
 
-        val suppliers = (input?.get("categories") as? List<*>)?.map {
+        val suppliers = (input?.get("suppliers") as? List<*>)?.map {
             it as HashMap<*, *>
-            Supplier(
+            FirestoreSupplier(
                 companyName = it["companyName"].toString(),
                 supplierId = it["supplierId"].toString()
             )

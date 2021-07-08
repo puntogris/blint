@@ -8,7 +8,7 @@ import com.puntogris.blint.databinding.FragmentSupplierRecordsBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.orders.ProductsRecordsAdapter
+import com.puntogris.blint.ui.orders.manage.RecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -18,7 +18,7 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
     private val viewModel:SupplierViewModel by viewModels()
 
     override fun initializeViews() {
-        val productsRecordsAdapter = ProductsRecordsAdapter { onRecordClickListener(it) }
+        val productsRecordsAdapter = RecordsAdapter { onRecordClickListener(it) }
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

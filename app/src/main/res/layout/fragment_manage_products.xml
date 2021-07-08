@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.ManageProductsFragment" />
+            type="com.puntogris.blint.ui.product.manage.ManageProductsFragment" />
     </data>
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:focusableInTouchMode="true"
-        tools:context=".ui.product.ManageProductsFragment"
+        tools:context=".ui.product.manage.ManageProductsFragment"
         android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.Toolbar

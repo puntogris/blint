@@ -6,7 +6,6 @@ import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.playAnimationOnce
 import com.puntogris.blint.utils.setUpUi

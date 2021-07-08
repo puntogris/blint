@@ -123,7 +123,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     }
 
     fun navigateToSupplier(supplierId:String){
-//        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(supplierId)
+//        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(s)
 //        findNavController().navigate(action)
     }
 

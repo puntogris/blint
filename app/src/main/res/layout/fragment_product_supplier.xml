@@ -8,10 +8,9 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.orders.manage.ManageOrdersFragment">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
@@ -30,14 +29,14 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/orderSearch"
+                <AutoCompleteTextView
+                    android:id="@+id/categoriesSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="@string/search"
-                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:imeOptions="flagNoExtractUi|actionDone"
                     android:inputType="textNoSuggestions" />
 
                 <ImageButton
@@ -45,42 +44,25 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_filter_list_24" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/actionBarItemBackground"
-                    android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_barcode" />
+                    app:srcCompat="@drawable/ic_baseline_close_24" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            style="@style/Theme.Blint.TabLayout"
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ordersTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/recordsTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/versatile_bold"
+            android:text="Proveedores de este producto" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-
-
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_anim_slide_up"
+            android:clipToPadding="false"
+            android:paddingBottom="88dp"
+            android:scrollbars="vertical" />
     </LinearLayout>
-
 </layout>

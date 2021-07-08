@@ -10,7 +10,6 @@ import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.changeIconFromDrawable
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi

@@ -19,8 +19,9 @@ data class FirestoreProduct(
     val totalInStock: Int = 0,
     val totalOutStock: Int = 0,
     val businessId:String = "",
-    val suppliers:List<Supplier>? = null,
-    val categories:List<Category>? = null
+    val suppliers:List<FirestoreSupplier>? = null,
+    val categories:List<FirestoreCategory>? = null,
+    val search_name:List<String> = listOf()
 ){
 
     companion object{
@@ -42,9 +43,30 @@ data class FirestoreProduct(
                 product.product.totalInStock,
                 product.product.totalOutStock,
                 product.product.businessId,
-                product.suppliers,
-                product.categories
+                product.suppliers?.map {
+                    FirestoreSupplier(
+                        companyName = it.companyName,
+                        supplierId = it.supplierId
+                    )
+                },
+                product.categories?.map {
+                    FirestoreCategory(name = it.name, categoryId = it.categoryId)
+                },
+                createSearchName(product.product.name)
+
             )
+        }
+
+        private fun createSearchName(text:String): List<String>{
+            val searchList = mutableListOf<String>()
+            text.forEachIndexed { index, c ->
+                if(!c.isWhitespace()){
+                    for (i in 1..text.length - index){
+                        searchList.add(text.substring(index, index + i))
+                    }
+                }
+            }
+            return searchList.distinct()
         }
     }
 }

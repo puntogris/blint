@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.manage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ProductRecordsVhBinding
 import com.puntogris.blint.model.Record
 
-class ProductsRecordsViewHolder private constructor(val binding: ProductRecordsVhBinding) : RecyclerView.ViewHolder(binding.root){
+class RecordsViewHolder private constructor(val binding: ProductRecordsVhBinding) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(record: Record, clickListener: (Record)-> Unit) {
         binding.record = record
@@ -15,10 +15,10 @@ class ProductsRecordsViewHolder private constructor(val binding: ProductRecordsV
     }
 
     companion object{
-        fun from(parent: ViewGroup): ProductsRecordsViewHolder {
+        fun from(parent: ViewGroup): RecordsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ProductRecordsVhBinding.inflate(layoutInflater,parent, false)
-            return ProductsRecordsViewHolder(binding)
+            return RecordsViewHolder(binding)
         }
     }
 }

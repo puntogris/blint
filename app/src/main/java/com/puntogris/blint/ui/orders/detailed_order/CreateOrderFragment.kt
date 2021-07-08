@@ -15,8 +15,6 @@ import com.puntogris.blint.databinding.FragmentCreateOrderBinding
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-import com.puntogris.blint.ui.orders.CreateRecordsAdapter
-import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

@@ -96,20 +96,6 @@ export const createSearchArrayForNewSupplier = functions.firestore.document('use
 })
 
 /**
- * Creates a new field when a new product its create to query if we need to search by name.
- */
-export const createSearchArrayForNewProduct = functions.firestore.document('users/{userId}/business/{businessId}/products/{productId}').onCreate(async(snap, context) =>{
-    const name = snap.get("name")
-    const businessId = context.params.businessId
-    const userId = context.params.userId
-    const productId = context.params.productId
-    
-    return admin.firestore().collection('users').doc(userId).collection('business').doc(businessId).collection('products').doc(productId).update({
-        "search_name": getArrayForNameSearch(name)
-    })
-})
-
-/**
  * Creates a array with various combinations of a name to make it posible to query in firestore.
  */
 function getArrayForNameSearch(name: string): string[]{

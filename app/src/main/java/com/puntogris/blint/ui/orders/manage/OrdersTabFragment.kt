@@ -1,16 +1,14 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.manage
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrdersTabBinding
 import com.puntogris.blint.model.Order
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

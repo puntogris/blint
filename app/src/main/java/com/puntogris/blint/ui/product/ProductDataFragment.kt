@@ -28,30 +28,7 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         arguments?.takeIf { it.containsKey("product_key") }?.apply {
             getParcelable<ProductWithSuppliersCategories>("product_key")?.let {
                 lifecycleScope.launch {
-                    viewModel.setProductData(it.product)
-
-                    if (!it.suppliers.isNullOrEmpty()){
-                        it.suppliers?.forEach { supplier->
-                            Chip(requireContext()).apply {
-                                text = supplier.companyName
-                                setOnClickListener {
-                                    (requireParentFragment() as ProductFragment).navigateToSupplier(supplier.supplierId)
-                                }
-                                binding.supplierChipGroup.addView(this)
-                            }
-                        }
-                    }
-                    if (!it.categories.isNullOrEmpty()){
-                        it.categories?.forEach { category ->
-                            Chip(requireContext()).apply {
-                                text = category.name
-                                setOnClickListener {
-
-                                }
-                                binding.categoriesChipGroup.addView(this)
-                            }
-                        }
-                    }
+                    viewModel.setProductData(it)
                 }
             }
         }

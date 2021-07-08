@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.detailed_order
 
 import android.content.Context
 import android.view.ViewGroup
@@ -15,6 +15,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.ProductWithRecordItemDiffCallBack
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.ui.notifications.SwipeToDeleteCallback
+import com.puntogris.blint.ui.orders.OrderItemViewHolder
 import com.puntogris.blint.utils.bindDimen
 import com.puntogris.blint.utils.dp
 import com.puntogris.blint.utils.getValueAnimator

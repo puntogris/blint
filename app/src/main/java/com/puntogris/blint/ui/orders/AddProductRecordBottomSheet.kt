@@ -9,6 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.AddProductRecordBottomSheetBinding
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.orders.detailed_order.NewOrderViewModel
 import com.puntogris.blint.utils.hideKeyboard
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint

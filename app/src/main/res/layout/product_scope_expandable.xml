@@ -7,6 +7,9 @@
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.EditProductFragment" />
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.ProductViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -38,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
+                    productSuppliersChipGroup="@{viewModel.currentProduct.suppliers}"
                     android:layout_marginBottom="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +53,7 @@
                         android:id="@+id/addSupplierChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{()->fragment.openBottomSheetForSuppliers()}"
+                        android:onClick="@{()->fragment.navigateToProductSuppliers()}"
                         android:text="@string/add_suppliers"
                         app:chipIcon="@drawable/ic_baseline_add_24" />
                 </com.google.android.material.chip.ChipGroup>

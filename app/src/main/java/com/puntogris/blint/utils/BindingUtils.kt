@@ -10,12 +10,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
-import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.Notification
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
 import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.IN
@@ -256,5 +255,23 @@ fun TextView.setNotificationTypeMessage(notification: Notification){
             if (notification.message.isBlank()) gone()
             notification.message
         }
+    }
+}
+
+@BindingAdapter("productCategoriesChipGroup")
+fun ChipGroup.setProductCategoriesChip(categories: List<FirestoreCategory>?){
+    categories?.forEach {
+        val chip = Chip(context)
+        chip.text = it.name
+        addView(chip)
+    }
+}
+
+@BindingAdapter("productSuppliersChipGroup")
+fun ChipGroup.setProductSuppliersChips(suppliers: List<FirestoreSupplier>?){
+    suppliers?.forEach {
+        val chip = Chip(context)
+        chip.text = it.companyName
+        addView(chip)
     }
 }

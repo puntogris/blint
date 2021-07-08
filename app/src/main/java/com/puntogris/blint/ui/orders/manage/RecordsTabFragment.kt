@@ -1,12 +1,12 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.manage
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -17,7 +17,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     private val viewModel: OrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
-        val recordsAdapter = ProductsRecordsAdapter{onRecordClickedListener(it)}
+        val recordsAdapter = RecordsAdapter{onRecordClickedListener(it)}
         binding.recyclerView.apply {
             adapter = recordsAdapter
             layoutManager = LinearLayoutManager(requireContext())

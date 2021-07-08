@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui
+package com.puntogris.blint.ui.scanner
 
 import android.content.DialogInterface
 import android.os.Bundle

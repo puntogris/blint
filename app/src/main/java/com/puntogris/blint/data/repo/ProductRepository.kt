@@ -4,13 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -25,7 +25,6 @@ import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.qualifiers.ApplicationContext
-import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,9 +34,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.InputStream
-import java.io.InputStreamReader
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -47,6 +43,7 @@ class ProductRepository @Inject constructor(
     private val ordersDao: OrdersDao,
     private val firestoreQueries: FirestoreQueries,
     private val categoriesDao: CategoriesDao,
+    private val suppliersDao: SuppliersDao,
     @ApplicationContext private val context: Context
 ): IProductRepository {
 
@@ -127,7 +124,6 @@ class ProductRepository @Inject constructor(
             }
             SimpleResult.Success
         }catch (e:Exception){
-            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }
@@ -141,7 +137,7 @@ class ProductRepository @Inject constructor(
                 maxSize = 200                )
         ) {
             if(user.currentBusinessIsOnline()){
-                val query = firestoreQueries.getProductsCollectionQuery(user)
+                val query = firestoreQueries.getProductsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreProductsPagingSource(query)
             }
             else{ productsDao.getAllPaged() }
@@ -240,12 +236,32 @@ class ProductRepository @Inject constructor(
         try {
             val user = currentBusiness()
             val categoryRef = firestoreQueries.getCategoriesCollectionQuery(user).document()
-            category.apply {
-                businessId = user.currentBusinessId
-                categoryId = categoryRef.id
+
+            if (user.currentBusinessIsOnline()) {
+
+                val searchList = mutableListOf<String>()
+                category.name.forEachIndexed { index, c ->
+                    if(!c.isWhitespace()){
+                        for (i in 1..category.name.length - index){
+                            searchList.add(category.name.substring(index, index + i))
+                        }
+                    }
+                }
+                val final = FirestoreSearchCategory(
+                    businessId = user.currentBusinessId,
+                    categoryId = categoryRef.id,
+                    name = category.name,
+                    search_name = searchList.distinct()
+                )
+                categoryRef.set(final)
             }
-            if (user.currentBusinessIsOnline()) categoryRef.set(category)
-            else categoriesDao.insert(category)
+            else {
+                category.apply {
+                    businessId = user.currentBusinessId
+                    categoryId = categoryRef.id
+                }
+                categoriesDao.insert(category)
+            }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
     }
@@ -256,6 +272,7 @@ class ProductRepository @Inject constructor(
         return@withContext if(user.currentBusinessIsOnline()) {
             callbackFlow {
                 val ref = firestoreQueries.getCategoriesCollectionQuery(user)
+                    .orderBy("name", Query.Direction.ASCENDING)
                     .addSnapshotListener { snapshot, _ ->
                         if (snapshot != null) {
                             val data = snapshot.toObjects(Category::class.java)
@@ -278,5 +295,25 @@ class ProductRepository @Inject constructor(
             else categoriesDao.update(category)
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
+    }
+
+    override suspend fun getCategoriesWithNameDatabase(search: String) = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        if (user.currentBusinessIsOnline()){
+            firestoreQueries
+                .getCategoriesCollectionQuery(user)
+                .whereArrayContains("search_name", search).limit(5).get().await().toObjects(FirestoreCategory::class.java)
+        }
+        else{ categoriesDao.getCategoriesWithName("%${search}%") }
+    }
+
+    override suspend fun getSuppliersWithNameDatabase(search: String): List<FirestoreSupplier>  = withContext(Dispatchers.IO){
+        val user = currentBusiness()
+        if (user.currentBusinessIsOnline()){
+            firestoreQueries
+                .getSuppliersCollectionQuery(user)
+                .whereArrayContains("search_name", search).limit(5).get().await().toObjects(FirestoreSupplier::class.java)
+        }
+        else{ suppliersDao.getProductSupplier("%${search}%") }
     }
 }

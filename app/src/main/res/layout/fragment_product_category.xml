@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:focusableInTouchMode="true"
-        tools:context=".ui.product.ManageProductsFragment"
-        android:animateLayoutChanges="true">
+        tools:context=".ui.product.categories.ProductCategoryFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
@@ -32,28 +30,40 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/categorySearch"
+                <AutoCompleteTextView
+                    android:id="@+id/categoriesSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="@string/search"
-                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:imeOptions="flagNoExtractUi|actionDone"
                     android:inputType="textNoSuggestions" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/actionBarItemBackground"
+                    android:padding="@dimen/grid_2"
+                    app:srcCompat="@drawable/ic_baseline_close_24" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/versatile_bold"
+            android:text="Categorias de este producto" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutAnimation="@anim/layout_anim_slide_up"
             android:clipToPadding="false"
-            android:visibility="visible"
             android:paddingBottom="88dp"
             android:scrollbars="vertical" />
-
     </LinearLayout>
 </layout>

@@ -14,8 +14,6 @@ interface ProductsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(product: Product): Long
 
-
-
     @Transaction
     suspend fun insertProduct(product: ProductWithSuppliersCategories){
 

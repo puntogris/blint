@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.ClientsDao
@@ -70,7 +71,7 @@ class ClientRepository @Inject constructor(
                 maxSize = 200                )
         ) {
             if (user.currentBusinessIsOnline()){
-                val query = firestoreQueries.getClientsCollectionQuery(user)
+                val query = firestoreQueries.getClientsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreClientsPagingSource(query)
             }
             else{ clientsDao.getAllPaged() }

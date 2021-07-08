@@ -185,15 +185,6 @@ fun String.containsInvalidCharacters() = !all { it.isLetter() }
 
 fun String.isLengthInvalid(validLength: Int) = length < validLength
 
-fun Fragment.createNewChipAndAddItToGroup(name: String, chipGroup: ChipGroup) =
-    Chip(requireContext()).apply {
-        text = name
-        isCloseIconVisible = true
-        closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_close_24, null)
-        setOnClickListener { chipGroup.removeView(it) }
-        chipGroup.addView(this)
-    }
-
 fun Activity.hideKeyboard() {
     hideKeyboard(currentFocus ?: View(this))
 }

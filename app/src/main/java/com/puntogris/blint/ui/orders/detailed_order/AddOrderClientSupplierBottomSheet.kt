@@ -18,7 +18,6 @@ import com.puntogris.blint.databinding.AddOrderClientSupplierBottomSheetBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.ui.orders.NewOrderViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

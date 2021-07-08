@@ -48,7 +48,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:fragment="@{fragment}"/>
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}"/>
 
             <include
                 android:id="@+id/productExtrasLayout"

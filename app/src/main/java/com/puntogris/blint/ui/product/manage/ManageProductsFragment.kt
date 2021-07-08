@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.product
+package com.puntogris.blint.ui.product.manage
 
 import android.Manifest
 import androidx.activity.result.ActivityResultLauncher
@@ -16,6 +16,7 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
 import com.puntogris.blint.ui.nav.ShowHideFabStateAction
+import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

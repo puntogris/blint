@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.OrdersDao
@@ -72,7 +73,7 @@ class SupplierRepository @Inject constructor(
                 maxSize = 200                )
         ) {
             if(user.currentBusinessIsOnline()){
-                val query = firestoreQueries.getSuppliersCollectionQuery(user)
+                val query = firestoreQueries.getSuppliersCollectionQuery(user).orderBy("companyName", Query.Direction.ASCENDING)
                 FirestoreSuppliersPagingSource(query)
             }
             else{ suppliersDao.getAllPaged() }

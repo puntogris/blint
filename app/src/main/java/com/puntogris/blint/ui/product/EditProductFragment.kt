@@ -4,6 +4,7 @@ import android.Manifest
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,8 +15,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
-import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +33,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
         getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
                 viewModel.updateProductImage(uri.toString())
@@ -63,27 +62,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         if (!viewModel.viewsLoaded) {
             args.productWithSuppCate?.let{
                 lifecycleScope.launch {
-                    viewModel.setProductData(it.product)
-
-                    it.suppliers?.forEach { supplier ->
-                        Chip(requireContext()).apply {
-                            text = supplier.companyName
-                            setOnClickListener {
-
-                            }
-                            binding.scopeLayout.supplierChipGroup.addView(this)
-                        }
-                    }
-
-                    it.categories?.forEach { category ->
-                        Chip(requireContext()).apply {
-                            text = category.name
-                            setOnClickListener {
-
-                            }
-                            binding.productExtrasLayout.categoriesChipGroup.addView(this)
-                        }
-                    }
+                    viewModel.setProductData(it)
                 }
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
@@ -104,8 +83,38 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<Category>>("categories_key")?.observe(
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<FirestoreCategory>>("categories_key")?.observe(
             viewLifecycleOwner) {
+            viewModel.updateCategories(it)
+            binding.productExtrasLayout.categoriesChipGroup.let { group->
+                group.removeViews(1,group.size - 1)
+            }
+            it.forEach { category ->
+               if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()){
+                   if (viewModel.currentProduct.value?.categories!!.contains(category)){
+                       val chip = Chip(requireContext())
+                       chip.text = category.name
+                       binding.productExtrasLayout.categoriesChipGroup.addView(chip)
+                   }
+               }
+            }
+        }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<FirestoreSupplier>>("suppliers_key")?.observe(
+            viewLifecycleOwner) {
+            viewModel.updateSuppliers(it)
+            binding.scopeLayout.supplierChipGroup.let { group->
+                group.removeViews(1,group.size - 1)
+            }
+            it.forEach { supplier ->
+                if (!viewModel.currentProduct.value?.suppliers.isNullOrEmpty()){
+                    if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)){
+                        val chip = Chip(requireContext())
+                        chip.text = supplier.companyName
+                        binding.productExtrasLayout.categoriesChipGroup.addView(chip)
+                    }
+                }
+            }
         }
 
         requestPermissionLauncher =
@@ -158,33 +167,16 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         }
     }
 
-    fun openBottomSheetForSuppliers(){
-        lifecycleScope.launch {
-
-            val suppliers = viewModel.getAllSuppliers()
-            if (suppliers.isNullOrEmpty()){
-                showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
-            }else{
-                val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
-                OptionsSheet().build(requireContext()){
-                    title(getString(R.string.add_suppliers))
-                    displayMode(DisplayMode.LIST)
-                    multipleChoices(true)
-                    with(optionSuppliers)
-                    onPositiveMultiple(getString(R.string.action_add)) { selectedIndices: MutableList<Int>, _ ->
-//                        viewModel.updateSuppliers(selectedIndices.map { suppliers[it].supplierId })
-//                        selectedIndices.forEach {
-//                            createNewChipAndAddItToGroup(suppliers[it].companyName, binding.scopeLayout.supplierChipGroup)
-//                        }
-                    }
-                    onNegative(getString(R.string.action_cancel))
-                }.show(parentFragmentManager, "")
-            }
-        }
+    fun navigateToProductSuppliers(){
+        val action = EditProductFragmentDirections
+            .actionEditProductFragmentToProductSupplierFragment(viewModel.currentProduct.value?.suppliers?.toTypedArray())
+        findNavController().navigate(action)
     }
 
-    fun openBottomSheetForCategories(){
-        findNavController().navigate(R.id.productCategoriesBottomSheet)
-
+    fun navigateToProductCategories(){
+        val action = EditProductFragmentDirections
+            .actionEditProductFragmentToProductCategoryFragment(viewModel.currentProduct.value?.categories?.toTypedArray())
+        findNavController().navigate(action)
     }
+
 }

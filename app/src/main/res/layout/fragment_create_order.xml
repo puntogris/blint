@@ -9,7 +9,7 @@
             type="com.puntogris.blint.ui.orders.detailed_order.CreateOrderFragment" />
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.orders.NewOrderViewModel" />
+            type="com.puntogris.blint.ui.orders.detailed_order.NewOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

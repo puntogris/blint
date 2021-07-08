@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.detailed_order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -28,12 +28,19 @@ class ProductViewModel @Inject constructor(
     private val _currentProduct = MutableStateFlow(ProductWithSuppliersCategories())
     val currentProduct: LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
 
-    fun updateSuppliers(suppliers: List<Supplier>){
-        _currentProduct.value.suppliers = suppliers
+    fun updateSuppliers(suppliers: List<FirestoreSupplier>){
+        if (!_currentProduct.value.suppliers.isNullOrEmpty()){
+            _currentProduct.value.suppliers =
+                _currentProduct.value.suppliers!!.union(suppliers).toList()
+        }else _currentProduct.value.suppliers = suppliers
     }
 
-    fun updateCategories(categories: List<Category>){
-        _currentProduct.value.categories = categories
+    fun updateCategories(categories: List<FirestoreCategory>){
+        if (!_currentProduct.value.categories.isNullOrEmpty()){
+            _currentProduct.value.categories =
+                _currentProduct.value.categories!!.union(categories).toList()
+        }else _currentProduct.value.categories = categories
+        println(_currentProduct.value.categories)
     }
 
     @ExperimentalCoroutinesApi
@@ -54,8 +61,8 @@ class ProductViewModel @Inject constructor(
         _currentProduct.value.product = product
     }
 
-    fun setProductData(product: Product){
-        _currentProduct.value.product = product
+    fun setProductData(product: ProductWithSuppliersCategories){
+        _currentProduct.value = product
     }
 
     fun updateProductImage(image: String){
@@ -92,5 +99,9 @@ class ProductViewModel @Inject constructor(
 
     suspend fun updateCategoryDatabase(category: Category) =
         productRepository.updateProductCategoryDatabase(category)
+
+    suspend fun getCategoriesWithName(name:String) = productRepository.getCategoriesWithNameDatabase(name)
+
+    suspend fun getSuppliersWithName(name: String) = productRepository.getSuppliersWithNameDatabase(name)
 
 }

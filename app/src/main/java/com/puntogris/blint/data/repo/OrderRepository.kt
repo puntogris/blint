@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -44,6 +45,7 @@ class OrderRepository @Inject constructor(
                 val query = firestoreQueries
                     .getOrdersCollectionQuery(user)
                     .whereEqualTo("businessId", user.currentBusinessId)
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
                 FirestoreOrdersPagingSource(query)
             }
             else{ ordersDao.getAllOrdersPaged() }

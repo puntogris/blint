@@ -3,6 +3,7 @@ package com.puntogris.blint.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Supplier
 
@@ -39,6 +40,11 @@ interface SuppliersDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name LIMIT 30")
     suspend fun getSupplierWithName(name: String): List<Supplier>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name LIMIT 5")
+    suspend fun getProductSupplier(name: String): List<FirestoreSupplier>
+
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
     suspend fun updateSupplierDebt(supplierId: String, amount: Float)

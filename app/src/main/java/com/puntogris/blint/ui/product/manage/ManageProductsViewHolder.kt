@@ -1,10 +1,9 @@
-package com.puntogris.blint.ui.product
+package com.puntogris.blint.ui.product.manage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ManageProductsVhBinding
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 
 class ManageProductsViewHolder private constructor(val binding: ManageProductsVhBinding) : RecyclerView.ViewHolder(binding.root){
