@@ -7,6 +7,7 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.OrderRepository
 import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.SimpleResult
@@ -118,10 +119,10 @@ class OrdersViewModel @Inject constructor(
     suspend fun getAllClients() = clientsDao.getAllClients()
 
     suspend fun createSimpleOrder(record: Record): SimpleResult{
-        val order = Order()
-        order.value = record.value
-        order.type = record.type
-        order.items = listOf(record)
+        val order = OrderWithRecords()
+        order.order.value = record.value
+        order.order.type = record.type
+        order.order.items = listOf(record)
         return orderRepository.saveOrderIntoDatabase(order)
     }
 

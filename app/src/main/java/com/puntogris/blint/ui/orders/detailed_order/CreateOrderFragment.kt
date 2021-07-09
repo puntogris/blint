@@ -40,8 +40,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             findNavController().navigate(R.id.reviewRecordFragment)
         }
 
-
-
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }
         binding.productSearchRecyclerView.adapter = searchAdapter
         binding.productSearchRecyclerView.layoutManager = LinearLayoutManager(requireContext())

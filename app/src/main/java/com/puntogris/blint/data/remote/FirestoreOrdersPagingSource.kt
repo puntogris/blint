@@ -4,15 +4,17 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.puntogris.blint.data.remote.deserializers.OrderDeserializer
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 import kotlinx.coroutines.tasks.await
 
 class FirestoreOrdersPagingSource(
     private val query: Query
-) : PagingSource<QuerySnapshot, Order>() {
+) : PagingSource<QuerySnapshot, OrderWithRecords>() {
 
-    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Order> {
+    override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, OrderWithRecords> {
         return try {
             val currentPage = params.key ?: query
                 .get()
@@ -26,7 +28,7 @@ class FirestoreOrdersPagingSource(
                     .await()
 
                 LoadResult.Page(
-                    data = currentPage.toObjects(Order::class.java),
+                    data = currentPage.documents.map { OrderDeserializer.deserialize(it) },
                     prevKey = null,
                     nextKey = nextPage
                 )
@@ -43,7 +45,7 @@ class FirestoreOrdersPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<QuerySnapshot, Order>): QuerySnapshot? {
+    override fun getRefreshKey(state: PagingState<QuerySnapshot, OrderWithRecords>): QuerySnapshot? {
         return null
     }
 }

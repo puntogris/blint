@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.OrderVhBinding
 import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 
 class OrdersViewHolder private constructor(val binding: OrderVhBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(order: Order, clickListener: (Order)-> Unit) {
+    fun bind(order: OrderWithRecords, clickListener: (OrderWithRecords)-> Unit) {
         binding.order = order
         binding.root.setOnClickListener { clickListener(order) }
         binding.executePendingBindings()

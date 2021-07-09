@@ -111,7 +111,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)){
                         val chip = Chip(requireContext())
                         chip.text = supplier.companyName
-                        binding.productExtrasLayout.categoriesChipGroup.addView(chip)
+                        binding.scopeLayout.supplierChipGroup.addView(chip)
                     }
                 }
             }

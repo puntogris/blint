@@ -2,9 +2,7 @@ package com.puntogris.blint.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.Order
-import com.puntogris.blint.model.OrdersTableItem
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.*
 
 @Dao
 interface OrdersDao {
@@ -19,13 +17,27 @@ interface OrdersDao {
     suspend fun insert(order: Order)
 
     @Transaction
-    suspend fun insertOrderWithRecords(order: Order){
-        insert(order)
-        insert(order.items)
-        order.items.forEach {
-            updateProductAmountWithType(it.productId, it.amount, it.type)
+    suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>){
+        order.order.number = getStatistics().totalOrders + 1
+        insert(order.order)
+        insert(recordsFinal)
+        recordsFinal.forEach {
+            updateProductAmountWithType(it.productId, it.amount, order.order.type)
         }
+        insertOrderRecordsCrossRef(recordsFinal.map { OrderRecordCrossRef(order.order.orderId, it.recordId) })
+        incrementTotalOrders()
     }
+
+    @Insert
+    suspend fun insertOrderRecordsCrossRef(items: List<OrderRecordCrossRef>)
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    suspend fun getStatistics(): Statistic
+
+
+    @Query("UPDATE statistic SET totalOrders = totalOrders + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1') ")
+    suspend fun incrementTotalOrders()
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
@@ -58,7 +70,7 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
-    fun getAllOrdersPaged(): PagingSource<Int, Order>
+    fun getAllOrdersPaged(): PagingSource<Int, OrderWithRecords>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser on businessId = currentBusinessId WHERE userId = '1' AND orderId = :orderId")

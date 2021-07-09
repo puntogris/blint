@@ -14,19 +14,19 @@ import kotlinx.parcelize.Parcelize
 data class Record(
 
     @PrimaryKey
-    @get:Exclude var recordId: String = "",
+     var recordId: String = "",
 
     @ColumnInfo
-    @get:Exclude var type: String = "",
+     var type: String = "",
 
     @ColumnInfo
-    @get:Exclude var traderId: String = "",
+     var traderId: String = "",
 
     @ColumnInfo
-    @get:Exclude var traderName :String = "",
+    var traderName :String = "",
 
     @ColumnInfo
-    @get:Exclude val timestamp: Timestamp = Timestamp.now(),
+     val timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
     var amount: Int = 0,
@@ -38,16 +38,16 @@ data class Record(
     val productName:String = "",
 
     @ColumnInfo
-    @get:Exclude var author: String = "",
+    var author: String = "",
 
     @ColumnInfo
-    @get:Exclude var businessId:String = "",
+    var businessId:String = "",
 
     @ColumnInfo
-    @get:Exclude var productUnitPrice: Float = 0F,
+    var productUnitPrice: Float = 0F,
 
     @ColumnInfo
-    @get:Exclude var orderId: String = "",
+    var orderId: String = "",
 
     @ColumnInfo
     var value: Float = 0F

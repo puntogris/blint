@@ -29,17 +29,11 @@ class ProductViewModel @Inject constructor(
     val currentProduct: LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
 
     fun updateSuppliers(suppliers: List<FirestoreSupplier>){
-        if (!_currentProduct.value.suppliers.isNullOrEmpty()){
-            _currentProduct.value.suppliers =
-                _currentProduct.value.suppliers!!.union(suppliers).toList()
-        }else _currentProduct.value.suppliers = suppliers
+        _currentProduct.value.suppliers = suppliers
     }
 
     fun updateCategories(categories: List<FirestoreCategory>){
-        if (!_currentProduct.value.categories.isNullOrEmpty()){
-            _currentProduct.value.categories =
-                _currentProduct.value.categories!!.union(categories).toList()
-        }else _currentProduct.value.categories = categories
+        _currentProduct.value.categories = categories
     }
 
     @ExperimentalCoroutinesApi

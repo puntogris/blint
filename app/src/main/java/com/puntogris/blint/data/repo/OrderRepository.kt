@@ -3,6 +3,7 @@ package com.puntogris.blint.data.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
@@ -14,8 +15,7 @@ import com.puntogris.blint.data.remote.FirestoreOrdersPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.data.repo.imp.IOrdersRepository
-import com.puntogris.blint.model.Order
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -32,7 +32,7 @@ class OrderRepository @Inject constructor(
     private suspend fun currentBusiness() = usersDao.getUser()
     private val firestore = Firebase.firestore
 
-    override suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<Order>> = withContext(
+    override suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>> = withContext(
         Dispatchers.IO){
         val user = currentBusiness()
         Pager(
@@ -70,25 +70,44 @@ class OrderRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun saveOrderIntoDatabase(order: Order): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun saveOrderIntoDatabase(order: OrderWithRecords): SimpleResult = withContext(Dispatchers.IO){
         val user = currentBusiness()
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
-            val recordRef = firestoreQueries.getRecordsCollectionQuery(user)
-            order.updateOrderData(user.currentBusinessId, orderRef, recordRef)
+            order.order.author = user.currentUid
+            order.order.businessId = user.currentBusinessId
+            order.order.orderId = orderRef.document().id
+            val recordsFinal = order.records.map {
+                Record(
+                    recordId = firestoreQueries.getRecordsCollectionQuery(user).document().id,
+                    type = order.order.type,
+                    traderName = order.order.traderName,
+                    traderId = order.order.traderId,
+                    timestamp = order.order.timestamp,
+                    amount = it.amount,
+                    productId = it.productId,
+                    productName = it.productName,
+                    author = order.order.author,
+                    businessId = order.order.businessId,
+                    productUnitPrice = it.value / it.amount,
+                    value = it.value,
+                    orderId = order.order.orderId
+                )
+            }
+
             if (user.currentBusinessIsOnline()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
-                countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.number = it }
+                countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
                 firestore.runBatch { batch ->
-                    batch.set(orderRef.document(order.orderId), order)
-                    order.items.forEach {
+                    batch.set(orderRef.document(order.order.orderId), FirestoreOrder.from(order))
+                    recordsFinal.forEach {
                         val productRef = firestoreQueries.getProductsCollectionQuery(user).document(it.productId)
                         batch.update(productRef,"amount", FieldValue.increment(it.amount.toLong()))
                         batch.set(countersRef, hashMapOf("totalOrders" to FieldValue.increment(1)), SetOptions.merge())
-                        batch.set(recordRef.document(it.recordId), it)
+                        batch.set(firestoreQueries.getRecordsCollectionQuery(user).document(it.recordId), it)
                     }
                 }.await()
-            }else{ ordersDao.insertOrderWithRecords(order) }
+            }else{ ordersDao.insertOrderWithRecords(order, recordsFinal) }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
     }

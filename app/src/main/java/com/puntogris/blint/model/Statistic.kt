@@ -22,5 +22,8 @@ data class Statistic(
     val totalSuppliers : Int = 0,
 
     @ColumnInfo
+    val totalOrders: Int = 0,
+
+    @ColumnInfo
     val businessId: String = ""
 )

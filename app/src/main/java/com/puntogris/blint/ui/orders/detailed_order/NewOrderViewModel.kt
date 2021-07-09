@@ -7,9 +7,12 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.*
+import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.utils.SearchText
+import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -66,7 +69,10 @@ class NewOrderViewModel @Inject constructor(
 
     fun getCurrentUserEmail() = userRepository.getCurrentUser()?.email
 
-    suspend fun publishOrderDatabase() = orderRepository.saveOrderIntoDatabase(order)
+    suspend fun publishOrderDatabase(): SimpleResult{
+        val newOrder = OrderWithRecords(order, order.items.map { FirestoreRecord(it.amount,it.productId, it.productName, it.recordId,it.value) })
+        return orderRepository.saveOrderIntoDatabase(newOrder)
+    }
 
     suspend fun getClientPaging() = clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
 

@@ -26,7 +26,6 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         setUpUi(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editSupplierFragment)
-
         }
 
         manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}

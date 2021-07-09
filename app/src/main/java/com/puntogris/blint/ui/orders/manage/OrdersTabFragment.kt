@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrdersTabBinding
 import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
@@ -31,8 +32,8 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
         }
     }
 
-    private fun onOrderClickListener(order: Order){
-        val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderInfoBottomSheet(order)
+    private fun onOrderClickListener(order: OrderWithRecords){
+        val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderInfoBottomSheet(order.order)
         findNavController().navigate(action)
     }
 

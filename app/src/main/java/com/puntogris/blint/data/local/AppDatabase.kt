@@ -20,7 +20,8 @@ import com.puntogris.blint.utils.Converters
     Category::class,
     ProductCategoryCrossRef::class,
     Order::class,
-    Debt::class
+    Debt::class,
+    OrderRecordCrossRef::class
                      ], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

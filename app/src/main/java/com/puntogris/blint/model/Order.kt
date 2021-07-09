@@ -27,7 +27,7 @@ data class Order(
     var type:String =  "IN",
 
     @ColumnInfo
-    val author:String = "",
+    var author:String = "",
 
     @ColumnInfo
     var traderId: String = "",
@@ -50,9 +50,10 @@ data class Order(
         value = items.sumByDouble { it.value.toDouble() }.toFloat()
     }
 
-    fun updateOrderData(businessId: String, orderCollection: CollectionReference, recordCollection: CollectionReference){
-        this.businessId = businessId
-        this.orderId = orderCollection.document().id
+    fun updateOrderData(user: RoomUser, orderCollection: CollectionReference, recordCollection: CollectionReference){
+        businessId = user.currentBusinessId
+        orderId = orderCollection.document().id
+        author = user.currentUid
         items.forEach {
             it.recordId = recordCollection.document().id
             it.type = type
