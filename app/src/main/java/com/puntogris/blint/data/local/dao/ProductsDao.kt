@@ -16,7 +16,7 @@ interface ProductsDao {
 
     @Transaction
     suspend fun insertProduct(product: ProductWithSuppliersCategories){
-
+      //  println(product.product)
         insert(product.product)
 
         //if (isNewProduct) statisticsDao.incrementTotalProducts()

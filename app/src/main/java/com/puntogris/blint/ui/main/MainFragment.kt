@@ -12,6 +12,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
+import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
@@ -22,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
@@ -31,6 +33,9 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var productsDao: ProductsDao
 
     @ExperimentalTime
     override fun initializeViews() {

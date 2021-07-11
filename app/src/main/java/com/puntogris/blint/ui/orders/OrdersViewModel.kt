@@ -125,12 +125,9 @@ class OrdersViewModel @Inject constructor(
 
     suspend fun getAllClients() = clientsDao.getAllClients()
 
-    suspend fun createSimpleOrder(record: Record): SimpleResult{
-        val order = OrderWithRecords()
-        order.order.value = record.value
-        order.order.type = record.type
-        order.order.items = listOf(record)
-        return orderRepository.saveOrderIntoDatabase(order)
+    suspend fun createSimpleOrder(orderWithRecords: OrderWithRecords): SimpleResult{
+        orderWithRecords.order.value = orderWithRecords.records.first().value
+        return orderRepository.saveOrderIntoDatabase(orderWithRecords)
     }
 
 }

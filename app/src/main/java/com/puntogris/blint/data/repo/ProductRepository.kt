@@ -55,6 +55,8 @@ class ProductRepository @Inject constructor(
 
     override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){
         try {
+//            println(product.product.businessId.isEmpty())
+//            println(product.product.businessId)
             val isNewProduct = product.product.productId.isEmpty()
             val user = currentBusiness()
             val productRef = firestoreQueries.getProductsCollectionQuery(user)
@@ -63,6 +65,8 @@ class ProductRepository @Inject constructor(
                     productId = productRef.document().id
                     businessId = user.currentBusinessId
                 }
+            }else{
+
             }
 
             val record = Record(

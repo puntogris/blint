@@ -7,15 +7,15 @@ import androidx.room.Junction
 import androidx.room.Relation
 import kotlinx.parcelize.Parcelize
 
-@Entity
 @Parcelize
 data class OrderWithRecords(
     @Embedded var order: Order = Order(),
 
     @Relation(
+        entity = Record::class,
         parentColumn = "orderId",
         entityColumn = "recordId",
-        associateBy = Junction(ProductSupplierCrossRef::class)
+        associateBy = Junction(OrderRecordCrossRef::class)
     )
     var records: List<FirestoreRecord> = listOf()
 ):Parcelable

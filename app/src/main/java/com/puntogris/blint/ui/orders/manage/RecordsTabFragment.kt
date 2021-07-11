@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.orders.manage
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
@@ -31,7 +32,8 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     }
 
     private fun onRecordClickedListener(record:Record){
-
+        val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToRecordInfoBottomSheet(record)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

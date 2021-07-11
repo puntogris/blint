@@ -97,7 +97,6 @@ class OrderRepository @Inject constructor(
                     orderId = order.order.orderId
                 )
             }
-
             if (user.currentBusinessIsOnline()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
                 countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
@@ -123,6 +122,8 @@ class OrderRepository @Inject constructor(
                     .whereEqualTo("orderId", orderId).limit(1).get().await()
             OrderDeserializer.deserialize(query.first())
         }else{
+            println(            ordersDao.getAllOrderRecords(orderId)
+            )
             ordersDao.getAllOrderRecords(orderId)
         }
     }

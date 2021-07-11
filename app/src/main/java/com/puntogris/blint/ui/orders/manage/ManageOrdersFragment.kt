@@ -21,7 +21,6 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
 
     override fun initializeViews() {
         setUpUi(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
-           // showOrderPickerAndNavigate()
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }

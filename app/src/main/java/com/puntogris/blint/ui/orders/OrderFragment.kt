@@ -43,8 +43,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         ordersAdapter = OrdersTableAdapter()
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = adapter
+            adapter = ordersAdapter
         }
+      //  println(args.order)
 
         if (!args.orderId.isNullOrEmpty()){
             lifecycleScope.launch {
@@ -61,6 +62,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                 }
             }
         }else {
+            args.order?.let {
+                viewModel.updateOrder(it)
+            }
             viewModel.order.value?.records?.let { order ->
                 val tableItems = order.map {
                     OrdersTableItem(it.productName, it.amount, it.value)

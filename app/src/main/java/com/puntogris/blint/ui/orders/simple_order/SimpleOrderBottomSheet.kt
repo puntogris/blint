@@ -7,6 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.SimpleOrderBinding
+import com.puntogris.blint.model.FirestoreRecord
+import com.puntogris.blint.model.Order
+import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
@@ -45,14 +48,15 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
         if (amount != null){
             binding.simpleOrderGroup.gone()
             binding.progressBar.visible()
-            val record = Record(
+            val order = OrderWithRecords()
+            order.order.type = orderType
+            order.records = listOf(FirestoreRecord(
                 productId = args.product.productId,
                 productName = args.product.name,
                 amount = if (orderType == IN) amount else -amount,
-                type = orderType
-            )
+            ))
             lifecycleScope.launch {
-                when(viewModel.createSimpleOrder(record)){
+                when(viewModel.createSimpleOrder(order)){
                     SimpleResult.Failure -> {
                         dismiss()
                         showSnackBarVisibilityAppBar("Ocurrio un error al crear la orden.")

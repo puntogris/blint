@@ -61,9 +61,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
 
         if (!viewModel.viewsLoaded) {
             args.productWithSuppCate?.let{
-                lifecycleScope.launch {
-                    viewModel.setProductData(it)
-                }
+                viewModel.setProductData(it)
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true

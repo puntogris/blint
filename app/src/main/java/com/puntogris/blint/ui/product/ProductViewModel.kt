@@ -51,6 +51,7 @@ class ProductViewModel @Inject constructor(
 
     fun updateProductData(product: Product){
         product.productId = _currentProduct.value.product.productId
+        product.businessId = _currentProduct.value.product.businessId
         _currentProduct.value.product = product
     }
 
