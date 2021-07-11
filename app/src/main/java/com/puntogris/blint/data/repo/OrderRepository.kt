@@ -3,6 +3,7 @@ package com.puntogris.blint.data.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -31,6 +32,7 @@ class OrderRepository @Inject constructor(
 
     private suspend fun currentBusiness() = usersDao.getUser()
     private val firestore = Firebase.firestore
+    private val auth = FirebaseAuth.getInstance()
 
     override suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>> = withContext(
         Dispatchers.IO){
@@ -74,7 +76,7 @@ class OrderRepository @Inject constructor(
         val user = currentBusiness()
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
-            order.order.author = user.currentUid
+            order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id
             val recordsFinal = order.records.map {

@@ -513,7 +513,7 @@
         android:label="OrderInfoBottomSheet" >
         <argument
             android:name="order"
-            app:argType="com.puntogris.blint.model.Order" />
+            app:argType="com.puntogris.blint.model.OrderWithRecords" />
         <action
             android:id="@+id/action_orderInfoBottomSheet_to_supplierFragment"
             app:destination="@id/supplierFragment" />
@@ -528,10 +528,11 @@
         <argument
             android:name="orderId"
             app:argType="string"
-            android:defaultValue=" " />
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="order"
-            app:argType="com.puntogris.blint.model.Order"
+            app:argType="com.puntogris.blint.model.OrderWithRecords"
             app:nullable="true"
             android:defaultValue="@null" />
         <action

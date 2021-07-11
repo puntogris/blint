@@ -11,7 +11,7 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
     private val args: OrderInfoBottomSheetArgs by navArgs()
 
     override fun initializeViews() {
-        binding.order = args.order
+        binding.order = args.order.order
         binding.bottomSheet = this
     }
 
@@ -31,7 +31,7 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
     }
 
     fun onNavigateToFullOrder(){
-        val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToOrderFragment()
+        val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToOrderFragment(order = args.order)
         findNavController().navigate(action)
     }
 }

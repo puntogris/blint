@@ -19,14 +19,14 @@ internal object OrderDeserializer: DocumentSnapshotDeserializer<OrderWithRecords
             if (input?.get("number").toString().toIntOrNull() == null) 0 else input?.get("number").toString().toInt()
         )
 
-        val records = (input?.get("categories") as? List<*>)?.map {
+        val records = (input?.get("records") as? List<*>)?.map {
             it as HashMap<*, *>
             FirestoreRecord(
-                amount = 0,
-                productId = "",
-                productName = "",
-                recordId = "",
-                value = 0F
+                amount = if (it["amount"].toString().toIntOrNull() == null) 0 else it["amount"].toString().toInt(),
+                productId = it["productId"].toString(),
+                productName = it["productName"].toString(),
+                recordId = it["recordId"].toString(),
+                value = if (it["value"].toString().toFloatOrNull() == null) 0F else it["value"].toString().toFloat()
             )
         }
 

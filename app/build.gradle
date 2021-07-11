@@ -182,6 +182,8 @@ dependencies {
     implementation 'com.nex3z:notification-badge:1.0.4'
 
     implementation 'id.zelory:compressor:3.0.1'
+    implementation 'com.github.afreakyelf:Pdf-Viewer:1.0.7'
+    implementation 'com.github.tejpratap46:PDFCreatorAndroid:2.2.1'
 
 
 }
