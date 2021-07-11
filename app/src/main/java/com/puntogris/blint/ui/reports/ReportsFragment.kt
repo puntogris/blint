@@ -21,6 +21,7 @@ import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,11 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
 
-    private val viewModel:ReportsViewModel by viewModels()
+    private val viewModel: ReportsViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this
-
         setUpUi(showFab = false)
 
         val reportDashboardAdapter = ReportsDashboardAdapter()
@@ -42,14 +42,18 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
         }
 
         lifecycleScope.launchWhenStarted {
-            val statistics = viewModel.getStatistics()
-            println(statistics)
-//            val data = listOf(
-//                DashboardItem("Productos", statistics.totalProducts.toString()),
-//                DashboardItem("Proveedores", statistics.totalSuppliers.toString()),
-//                DashboardItem("Clientes", statistics.totalClients.toString())
-//                )
-           // reportDashboardAdapter.submitList(data)
+            when(val result =  viewModel.getStatistics()){
+                is RepoResult.Error -> {}
+                RepoResult.InProgress -> {}
+                is RepoResult.Success -> {
+                    val data = listOf(
+                        DashboardItem(getString(R.string.products_label), result.data.totalProducts.toString()),
+                        DashboardItem(getString(R.string.suppliers_label), result.data.totalSuppliers.toString()),
+                        DashboardItem(getString(R.string.clients_label), result.data.totalClients.toString())
+                    )
+                    reportDashboardAdapter.submitList(data)
+                }
+            }
         }
     }
 

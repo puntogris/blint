@@ -1,8 +1,9 @@
 package com.puntogris.blint.ui.reports
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -25,18 +26,26 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.File
+import java.util.*
 
+@Suppress("BlockingMethodInNonBlockingContext")
 @AndroidEntryPoint
 class GenerateReportFragment:
     BaseFragment<FragmentGenerateReportBinding>(R.layout.fragment_generate_report) {
 
     private val viewModel: ReportsViewModel by viewModels()
     private val args: GenerateReportFragmentArgs by navArgs()
+    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        createIntent(args.reportCode)
-        lifecycleScope.launchWhenStarted {
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
+            val uri = viewModel.getDownloadUri()
+            if (uri == null)
+                showLongSnackBarAboveFab("Todavia no se genero el informe o ocurrio un error.")
+            else shareFileIntent(uri)
+        }
+
+        launchAndRepeatWithViewLifecycle {
             viewModel.exportingState.collect {
                 when(it){
                     is ExportResult.Error -> showErrorUi()
@@ -45,15 +54,36 @@ class GenerateReportFragment:
                 }
             }
         }
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_share_24)
-            setOnClickListener {
-                val uri = viewModel.getDownloadUri()
-                if (uri == null)
-                    showLongSnackBarAboveFab("Todavia no se genero el informe o ocurrio un error.")
-                else shareFileIntent(uri)
+        var fileName = ""
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
+            when (args.reportCode) {
+                SUPPLIERS_LIST -> {
+                    fileName = "proveedores_lista_${Date().getDateFormattedString()}"
+                    exportSupplierList(uri)
+                }
+                CLIENTS_LIST -> {
+                    fileName = "clientes_lista_${Date().getDateFormattedString()}"
+                    exportClientList(uri)
+                }
+                PRODUCTS_LIST -> {
+                    fileName = "productos_lista_${Date().getDateFormattedString()}"
+                    exportProductList(uri)
+                }
+                SUPPLIERS_RECORDS -> {
+                    fileName = "proveedores_movimientos_${Date().getDateFormattedString()}"
+                    exportSupplierRecords(uri)
+                }
+                CLIENTS_RECORDS -> {
+                    fileName = "clientes_movimientos_${Date().getDateFormattedString()}"
+                    exportClientRecords(uri)
+                }
+                PRODUCTS_RECORDS -> {
+                    fileName = "productos_movimientos_${Date().getDateFormattedString()}"
+                    exportProductRecords(uri)
+                }
             }
         }
+        activityResultLauncher.launch("$fileName.xls")
     }
 
     private fun showInProgressUi(){
@@ -262,6 +292,7 @@ class GenerateReportFragment:
                     workbook.write(file)
                     file?.close()
                 }
+                viewModel.saveDownloadUri(downloadFileUri)
                 viewModel.updateExportState(ExportResult.Success)
             }catch (e: Exception) {
                 viewModel.updateExportState(ExportResult.Error(e))
@@ -277,119 +308,137 @@ class GenerateReportFragment:
         startActivity(Intent.createChooser(share, "Compartir informe"))
     }
 
-    private fun createIntent(code: Int) {
-        val name = when (code) {
-            SUPPLIERS_LIST -> "suppliers_list"
-            CLIENTS_LIST -> "clients_list"
-            PRODUCTS_LIST -> "products_list"
-            SUPPLIERS_RECORDS -> "suppliers_records"
-            CLIENTS_RECORDS -> "clients_records"
-            else -> "products_records"
-        }
-        Intent(Intent.ACTION_CREATE_DOCUMENT).also {
-            it.addCategory(Intent.CATEGORY_OPENABLE)
-            it.type = "application/vnd.ms-excel"
-            it.putExtra(Intent.EXTRA_TITLE, name.getDateWithFileName())
-            startActivityForResult(it, code)
-        }
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode != Activity.RESULT_OK) return
-
-        val downloadFileUri: Uri = data!!.data!!
-        viewModel.saveDownloadUri(downloadFileUri)
-        requireActivity().contentResolver.openOutputStream(downloadFileUri)
-
-        when (requestCode) {
-            SUPPLIERS_LIST -> exportSupplierList(downloadFileUri)
-            CLIENTS_LIST -> exportClientList(downloadFileUri)
-            PRODUCTS_LIST -> exportProductList(downloadFileUri)
-            SUPPLIERS_RECORDS -> exportSupplierRecords(downloadFileUri)
-            CLIENTS_RECORDS -> exportClientRecords(downloadFileUri)
-            PRODUCTS_RECORDS -> exportProductRecords(downloadFileUri)
-        }
-    }
-
     private fun exportSupplierList(downloadFileUri: Uri) {
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("Proveedores")
+        var numberOfRows = 0
+        val row0 = sheet.createRow(numberOfRows)
+        row0.createCell(0).setCellValue("Nombre")
+        row0.createCell(1).setCellValue("Telefono")
+        row0.createCell(2).setCellValue("Direccion")
+        row0.createCell(3).setCellValue("E-mail")
 
-//        val sqliteToExcel = SQLiteToExcel(
-//            requireContext(),
-//            "blint_database",
-//            requireContext().filesDir.path
-//        )
-//        val prettyNameMapping = hashMapOf<String, String>()
-//        sqliteToExcel.setExcludeColumns(listOf("supplierId", "businessId"))
-//        sqliteToExcel.exportSingleTable(
-//            "Supplier", "supplier.xls", exportTableListener(
-//                downloadFileUri
-//            )
-//        )
+        lifecycleScope.launch {
+            try {
+                when(val suppliers = viewModel.getAllSuppliersData()){
+                    is RepoResult.Error -> {}
+                    RepoResult.InProgress -> {}
+                    is RepoResult.Success -> {
+                        suppliers.data.forEach {
+                            numberOfRows += 1
+                            val row = sheet.createRow(numberOfRows)
+                            row.createCell(0).setCellValue(it.companyName)
+                            row.createCell(1).setCellValue(it.companyPhone)
+                            row.createCell(2).setCellValue(it.address)
+                            row.createCell(3).setCellValue(it.companyEmail)
+                        }
+                        withContext(Dispatchers.IO) {
+                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
+
+                            requireActivity()
+                            workbook.write(file)
+                            file?.close()
+                        }
+                        viewModel.saveDownloadUri(downloadFileUri)
+                        viewModel.updateExportState(ExportResult.Success)
+                    }
+                }
+            }catch (e:Exception){
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
+        }
     }
 
     private fun exportClientList(downloadFileUri: Uri) {
-//        val sqliteToExcel = SQLiteToExcel(
-//            requireContext(),
-//            "blint_database",
-//            requireContext().filesDir.path
-//        )
-//        val prettyNameMapping = hashMapOf<String, String>()
-//        sqliteToExcel.setExcludeColumns(listOf("clientId", "businessId"))
-//        sqliteToExcel.exportSingleTable(
-//            "Client",
-//            "clients.xls",
-//            exportTableListener(downloadFileUri)
-//        )
-    }
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("Clientes")
+        var numberOfRows = 0
+        val row0 = sheet.createRow(numberOfRows)
+        row0.createCell(0).setCellValue("Nombre")
+        row0.createCell(1).setCellValue("Telefono")
+        row0.createCell(2).setCellValue("Direccion")
+        row0.createCell(3).setCellValue("E-mail")
 
+        lifecycleScope.launch {
+            try {
+                when(val suppliers = viewModel.getAllClientsData()){
+                    is RepoResult.Error -> {}
+                    RepoResult.InProgress -> {}
+                    is RepoResult.Success -> {
+                        suppliers.data.forEach {
+                            numberOfRows += 1
+                            val row = sheet.createRow(numberOfRows)
+                            row.createCell(0).setCellValue(it.name)
+                            row.createCell(1).setCellValue(it.phone)
+                            row.createCell(2).setCellValue(it.address)
+                            row.createCell(3).setCellValue(it.email)
+                        }
+                        withContext(Dispatchers.IO) {
+                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
+
+                            requireActivity()
+                            workbook.write(file)
+                            file?.close()
+                        }
+                        viewModel.saveDownloadUri(downloadFileUri)
+                        viewModel.updateExportState(ExportResult.Success)
+                    }
+                }
+            }catch (e:Exception){
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
+        }
+    }
 
     private fun exportProductList(downloadFileUri: Uri) {
-//        val sqliteToExcel = SQLiteToExcel(
-//            requireContext(),
-//            "blint_database",
-//            requireContext().filesDir.path
-//        )
-//        val prettyNameMapping = hashMapOf<String, String>()
-//        val columnsToExclude = listOf(
-//            "productId",
-//            "image",
-//            "lastRecordTimestamp",
-//            "suppliers",
-//            "businessId",
-//            "totalInStock",
-//            "totalOutStock"
-//        )
-//        sqliteToExcel.setExcludeColumns(columnsToExclude)
-//        sqliteToExcel.exportSingleTable(
-//            "Product", "/productos.xls", exportTableListener(
-//                downloadFileUri
-//            )
-//        )
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("Productos")
+        var numberOfRows = 0
+        val row0 = sheet.createRow(numberOfRows)
+        row0.createCell(0).setCellValue("Nombre")
+        row0.createCell(1).setCellValue("Stock")
+        row0.createCell(2).setCellValue("Codigo de barras")
+        row0.createCell(3).setCellValue("Precio compra")
+        row0.createCell(4).setCellValue("Precio venta")
+        row0.createCell(5).setCellValue("Precio venta sugerido")
+        row0.createCell(6).setCellValue("Codigo interno")
+        row0.createCell(7).setCellValue("Marca")
+        row0.createCell(8).setCellValue("Tamano")
+
+        lifecycleScope.launch {
+            try {
+                when(val suppliers = viewModel.getAllProductsData()){
+                    is RepoResult.Error -> {}
+                    RepoResult.InProgress -> {}
+                    is RepoResult.Success -> {
+                        suppliers.data.forEach {
+                            numberOfRows += 1
+                            val row = sheet.createRow(numberOfRows)
+                            row.createCell(0).setCellValue(it.name)
+                            row.createCell(1).setCellValue(it.amount.toString())
+                            row.createCell(2).setCellValue(it.barcode)
+                            row.createCell(3).setCellValue(it.buyPrice.toString())
+                            row.createCell(4).setCellValue(it.sellPrice.toString())
+                            row.createCell(5).setCellValue(it.suggestedSellPrice.toString())
+                            row.createCell(6).setCellValue(it.internalCode)
+                            row.createCell(7).setCellValue(it.brand)
+                            row.createCell(8).setCellValue(it.size)
+
+                        }
+                        withContext(Dispatchers.IO) {
+                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
+
+                            requireActivity()
+                            workbook.write(file)
+                            file?.close()
+                        }
+                        viewModel.saveDownloadUri(downloadFileUri)
+                        viewModel.updateExportState(ExportResult.Success)
+                    }
+                }
+            }catch (e:Exception){
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
+        }
     }
-
-   // private fun exportTableListener(downloadFileUri: Uri): ExportListener {
-//        return object : ExportListener {
-//            override fun onStart() {}
-//            override fun onCompleted(filePath: String) {
-//                try {
-//                    requireActivity().contentResolver.openInputStream(Uri.fromFile(File(filePath)))
-//                        ?.use { inputStream ->
-//                            requireActivity().contentResolver.openOutputStream(downloadFileUri)?.let {
-//                                inputStream.copyTo(it)
-//                                it.close()
-//                            }
-//                        }
-//                    viewModel.updateExportState(ExportResult.Success)
-//                }catch (e:Exception){
-//                    viewModel.updateExportState(ExportResult.Error(e))
-//                }
-//            }
-//            override fun onError(e: Exception) {
-//                viewModel.updateExportState(ExportResult.Error(e))
-//            }
-//        }
- //   }
-
 }

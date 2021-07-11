@@ -17,7 +17,7 @@ class ReportsViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ):ViewModel() {
 
-    suspend fun getStatistics() = statisticsDao.getStatistics()
+    suspend fun getStatistics() = statisticRepository.getBusinessCounters()
 
     private var saveDownloadFileUri:Uri? = null
 
@@ -69,5 +69,11 @@ class ReportsViewModel @Inject constructor(
              else -> statisticsDao.getRecordsSuppliersWithDaysFrame(startTime, endTime)
          }
     }
+
+    suspend fun getAllClientsData() = statisticRepository.getAllClients()
+
+    suspend fun getAllSuppliersData() = statisticRepository.getAllSuppliers()
+
+    suspend fun getAllProductsData() = statisticRepository.getAllProducts()
 
 }

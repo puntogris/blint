@@ -535,14 +535,7 @@
             app:argType="com.puntogris.blint.model.OrderWithRecords"
             app:nullable="true"
             android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_orderFragment_to_generateOrderReceiptBottomSheet"
-            app:destination="@id/generateOrderReceiptBottomSheet" />
     </fragment>
-    <dialog
-        android:id="@+id/generateOrderReceiptBottomSheet"
-        android:name="com.puntogris.blint.ui.orders.GenerateOrderReceiptBottomSheet"
-        android:label="" />
     <fragment
         android:id="@+id/manageDebtFragment"
         android:name="com.puntogris.blint.ui.debt.ManageDebtFragment"

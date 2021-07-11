@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.microsoft.schemas.vml.STTrueFalse
 import com.puntogris.blint.R
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
@@ -46,6 +47,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupBadgeListener()
         setupCalendarRecyclerView()
+
 
         //view?.doOnPreDraw { startPostponedEnterTransition() }
 

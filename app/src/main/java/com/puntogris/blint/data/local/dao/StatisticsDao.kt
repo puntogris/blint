@@ -33,11 +33,15 @@ interface StatisticsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
-    suspend fun getStatistics(): Statistic
+    suspend fun getStatistics(): BusinessCounters
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getBusinessStatisticsFlow(): Flow<BusinessCounters>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    suspend fun getAllProducts(): List<Product>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
