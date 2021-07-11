@@ -18,6 +18,4 @@ data class OrderWithRecords(
         associateBy = Junction(ProductSupplierCrossRef::class)
     )
     var records: List<FirestoreRecord> = listOf()
-
-
 ):Parcelable

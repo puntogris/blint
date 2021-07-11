@@ -6,10 +6,9 @@ import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.OrderRepository
 import com.puntogris.blint.data.repo.UserRepository
-import com.puntogris.blint.model.Order
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,14 +31,21 @@ class OrdersViewModel @Inject constructor(
     private val _barcodeScanned = MutableLiveData<String>()
     val barcodeScanned: LiveData<String> = _barcodeScanned
 
+    private val _order = MutableLiveData(OrderWithRecords())
+    val order: LiveData<OrderWithRecords> = _order
+
     private var recordType = "NONE"
     private var externalID = ""
     private var externalName = ""
 
+    fun updateOrder(orderWithRecords: OrderWithRecords){
+        _order.value = orderWithRecords
+    }
+
     fun updateRecordType(code: Int){
         recordType = when(code){
-            0 -> "IN"
-            else -> "OUT"
+            0 -> IN
+            else -> OUT
         }
     }
 
@@ -87,12 +93,13 @@ class OrdersViewModel @Inject constructor(
         }
     }
 
-    suspend fun fetchOrderRecords(orderId:String) = ordersDao.getAllOrderRecords(orderId)
+    suspend fun fetchOrderRecords(orderId:String) =
+        orderRepository.getOrderRecords(orderId)
 
     private fun getNewStockAmount(type:String, amount:Int): Int{
         val newAmount :Int
         when(type){
-            "IN" -> {
+            IN -> {
                 _currentProduct.value.totalInStock += amount
                 newAmount = _currentProduct.value.amount + amount
             }

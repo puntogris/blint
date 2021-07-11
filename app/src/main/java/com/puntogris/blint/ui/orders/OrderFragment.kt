@@ -4,12 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
-import android.print.PrintAttributes
-import android.text.Layout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maxkeppeler.sheets.options.DisplayMode
@@ -17,55 +16,64 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderBinding
-import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.showShortSnackBar
 import com.rajat.pdfviewer.PdfViewerActivity
-import com.wwdablu.soumya.simplypdf.DocumentInfo
-import com.wwdablu.soumya.simplypdf.SimplyPdf
-import com.wwdablu.soumya.simplypdf.composers.TextComposer
-import com.wwdablu.soumya.simplypdf.composers.models.TextProperties
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.OutputStream
-import java.util.*
-
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order) {
 
     private val args: OrderFragmentArgs by navArgs()
-    private lateinit var adapter: OrdersTableAdapter
+    private lateinit var ordersAdapter: OrdersTableAdapter
     private val viewModel: OrdersViewModel by viewModels()
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
         setUpUi(showAppBar = false)
         binding.fragment = this
-        binding.order = args.order?.order
-        adapter = OrdersTableAdapter()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        ordersAdapter = OrdersTableAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = adapter
+        }
 
         if (!args.orderId.isNullOrEmpty()){
-//            lifecycleScope.launch {
-//                val orderItems = viewModel.fetchOrderRecords(args.orderId.toString())
-//                adapter.submitList(orderItems)
-//            }
+            lifecycleScope.launch {
+                val order = viewModel.fetchOrderRecords(args.orderId.toString())
+                if (!order.records.isNullOrEmpty()){
+                    ordersAdapter.submitList(order.records.map { OrdersTableItem(it.productName, it.amount, it.value) })
+                    viewModel.updateOrder(order)
+                    viewModel.order.value?.records?.let { orderItems ->
+                        val tableItems = orderItems.map {
+                            OrdersTableItem(it.productName, it.amount, it.value)
+                        }
+                        ordersAdapter.submitList(tableItems)
+                    }
+                }
+            }
         }else {
-            args.order?.records?.let { order ->
+            viewModel.order.value?.records?.let { order ->
                 val tableItems = order.map {
                     OrdersTableItem(it.productName, it.amount, it.value)
                 }
-                adapter.submitList(tableItems)
+                ordersAdapter.submitList(tableItems)
             }
         }
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
             try {
-                val output = requireActivity().contentResolver.openOutputStream(uri)
+                requireActivity().contentResolver.openOutputStream(uri)?.let {
+                    createPdf(it)
+                }
                 showShortSnackBar("Se guardo la factura correctamente.")
             }catch (e:Exception){
                 showShortSnackBar("Ocurrio un error al guardar la factura.")
@@ -90,7 +98,6 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             }
         }.show(parentFragmentManager, "")
     }
-
 
     private fun createPdf(file:OutputStream){
         val doc = PdfDocument()
@@ -200,7 +207,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun onShareReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/receipt.pdf")
+        val file = File(requireContext().filesDir.absolutePath + "/order${args.order?.order?.number}_receipt.pdf")
         createPdf(file.outputStream())
         val uri = FileProvider.getUriForFile(requireContext(), "com.puntogris.blint", file)
         val intent = Intent(Intent.ACTION_SEND)
@@ -209,9 +216,8 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         startActivity(intent)
     }
 
-
     private fun onSaveReceipt(){
-        activityResultLauncher.launch("application.pdf")
+        activityResultLauncher.launch("/order${args.order?.order?.number}_receipt.pdf")
     }
 
     fun onExternalChipClicked(){

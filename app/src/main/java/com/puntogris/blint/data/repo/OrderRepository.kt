@@ -15,6 +15,7 @@ import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreOrdersPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
+import com.puntogris.blint.data.remote.deserializers.OrderDeserializer
 import com.puntogris.blint.data.repo.imp.IOrdersRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SimpleResult
@@ -112,5 +113,17 @@ class OrderRepository @Inject constructor(
             }else{ ordersDao.insertOrderWithRecords(order, recordsFinal) }
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
+    }
+
+    override suspend fun getOrderRecords(orderId: String): OrderWithRecords {
+        val user = currentBusiness()
+        return if (user.currentBusinessIsOnline()){
+            val query =
+                firestoreQueries.getOrdersCollectionQuery(user)
+                    .whereEqualTo("orderId", orderId).limit(1).get().await()
+            OrderDeserializer.deserialize(query.first())
+        }else{
+            ordersDao.getAllOrderRecords(orderId)
+        }
     }
 }

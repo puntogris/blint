@@ -31,7 +31,7 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
     }
 
     fun onNavigateToFullOrder(){
-        val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToOrderFragment()
+        val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToOrderFragment(args.record.orderId)
         findNavController().navigate(action)
     }
 }

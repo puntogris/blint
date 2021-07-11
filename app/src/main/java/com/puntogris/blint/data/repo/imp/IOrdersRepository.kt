@@ -11,4 +11,5 @@ interface IOrdersRepository {
     suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>>
     suspend fun getBusinessRecordsPagingDataFlow(): Flow<PagingData<Record>>
     suspend fun saveOrderIntoDatabase(order: OrderWithRecords): SimpleResult
+    suspend fun getOrderRecords(orderId:String): OrderWithRecords
 }
