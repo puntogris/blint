@@ -92,7 +92,7 @@ class OrderRepository @Inject constructor(
                     productName = it.productName,
                     author = order.order.author,
                     businessId = order.order.businessId,
-                    productUnitPrice = it.value / it.amount,
+                    productUnitPrice = if(it.amount != 0) it.value / it.amount else 0f,
                     value = it.value,
                     orderId = order.order.orderId
                 )
@@ -109,9 +109,15 @@ class OrderRepository @Inject constructor(
                         batch.set(firestoreQueries.getRecordsCollectionQuery(user).document(it.recordId), it)
                     }
                 }.await()
-            }else{ ordersDao.insertOrderWithRecords(order, recordsFinal) }
+            }else{
+                ordersDao.insertOrderWithRecords(order, recordsFinal)
+                println(order)
+                println(recordsFinal)
+            }
             SimpleResult.Success
-        }catch (e:Exception){ SimpleResult.Failure }
+        }catch (e:Exception){
+            println(e.localizedMessage)
+            SimpleResult.Failure }
     }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords {
@@ -122,8 +128,6 @@ class OrderRepository @Inject constructor(
                     .whereEqualTo("orderId", orderId).limit(1).get().await()
             OrderDeserializer.deserialize(query.first())
         }else{
-            println(            ordersDao.getAllOrderRecords(orderId)
-            )
             ordersDao.getAllOrderRecords(orderId)
         }
     }

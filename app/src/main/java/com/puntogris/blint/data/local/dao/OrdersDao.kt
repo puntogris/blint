@@ -69,7 +69,7 @@ interface OrdersDao {
     fun getClientsRecords(externalID: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
+    @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY number DESC")
     fun getAllOrdersPaged(): PagingSource<Int, OrderWithRecords>
 
     @RewriteQueriesToDropUnusedColumns

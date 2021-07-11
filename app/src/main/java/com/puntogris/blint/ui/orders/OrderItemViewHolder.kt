@@ -58,4 +58,5 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
             return OrderItemViewHolder(binding, context)
         }
     }
+
 }

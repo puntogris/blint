@@ -17,6 +17,8 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -26,6 +28,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private lateinit var recordsAdapter: CreateRecordsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private var job = Job()
 
     override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
@@ -38,6 +41,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             viewModel.updateOrdersItems(recordsAdapter.recordsList)
             viewModel.productWithRecords = recordsAdapter.recordsList
             findNavController().navigate(R.id.reviewRecordFragment)
+            job.cancel()
         }
 
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }
@@ -49,7 +53,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                 viewModel.productWithRecords.forEach {
                     recordsAdapter.recordsList.add(it)
                 }
-                recordsAdapter.submitList(viewModel.productWithRecords)
                 recordsAdapter.notifyDataSetChanged()
             }
         }
@@ -57,7 +60,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchTypeRadioGroup.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener{
             override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
                 if (binding.productSearchText.getString().isNotEmpty()){
-                    lifecycleScope.launch {
+                    lifecycleScope.launch(job) {
                         val text = binding.productSearchText.getString()
                         val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
                             R.id.qrSearchType -> SearchText.QrCode(text)
@@ -70,8 +73,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         }
                     }
                 }
+
             }
         })
+
 
         binding.productSearchText.addTextChangedListener {
             it?.toString()?.let{ text ->
@@ -81,7 +86,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         R.id.internalCodeSearchType -> SearchText.InternalCode(text)
                         else -> SearchText.Name(text)
                     }
-                    lifecycleScope.launch {
+                    lifecycleScope.launch(job) {
                         viewModel.getProductWithName(data).collect { pagingData ->
                             binding.productSearchRecyclerView.visible()
                             binding.searchTypeRadioGroup.visible()
@@ -96,6 +101,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                 }
             }
         }
+
         binding.clearTextButton.setOnClickListener {
             binding.productSearchText.setText("")
         }
