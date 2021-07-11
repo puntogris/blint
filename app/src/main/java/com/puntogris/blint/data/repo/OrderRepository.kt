@@ -111,13 +111,9 @@ class OrderRepository @Inject constructor(
                 }.await()
             }else{
                 ordersDao.insertOrderWithRecords(order, recordsFinal)
-                println(order)
-                println(recordsFinal)
             }
             SimpleResult.Success
-        }catch (e:Exception){
-            println(e.localizedMessage)
-            SimpleResult.Failure }
+        }catch (e:Exception){ SimpleResult.Failure }
     }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords {

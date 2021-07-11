@@ -24,41 +24,41 @@
 
         <TextView
             android:id="@+id/textView164"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Valor total:"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView167"
             app:layout_constraintTop_toBottomOf="@+id/textView167" />
 
         <TextView
             android:id="@+id/textView166"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView164"
             app:layout_constraintStart_toEndOf="@+id/textView164"
             app:layout_constraintTop_toTopOf="@+id/textView164" />
 
         <TextView
             android:id="@+id/textView167"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="Cantidad de productos:"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView162" />
 
         <TextView
             android:id="@+id/textView168"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView167"
             app:layout_constraintStart_toEndOf="@+id/textView167"
             app:layout_constraintTop_toTopOf="@+id/textView167" />
@@ -75,30 +75,30 @@
 
         <TextView
             android:id="@+id/textView171"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView170"
             app:layout_constraintStart_toEndOf="@+id/textView170"
             app:layout_constraintTop_toTopOf="@+id/textView170" />
 
         <TextView
             android:id="@+id/textView174"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Autor:"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView170"
             app:layout_constraintTop_toBottomOf="@+id/textView170" />
 
         <TextView
             android:id="@+id/textView175"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView174"
             app:layout_constraintStart_toEndOf="@+id/textView174"
             app:layout_constraintTop_toTopOf="@+id/textView174" />
@@ -108,34 +108,89 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="156dp"
             android:layout_marginEnd="24dp"
-            android:textAlignment="center"
             android:text="*Al continuar esta orden sera generada y enviada a los servidores, generando una factura y modificando el stock de los productos incluidos."
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView174" />
+            app:layout_constraintTop_toBottomOf="@+id/debtSummary" />
 
         <TextView
             android:id="@+id/textView177"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Proveedor/ Cliente:"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView164"
             app:layout_constraintTop_toBottomOf="@+id/textView164" />
 
         <TextView
             android:id="@+id/textView178"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="No especificado."
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView177"
             app:layout_constraintStart_toEndOf="@+id/textView177"
             app:layout_constraintTop_toTopOf="@+id/textView177" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/debt"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Pago estado"
+            app:layout_constraintEnd_toStartOf="@+id/debtAmount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView174">
+
+            <AutoCompleteTextView
+                android:id="@+id/debtText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="Completo" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/debtAmount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:hint="Valor deuda"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/debt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/debt"
+            app:layout_constraintTop_toTopOf="@+id/debt">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/debtAmountText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="0.0" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/debtSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            style="?textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="@+id/debt"
+            app:layout_constraintTop_toBottomOf="@+id/debt" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
