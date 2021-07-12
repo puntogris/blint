@@ -71,9 +71,6 @@ interface ProductsDao {
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
 
-    @Query("UPDATE product SET image = :empty")
-    suspend fun clearImages(empty: HashMap<String, String>)
-
     @Transaction
     @Query("SELECT * FROM product WHERE productId = :id")
     suspend fun getProductWithSuppliersCategories(id: String): ProductWithSuppliersCategories

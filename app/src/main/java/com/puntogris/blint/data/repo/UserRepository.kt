@@ -8,7 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.UsersDao
-import com.puntogris.blint.data.repo.imp.IUserRepository
+import com.puntogris.blint.data.repo.irepo.IUserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME

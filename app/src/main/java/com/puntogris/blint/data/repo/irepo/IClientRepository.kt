@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.repo.imp
+package com.puntogris.blint.data.repo.irepo
 
 import androidx.paging.PagingData
 import com.puntogris.blint.model.Client

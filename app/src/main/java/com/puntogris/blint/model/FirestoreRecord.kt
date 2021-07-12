@@ -9,5 +9,7 @@ data class FirestoreRecord(
     val productId: String = "",
     val productName:String = "",
     val recordId: String = "",
-    val value: Float = 0F
+    val value: Float = 0F,
+    var totalInStock: Int = 0,
+    var totalOutStock: Int = 0
     ):Parcelable

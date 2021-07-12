@@ -50,5 +50,11 @@ data class Record(
     var orderId: String = "",
 
     @ColumnInfo
-    var value: Float = 0F
+    var value: Float = 0F,
+
+    @ColumnInfo
+    var totalInStock: Int = 0,
+
+    @ColumnInfo
+    var totalOutStock:Int = 0
 ):Parcelable

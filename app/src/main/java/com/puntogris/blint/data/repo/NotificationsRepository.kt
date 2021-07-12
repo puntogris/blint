@@ -2,7 +2,7 @@ package com.puntogris.blint.data.repo
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.puntogris.blint.data.remote.FirestoreQueries
-import com.puntogris.blint.data.repo.imp.INotificationsRepository
+import com.puntogris.blint.data.repo.irepo.INotificationsRepository
 import com.puntogris.blint.model.Notification
 import com.puntogris.blint.utils.Constants.WAS_READ_FIELD
 import com.puntogris.blint.utils.NotificationsState

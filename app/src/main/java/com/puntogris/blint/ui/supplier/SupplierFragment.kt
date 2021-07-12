@@ -101,7 +101,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = SUPPLIER_DEBT,id = args.supplier.supplierId)
+                val action = SupplierFragmentDirections.actionSupplierFragmentToDebtStatusFragment(supplier = args.supplier)
                 findNavController().navigate(action)
                 true
             }

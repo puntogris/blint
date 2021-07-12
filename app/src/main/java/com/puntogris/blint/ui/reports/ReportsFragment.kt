@@ -4,8 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
 import com.maxkeppeler.sheets.options.DisplayMode
@@ -16,18 +14,15 @@ import com.puntogris.blint.databinding.FragmentReportsBinding
 import com.puntogris.blint.model.DashboardItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENTS_LIST
-import com.puntogris.blint.utils.Constants.CLIENTS_RECORDS
 import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
-import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
 import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
+class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
 
     private val viewModel: ReportsViewModel by viewModels()
 
@@ -58,10 +53,8 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
     }
 
     fun onProductsReportClicked(){ showTimeFrameBottomSheet(PRODUCTS_RECORDS) }
-
-    fun onClientsReportClicked(){ showTimeFrameBottomSheet(CLIENTS_RECORDS) }
-
-    fun onSuppliersReportClicked(){ showTimeFrameBottomSheet(SUPPLIERS_RECORDS) }
+    //fun onClientsReportClicked(){ showTimeFrameBottomSheet(CLIENTS_RECORDS) }
+    //fun onSuppliersReportClicked(){ showTimeFrameBottomSheet(SUPPLIERS_RECORDS) }
 
     fun onProductListClicked(){
         val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = PRODUCTS_LIST)
@@ -78,7 +71,8 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
         findNavController().navigate(action)
     }
 
-    private fun showTimeFrameBottomSheet(code:Int){
+    @Suppress("SameParameterValue")
+    private fun showTimeFrameBottomSheet(code: Int){
         OptionsSheet().build(requireContext()) {
             title("Periodo de tiempo del reporte")
             displayMode(DisplayMode.LIST)

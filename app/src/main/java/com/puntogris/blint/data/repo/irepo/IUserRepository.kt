@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.repo.imp
+package com.puntogris.blint.data.repo.irepo
 
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.model.Employee

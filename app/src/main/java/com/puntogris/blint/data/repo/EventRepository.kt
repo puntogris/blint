@@ -7,7 +7,7 @@ import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreEventsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
-import com.puntogris.blint.data.repo.imp.IEventRepository
+import com.puntogris.blint.data.repo.irepo.IEventRepository
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers

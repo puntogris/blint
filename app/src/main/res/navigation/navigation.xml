@@ -543,9 +543,6 @@
         <action
             android:id="@+id/action_manageDebtFragment_to_showDebtsFragment"
             app:destination="@id/showDebtsFragment" />
-        <action
-            android:id="@+id/action_manageDebtFragment_to_selectTraderForDebt"
-            app:destination="@id/selectTraderForDebt" />
     </fragment>
     <fragment
         android:id="@+id/debtStatusFragment"
@@ -555,11 +552,15 @@
             android:id="@+id/action_debtStatusFragment_to_modifyDebtFragment"
             app:destination="@id/modifyDebtFragment" />
         <argument
-            android:name="id"
-            app:argType="string" />
+            android:name="client"
+            app:argType="com.puntogris.blint.model.Client"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
-            android:name="debtType"
-            app:argType="integer" />
+            android:name="supplier"
+            app:argType="com.puntogris.blint.model.Supplier"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/modifyDebtFragment"
@@ -568,25 +569,11 @@
         <argument
             android:name="debt"
             app:argType="com.puntogris.blint.model.Debt" />
-        <argument
-            android:name="debtType"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/showDebtsFragment"
         android:name="com.puntogris.blint.ui.debt.ShowDebtsFragment"
         android:label="Deudas" >
-        <argument
-            android:name="debtType"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/selectTraderForDebt"
-        android:name="com.puntogris.blint.ui.debt.SelectTraderForDebt"
-        android:label="SelectTraderForDebt" >
-        <action
-            android:id="@+id/action_selectTraderForDebt_to_modifyDebtFragment"
-            app:destination="@id/modifyDebtFragment" />
         <argument
             android:name="debtType"
             app:argType="integer" />

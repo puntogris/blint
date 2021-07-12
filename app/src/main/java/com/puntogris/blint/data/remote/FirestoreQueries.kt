@@ -104,6 +104,9 @@ class FirestoreQueries @Inject constructor(){
 
     fun getOrdersCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(ORDERS_COLLECTION)
 
+    fun getStatisticsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("statistics")
+
+
     fun getRecordsWithTraderIdQuery(user: RoomUser, traderId: String) =
         getRecordsCollectionQuery(user).whereEqualTo("traderId", traderId)
 

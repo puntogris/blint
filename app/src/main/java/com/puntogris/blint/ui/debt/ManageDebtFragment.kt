@@ -1,22 +1,15 @@
 package com.puntogris.blint.ui.debt
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
-import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -30,7 +23,7 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        setUpUi(showFab = true)
+        setUpUi()
 
         val debtPagingAdapter = DebtPagingAdapter{}
 
@@ -39,12 +32,11 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
             adapter = debtPagingAdapter
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchAndRepeatWithViewLifecycle {
             viewModel.getAllDebts().collect {
                 debtPagingAdapter.submitData(it)
             }
         }
-
     }
 
     fun showClientsDebts(){

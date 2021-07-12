@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.WorkbookDocument
 import java.util.*
 
 @Suppress("BlockingMethodInNonBlockingContext")
@@ -69,25 +70,24 @@ class GenerateReportFragment:
                     fileName = "productos_lista_${Date().getDateFormattedString()}"
                     exportProductList(uri)
                 }
-                SUPPLIERS_RECORDS -> {
-                    fileName = "proveedores_movimientos_${Date().getDateFormattedString()}"
-                    exportSupplierRecords(uri)
-                }
-                CLIENTS_RECORDS -> {
-                    fileName = "clientes_movimientos_${Date().getDateFormattedString()}"
-                    exportClientRecords(uri)
-                }
                 PRODUCTS_RECORDS -> {
                     fileName = "productos_movimientos_${Date().getDateFormattedString()}"
                     exportProductRecords(uri)
                 }
+//                SUPPLIERS_RECORDS -> {
+//                    fileName = "proveedores_movimientos_${Date().getDateFormattedString()}"
+//                    exportSupplierRecords(uri)
+//                }
+//                CLIENTS_RECORDS -> {
+//                    fileName = "clientes_movimientos_${Date().getDateFormattedString()}"
+//                    exportClientRecords(uri)
+//                }
             }
         }
         activityResultLauncher.launch("$fileName.xls")
     }
 
-    private fun showInProgressUi(){
-    }
+    private fun showInProgressUi(){}
 
     private fun showSuccessUi(){
         binding.reportTitle.text = "Reporte exportado correctamente"
@@ -103,148 +103,6 @@ class GenerateReportFragment:
         showLongSnackBarAboveFab("Ocurrio un error en la generacion del informe. Intente nuevamente.")
     }
 
-    private fun exportSupplierRecords(downloadFileUri: Uri) {
-        val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Supplier")
-        val row0 = sheet.createRow(0)
-        row0.createCell(0).setCellValue("Supplier")
-        row0.createCell(1).setCellValue("Product")
-        row0.createCell(2).setCellValue("In")
-        var numberOfRows = 0
-        var lastSupplierId = ""
-        val recordExcel = mutableListOf<SupplierRecordExcel>()
-
-        lifecycleScope.launch {
-            try {
-                val records =
-                    viewModel.getSuppliersRecords(args.timeCode, args.startTime, args.endTime)
-
-                records.forEach {
-                    if (it.traderId != lastSupplierId) {
-                        recordExcel.add(
-                            SupplierRecordExcel(
-                                it.productName,
-                                it.traderName,
-                                it.amount,
-                                it.productId,
-                                it.traderId
-                            )
-                        )
-                    } else {
-                        if (recordExcel.last().productId == it.productId) recordExcel.last().amount += it.amount
-                        else recordExcel.add(
-                            SupplierRecordExcel(
-                                it.productName,
-                                it.traderName,
-                                it.amount,
-                                it.productId,
-                                it.traderId
-                            )
-                        )
-                    }
-                    lastSupplierId = it.traderId
-                }
-
-                recordExcel.sortBy { it.supplierName }
-
-                lastSupplierId = ""
-                recordExcel.forEach {
-                    if (it.clientId != lastSupplierId) {
-                        numberOfRows += 1
-                        val newRow = sheet.createRow(numberOfRows)
-                        newRow.createCell(0).setCellValue(it.supplierName)
-                    }
-                    numberOfRows += 1
-                    val productRow = sheet.createRow(numberOfRows)
-                    productRow.createCell(1).setCellValue(it.productName)
-                    productRow.createCell(2).setCellValue(it.amount.toString())
-
-                    lastSupplierId = it.clientId
-                }
-
-                withContext(Dispatchers.IO) {
-                    val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-                    workbook.write(file)
-                    file?.close()
-                }
-                viewModel.updateExportState(ExportResult.Success)
-            } catch (e: Exception) {
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
-        }
-    }
-
-    private fun exportClientRecords(downloadFileUri: Uri) {
-        val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Clients")
-        val row0 = sheet.createRow(0)
-        row0.createCell(0).setCellValue("Client")
-        row0.createCell(1).setCellValue("Product")
-        row0.createCell(2).setCellValue("Out")
-        var numberOfRows = 0
-        var lastClientId = ""
-        val recordExcel = mutableListOf<ClientRecordExcel>()
-
-        lifecycleScope.launch {
-            try {
-                val records = viewModel.getClientRecords(args.timeCode, args.startTime, args.endTime)
-
-                records.forEach {
-                    if (it.traderId != lastClientId) {
-                        recordExcel.add(
-                            ClientRecordExcel(
-                                it.productName,
-                                it.traderName,
-                                it.amount,
-                                it.productId,
-                                it.traderId
-                            )
-                        )
-                    } else {
-                        if (recordExcel.last().productId == it.productId) recordExcel.last().amount += it.amount
-                        else recordExcel.add(
-                            ClientRecordExcel(
-                                it.productName,
-                                it.traderName,
-                                it.amount,
-                                it.productId,
-                                it.traderId
-                            )
-                        )
-                    }
-                    lastClientId = it.traderId
-                }
-
-                recordExcel.sortBy { it.clientName }
-
-                lastClientId = ""
-                recordExcel.forEach {
-                    if (it.clientId != lastClientId) {
-                        numberOfRows += 1
-                        val newRow = sheet.createRow(numberOfRows)
-                        newRow.createCell(0).setCellValue(it.clientName)
-                    }
-                    numberOfRows += 1
-                    val productRow = sheet.createRow(numberOfRows)
-                    productRow.createCell(1).setCellValue(it.productName)
-                    productRow.createCell(2).setCellValue(it.amount.toString())
-
-                    lastClientId = it.clientId
-                }
-
-                withContext(Dispatchers.IO) {
-                    val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-                    workbook.write(file)
-                    file?.close()
-                }
-                viewModel.updateExportState(ExportResult.Success)
-            }catch (e: Exception) {
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
-
-        }
-    }
-
     private fun exportProductRecords(downloadFileUri: Uri) {
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("Products")
@@ -253,51 +111,28 @@ class GenerateReportFragment:
         row0.createCell(1).setCellValue("In")
         row0.createCell(2).setCellValue("Out")
         var numberOfRows = 0
-        var lastProductId = ""
-        val recordExcel = mutableListOf<ProductRecordExcel>()
 
         lifecycleScope.launch {
-            try {
-                val records = viewModel.getProductRecords(args.timeCode, args.startTime, args.endTime)
-
-                records.forEach {
-                    if (it.productId != lastProductId) {
-                        if (it.type == "IN") recordExcel.add(
-                            ProductRecordExcel(
-                                it.productName,
-                                it.amount,
-                                0
-                            )
-                        )
-                        else recordExcel.add(ProductRecordExcel(it.productName, 0, it.amount))
-                    } else {
-                        if (it.type == "IN") recordExcel.last().inAmount += it.amount
-                        else recordExcel.last().outAmount += it.amount
+            when(val records = viewModel.getProductRecords(args.timeCode, args.startTime, args.endTime)){
+                is RepoResult.Error -> {}
+                RepoResult.InProgress -> {}
+                is RepoResult.Success -> {
+                    try {
+                        records.data.sortedBy { it.productName }
+                        records.data.forEach {
+                            numberOfRows += 1
+                            val newRow = sheet.createRow(numberOfRows)
+                            newRow.createCell(0).setCellValue(it.productName)
+                            newRow.createCell(1).setCellValue(it.totalInStock.toString())
+                            newRow.createCell(2).setCellValue(it.totalOutStock.toString())
+                        }
+                        workbook.writeToFile(downloadFileUri)
+                        viewModel.updateExportState(ExportResult.Success)
+                    }catch (e: Exception) {
+                        viewModel.updateExportState(ExportResult.Error(e))
                     }
-                    lastProductId = it.productId
                 }
-
-                recordExcel.sortBy { it.name }
-
-                recordExcel.forEach {
-                    numberOfRows += 1
-                    val newRow = sheet.createRow(numberOfRows)
-                    newRow.createCell(0).setCellValue(it.name)
-                    newRow.createCell(1).setCellValue(it.inAmount.toString())
-                    newRow.createCell(2).setCellValue(it.outAmount.toString())
-                }
-
-                withContext(Dispatchers.IO) {
-                    val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-                    workbook.write(file)
-                    file?.close()
-                }
-                viewModel.saveDownloadUri(downloadFileUri)
-                viewModel.updateExportState(ExportResult.Success)
-            }catch (e: Exception) {
-                viewModel.updateExportState(ExportResult.Error(e))
             }
-
         }
     }
 
@@ -332,20 +167,11 @@ class GenerateReportFragment:
                             row.createCell(2).setCellValue(it.address)
                             row.createCell(3).setCellValue(it.companyEmail)
                         }
-                        withContext(Dispatchers.IO) {
-                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-
-                            requireActivity()
-                            workbook.write(file)
-                            file?.close()
-                        }
-                        viewModel.saveDownloadUri(downloadFileUri)
+                        workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
+            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
         }
     }
 
@@ -373,20 +199,11 @@ class GenerateReportFragment:
                             row.createCell(2).setCellValue(it.address)
                             row.createCell(3).setCellValue(it.email)
                         }
-                        withContext(Dispatchers.IO) {
-                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-
-                            requireActivity()
-                            workbook.write(file)
-                            file?.close()
-                        }
-                        viewModel.saveDownloadUri(downloadFileUri)
+                        workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
+            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
         }
     }
 
@@ -425,20 +242,96 @@ class GenerateReportFragment:
                             row.createCell(8).setCellValue(it.size)
 
                         }
-                        withContext(Dispatchers.IO) {
-                            val file = requireActivity().contentResolver.openOutputStream(downloadFileUri)
-
-                            requireActivity()
-                            workbook.write(file)
-                            file?.close()
-                        }
-                        viewModel.saveDownloadUri(downloadFileUri)
+                        workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){
-                viewModel.updateExportState(ExportResult.Error(e))
-            }
+            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
         }
     }
+
+    private suspend fun XSSFWorkbook.writeToFile(uri: Uri){
+        withContext(Dispatchers.IO) {
+            val file = requireActivity().contentResolver.openOutputStream(uri)
+            write(file)
+            file?.close()
+            viewModel.saveDownloadUri(uri)
+        }
+    }
+
+//    private fun exportSupplierRecords(downloadFileUri: Uri) {
+//        val workbook = XSSFWorkbook()
+//        val sheet = workbook.createSheet("Supplier")
+//        val row0 = sheet.createRow(0)
+//        row0.createCell(0).setCellValue("Supplier")
+//        row0.createCell(1).setCellValue("Product")
+//        row0.createCell(2).setCellValue("In")
+//        var numberOfRows = 0
+//
+//        lifecycleScope.launch {
+//            when(val records = viewModel.getSuppliersRecords(args.timeCode, args.startTime, args.endTime)){
+//                is RepoResult.Error -> {}
+//                RepoResult.InProgress -> {}
+//                is RepoResult.Success -> {
+//                    try {
+//                        val sortedSuppliers = records.data.sortedBy { it.supplierName }
+//
+//                        sortedSuppliers.forEach { client->
+//                            numberOfRows += 1
+//                            val newRow = sheet.createRow(numberOfRows)
+//                            newRow.createCell(0).setCellValue(client.supplierName)
+//                            client.products.forEach {
+//                                numberOfRows += 1
+//                                val productRow = sheet.createRow(numberOfRows)
+//                                productRow.createCell(1).setCellValue(it.productName)
+//                                productRow.createCell(2).setCellValue(it.amount.toString())
+//                            }
+//                        }
+//                        workbook.writeToFile(downloadFileUri)
+//                        viewModel.updateExportState(ExportResult.Success)
+//                    }catch (e:Exception) {
+//                        viewModel.updateExportState(ExportResult.Error(e))
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun exportClientRecords(downloadFileUri: Uri) {
+//        val workbook = XSSFWorkbook()
+//        val sheet = workbook.createSheet("Clients")
+//        val row0 = sheet.createRow(0)
+//        row0.createCell(0).setCellValue("Client")
+//        row0.createCell(1).setCellValue("Product")
+//        row0.createCell(2).setCellValue("Out")
+//        var numberOfRows = 0
+//
+//        lifecycleScope.launch {
+//            when(val records = viewModel.getClientRecords(args.timeCode, args.startTime, args.endTime)){
+//                is RepoResult.Error -> {}
+//                RepoResult.InProgress -> {}
+//                is RepoResult.Success -> {
+//                    try {
+//                        val sortedSuppliers = records.data.sortedBy { it.clientName }
+//
+//                        sortedSuppliers.forEach { client->
+//                            numberOfRows += 1
+//                            val newRow = sheet.createRow(numberOfRows)
+//                            newRow.createCell(0).setCellValue(client.clientName)
+//                            client.products.forEach {
+//                                numberOfRows += 1
+//                                val productRow = sheet.createRow(numberOfRows)
+//                                productRow.createCell(1).setCellValue(it.productName)
+//                                productRow.createCell(2).setCellValue(it.amount.toString())
+//                            }
+//                        }
+//                        workbook.writeToFile(downloadFileUri)
+//                        viewModel.updateExportState(ExportResult.Success)
+//                    }catch (e:Exception) {
+//                        viewModel.updateExportState(ExportResult.Error(e))
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

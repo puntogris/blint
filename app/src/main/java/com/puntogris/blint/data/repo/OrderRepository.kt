@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
@@ -16,8 +15,9 @@ import com.puntogris.blint.data.remote.FirestoreOrdersPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.data.remote.deserializers.OrderDeserializer
-import com.puntogris.blint.data.repo.imp.IOrdersRepository
+import com.puntogris.blint.data.repo.irepo.IOrdersRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -94,8 +94,13 @@ class OrderRepository @Inject constructor(
                     businessId = order.order.businessId,
                     productUnitPrice = if(it.amount != 0) it.value / it.amount else 0f,
                     value = it.value,
-                    orderId = order.order.orderId
-                )
+                    orderId = order.order.orderId,
+                    totalInStock = it.totalInStock,
+                    totalOutStock = it.totalOutStock
+                ).also { rec ->
+                    if (rec.type == IN) rec.totalInStock += rec.amount
+                    else rec.totalOutStock +=rec.amount
+                }
             }
             if (user.currentBusinessIsOnline()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
@@ -104,7 +109,12 @@ class OrderRepository @Inject constructor(
                     batch.set(orderRef.document(order.order.orderId), FirestoreOrder.from(order))
                     recordsFinal.forEach {
                         val productRef = firestoreQueries.getProductsCollectionQuery(user).document(it.productId)
-                        batch.update(productRef,"amount", FieldValue.increment(it.amount.toLong()))
+                        batch.update(
+                            productRef,
+                            "amount", FieldValue.increment(it.amount.toLong()),
+                            "totalInStock", it.totalInStock,
+                            "totalOutStock", it.totalOutStock
+                        )
                         batch.set(countersRef, hashMapOf("totalOrders" to FieldValue.increment(1)), SetOptions.merge())
                         batch.set(firestoreQueries.getRecordsCollectionQuery(user).document(it.recordId), it)
                     }

@@ -77,7 +77,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             }
         })
 
-
         binding.productSearchText.addTextChangedListener {
             it?.toString()?.let{ text ->
                 if(text.isNotEmpty()){
@@ -162,7 +161,11 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchTypeRadioGroup.gone()
         hideKeyboard()
         val productWithRecord =
-            ProductWithRecord(product, Record(productName = product.name, productId = product.productId))
+            ProductWithRecord(product,
+                Record(productName = product.name,
+                    productId = product.productId,
+                totalInStock = product.totalInStock,
+                totalOutStock = product.totalOutStock))
         recordsAdapter.recordsList.add(productWithRecord)
         recordsAdapter.notifyDataSetChanged()
     }

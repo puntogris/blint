@@ -1,17 +1,13 @@
 package com.puntogris.blint.data.repo
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreQueries
-import com.puntogris.blint.data.repo.imp.IMainRepository
+import com.puntogris.blint.data.repo.irepo.IMainRepository
 import com.puntogris.blint.model.BusinessCounters
-import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.EventsDashboard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

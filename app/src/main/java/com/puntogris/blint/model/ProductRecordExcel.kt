@@ -1,3 +1,3 @@
 package com.puntogris.blint.model
 
-class ProductRecordExcel(val name:String , var inAmount:Int, var outAmount:Int)
+class ProductRecordExcel(val productName:String = "", var totalInStock:Int = 0, var totalOutStock:Int = 0)

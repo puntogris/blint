@@ -54,7 +54,10 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
                 productId = args.product.productId,
                 productName = args.product.name,
                 amount = if (orderType == IN) amount else -amount,
+                totalOutStock = args.product.totalOutStock,
+                totalInStock = args.product.totalInStock
             ))
+
             lifecycleScope.launch {
                 when(viewModel.createSimpleOrder(order)){
                     SimpleResult.Failure -> {

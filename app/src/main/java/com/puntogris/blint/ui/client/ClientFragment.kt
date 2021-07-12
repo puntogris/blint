@@ -100,7 +100,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(debtType = CLIENT_DEBT, id = args.client.clientId)
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(client = args.client)
                 findNavController().navigate(action)
                 true
             }

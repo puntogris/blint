@@ -1,3 +1,11 @@
 package com.puntogris.blint.model
 
-class ClientRecordExcel(val productName: String, val clientName:String, var amount: Int, val productId:String, val clientId:String)
+class ClientRecordExcel(
+    val clientName: String = "",
+    val products: List<ProductRecord> = listOf()
+)
+class ClientsRecords(val clients: List<ClientRecordData> = listOf())
+
+class ClientRecordData(
+    val clientId: String = "",
+    val productsIds: List<String> = listOf())

@@ -9,9 +9,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDebtStatusBinding
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
-import com.puntogris.blint.utils.createLongSnackBar
-import com.puntogris.blint.utils.getParentFab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,23 +23,35 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
-
-        getParentFab().setOnClickListener {
+        setUpUi(showFab = true){
             onModifyDebtButtonClicked()
         }
-        
-        lifecycleScope.launch {
-            if (args.debtType == CLIENT_DEBT){
-                val client = viewModel.getClientFromDb(args.id)
-                binding.textView184.text = client.debt.toString() + " $"
-                viewModel.updateDebtWithTraderInfo(client.clientId, client.name, client.businessId)
+
+        launchAndRepeatWithViewLifecycle {
+            if (args.client != null){
+                args.client?.let {
+                    binding.textView184.text = "${it.debt.toString()} $"
+                    when(val debts = viewModel.getLastDebts(it.clientId)){
+                        is RepoResult.Error -> {}
+                        RepoResult.InProgress -> {}
+                        is RepoResult.Success -> {
+                            setUpDebtsRecyclerView(debts.data)
+                        }
+                    }
+                }
             }else {
-                val supplier = viewModel.getSupplierFromDb(args.id)
-                binding.textView184.text = supplier.debt.toString() + " $"
-                viewModel.updateDebtWithTraderInfo(supplier.supplierId, supplier.companyName, supplier.businessId)
+                args.supplier?.let {
+                    binding.textView184.text = "${it.debt.toString()} $"
+                    when(val debts = viewModel.getLastDebts(it.supplierId)){
+                        is RepoResult.Error -> {}
+                        RepoResult.InProgress -> {}
+                        is RepoResult.Success -> {
+                            setUpDebtsRecyclerView(debts.data)
+                        }
+                    }
+                }
             }
-            val debts = viewModel.getLastDebts(args.id)
-            setUpDebtsRecyclerView(debts)
+
         }
     }
 
@@ -56,13 +67,22 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
     }
 
     fun onModifyDebtButtonClicked(){
-        val debt = viewModel.getDebtData()
-        if (debt.traderId.isNotEmpty() && debt.traderName.isNotBlank()){
-            val action = DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(debt = debt,debtType = args.debtType)
-            findNavController().navigate(action)
+        val debt = Debt()
+        if (args.client != null) {
+            debt.type = "CLIENT"
+            debt.traderName = args.client?.name.toString()
+            debt.traderId = args.client?.clientId.toString()
         }else{
-            createLongSnackBar("Espere un segundo que estamos buscando la informacion del servidor.")
+            debt.type = "SUPPLIER"
+            debt.traderName = args.supplier?.companyName.toString()
+            debt.traderId = args.supplier?.supplierId.toString()
         }
+        val action = DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(debt = debt)
+        findNavController().navigate(action)
+    }
 
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }

@@ -18,7 +18,7 @@ interface DebtsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
-    fun getDebtsForBusiness(): LiveData<BusinessDebtsData>
+    suspend fun getDebtsForBusiness(): BusinessDebtsData
 
     @Query("UPDATE employee SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)
@@ -29,5 +29,11 @@ interface DebtsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM debt INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
     fun getPagedDebts(): PagingSource<Int, Debt>
+
+    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
+    suspend fun updateClientDebt(clientId: String, amount: Float)
+
+    @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
+    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
 
 }

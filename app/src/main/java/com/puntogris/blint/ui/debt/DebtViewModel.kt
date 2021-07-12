@@ -1,16 +1,15 @@
 package com.puntogris.blint.ui.debt
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.DebtsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
-import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.data.repo.DebtsRepository
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.SimpleDebt
-import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,43 +17,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DebtViewModel @Inject constructor(
-    private val debtsDao: DebtsDao,
     private val suppliersDao: SuppliersDao,
     private val clientsDao: ClientsDao,
-    private val userRepository: UserRepository
+    private val debtsRepository: DebtsRepository
     ): ViewModel() {
 
-    private val debt = Debt()
+    val businessDebts = liveData { emit(debtsRepository.getBusinessDebtData()) }
 
-    fun updateDebtWithTraderInfo(id: String, name: String, businessId:String){
-        debt.traderId = id
-        debt.traderName = name
-        debt.businessId = businessId
-    }
+    suspend fun registerNewDebt(debt:Debt) = debtsRepository.registerNewDebtDatabase(debt)
 
-    fun getDebtData() = debt
+    suspend fun getLastDebts(traderId: String) = debtsRepository.getLastTraderDebts(traderId)
 
-    suspend fun registerNewDebt(debt:Debt, debtType: Int){
-        debt.author = userRepository.getCurrentUser()?.email!!
-        debt.timestamp = Timestamp.now()
-        debt.type = if(debtType == CLIENT_DEBT) "CLIENT" else "SUPPLIER"
-        debtsDao.insert(debt)
-
-        if (debtType == CLIENT_DEBT){
-            clientsDao.updateClientDebt(debt.traderId, debt.amount)
-            debtsDao.updateClientsDebt(debt.amount)
-        }else{
-            suppliersDao.updateSupplierDebt(debt.traderId, debt.amount)
-            debtsDao.updateSupplierDebt(debt.amount)
-        }
-
-    }
-
-    suspend fun getClientFromDb(clientId:String) = clientsDao.getClient(clientId)
-
-    suspend fun getSupplierFromDb(supplierId:String) = suppliersDao.getSupplier(supplierId)
-
-    suspend fun getLastDebts(traderId: String) = debtsDao.getDebtsWithId(traderId)
+    suspend fun getAllDebts() = debtsRepository.getBusinessDebtsPagingDataFlow().cachedIn(viewModelScope)
 
     fun getAllClients(): Flow<PagingData<SimpleDebt>> {
         return Pager(
@@ -81,20 +55,4 @@ class DebtViewModel @Inject constructor(
         }.flow.map { pagingData -> pagingData.map { SimpleDebt(it.companyName, it.debt, it.supplierId) } }
             .cachedIn(viewModelScope)
     }
-
-    fun getAllDebts(): Flow<PagingData<Debt>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            debtsDao.getPagedDebts()
-        }.flow.cachedIn(viewModelScope)
-    }
-
-
-    val businessDebts = debtsDao.getDebtsForBusiness()
-
 }

@@ -14,7 +14,7 @@ import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreClientsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
-import com.puntogris.blint.data.repo.imp.IClientRepository
+import com.puntogris.blint.data.repo.irepo.IClientRepository
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.SimpleResult

@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class Debt(
 
     @PrimaryKey
-    val debtId: String = "",
+    var debtId: String = "",
 
     @ColumnInfo
     var amount: Float = 0F,

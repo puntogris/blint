@@ -53,19 +53,11 @@ interface StatisticsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY productId")
-    suspend fun getAllRecords(): List<Record>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
-    suspend fun getAllClientsRecords(): List<Record>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
-    suspend fun getAllSuppliersRecords(): List<Record>
+    suspend fun getAllRecords(): List<ProductRecordExcel>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY productId")
-    suspend fun getRecordsWithDays(days:String): List<Record>
+    suspend fun getRecordsWithDays(days:String): List<ProductRecordExcel>
 
     @RewriteQueriesToDropUnusedColumns
     @Query(
@@ -76,40 +68,46 @@ interface StatisticsDao {
         ORDER BY productId
      """
     )
-    suspend fun getRecordsWithDaysFrame(startTime:Long, endTime: Long): List<Record>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
-    suspend fun getRecordsClientsWithDays(days:String): List<Record>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query(
-        """
-        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
-        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
-        AND type = "OUT" AND traderId != 0
-        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
-        ORDER BY traderName
-     """
-    )
-    suspend fun getRecordsClientsWithDaysFrame(startTime:Long, endTime: Long): List<Record>
+    suspend fun getRecordsWithDaysFrame(startTime:Long, endTime: Long): List<ProductRecordExcel>
 
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
-    suspend fun getRecordsSuppliersWithDays(days:String): List<Record>
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
+//    suspend fun getAllClientsRecords(): List<ClientRecordExcel>
+//
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
+//    suspend fun getAllSuppliersRecords(): List<SupplierRecordExcel>
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query(
-        """
-        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
-        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
-        AND type = 'IN' AND traderId != 0
-        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
-        ORDER BY traderName
-     """
-    )
-    suspend fun getRecordsSuppliersWithDaysFrame(startTime:Long, endTime: Long): List<Record>
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
+//    suspend fun getRecordsClientsWithDays(days:String): List<ClientRecordExcel>
+//
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query(
+//        """
+//        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId
+//        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
+//        AND type = "OUT" AND traderId != 0
+//        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime')
+//        ORDER BY traderName
+//     """
+//    )
+//    suspend fun getRecordsClientsWithDaysFrame(startTime:Long, endTime: Long): List<ClientRecordExcel>
+//
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
+//    suspend fun getRecordsSuppliersWithDays(days:String): List<SupplierRecordExcel>
 
-
+//    @RewriteQueriesToDropUnusedColumns
+//    @Query(
+//        """
+//        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId
+//        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
+//        AND type = 'IN' AND traderId != 0
+//        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime')
+//        ORDER BY traderName
+//     """
+//    )
+//    suspend fun getRecordsSuppliersWithDaysFrame(startTime:Long, endTime: Long): List<SupplierRecordExcel>
 }
