@@ -7,7 +7,9 @@ import androidx.paging.*
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.DebtsDao
 import com.puntogris.blint.data.local.dao.SuppliersDao
+import com.puntogris.blint.data.repo.ClientRepository
 import com.puntogris.blint.data.repo.DebtsRepository
+import com.puntogris.blint.data.repo.SupplierRepository
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.SimpleDebt
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +19,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DebtViewModel @Inject constructor(
-    private val suppliersDao: SuppliersDao,
-    private val clientsDao: ClientsDao,
     private val debtsRepository: DebtsRepository
     ): ViewModel() {
 
@@ -30,29 +30,11 @@ class DebtViewModel @Inject constructor(
 
     suspend fun getAllDebts() = debtsRepository.getBusinessDebtsPagingDataFlow().cachedIn(viewModelScope)
 
-    fun getAllClients(): Flow<PagingData<SimpleDebt>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            clientsDao.getAllPaged()
-        }.flow.map { pagingData -> pagingData.map { SimpleDebt(it.name, it.debt, it.clientId) } }
-            .cachedIn(viewModelScope)
-    }
+    suspend fun getAllClients() = debtsRepository.getClientPagingDataFlow()
+        .map{ pagingData -> pagingData.map { SimpleDebt(it.name, it.debt, it.clientId) } }
+        .cachedIn(viewModelScope)
 
-    fun getAllSuppliers(): Flow<PagingData<SimpleDebt>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ){
-            suppliersDao.getAllPaged()
-        }.flow.map { pagingData -> pagingData.map { SimpleDebt(it.companyName, it.debt, it.supplierId) } }
-            .cachedIn(viewModelScope)
-    }
+    suspend fun getAllSuppliers() = debtsRepository.getSupplierPagingDataFlow()
+        .map{ pagingData -> pagingData.map { SimpleDebt(it.companyName, it.debt, it.supplierId) } }
+        .cachedIn(viewModelScope)
 }

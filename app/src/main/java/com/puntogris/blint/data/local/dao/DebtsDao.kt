@@ -6,6 +6,7 @@ import androidx.room.*
 import com.puntogris.blint.model.BusinessDebtsData
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.Supplier
 
 @Dao
 interface DebtsDao {
@@ -35,5 +36,14 @@ interface DebtsDao {
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
     suspend fun updateSupplierDebt(supplierId: String, amount: Float)
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt > 0")
+    fun getClientDebtsPaged(): PagingSource<Int, Client>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt > 0")
+    fun getSupplierDebtsPaged(): PagingSource<Int, Supplier>
+
 
 }

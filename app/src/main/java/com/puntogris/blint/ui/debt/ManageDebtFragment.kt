@@ -48,5 +48,4 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         val action = ManageDebtFragmentDirections.actionManageDebtFragmentToShowDebtsFragment(SUPPLIER_DEBT)
         findNavController().navigate(action)
     }
-
 }

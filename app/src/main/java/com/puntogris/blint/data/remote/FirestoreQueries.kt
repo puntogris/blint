@@ -40,7 +40,7 @@ class FirestoreQueries @Inject constructor(){
 
     fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/${BACKUP_PATH}_$APP_VERSION")
 
-    fun test() = storage.child("users/test.webp").metadata
+    fun getCurrentUserEmail() = auth.currentUser?.email.toString()
 
     fun getUserBusinessProductImagesQuery(user: RoomUser, imageName:String) =
         storage.child("users/${user.currentBusinessOwner}/business/${user.currentBusinessId}/products_images/$imageName")
@@ -106,6 +106,7 @@ class FirestoreQueries @Inject constructor(){
 
     fun getStatisticsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("statistics")
 
+    fun getDebtCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("debts")
 
     fun getRecordsWithTraderIdQuery(user: RoomUser, traderId: String) =
         getRecordsCollectionQuery(user).whereEqualTo("traderId", traderId)
