@@ -9,24 +9,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
-import com.puntogris.blint.model.ClientRecordExcel
-import com.puntogris.blint.model.ProductRecordExcel
-import com.puntogris.blint.model.SupplierRecordExcel
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENTS_LIST
-import com.puntogris.blint.utils.Constants.CLIENTS_RECORDS
 import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
-import com.puntogris.blint.utils.Constants.SUPPLIERS_RECORDS
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.WorkbookDocument
 import java.util.*
 
 @Suppress("BlockingMethodInNonBlockingContext")
@@ -237,7 +231,7 @@ class GenerateReportFragment:
                             row.createCell(3).setCellValue(it.buyPrice.toString())
                             row.createCell(4).setCellValue(it.sellPrice.toString())
                             row.createCell(5).setCellValue(it.suggestedSellPrice.toString())
-                            row.createCell(6).setCellValue(it.internalCode)
+                            row.createCell(6).setCellValue(it.sku)
                             row.createCell(7).setCellValue(it.brand)
                             row.createCell(8).setCellValue(it.size)
 

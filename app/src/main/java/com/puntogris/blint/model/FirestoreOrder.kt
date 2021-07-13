@@ -16,7 +16,8 @@ data class FirestoreOrder(
     var businessId:String = "",
     var number: Int = 0,
     val records: List<FirestoreRecord> = listOf(),
-    val debt: FirestoreDebt? = null
+    val debt: FirestoreDebt? = null,
+    val businessName: String = ""
 
 ):Parcelable{
     companion object{
@@ -32,7 +33,8 @@ data class FirestoreOrder(
                 businessId = orderWithRecords.order.businessId,
                 number = orderWithRecords.order.number,
                 records = orderWithRecords.records,
-                debt = orderWithRecords.debt
+                debt = orderWithRecords.debt,
+                businessName = orderWithRecords.order.businessName
             )
         }
     }

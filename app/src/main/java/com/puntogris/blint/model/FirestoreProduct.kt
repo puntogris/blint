@@ -36,7 +36,7 @@ data class FirestoreProduct(
                 product.product.sellPrice,
                 product.product.buyPrice,
                 product.product.suggestedSellPrice,
-                product.product.internalCode,
+                product.product.sku,
                 product.product.brand,
                 product.product.size,
                 product.product.lastRecordTimestamp,

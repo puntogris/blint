@@ -1,4 +1,4 @@
-package com.puntogris.blint.data.repo
+ package com.puntogris.blint.data.repo
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -67,6 +67,7 @@ class OrderRepository @Inject constructor(
                 val query = firestoreQueries
                     .getRecordsCollectionQuery(user)
                     .whereEqualTo("businessId", user.currentBusinessId)
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
                 FirestoreRecordsPagingSource(query)
             }
             else{ ordersDao.getAllRecordsPaged() }
@@ -81,6 +82,7 @@ class OrderRepository @Inject constructor(
             order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id
+            order.order.businessName = user.currentBusinessName
             val debtRef = firestoreQueries.getDebtCollectionQuery(user)
 
             if (order.debt != null){
@@ -107,7 +109,9 @@ class OrderRepository @Inject constructor(
                     value = it.value,
                     orderId = order.order.orderId,
                     totalInStock = it.totalInStock,
-                    totalOutStock = it.totalOutStock
+                    totalOutStock = it.totalOutStock,
+                    sku = it.sku,
+                    barcode = it.barcode
                 ).also { rec ->
                     if (rec.type == IN) rec.totalInStock += rec.amount
                     else rec.totalOutStock +=rec.amount
@@ -160,9 +164,9 @@ class OrderRepository @Inject constructor(
         }catch (e:Exception){ SimpleResult.Failure }
     }
 
-    override suspend fun getOrderRecords(orderId: String): OrderWithRecords {
+    override suspend fun getOrderRecords(orderId: String): OrderWithRecords = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        return if (user.currentBusinessIsOnline()){
+        if (user.currentBusinessIsOnline()){
             val query =
                 firestoreQueries.getOrdersCollectionQuery(user)
                     .whereEqualTo("orderId", orderId).limit(1).get().await()

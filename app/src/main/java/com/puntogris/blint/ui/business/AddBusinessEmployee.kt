@@ -38,36 +38,12 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
                     binding.addEmployeeSummary.visible()
                     binding.joinBusinessCode.text = result.data.id
                     binding.addEmployeeTitle.text = getString(R.string.code_generated)
-                    generateQRImage(result.data.id)
+                    val bitmap = generateQRImage(result.data.id, 700, 700)
+                    binding.qrCodeImage.setImageBitmap(bitmap)
                     viewModel.codeExpirationCountDown(result.data.timestamp)
                 }
             }
         }
-    }
-
-    private fun generateQRImage(code: String){
-        val writer = QRCodeWriter()
-        val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, 700, 700)
-        val width = bitMatrix.width
-        val height = bitMatrix.height
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-
-        val darkThemeOn = isDarkThemeOn()
-        val background = getQrCodeWithTheme(darkThemeOn)
-        val qrCode = getQrCodeWithTheme(!darkThemeOn)
-
-        for (x in 0 until width) {
-            for (y in 0 until height) {
-                bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) qrCode else background)
-            }
-        }
-
-        binding.qrCodeImage.setImageBitmap(bitmap)
-    }
-
-    private fun getQrCodeWithTheme(darkThemeOn: Boolean): Int{
-        return if (darkThemeOn) ContextCompat.getColor(requireContext(), R.color.nightBackground)
-        else ContextCompat.getColor(requireContext(), R.color.grey_5)
     }
 
     fun onCopyCodeClicked(){

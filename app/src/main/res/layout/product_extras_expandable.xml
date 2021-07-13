@@ -71,7 +71,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productInternalCodeText"
                     android:layout_width="match_parent"
-                    android:text="@{viewModel.currentProduct.product.internalCode}"
+                    android:text="@{viewModel.currentProduct.product.sku}"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"

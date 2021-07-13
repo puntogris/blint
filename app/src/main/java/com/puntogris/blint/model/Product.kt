@@ -38,7 +38,7 @@ data class Product(
     val suggestedSellPrice: Float = 0F,
 
     @ColumnInfo
-    val internalCode: String = "",
+    val sku: String = "",
 
     @ColumnInfo
     val brand:String = "",
@@ -58,4 +58,4 @@ data class Product(
     @ColumnInfo
     var businessId:String = "",
 
-):Parcelable
+    ):Parcelable

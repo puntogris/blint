@@ -1,12 +1,15 @@
 package com.puntogris.blint.ui.orders
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.graphics.scale
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -16,15 +19,16 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderBinding
+import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showShortSnackBar
+import com.puntogris.blint.utils.*
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.OutputStream
+import java.util.*
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order) {
@@ -45,7 +49,6 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             layoutManager = LinearLayoutManager(requireContext())
             adapter = ordersAdapter
         }
-      //  println(args.order)
 
         if (!args.orderId.isNullOrEmpty()){
             lifecycleScope.launch {
@@ -103,28 +106,45 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         }.show(parentFragmentManager, "")
     }
 
+    val paintCenter = Paint().also {
+        it.color = Color.BLACK
+        it.textSize = 15F
+        it.textAlign = Paint.Align.CENTER
+    }
+    val paintLeft = Paint().also {
+        it.color = Color.BLACK
+        it.textSize = 15F
+        it.textAlign = Paint.Align.LEFT
+    }
+
+    val paintBarcode = Paint().also {
+        it.color = Color.BLACK
+        it.textSize = 11F
+        it.textAlign = Paint.Align.LEFT
+    }
+
+    val paintRight = Paint().also {
+        it.color = Color.BLACK
+        it.textSize = 15F
+        it.textAlign = Paint.Align.RIGHT
+    }
+
+    val blintPaint = Paint().also {
+        it.color = Color.BLACK
+        it.textSize = 11F
+        it.textAlign = Paint.Align.RIGHT
+    }
+
+    val linePaint = Paint().also {
+        it.color = Color.BLACK
+        it.strokeWidth = 1f
+    }
+
+    val width = 595
+
     private fun createPdf(file:OutputStream){
         val doc = PdfDocument()
-        val paintCenter = Paint()
-        paintCenter.color = Color.BLACK
-        paintCenter.textSize = 15F
-        paintCenter.textAlign = Paint.Align.CENTER
 
-        val paintLeft = Paint()
-        paintLeft.color = Color.BLACK
-        paintLeft.textSize = 15F
-        paintLeft.textAlign = Paint.Align.LEFT
-
-        val paintRight = Paint()
-        paintRight.color = Color.BLACK
-        paintRight.textSize = 15F
-        paintRight.textAlign = Paint.Align.RIGHT
-
-        val linePaint = Paint()
-        linePaint.color = Color.BLACK
-        paintRight.strokeWidth = 1f
-
-        val width = 595
         val height = 842
         var pageNumber = 1
 
@@ -132,69 +152,82 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
         var pageCanvas = doc.startPage(page)
 
-
         var canvas = pageCanvas.canvas
         val horizontalMargin = 40F
-        val lineHeight = 50f
 
-        canvas.drawText("Factura orden ${args.order?.order?.number}.", horizontalMargin,40f, paintLeft)
+        canvas.drawText("Factura orden ${viewModel.order.value?.order?.number}.", horizontalMargin,40f, paintLeft)
+        canvas.drawText("Negocio: ${viewModel.order.value?.order?.businessName} ", horizontalMargin,70f, paintLeft)
+        canvas.drawText("Fecha: ${Date().getDateWithTimeFormattedString()}", horizontalMargin,100f, paintLeft)
+        val trader = if (viewModel.order.value?.order?.type == "IN") "Proveedor" else "Cliente"
+        val traderName = if(viewModel.order.value?.order?.traderName.isNullOrBlank()) "No especificado" else viewModel.order.value?.order?.traderName.toString()
+        canvas.drawText("$trader: $traderName", horizontalMargin,130f, paintLeft)
 
-        canvas.drawLine(horizontalMargin,60f,width - horizontalMargin, 60f, paintCenter)
+        val bitmap:Bitmap = generateQRImage("order:${viewModel.order.value?.order?.orderId.toString()}", 75, 75)
+        canvas.drawBitmap(bitmap, width.toFloat() - 100, 25f, paintRight)
 
-        canvas.drawText("Producto", horizontalMargin,100F, paintLeft)
-        canvas.drawText("Cantidad",width / 2f,100f, paintCenter)
-        canvas.drawText("Valor",width - horizontalMargin,100f ,paintRight)
+        canvas.drawLine(horizontalMargin,150f,width - horizontalMargin, 150f, paintCenter)
 
-        var initY = 140F
+        val xRow2 = ((width - 100) / 3f) + horizontalMargin
+        val xRow3 = ((width - 100) / 3f *2) + horizontalMargin
+        val xRow4 = width - horizontalMargin
 
-        args.order?.records?.forEach { firestoreRecord ->
-            if (initY >= height - 100) {
-                canvas.drawLine(horizontalMargin, initY + 25,width - horizontalMargin, initY + 25, paintCenter)
-                canvas.drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
+        canvas.drawText("Producto", horizontalMargin, 190F, paintLeft)
+        canvas.drawText("SKU", xRow2,190f, paintCenter)
+        canvas.drawText("Cantidad", xRow3 ,190f, paintCenter)
+        canvas.drawText("Valor", xRow4, 190f , paintRight)
 
-                pageNumber += 1
-                doc.finishPage(pageCanvas)
-                page = PdfDocument.PageInfo.Builder(width, height, pageNumber).create()
-                pageCanvas = doc.startPage(page)
-                canvas = pageCanvas.canvas
-                initY = 40f
-                canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
-                initY += 50f
+        var initY = 230F
+
+       viewModel.order.value?.records?.forEachIndexed { i, firestoreRecord ->
+           if (initY >= 730) {
+                if (i == viewModel.order.value?.records!!.size - 1){
+                    canvas.drawFooter(width, height, pageNumber, false)
+                    pageNumber += 1
+                    doc.finishPage(pageCanvas)
+                    page = PdfDocument.PageInfo.Builder(width, height, pageNumber).create()
+                    pageCanvas = doc.startPage(page)
+                    canvas = pageCanvas.canvas
+                    initY = 40f
+                    canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
+                    initY += 50f
+                    canvas.drawFooter(width, height, pageNumber, true)
+                }else{
+                    canvas.drawFooter(width, height, pageNumber, false)
+                    pageNumber += 1
+                    doc.finishPage(pageCanvas)
+                    page = PdfDocument.PageInfo.Builder(width, height, pageNumber).create()
+                    pageCanvas = doc.startPage(page)
+                    canvas = pageCanvas.canvas
+                    initY = 40f
+                    canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
+                    initY += 50f
+                }
+            }else{
+                if (i == viewModel.order.value?.records?.size!! - 1) canvas.drawFooter(width, height, pageNumber, true)
             }
+            canvas.drawText(firestoreRecord.productName, horizontalMargin, initY, paintLeft)
+            canvas.drawText("Cod.:${firestoreRecord.barcode}", horizontalMargin, initY + 13, paintBarcode)
+            canvas.drawText(firestoreRecord.sku, xRow2,initY, paintLeft)
+            canvas.drawText(firestoreRecord.amount.toString() ,xRow3,initY, paintCenter)
+            canvas.drawText("${firestoreRecord.value}$", xRow4,initY ,paintRight)
+           initY += 50
 
-            canvas.drawText(firestoreRecord.productName, horizontalMargin,initY, paintLeft)
-            canvas.drawText(firestoreRecord.amount.toString(),width / 2f,initY, paintCenter)
-            canvas.drawText("${firestoreRecord.value}$",width - horizontalMargin,initY ,paintRight)
-            initY += 25
         }
-
-        if (initY >=  height - 100){
-            canvas.drawLine(horizontalMargin, initY + 25,width - horizontalMargin, initY + 25, paintCenter)
-            canvas.drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
-
-            pageNumber += 1
-            doc.finishPage(pageCanvas)
-            page = PdfDocument.PageInfo.Builder(width, height, pageNumber).create()
-            pageCanvas = doc.startPage(page)
-            canvas = pageCanvas.canvas
-            initY = 40f
-            canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
-            initY += 50f
-        }else{
-            initY += 40f
-        }
-
-        canvas.drawText("TOTAL:" ,horizontalMargin, initY ,paintLeft)
-        canvas.drawText("${args.order?.order?.value}$" ,width - horizontalMargin, initY ,paintRight)
-        initY += 15
-        canvas.drawLine(horizontalMargin, initY,width - horizontalMargin, initY, paintCenter)
-        canvas.drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
-
-
         doc.finishPage(pageCanvas)
         doc.writeTo(file)
         doc.close()
         file.close()
+    }
+
+
+    private fun Canvas.drawFooter(width: Int, height: Int, pageNumber: Int, isLastPage: Boolean){
+        if (isLastPage){
+            drawText("TOTAL:" ,40f, height - 75f, paintLeft)
+            drawText("${viewModel.order.value?.order?.value}$" ,width - 40f, height - 75f ,paintRight)
+        }
+        drawLine(40f, height - 50f,width - 40f, height - 50f, paintCenter)
+        drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
+        drawText("Generado por blint.app" ,width - 40f, height - 25f , blintPaint)
     }
 
     private fun onSeeReceipt(){
@@ -204,14 +237,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             PdfViewerActivity.launchPdfFromPath(
             context,
                 file.path,
-            "Factura orden ${args.order?.order?.number}",
+            "Factura orden ${viewModel.order.value?.order?.number}",
             "pdf",
             enableDownload = false
         ))
     }
 
     private fun onShareReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/order${args.order?.order?.number}_receipt.pdf")
+        val file = File(requireContext().filesDir.absolutePath + "/order${viewModel.order.value?.order?.number}_receipt.pdf")
         createPdf(file.outputStream())
         val uri = FileProvider.getUriForFile(requireContext(), "com.puntogris.blint", file)
         val intent = Intent(Intent.ACTION_SEND)
@@ -221,7 +254,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun onSaveReceipt(){
-        activityResultLauncher.launch("/order${args.order?.order?.number}_receipt.pdf")
+        activityResultLauncher.launch("order${viewModel.order.value?.order?.number}_receipt.pdf")
     }
 
     fun onExternalChipClicked(){

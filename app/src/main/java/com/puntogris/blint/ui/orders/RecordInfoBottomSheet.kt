@@ -5,6 +5,8 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.RecordInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.visible
 
 class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBinding>(R.layout.record_info_bottom_sheet) {
 
@@ -13,6 +15,12 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
     override fun initializeViews() {
         binding.record = args.record
         binding.bottomSheet = this
+        if (args.record.type == "INITIAL"){
+            binding.button23.gone()
+            binding.chipGroup.gone()
+            binding.externalNameTitle.gone()
+            binding.textView117.visible()
+        }
     }
 
     fun onExternalChipClicked(){

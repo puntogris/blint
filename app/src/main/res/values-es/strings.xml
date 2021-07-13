@@ -123,7 +123,7 @@
 
     <!-- Login -->
     <string name="action_solve_login_problems">Solucionar problemas para entrar</string>
-    <string name="action_tap_login">Tap para entrar</string>
+    <string name="action_tap_login">tap para entrar</string>
     <string name="problem_with_blint_account">Problema con mi cuenta de Blint</string>
     <string name="if_account_disabled">Si tu cuenta se deshabilito:</string>
     <string name="account_disabled_message">Esto probablemente paso por que tuviste muchos intentos de logeo cancelados o con datos incorrectos, google deshabilita las cuentas por 24hs automaticamente en caso de notar irregularidades.\n\nSi no quieres esperar 24hs puedes limpiar el almacenamiento de los Servicios de Google Play, segui el paso 2 de esta página oficial de Google.</string>

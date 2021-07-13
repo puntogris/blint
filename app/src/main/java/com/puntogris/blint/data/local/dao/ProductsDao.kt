@@ -58,7 +58,7 @@ interface ProductsDao {
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :text OR barcode LIKE :text OR internalCode LIKE :text")
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :text OR barcode LIKE :text OR sku LIKE :text")
     fun getPagedSearch(text: String): PagingSource<Int, ProductWithSuppliersCategories>
 
     @RewriteQueriesToDropUnusedColumns

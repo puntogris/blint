@@ -123,7 +123,7 @@
 
     <!-- Login -->
     <string name="action_solve_login_problems">Solve login issues</string>
-    <string name="action_tap_login">Tap to enter</string>
+    <string name="action_tap_login">tap to enter</string>
     <string name="problem_with_blint_account">Problem with my Blint account</string>
     <string name="if_account_disabled">If your account was disabled:</string>
     <string name="account_disabled_message">This probably happened because you had many canceled login attempts or with incorrect data, Google automatically disables the accounts for 24 hours in case of noticing irregularities.\n\nIf you do not want to wait 24 hours you can clean the storage of Google Play Services, follow step 2 of this official Google page.</string>

@@ -119,16 +119,15 @@ fun TextView.setDateFromTimestampWithTime(timestamp: Timestamp){
 
 @BindingAdapter("amountSymbolWithRecordType")
 fun TextView.setAmountSymbolWithRecordType(type:String){
-    text =  if(type == IN) "+" else "-"
+    text =  if(type == IN || type == "INITIAL") "+" else "-"
 }
 
 @BindingAdapter("recordTypeString")
 fun TextView.setRecordTypeString(type:String){
     text =  
-        if(type == IN) context.getString(R.string.in_entry)
+        if(type == IN || type == "INITIAL") context.getString(R.string.in_entry)
         else context.getString(R.string.out_entry)
 }
-
 
 @BindingAdapter("dateFromTimestamp")
 fun TextView.setDateFromTimestamp(timestamp: Timestamp?){
@@ -139,7 +138,7 @@ fun TextView.setDateFromTimestamp(timestamp: Timestamp?){
 
 @BindingAdapter("recordType")
 fun View.setRecordType(type:String){
-    if (type == IN){
+    if (type == IN || type == "INITIAL"){
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))

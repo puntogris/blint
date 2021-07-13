@@ -11,6 +11,8 @@ data class FirestoreRecord(
     val productName:String = "",
     var recordId: String = "",
     val value: Float = 0F,
+    val sku: String = "",
+    val barcode:String = "",
     @get:Exclude var totalInStock: Int = 0,
     @get:Exclude var totalOutStock: Int = 0
     ):Parcelable

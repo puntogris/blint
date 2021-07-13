@@ -8,7 +8,9 @@ import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.repo.irepo.IStatisticRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.RepoResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -21,9 +23,9 @@ class StatisticRepository @Inject constructor(
     val firestore = Firebase.firestore
     suspend fun currentUser() = usersDao.getUser()
 
-    override suspend fun getAllClients(): RepoResult<List<Client>> {
+    override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(Dispatchers.IO){
         val user = currentUser()
-        return try {
+        try {
             val data = if (user.currentBusinessIsOnline()){
                 firestoreQueries.getClientsCollectionQuery(user)
                     .limit(500)
@@ -35,9 +37,9 @@ class StatisticRepository @Inject constructor(
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun getAllProducts(): RepoResult<List<Product>> {
+    override suspend fun getAllProducts(): RepoResult<List<Product>> = withContext(Dispatchers.IO){
         val user = currentUser()
-        return try {
+        try {
             val data = if (user.currentBusinessIsOnline()){
                 firestoreQueries.getProductsCollectionQuery(user)
                     .limit(500)
@@ -49,9 +51,9 @@ class StatisticRepository @Inject constructor(
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> {
+    override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> = withContext(Dispatchers.IO){
         val user = currentUser()
-        return try {
+        try {
             val data = if (user.currentBusinessIsOnline()){
                 firestoreQueries.getSuppliersCollectionQuery(user)
                     .limit(500)
@@ -63,9 +65,9 @@ class StatisticRepository @Inject constructor(
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun getBusinessCounters(): RepoResult<BusinessCounters> {
+    override suspend fun getBusinessCounters(): RepoResult<BusinessCounters> = withContext(Dispatchers.IO){
         val user = currentUser()
-        return try {
+        try {
             val data = if (user.currentBusinessIsOnline()) {
                 firestoreQueries.getBusinessCountersQuery(user)
                     .get().await().toObject(BusinessCounters::class.java) ?: BusinessCounters()
@@ -76,9 +78,9 @@ class StatisticRepository @Inject constructor(
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun getProductsReports(timeCode: String, startTime:Long, endTime:Long): RepoResult<List<ProductRecordExcel>> {
+    override suspend fun getProductsReports(timeCode: String, startTime:Long, endTime:Long): RepoResult<List<ProductRecordExcel>> = withContext(Dispatchers.IO){
         val user = currentUser()
-        return try {
+        try {
             val data = if (user.currentBusinessIsOnline()) {
                 val products = firestoreQueries.getProductsCollectionQuery(user)
                     .limit(500)

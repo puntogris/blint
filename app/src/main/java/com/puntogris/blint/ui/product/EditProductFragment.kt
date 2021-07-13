@@ -10,9 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.model.*
@@ -136,7 +133,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             suggestedSellPrice = binding.pricesLayout.productSuggestedSellPriceText.getFloat(),
             amount = binding.pricesLayout.productAmountText.getInt(),
             image = viewModel.productImage.value!!,
-            internalCode = binding.productExtrasLayout.productInternalCodeText.getString(),
+            sku = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),
             size = binding.productExtrasLayout.productSizeText.getString())
     }

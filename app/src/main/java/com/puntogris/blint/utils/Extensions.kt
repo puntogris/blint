@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
 import android.opengl.Visibility
@@ -49,6 +50,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
@@ -403,4 +406,28 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
             block()
         }
     }
+}
+
+fun Fragment.generateQRImage(code: String, width:Int, height: Int): Bitmap{
+    val writer = QRCodeWriter()
+    val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, width, height)
+    val widthB = bitMatrix.width
+    val heightB = bitMatrix.height
+    val bitmap = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.RGB_565)
+
+    val darkThemeOn = isDarkThemeOn()
+    val background = getQrCodeWithTheme(darkThemeOn)
+    val qrCode = getQrCodeWithTheme(!darkThemeOn)
+
+    for (x in 0 until widthB) {
+        for (y in 0 until heightB) {
+            bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) qrCode else background)
+        }
+    }
+    return bitmap
+}
+
+fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean): Int{
+    return if (darkThemeOn) ContextCompat.getColor(requireContext(), R.color.nightBackground)
+    else ContextCompat.getColor(requireContext(), R.color.grey_5)
 }

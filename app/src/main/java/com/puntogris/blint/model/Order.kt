@@ -42,7 +42,10 @@ data class Order(
     var number: Int = 0,
 
     @ColumnInfo
-    var debtId: String = ""
+    var debtId: String = "",
+
+    @ColumnInfo
+    var businessName: String = ""
 
 ):Parcelable{
     @Ignore
@@ -50,21 +53,6 @@ data class Order(
     var items:List<Record> = listOf()
 
     fun updateOrderValue(){
-        value = items.sumByDouble { it.value.toDouble() }.toFloat()
-    }
-
-    fun updateOrderData(user: RoomUser, orderCollection: CollectionReference, recordCollection: CollectionReference){
-        businessId = user.currentBusinessId
-        orderId = orderCollection.document().id
-        author = user.currentUid
-        items.forEach {
-            it.recordId = recordCollection.document().id
-            it.type = type
-            it.author = author
-            it.traderName = traderName
-            it.traderId = traderId
-            it.orderId = orderId
-            it.businessId = businessId
-        }
+        value = items.sumOf { it.value.toDouble() }.toFloat()
     }
 }

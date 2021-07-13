@@ -55,28 +55,31 @@ class ProductRepository @Inject constructor(
 
     override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){
         try {
-//            println(product.product.businessId.isEmpty())
-//            println(product.product.businessId)
             val isNewProduct = product.product.productId.isEmpty()
             val user = currentBusiness()
             val productRef = firestoreQueries.getProductsCollectionQuery(user)
+            val recordRef = firestoreQueries.getRecordsCollectionQuery(user)
+
             if (isNewProduct){
                 product.product.apply {
                     productId = productRef.document().id
                     businessId = user.currentBusinessId
+                    totalInStock = amount
                 }
-            }else{
-
             }
 
             val record = Record(
-                type = IN,
+                type = "INITIAL",
                 amount = product.product.amount,
                 productId = product.product.productId,
                 productName = product.product.name,
                 timestamp = Timestamp.now(),
                 author = getCurrentUid()?.email.toString(),
-                businessId = user.currentBusinessId
+                businessId = user.currentBusinessId,
+                barcode = product.product.barcode,
+                totalInStock = product.product.amount,
+                sku = product.product.sku,
+                recordId = recordRef.document().id
             )
 
             if (user.currentBusinessIsOnline()){
@@ -114,11 +117,9 @@ class ProductRepository @Inject constructor(
 
                 firestore.runBatch {
                     it.set(productRef.document(product.product.productId), FirestoreProduct.from(product))
-                    if (isNewProduct)
+                    if (isNewProduct){
                         it.set(productCounterRef, hashMapOf("totalProducts" to FieldValue.increment(1)), SetOptions.merge())
-                    if (product.product.amount != 0){
-                        val recordRef = firestoreQueries.getRecordsCollectionQuery(user).document()
-                        it.set(recordRef, record)
+                        if (product.product.amount != 0) it.set(recordRef.document(record.recordId), record)
                     }
                 }.await()
             }else{

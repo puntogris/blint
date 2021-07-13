@@ -56,5 +56,11 @@ data class Record(
     var totalInStock: Int = 0,
 
     @ColumnInfo
-    var totalOutStock:Int = 0
+    var totalOutStock: Int = 0,
+
+    @ColumnInfo
+    var sku:String = "",
+
+    @ColumnInfo
+    var barcode:String = ""
 ):Parcelable
