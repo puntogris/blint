@@ -7,10 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.*
-import com.puntogris.blint.model.FirestoreRecord
-import com.puntogris.blint.model.Order
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,8 +28,15 @@ class NewOrderViewModel @Inject constructor(
 
     fun getOrder() = order
 
+    private var debt :FirestoreDebt? = null
+
     fun refreshOrderValue(){
         order.updateOrderValue()
+    }
+
+    fun updateOrderDebt(amount: Float){
+        debt = if (amount == 0f) null
+        else FirestoreDebt(amount = amount)
     }
 
     fun updateRecordType(code: Int){
@@ -70,7 +74,10 @@ class NewOrderViewModel @Inject constructor(
     fun getCurrentUserEmail() = userRepository.getCurrentUser()?.email
 
     suspend fun publishOrderDatabase(): SimpleResult{
-        val newOrder = OrderWithRecords(order, order.items.map { FirestoreRecord(it.amount,it.productId, it.productName, it.recordId,it.value) })
+        val newOrder = OrderWithRecords(
+            order,
+            order.items.map { FirestoreRecord(it.amount,it.productId, it.productName, it.recordId,it.value) },
+            debt)
         return orderRepository.saveOrderIntoDatabase(newOrder)
     }
 

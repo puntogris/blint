@@ -25,5 +25,11 @@ data class Statistic(
     val totalOrders: Int = 0,
 
     @ColumnInfo
-    val businessId: String = ""
+    val businessId: String = "",
+
+    @ColumnInfo
+    val clientsDebt: Float = 0F,
+
+    @ColumnInfo
+    val suppliersDebt: Float = 0F
 )

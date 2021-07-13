@@ -18,13 +18,13 @@ interface DebtsDao {
     suspend fun getDebtsWithId(traderId: String): List<Debt>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getDebtsForBusiness(): BusinessDebtsData
 
-    @Query("UPDATE employee SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)
 
-    @Query("UPDATE employee SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM employee INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateSupplierDebt(suppliersDebt: Float)
 
     @RewriteQueriesToDropUnusedColumns

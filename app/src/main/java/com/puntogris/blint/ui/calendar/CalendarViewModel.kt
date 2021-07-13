@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    private val usersDao: UsersDao,
     private val eventRepository: EventRepository
 ):ViewModel() {
 

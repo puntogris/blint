@@ -77,12 +77,23 @@ class OrderRepository @Inject constructor(
         val user = currentBusiness()
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
+
             order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id
+            val debtRef = firestoreQueries.getDebtCollectionQuery(user)
+
+            if (order.debt != null){
+                order.order.debtId = debtRef.document().id
+                order.debt?.debtId = order.order.debtId
+                order.debt?.type = if (order.order.type == IN) "SUPPLIER" else "CLIENT"
+            }
+
             val recordsFinal = order.records.map {
+                val id = firestoreQueries.getRecordsCollectionQuery(user).document().id
+                it.recordId = id
                 Record(
-                    recordId = firestoreQueries.getRecordsCollectionQuery(user).document().id,
+                    recordId = id,
                     type = order.order.type,
                     traderName = order.order.traderName,
                     traderId = order.order.traderId,
@@ -106,6 +117,29 @@ class OrderRepository @Inject constructor(
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
                 countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
                 firestore.runBatch { batch ->
+                    if (order.debt != null){
+                        val debt = Debt(
+                            orderId = order.order.orderId,
+                            debtId = order.debt!!.debtId,
+                            amount = order.debt!!.amount,
+                            traderId = order.order.traderId,
+                            traderName = order.order.traderName,
+                            author = order.order.author,
+                            businessId = order.order.businessId,
+                            type = order.debt!!.type
+                        )
+                        batch.set(debtRef.document(debt.debtId), debt)
+                        val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
+                        if (order.debt?.type == "CLIENT"){
+                            val updateClientRef = firestoreQueries.getClientsCollectionQuery(user)
+                            batch.update(updateClientRef.document(debt.traderId), "debt",FieldValue.increment(debt.amount.toLong()))
+                            batch.update(updateCounterRef,"clientsDebt", FieldValue.increment(debt.amount.toLong()))
+                        }else{
+                            val updateSupplierRef = firestoreQueries.getSuppliersCollectionQuery(user)
+                            batch.update(updateSupplierRef.document(debt.traderId), "debt",FieldValue.increment(debt.amount.toLong()))
+                            batch.update(updateCounterRef,"suppliersDebt", FieldValue.increment(debt.amount.toLong()))
+                        }
+                    }
                     batch.set(orderRef.document(order.order.orderId), FirestoreOrder.from(order))
                     recordsFinal.forEach {
                         val productRef = firestoreQueries.getProductsCollectionQuery(user).document(it.productId)
@@ -137,4 +171,5 @@ class OrderRepository @Inject constructor(
             ordersDao.getAllOrderRecords(orderId)
         }
     }
+
 }

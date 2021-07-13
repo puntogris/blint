@@ -13,8 +13,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.microsoft.schemas.vml.STTrueFalse
 import com.puntogris.blint.R
+import com.puntogris.blint.data.local.dao.DebtsDao
+import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
+import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
@@ -34,9 +37,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var mainMenuAdapter: MainMenuAdapter
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
-
-    @Inject
-    lateinit var productsDao: ProductsDao
 
     @ExperimentalTime
     override fun initializeViews() {

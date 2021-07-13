@@ -15,22 +15,24 @@ data class FirestoreOrder(
     var traderName: String = "",
     var businessId:String = "",
     var number: Int = 0,
-    val records: List<FirestoreRecord> = listOf()
+    val records: List<FirestoreRecord> = listOf(),
+    val debt: FirestoreDebt? = null
 
 ):Parcelable{
     companion object{
-        fun from(orderWithRecords: OrderWithRecords):FirestoreOrder{
+        fun from(orderWithRecords: OrderWithRecords): FirestoreOrder{
             return FirestoreOrder(
                 orderId = orderWithRecords.order.orderId,
                 timestamp = orderWithRecords.order.timestamp,
                 value = orderWithRecords.order.value,
                 type = orderWithRecords.order.type,
                 author = orderWithRecords.order.author,
-                traderId = orderWithRecords.order.traderName,
+                traderId = orderWithRecords.order.traderId,
                 traderName = orderWithRecords.order.traderName,
                 businessId = orderWithRecords.order.businessId,
                 number = orderWithRecords.order.number,
-                records = orderWithRecords.records
+                records = orderWithRecords.records,
+                debt = orderWithRecords.debt
             )
         }
     }

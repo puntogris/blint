@@ -30,6 +30,8 @@ internal object OrderDeserializer: DocumentSnapshotDeserializer<OrderWithRecords
             )
         }
 
-        return OrderWithRecords(order, if (records.isNullOrEmpty()) listOf() else records)
+        val debt = input?.get("debt") as? FirestoreDebt
+
+        return OrderWithRecords(order, if (records.isNullOrEmpty()) listOf() else records, debt)
     }
 }

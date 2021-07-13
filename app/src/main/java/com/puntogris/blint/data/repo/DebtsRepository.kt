@@ -63,15 +63,15 @@ class DebtsRepository @Inject constructor(
 
                 debt.debtId = debtRef.document().id
                 debt.author = firestoreQueries.getCurrentUserEmail()
+                debt.businessId = user.currentBusinessId
 
                 firestore.runBatch {
+                    val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
                     if (debt.type == "CLIENT"){
                         val updateClientRef = firestoreQueries.getClientsCollectionQuery(user)
-                        val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
                         it.update(updateClientRef.document(debt.traderId), "debt",FieldValue.increment(debt.amount.toLong()))
                         it.update(updateCounterRef,"clientsDebt", FieldValue.increment(debt.amount.toLong()))
                     }else{
-                        val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
                         val updateSupplierRef = firestoreQueries.getSuppliersCollectionQuery(user)
                         it.update(updateSupplierRef.document(debt.traderId), "debt",FieldValue.increment(debt.amount.toLong()))
                         it.update(updateCounterRef,"suppliersDebt", FieldValue.increment(debt.amount.toLong()))
@@ -131,7 +131,6 @@ class DebtsRepository @Inject constructor(
             if (user.currentBusinessIsOnline()){
                 val query = firestoreQueries.getClientsCollectionQuery(user)
                     .whereNotEqualTo("debt", 0)
-                    .orderBy("name", Query.Direction.ASCENDING)
                 FirestoreClientsPagingSource(query)
             }
             else{ debtsDao.getClientDebtsPaged() }
@@ -149,7 +148,6 @@ class DebtsRepository @Inject constructor(
             if(user.currentBusinessIsOnline()){
                 val query = firestoreQueries.getSuppliersCollectionQuery(user)
                     .whereNotEqualTo("debt", 0)
-                    .orderBy("companyName", Query.Direction.ASCENDING)
                 FirestoreSuppliersPagingSource(query)
             }
             else{ debtsDao.getSupplierDebtsPaged() }

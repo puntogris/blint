@@ -16,8 +16,29 @@ interface OrdersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(order: Order)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(debt: Debt)
+
     @Transaction
     suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>){
+        if (order.debt != null){
+            val debt = Debt(
+                orderId = order.order.orderId,
+                debtId = order.debt!!.debtId,
+                amount = order.debt!!.amount,
+                traderId = order.order.traderId,
+                traderName = order.order.traderName,
+                author = order.order.author,
+                businessId = order.order.businessId,
+                type = order.debt!!.type
+            )
+            if (debt.type == "CLIENT"){
+                updateClientsDebt(debt.amount)
+            }else {
+                updateSupplierDebt(debt.amount)
+            }
+            insert(debt)
+        }
         order.order.number = getStatistics().totalOrders + 1
         insert(order.order)
         insert(recordsFinal)
@@ -27,6 +48,12 @@ interface OrdersDao {
         insertOrderRecordsCrossRef(recordsFinal.map { OrderRecordCrossRef(order.order.orderId, it.recordId) })
         incrementTotalOrders()
     }
+
+    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    suspend fun updateClientsDebt(clientsDebt: Float)
+
+    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    suspend fun updateSupplierDebt(suppliersDebt: Float)
 
     @Insert
     suspend fun insertOrderRecordsCrossRef(items: List<OrderRecordCrossRef>)
@@ -70,11 +97,11 @@ interface OrdersDao {
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY number DESC")
+    @Query("SELECT * FROM Orders INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY number DESC")
     fun getAllOrdersPaged(): PagingSource<Int, OrderWithRecords>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM orders WHERE orderId = :orderId")
+    @Query("SELECT * FROM orders WHERE orderId = :orderId LIMIT 1")
     suspend fun getAllOrderRecords(orderId:String): OrderWithRecords
 }

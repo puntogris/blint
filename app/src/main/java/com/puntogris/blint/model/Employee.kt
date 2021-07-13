@@ -46,11 +46,5 @@ data class Employee(
         val businessCreatedAt: Timestamp = Timestamp.now(),
 
         @ColumnInfo
-        val email:String = "",
-
-        @ColumnInfo
-        @get:Exclude val clientsDebt: Float = 0F,
-
-        @ColumnInfo
-        @get:Exclude val suppliersDebt: Float = 0F
+        val email:String = ""
 ):Parcelable

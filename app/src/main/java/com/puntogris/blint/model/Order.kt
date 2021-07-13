@@ -39,7 +39,10 @@ data class Order(
     var businessId:String = "",
 
     @ColumnInfo
-    var number: Int = 0
+    var number: Int = 0,
+
+    @ColumnInfo
+    var debtId: String = ""
 
 ):Parcelable{
     @Ignore

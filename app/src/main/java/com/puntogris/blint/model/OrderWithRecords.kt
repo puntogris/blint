@@ -17,5 +17,12 @@ data class OrderWithRecords(
         entityColumn = "recordId",
         associateBy = Junction(OrderRecordCrossRef::class)
     )
-    var records: List<FirestoreRecord> = listOf()
+    var records: List<FirestoreRecord> = listOf(),
+
+    @Relation(
+        entity = Debt::class,
+        parentColumn = "orderId",
+        entityColumn = "orderId"
+    )
+    var debt: FirestoreDebt? = null
 ):Parcelable

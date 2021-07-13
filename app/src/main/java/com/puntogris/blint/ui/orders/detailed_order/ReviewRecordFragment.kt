@@ -19,6 +19,11 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
     override fun initializeViews() {
         setUpUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             findNavController().navigate(R.id.publishOrderFragment)
+            if (binding.debtAmountText.getString().toFloatOrNull() != null){
+                viewModel.updateOrderDebt(binding.debtAmountText.getFloat())
+            }else{
+                showShortSnackBar("Error con el valor de deuda.")
+            }
         }
 
         binding.debtText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("Completado", "Deuda")))
@@ -28,24 +33,25 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
                 0 -> {
                     binding.debtAmount.gone()
                     binding.debtSummary.text = "Se pago $${viewModel.getOrder().value} del total de $${viewModel.getOrder().value}"
+                    viewModel.updateOrderDebt(0F)
                 }
                 1 -> {
-                   // if (viewModel.getOrder().traderId.isNotEmpty()){
+                    if (viewModel.getOrder().traderId.isNotEmpty()){
                         binding.debtAmount.visible()
                         binding.debtSummary.text = "Se pago $${viewModel.getOrder().value} del total de $${viewModel.getOrder().value}"
-                   // }else{
-                   //     binding.debtText.setText("Completado")
-                   //     showShortSnackBar("Se necesita una proveedor/ cliente en la order para generar una deuda.")
-               //     }
-
+                    }else{
+                        showSnackBarVisibilityAppBar("Se necesita un cliente/ proveedor para la deuda.")
+                        binding.debtText.setText("Completado")
+                    }
                 }
             }
-            viewModel.updateRecordType(i)
         }
 
         binding.debtAmountText.addTextChangedListener{
-            val debt = viewModel.getOrder().value - it.toString().toFloat()
-            binding.debtSummary.text = "Se pago $$debt del total de $${viewModel.getOrder().value}"
+            if (it.toString().isNotEmpty()){
+                val debt = viewModel.getOrder().value - it.toString().toFloat()
+                binding.debtSummary.text = "Se pago $$debt del total de $${viewModel.getOrder().value}"
+            }
         }
 
         viewModel.refreshOrderValue()
