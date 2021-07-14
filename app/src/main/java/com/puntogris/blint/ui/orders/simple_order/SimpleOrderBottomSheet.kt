@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.SimpleOrderBinding
@@ -65,12 +66,19 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
                         showSnackBarVisibilityAppBar("Ocurrio un error al crear la orden.")
                     }
                     SimpleResult.Success -> {
+                        navigateBack()
                         dismiss()
                         showSnackBarVisibilityAppBar("Se creo la orden satisfactoriamente.")
                     }
                 }
             }
         }else{ showSackBarAboveBottomSheet("La cantidad no puede estar vacia ni ser 0.") }
+    }
+    private fun navigateBack(){
+        findNavController().apply {
+            previousBackStackEntry!!.savedStateHandle.set("simple_order_key", true)
+            popBackStack()
+        }
     }
 
 }

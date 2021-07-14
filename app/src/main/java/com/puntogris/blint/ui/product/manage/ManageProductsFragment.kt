@@ -112,6 +112,10 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 }
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("simple_order_key")?.observe(viewLifecycleOwner){
+            if (it) manageProductsAdapter.refresh()
+        }
     }
 
     fun onScanBarcodeClicked(){
