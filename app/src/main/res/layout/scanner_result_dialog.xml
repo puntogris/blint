@@ -12,9 +12,6 @@
             name="viewModel"
             type="com.puntogris.blint.ui.orders.OrdersViewModel" />
 
-        <variable
-            name="product"
-            type="com.puntogris.blint.model.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Informacion"
+            android:text="@string/information"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Nombre"
+            android:text="@string/name"
             app:layout_constraintEnd_toStartOf="@+id/textView62"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -92,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Stock"
+            android:text="@string/stock"
             app:layout_constraintEnd_toStartOf="@+id/textView64"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView60"
@@ -103,7 +100,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(product.amount)}"
+            android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
             app:layout_constraintStart_toStartOf="@+id/textView62"
             app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
@@ -138,7 +135,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
             android:onClick="@{()->fragment.onSaveProductClicked()}"
-            android:text="Guardar"
+            android:text="@string/action_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +166,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:hint="Tipo"
+            android:hint="@string/type"
             app:layout_constraintEnd_toStartOf="@+id/productAmountTextInput"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
-            android:hint="Cantidad"
+            android:hint="@string/amount"
             app:layout_constraintBottom_toBottomOf="@+id/recordType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
