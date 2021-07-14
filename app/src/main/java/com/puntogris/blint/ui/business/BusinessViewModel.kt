@@ -57,4 +57,6 @@ class BusinessViewModel @Inject constructor(
         super.onCleared()
     }
 
+    suspend fun deleteBusiness(businessId: String) = userRepository.deleteBusinessDatabase(businessId)
+
 }

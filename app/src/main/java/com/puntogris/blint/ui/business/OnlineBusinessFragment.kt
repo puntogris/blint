@@ -11,16 +11,16 @@ class OnlineBusinessFragment : BaseFragment<FragmentOnlineBusinessBinding>(R.lay
 
     override fun initializeViews() {
         setUpUi(showAppBar = false)
-        binding.onlineBusinessFragment = this
-        binding.animationView.setPadding(-300)
-
-        binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.registerOnlineBusinessFragment)
-        }
+//        binding.onlineBusinessFragment = this
+//        binding.animationView.setPadding(-300)
+//
+//        binding.button2.setOnClickListener {
+//            findNavController().navigate(R.id.registerOnlineBusinessFragment)
+//        }
     }
 
-    fun onRegisterBusinessButtonClicked(){
-        val registerBusinessFragment = requireParentFragment() as RegisterBusinessFragment
-        registerBusinessFragment.registerOnlineBusiness()
-    }
+//    fun onRegisterBusinessButtonClicked(){
+//        val registerBusinessFragment = requireParentFragment() as RegisterBusinessFragment
+//        registerBusinessFragment.registerOnlineBusiness()
+//    }
 }

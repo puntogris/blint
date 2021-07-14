@@ -38,10 +38,6 @@ class PreferencesFragment: BasePreferences(R.xml.preferences) {
             findNavController().navigate(R.id.aboutFragment)
             true
         }
-        findPreference<Preference>("categories_pref")?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.manageCategoriesFragment)
-            true
-        }
     }
 
 

@@ -10,6 +10,7 @@ import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.repo.irepo.IUserRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
@@ -23,7 +24,10 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, private val usersDao: UsersDao) :
+class UserRepository @Inject constructor(
+    private val employeeDao: EmployeeDao,
+    private val usersDao: UsersDao,
+private val sharedPref: SharedPref) :
     IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -36,6 +40,8 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
     }
 
     override fun getCurrentUID() = auth.currentUser?.uid.toString()
+
+    private suspend fun currentBusiness() = usersDao.getUser()
 
     override fun getCurrentUser() = auth.currentUser
 
@@ -127,7 +133,7 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
                     businessOwner = joinCode.get("ownerId").toString(),
                     businessType = "ONLINE",
                     role = "EMPLOYEE",
-                    name = "NA NAANANANA",
+                    name = usersDao.getUser().username,
                     businessCreatedAt = Timestamp.now()
                 )
 
@@ -148,6 +154,36 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
             JoinBusiness.Error
         }
 
+    }
+
+    override suspend fun deleteBusinessDatabase(businessId: String): DeleteBusiness = withContext(Dispatchers.IO){
+        try {
+            val user = currentBusiness()
+            if (user.currentBusinessIsOnline()){
+                DeleteBusiness.Failure
+
+            }else{
+                employeeDao.deleteBusiness(businessId)
+                val businessRemaining = employeeDao.getEmployeesList()
+                if (businessRemaining.isNotEmpty()){
+                    businessRemaining.first().let {
+                        usersDao.updateCurrentBusiness(
+                            it.businessId,
+                            it.businessName,
+                            it.businessType,
+                            it.businessOwner,
+                            getCurrentUID()
+                        )
+                    }
+                    DeleteBusiness.Success.HasBusiness
+                }else{
+                    sharedPref.setUserHasBusinessPref(false)
+                    DeleteBusiness.Success.NoBusiness
+                }
+            }
+        }catch (e:Exception){
+            DeleteBusiness.Failure
+        }
     }
 
     override suspend fun registerNewBusiness(name: String):RepoResult<String> = withContext(Dispatchers.IO) {

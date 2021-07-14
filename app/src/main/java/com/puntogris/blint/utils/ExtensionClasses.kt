@@ -23,6 +23,14 @@ sealed class StringValidator{
     }
 }
 
+sealed class DeleteBusiness{
+    sealed class Success: DeleteBusiness(){
+        object HasBusiness:Success()
+        object NoBusiness:Success()
+    }
+    object Failure: DeleteBusiness()
+}
+
 sealed class BackupState{
     object Success: BackupState()
     class Error(val exception: Exception): BackupState()

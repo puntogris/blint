@@ -24,4 +24,5 @@ interface IUserRepository {
     fun sendEmployeeRequest(request: EmployeeRequest): StateFlow<RequestResult>
     suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode>
     suspend fun createEmployeeWithCode(code:String):JoinBusiness
+    suspend fun deleteBusinessDatabase(businessId: String):DeleteBusiness
 }

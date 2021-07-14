@@ -33,18 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
-            android:id="@+id/bar"
-            android:layout_width="4dp"
-            android:layout_height="0dp"
-            verticalIndicatorProgress="@{product.product.amount}"
-            app:layout_constraintTop_toTopOf="@id/tvName"
-            app:layout_constraintBottom_toBottomOf="@id/tvUsed"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/grey_80"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="@dimen/spacing_medium"/>
+
 
         <TextView
             android:id="@+id/tvName"
@@ -54,7 +43,7 @@
             android:text="@{product.product.name}"
             android:layout_marginTop="@dimen/spacing_medium"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvLeft"
             android:layout_marginStart="@dimen/spacing_medium"
             style="?attr/textAppearanceSubtitle1"/>
@@ -69,7 +58,7 @@
             android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bar"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/spacing_medium"
             android:textSize="14sp"/>
 

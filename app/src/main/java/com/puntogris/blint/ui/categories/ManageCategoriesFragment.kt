@@ -77,6 +77,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
             style(SheetStyle.DIALOG)
             title(this@ManageCategoriesFragment.getString(R.string.rename_category))
             with(InputEditText{
+                defaultValue(category.name)
                 required(true)
                 hint(this@ManageCategoriesFragment.getString(R.string.name))
                 onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))

@@ -58,10 +58,10 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
                 findNavController().navigate(R.id.joinBusinessFragment)
                 true
             }
-            R.id.syncBusiness -> {
-                findNavController().navigate(R.id.action_manageBusinessFragment_to_syncBusinessDialog)
-                true
-            }
+//            R.id.syncBusiness -> {
+//                findNavController().navigate(R.id.action_manageBusinessFragment_to_syncBusinessDialog)
+//                true
+//            }
             else -> super.onOptionsItemSelected(item)
         }
     }

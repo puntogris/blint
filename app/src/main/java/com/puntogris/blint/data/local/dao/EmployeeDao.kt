@@ -17,6 +17,9 @@ interface EmployeeDao {
     @Query("DELETE FROM employee")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM employee where businessId = :businessId")
+    suspend fun deleteBusiness(businessId: String)
+
     @Update
     suspend fun update(employee: Employee)
 

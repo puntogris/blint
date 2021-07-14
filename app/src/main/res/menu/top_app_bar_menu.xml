@@ -93,9 +93,9 @@
             <item
                 android:id="@+id/joinBusiness"
                 android:title="Unirme a un negocio" />
-            <item
-                android:id="@+id/syncBusiness"
-                android:title="Sincronizar negocios" />
+<!--            <item-->
+<!--                android:id="@+id/syncBusiness"-->
+<!--                android:title="Sincronizar negocios" />-->
         </menu>
     </item>
 

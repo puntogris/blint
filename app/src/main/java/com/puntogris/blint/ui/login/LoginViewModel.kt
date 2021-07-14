@@ -91,7 +91,6 @@ class LoginViewModel @Inject constructor(
         ))
     }
 
-
     suspend fun updateUserData(username:String, country: String) =
         userRepository.updateUserNameCountry(username,country)
 
