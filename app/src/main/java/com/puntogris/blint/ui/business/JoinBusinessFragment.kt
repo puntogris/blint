@@ -1,9 +1,12 @@
 package com.puntogris.blint.ui.business
 
+import android.annotation.SuppressLint
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
+import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
 import com.puntogris.blint.ui.SharedPref
@@ -19,16 +22,22 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     private val viewModel: BusinessViewModel by viewModels()
     @Inject lateinit var sharedPref: SharedPref
 
+    @SuppressLint("ShowToast")
     override fun initializeViews() {
         binding.fragment = this
-
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_check_24){
+        setUpUi(showAppBar = true, showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_check_24){
             val text = binding.joinBusinessCodeText.getString()
-            if(text.isEmpty()){
-                showLongSnackBarAboveFab(getString(R.string.snack_type_or_scan_code_to_continue))
+            if(text.isBlank()){
+                Snackbar.make(binding.root, getString(R.string.snack_type_or_scan_code_to_continue), Snackbar.LENGTH_LONG)
+                    .setAnchorView(it)
+                    .show()
             }else{
                 joinBusinessWithCode(text)
             }
+        }
+        getParentBottomAppBar().apply {
+            invisible()
+            performHide()
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(

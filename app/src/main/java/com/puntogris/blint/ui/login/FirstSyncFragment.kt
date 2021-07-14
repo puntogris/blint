@@ -81,7 +81,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         lifecycleScope.launch {
             viewModel.updateUserData(args.username, args.userCountry)
             sharedPref.setWelcomeUiPref(true)
-            sharedPref.setUserHasBusinessPref(true)
+         //   sharedPref.setUserHasBusinessPref(true)
             withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
             withContext(Dispatchers.Main){
                 binding.animationView.apply {

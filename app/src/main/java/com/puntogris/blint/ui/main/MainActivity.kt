@@ -165,6 +165,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
+
         if(destination.id == R.id.mainFragment){
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             binding.toolbar.setTitleTextColor(getColor(R.color.white))

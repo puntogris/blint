@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.business
 
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusinessBinding>(R.layout.fragment_register_local_business) {
 
-    private val viewModel: LoginViewModel by activityViewModels()
+    private val viewModel: LoginViewModel by viewModels()
     @Inject
     lateinit var sharedPref: SharedPref
 

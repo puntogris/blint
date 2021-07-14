@@ -150,9 +150,9 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
 
     }
 
-
     override suspend fun registerNewBusiness(name: String):RepoResult<String> = withContext(Dispatchers.IO) {
         try {
+            val user = usersDao.getUser()
             val employeeId = getCurrentUID()
             val ref = firestore.collection("users").document(employeeId).collection("business").document()
             val business = Business(
@@ -166,6 +166,7 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
                 businessName = name,
                 businessType = "LOCAL",
                 businessOwner = employeeId,
+                name = user.username,
                 role = "ADMINISTRATOR",
                 employeeId = employeeId,
                 email = getCurrentUser()?.email.toString()
@@ -173,13 +174,7 @@ class UserRepository @Inject constructor(private val employeeDao: EmployeeDao, p
             ref.set(business).await()
             ref.collection("employees").document().set(employee)
             employeeDao.insert(employee)
-
-            usersDao.update(RoomUser(
-                currentBusinessId = business.businessId,
-                currentBusinessType = business.type,
-                currentBusinessName = business.businessName,
-                currentUid = getCurrentUID()
-            ))
+            usersDao.updateCurrentBusiness(business.businessId, name,business.type, business.owner, getCurrentUID())
 
             RepoResult.Success(ref.id)
         }catch (e:Exception){

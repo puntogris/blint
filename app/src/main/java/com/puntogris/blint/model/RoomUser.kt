@@ -6,9 +6,11 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
+import com.puntogris.blint.utils.Constants.ONLINE
 
 @Entity
 class RoomUser(
+
         @PrimaryKey(autoGenerate = false)
         val userId:String = "1",
 
@@ -33,6 +35,6 @@ class RoomUser(
         @ColumnInfo
         val currentBusinessOwner:String = "",
 ){
-        fun currentBusinessIsOnline() = currentBusinessType == "ONLINE"
+        fun currentBusinessIsOnline() = currentBusinessType == ONLINE
 
 }

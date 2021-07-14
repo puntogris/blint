@@ -1,13 +1,17 @@
 package com.puntogris.blint.data.repo
 
+import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.repo.irepo.IMainRepository
 import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.utils.EventsDashboard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,7 +28,8 @@ class MainRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val eventsDao: EventsDao,
     private val firestoreQueries: FirestoreQueries,
-    private val statisticsDao: StatisticsDao
+    private val statisticsDao: StatisticsDao,
+    private val employeeDao: EmployeeDao
 ): IMainRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -32,6 +37,18 @@ class MainRepository @Inject constructor(
     private suspend fun currentBusiness() = usersDao.getUser()
 
     override fun checkIfUserIsLogged() = auth.currentUser != null
+
+    override suspend fun updateCurrentBusiness(
+        id: String,
+        name: String,
+        type: String,
+        owner: String
+    ) {
+        usersDao.updateCurrentBusiness(id,name,type,owner, auth.currentUser?.uid.toString())
+    }
+
+    override fun getUserLiveDataRoom() = usersDao.getUserLiveData()
+    override suspend fun getBusinessListRoom() = employeeDao.getEmployeesList()
 
     override suspend fun getBusinessLastEventsDatabase(): EventsDashboard = withContext(Dispatchers.IO) {
         try {

@@ -72,7 +72,6 @@ class LoginViewModel @Inject constructor(
     }
 
     suspend fun registerNewBusiness(name: String){
-        userRepository.getOwnerBusiness()
         when(val result = userRepository.registerNewBusiness(name)){
             is RepoResult.Error -> {}
             is RepoResult.Success -> {

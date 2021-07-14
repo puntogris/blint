@@ -26,7 +26,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private lateinit var activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>
 
     override fun initializeViews() {
-        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+        setUpUi(showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
 
         binding.fragment = this
