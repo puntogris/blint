@@ -76,8 +76,18 @@ class NewOrderViewModel @Inject constructor(
     suspend fun publishOrderDatabase(): SimpleResult{
         val newOrder = OrderWithRecords(
             order,
-            order.items.map { FirestoreRecord(it.amount,it.productId, it.productName, it.recordId,it.value) },
-            debt)
+            order.items.map { FirestoreRecord(
+                amount = it.amount,
+                productId = it.productId,
+                productName = it.productName,
+                recordId = it.recordId,
+                value = it.value,
+                sku = it.sku,
+                barcode = it.barcode,
+                totalInStock = it.totalInStock,
+                totalOutStock = it.totalOutStock)
+                            },
+                debt)
         return orderRepository.saveOrderIntoDatabase(newOrder)
     }
 

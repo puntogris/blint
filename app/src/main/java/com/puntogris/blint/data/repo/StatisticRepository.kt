@@ -1,5 +1,7 @@
 package com.puntogris.blint.data.repo
 
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.StatisticsDao
@@ -12,7 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
 class StatisticRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
@@ -78,7 +82,7 @@ class StatisticRepository @Inject constructor(
         }catch (e:Exception){ RepoResult.Error(e) }
     }
 
-    override suspend fun getProductsReports(timeCode: String, startTime:Long, endTime:Long): RepoResult<List<ProductRecordExcel>> = withContext(Dispatchers.IO){
+    override suspend fun getProductsReports(timeCode: String): RepoResult<List<ProductRecordExcel>> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
             val data = if (user.currentBusinessIsOnline()) {
@@ -88,41 +92,57 @@ class StatisticRepository @Inject constructor(
 
                 products.removeIf { it.totalInStock == 0 && it.totalOutStock == 0 }
 
-                val excelList = mutableListOf<ProductRecordExcel>()
-                products.forEach {
-                    val initQuery = firestoreQueries.getRecordsCollectionQuery(user)
-                        .whereEqualTo("productId", it.productId)
-                        .limit(1)
+                if (timeCode == "HISTORICAL"){
+                    products.map { ProductRecordExcel(
+                        it.name,
+                        it.totalInStock,
+                        it.totalOutStock
+                    ) }
+                }else{
+                    val excelList = mutableListOf<ProductRecordExcel>()
 
-                    val query = when(timeCode) {
-                        "WEEKLY" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        "MONTHLY" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        "QUARTERLY" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        "BIANNUAL" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        "ANNUAL" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        "HISTORICAL" -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                        else -> initQuery.whereLessThanOrEqualTo("timestamp", "")
-                    }
-                    val recordData = query.get().await()
+                    val calendar = Calendar.getInstance()
+                    calendar.time = Date()
+                    calendar.add(
+                        Calendar.DAY_OF_YEAR,
+                        when(timeCode) {
+                            "WEEKLY" -> -7
+                            "MONTHLY" -> -30
+                            "QUARTERLY" -> -90
+                            "BIANNUAL" -> -180
+                            else -> -361
+                        }
+                    )
+                    products.forEach {
+                        val data = firestoreQueries.getRecordsCollectionQuery(user)
+                            .whereEqualTo("productId", it.productId)
+                            .whereGreaterThanOrEqualTo("timestamp", Timestamp(calendar.time.time / 1000, 0))
+                            .orderBy("timestamp", Query.Direction.ASCENDING)
+                            .limit(1)
+                            .get().await()
 
-                    if (recordData.documents.isNotEmpty()){
-                        recordData.documents.first().toObject(ProductRecordExcel::class.java)?.let { excel->
-                            excel.totalInStock -= it.totalInStock
-                            excel.totalOutStock -= it.totalOutStock
-                            excelList.add(excel)
+                        if (data.documents.isNotEmpty()){
+                            data.documents.first().toObject(Record::class.java)?.let { record->
+                                ProductRecordExcel(
+                                    name = it.name,
+                                    totalInStock = if (record.type == "IN") it.totalInStock - (record.totalInStock - record.amount).absoluteValue
+                                    else it.totalInStock - record.totalInStock,
+                                    totalOutStock = if (record.type == "OUT") it.totalOutStock - (record.totalOutStock - record.amount).absoluteValue
+                                    else it.totalOutStock - record.totalOutStock
+                                )
+                            }
                         }
                     }
+                    excelList
                 }
-                excelList
             }else{
                 when(timeCode){
-                    "WEEKLY" -> statisticsDao.getRecordsWithDays("-7 days")
-                    "MONTHLY" -> statisticsDao.getRecordsWithDays("-30 days")
-                    "QUARTERLY" -> statisticsDao.getRecordsWithDays("-90 days")
-                    "BIANNUAL" -> statisticsDao.getRecordsWithDays("-180 days")
-                    "ANNUAL" -> statisticsDao.getRecordsWithDays("-360 days")
-                    "HISTORICAL" -> statisticsDao.getAllRecords()
-                    else -> statisticsDao.getRecordsWithDaysFrame(startTime, endTime)
+                    "WEEKLY" -> statisticsDao.getProductRecordDaysExcelList("-7 days")
+                    "MONTHLY" -> statisticsDao.getProductRecordDaysExcelList("-30 days")
+                    "QUARTERLY" -> statisticsDao.getProductRecordDaysExcelList("-90 days")
+                    "BIANNUAL" -> statisticsDao.getProductRecordDaysExcelList("-180 days")
+                    "ANNUAL" -> statisticsDao.getProductRecordDaysExcelList("-360 days")
+                    else -> statisticsDao.getProductRecordExcelList()
                 }
             }
             RepoResult.Success(data)

@@ -78,7 +78,7 @@ class GenerateReportFragment:
 //                }
             }
         }
-        activityResultLauncher.launch("$fileName.xls")
+        activityResultLauncher.launch("${fileName}.xls")
     }
 
     private fun showInProgressUi(){}
@@ -107,16 +107,18 @@ class GenerateReportFragment:
         var numberOfRows = 0
 
         lifecycleScope.launch {
-            when(val records = viewModel.getProductRecords(args.timeCode, args.startTime, args.endTime)){
+            when(val records = viewModel.getProductRecords(args.timeCode)){
                 is RepoResult.Error -> {}
                 RepoResult.InProgress -> {}
                 is RepoResult.Success -> {
                     try {
-                        records.data.sortedBy { it.productName }
+                        println(records.data)
+                        records.data.sortedBy { it.name }
                         records.data.forEach {
+
                             numberOfRows += 1
                             val newRow = sheet.createRow(numberOfRows)
-                            newRow.createCell(0).setCellValue(it.productName)
+                            newRow.createCell(0).setCellValue(it.name)
                             newRow.createCell(1).setCellValue(it.totalInStock.toString())
                             newRow.createCell(2).setCellValue(it.totalOutStock.toString())
                         }

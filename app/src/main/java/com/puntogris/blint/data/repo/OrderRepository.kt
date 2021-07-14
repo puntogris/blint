@@ -24,8 +24,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
-class OrderRepository @Inject constructor(
+ class OrderRepository @Inject constructor(
     private val firestoreQueries: FirestoreQueries,
     private val usersDao: UsersDao,
     private val ordersDao: OrdersDao
@@ -113,8 +114,8 @@ class OrderRepository @Inject constructor(
                     sku = it.sku,
                     barcode = it.barcode
                 ).also { rec ->
-                    if (rec.type == IN) rec.totalInStock += rec.amount
-                    else rec.totalOutStock +=rec.amount
+                    if (rec.type == IN) rec.totalInStock += rec.amount.absoluteValue
+                    else rec.totalOutStock += rec.amount.absoluteValue
                 }
             }
             if (user.currentBusinessIsOnline()) {
@@ -150,8 +151,8 @@ class OrderRepository @Inject constructor(
                         batch.update(
                             productRef,
                             "amount", FieldValue.increment(it.amount.toLong()),
-                            "totalInStock", it.totalInStock,
-                            "totalOutStock", it.totalOutStock
+                            "totalInStock", it.totalInStock.absoluteValue,
+                            "totalOutStock", it.totalOutStock.absoluteValue
                         )
                         batch.set(countersRef, hashMapOf("totalOrders" to FieldValue.increment(1)), SetOptions.merge())
                         batch.set(firestoreQueries.getRecordsCollectionQuery(user).document(it.recordId), it)

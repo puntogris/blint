@@ -3,6 +3,7 @@ package com.puntogris.blint.data.local.dao
 import androidx.room.*
 import com.puntogris.blint.model.*
 import kotlinx.coroutines.flow.Flow
+import kotlin.math.absoluteValue
 
 @Dao
 interface StatisticsDao {
@@ -52,24 +53,31 @@ interface StatisticsDao {
     suspend fun getAllSuppliers(): List<Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY productId")
-    suspend fun getAllRecords(): List<ProductRecordExcel>
+    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")
+    suspend fun getRecordsWithDays(productId:String, days:String): Record
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY productId")
-    suspend fun getRecordsWithDays(days:String): List<ProductRecordExcel>
+    @Transaction
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    suspend fun getProductRecordExcelList(): List<ProductRecordExcel>
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query(
-        """
-        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId 
-        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
-        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime') 
-        ORDER BY productId
-     """
-    )
-    suspend fun getRecordsWithDaysFrame(startTime:Long, endTime: Long): List<ProductRecordExcel>
-
+    @Transaction
+    suspend fun getProductRecordDaysExcelList(days: String): List<ProductRecordExcel>{
+        val list = mutableListOf<ProductRecordExcel>()
+        getAllProducts().forEach {
+            val data = getRecordsWithDays(it.productId, days)
+                list.add(
+                    ProductRecordExcel(
+                    it.name,
+                        if (data.type == "IN") it.totalInStock - (data.totalInStock - data.amount).absoluteValue
+                        else it.totalInStock - data.totalInStock,
+                        if (data.type == "OUT") it.totalOutStock - (data.totalOutStock - data.amount).absoluteValue
+                        else it.totalOutStock - data.totalOutStock
+                )
+            )
+        }
+        return list
+    }
 
 //    @RewriteQueriesToDropUnusedColumns
 //    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")

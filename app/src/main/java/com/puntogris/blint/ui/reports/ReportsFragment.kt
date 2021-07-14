@@ -82,8 +82,7 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
                 Option("Trimestral"),
                 Option("Bianual"),
                 Option("Anual"),
-                Option("Historico"),
-                Option("Periodo de tiempo personalizado")
+                Option("Historico")
             )
             onPositive { index: Int, _: Option ->
                 val timeCode = when(index){
@@ -92,28 +91,10 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
                     2 -> "QUARTERLY"
                     3 -> "BIANNUAL"
                     4 -> "ANNUAL"
-                    5 -> "HISTORICAL"
-                    else -> "CUSTOM"
+                    else -> "HISTORICAL"
                 }
-                if (timeCode == "CUSTOM") {
-                    CalendarSheet().build(requireContext()) {
-                        title("Seleccionar periodo de tiempo.")
-                        selectionMode(SelectionMode.RANGE)
-                        //showButtons(true)
-                        onPositive("OK") { dateStart, dateEnd ->
-                            val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(
-                                reportCode = code,
-                                timeCode = timeCode,
-                                startTime = dateStart.time.time,
-                                endTime = dateEnd!!.time.time
-                            )
-                            this@ReportsFragment.findNavController().navigate(action)
-                        }
-                    }.show(parentFragmentManager, "")
-                }else{
-                    val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = code, timeCode = timeCode)
-                    this@ReportsFragment.findNavController().navigate(action)
-                }
+            val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = code, timeCode = timeCode)
+            this@ReportsFragment.findNavController().navigate(action)
             }
         }.show(parentFragmentManager, "")
     }

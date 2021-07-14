@@ -3,6 +3,7 @@ package com.puntogris.blint.data.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.*
+import kotlin.math.absoluteValue
 
 @Dao
 interface OrdersDao {
@@ -19,6 +20,12 @@ interface OrdersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(debt: Debt)
 
+    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
+    suspend fun updateClientDebt(clientId: String, amount: Float)
+
+    @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
+    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
+
     @Transaction
     suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>){
         if (order.debt != null){
@@ -34,8 +41,10 @@ interface OrdersDao {
             )
             if (debt.type == "CLIENT"){
                 updateClientsDebt(debt.amount)
+                updateClientDebt(debt.traderId, debt.amount)
             }else {
                 updateSupplierDebt(debt.amount)
+                updateSupplierDebt(debt.traderId, debt.amount)
             }
             insert(debt)
         }
@@ -43,11 +52,19 @@ interface OrdersDao {
         insert(order.order)
         insert(recordsFinal)
         recordsFinal.forEach {
-            updateProductAmountWithType(it.productId, it.amount, order.order.type)
+            updateProductAmountWithType(it.productId, it.amount.absoluteValue, order.order.type)
+            if (it.type == "IN") updateProductTotalInStock(it.productId, it.amount.absoluteValue)
+            else updateProductTotalOutStock(it.productId, it.amount.absoluteValue)
         }
         insertOrderRecordsCrossRef(recordsFinal.map { OrderRecordCrossRef(order.order.orderId, it.recordId) })
         incrementTotalOrders()
     }
+
+    @Query("UPDATE product SET totalInStock = :amount + totalInStock WHERE productId = :id")
+    suspend fun updateProductTotalInStock(id: String, amount: Int)
+
+    @Query("UPDATE product SET totalOutStock = :amount + totalOutStock WHERE productId = :id")
+    suspend fun updateProductTotalOutStock(id: String, amount: Int)
 
     @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)

@@ -129,6 +129,7 @@ class ProductRepository @Inject constructor(
             }
             SimpleResult.Success
         }catch (e:Exception){
+            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }
@@ -153,10 +154,12 @@ class ProductRepository @Inject constructor(
         try {
             val user = currentBusiness()
             if (user.currentBusinessIsOnline()){
-                firestoreQueries.getProductsCollectionQuery(user)
-                    .document(productId)
-                    .delete()
-                    .await()
+
+                firestore.runBatch {
+                    it.delete(firestoreQueries.getProductsCollectionQuery(user).document(productId))
+                    it.update(firestoreQueries.getBusinessCountersQuery(user),"totalProducts", FieldValue.increment(-1))
+                }.await()
+
             }else{
                 productsDao.delete(productId)
                 statisticsDao.decrementTotalProducts()

@@ -33,8 +33,8 @@ class ReportsViewModel @Inject constructor(
         _exportingState.value = result
     }
 
-    suspend fun getProductRecords(timeCode:String, startTime:Long, endTime:Long) =
-        statisticRepository.getProductsReports(timeCode, startTime, endTime)
+    suspend fun getProductRecords(timeCode:String) =
+        statisticRepository.getProductsReports(timeCode)
 
     suspend fun getAllClientsData() = statisticRepository.getAllClients()
 
