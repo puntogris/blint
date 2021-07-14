@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.scanner.ScannerResultBottomSheet" />
@@ -27,7 +26,7 @@
             android:id="@+id/productFoundGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             app:constraint_referenced_ids="button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordType,textView61,textView60,textView58,textView15,button6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Edicion rapida"
+            android:text="Orden rapida"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +82,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{product.name}"
+            android:text="@{viewModel.currentProduct.product.name}"
             app:layout_constraintStart_toStartOf="@+id/textView60"
             app:layout_constraintTop_toBottomOf="@+id/textView60" />
 
@@ -125,17 +124,17 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            dateFromTimestamp="@{product.lastRecordTimestamp}"
+            dateFromTimestamp="@{viewModel.currentProduct.product.lastRecordTimestamp}"
             app:layout_constraintStart_toStartOf="@+id/textView64"
             app:layout_constraintTop_toBottomOf="@+id/textView64" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button6"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
             android:onClick="@{()->fragment.onSaveProductClicked()}"
@@ -143,12 +142,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/externalChipGroup"
-            app:strokeColor="@color/purple_200" />
+            app:layout_constraintTop_toBottomOf="@+id/recordType"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button5"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -159,8 +159,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productAmount"
-            app:strokeColor="@color/purple_200" />
+            app:layout_constraintTop_toBottomOf="@+id/productAmount"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/recordType"
@@ -178,6 +177,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/recordTypeText"
+                android:text="@string/in_entry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
@@ -208,34 +208,10 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/externalChipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/recordType"
-            app:layout_constraintTop_toBottomOf="@+id/recordType">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/addExternalChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_baseline_add_24" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/externalChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:closeIconEnabled="true"
-                app:closeIconVisible="true" />
-        </com.google.android.material.chip.ChipGroup>
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button7"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -247,8 +223,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView67"
-            app:strokeColor="@color/purple_200" />
+            app:layout_constraintTop_toBottomOf="@+id/textView67"/>
 
         <TextView
             android:id="@+id/textView66"

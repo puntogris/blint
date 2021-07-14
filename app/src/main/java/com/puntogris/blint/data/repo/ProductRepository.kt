@@ -19,9 +19,11 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
+import com.puntogris.blint.data.remote.deserializers.ProductDeserializer
 import com.puntogris.blint.data.repo.irepo.IProductRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -323,5 +325,27 @@ class ProductRepository @Inject constructor(
                 .whereArrayContains("search_name", search).limit(5).get().await().toObjects(FirestoreSupplier::class.java)
         }
         else{ suppliersDao.getProductSupplier("%${search}%") }
+    }
+
+    override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> = withContext(Dispatchers.IO){
+        try {
+            val user = currentBusiness()
+            val product:ProductWithSuppliersCategories? =
+                if (user.currentBusinessIsOnline()){
+                    val data = firestoreQueries
+                        .getProductsCollectionQuery(user)
+                        .whereEqualTo("barcode", barcode).limit(1).get().await()
+                    val prod = ProductDeserializer.deserialize(data.first())
+                    if (prod.product.productId.isNotEmpty() && prod.product.barcode.isNotEmpty())
+                        prod
+                    else null
+                }
+                else{ productsDao.getProductWithBarcode(barcode)}
+
+            if (product != null) RepoResult.Success(product)
+            else RepoResult.Error(Exception())
+        }catch (e:Exception){
+            RepoResult.Error(e)
+        }
     }
 }

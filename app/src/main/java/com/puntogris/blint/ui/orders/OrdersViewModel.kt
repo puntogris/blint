@@ -5,6 +5,7 @@ import androidx.paging.cachedIn
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.OrderRepository
+import com.puntogris.blint.data.repo.ProductRepository
 import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
@@ -16,17 +17,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val ordersDao: OrdersDao,
     private val productsDao: ProductsDao,
     private val suppliersDao: SuppliersDao,
     private val clientsDao: ClientsDao,
-    private val usersDao: UsersDao,
-    private val userRepository: UserRepository,
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val productRepository: ProductRepository
 ): ViewModel() {
 
-    private val _currentProduct = MutableStateFlow(Product())
-    val currentProduct : LiveData<Product> = _currentProduct.asLiveData()
+    private val _currentProduct = MutableStateFlow(ProductWithSuppliersCategories())
+    val currentProduct : LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
 
     private val _barcodeScanned = MutableLiveData<String>()
     val barcodeScanned: LiveData<String> = _barcodeScanned
@@ -34,32 +33,11 @@ class OrdersViewModel @Inject constructor(
     private val _order = MutableLiveData(OrderWithRecords())
     val order: LiveData<OrderWithRecords> = _order
 
-    private var recordType = "NONE"
-    private var externalID = ""
-    private var externalName = ""
-
     fun updateOrder(orderWithRecords: OrderWithRecords){
         _order.value = orderWithRecords
     }
 
-    fun updateRecordType(code: Int){
-        recordType = when(code){
-            0 -> IN
-            else -> OUT
-        }
-    }
-
-    fun updateExternalInfo(id:String, name: String){
-        externalID = id
-        externalName = name
-    }
-
-    fun resetExternalInfo(){
-        externalName = ""
-        externalID = ""
-    }
-
-    fun setProductData(product: Product){
+    fun setProductData(product: ProductWithSuppliersCategories){
         _currentProduct.value = product
     }
 
@@ -69,51 +47,13 @@ class OrdersViewModel @Inject constructor(
 
     suspend fun getProduct(id: String) = productsDao.getProduct(id)
 
-    suspend fun saveRecordAndUpdateStock(amount: Int): Boolean{
-        val record = Record(
-            productId = _currentProduct.value.productId,
-            productName = _currentProduct.value.name,
-            amount = amount,
-            type = recordType,
-            timestamp = Timestamp.now(),
-            traderId = externalID,
-            traderName = externalName,
-            author = userRepository.getCurrentUser()?.email.toString(),
-            businessId = usersDao.getUser().currentBusinessId
-        )
-        val newAmount = getNewStockAmount(record.type, amount)
-        return if (newAmount < 0){
-            false
-        }else{
-            ordersDao.insert(record)
-            _currentProduct.value.amount = newAmount
-            _currentProduct.value.lastRecordTimestamp = Timestamp.now()
-            productsDao.update(_currentProduct.value)
-            true
-        }
-    }
-
     suspend fun fetchOrderRecords(orderId:String) =
         orderRepository.getOrderRecords(orderId)
 
-    private fun getNewStockAmount(type:String, amount:Int): Int{
-        val newAmount :Int
-        when(type){
-            IN -> {
-                _currentProduct.value.totalInStock += amount
-                newAmount = _currentProduct.value.amount + amount
-            }
-            else -> {
-                _currentProduct.value.totalOutStock += amount
-                newAmount = _currentProduct.value.amount - amount
-            }
-        }
-        return newAmount
-    }
 
-    suspend fun getProductWithBarCode(barcode:String) = productsDao.getProductWithBarcode(barcode)
+    suspend fun getProductWithBarCode(barcode:String) = productRepository.getProductWithBarcode(barcode)
 
-    fun getProductID() = _currentProduct.value.productId
+    fun getProductID() = _currentProduct.value.product.productId
 
     fun updateBarcodeScanned(barcode: String){
         _barcodeScanned.value = barcode

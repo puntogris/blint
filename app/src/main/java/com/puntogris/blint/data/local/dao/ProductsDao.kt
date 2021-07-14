@@ -46,7 +46,7 @@ interface ProductsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
-    suspend fun getProductWithBarcode(barcode: String): Product?
+    suspend fun getProductWithBarcode(barcode: String): ProductWithSuppliersCategories?
 
     @Query("SELECT COUNT(*) FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount(): LiveData<Int>

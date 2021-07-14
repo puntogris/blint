@@ -2,6 +2,7 @@ package com.puntogris.blint.data.repo.irepo
 
 import androidx.paging.PagingData
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.flow.Flow
@@ -18,4 +19,5 @@ interface IProductRepository {
     suspend fun updateProductCategoryDatabase(category: Category): SimpleResult
     suspend fun getCategoriesWithNameDatabase(search: String): List<FirestoreCategory>
     suspend fun getSuppliersWithNameDatabase(search: String): List<FirestoreSupplier>
+    suspend fun getProductWithBarcode(barcode:String): RepoResult<ProductWithSuppliersCategories>
 }

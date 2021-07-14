@@ -46,7 +46,7 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
 
     fun onSaveButtonClicked(){
         val amount = binding.productAmountText.getString().toIntOrNull()
-        if (amount != null){
+        if (amount != null && amount > 0){
             binding.simpleOrderGroup.gone()
             binding.progressBar.visible()
             val order = OrderWithRecords()
@@ -74,6 +74,7 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
             }
         }else{ showSackBarAboveBottomSheet("La cantidad no puede estar vacia ni ser 0.") }
     }
+
     private fun navigateBack(){
         findNavController().apply {
             previousBackStackEntry!!.savedStateHandle.set("simple_order_key", true)
