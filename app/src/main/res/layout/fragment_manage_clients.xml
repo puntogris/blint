@@ -34,7 +34,8 @@
                     android:background="@null"
                     android:hint="@string/name"
                     android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions" />
+                    android:inputType="textNoSuggestions"
+                    android:autofillHints="@string/auto_fill_hint_client_search" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>

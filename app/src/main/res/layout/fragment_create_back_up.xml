@@ -9,7 +9,6 @@
             type="com.puntogris.blint.ui.backup.CreateBackupFragment" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -156,5 +155,4 @@
             app:layout_constraintTop_toTopOf="@+id/textView70" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

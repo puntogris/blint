@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreference
-        android:title="Backup automatico"
-        android:summary="Se guarda tu negocio en la nube automaticamente todos dias"
+        android:title="@string/auto_backup_pref"
+        android:summary="@string/auto_backup_summary_pref"
         app:iconSpaceReserved="false"
         android:key="auto_backup_pref"/>
 
     <Preference
-        android:title="Crear copia de seguridad"
-        android:summary="Se respalda todo su negocio en la nube"
+        android:title="@string/create_backup_pref"
+        android:summary="@string/create_backup_summary_pref"
         app:iconSpaceReserved="false"
         android:key="create_backup_pref"/>
 
     <Preference
-        android:title="Restaurar desde copia de seguridad"
-        android:summary="Se restaura su negocio desde la nube"
+        android:title="@string/restore_backup_pref"
+        android:summary="@string/restore_backup_summary_pref"
         app:iconSpaceReserved="false"
         android:key="restore_backup_pref"/>
 

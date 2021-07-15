@@ -63,4 +63,22 @@ object Constants {
     //Storage
     const val USERS_PATH = "users"
     const val BACKUP_PATH = "backup"
+
+    //Shared pref
+    const val SHOW_WELCOME_PREF = "show_welcome_ui"
+    const val THEME_PREF = "theme_pref"
+    const val USER_HAS_BUSINESS_PREF = "user_has_business"
+    const val ACCOUNT_PREF = "account_pref"
+    const val NOTIFICATIONS_PREF = "notifications_pref"
+    const val BACKUP_PREF = "backup_pref"
+    const val HELP_PREF = "help_pref"
+    const val ABOUT_PREF = "about_pref"
+    const val AUTO_BACKUP_PREF = "auto_backup_pref"
+    const val CREATE_BACKUP_PREF = "create_backup_pref"
+    const val RESTORE_BACKUP_PREF = "restore_backup_pref"
+    const val USER_DATA_PREF = "user_data_pref"
+    const val USER_BUSINESS_PREF = "user_business_pref"
+    const val PAYMENTS_PREF = "payments_pref"
+    const val PRIVACY_PREF = "privacy_pref"
+    const val SIGN_OUT_PREF = "sign_out_pref"
 }

@@ -44,7 +44,8 @@
                     android:layout_alignParentTop="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/expand_image" />
 
                 <TextView
                     android:id="@+id/textView156"
@@ -102,7 +103,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="151dp"
                         android:layout_height="wrap_content"
-                        android:hint="Cantidad"
+                        android:hint="@string/amount"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -123,7 +124,7 @@
                         android:layout_width="151dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="Precio"
+                        android:hint="@string/price"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/amountTextInput">
 
@@ -144,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Descuento"
+                        android:hint="@string/discount"
                         app:layout_constraintEnd_toStartOf="@+id/discountType"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +164,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Tipo"
+                        android:hint="@string/type"
                         app:expandedHintEnabled="false"
                         app:layout_constraintBottom_toBottomOf="@+id/discountTextInput"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +175,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/changeValueTypeText"
                             android:layout_width="match_parent"
-                            android:text="%"
+                            android:text="@string/percentage_symbol"
                             android:layout_height="wrap_content"
                             android:inputType="none" />
 
@@ -185,7 +186,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Precio de compra"
+                        android:text="@string/prices"
                         app:layout_constraintBottom_toTopOf="@+id/textView6118"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -208,7 +209,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stock actual"
+                        android:text="@string/stock"
                         app:layout_constraintBottom_toTopOf="@+id/textView153"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/amountTextInput"

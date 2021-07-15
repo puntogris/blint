@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -67,7 +67,8 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/supplierSellerName"
                     app:layout_constraintTop_toTopOf="@+id/supplierSellerName"
-                    app:srcCompat="@drawable/ic_baseline_person_add_24" />
+                    app:srcCompat="@drawable/ic_baseline_person_add_24"
+                    android:contentDescription="@string/open_contact_image" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierSellerPhone"
@@ -116,8 +117,6 @@
                         android:text="@{viewModel.currentSupplier.sellerEmail}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

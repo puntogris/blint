@@ -40,21 +40,22 @@
                     android:layout_marginBottom="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Balance total de deuda:"
+                    android:text="@string/total_debt_balance"
                     tools:layout_editor_absoluteX="116dp"
                     tools:layout_editor_absoluteY="99dp" />
 
                 <TextView
                     android:id="@+id/textView184"
                     android:textSize="18sp"
+                    android:textAlignment="viewEnd"
                     android:layout_gravity="center"
-                    android:textAlignment="textEnd"
                     android:fontFamily="@font/versatile_bold"
                     android:textColor="@color/card6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="154 $" />
+                    tools:text="154$"
+                    tools:ignore="RtlCompat" />
 
             </LinearLayout>
 
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/versatile_bold"
-            android:text="Ultimas deudas"
+            android:text="@string/last_debts"
             android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

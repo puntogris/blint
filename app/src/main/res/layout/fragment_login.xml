@@ -24,7 +24,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/versatile_bold"
             android:lineSpacingExtra="-15dp"
-            android:text="blint."
+            android:text="@string/app_name_lowercase_with_dot"
             android:textAlignment="center"
             android:textColor="@color/almostBlack"
             android:textSize="55sp"
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="make it simpler"
+            android:text="@string/app_slogan"
             app:layout_constraintEnd_toEndOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />

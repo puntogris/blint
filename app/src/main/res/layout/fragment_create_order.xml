@@ -44,9 +44,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="Buscar.."
+                    android:hint="@string/search"
                     android:imeOptions="flagNoExtractUi|actionDone"
-                    android:inputType="textNoSuggestions" />
+                    android:inputType="textNoSuggestions"
+                    android:autofillHints="@string/auto_fill_hint_search_product" />
                 <ImageButton
                     android:id="@+id/clearTextButton"
                     android:visibility="gone"
@@ -54,14 +55,16 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_close_24" />
+                    app:srcCompat="@drawable/ic_baseline_close_24"
+                    android:contentDescription="@string/close_icon" />
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()-> fragment.onScanBarcodeButtonClicked()}"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_barcode" />
+                    app:srcCompat="@drawable/ic_barcode"
+                    android:contentDescription="@string/scan_image" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -83,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Nombre"
+                android:text="@string/name"
                 app:layout_constraintEnd_toStartOf="@+id/internalCodeSearchType"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +96,7 @@
                 android:id="@+id/internalCodeSearchType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cod. Interno"
+                android:text="@string/sku"
                 app:layout_constraintEnd_toStartOf="@+id/qrSearchType"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/nameSearchType"
@@ -103,7 +106,7 @@
                 android:id="@+id/qrSearchType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QR"
+                android:text="@string/qr"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/internalCodeSearchType"
@@ -126,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Producto"
+                android:text="@string/product"
                 android:textAlignment="center" />
 
             <TextView
@@ -135,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cantidad"
+                android:text="@string/amount"
                 android:textAlignment="center" />
 
             <TextView
@@ -144,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Precio"
+                android:text="@string/price"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -184,7 +187,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="Total:"
+            android:text="@string/total_with_dots"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView155"
@@ -197,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/avenir_medium"
-            android:text="$0"
+            android:text="@string/zero_dollars"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView154"
             app:layout_constraintStart_toEndOf="@+id/textView154"

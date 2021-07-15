@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        android:title="Mi cuenta"
+        android:title="@string/my_account_pref"
         android:key="account_pref"
         android:icon="@drawable/ic_baseline_account_circle_24"/>
 
     <Preference
-        android:title="Notificaciones"
+        android:title="@string/notifications_label"
         app:icon="@drawable/ic_baseline_notifications_24"
         android:key="notifications_pref"
         android:fragment="com.puntogris.blint.ui.settings.NotificationsPreferences"/>
 
     <Preference
-        android:title="Copias de seguridad"
+        android:title="@string/backup_pref"
         android:key="backup_pref"
         android:icon="@drawable/ic_baseline_backup_24"
         android:fragment="com.puntogris.blint.ui.settings.BackupPreferences"/>
 
     <ListPreference
-        android:title="Temas"
+        android:title="@string/themes_pref"
         app:icon="@drawable/ic_baseline_style_24"
         android:defaultValue="1"
         android:key="theme_pref"
@@ -28,12 +28,12 @@
         android:entryValues="@array/theme_values"/>
 
     <Preference
-        android:title="Ayuda"
+        android:title="@string/help_pref"
         android:key="help_pref"
         android:icon="@drawable/ic_baseline_help_24" />
 
     <Preference
-        android:title="Acerca de Blint"
+        android:title="@string/about_us_pref"
         app:iconSpaceReserved="false"
         android:key="about_pref"/>
 

@@ -42,14 +42,16 @@
                     android:background="@null"
                     android:hint="@string/search"
                     android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions" />
+                    android:inputType="textNoSuggestions"
+                    android:autofillHints="@string/auto_fill_hint_search_product" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_filter_list_24" />
+                    app:srcCompat="@drawable/ic_baseline_filter_list_24"
+                    android:contentDescription="@string/filter_image" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -57,14 +59,16 @@
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
                     android:onClick="@{()->fragment.onScanBarcodeClicked()}"
-                    app:srcCompat="@drawable/ic_barcode" />
+                    app:srcCompat="@drawable/ic_barcode"
+                    android:contentDescription="@string/scan_image" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                    android:contentDescription="@string/more_image" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
@@ -92,7 +96,7 @@
                     android:id="@+id/internalCodeSearchType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/internal_code"
+                    android:text="@string/sku"
                     app:layout_constraintEnd_toStartOf="@+id/qrSearchType"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/nameSearchType"

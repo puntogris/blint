@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.business.RegisterLocalBusinessFragment">
 
-
         <TextView
             android:id="@+id/textView17"
             style="@style/TextAppearance.MaterialComponents.Headline5"
@@ -23,7 +22,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
-            android:text="Estas a un paso de abrir tu negocio en Blint!"
+            android:text="@string/new_business_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +33,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:hint="Nombre"
+            android:hint="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/Theme.Blint.TextInput"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:text="Finalizar"
+            android:text="@string/action_finish"
             android:onClick="@{()-> registerLocalBusinessFragment.onEndRegistrationButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -69,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
-            android:text="Como lo vas a llamar?"
+            android:text="@string/ask_business_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"

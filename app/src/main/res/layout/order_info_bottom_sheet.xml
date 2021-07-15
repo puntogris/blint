@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Fecha del movimiento"
+            android:text="@string/record_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView80" />
 
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Autor"
+            android:text="@string/author"
             app:layout_constraintStart_toStartOf="@+id/textView76"
             app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Tipo"
+            android:text="@string/type"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView81" />
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Detalles de la orden"
+            android:text="@string/order_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView10" />
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:text="Valor"
+            android:text="@string/value"
             app:layout_constraintBottom_toBottomOf="@+id/textView79"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView83"
@@ -149,7 +149,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal"
+            android:contentDescription="@string/top_window_bar_image" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button23"
@@ -158,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="Ver orden completa"
+            android:text="@string/action_see_complete_order"
             android:backgroundTint="@color/primaryColor"
             android:textColor="@color/almostBlack"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"

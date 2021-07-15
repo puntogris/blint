@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Generar informes" />
+                android:text="@string/generate_reports" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/recordsReport"
@@ -58,7 +58,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Movimientos por producto"
+                    android:text="@string/product_records_report"
                     tools:layout_editor_absoluteX="122dp"
                     tools:layout_editor_absoluteY="16dp" />
 
@@ -123,7 +123,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Generar listas" />
+                android:text="@string/generate_lists" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/productsReport"
@@ -199,8 +199,6 @@
                     tools:layout_editor_absoluteY="16dp" />
 
             </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </layout>

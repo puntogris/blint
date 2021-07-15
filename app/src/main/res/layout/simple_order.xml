@@ -27,7 +27,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal"
+            android:contentDescription="@string/top_window_bar_image" />
 
         <TextView
             android:id="@+id/textView58"

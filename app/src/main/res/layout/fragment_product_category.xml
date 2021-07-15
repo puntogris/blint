@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -45,7 +41,8 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_close_24" />
+                    app:srcCompat="@drawable/ic_baseline_close_24"
+                    android:contentDescription="@string/close_icon" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -56,7 +53,8 @@
             android:layout_margin="16dp"
             android:textSize="18sp"
             android:fontFamily="@font/versatile_bold"
-            android:text="Categorias de este producto" />
+            android:text="@string/product_categories" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

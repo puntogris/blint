@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="La nueva orden esta lista para ser creada."
+            android:text="@string/order_is_ready_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Valor total:"
+            android:text="@string/total_order_value"
             app:layout_constraintStart_toStartOf="@+id/textView167"
             app:layout_constraintTop_toBottomOf="@+id/textView167" />
 
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Cantidad de productos:"
+            android:text="@string/products_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView162" />
 
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Fecha:"
+            android:text="@string/date_with_dots"
             app:layout_constraintStart_toStartOf="@+id/textView164"
             app:layout_constraintTop_toBottomOf="@+id/textView177" />
 
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Autor:"
+            android:text="@string/author_with_dots"
             app:layout_constraintStart_toStartOf="@+id/textView170"
             app:layout_constraintTop_toBottomOf="@+id/textView170" />
 
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="*Al continuar esta orden sera generada y enviada a los servidores, generando una factura y modificando el stock de los productos incluidos."
+            android:text="@string/review_order_alert"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="No especificado."
+            android:text="@string/not_specified"
             app:layout_constraintBottom_toBottomOf="@+id/textView177"
             app:layout_constraintStart_toEndOf="@+id/textView177"
             app:layout_constraintTop_toTopOf="@+id/textView177" />
@@ -145,7 +145,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:hint="Pago estado"
+            android:hint="@string/order_payment_status"
             app:layout_constraintEnd_toStartOf="@+id/debtAmount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="Completo" />
+                android:text="@string/order_payment_status_completed" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:hint="Valor deuda"
+            android:hint="@string/debt_value"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/debt"
             app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:text="0.0" />
+                android:text="@string/zero_float" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -192,7 +192,6 @@
             style="?textAppearanceSubtitle2"
             app:layout_constraintStart_toStartOf="@+id/debt"
             app:layout_constraintTop_toBottomOf="@+id/debt" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

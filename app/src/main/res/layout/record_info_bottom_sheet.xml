@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             style="@style/Theme.Blint.DataSubTitleTextView"
-            android:text="Producto"
+            android:text="@string/product"
             app:layout_constraintBottom_toBottomOf="@+id/textView79"
             app:layout_constraintEnd_toStartOf="@+id/textView79"
             app:layout_constraintHorizontal_bias="0.5"
@@ -47,7 +47,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             style="@style/Theme.Blint.DataSubTitleTextView"
-            android:text="Fecha del movimiento"
+            android:text="@string/record_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView74" />
 
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Autor"
+            android:text="@string/author"
             app:layout_constraintStart_toStartOf="@+id/textView76"
             app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Tipo"
+            android:text="@string/type"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintEnd_toStartOf="@+id/textView82"
             app:layout_constraintHorizontal_bias="0.5"
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Detalles del movimiento"
+            android:text="@string/record_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView10" />
@@ -120,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:text="Cantidad"
+            android:text="@string/amount"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintBottom_toBottomOf="@+id/textView79"
             app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="Ver orden completa"
+            android:text="@string/action_see_complete_order"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"
             android:backgroundTint="@color/primaryColor"
             android:textColor="@color/almostBlack"
@@ -188,7 +188,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal"
+            android:contentDescription="@string/top_window_bar_image" />
 
         <TextView
             android:id="@+id/textView117"
@@ -199,7 +200,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:visibility="gone"
-            android:text="Esta es un movimiento de stock inicial por lo cual no posee una orden."
+            android:text="@string/initial_stock_record_message"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

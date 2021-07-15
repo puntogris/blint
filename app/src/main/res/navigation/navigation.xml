@@ -499,10 +499,6 @@
                 android:id="@+id/action_createRecordFragment_to_reviewRecordFragment"
                 app:destination="@id/reviewRecordFragment" />
         </fragment>
-        <fragment
-            android:id="@+id/addProductRecordBottomSheet"
-            android:name="com.puntogris.blint.ui.orders.AddProductRecordBottomSheet"
-            android:label="Agregar producto" />
         <action
             android:id="@+id/action_global_scannerFragment"
             app:destination="@id/scannerFragment" />

@@ -41,7 +41,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </com.google.android.material.card.MaterialCardView>
-
 </layout>

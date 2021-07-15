@@ -74,7 +74,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:userDataImage="@{String.valueOf(viewModel.userData.photoUrl)}"
-            android:elevation="2dp"/>
+            android:elevation="2dp"
+            android:contentDescription="@string/profile_image" />
 
         <TextView
             android:id="@+id/privacyPolicyTextView"

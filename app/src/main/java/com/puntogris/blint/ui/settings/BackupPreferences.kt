@@ -5,20 +5,24 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.puntogris.blint.R
 import com.puntogris.blint.ui.base.BasePreferences
+import com.puntogris.blint.utils.Constants.AUTO_BACKUP_PREF
+import com.puntogris.blint.utils.Constants.CREATE_BACKUP_PREF
+import com.puntogris.blint.utils.Constants.RESTORE_BACKUP_PREF
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.setUpUi
 
 class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
-        getParentFab().hide()
-        findPreference<SwitchPreference>("auto_backup_pref")?.setOnPreferenceClickListener {
+        setUpUi()
+        findPreference<SwitchPreference>(AUTO_BACKUP_PREF)?.setOnPreferenceClickListener {
             true
         }
-        findPreference<Preference>("create_backup_pref")?.setOnPreferenceClickListener {
+        findPreference<Preference>(CREATE_BACKUP_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.createBackupFragment)
             true
         }
-        findPreference<Preference>("restore_backup_pref")?.setOnPreferenceClickListener {
+        findPreference<Preference>(RESTORE_BACKUP_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.restoreBackupFragment)
             true
         }

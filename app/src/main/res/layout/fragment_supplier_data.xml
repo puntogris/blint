@@ -66,7 +66,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView29"
-                        app:srcCompat="@drawable/ic_baseline_person_add_24" />
+                        app:srcCompat="@drawable/ic_baseline_person_add_24"
+                        android:contentDescription="@string/open_contact_image" />
                     <TextView
                         android:id="@+id/supplierCompanyName"
                         style="@style/Theme.Blint.DataTextView"
@@ -93,7 +94,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyPhone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView35"
-                        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                        app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                        android:contentDescription="@string/more_image" />
 
                     <TextView
                         android:id="@+id/supplierCompanyPhone"
@@ -121,7 +123,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyEmail"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView44"
-                        app:srcCompat="@drawable/ic_baseline_email_24" />
+                        app:srcCompat="@drawable/ic_baseline_email_24"
+                        android:contentDescription="@string/email_image" />
 
                     <TextView
                         android:id="@+id/supplierCompanyEmail"
@@ -198,7 +201,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierSellerName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView290"
-                        app:srcCompat="@drawable/ic_baseline_person_add_24" />
+                        app:srcCompat="@drawable/ic_baseline_person_add_24"
+                        android:contentDescription="@string/open_contact_image" />
 
                     <TextView
                         android:id="@+id/supplierSellerName"
@@ -226,7 +230,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierSellerPhone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView350"
-                        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                        app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                        android:contentDescription="@string/more_image" />
 
                     <TextView
                         android:id="@+id/supplierSellerPhone"
@@ -254,7 +259,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/supplierSellerEmail"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView440"
-                        app:srcCompat="@drawable/ic_baseline_email_24" />
+                        app:srcCompat="@drawable/ic_baseline_email_24"
+                        android:contentDescription="@string/email_image" />
                     <TextView
                         android:id="@+id/supplierSellerEmail"
                         style="@style/Theme.Blint.DataTextView"

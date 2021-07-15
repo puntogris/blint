@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -41,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Nombre"
+                android:text="@string/name"
                 app:layout_constraintStart_toStartOf="@+id/textView42"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +49,7 @@
                 style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Creado"
+                android:text="@string/creation_date"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toStartOf="@+id/textView59"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
@@ -68,8 +67,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-
 </layout>

@@ -24,7 +24,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView106"
-            app:srcCompat="@raw/welcome" />
+            app:srcCompat="@raw/welcome"
+            android:contentDescription="@string/image" />
 
         <TextView
             android:id="@+id/textView104"

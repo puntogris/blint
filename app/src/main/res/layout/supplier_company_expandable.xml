@@ -66,7 +66,8 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/supplierCompanyName"
                     app:layout_constraintTop_toTopOf="@+id/supplierCompanyName"
-                    app:srcCompat="@drawable/ic_baseline_person_add_24" />
+                    app:srcCompat="@drawable/ic_baseline_person_add_24"
+                    android:contentDescription="@string/open_contact_image" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/supplierCompanyPhone"

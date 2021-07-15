@@ -19,6 +19,6 @@
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search_barcode_2"
         app:showAsAction="ifRoom"
-        android:title="Buscar"/>
+        android:title="@string/search"/>
 
 </menu>

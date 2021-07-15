@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,35 +16,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="8dp"
-            android:hint="Filtro">
+            android:hint="@string/filter">
 
             <AutoCompleteTextView
                 android:id="@+id/calendarFilterText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Todos"
+                android:text="@string/all"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-<!--        <TextView-->
-<!--            android:id="@+id/calendarMonth"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            style="@style/TextAppearance.MaterialComponents.Headline6" />-->
-
-<!--        <com.github.sundeepk.compactcalendarview.CompactCalendarView-->
-<!--            android:id="@+id/calendarView"-->
-<!--            style="@style/Theme.Blint.Calendar"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="250dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:paddingRight="10dp"-->
-<!--            app:compactCalendarTargetHeight="250dp"-->
-<!--            app:compactCalendarTextSize="12sp" />-->
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -71,7 +47,6 @@
             android:layout_gravity="center"
             android:visibility="gone"
             android:gravity="center"
-            android:text="Ops! No tienen nada por aqui." />
-
+            android:text="@string/no_events_found_message" />
     </LinearLayout>
 </layout>

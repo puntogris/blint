@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -20,16 +20,17 @@
             android:id="@+id/button10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
             android:onClick="@{()->fragment.onSaveButtonClicked()}"
-            android:text="Guardar"
+            android:text="@string/action_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButton"
-            android:backgroundTint="@color/primaryColor"
             android:textColor="@color/almostBlack"
             app:layout_constraintTop_toBottomOf="@+id/eventStatus" />
 
@@ -50,7 +51,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal"
+            android:contentDescription="@string/top_window_bar_image" />
 
         <TextView
             android:id="@+id/textView90"
@@ -59,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Titulo"
+            android:text="@string/title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView96" />
 
@@ -77,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Mensaje"
+            android:text="@string/message_hint"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView90"
             app:layout_constraintTop_toBottomOf="@+id/textView91" />
@@ -96,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Fecha"
+            android:text="@string/date"
             style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/textView92"
             app:layout_constraintTop_toBottomOf="@+id/textView93" />
@@ -108,7 +110,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="Estado"
+            android:hint="@string/status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView95">
@@ -132,7 +134,8 @@
             android:src="@drawable/ic_baseline_delete_24"
             app:layout_constraintBottom_toBottomOf="@+id/button10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button10" />
+            app:layout_constraintTop_toTopOf="@+id/button10"
+            android:contentDescription="@string/delete_image" />
 
         <TextView
             android:id="@+id/textView96"
@@ -140,11 +143,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:text="Detalles del evento"
+            android:text="@string/events_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -36,7 +36,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
-
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="95dp"
@@ -46,7 +45,8 @@
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_app_logo"/>
+            app:srcCompat="@drawable/ic_app_logo"
+            android:contentDescription="@string/app_logo_image" />
 
         <TextView
             android:id="@+id/textView21"

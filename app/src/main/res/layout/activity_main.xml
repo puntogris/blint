@@ -66,7 +66,8 @@
             android:id="@+id/mainFab"
             android:backgroundTint="@color/primaryColor"
             app:layout_anchor="@id/bottomAppBar"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            android:contentDescription="@string/fab_action_button" />
 
         <ImageView
             android:id="@+id/notification"
@@ -78,7 +79,8 @@
             android:layout_marginEnd="20dp"
             app:layout_anchor="@id/toolbar"
             app:layout_anchorGravity="center_vertical|end"
-            app:srcCompat="@drawable/ic_baseline_notifications_24" />
+            app:srcCompat="@drawable/ic_baseline_notifications_24"
+            android:contentDescription="@string/notifications_icon" />
 
         <com.nex3z.notificationbadge.NotificationBadge
             android:id="@+id/badge"

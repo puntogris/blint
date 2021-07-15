@@ -6,38 +6,34 @@
         android:id="@+id/moreOptions"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
+        android:title="@string/options"
         app:showAsAction="always">
         <menu >
             <item android:id="@+id/editOption"
-                android:title="Editar" />
+                android:title="@string/action_edit" />
             <item
                 android:visible="false"
                 android:id="@+id/createRecord"
-                android:title="Nuevo movimiento" />
-
+                android:title="@string/new_record" />
             <item android:id="@+id/debtStatus"
                 android:visible="false"
-                android:title="Deudas" />
+                android:title="@string/debts_label" />
             <item android:id="@+id/deleteOption"
-                android:title="Eliminar" />
+                android:title="@string/action_delete" />
 
         </menu>
     </item>
-
     <item
         android:id="@+id/manageProductFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
+        android:title="@string/options"
         app:showAsAction="always">
         <menu >
             <item android:id="@+id/newProduct"
-                android:title="Nuevo producto" />
-
+                android:title="@string/new_product" />
             <item android:id="@+id/manageCategories"
-                android:title="Categorias" />
-
+                android:title="@string/categories_label" />
         </menu>
     </item>
 
@@ -45,12 +41,11 @@
         android:id="@+id/manageClientsFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item android:id="@+id/newClient"
-                android:title="Nuevo cliente" />
-
+                android:title="@string/new_client" />
         </menu>
     </item>
 
@@ -58,12 +53,11 @@
         android:id="@+id/manageSuppliersFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item android:id="@+id/newSupplier"
-                android:title="Nuevo proveedor" />
-
+                android:title="@string/new_supplier" />
         </menu>
     </item>
 
@@ -71,11 +65,11 @@
         android:id="@+id/calendarFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item android:id="@+id/newEvent"
-                android:title="Nuevo evento" />
+                android:title="@string/new_event" />
 
         </menu>
     </item>
@@ -84,15 +78,15 @@
         android:id="@+id/manageBusinessMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item
                 android:id="@+id/newBusiness"
-                android:title="Nuevo negocio" />
+                android:title="@string/new_business" />
             <item
                 android:id="@+id/joinBusiness"
-                android:title="Unirme a un negocio" />
+                android:title="@string/join_business" />
 <!--            <item-->
 <!--                android:id="@+id/syncBusiness"-->
 <!--                android:title="Sincronizar negocios" />-->
@@ -103,13 +97,13 @@
         android:id="@+id/businessFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item android:id="@+id/newEmployee"
-                android:title="Agregar empleado/a" />
+                android:title="@string/add_employee" />
             <item android:id="@+id/deleteBusiness"
-                android:title="Eliminar negocio" />
+                android:title="@string/delete_business" />
         </menu>
     </item>
 
@@ -118,13 +112,13 @@
         android:id="@+id/employeeFragmentMenu"
         android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Opciones"
-        app:showAsAction="always">
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
         <menu >
             <item android:id="@+id/deleteEmployee"
-                android:title="Eliminar empleado" />
+                android:title="@string/delete_employee" />
             <item android:id="@+id/changeEmployeeRole"
-                android:title="Cambiar rol" />
+                android:title="@string/change_role" />
         </menu>
     </item>
 

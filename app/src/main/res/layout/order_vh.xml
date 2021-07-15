@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/text_view_dollar"
-            android:text="$"
+            android:text="@string/dollar_symbol"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,9 +72,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias=".55"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvLeft"
@@ -98,9 +96,8 @@
             app:layout_constraintBottom_toBottomOf="@id/tvLeft"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:text="$"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            />
+            android:text="@string/dollar_symbol"
+            style="@style/TextAppearance.MaterialComponents.Caption" />
 
         <TextView
             android:id="@+id/textView85"
@@ -108,7 +105,7 @@
             amountSymbolWithRecordType="@{order.order.type}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
+            android:text="@string/plus_symbol"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

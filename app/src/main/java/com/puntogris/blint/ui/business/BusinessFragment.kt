@@ -36,6 +36,11 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 }
             }
         }
+
+        if (args.employee.businessType == LOCAL){
+            binding.textView103.gone()
+            binding.cardView2.gone()
+        }
     }
 
     private fun onDataNotFound(){
