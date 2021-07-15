@@ -7,7 +7,7 @@
     <string name="home_label">Inicio</string>
     <string name="products_label">Productos</string>
     <string name="clients_label">Clientes</string>
-    <string name="records_label">Ordenes</string>
+    <string name="orders_label">Ordenes</string>
     <string name="reports_label">Informes</string>
     <string name="calendar_label">Agenda</string>
     <string name="suppliers_label">Proveedores</string>
@@ -17,6 +17,30 @@
     <string name="tools_label">Herramientas</string>
     <string name="debts_label">Deudas</string>
     <string name="categories_label">Categorias</string>
+    <string name="scanner_label">Escanear codigo</string>
+    <string name="register_business_label">Registrar negocio</string>
+    <string name="client_label">Cliente</string>
+    <string name="supplier_label">Proveedor</string>
+    <string name="product_label">Producto</string>
+    <string name="help_label">Ayuda</string>
+    <string name="register_local_business_label">Registrar negocio local</string>
+    <string name="register_online_business_label">Registrar negocio online</string>
+    <string name="about_us_label">Sobre blint</string>
+    <string name="backup_label">Respaldar negocio</string>
+    <string name="restore_backup_label">Restaurar negocio</string>
+    <string name="general_edition_label">Edicion general</string>
+    <string name="import_data_label">Importar lista externa</string>
+    <string name="new_event_label">Nuevo evento</string>
+    <string name="generate_report_label">Generar informe</string>
+    <string name="my_business_label">Mi negocio</string>
+    <string name="employee">Empleado</string>
+    <string name="new_employee_label">Nuevo empleado</string>
+    <string name="review_order_label">Revisar orden</string>
+    <string name="publish_order_label">Publicar order</string>
+    <string name="new_order_label">Nueva orden</string>
+    <string name="order_label">Orden</string>
+    <string name="debt_label">Deuda</string>
+    <string name="update_debt_label">Actualizar deuda</string>
 
     <!-- Actions-->
     <string name="action_send">Enviar</string>

@@ -13,7 +13,7 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(R.string.products_label, R.id.manageProductsFragment,R.drawable.ic_packages),
             MenuCard(R.string.suppliers_label, R.id.manageSuppliersFragment,R.drawable.ic_shipped),
             MenuCard(R.string.clients_label, R.id.manageClientsFragment,R.drawable.ic_rating),
-            MenuCard(R.string.records_label, R.id.manageOrdersFragment, R.drawable.ic_report),
+            MenuCard(R.string.orders_label, R.id.manageOrdersFragment, R.drawable.ic_report),
             MenuCard(R.string.reports_label, R.id.reportsFragment, R.drawable.ic_analytics),
             MenuCard(R.string.calendar_label, R.id.calendarFragment, R.drawable.ic_calendar),
             MenuCard(R.string.categories_label, R.id.manageCategoriesFragment, R.drawable.ic_category),

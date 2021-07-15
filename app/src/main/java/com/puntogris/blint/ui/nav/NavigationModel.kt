@@ -65,7 +65,7 @@ object NavigationModel {
         NavigationModelItem.NavMenuItem(
             id = ORDERS_ID,
             icon = R.drawable.ic_twotone_article_24,
-            titleRes = R.string.records_label,
+            titleRes = R.string.orders_label,
             checked = false,
             navMenu = NavMenu.ORDERS
         )
