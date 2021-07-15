@@ -15,8 +15,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
-import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBar
-import com.puntogris.blint.ui.custom_views.line_indicator.RallyVerticalBarData
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.NEW_BUSINESS
@@ -55,12 +53,6 @@ fun Button.setRemoveImageVisibility(image: String){
     if (image.isNotEmpty()) visible() else gone()
 }
 
-@BindingAdapter("verticalIndicatorProgress")
-fun RallyVerticalBar.setVerticalIndicatorProgress(amount: Float){
-    val newAmount = if (amount >= 100F) 100F else amount
-    this.renderData(RallyVerticalBarData(newAmount, 100F, R.color.teal_200))
-}
-
 @BindingAdapter("emptyEditTextWithNumber")
 fun EditText.setEmptyEditTextWithNumber(value: Number){
     setText(if (value.toInt() == 0) "" else value.toString())
@@ -97,12 +89,14 @@ fun TextView.setDateFromFirebaseUser(user:FirebaseUser?){
 
 @BindingAdapter("userRoleFormatted")
 fun TextView.setUserRoleFormatted(role:String){
-    text = role.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())
+    text = role.lowercase(Locale.getDefault())
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 }
 
 @BindingAdapter("upperCaseToLowerCapitalize")
 fun TextView.setUpperCaseToLowerCapitalize(role:String){
-    text = role.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())
+    text = role.lowercase(Locale.getDefault())
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 }
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
@@ -176,25 +170,23 @@ fun TextView.setBusinessType(type:String){
     text = if(type == LOCAL) context.getString(R.string.local) else context.getString(R.string.online)
 }
 
-
 @BindingAdapter("timerFromSeconds")
 fun TextView.setTimerFromSeconds(seconds:Int){
-    text = "${seconds / 60}m. ${seconds % 60}s."
+    text = context.getString(R.string.timer_with_params, seconds / 60, seconds % 60)
 }
-
 
 @BindingAdapter("orderNumberTitle")
 fun TextView.setOrderNumberTitle(number: Int){
-    text = "Orden $number"
+    text = context.getString(R.string.order_number, number)
 }
 
 @BindingAdapter("debtColor")
 fun TextView.setDebtColor(amount: Float){
     if (amount >= 0){
-        text = "+$amount $"
+        text = context.getString(R.string.amount_debt_positive, amount)
         setTextColor(ContextCompat.getColor(context, R.color.card6))
     }else{
-        text = "$amount $"
+        text = context.getString(R.string.amount_debt_normal, amount)
         setTextColor(ContextCompat.getColor(context, R.color.card1))
     }
 }

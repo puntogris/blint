@@ -16,7 +16,7 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
 
     private var resultListener: ResultListener? = null
 
-    @SuppressLint("UnsafeExperimentalUsageError")
+    @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
         if (mediaImage != null && !isScanning) {

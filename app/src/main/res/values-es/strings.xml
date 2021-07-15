@@ -395,6 +395,12 @@
     <string name="generate_reports_alert">* Ten en cuenta que para generar informes tenemos que analizar toda la informacion de tu negocio y esto puede llevar unos segundos.</string>
     <string name="generating_report_title">Generando informe..</string>
 
+    <!-- Binding -->
+    <string name="order_number">Orden %1$d</string>
+    <string name="amount_debt_positive">+%1$f $</string>
+    <string name="amount_debt_normal">%1$f $</string>
+    <string name="timer_with_params">%1$dm. %2$ds.</string>
+
     <!-- Arrays-->
     <string-array name="order_type">
         <item>Entrada</item>

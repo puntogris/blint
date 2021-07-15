@@ -118,7 +118,7 @@
     <string name="create">Create</string>
     <string name="join">Join</string>
     <string name="action_learn_about_blint">Learn more about blint</string>
-    <string name="new_user_message">You will need to be a part of a business to be able to operate in Blint.\n\nBut don't worry, it's as easy as riding a bike.</string>
+    <string name="new_user_message">You will need to be a part of a business to be able to operate in Blint.\n\nBut do not worry, it is as easy as riding a bike.</string>
     <string name="new_user_title">Hello!\nYou must be new here.</string>
     <string name="coming_soon">Coming soon</string>
 
@@ -394,6 +394,12 @@
     <string name="product_records_report">Product stock movements</string>
     <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your business and this may take a few seconds.</string>
     <string name="generating_report_title">Generating report..</string>
+
+    <!-- Binding -->
+    <string name="order_number">Order %1$d</string>
+    <string name="amount_debt_positive">+%1$f $</string>
+    <string name="amount_debt_normal">%1$f $</string>
+    <string name="timer_with_params">%1$dm. %2$ds.</string>
 
     <!-- Arrays -->
     <string-array name="order_type">
