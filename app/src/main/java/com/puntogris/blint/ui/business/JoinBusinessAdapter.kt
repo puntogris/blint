@@ -14,6 +14,4 @@ class JoinBusinessAdapter: ListAdapter<Employee, JoinBusinessViewHolder>(Employe
     override fun onBindViewHolder(holder: JoinBusinessViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 }

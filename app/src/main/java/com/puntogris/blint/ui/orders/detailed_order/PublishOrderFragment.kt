@@ -21,7 +21,7 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
     override fun initializeViews() {
         setUpUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             if (isOperationInProgress){
-                showSnackBarVisibilityAppBar("Por favor espera que se termine la operacion para continuar.")
+                showSnackBarVisibilityAppBar(getString(R.string.snack_wait_for_operation))
             }else{
                 findNavController().navigate(R.id.mainFragment)
             }
@@ -36,17 +36,17 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
 
     private fun onPublishOrderSuccessUi(){
         isOperationInProgress = false
-        showSnackBarVisibilityAppBar("Se creo correctamente la orden.")
-        binding.title.text = "Creacion satisfactoria."
-        binding.subtitle.text = "*Se creo correctamente la orden. Que tengas un muy buen dia!"
+        showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
+        binding.title.text = getString(R.string.created_successfully_title)
+        binding.subtitle.text = getString(R.string.order_create_success_message)
         binding.animationView.playAnimationOnce(R.raw.done)
     }
 
     private fun onPublishOrderFailureUi(){
         isOperationInProgress = false
-        binding.title.text = "Creacion fallida."
-        binding.subtitle.text = "No se pudo crear tu orden. Revisa tu conexcion a internet y intenta nuevamente."
-        showSnackBarVisibilityAppBar("Ocurrio un error creando tu orden. Intenta nuevamente")
+        binding.title.text = getString(R.string.created_failed)
+        binding.subtitle.text = getString(R.string.order_create_error_message)
+        showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
         binding.animationView.playAnimationOnce(R.raw.error)
     }
 }

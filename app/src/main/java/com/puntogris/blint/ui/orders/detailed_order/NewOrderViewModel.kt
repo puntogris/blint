@@ -8,6 +8,8 @@ import androidx.paging.map
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,8 +43,8 @@ class NewOrderViewModel @Inject constructor(
 
     fun updateRecordType(code: Int){
         order.type = when(code){
-            0 -> "IN"
-            else -> "OUT"
+            0 -> IN
+            else -> OUT
         }
     }
     fun getOrderType() = order.type

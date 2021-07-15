@@ -37,7 +37,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
             }
         }
 
-        val items = listOf("Todos", "Pendientes", "Finalizados")
+        val items = resources.getStringArray(R.array.event_type_with_all)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.calendarFilter.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 

@@ -22,26 +22,26 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
             if (binding.debtAmountText.getString().toFloatOrNull() != null){
                 viewModel.updateOrderDebt(binding.debtAmountText.getFloat())
             }else{
-                showShortSnackBar("Error con el valor de deuda.")
+                showShortSnackBar(getString(R.string.snack_debt_value_error))
             }
         }
-
-        binding.debtText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("Completado", "Deuda")))
+        val items = resources.getStringArray(R.array.debt_type)
+        binding.debtText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
 
         binding.debtText.setOnItemClickListener { _, _, i, _ ->
             when(i){
                 0 -> {
                     binding.debtAmount.gone()
-                    binding.debtSummary.text = "Se pago $${viewModel.getOrder().value} del total de $${viewModel.getOrder().value}"
+                    binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.getOrder().value, viewModel.getOrder().value)
                     viewModel.updateOrderDebt(0F)
                 }
                 1 -> {
                     if (viewModel.getOrder().traderId.isNotEmpty()){
                         binding.debtAmount.visible()
-                        binding.debtSummary.text = "Se pago $${viewModel.getOrder().value} del total de $${viewModel.getOrder().value}"
+                        binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.getOrder().value, viewModel.getOrder().value)
                     }else{
-                        showSnackBarVisibilityAppBar("Se necesita un cliente/ proveedor para la deuda.")
-                        binding.debtText.setText("Completado")
+                        showSnackBarVisibilityAppBar(getString(R.string.snack_order_debt_trader_alert))
+                        binding.debtText.setText(items[1])
                     }
                 }
             }
@@ -50,16 +50,16 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         binding.debtAmountText.addTextChangedListener{
             if (it.toString().isNotEmpty()){
                 val debt = viewModel.getOrder().value - it.toString().toFloat()
-                binding.debtSummary.text = "Se pago $$debt del total de $${viewModel.getOrder().value}"
+                binding.debtSummary.text = getString(R.string.order_debt_amount_summary, debt, viewModel.getOrder().value)
             }
         }
 
         viewModel.refreshOrderValue()
         binding.textView168.text = viewModel.getOrder().items.size.toString()
-        binding.textView166.text = viewModel.getOrder().items.sumByDouble { it.value.toDouble() }.toString()
+        binding.textView166.text = viewModel.getOrder().items.sumOf { it.value.toDouble() }.toString()
         binding.textView175.text = viewModel.getCurrentUserEmail()
         binding.textView171.text = Date().getDateWithTimeFormattedString()
-        binding.textView178.text = if(viewModel.getOrder().traderName.isNotEmpty()) viewModel.getOrder().traderName else "No especificado"
+        binding.textView178.text = if(viewModel.getOrder().traderName.isNotEmpty()) viewModel.getOrder().traderName else getString(R.string.not_specified)
 
     }
 
@@ -67,5 +67,4 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         binding.debtText.setAdapter(null)
         super.onDestroyView()
     }
-
 }

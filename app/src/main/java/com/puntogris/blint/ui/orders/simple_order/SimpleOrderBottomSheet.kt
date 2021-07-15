@@ -63,16 +63,16 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
                 when(viewModel.createSimpleOrder(order)){
                     SimpleResult.Failure -> {
                         dismiss()
-                        showSnackBarVisibilityAppBar("Ocurrio un error al crear la orden.")
+                        showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
                     }
                     SimpleResult.Success -> {
                         navigateBack()
                         dismiss()
-                        showSnackBarVisibilityAppBar("Se creo la orden satisfactoriamente.")
+                        showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
                     }
                 }
             }
-        }else{ showSackBarAboveBottomSheet("La cantidad no puede estar vacia ni ser 0.") }
+        }else{ showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty)) }
     }
 
     private fun navigateBack(){

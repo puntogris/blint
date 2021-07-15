@@ -36,7 +36,7 @@ class GenerateReportFragment:
         setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
             val uri = viewModel.getDownloadUri()
             if (uri == null)
-                showLongSnackBarAboveFab("Todavia no se genero el informe o ocurrio un error.")
+                showLongSnackBarAboveFab(getString(R.string.snack_report_generating_or_error))
             else shareFileIntent(uri)
         }
 
@@ -53,19 +53,19 @@ class GenerateReportFragment:
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
             when (args.reportCode) {
                 SUPPLIERS_LIST -> {
-                    fileName = "proveedores_lista_${Date().getDateFormattedString()}"
+                    fileName = getString(R.string.report_list_suppliers, Date().getDateFormattedString())
                     exportSupplierList(uri)
                 }
                 CLIENTS_LIST -> {
-                    fileName = "clientes_lista_${Date().getDateFormattedString()}"
+                    fileName = getString(R.string.report_list_clients, Date().getDateFormattedString())
                     exportClientList(uri)
                 }
                 PRODUCTS_LIST -> {
-                    fileName = "productos_lista_${Date().getDateFormattedString()}"
+                    fileName = getString(R.string.report_list_products, Date().getDateFormattedString())
                     exportProductList(uri)
                 }
                 PRODUCTS_RECORDS -> {
-                    fileName = "productos_movimientos_${Date().getDateFormattedString()}"
+                    fileName = getString(R.string.report_product_records, Date().getDateFormattedString())
                     exportProductRecords(uri)
                 }
 //                SUPPLIERS_RECORDS -> {
@@ -84,8 +84,8 @@ class GenerateReportFragment:
     private fun showInProgressUi(){}
 
     private fun showSuccessUi(){
-        binding.reportTitle.text = "Reporte exportado correctamente"
-        binding.reportMessage.text = "*Compartilo con quien vos quieras a traves de varias aplicaciones."
+        binding.reportTitle.text = getString(R.string.report_exported_success_title)
+        binding.reportMessage.text = getString(R.string.report_exported_success_message)
         binding.progressBar.gone()
         binding.animationView.visible()
         binding.animationView.playAnimation()
@@ -93,17 +93,17 @@ class GenerateReportFragment:
 
     private fun showErrorUi(){
         binding.progressBar.gone()
-        binding.reportTitle.text = "Ocurrio un error al exportar el informe"
-        showLongSnackBarAboveFab("Ocurrio un error en la generacion del informe. Intente nuevamente.")
+        binding.reportTitle.text = getString(R.string.report_exported_error_title)
+        showLongSnackBarAboveFab(getString(R.string.report_exported_error_message))
     }
 
     private fun exportProductRecords(downloadFileUri: Uri) {
         val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Products")
+        val sheet = workbook.createSheet(getString(R.string.products_label))
         val row0 = sheet.createRow(0)
-        row0.createCell(0).setCellValue("Product")
-        row0.createCell(1).setCellValue("In")
-        row0.createCell(2).setCellValue("Out")
+        row0.createCell(0).setCellValue(getString(R.string.product))
+        row0.createCell(1).setCellValue(getString(R.string.in_entry))
+        row0.createCell(2).setCellValue(getString(R.string.out_entry))
         var numberOfRows = 0
 
         lifecycleScope.launch {
@@ -136,18 +136,18 @@ class GenerateReportFragment:
         val share = Intent(Intent.ACTION_SEND)
         share.type = "application/vnd.ms-excel"
         share.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(share, "Compartir informe"))
+        startActivity(Intent.createChooser(share, getString(R.string.action_share_report)))
     }
 
     private fun exportSupplierList(downloadFileUri: Uri) {
         val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Proveedores")
+        val sheet = workbook.createSheet(getString(R.string.suppliers_label))
         var numberOfRows = 0
         val row0 = sheet.createRow(numberOfRows)
-        row0.createCell(0).setCellValue("Nombre")
-        row0.createCell(1).setCellValue("Telefono")
-        row0.createCell(2).setCellValue("Direccion")
-        row0.createCell(3).setCellValue("E-mail")
+        row0.createCell(0).setCellValue(getString(R.string.name))
+        row0.createCell(1).setCellValue(getString(R.string.phone))
+        row0.createCell(2).setCellValue(getString(R.string.address))
+        row0.createCell(3).setCellValue(getString(R.string.e_mail))
 
         lifecycleScope.launch {
             try {
@@ -173,13 +173,13 @@ class GenerateReportFragment:
 
     private fun exportClientList(downloadFileUri: Uri) {
         val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Clientes")
+        val sheet = workbook.createSheet(getString(R.string.clients_label))
         var numberOfRows = 0
         val row0 = sheet.createRow(numberOfRows)
-        row0.createCell(0).setCellValue("Nombre")
-        row0.createCell(1).setCellValue("Telefono")
-        row0.createCell(2).setCellValue("Direccion")
-        row0.createCell(3).setCellValue("E-mail")
+        row0.createCell(0).setCellValue(getString(R.string.name))
+        row0.createCell(1).setCellValue(getString(R.string.phone))
+        row0.createCell(2).setCellValue(getString(R.string.address))
+        row0.createCell(3).setCellValue(getString(R.string.e_mail))
 
         lifecycleScope.launch {
             try {
@@ -205,18 +205,18 @@ class GenerateReportFragment:
 
     private fun exportProductList(downloadFileUri: Uri) {
         val workbook = XSSFWorkbook()
-        val sheet = workbook.createSheet("Productos")
+        val sheet = workbook.createSheet(getString(R.string.products_label))
         var numberOfRows = 0
         val row0 = sheet.createRow(numberOfRows)
-        row0.createCell(0).setCellValue("Nombre")
-        row0.createCell(1).setCellValue("Stock")
-        row0.createCell(2).setCellValue("Codigo de barras")
-        row0.createCell(3).setCellValue("Precio compra")
-        row0.createCell(4).setCellValue("Precio venta")
-        row0.createCell(5).setCellValue("Precio venta sugerido")
-        row0.createCell(6).setCellValue("Codigo interno")
-        row0.createCell(7).setCellValue("Marca")
-        row0.createCell(8).setCellValue("Tamano")
+        row0.createCell(0).setCellValue(getString(R.string.name))
+        row0.createCell(1).setCellValue(getString(R.string.stock))
+        row0.createCell(2).setCellValue(getString(R.string.barcode))
+        row0.createCell(3).setCellValue(getString(R.string.buy_price))
+        row0.createCell(4).setCellValue(getString(R.string.sell_price))
+        row0.createCell(5).setCellValue(getString(R.string.suggested_sell_price))
+        row0.createCell(6).setCellValue(getString(R.string.sku))
+        row0.createCell(7).setCellValue(getString(R.string.brand))
+        row0.createCell(8).setCellValue(getString(R.string.size))
 
         lifecycleScope.launch {
             try {

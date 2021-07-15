@@ -10,7 +10,9 @@ import com.puntogris.blint.databinding.FragmentDebtStatusBinding
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
+import com.puntogris.blint.utils.Constants.SUPPLIER
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         launchAndRepeatWithViewLifecycle {
             if (args.client != null){
                 args.client?.let {
-                    binding.textView184.text = "${it.debt.toString()} $"
+                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt)
                     when(val debts = viewModel.getLastDebts(it.clientId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -41,7 +43,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                 }
             }else {
                 args.supplier?.let {
-                    binding.textView184.text = "${it.debt.toString()} $"
+                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt)
                     when(val debts = viewModel.getLastDebts(it.supplierId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -51,7 +53,6 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                     }
                 }
             }
-
         }
     }
 
@@ -69,11 +70,11 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
     fun onModifyDebtButtonClicked(){
         val debt = Debt()
         if (args.client != null) {
-            debt.type = "CLIENT"
+            debt.type = CLIENT
             debt.traderName = args.client?.name.toString()
             debt.traderId = args.client?.clientId.toString()
         }else{
-            debt.type = "SUPPLIER"
+            debt.type = SUPPLIER
             debt.traderName = args.supplier?.companyName.toString()
             debt.traderId = args.supplier?.supplierId.toString()
         }

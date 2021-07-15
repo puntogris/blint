@@ -14,6 +14,4 @@ class ManageBusinessAdapter(private val clickListener: (Employee) -> Unit): List
     override fun onBindViewHolder(holder: ManageBusinessViewHolder, position: Int) {
         holder.bind(getItem(position),clickListener)
     }
-
-
 }

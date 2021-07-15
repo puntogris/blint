@@ -8,6 +8,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNewUserBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
 
 class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_new_user) {
 
@@ -17,7 +18,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onLearnMoreClicked(){
-        val url = "https://blint.app"
+        val url = BLINT_WEBSITE_LEARN_MORE
         val openBrowserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(openBrowserIntent)
     }

@@ -73,7 +73,6 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         }
                     }
                 }
-
             }
         })
 
@@ -142,7 +141,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     }
 
     private fun deleteListener(productWithRecord: ProductWithRecord){
-        createLongSnackBarAboveFab("Producto eliminado.").setAction("Deshacer"){
+        createLongSnackBarAboveFab(getString(R.string.product_deleted)).setAction(getString(R.string.action_undo)){
             recordsAdapter.recordsList.add(productWithRecord)
             recordsAdapter.notifyDataSetChanged()
             onDataChanged()

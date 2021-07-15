@@ -124,7 +124,9 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     }
                 }
 
-            } catch(exc: Exception) { Timber.e(exc, "Use case binding failed") }
+            } catch(exc: Exception) {
+                //error
+            }
 
         }, ContextCompat.getMainExecutor(requireContext()))
     }

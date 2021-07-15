@@ -36,10 +36,10 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
 
             when(viewModel.registerNewDebt(args.debt)){
                 SimpleResult.Failure -> {
-                    showLongSnackBarAboveFab("Ocurrio un error al actualizar la dedua.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_update_debt_error))
                 }
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab("Se actualizo la deuda correctamente.")
+                    showLongSnackBarAboveFab(getString(R.string.snack_update_debt_success))
                     findNavController().navigateUp()
                 }
             }

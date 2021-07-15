@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App-->
-    <string name="app_name">Blint</string>
-    <string name="app_slogan">make it simpler</string>
     <string name="app_version">Version</string>
-    <string name="app_version_number">0.4.1</string>
-    <string name="app_name_lowercase_with_dot">blint.</string>
 
-    <!-- Menu labels-->
+    <!-- Navigation -->
     <string name="home_label">Inicio</string>
     <string name="products_label">Productos</string>
     <string name="clients_label">Clientes</string>
@@ -41,6 +37,7 @@
     <string name="action_finish">Finalizar</string>
     <string name="action_close">Cerrar</string>
     <string name="action_save">Guardar</string>
+    <string name="action_undo">Deshacer</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Problemas y consejos</string>
@@ -95,6 +92,9 @@
     <string name="snack_error_connection_server_try_later">Hubo un problema conectandose con los servidores. Intenta nuevamente.</string>
     <string name="snack_ups_visit_blint">Ups, algo se rompio. Visita Blint.app para mas info.</string>
     <string name="snack_require_camera_permission">Necesitamos acceso a la cámara para poder abrir el escaner.</string>
+    <string name="snack_send_suggestion_report_success">Se envio satisfactioriamente el reporte, Gracias por tu ayuda!</string>
+    <string name="snack_wait_for_operation">Por favor espera que se termine la operación para continuar.</string>
+    <string name="snack_amount_cant_be_empty">La cantidad no puede estar vacia ni ser 0.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Queres eliminar este negocio?</string>
@@ -121,6 +121,10 @@
     <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.\n\nPero no te preocupes es tan fácil como andar en bicicleta.</string>
     <string name="new_user_title">Hola!\nDebes ser nuevo/a por acá.</string>
     <string name="coming_soon">Proximamente</string>
+    <string name="snack_delete_business_error">Ocurrio un error al eliminar el negocio.</string>
+    <string name="snack_delete_business_success">Se elimino el negocio correctamente</string>
+    <string name="account_sync_success">Cuenta creada correctamente.</string>
+    <string name="account_adventure_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>
@@ -170,6 +174,15 @@
     <string name="all">Todos</string>
     <string name="no_events_found_message">Ops! No tienen nada por aquí.</string>
     <string name="add_date">ingresar fecha</string>
+    <string name="snack_create_event_error">Ocurrio un error al crear el evento.</string>
+    <string name="snack_create_event_success">Evento creado satisfactoriamente.</string>
+    <string name="ask_delete_event_title">Queres eliminar este evento?</string>
+    <string name="delete_event_warning">Zona de peligro! Estas por eliminar un evento. Tene en cuenta que esta acción es irreversible.</string>
+    <string name="snack_delete_event_success">Evento eliminado correctamente.</string>
+    <string name="snack_delete_event_error">Se produjo un error al eliminar el evento.</string>
+    <string name="snack_update_event_error">Ocurrio un error al tratar de actualizar el evento.</string>
+    <string name="snack_update_event_success">Se actualizo el estado del evento correctamente.</string>
+    <string name="ask_event_date">Para que fecha lo queres programar?</string>
 
     <!-- Product -->
     <string name="description">Descripcion</string>
@@ -195,6 +208,7 @@
     <string name="images">Imágenes</string>
     <string name="image">Imagen</string>
     <string name="prices_and_stock">Prices and stock</string>
+    <string name="product_deleted">Producto eliminado.</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>
@@ -278,6 +292,7 @@
     <string name="product_categories">Categorias de este producto</string>
     <string name="product_suppliers">Proveedores de este producto</string>
     <string name="connecting_with_servers">Conectandonos con los servidores..</string>
+    <string name="size">Tamano</string>
 
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
@@ -307,6 +322,13 @@
     <string name="creating_order">Creando orden</string>
     <string name="generate_receipt">generar factura</string>
     <string name="author">Autor</string>
+    <string name="snack_created_order_success">Se creo correctamente la orden.</string>
+    <string name="snack_order_created_error">Ocurrio un error creando tu orden. Intenta nuevamente</string>
+    <string name="order_create_success_message">*Se creo correctamente la orden. Que tengas un muy buen día!</string>
+    <string name="order_create_error_message">No se pudo crear tu orden. Revisa tu conexcion a internet y intenta nuevamente.</string>
+    <string name="snack_pick_record_type">Especifica el tipo de movimiento.</string>
+    <string name="created_successfully_title">Creacion satisfactoria.</string>
+    <string name="created_failed">Creacion fallida.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -387,6 +409,10 @@
     <string name="debt_value">Valor deuda</string>
     <string name="total_debt_balance">Balance total de deuda:</string>
     <string name="last_debts">Ultimas deudas</string>
+    <string name="snack_update_debt_error">Ocurrio un error al actualizar la dedua.</string>
+    <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
+    <string name="snack_debt_value_error">Error con el valor de deuda.</string>
+    <string name="snack_order_debt_trader_alert">Se necesita un cliente/ proveedor para la deuda.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generar informes</string>
@@ -394,14 +420,50 @@
     <string name="product_records_report">Movimientos por producto</string>
     <string name="generate_reports_alert">* Ten en cuenta que para generar informes tenemos que analizar toda la informacion de tu negocio y esto puede llevar unos segundos.</string>
     <string name="generating_report_title">Generando informe..</string>
+    <string name="report_list_suppliers">proveedores_lista_%1$s</string>
+    <string name="report_list_clients">clientes_lista_%1$s</string>
+    <string name="report_list_products">productos_lista_%1$s</string>
+    <string name="report_product_records">productos_movimientos_%1$s</string>
+    <string name="action_share_report">Compartir informe</string>
+    <string name="report_exported_success_title">Reporte exportado correctamente</string>
+    <string name="report_exported_error_title">Ocurrio un error al exportar el informe</string>
+    <string name="report_exported_success_message">*Compartilo con quien vos quieras a traves de varias aplicaciones.</string>
+    <string name="report_exported_error_message">Ocurrio un error en la generacion del informe. Intente nuevamente.</string>
+    <string name="weekly">Semanal</string>
+    <string name="monthly">Mensual</string>
+    <string name="quarterly">Trimestral</string>
+    <string name="biannual">Bianual</string>
+    <string name="annual">Anual</string>
+    <string name="historical">Historico</string>
+    <string name="ask_report_time_frame_title">Periodo de tiempo del reporte</string>
+    <string name="snack_report_generating_or_error">Todavia no se genero el informe o ocurrio un error.</string>
 
     <!-- Binding -->
     <string name="order_number">Orden %1$d</string>
     <string name="amount_debt_positive">+%1$f $</string>
     <string name="amount_debt_normal">%1$f $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
+    <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
+    <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>
+    <string name="order_debt_amount_summary">Se pago $%1$f del total de $%2$f</string>
 
     <!-- Arrays-->
+    <string-array name="debt_type">
+        <item>Completo</item>
+        <item>Deuda</item>
+    </string-array>
+
+    <string-array name="event_type">
+        <item>Pendiente</item>
+        <item>Finalizado</item>
+    </string-array>
+
+    <string-array name="event_type_with_all">
+        <item>Todos</item>
+        <item>Pendientes</item>
+        <item>Finalizado</item>
+    </string-array>
+
     <string-array name="order_type">
         <item>Entrada</item>
         <item>Salida</item>

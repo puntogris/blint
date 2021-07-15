@@ -26,7 +26,6 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
                 showLongSnackBarAboveFab(getString(R.string.snack_business_name_does_not_match))
             }
         }
-
     }
 
     private fun showDeleteBusinessUi(){
@@ -44,14 +43,14 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
         lifecycleScope.launch {
             when(viewModel.deleteBusiness(args.business.businessId)){
                 DeleteBusiness.Failure -> {
-                    showSnackBarVisibilityAppBar("Ocurrio un error al eliminar el negocio")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_error))
                 }
                 DeleteBusiness.Success.HasBusiness -> {
-                    showSnackBarVisibilityAppBar("Se elimino el negocio correctamente")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_success))
                     findNavController().navigate(R.id.mainFragment)
                 }
                 DeleteBusiness.Success.NoBusiness -> {
-                    showSnackBarVisibilityAppBar("Se elimino el negocio correctamente")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_success))
                     findNavController().navigate(R.id.newUserFragment)
                 }
             }

@@ -8,7 +8,9 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.ui.product.ProductFragment
 import com.puntogris.blint.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layout.fragment_local_business) {
 
     private val viewModel: MainViewModel by activityViewModels()

@@ -13,10 +13,16 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentReportsBinding
 import com.puntogris.blint.model.DashboardItem
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.ANNUAL
+import com.puntogris.blint.utils.Constants.BIANNUAL
 import com.puntogris.blint.utils.Constants.CLIENTS_LIST
+import com.puntogris.blint.utils.Constants.HISTORICAL
+import com.puntogris.blint.utils.Constants.MONTHLY
 import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
+import com.puntogris.blint.utils.Constants.QUARTERLY
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
+import com.puntogris.blint.utils.Constants.WEEKLY
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,24 +80,24 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
     @Suppress("SameParameterValue")
     private fun showTimeFrameBottomSheet(code: Int){
         OptionsSheet().build(requireContext()) {
-            title("Periodo de tiempo del reporte")
+            title(getString(R.string.ask_report_time_frame_title))
             displayMode(DisplayMode.LIST)
             with(
-                Option("Semanal"),
-                Option("Mensual"),
-                Option("Trimestral"),
-                Option("Bianual"),
-                Option("Anual"),
-                Option("Historico")
+                Option(getString(R.string.weekly)),
+                Option(getString(R.string.monthly)),
+                Option(getString(R.string.quarterly)),
+                Option(getString(R.string.biannual)),
+                Option(getString(R.string.annual)),
+                Option(getString(R.string.historical))
             )
             onPositive { index: Int, _: Option ->
                 val timeCode = when(index){
-                    0 -> "WEEKLY"
-                    1 -> "MONTHLY"
-                    2 -> "QUARTERLY"
-                    3 -> "BIANNUAL"
-                    4 -> "ANNUAL"
-                    else -> "HISTORICAL"
+                    0 -> WEEKLY
+                    1 -> MONTHLY
+                    2 -> QUARTERLY
+                    3 -> BIANNUAL
+                    4 -> ANNUAL
+                    else -> HISTORICAL
                 }
             val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = code, timeCode = timeCode)
             this@ReportsFragment.findNavController().navigate(action)

@@ -29,9 +29,9 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
                         title = binding.eventTitleText.getString(),
                         message = binding.eventMessageText.getString())){
                         SimpleResult.Failure ->
-                            showLongSnackBarAboveFab("Ocurrio un error al crear el evento.")
+                            showLongSnackBarAboveFab(context.getString(R.string.snack_create_event_error))
                         SimpleResult.Success -> {
-                            showLongSnackBarAboveFab("Evento creado satisfactoriamente.")
+                            showLongSnackBarAboveFab(context.getString(R.string.snack_create_event_success))
                             findNavController().navigateUp()
                         }
                     }
@@ -42,7 +42,7 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
 
     fun onSelectDateClicked(){
         CalendarSheet().build(requireContext()){
-            title("Para que fecha lo queres programar?")
+            title(this@CreateEventFragment.getString(R.string.ask_event_date))
             selectionMode(SelectionMode.DATE)
             onPositive { dateStart: Calendar, _: Calendar? ->
                 viewModel.updateEventDate(dateStart.timeInMillis)

@@ -16,6 +16,4 @@ class DebtsAdapter(private val clickListener: (Debt)->(Unit)): ListAdapter<Debt,
     override fun onBindViewHolder(holder: DebtViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }
-
-
 }

@@ -22,6 +22,7 @@ import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.client.ManageClientsAdapter
 import com.puntogris.blint.ui.supplier.ManageSuppliersAdapter
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.IN
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -52,7 +53,7 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
     }
 
     private suspend fun getAllWithNameAndFillAdapter(text:String){
-        if (args.orderType == "IN"){
+        if (args.orderType == IN){
             viewModel.getSuppliersWithName(text).collect {
                 manageSuppliersAdapter.submitData(it)
             }
@@ -64,7 +65,7 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
     }
 
     private suspend fun getAllAndFillAdapter(){
-        if (args.orderType == "IN"){
+        if (args.orderType == IN){
             viewModel.getSuppliersPaging().collect {
                 manageSuppliersAdapter.submitData(it)
             }
@@ -91,7 +92,7 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = if (args.orderType == "IN"){
+        val adapter = if (args.orderType == IN){
             manageSuppliersAdapter = ManageSuppliersAdapter{ onSupplierClicked(it) }
             manageSuppliersAdapter
         }else{
@@ -116,20 +117,17 @@ class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSu
         binding.closeButton.setOnClickListener {
             dismiss()
         }
-
     }
 
     private fun onClientClicked(client: Client){
         viewModel.updateOrderExternalInfo(client.name, client.clientId)
         findNavController().navigate(R.id.createOrderFragment)
-        showLongSnackBarAboveFab("Cliente ${client.name} agregado a la orden.")
-
+        showLongSnackBarAboveFab(getString(R.string.snack_client_added_order, client.name))
     }
 
     private fun onSupplierClicked(supplier: Supplier){
         viewModel.updateOrderExternalInfo(supplier.companyName, supplier.supplierId)
         findNavController().navigate(R.id.createOrderFragment)
-        showLongSnackBarAboveFab("Proveedor ${supplier.companyName} agregado a la orden.")
-
+        showLongSnackBarAboveFab(getString(R.string.snack_suppliers_added_order, supplier.companyName))
     }
 }

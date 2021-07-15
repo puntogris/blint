@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ class BusinessViewModel @Inject constructor(
     fun getBusinessEmployees(businessId:String) = userRepository.getBusinessEmployees(businessId)
 
     suspend fun hasUserOwnerPermissions(employeeId:String) :Boolean{
-        return employeeDao.getBusinessUserRole(employeeId) == "ADMINISTRATOR"
+        return employeeDao.getBusinessUserRole(employeeId) == ADMINISTRATOR
     }
 
     suspend fun fetchJoiningCode(businessId: String) = userRepository.generateJoiningCode(businessId)

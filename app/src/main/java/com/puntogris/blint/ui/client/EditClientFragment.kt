@@ -170,15 +170,12 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                 }
             }
         }
-
         cursorPhone?.close()
-
     }
 
     fun onAddClientFromContactsClicked(){
         requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
     }
-
 
     private fun getClientFromViews(): Client {
         return Client(
@@ -190,5 +187,4 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
             discount = binding.clientExtrasLayout.clientDiscountText.getFloat()
         )
     }
-
 }

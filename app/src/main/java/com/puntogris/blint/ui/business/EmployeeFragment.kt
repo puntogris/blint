@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class EmployeeFragment : BaseFragmentOptions<FragmentEmployeeBinding>(R.layout.fragment_employee) {
 
     private val viewModel:BusinessViewModel by viewModels()
-
     private val args:EmployeeFragmentArgs by navArgs()
 
     override fun initializeViews() {

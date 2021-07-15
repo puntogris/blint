@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.business
 
 import android.annotation.SuppressLint
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController

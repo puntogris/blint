@@ -84,10 +84,10 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
     fun onSaveProductClicked(){
         when {
             binding.recordTypeText.text.isNullOrBlank() -> {
-                showSackBarAboveBottomSheet("Especifica el tipo de movimiento.")
+                showSackBarAboveBottomSheet(getString(R.string.snack_pick_record_type))
             }
             binding.productAmountText.getInt() == 0  || binding.productAmountText.text.isNullOrBlank() -> {
-                showSackBarAboveBottomSheet("El campo de cantidad no puede estar vacio.")
+                showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty))
             }
             else -> {
                 val amount = binding.productAmountText.getString().toIntOrNull()
@@ -108,15 +108,15 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         when(viewModel.createSimpleOrder(order)){
                             SimpleResult.Failure -> {
                                 dismiss()
-                                showSnackBarVisibilityAppBar("Ocurrio un error al crear la orden.")
+                                showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
                             }
                             SimpleResult.Success -> {
                                 dismiss()
-                                showSnackBarVisibilityAppBar("Se creo la orden satisfactoriamente.")
+                                showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
                             }
                         }
                     }
-                }else{ showSackBarAboveBottomSheet("La cantidad no puede estar vacia ni ser 0.") }
+                }else{ showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty)) }
             }
         }
     }

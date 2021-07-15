@@ -12,6 +12,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.PENDING
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -26,11 +27,10 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         binding.fragment = this
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.eventStatusText.setText(if (args.event.status == "PENDING") "Pendiente" else "Finalizado")
-
         viewModel.setEvent(args.event)
 
-        val items = listOf("Pendiente", "Finalizado")
+        val items = resources.getStringArray(R.array.event_type)
+        binding.eventStatusText.setText(if (args.event.status == PENDING) items[0] else items[1])
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
         (binding.eventStatus.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
@@ -41,10 +41,10 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
 
     fun onDeleteEventButtonClicked(){
         InfoSheet().build(requireContext()) {
-            title("Queres eliminar este evento?")
-            content("Zona de peligro! Estas por eliminar un evento. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") { onDeleteEventConfirmed() }
+            title(getString(R.string.ask_delete_event_title))
+            content(getString(R.string.delete_event_warning))
+            onNegative(this@EventInfoBottomSheet.getString(R.string.action_cancel))
+            onPositive(this@EventInfoBottomSheet.getString(R.string.action_yes)) { onDeleteEventConfirmed() }
         }.show(parentFragmentManager, "")
     }
 
@@ -52,9 +52,9 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         lifecycleScope.launch {
             when (viewModel.deleteEvent(args.event.eventId)) {
                 SimpleResult.Failure ->
-                    showSnackBarVisibilityAppBar("Se produjo un error al eliminar el evento.")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_event_error))
                 SimpleResult.Success -> {
-                    showSnackBarVisibilityAppBar("Evento eliminado correctamente.")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_event_success))
                     findNavController().navigateUp()
                 }
             }
@@ -65,12 +65,12 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         lifecycleScope.launch {
             when(viewModel.updateEvent()){
                 SimpleResult.Failure ->
-                    showSnackBarVisibilityAppBar("Ocurrio un error al tratar de actualizar el evento.")
+                    showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {
                     findNavController().apply {
                         previousBackStackEntry!!.savedStateHandle.set("dismiss_key", true)
                         popBackStack()
-                        showSnackBarVisibilityAppBar("Se actualizo el estado del evento correctamente.")
+                        showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_success))
                     }
                 }
             }

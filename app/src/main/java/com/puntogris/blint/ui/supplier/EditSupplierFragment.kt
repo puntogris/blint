@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.supplier
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.ContentResolver
 import android.content.Intent

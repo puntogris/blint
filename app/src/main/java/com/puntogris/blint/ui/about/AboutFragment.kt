@@ -65,8 +65,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
     private fun onResultSendReport(message: String){
         lifecycleScope.launch {
             when(viewModel.sendReport(message)){
-                SimpleResult.Success -> showShortSnackBar("Se envio satisfactioriamente el reporte, Gracias por tu ayuda!")
-                SimpleResult.Failure -> showShortSnackBar("Ocurrio un error. Verifique su conexion ntente nuevamente.")
+                SimpleResult.Success -> showShortSnackBar(getString(R.string.snack_send_suggestion_report_success))
+                SimpleResult.Failure -> showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
             }
         }
     }

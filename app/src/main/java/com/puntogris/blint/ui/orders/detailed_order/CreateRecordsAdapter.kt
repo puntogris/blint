@@ -61,7 +61,7 @@ class CreateRecordsAdapter(private val context: Context,
         this.recyclerView = recyclerView
     }
 
-    fun getRecordTotalPrice() = recordsList.sumByDouble { it.record.value.toDouble() }.toFloat()
+    fun getRecordTotalPrice() = recordsList.sumOf { it.record.value.toDouble() }.toFloat()
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
         holder.bind(recordsList[position], amountListener)

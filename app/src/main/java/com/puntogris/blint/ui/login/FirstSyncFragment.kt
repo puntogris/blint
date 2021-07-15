@@ -81,7 +81,6 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         lifecycleScope.launch {
             viewModel.updateUserData(args.username, args.userCountry)
             sharedPref.setWelcomeUiPref(true)
-         //   sharedPref.setUserHasBusinessPref(true)
             withContext(Dispatchers.IO){viewModel.saveUserData(args.username, args.userCountry)}
             withContext(Dispatchers.Main){
                 binding.animationView.apply {
@@ -90,8 +89,8 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
                     playAnimation()
                 }
                 binding.continueButton.isEnabled = true
-                binding.subtitle.text = "Tu cuenta esta lista para arrancar esta nueva aventura!"
-                binding.title.text = "Cuenta creada correctamente."
+                binding.subtitle.text = getString(R.string.account_adventure_message)
+                binding.title.text = getString(R.string.account_sync_success)
             }
         }
     }

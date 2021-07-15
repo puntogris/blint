@@ -3,11 +3,8 @@ package com.puntogris.blint.ui.business
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.model.Employee

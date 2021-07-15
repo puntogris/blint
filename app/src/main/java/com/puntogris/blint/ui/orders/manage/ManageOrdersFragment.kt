@@ -20,7 +20,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        setUpUi(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24, showAppBar = false){
+        setUpUi(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }

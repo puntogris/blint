@@ -17,7 +17,6 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
 
     fun onGoBackButtonClicked(){
         findNavController().navigateUp()
-
     }
 
     fun onSendEmailClicked(){

@@ -18,7 +18,7 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(R.string.calendar_label, R.id.calendarFragment, R.drawable.ic_calendar),
             MenuCard(R.string.categories_label, R.id.manageCategoriesFragment, R.drawable.ic_category),
             MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_loan),
-            MenuCard( R.string.account_label, R.id.accountPreferences, R.drawable.ic_profile)
+            MenuCard(R.string.account_label, R.id.accountPreferences, R.drawable.ic_profile)
             )
         submitList(list)
     }

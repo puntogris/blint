@@ -1,6 +1,8 @@
 package com.puntogris.blint.utils
 
 object Constants {
+    const val APP_VERSION = "1.0.0"
+
     const val ARG_SCANNING_RESULT = "scanning_result"
     const val WEB_CLIENT_ID = "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
     const val FIX_GOOGLE_PLAY_SERVICES_URL = "https://support.google.com/googleplay/answer/9037938"
@@ -9,7 +11,9 @@ object Constants {
     const val PLAY_STORE_PACKAGE= "com.android.vending"
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
-    const val APP_VERSION = "0.4.0"
+    const val BLINT_WEBSITE_LEARN_MORE = "https://blint.app"
+
+    const val ADMINISTRATOR = "ADMINISTRATOR"
 
     //Report types
     const val SUPPLIERS_LIST = 101
@@ -19,6 +23,14 @@ object Constants {
     const val CLIENTS_RECORDS = 105
     const val PRODUCTS_RECORDS = 106
 
+    //Report time frame
+    const val WEEKLY = "WEEKLY"
+    const val MONTHLY = "MONTHLY"
+    const val QUARTERLY = "QUARTERLY"
+    const val BIANNUAL = "BIANNUAL"
+    const val ANNUAL = "ANNUAL"
+    const val HISTORICAL = "HISTORICAL"
+
     //Debt Type
     const val CLIENT_DEBT = 0
     const val SUPPLIER_DEBT = 1
@@ -27,6 +39,10 @@ object Constants {
     const val PENDING = "PENDING"
     const val FINISHED = "DENIED"
 
+    //Debt type
+    const val CLIENT = "CLIENT"
+    const val SUPPLIER = "SUPPLIER"
+
     //Business type
     const val ONLINE = "ONLINE"
     const val LOCAL = "LOCAL"
@@ -34,6 +50,7 @@ object Constants {
     //Product record/ order type
     const val IN = "IN"
     const val OUT = "OUT"
+    const val INITIAL = "INITIAL"
 
     //Notification type
     const val NEW_USER = "NEW_USER"
