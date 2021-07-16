@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.data.repo.business.BusinessRepository
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BusinessViewModel @Inject constructor(
     private val employeeDao: EmployeeDao,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val businessRepository: BusinessRepository
 ): ViewModel() {
 
     private var expirationTimer:CountDownTimer? = null
@@ -58,6 +60,7 @@ class BusinessViewModel @Inject constructor(
         super.onCleared()
     }
 
-    suspend fun deleteBusiness(businessId: String) = userRepository.deleteBusinessDatabase(businessId)
+    suspend fun deleteBusiness(businessId: String) = businessRepository.deleteBusinessDatabase(businessId)
 
+    suspend fun syncAccount() = userRepository.syncAccountFromDatabase()
 }

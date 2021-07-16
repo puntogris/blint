@@ -23,4 +23,6 @@ interface UsersDao {
     @Query("UPDATE roomuser SET currentBusinessId = :id, currentBusinessName = :name, currentBusinessType = :type, currentBusinessOwner = :owner, currentUid = :currentUid WHERE userId = '1' ")
     suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner:String, currentUid: String)
 
+    @Query("UPDATE roomuser SET username= :name, country = :country WHERE userId = '1'")
+    suspend fun updateUserNameCountry(name:String, country: String)
 }

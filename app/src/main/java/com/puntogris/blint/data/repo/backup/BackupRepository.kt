@@ -1,9 +1,8 @@
-package com.puntogris.blint.data.repo
+package com.puntogris.blint.data.repo.backup
 
 import android.content.Context
 import com.puntogris.blint.data.local.AppDatabase
 import com.puntogris.blint.data.remote.FirestoreQueries
-import com.puntogris.blint.data.repo.irepo.IBackupRepository
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.utils.BackupState
 import com.puntogris.blint.utils.Constants.BACKUP_PATH

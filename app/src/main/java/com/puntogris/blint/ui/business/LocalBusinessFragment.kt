@@ -5,8 +5,8 @@ import androidx.fragment.app.activityViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLocalBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.business.register_business.RegisterBusinessFragment
 import com.puntogris.blint.ui.main.MainViewModel
-import com.puntogris.blint.ui.product.ProductFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 

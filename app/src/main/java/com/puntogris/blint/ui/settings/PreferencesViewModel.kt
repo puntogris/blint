@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.data.local.dao.EmployeeDao
-import com.puntogris.blint.data.repo.BackupRepository
+import com.puntogris.blint.data.repo.backup.BackupRepository
 import com.puntogris.blint.data.repo.UserRepository
 import com.puntogris.blint.ui.SharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel

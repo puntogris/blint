@@ -193,6 +193,9 @@
     <string name="snack_country_can_not_be_empty">You need to select your country of residence.</string>
     <string name="account_creation_in_progress_title">Generating account..</string>
     <string name="account_creation_in_progress_message">We are preparing your account</string>
+    <string name="snack_login_warning">Due to multiple consecutive login attempts, login to the app was temporarily disabled.</string>
+    <string name="snack_network_problems">Found a problem with the connection. Check your network and try again.</string>
+    <string name="snack_technical_problems">We are having technical difficulties. Please try again in a bit.</string>
 
     <!-- Calendar -->
     <string name="action_add_event">Add event</string>
@@ -474,6 +477,17 @@
     <string name="snack_client_added_order">Client %1$s added to the order.</string>
     <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
     <string name="order_debt_amount_summary">Paying $%1$f of the total of $%2$f</string>
+
+    <!-- Sync account -->
+    <string name="sync_businesses">Sync businesses</string>
+    <string name="snack_sync_account_error">An error occurred syncing your account.</string>
+    <string name="snack_sync_account_success">Account synchronized successfully.</string>
+    <string name="snack_no_businesses_found">No businesses were found in your account.</string>
+    <string name="syncing_businesses">Syncing businesses</string>
+    <string name="sync_cancel_warning">Closing this window will cancel the syncing.</string>
+    <string name="snack_sync_account_cancelled">Sync cancelled</string>
+
+
 
     <!-- Arrays -->
     <string-array name="debt_type">

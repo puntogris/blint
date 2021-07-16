@@ -3,12 +3,10 @@ package com.puntogris.blint.ui.login
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentIntroBinding
+import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.TERMS_AND_CONDITIONS_URI
-import com.puntogris.blint.utils.getString
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.setupStatusBarForLoginBackground
-import com.puntogris.blint.utils.showShortSnackBar
 import com.ybs.countrypicker.CountryPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,10 +39,8 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         }else if(username.isBlank() || username.length < 3){
             showShortSnackBar(getString(R.string.snack_name_can_not_be_empty))
         }else{
-            val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(
-                username = username,
-                userCountry = country
-            )
+            val userData = UserData(username, country)
+            val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(userData)
             findNavController().navigate(action)
         }
     }

@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.register_business
 
 import com.android.billingclient.api.*
 import com.puntogris.blint.R

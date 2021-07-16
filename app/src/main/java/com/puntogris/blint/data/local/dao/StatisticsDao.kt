@@ -14,6 +14,19 @@ interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(statistics: List<Statistic>)
 
+    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    suspend fun getStatistic(): List<Statistic>
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAccountStatistic(statistics: List<Statistic>){
+        val db = getStatistic().map { it.businessId }
+        statistics.forEach { stat ->
+            if (!db.contains(stat.businessId))
+                insert(stat)
+        }
+    }
+
     @Query("UPDATE statistic SET totalProducts = totalProducts + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1') ")
     suspend fun incrementTotalProducts()
 

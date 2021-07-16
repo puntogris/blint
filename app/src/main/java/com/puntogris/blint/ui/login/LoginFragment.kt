@@ -21,19 +21,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    @Inject lateinit var oneTapLogin: OneTapLogin
+    @Inject
+    lateinit var oneTapLogin: OneTapLogin
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>
 
     override fun initializeViews() {
+        binding.fragment = this
         setUpUi(showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
-
-        binding.fragment = this
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
-        binding.root.setOnClickListener {
-            onLoginButtonClicked()
-        }
     }
 
     fun onLoginButtonClicked(){

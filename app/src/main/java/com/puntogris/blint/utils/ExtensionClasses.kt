@@ -71,6 +71,14 @@ sealed class EventsDashboard{
     object DataNotFound: EventsDashboard()
 }
 
+sealed class SyncAccount{
+    sealed class Success : SyncAccount(){
+        object HasBusiness:Success()
+        object BusinessNotFound:Success()
+    }
+    class Error(val exception: Exception): SyncAccount()
+}
+
 sealed class UserBusiness(){
     class Success(val data:List<Employee>) : UserBusiness()
     class Error(val exception: Exception): UserBusiness()
@@ -90,7 +98,6 @@ sealed class NotificationsState{
     object Idle: NotificationsState()
 
 }
-
 
 sealed class RequestResult{
     object InProgress: RequestResult()

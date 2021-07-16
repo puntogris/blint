@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.register_business
 
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
@@ -9,6 +9,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.business.LocalBusinessFragment
+import com.puntogris.blint.ui.business.OnlineBusinessFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

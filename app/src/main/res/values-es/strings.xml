@@ -189,6 +189,9 @@
     <string name="snack_country_can_not_be_empty">Necesitas seleccionar el país de residencia.</string>
     <string name="account_creation_in_progress_title">Generando cuenta..</string>
     <string name="account_creation_in_progress_message">Estamos terminando de preparar tu cuenta</string>
+    <string name="snack_login_warning">Debido a multiples intentos de ingreso consecutivos, se deshabilito el ingreso a la app momentaneamente.</string>
+    <string name="snack_network_problems">Se encontro un problema con la conexion. Revisa tu red y intenta nuevamente.</string>
+    <string name="snack_technical_problems">Estamos teniendo dificultades tecnicas. Intenta nuevamente en un rato.</string>
 
     <!-- Calendar -->
     <string name="action_add_event">Agregar evento</string>
@@ -470,6 +473,15 @@
     <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
     <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>
     <string name="order_debt_amount_summary">Se pago $%1$f del total de $%2$f</string>
+
+    <!-- Sync account -->
+    <string name="sync_businesses">Sincronizar negocios</string>
+    <string name="snack_sync_account_error">Ocurrio un error al sincronizar la cuenta.</string>
+    <string name="snack_sync_account_success">Cuenta sincronizada.</string>
+    <string name="snack_no_businesses_found">No se encontraron negocios en esta cuenta.</string>
+    <string name="syncing_businesses">Sincronizando negocios</string>
+    <string name="sync_cancel_warning">Cerrar esta ventana cancelara la sincronizacion.</string>
+    <string name="snack_sync_account_cancelled">Sincronizacion cancelada</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

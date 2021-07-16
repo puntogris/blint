@@ -87,9 +87,9 @@
             <item
                 android:id="@+id/joinBusiness"
                 android:title="@string/join_business" />
-<!--            <item-->
-<!--                android:id="@+id/syncBusiness"-->
-<!--                android:title="Sincronizar negocios" />-->
+            <item
+                android:id="@+id/syncBusiness"
+                android:title="@string/sync_businesses" />
         </menu>
     </item>
 

@@ -6,13 +6,13 @@
     <data>
         <variable
             name="registerLocalBusinessFragment"
-            type="com.puntogris.blint.ui.business.RegisterLocalBusinessFragment" />
+            type="com.puntogris.blint.ui.business.register_business.RegisterLocalBusinessFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.business.RegisterLocalBusinessFragment">
+        tools:context=".ui.business.register_business.RegisterLocalBusinessFragment">
 
         <TextView
             android:id="@+id/textView17"

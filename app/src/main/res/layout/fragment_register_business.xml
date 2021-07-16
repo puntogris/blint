@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.business.RegisterBusinessFragment">
+        tools:context=".ui.business.register_business.RegisterBusinessFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"

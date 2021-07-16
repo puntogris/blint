@@ -7,10 +7,12 @@ import androidx.activity.result.IntentSenderRequest
 import com.google.android.gms.auth.api.identity.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.puntogris.blint.R
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID
 import com.puntogris.blint.utils.showLongSnackBar
 import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.qualifiers.ActivityContext
+import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -42,6 +44,10 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
 
     fun getSingInCredentials(data: Intent?): SignInCredential = oneTapClient.getSignInCredentialFromIntent(data)
 
+    suspend fun beginSignInResult(): BeginSignInResult =
+        oneTapClient.beginSignIn(createSignInRequest()).await()
+
+
     fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>){
         if (isEnabled) {
             oneTapClient.beginSignIn(createSignInRequest())
@@ -56,16 +62,16 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
                 }
         }
         else
-            context.showLongSnackBar("Debido a multiples intentos de ingreso consecutivos, se deshabilito el ingreso a la app momentaneamente.")
+            context.showLongSnackBar(context.getString(R.string.snack_login_warning))
     }
 
     fun onOneTapException(exception: ApiException){
         when (exception.statusCode) {
             CommonStatusCodes.CANCELED -> loginCanceled()
             CommonStatusCodes.NETWORK_ERROR ->
-                context.showLongSnackBar("Se encontro un problema con la conexion. Revisa tu red y intenta nuevamente.")
+                context.showLongSnackBar(context.getString(R.string.snack_network_problems))
             else ->
-                context.showLongSnackBar("Estamos teniendo dificultades tecnicas. Intenta nuevamente en un rato.")
+                context.showLongSnackBar(context.getString(R.string.snack_technical_problems))
         }
     }
 }

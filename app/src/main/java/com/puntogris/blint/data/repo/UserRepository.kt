@@ -2,17 +2,19 @@ package com.puntogris.blint.data.repo
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
+import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.repo.irepo.IUserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
+import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
@@ -27,8 +29,9 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val usersDao: UsersDao,
-private val sharedPref: SharedPref) :
-    IUserRepository {
+    private val statisticsDao: StatisticsDao,
+    private val sharedPref: SharedPref
+    ) :IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -40,8 +43,6 @@ private val sharedPref: SharedPref) :
     }
 
     override fun getCurrentUID() = auth.currentUser?.uid.toString()
-
-    private suspend fun currentBusiness() = usersDao.getUser()
 
     override fun getCurrentUser() = auth.currentUser
 
@@ -65,34 +66,9 @@ private val sharedPref: SharedPref) :
                 } else result.value = UserBusiness.NotFound
             }
             .addOnFailureListener { result.value = UserBusiness.Error(it) }
-
     }
 
-    override suspend fun updateUserNameCountry(username: String, country: String):SimpleResult = withContext(Dispatchers.IO) {
-        try {
-            firestore.collection("users").document(getCurrentUID()).update("name", username,"country", country)
-            SimpleResult.Success
-        }catch (e:Exception){ SimpleResult.Failure }
-    }
-
-    override fun sendEmployeeRequest(request: EmployeeRequest) =
-        MutableStateFlow<RequestResult>(RequestResult.InProgress).also { result ->
-            firestore.collection("users").whereEqualTo("email", request.email).get()
-                .addOnSuccessListener {
-                    if (it.isEmpty){
-                        result.value = RequestResult.NotFound
-                    }else{
-                        request.employeeId = it.documents.first().id
-                        request.ownerId = getCurrentUID()
-                        firestore.collection("employee_requests").document().set(request)
-                            .addOnSuccessListener { result.value = RequestResult.Success }
-                            .addOnFailureListener { result.value = RequestResult.Error }
-                    }
-                }
-                .addOnFailureListener { result.value = RequestResult.Error }
-        }
-
-    override suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode> = withContext(Dispatchers.IO){
+   override suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode> = withContext(Dispatchers.IO){
         try {
             val lastBusinessCode =
                 firestore
@@ -153,105 +129,54 @@ private val sharedPref: SharedPref) :
         }catch (e:Exception){
             JoinBusiness.Error
         }
-
     }
 
-    override suspend fun deleteBusinessDatabase(businessId: String): DeleteBusiness = withContext(Dispatchers.IO){
+    override suspend fun syncAccountFromDatabase(userData: UserData?): SyncAccount = withContext(Dispatchers.IO){
         try {
-            val user = currentBusiness()
-            if (user.currentBusinessIsOnline()){
-                DeleteBusiness.Failure
+            val userBusinesses =
+                firestore.collectionGroup("employees")
+                    .whereEqualTo("employeeId", getCurrentUID())
+                    .get().await()
 
+            if(userData != null){
+                usersDao.updateUserNameCountry(userData.username, userData.country)
+                firestore
+                    .collection("users")
+                    .document(getCurrentUID())
+                    .update(
+                        "name", userData.username,
+                        "country", userData.country
+                    )
+            }
+
+            if(userBusinesses.isEmpty){
+                sharedPref.setWelcomeUiPref(true)
+                SyncAccount.Success.BusinessNotFound
             }else{
-                employeeDao.deleteBusiness(businessId)
-                val businessRemaining = employeeDao.getEmployeesList()
-                if (businessRemaining.isNotEmpty()){
-                    businessRemaining.first().let {
-                        usersDao.updateCurrentBusiness(
-                            it.businessId,
-                            it.businessName,
-                            it.businessType,
-                            it.businessOwner,
-                            getCurrentUID()
-                        )
-                    }
-                    DeleteBusiness.Success.HasBusiness
-                }else{
-                    sharedPref.setUserHasBusinessPref(false)
-                    DeleteBusiness.Success.NoBusiness
+                val businesses = userBusinesses.toObjects(Employee::class.java)
+                employeeDao.syncEmployees(businesses)
+
+                businesses.filter { it.businessType == LOCAL }.map {
+                    Statistic(businessId = it.businessId)
+                }.let {
+                    if(it.isNotEmpty()) statisticsDao.insertAccountStatistic(it)
                 }
+
+                businesses.first().let {
+                    usersDao.updateCurrentBusiness(
+                        id = it.businessId,
+                        name = it.businessName,
+                        type = it.businessType,
+                        owner = it.businessOwner,
+                        currentUid = getCurrentUID()
+                    )
+                }
+                sharedPref.setWelcomeUiPref(true)
+                sharedPref.setUserHasBusinessPref(true)
+                SyncAccount.Success.HasBusiness
             }
         }catch (e:Exception){
-            DeleteBusiness.Failure
-        }
-    }
-
-    override suspend fun registerNewBusiness(name: String):RepoResult<String> = withContext(Dispatchers.IO) {
-        try {
-            val user = usersDao.getUser()
-            val employeeId = getCurrentUID()
-            val ref = firestore.collection("users").document(employeeId).collection("business").document()
-            val business = Business(
-                businessId = ref.id,
-                businessName = name,
-                type = "LOCAL",
-                owner = employeeId
-                )
-            val employee = Employee(
-                businessId = ref.id,
-                businessName = name,
-                businessType = "LOCAL",
-                businessOwner = employeeId,
-                name = user.username,
-                role = "ADMINISTRATOR",
-                employeeId = employeeId,
-                email = getCurrentUser()?.email.toString()
-            )
-            ref.set(business).await()
-            ref.collection("employees").document().set(employee)
-            employeeDao.insert(employee)
-            usersDao.updateCurrentBusiness(business.businessId, name,business.type, business.owner, getCurrentUID())
-
-            RepoResult.Success(ref.id)
-        }catch (e:Exception){
-            RepoResult.Error(e)
-        }
-    }
-
-    override fun logInUserWithCredentialToken(credentialToken: String) =
-        MutableStateFlow<AuthResult>(AuthResult.InProgress).also {
-            val authCredential = GoogleAuthProvider.getCredential(credentialToken, null)
-            auth.signInWithCredential(authCredential)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        it.value = AuthResult.Success(task.result.user!!)
-                    } else {
-                        task.exception?.let {e ->
-                            it.value = AuthResult.Error(e)
-                        }
-                    }
-                }
-    }
-
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
-        try {
-            val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
-            val username = document.get("name").toString()
-            val country = document.get("country").toString()
-            //new user
-            if (!document.exists()){
-                firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
-                RegistrationData.NotFound
-            }//user created but no name or country data, uncompleted registration
-            else if (username.isBlank() || country.isBlank()){
-                    RegistrationData.Incomplete
-            }else{
-                //user fully registered
-                RegistrationData.Complete(username, country)
-            }
-        }
-        catch (e:Exception){
-            RegistrationData.Error
+            SyncAccount.Error(e)
         }
     }
 
