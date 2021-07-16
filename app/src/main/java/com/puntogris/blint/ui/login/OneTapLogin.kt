@@ -23,8 +23,10 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
     private var isEnabled = true
 
     private fun loginCanceled(){
-        if (counter > 3) isEnabled = false else counter += 1
+        if (counter >= 3) isEnabled = false
     }
+
+    fun isLoginEnabled() = isEnabled
 
     private fun createSignInRequest(): BeginSignInRequest =
         BeginSignInRequest.builder()
@@ -49,25 +51,23 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
 
 
     fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>){
-        if (isEnabled) {
-            oneTapClient.beginSignIn(createSignInRequest())
-                .addOnSuccessListener {
-                    activityResultLauncher.launch(IntentSenderRequest.Builder(it.pendingIntent.intentSender).build())
+        oneTapClient.beginSignIn(createSignInRequest())
+            .addOnSuccessListener {
+                activityResultLauncher.launch(IntentSenderRequest.Builder(it.pendingIntent.intentSender).build())
+            }
+            .addOnFailureListener {
+                it.localizedMessage?.let { message ->
+                    //integrar esto con las de abajo dealguna forma
+                    context.showLongSnackBar(message)
                 }
-                .addOnFailureListener {
-                    it.localizedMessage?.let { message ->
-                        //integrar esto con las de abajo dealguna forma
-                        context.showLongSnackBar(message)
-                    }
-                }
-        }
-        else
-            context.showLongSnackBar(context.getString(R.string.snack_login_warning))
+            }
     }
 
     fun onOneTapException(exception: ApiException){
         when (exception.statusCode) {
-            CommonStatusCodes.CANCELED -> loginCanceled()
+            CommonStatusCodes.CANCELED -> {
+                loginCanceled()
+            }
             CommonStatusCodes.NETWORK_ERROR ->
                 context.showLongSnackBar(context.getString(R.string.snack_network_problems))
             else ->

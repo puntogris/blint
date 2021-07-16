@@ -12,7 +12,6 @@ import com.puntogris.blint.data.repo.irepo.IUserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE

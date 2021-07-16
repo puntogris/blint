@@ -22,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/versatile_bold"
+            android:fontFamily="@font/poppins_light"
             android:lineSpacingExtra="-15dp"
             android:text="@string/app_name_lowercase_with_dot"
-            android:textAlignment="center"
+            android:gravity="bottom"
             android:textColor="@color/almostBlack"
             android:textSize="55sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:padding="10dp"
+            android:fontFamily="@font/poppins_light"
             android:textColor="@color/almostBlack"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{()-> fragment.onLoginProblemsClicked()}"
@@ -63,25 +64,27 @@
             android:id="@+id/textView118"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/versatile_bold"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/action_tap_login"
             android:textColor="@color/almostBlack"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/loginProblems"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView107"
-            app:layout_constraintVertical_bias="0.7" />
+            app:layout_constraintTop_toBottomOf="@+id/textView107" />
 
         <TextView
             android:id="@+id/textView107"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:fontFamily="@font/poppins_light"
             android:text="@string/app_slogan"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintVertical_bias="0.48000002" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

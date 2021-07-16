@@ -38,7 +38,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             .ofFloat(binding.textView118,"translationX", 0f, 25f, -25f, 25f, -25f,15f, -15f, 6f, -6f, 0f)
             .setDuration(800L)
             .start()
-        oneTapLogin.showSingInUI(activityResultLauncher)
+        if (oneTapLogin.isLoginEnabled()) oneTapLogin.showSingInUI(activityResultLauncher)
+        else showShortSnackBar(getString(R.string.snack_login_warning))
     }
 
     fun onLoginProblemsClicked(){
