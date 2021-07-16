@@ -149,6 +149,7 @@
     <string name="snack_delete_business_success">Se elimino el negocio correctamente</string>
     <string name="account_sync_success">Cuenta creada correctamente.</string>
     <string name="account_adventure_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
+    <string name="snack_created_business_success">Necogio creado satisfactoriamente.</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>

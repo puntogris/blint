@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface IUserRepository {
     fun checkIfUserIsLogged():Boolean
-    fun singOutCurrentUser()
     suspend fun sendReportToFirestore(message: String): SimpleResult
     fun getEmployeeBusiness(): StateFlow<UserBusiness>
     fun getCurrentUID() :String

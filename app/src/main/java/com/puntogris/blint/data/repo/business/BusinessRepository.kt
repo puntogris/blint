@@ -16,6 +16,7 @@ import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class BusinessRepository @Inject constructor(
 
     private fun getCurrentUser() = auth.currentUser
 
-    override suspend fun registerLocalBusiness(businessName:String): SimpleResult = withContext(Dispatchers.IO) {
+    override suspend fun registerLocalBusiness(businessName: String): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val user = usersDao.getUser()
             val employeeId = getCurrentUser()?.uid.toString()
@@ -69,9 +70,7 @@ class BusinessRepository @Inject constructor(
             employeeDao.insert(employee)
             usersDao.updateCurrentBusiness(business.businessId, businessName, business.type, business.owner, getCurrentUser()?.uid.toString())
             statisticsDao.insert(Statistic(businessId = refId))
-
-            sharedPref.setWelcomeUiPref(true)
-            sharedPref.setUserHasBusinessPref(true)
+            sharedPref.setShowNewUserScreenPref(false)
             SimpleResult.Success
         }catch (e:Exception){
             SimpleResult.Failure
@@ -98,7 +97,7 @@ class BusinessRepository @Inject constructor(
                     }
                     DeleteBusiness.Success.HasBusiness
                 }else{
-                    sharedPref.setUserHasBusinessPref(false)
+                    sharedPref.setShowNewUserScreenPref(false)
                     DeleteBusiness.Success.NoBusiness
                 }
             }

@@ -336,10 +336,6 @@
         android:id="@+id/welcomeFragment"
         android:name="com.puntogris.blint.ui.login.WelcomeFragment"
         android:label="" >
-        <argument
-            android:name="showIntro"
-            app:argType="boolean"
-            android:defaultValue="false" />
         <action
             android:id="@+id/action_welcomeFragment_to_firstSyncFragment"
             app:destination="@id/firstSyncFragment" />
@@ -347,13 +343,13 @@
             android:id="@+id/action_welcomeFragment_to_introFragment"
             app:destination="@id/introFragment" />
         <argument
-            android:name="username"
-            app:argType="string"
-            android:defaultValue=" " />
+            android:name="showIntro"
+            app:argType="boolean" />
         <argument
-            android:name="userCountry"
-            app:argType="string"
-            android:defaultValue=" " />
+            android:name="userData"
+            app:argType="com.puntogris.blint.model.UserData"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"

@@ -10,19 +10,18 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.puntogris.blint.R
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID
 import com.puntogris.blint.utils.showLongSnackBar
-import com.puntogris.blint.utils.showShortSnackBar
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 
-class OneTapLogin @Inject constructor(@ActivityContext private val context: Context) {
+class OneTapLogin @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val oneTapClient: SignInClient = Identity.getSignInClient(context)
     private var counter = 0
     private var isEnabled = true
 
     private fun loginCanceled(){
+        counter += 1
         if (counter >= 3) isEnabled = false
     }
 

@@ -17,7 +17,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+        setUpUi(showFab = false, showAppBar = false)
         setupStatusBarForLoginBackground()
     }
 
@@ -33,14 +33,13 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     fun onGoToSyncUserBusiness(){
         val username = binding.usernameText.getString()
         if (!isCheckBoxChecked()){
-            showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
+            showShortSnackBar(getString(R.string.snack_terms_and_conditions_are_necessary))
         }else if (country.isEmpty()){
             showShortSnackBar(getString(R.string.snack_country_can_not_be_empty))
         }else if(username.isBlank() || username.length < 3){
             showShortSnackBar(getString(R.string.snack_name_can_not_be_empty))
         }else{
-            val userData = UserData(username, country)
-            val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(userData)
+            val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(UserData(username, country))
             findNavController().navigate(action)
         }
     }

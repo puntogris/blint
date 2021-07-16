@@ -62,5 +62,5 @@ data class Record(
     var sku:String = "",
 
     @ColumnInfo
-    var barcode:String = ""
+    @get:Exclude var barcode:String = ""
 ):Parcelable

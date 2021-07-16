@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.login
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -38,6 +39,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             .ofFloat(binding.textView118,"translationX", 0f, 25f, -25f, 25f, -25f,15f, -15f, 6f, -6f, 0f)
             .setDuration(800L)
             .start()
+
         if (oneTapLogin.isLoginEnabled()) oneTapLogin.showSingInUI(activityResultLauncher)
         else showShortSnackBar(getString(R.string.snack_login_warning))
     }
@@ -67,7 +69,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             when(val data = viewModel.lookUpUserBusinessData(result.user)){
                 is RegistrationData.Complete -> {
                     binding.logInProgressBar.gone()
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(false, data.username, data.userCountry)
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = false, data.userData)
                     findNavController().navigate(action)
                 }
                 RegistrationData.Error -> {
@@ -75,11 +77,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
                 }
                 RegistrationData.Incomplete -> {
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(true)
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = true)
                     findNavController().navigate(action)
                 }
                 RegistrationData.NotFound -> {
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(true)
+                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = true)
                     findNavController().navigate(action)
                 }
             }

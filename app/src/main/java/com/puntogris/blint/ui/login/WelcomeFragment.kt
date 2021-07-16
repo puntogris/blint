@@ -5,10 +5,12 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentWelcomeBinding
 import com.puntogris.blint.model.UserData
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.setUpUi
 import com.puntogris.blint.utils.setupStatusBarForLoginBackground
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_welcome) {
@@ -26,9 +28,10 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_w
     }
 
     fun onContinueButtonClicked(){
-        if (args.showIntro) findNavController().navigate(R.id.introFragment)
-        else {
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToFirstSyncFragment(UserData(args.username, args.userCountry))
+        if (args.showIntro){
+            findNavController().navigate(R.id.introFragment)
+        }else{
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToFirstSyncFragment(args.userData)
             findNavController().navigate(action)
         }
     }

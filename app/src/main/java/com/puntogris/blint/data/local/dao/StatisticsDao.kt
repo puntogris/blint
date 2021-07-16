@@ -14,7 +14,7 @@ interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(statistics: List<Statistic>)
 
-    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM statistic")
     suspend fun getStatistic(): List<Statistic>
 
     @Transaction
@@ -22,8 +22,7 @@ interface StatisticsDao {
     suspend fun insertAccountStatistic(statistics: List<Statistic>){
         val db = getStatistic().map { it.businessId }
         statistics.forEach { stat ->
-            if (!db.contains(stat.businessId))
-                insert(stat)
+            if (!db.contains(stat.businessId)) insert(stat)
         }
     }
 

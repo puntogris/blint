@@ -11,6 +11,16 @@ interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(roomUser: RoomUser)
 
+    @Transaction
+    suspend fun checkAndCreateUser(roomUser: RoomUser){
+        if (userExists() == null) {
+            insert(roomUser)
+        }
+    }
+
+    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
+    suspend fun userExists(): RoomUser?
+
     @Update
     suspend fun update(roomUser: RoomUser)
 

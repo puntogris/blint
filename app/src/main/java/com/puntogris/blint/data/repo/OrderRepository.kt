@@ -17,7 +17,9 @@ import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.data.remote.deserializers.OrderDeserializer
 import com.puntogris.blint.data.repo.irepo.IOrdersRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.SUPPLIER
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -80,6 +82,8 @@ import kotlin.math.absoluteValue
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
 
+            //entra una orden pero necesito separarlo para room y juntarlo para firestore
+
             order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id
@@ -89,7 +93,7 @@ import kotlin.math.absoluteValue
             if (order.debt != null){
                 order.order.debtId = debtRef.document().id
                 order.debt?.debtId = order.order.debtId
-                order.debt?.type = if (order.order.type == IN) "SUPPLIER" else "CLIENT"
+                order.debt?.type = if (order.order.type == IN) SUPPLIER else CLIENT
             }
 
             val recordsFinal = order.records.map {

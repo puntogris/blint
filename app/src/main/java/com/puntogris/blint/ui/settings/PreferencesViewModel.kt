@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.repo.backup.BackupRepository
 import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.data.repo.login.LoginRepository
 import com.puntogris.blint.ui.SharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,21 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class PreferencesViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val employeeDao: EmployeeDao,
-    private val sharedPref: SharedPref,
-    private val backupRepository: BackupRepository
+    private val backupRepository: BackupRepository,
+    private val loginRepository: LoginRepository
 ) :ViewModel() {
 
     private val _userData = MutableLiveData<FirebaseUser>(userRepository.getCurrentUser())
     val userData: LiveData<FirebaseUser> = _userData
 
-
-    suspend fun logOut(){
-        sharedPref.setWelcomeUiPref(false)
-        sharedPref.setUserHasBusinessPref(false)
-        employeeDao.deleteAll()
-        userRepository.singOutCurrentUser()
-    }
+    suspend fun logOut() = loginRepository.signOutUser()
 
     suspend fun sendReport(message: String) =
         userRepository.sendReportToFirestore(message)

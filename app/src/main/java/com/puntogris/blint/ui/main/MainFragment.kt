@@ -22,6 +22,7 @@ import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,37 +53,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupBadgeListener()
         setupCalendarRecyclerView()
 
-
         //view?.doOnPreDraw { startPostponedEnterTransition() }
-
-//        val file = File(requireContext().filesDir.absolutePath + "/test.pdf")
-//        val simplyPdfDocument = SimplyPdf.with(requireContext(), file)
-//            .colorMode(DocumentInfo.ColorMode.COLOR)
-//            .paperSize(PrintAttributes.MediaSize.ISO_A4)
-//            .margin(DocumentInfo.Margins.DEFAULT)
-//            .paperOrientation(DocumentInfo.Orientation.PORTRAIT)
-//            .build()
-//
-//        val textProperties = TextProperties()
-//        textProperties.textSize = 24
-//        textProperties.textColor = "#000000"
-//        textProperties.alignment = Layout.Alignment.ALIGN_CENTER
-//        textProperties.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-//
-//        val textComposer = TextComposer(simplyPdfDocument)
-//        textComposer.write("Demonstrate the usage of TextComposer.", textProperties)
-//
-//        val table = TableProperties()
-//        table.borderColor = "#000000"
-//        table.borderWidth = 2
-//
-//        val paparer = PrintAttributes.MediaSize.ISO_A4
-//        val tableText = TableComposer(simplyPdfDocument)
-//        println(paparer)
-//        tableText.draw(listOf(listOf(TextCell("sdfsdfsdf", textProperties, 340))))
-//        tableText.draw(listOf(listOf(TextCell("sdfsdfsdf", textProperties, 340))))
-//        simplyPdfDocument.finish()
-
     }
     private fun setupBadgeListener(){
         launchAndRepeatWithViewLifecycle {

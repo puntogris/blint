@@ -37,10 +37,6 @@ class UserRepository @Inject constructor(
 
     override fun checkIfUserIsLogged() = auth.currentUser != null
 
-    override fun singOutCurrentUser() {
-        auth.signOut()
-    }
-
     override fun getCurrentUID() = auth.currentUser?.uid.toString()
 
     override fun getCurrentUser() = auth.currentUser
@@ -138,18 +134,17 @@ class UserRepository @Inject constructor(
                     .get().await()
 
             if(userData != null){
-                usersDao.updateUserNameCountry(userData.username, userData.country)
+                usersDao.updateUserNameCountry(userData.name, userData.country)
                 firestore
-                    .collection("users")
+                    .collection(USERS_COLLECTION)
                     .document(getCurrentUID())
                     .update(
-                        "name", userData.username,
+                        "name", userData.name,
                         "country", userData.country
-                    )
+                    ).await()
             }
-
             if(userBusinesses.isEmpty){
-                sharedPref.setWelcomeUiPref(true)
+                sharedPref.setShowNewUserScreenPref(true)
                 SyncAccount.Success.BusinessNotFound
             }else{
                 val businesses = userBusinesses.toObjects(Employee::class.java)
@@ -170,8 +165,8 @@ class UserRepository @Inject constructor(
                         currentUid = getCurrentUID()
                     )
                 }
-                sharedPref.setWelcomeUiPref(true)
-                sharedPref.setUserHasBusinessPref(true)
+                sharedPref.setShowNewUserScreenPref(false)
+                sharedPref.setLoginCompletedPref(true)
                 SyncAccount.Success.HasBusiness
             }
         }catch (e:Exception){

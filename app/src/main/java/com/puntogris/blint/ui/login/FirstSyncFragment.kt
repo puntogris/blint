@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.login
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
@@ -22,8 +23,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
         binding.fragment = this
         setUpUi(showFab = false, showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
-
-        launchAndRepeatWithViewLifecycle {
+        launchAndRepeatWithViewLifecycle(Lifecycle.State.CREATED) {
             when(viewModel.syncAccount(args.userData)){
                 is SyncAccount.Error -> {
                     showLongSnackBarAboveFab(getString(R.string.snack_an_error_occurred))
@@ -47,7 +47,7 @@ class FirstSyncFragment : BaseFragment<FragmentFirstSyncBinding>(R.layout.fragme
     }
 
     fun onContinueButtonClicked(){
-        if (sharedPref.getUserHasBusinessPref()) findNavController().navigate(R.id.mainFragment)
-        else findNavController().navigate(R.id.newUserFragment)
+        if (sharedPref.showNewUserScreenPref()) findNavController().navigate(R.id.newUserFragment)
+        else findNavController().navigate(R.id.mainFragment)
     }
 }

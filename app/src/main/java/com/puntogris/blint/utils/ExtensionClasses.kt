@@ -116,7 +116,7 @@ sealed class JoinBusiness{
 
 sealed class RegistrationData(){
     object NotFound: RegistrationData()
-    class Complete(val username:String, val userCountry: String): RegistrationData()
+    class Complete(val userData: UserData): RegistrationData()
     object Incomplete: RegistrationData()
     object Error: RegistrationData()
 }

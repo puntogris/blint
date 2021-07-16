@@ -5,9 +5,13 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
+import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.FirestoreUser
+import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.model.UserData
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.AuthResult
-import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RegistrationData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +20,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
-    private val employeeDao: EmployeeDao
+    private val employeeDao: EmployeeDao,
+    private val usersDao: UsersDao,
+    private val sharedPref: SharedPref
     ):ILoginRepository {
 
     val auth = FirebaseAuth.getInstance()
@@ -40,24 +46,31 @@ class LoginRepository @Inject constructor(
     override suspend fun signOutUser() = withContext(Dispatchers.IO){
         employeeDao.deleteAll()
         auth.signOut()
+        sharedPref.setShowNewUserScreenPref(true)
     }
 
 
     override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
         try {
-            val document = firestore.collection(Constants.USERS_COLLECTION).document(user.uid).get().await()
-            val username = document.get("name").toString()
-            val country = document.get("country").toString()
+            val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+            val userdata = document.toObject(UserData::class.java) ?: UserData()
+
+            //set user room
+            val roomUser = RoomUser(currentUid = user.uid)
+
             //new user
-            if (!document.exists()){
-                firestore.collection(Constants.USERS_COLLECTION).document(user.uid).set(user).await()
+            if (!document.exists()) {
+                usersDao.insert(roomUser)
+                firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
                 RegistrationData.NotFound
             }//user created but no name or country data, uncompleted registration
-            else if (username.isBlank() || country.isBlank()){
+            else if (userdata.dataMissing()) {
+                usersDao.insert(roomUser)
                 RegistrationData.Incomplete
-            }else{
+            } else {
                 //user fully registered
-                RegistrationData.Complete(username, country)
+                usersDao.insert(roomUser)
+                RegistrationData.Complete(userdata)
             }
         }
         catch (e:Exception){

@@ -91,6 +91,8 @@ class MainRepository @Inject constructor(
                 }
                 awaitClose { ref.remove() }
             }
-        } else{ statisticsDao.getBusinessStatisticsFlow() }
+        } else{
+            statisticsDao.getBusinessStatisticsFlow()
+        }
     }
 }

@@ -15,10 +15,10 @@ class RoomUser(
         val userId:String = "1",
 
         @ColumnInfo
-        val country: String = "",
+        var country: String = "",
 
         @ColumnInfo
-        val username:String = "",
+        var username:String = "",
 
         @ColumnInfo
         val currentUid:String = "",

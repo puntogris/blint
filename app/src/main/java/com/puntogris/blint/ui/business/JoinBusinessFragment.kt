@@ -72,7 +72,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                     binding.summaryMessage.text = getString(R.string.incorrect_or_expired_code)
                 }
                 JoinBusiness.Success -> {
-                    sharedPref.setUserHasBusinessPref(true)
+                    sharedPref.setShowNewUserScreenPref(true)
                     binding.animationView.playAnimationOnce(R.raw.done)
                 }
                 JoinBusiness.AlreadyJoined -> {

@@ -153,6 +153,7 @@
     <string name="snack_delete_business_success">Business deleted successfully.</string>
     <string name="account_sync_success">Account created/ synced successfully.</string>
     <string name="account_adventure_message">Your account is ready to go on a new adventure!</string>
+    <string name="snack_created_business_success">Business created successfully.</string>
 
     <!-- Category-->
     <string name="rename_category">Rename category</string>
@@ -486,8 +487,6 @@
     <string name="syncing_businesses">Syncing businesses</string>
     <string name="sync_cancel_warning">Closing this window will cancel the syncing.</string>
     <string name="snack_sync_account_cancelled">Sync cancelled</string>
-
-
 
     <!-- Arrays -->
     <string-array name="debt_type">

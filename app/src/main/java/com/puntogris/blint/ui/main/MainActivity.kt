@@ -13,7 +13,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.google.android.material.badge.BadgeUtils
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
@@ -70,10 +69,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
                 startDestination =
-                    if (viewModel.isUserLoggedIn()) {
+                    if (viewModel.isUserLoggedIn() && sharedPref.loginCompletedPref()) {
                         when {
-                            !sharedPref.getWelcomeUiPref() -> R.id.welcomeFragment
-                            !sharedPref.getUserHasBusinessPref() -> R.id.newUserFragment
+                            sharedPref.showNewUserScreenPref() -> R.id.newUserFragment
                             else -> R.id.mainFragment
                         }
                     } else R.id.loginFragment
@@ -215,7 +213,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun checkIfBusinessExist():Boolean{
-        return if (sharedPref.getUserHasBusinessPref()){
+        return if (sharedPref.showNewUserScreenPref()){
             true
         }else{
             showLongSnackBarAboveFab("No puedes acceder a esta funcion sin pertenecer a un negocio.")
