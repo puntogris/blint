@@ -162,7 +162,8 @@ class UserRepository @Inject constructor(
                         name = it.businessName,
                         type = it.businessType,
                         owner = it.businessOwner,
-                        currentUid = getCurrentUID()
+                        currentUid = getCurrentUID(),
+                        status = it.businessStatus
                     )
                 }
                 sharedPref.setShowNewUserScreenPref(false)

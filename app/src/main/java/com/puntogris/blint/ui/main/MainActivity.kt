@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.main
 
 import android.Manifest
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -9,10 +10,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.SharedPref
@@ -21,6 +27,8 @@ import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -41,17 +49,35 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun preInitViews() {
         setTheme(R.style.Theme_Blint)
+        AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
     }
 
     override fun initializeViews() {
-        setUpTheme()
         setUpNavigation()
         setUpScanner()
         setUpBottomDrawer()
-    }
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
-    private fun setUpTheme() {
-        AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED){
+                viewModel.getBusinessStatus().collect {
+                    when(it){
+                        is RepoResult.Error -> {}
+                        RepoResult.InProgress -> {}
+                        is RepoResult.Success -> {
+                            when(viewModel.getSyncStatus(it.data)){
+                                AccountStatus.Error -> {}
+                                is AccountStatus.OutOfSync -> {
+                                    val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
+                                    navController.navigate(R.id.outOfSyncFragment, null, nav)
+                                }
+                                AccountStatus.Synced -> {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setUpScanner() {
@@ -87,7 +113,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 R.id.welcomeFragment,
                 R.id.introFragment,
                 R.id.firstSyncFragment,
-                R.id.newUserFragment
+                R.id.newUserFragment,
+                R.id.outOfSyncFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -95,10 +122,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
                 bottomNavDrawer.toggle()
-//                if(sharedPref.getUserHasBusinessPref()){
-//                    if (navController.currentDestination?.id != R.id.mainFragment)
-//                        navController.navigate(R.id.mainFragment)
-//                }else navController.navigate(R.id.newUserFragment)
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
@@ -112,18 +135,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun navigateToMenuDestinations(navMenu: NavMenu) {
-        when(navMenu){
-            NavMenu.HOME -> R.id.mainFragment
-            NavMenu.PRODUCTS -> R.id.manageProductsFragment
-            NavMenu.CLIENTS -> R.id.manageClientsFragment
-            NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
-            NavMenu.ORDERS -> R.id.manageOrdersFragment
-            NavMenu.NOTIFICATIONS -> R.id.notificationsFragment
-            NavMenu.SETTINGS -> R.id.preferencesFragment
-        }.apply { navController.navigate(this) }
+        if (navMenu != NavMenu.HOME &&
+            navMenu != NavMenu.SETTINGS &&
+            navMenu != NavMenu.NOTIFICATIONS &&
+            viewModel.currentUser.value.currentBusinessStatus != "VALID") {
+            Snackbar.make(binding.root, "Sin permisos para realizar esta accion.", Snackbar.LENGTH_LONG)
+                .setAction("Leer mas"){}.show()
+        }else{
+            when(navMenu){
+                NavMenu.HOME -> R.id.mainFragment
+                NavMenu.PRODUCTS -> R.id.manageProductsFragment
+                NavMenu.CLIENTS -> R.id.manageClientsFragment
+                NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
+                NavMenu.ORDERS -> R.id.manageOrdersFragment
+                NavMenu.NOTIFICATIONS -> R.id.notificationsFragment
+                NavMenu.SETTINGS -> R.id.preferencesFragment
+            }.apply { navController.navigate(this) }
+        }
         bottomNavDrawer.close()
     }
-
 
     private fun setUpBottomDrawer(){
         bottomNavDrawer.apply {

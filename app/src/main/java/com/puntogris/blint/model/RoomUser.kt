@@ -9,7 +9,7 @@ import com.google.firebase.firestore.PropertyName
 import com.puntogris.blint.utils.Constants.ONLINE
 
 @Entity
-class RoomUser(
+data class RoomUser(
 
         @PrimaryKey(autoGenerate = false)
         val userId:String = "1",
@@ -34,6 +34,9 @@ class RoomUser(
 
         @ColumnInfo
         val currentBusinessOwner:String = "",
+
+        @ColumnInfo
+        val currentBusinessStatus: String = ""
 ){
         fun currentBusinessIsOnline() = currentBusinessType == ONLINE
 

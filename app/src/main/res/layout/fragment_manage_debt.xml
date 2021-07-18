@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/versatile_bold"
+                    android:fontFamily="sans-serif-black"
                     android:text="@string/clients_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/versatile_bold"
+                    android:fontFamily="sans-serif-black"
                     android:textColor="@color/card6"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/versatile_bold"
+                    android:fontFamily="sans-serif-black"
                     android:text="@string/suppliers_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/versatile_bold"
+                    android:fontFamily="sans-serif-black"
                     android:textColor="@color/card1"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +124,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView5" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

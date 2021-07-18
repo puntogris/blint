@@ -15,13 +15,10 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class Employee(
 
-        @PrimaryKey(autoGenerate = true)
-        @get:Exclude val id: Int = 0,
-
         @ColumnInfo
         var employeeId: String = "",
 
-        @ColumnInfo
+        @PrimaryKey(autoGenerate = false)
         var businessId: String = "",
 
         @ColumnInfo
@@ -46,5 +43,8 @@ data class Employee(
         val businessCreatedAt: Timestamp = Timestamp.now(),
 
         @ColumnInfo
-        val email:String = ""
+        val email:String = "",
+
+        @ColumnInfo
+        val businessStatus: String = "",
 ):Parcelable

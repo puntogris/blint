@@ -8,10 +8,10 @@ import com.puntogris.blint.model.Employee
 @Dao
 interface EmployeeDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(employee: Employee)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(employees: List<Employee>)
 
     @Query("DELETE FROM employee")

@@ -28,7 +28,7 @@
                     android:id="@+id/textView97"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_medium"
+                    android:fontFamily="sans-serif-medium"
                     android:text="@{dashboardItem.title}" />
 
                 <TextView
@@ -36,7 +36,7 @@
                     style="@style/TextAppearance.MaterialComponents.Headline3"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/avenir_medium"
+                    android:fontFamily="sans-serif-medium"
                     android:layout_height="wrap_content"
                     android:text="@{dashboardItem.value}" />
             </LinearLayout>

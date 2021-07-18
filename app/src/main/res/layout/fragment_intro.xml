@@ -137,7 +137,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/tell_us_about_you"
             android:textColor="@android:color/white"
-            android:fontFamily="@font/versatile_bold"
+            android:fontFamily="sans-serif-black"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

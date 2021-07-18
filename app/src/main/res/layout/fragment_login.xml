@@ -15,16 +15,15 @@
         android:layout_height="match_parent"
         tools:context=".ui.login.LoginFragment">
 
-
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins_light"
+            android:gravity="bottom"
             android:lineSpacingExtra="-15dp"
             android:text="@string/app_name_lowercase_with_dot"
-            android:gravity="bottom"
             android:textColor="@color/almostBlack"
             android:textSize="55sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,21 +54,20 @@
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/loginProblems"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/textView118" />
 
         <TextView
             android:id="@+id/textView118"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:onClick="@{()-> fragment.onLoginButtonClicked()}"
+            android:padding="20dp"
             android:text="@string/action_tap_login"
             android:textColor="@color/almostBlack"
             android:textSize="24sp"
-            android:padding="20dp"
-            android:onClick="@{()-> fragment.onLoginButtonClicked()}"
-            android:foreground="?selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toTopOf="@+id/loginProblems"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,18 +1,22 @@
 package com.puntogris.blint.data.repo
 
-import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.EventsDao
 import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.repo.irepo.IMainRepository
+import com.puntogris.blint.diffcallback.EmployeeDiffCallBack
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.EventsDashboard
+import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -32,7 +36,10 @@ class MainRepository @Inject constructor(
     private val employeeDao: EmployeeDao
 ): IMainRepository {
 
+
     private val auth = FirebaseAuth.getInstance()
+
+    private val firestore = Firebase.firestore
 
     private suspend fun currentBusiness() = usersDao.getUser()
 
@@ -42,13 +49,48 @@ class MainRepository @Inject constructor(
         id: String,
         name: String,
         type: String,
-        owner: String
+        owner: String,
+        status: String
     ) {
-        usersDao.updateCurrentBusiness(id,name,type,owner, auth.currentUser?.uid.toString())
+        usersDao.updateCurrentBusiness(id,name,type,owner, auth.currentUser?.uid.toString(), status)
     }
 
+    override fun getCurrentUserFlow() = usersDao.getUserFlow()
+
+
     override fun getUserLiveDataRoom() = usersDao.getUserLiveData()
+
     override suspend fun getBusinessListRoom() = employeeDao.getEmployeesList()
+
+    @ExperimentalCoroutinesApi
+    override fun getBusinessesStatus(): Flow<RepoResult<List<Employee>>>  = callbackFlow {
+            val ref = firestore.collectionGroup("employees")
+                .whereEqualTo("employeeId", auth.currentUser?.uid.toString())
+                .addSnapshotListener { value, error ->
+                    if (value != null){
+                        val businesses = value.toObjects(Employee::class.java)
+                        if (!businesses.isNullOrEmpty()){
+                            trySend(RepoResult.Success(businesses))
+                        }
+                    }else{
+                        if (error != null) trySend(RepoResult.Error(error))
+                    }
+                }
+            awaitClose { ref.remove() }
+        }
+
+    override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
+        try {
+            val roomEmployees = getBusinessListRoom()
+            if (roomEmployees.toSet() == employee.toSet()){
+                AccountStatus.Synced
+            }else{
+                AccountStatus.OutOfSync(employee)
+            }
+        }catch (e:Exception){
+            AccountStatus.Error
+        }
+    }
 
     override suspend fun getBusinessLastEventsDatabase(): EventsDashboard = withContext(Dispatchers.IO) {
         try {
@@ -82,7 +124,7 @@ class MainRepository @Inject constructor(
         val user = currentBusiness()
         return@withContext if (user.currentBusinessIsOnline()){
             callbackFlow {
-                val ref = firestoreQueries.getBusinessCollectionQuery(user).addSnapshotListener { doc, _ ->
+                val ref = firestoreQueries.getBusinessCountersQuery(user).addSnapshotListener { doc, _ ->
                     if (doc != null) {
                         doc.toObject(BusinessCounters::class.java)?.let {
                             trySend(it)

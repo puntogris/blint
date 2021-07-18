@@ -1,0 +1,23 @@
+package com.puntogris.blint.ui.sync
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.puntogris.blint.R
+import com.puntogris.blint.databinding.FragmentOutOfSyncBinding
+import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.setUpUi
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class OutOfSyncFragment : BaseFragment<FragmentOutOfSyncBinding>(R.layout.fragment_out_of_sync) {
+
+    override fun initializeViews() {
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_sync_24, showAppBar = false){
+            findNavController().navigate(R.id.firstSyncFragment)
+        }
+    }
+}

@@ -43,6 +43,7 @@ import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.math.abs
@@ -75,6 +76,7 @@ class BottomNavDrawerFragment :
         SETTLING
     }
 
+    @ExperimentalCoroutinesApi
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: FragmentBottomNavDrawerBinding
 
@@ -235,28 +237,26 @@ class BottomNavDrawerFragment :
             val accountAdapter = AccountAdapter(this@BottomNavDrawerFragment)
             accountRecyclerView.adapter = accountAdapter
 
-                viewModel.getCurrentBusiness().observe(viewLifecycleOwner){
-                    lifecycleScope.launch {
+            lifecycleScope.launch {
+                viewModel.currentUser.collect {
+                    val dataForAdapter = viewModel.getBusinessList().map { employee ->
+                        val tempBusiness = BusinessItem(
+                            employee.businessId,
+                            employee.businessName,
+                            employee.businessType,
+                            employee.businessOwner,
+                            R.drawable.ic_baseline_storefront_24, false)
 
-                        val dataForAdapter = viewModel.getBusinessList().map { employee ->
-                            val tempBusiness = BusinessItem(
-                                employee.businessId,
-                                employee.businessName,
-                                employee.businessType,
-                                employee.businessOwner,
-                                R.drawable.ic_baseline_storefront_24, false)
-
-                            if(tempBusiness.businessId == it.currentBusinessId){
-                                tempBusiness.isCurrentAccount = true
-                                binding.currentUserAccount = tempBusiness
-                            }
-                            tempBusiness
+                        if(tempBusiness.businessId == it.currentBusinessId){
+                            tempBusiness.isCurrentAccount = true
+                            binding.currentUserAccount = tempBusiness
                         }
-                        accountAdapter.submitList(dataForAdapter)
+                        tempBusiness
                     }
+                    accountAdapter.submitList(dataForAdapter)
                 }
             }
-
+        }
     }
 
     fun toggle() {
@@ -303,9 +303,10 @@ class BottomNavDrawerFragment :
         navigationListeners.forEach { it.onNavMenuItemClicked(item) }
     }
 
+    @ExperimentalCoroutinesApi
     override fun onAccountClicked(employee: BusinessItem) {
         lifecycleScope.launch {
-            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType, employee.businessOwner)
+            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType, employee.businessOwner, employee.businessStatus)
             findNavController().navigate(R.id.mainFragment)
         }
         toggleSandwich()

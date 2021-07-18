@@ -26,4 +26,10 @@ class SharedPref @Inject constructor(@ApplicationContext private val context: Co
         sharedPref.edit().putBoolean(USER_HAS_BUSINESS_PREF, value).apply()
     }
 
+    fun accountNeedsSyncPref() = sharedPref.getBoolean("account_needs_sync", true)
+
+    fun setAccountNeedsSyncPref(value: Boolean){
+        sharedPref.edit().putBoolean("accounts_needs_sync",value).apply()
+    }
+
 }

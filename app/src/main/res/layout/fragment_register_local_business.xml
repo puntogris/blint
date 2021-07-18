@@ -84,6 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/businessName"
             app:lottie_autoPlay="true"
+            app:lottie_url=""
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/business4" />
 

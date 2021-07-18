@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.login
 
-import android.animation.Animator
 import android.animation.ObjectAnimator
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -10,13 +9,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLoginBinding
+import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +37,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         setUpUi(showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
+
     }
 
     fun onLoginButtonClicked(){

@@ -55,10 +55,10 @@
                     android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
                     android:text="@{menuCard.title}"
-                    android:fontFamily="@font/avenir_medium"
+                    android:fontFamily="sans-serif-medium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                   app:layout_constraintStart_toStartOf="parent" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

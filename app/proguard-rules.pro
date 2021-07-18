@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepnames class androidx.navigation.fragment.NavHostFragment
+-keep class com.puntogris.blint.model.Client
+-keep class com.puntogris.blint.model.Supplier
+-keep class com.puntogris.blint.model.ProductWithSuppliersCategories
+-keep class com.puntogris.blint.model.Record
+-keep class com.puntogris.blint.model.Event
+-keep class com.puntogris.blint.model.UserData
+-keep class com.puntogris.blint.model.Employee
+-keep class com.puntogris.blint.model.Product
+-keep class com.puntogris.blint.model.OrderWithRecords
+-keep class com.puntogris.blint.model.Debt
+-keep class com.puntogris.blint.model.FirestoreCategory
+-keep class com.puntogris.blint.model.FirestoreSupplier

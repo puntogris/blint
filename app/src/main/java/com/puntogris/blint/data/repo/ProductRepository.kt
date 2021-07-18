@@ -131,7 +131,6 @@ class ProductRepository @Inject constructor(
             }
             SimpleResult.Success
         }catch (e:Exception){
-            println(e.localizedMessage)
             SimpleResult.Failure
         }
     }

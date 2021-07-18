@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="18sp"
-            android:fontFamily="@font/versatile_bold"
+            android:fontFamily="sans-serif-black"
             android:text="@string/product_suppliers" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

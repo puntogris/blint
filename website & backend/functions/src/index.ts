@@ -111,3 +111,36 @@ function getArrayForNameSearch(name: string): string[]{
     [...name].forEach(process)
     return list
 }
+
+/**
+ * When a business status changes, this will change thier employees status.
+ */
+export const onBusinessStatusChanged = functions.firestore.document('users/{userId}/business/{businessId}').onUpdate(async(snap, context) =>{
+    const businessId = context.params.businessId
+    const userId = context.params.userId
+    const status = snap.after.get("status")
+    const deletionTimestamp = snap.after.get("deletionTimestamp")
+
+    return admin.firestore().runTransaction(async(t) => {
+        let ref = admin.firestore().collection("users").doc(userId).collection("business").doc(businessId).collection("employees")
+        let data = await t.get(ref)
+
+        data.forEach(doc =>{
+           // let employeeRef = admin.firestore().collection("users").doc(userId).collection("business").doc(businessId).collection("employees").doc(doc.id)
+
+           if(status == 'ON_DELETE'){
+            t.update(doc.ref,({
+                "businessStatus": status,
+                "deletionTimestamp": deletionTimestamp
+            }))
+
+           }else{
+            t.update(doc.ref,({
+                "businessStatus": status
+            }))
+
+           }
+        })
+
+    })
+})

@@ -23,6 +23,12 @@ sealed class StringValidator{
     }
 }
 
+sealed class AccountStatus(){
+    class OutOfSync(val affectedBusinesses: List<Employee>): AccountStatus()
+    object Synced: AccountStatus()
+    object Error:AccountStatus()
+}
+
 sealed class DeleteBusiness{
     sealed class Success: DeleteBusiness(){
         object HasBusiness:Success()
@@ -114,7 +120,7 @@ sealed class JoinBusiness{
     object AlreadyJoined: JoinBusiness()
 }
 
-sealed class RegistrationData(){
+sealed class RegistrationData{
     object NotFound: RegistrationData()
     class Complete(val userData: UserData): RegistrationData()
     object Incomplete: RegistrationData()

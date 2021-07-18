@@ -23,12 +23,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainFragment">
 
-            <androidx.constraintlayout.widget.Group
-            android:id="@+id/noBusinessGroupUi"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="match_parent"/>
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
                 style="@style/Theme.Blint.CardView"
@@ -52,7 +46,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:fontFamily="@font/avenir_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:text="@{String.valueOf(viewModel.businessCounter.totalProducts)}"
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
@@ -67,7 +61,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
-                        android:fontFamily="@font/avenir_medium"
                         android:text="@string/products_label"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +74,8 @@
                         android:id="@+id/textView110"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_bold"
+                        android:fontFamily="sans-serif-medium"
+                        tools:text="102"
                         android:text="@{String.valueOf(viewModel.businessCounter.totalClients)}"
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
@@ -95,7 +89,6 @@
                         android:id="@+id/textView111"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_medium"
                         android:text="@string/clients_label"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView113"
@@ -108,7 +101,7 @@
                         android:id="@+id/textView112"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_bold"
+                        android:fontFamily="sans-serif-medium"
                         android:text="@{String.valueOf(viewModel.businessCounter.totalSuppliers)}"
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
@@ -122,7 +115,6 @@
                         android:id="@+id/textView113"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_medium"
                         android:text="@string/suppliers_label"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView109"
@@ -176,7 +168,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/avenir_medium"
             android:text="@string/last_calendar_events"
             android:textSize="19sp"
             app:layout_constraintStart_toStartOf="parent"

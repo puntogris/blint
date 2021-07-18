@@ -7,6 +7,6 @@ data class Business(
     val businessName: String = "",
     val type: String = "",
     val owner: String = "",
-    val valid: Boolean = true,
+    val status: String = "",
     val businessCreatedAt: Timestamp = Timestamp.now()
 )

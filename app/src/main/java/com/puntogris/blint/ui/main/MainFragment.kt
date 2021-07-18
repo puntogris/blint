@@ -19,10 +19,7 @@ import com.puntogris.blint.data.local.dao.DebtsDao
 import com.puntogris.blint.data.local.dao.OrdersDao
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
-import com.puntogris.blint.model.Debt
-import com.puntogris.blint.model.Event
-import com.puntogris.blint.model.MenuCard
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,11 +107,18 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     }
 
     private fun onMenuCardClicked(menuCard: MenuCard){
-        findNavController().navigate(menuCard.navigationId)
+        if (menuCard.navigationId != R.id.accountPreferences &&
+            viewModel.currentUser.value.currentBusinessStatus != "VALID"){
+            createLongSnackBar("Sin permisos para acceder a esta informacion.").setAction("Leer mas"){
+            }.show()
+        }else findNavController().navigate(menuCard.navigationId)
     }
 
     fun onAddEventClicked(){
-        findNavController().navigate(R.id.createEventFragment)
+        if (viewModel.currentUser.value.currentBusinessStatus != "VALID"){
+            createLongSnackBar("Sin permisos para acceder a esta informacion.").setAction("Leer mas"){
+            }.show()
+        }else findNavController().navigate(R.id.createEventFragment)
     }
 
     override fun onDestroyView() {

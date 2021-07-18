@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.repo.business
 
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,7 +12,10 @@ import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
+import com.puntogris.blint.utils.Constants.LOCAL
+import com.puntogris.blint.utils.Constants.ONLINE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.SimpleResult
@@ -46,29 +50,31 @@ class BusinessRepository @Inject constructor(
             val refId = ref.document().id
 
             val business = Business(
-                businessId = ref.id,
+                businessId = refId,
                 businessName = businessName,
-                type = Constants.LOCAL,
-                owner = employeeId
+                type = LOCAL,
+                owner = employeeId,
+                status = "VALID"
             )
             val employee = Employee(
-                businessId = ref.id,
+                businessId = refId,
                 businessName = businessName,
-                businessType = Constants.LOCAL,
+                businessType = LOCAL,
                 businessOwner = employeeId,
                 name = user.username,
-                role = Constants.ADMINISTRATOR,
+                role = ADMINISTRATOR,
                 employeeId = employeeId,
-                email = getCurrentUser()?.email.toString()
+                email = getCurrentUser()?.email.toString(),
+                businessStatus = business.status
             )
 
             firestore.runBatch {
                 it.set(ref.document(refId), business)
-                it.set(ref.document(refId).collection("employees").document(), employee)
+                it.set(ref.document(refId).collection("employees").document(getCurrentUser()?.uid.toString()), employee)
             }.await()
 
             employeeDao.insert(employee)
-            usersDao.updateCurrentBusiness(business.businessId, businessName, business.type, business.owner, getCurrentUser()?.uid.toString())
+            usersDao.updateCurrentBusiness(business.businessId, businessName, business.type, business.owner, getCurrentUser()?.uid.toString(), business.status)
             statisticsDao.insert(Statistic(businessId = refId))
             sharedPref.setShowNewUserScreenPref(false)
             SimpleResult.Success
@@ -77,30 +83,73 @@ class BusinessRepository @Inject constructor(
         }
     }
 
+
     override suspend fun deleteBusinessDatabase(businessId: String): DeleteBusiness = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            if (user.currentBusinessIsOnline()){
-                DeleteBusiness.Failure
-            }else{
-                employeeDao.deleteBusiness(businessId)
-                val businessRemaining = employeeDao.getEmployeesList()
-                if (businessRemaining.isNotEmpty()){
-                    businessRemaining.first().let {
-                        usersDao.updateCurrentBusiness(
-                            it.businessId,
-                            it.businessName,
-                            it.businessType,
-                            it.businessOwner,
-                            getCurrentUser()?.uid.toString()
-                        )
-                    }
+            val businessRemaining = employeeDao.getEmployeesList()
+
+            val business = businessRemaining.singleOrNull{ it.businessId == businessId}
+            if (business != null && business.businessOwner == getCurrentUser()?.uid.toString()){
+                if (business.businessType == ONLINE){
+
+                    firestore.runTransaction {
+                        val businessRef =
+                            firestore.collection(USERS_COLLECTION).document(user.currentBusinessOwner)
+                                .collection("business").document(user.currentBusinessId)
+                                .collection("status").document("data")
+
+                        val businessFirestore = it.get(businessRef).toObject(Business::class.java)
+
+                        if (businessFirestore != null){
+                            it.update(businessRef,
+                                "status","ON_DELETE",
+                                "deletionTimestamp", Timestamp.now()
+                                )
+                        }
+                    }.await()
                     DeleteBusiness.Success.HasBusiness
+//                    val userBusinesses =
+//                        firestore.collectionGroup("employees")
+//                            .whereEqualTo("employeeId", getCurrentUser()?.uid.toString())
+//                            .get().await().toObjects(Employee::class.java)
+//
+//                    if (userBusinesses.isNotEmpty()){
+//                        userBusinesses.first().let {
+//                            usersDao.updateCurrentBusiness(
+//                                id = it.businessId,
+//                                name = it.businessName,
+//                                type = it.businessType,
+//                                owner = it.businessOwner,
+//                                currentUid = getCurrentUser()?.uid.toString(),
+//                                status = it.businessStatus
+//                            )
+//                        }
+//                        DeleteBusiness.Success.HasBusiness
+//                    }else{
+//                        sharedPref.setShowNewUserScreenPref(true)
+//                        DeleteBusiness.Success.NoBusiness
+//                    }
                 }else{
-                    sharedPref.setShowNewUserScreenPref(false)
-                    DeleteBusiness.Success.NoBusiness
+                    employeeDao.deleteBusiness(businessId)
+                    if (businessRemaining.isNotEmpty()){
+                        businessRemaining.first().let {
+                            usersDao.updateCurrentBusiness(
+                                it.businessId,
+                                it.businessName,
+                                it.businessType,
+                                it.businessOwner,
+                                getCurrentUser()?.uid.toString(),
+                                it.businessStatus
+                            )
+                        }
+                        DeleteBusiness.Success.HasBusiness
+                    }else{
+                        sharedPref.setShowNewUserScreenPref(true)
+                        DeleteBusiness.Success.NoBusiness
+                    }
                 }
-            }
+            } else DeleteBusiness.Failure
         }catch (e:Exception){
             DeleteBusiness.Failure
         }

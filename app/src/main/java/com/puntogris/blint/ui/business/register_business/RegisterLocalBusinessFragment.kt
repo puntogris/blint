@@ -35,8 +35,8 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
                             binding.animationView.playAnimationOnce(R.raw.error)
                         }
                         SimpleResult.Success -> {
+                            showSnackBarVisibilityAppBar(getString(R.string.snack_created_business_success))
                             findNavController().navigate(R.id.mainFragment)
-                            showShortSnackBar(getString(R.string.snack_created_business_success))
                         }
                     }
                 }

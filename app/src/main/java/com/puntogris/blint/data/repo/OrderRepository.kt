@@ -125,6 +125,7 @@ import kotlin.math.absoluteValue
             if (user.currentBusinessIsOnline()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
                 countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
+
                 firestore.runBatch { batch ->
                     if (order.debt != null){
                         val debt = Debt(
@@ -168,6 +169,10 @@ import kotlin.math.absoluteValue
             SimpleResult.Success
         }catch (e:Exception){ SimpleResult.Failure }
     }
+
+     fun test(){
+
+     }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords = withContext(Dispatchers.IO){
         val user = currentBusiness()

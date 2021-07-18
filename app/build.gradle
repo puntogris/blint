@@ -9,6 +9,14 @@ plugins {
 }
 
 android {
+//    signingConfigs {
+//        release {
+//            storeFile file('/home/joaco/Documentos/.keys/blint.p12')
+//            keyPassword 'Blackblack1'
+//            storePassword 'Blackblack1'
+//            keyAlias 'blint_key'
+//        }
+//    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -16,16 +24,23 @@ android {
         applicationId "com.puntogris.blint"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 8
+        versionCode 9
         versionName "1.0.0"
-
+        //resConfigs "en", "es"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+      //  signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+          //  minifyEnabled false
+         //   proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -67,7 +82,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
@@ -152,7 +167,7 @@ dependencies {
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
 
     //Activities ktx
-    implementation 'androidx.activity:activity-ktx:1.3.0-rc01'
+    implementation 'androidx.activity:activity-ktx:1.3.0-rc02'
     implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha04'
 
     implementation "org.apache.poi:poi:4.0.1"

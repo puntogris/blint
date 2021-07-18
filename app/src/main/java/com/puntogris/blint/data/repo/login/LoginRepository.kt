@@ -54,7 +54,6 @@ class LoginRepository @Inject constructor(
         try {
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
             val userdata = document.toObject(UserData::class.java) ?: UserData()
-
             //set user room
             val roomUser = RoomUser(currentUid = user.uid)
 
@@ -73,8 +72,6 @@ class LoginRepository @Inject constructor(
                 RegistrationData.Complete(userdata)
             }
         }
-        catch (e:Exception){
-            RegistrationData.Error
-        }
+        catch (e:Exception){ RegistrationData.Error }
     }
 }

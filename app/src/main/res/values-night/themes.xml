@@ -61,7 +61,7 @@
 
     <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
         <item name="android:textColor">@color/primaryColor</item>
-        <item name="fontFamily">@font/avenir_medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>

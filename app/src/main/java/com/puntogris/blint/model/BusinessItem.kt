@@ -10,5 +10,6 @@ data class BusinessItem(
     val businessType: String = "",
     val businessOwner: String = "",
     @DrawableRes val avatar: Int,
-    var isCurrentAccount: Boolean = false
+    var isCurrentAccount: Boolean = false,
+    val businessStatus: String = ""
 )
