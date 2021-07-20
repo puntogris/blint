@@ -6,14 +6,14 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.login.FirstSyncFragment" />
+            type="com.puntogris.blint.ui.sync.SyncAccountFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorSecondary"
-        tools:context=".ui.login.FirstSyncFragment">
+        tools:context=".ui.sync.SyncAccountFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
@@ -34,25 +34,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:textColor="@color/grey_5"
-            android:layout_marginBottom="164dp"
+            android:layout_marginBottom="132dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/account_creation_in_progress_message"
             android:textAlignment="center"
+            android:textColor="@color/grey_5"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/continueButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="96dp"
-            android:text="@string/account_creation_in_progress_title"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/account_syncing_in_progress_title"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:fontFamily="sans-serif-black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

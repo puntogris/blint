@@ -32,7 +32,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         launchAndRepeatWithViewLifecycle {
             if (args.client != null){
                 args.client?.let {
-                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt)
+                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt.toMoneyFormatted())
                     when(val debts = viewModel.getLastDebts(it.clientId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -43,7 +43,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                 }
             }else {
                 args.supplier?.let {
-                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt)
+                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt.toMoneyFormatted())
                     when(val debts = viewModel.getLastDebts(it.supplierId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}

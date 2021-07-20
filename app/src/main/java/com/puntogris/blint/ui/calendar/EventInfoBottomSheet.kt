@@ -41,8 +41,8 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
 
     fun onDeleteEventButtonClicked(){
         InfoSheet().build(requireContext()) {
-            title(getString(R.string.ask_delete_event_title))
-            content(getString(R.string.delete_event_warning))
+            title(this@EventInfoBottomSheet.getString(R.string.ask_delete_event_title))
+            content(this@EventInfoBottomSheet.getString(R.string.delete_event_warning))
             onNegative(this@EventInfoBottomSheet.getString(R.string.action_cancel))
             onPositive(this@EventInfoBottomSheet.getString(R.string.action_yes)) { onDeleteEventConfirmed() }
         }.show(parentFragmentManager, "")

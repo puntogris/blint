@@ -69,9 +69,8 @@ class MainRepository @Inject constructor(
                 .addSnapshotListener { value, error ->
                     if (value != null){
                         val businesses = value.toObjects(Employee::class.java)
-                        if (!businesses.isNullOrEmpty()){
-                            trySend(RepoResult.Success(businesses))
-                        }
+                        businesses.removeIf { it.businessStatus == "DELETED" }
+                        trySend(RepoResult.Success(businesses))
                     }else{
                         if (error != null) trySend(RepoResult.Error(error))
                     }
@@ -82,11 +81,8 @@ class MainRepository @Inject constructor(
     override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
         try {
             val roomEmployees = getBusinessListRoom()
-            if (roomEmployees.toSet() == employee.toSet()){
-                AccountStatus.Synced
-            }else{
-                AccountStatus.OutOfSync(employee)
-            }
+            if (roomEmployees.toSet() == employee.toSet()) AccountStatus.Synced
+            else AccountStatus.OutOfSync(employee)
         }catch (e:Exception){
             AccountStatus.Error
         }

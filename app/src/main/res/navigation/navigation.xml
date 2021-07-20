@@ -124,7 +124,6 @@
         <action
             android:id="@+id/action_productFragment_to_supplierFragment"
             app:destination="@id/supplierFragment" />
-
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -338,7 +337,7 @@
         android:label="" >
         <action
             android:id="@+id/action_welcomeFragment_to_firstSyncFragment"
-            app:destination="@id/firstSyncFragment" />
+            app:destination="@id/syncAccountFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_introFragment"
             app:destination="@id/introFragment" />
@@ -356,15 +355,15 @@
         android:name="com.puntogris.blint.ui.login.IntroFragment"
         android:label="" >
         <action
-            android:id="@+id/action_introFragment_to_firstSyncFragment"
-            app:destination="@id/firstSyncFragment" />
+            android:id="@+id/action_introFragment_to_syncAccountFragment"
+            app:destination="@id/syncAccountFragment" />
         <action
             android:id="@+id/action_introFragment_to_webPageFragment"
             app:destination="@id/webPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/firstSyncFragment"
-        android:name="com.puntogris.blint.ui.login.FirstSyncFragment"
+        android:id="@+id/syncAccountFragment"
+        android:name="com.puntogris.blint.ui.sync.SyncAccountFragment"
         android:label="" >
         <argument
             android:name="userData"

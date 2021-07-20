@@ -123,7 +123,9 @@
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Queres eliminar este negocio?</string>
     <string name="delete_business_warning_dialog">Zona de peligro! Tene en cuenta que esta acción pondra a tu negocio desactivado por 15 días y luego será eliminado definitivamente.</string>
+    <string name="delete_local_business_warning_dialog">Zona de peligro! Tene en cuenta que esta eliminara tu negocio y es irreversible.</string>
     <string name="delete_business_warning">*Para su seguridad al eliminar el negocio, primero vamos a poner a su negocio en una fase de desactivacion de 15 días en el caso de que cambie de idea. En ese estado, nadie podra operar en el mismo. Luego de los 15 días se eliminara completamente y esta acción es irreversible.</string>
+    <string name="delete_local_business_warning">*La eliminacion de un negocio local ocurre en el momento y es irreversible, al contrario de los negocios online donde tenes una ventana de 15 días para revertir esta acción.</string>
     <string name="snack_business_name_does_not_match">El nombre no coincide con el del negocio.</string>
     <string name="safety_ask_data">Por seguridad le pediremos unos datos.</string>
 
@@ -147,9 +149,10 @@
     <string name="coming_soon">Proximamente</string>
     <string name="snack_delete_business_error">Ocurrio un error al eliminar el negocio.</string>
     <string name="snack_delete_business_success">Se elimino el negocio correctamente</string>
-    <string name="account_sync_success">Cuenta creada correctamente.</string>
+    <string name="account_sync_success">Cuenta sincronizada correctamente.</string>
     <string name="account_adventure_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
     <string name="snack_created_business_success">Necogio creado satisfactoriamente.</string>
+    <string name="cancel_business_deletion">Cancelar eliminacion</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>
@@ -188,7 +191,7 @@
     <string name="snack_terms_and_conditions_are_necessary">Es necesario que aceptes los terminos y condiciones.</string>
     <string name="snack_name_can_not_be_empty">El nombre no puede estar vacio ni ser menor de 3 caracteres.</string>
     <string name="snack_country_can_not_be_empty">Necesitas seleccionar el país de residencia.</string>
-    <string name="account_creation_in_progress_title">Generando cuenta..</string>
+    <string name="account_syncing_in_progress_title">Sincronizando cuenta..</string>
     <string name="account_creation_in_progress_message">Estamos terminando de preparar tu cuenta</string>
     <string name="snack_login_warning">Debido a multiples intentos de ingreso consecutivos, se deshabilito el ingreso a la app momentaneamente.</string>
     <string name="snack_network_problems">Se encontro un problema con la conexion. Revisa tu red y intenta nuevamente.</string>
@@ -389,7 +392,7 @@
     <string name="new_client">Nuevo cliente</string>
     <string name="new_product">Nuevo producto</string>
     <string name="action_edit">Editar</string>
-    <string name="new_record">Nuevo movimiento</string>
+    <string name="new_order">Nueva orden</string>
     <string name="search_with_dots">Buscar…</string>
     <string name="search">Buscar</string>
 
@@ -468,8 +471,8 @@
 
     <!-- Binding -->
     <string name="order_number">Orden %1$d</string>
-    <string name="amount_debt_positive">+%1$f $</string>
-    <string name="amount_debt_normal">%1$f $</string>
+    <string name="amount_debt_positive">+%1$s $</string>
+    <string name="amount_debt_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
     <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>
@@ -483,6 +486,7 @@
     <string name="syncing_businesses">Sincronizando negocios</string>
     <string name="sync_cancel_warning">Cerrar esta ventana cancelara la sincronizacion.</string>
     <string name="snack_sync_account_cancelled">Sincronizacion cancelada</string>
+    <string name="out_of_sync_label">Sincronizacion</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

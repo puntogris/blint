@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.main
 
 import android.Manifest
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -112,7 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 R.id.loginFragment,
                 R.id.welcomeFragment,
                 R.id.introFragment,
-                R.id.firstSyncFragment,
+                R.id.syncAccountFragment,
                 R.id.newUserFragment,
                 R.id.outOfSyncFragment
             )

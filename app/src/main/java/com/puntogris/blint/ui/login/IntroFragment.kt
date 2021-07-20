@@ -39,7 +39,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         }else if(username.isBlank() || username.length < 3){
             showShortSnackBar(getString(R.string.snack_name_can_not_be_empty))
         }else{
-            val action = IntroFragmentDirections.actionIntroFragmentToFirstSyncFragment(UserData(username, country))
+            val action = IntroFragmentDirections.actionIntroFragmentToSyncAccountFragment(UserData(username, country))
             findNavController().navigate(action)
         }
     }

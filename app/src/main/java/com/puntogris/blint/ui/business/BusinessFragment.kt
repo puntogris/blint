@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
+import com.puntogris.blint.databinding.DeletingAlertViewBinding
 import com.puntogris.blint.databinding.FragmentBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
@@ -41,6 +42,10 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
             binding.textView103.gone()
             binding.cardView2.gone()
         }
+
+        if(args.employee.businessStatus == "ON_DELETE"){
+            binding.deletingAlertStub.viewStub?.inflate()
+        }
     }
 
     private fun onDataNotFound(){
@@ -67,6 +72,11 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 menu.findItem(R.id.businessFragmentMenu).isVisible = true
                 if(args.employee.businessType == LOCAL) {
                     menu.findItem(R.id.newEmployee).isVisible = false
+                }
+                if(args.employee.businessStatus == "ON_DELETE") {
+                    menu.findItem(R.id.newEmployee).isVisible = false
+                    menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
+                    menu.findItem(R.id.deleteBusiness).isVisible = false
                 }
             }
         }

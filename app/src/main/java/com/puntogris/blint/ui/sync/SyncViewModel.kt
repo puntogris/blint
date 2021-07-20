@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.login
+package com.puntogris.blint.ui.sync
 
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repo.UserRepository

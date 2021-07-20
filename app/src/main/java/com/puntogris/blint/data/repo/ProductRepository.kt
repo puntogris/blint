@@ -262,7 +262,7 @@ class ProductRepository @Inject constructor(
                     name = category.name,
                     search_name = searchList.distinct()
                 )
-                categoryRef.set(final)
+                categoryRef.set(final).await()
             }
             else {
                 category.apply {

@@ -131,6 +131,7 @@ class UserRepository @Inject constructor(
             val userBusinesses =
                 firestore.collectionGroup("employees")
                     .whereEqualTo("employeeId", getCurrentUID())
+                    .whereNotEqualTo("businessStatus", "DELETED")
                     .get().await()
 
             if(userData != null){
@@ -171,6 +172,7 @@ class UserRepository @Inject constructor(
                 SyncAccount.Success.HasBusiness
             }
         }catch (e:Exception){
+            println(e.localizedMessage)
             SyncAccount.Error(e)
         }
     }

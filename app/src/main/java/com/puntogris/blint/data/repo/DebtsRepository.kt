@@ -43,9 +43,10 @@ class DebtsRepository @Inject constructor(
             val data =
                 if (user.currentBusinessIsOnline()){
                     firestoreQueries.getDebtCollectionQuery(user)
-                    .whereEqualTo("traderId", traderId)
-                    .limit(5)
-                    .get().await().toObjects(Debt::class.java)
+                        .whereEqualTo("traderId", traderId)
+                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .limit(5)
+                        .get().await().toObjects(Debt::class.java)
             }else{
                 debtsDao.getDebtsWithId(traderId)
             }

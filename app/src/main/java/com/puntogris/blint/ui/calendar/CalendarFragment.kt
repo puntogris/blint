@@ -25,7 +25,9 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     private lateinit var calendarEventsAdapter:CalendarEventsAdapter
 
     override fun initializeViews() {
-        setUpUi(showFab = true)
+        setUpUi(showFab = true){
+            findNavController().navigate(R.id.createEventFragment)
+        }
 
         calendarEventsAdapter = CalendarEventsAdapter { onEventClicked(it) }
         binding.recyclerView.adapter = calendarEventsAdapter

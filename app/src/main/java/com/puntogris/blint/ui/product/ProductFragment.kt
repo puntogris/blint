@@ -97,7 +97,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 }.show(parentFragmentManager, "")
                 true
             }
-            R.id.createRecord -> {
+            R.id.createOrder -> {
                 showOrderPickerAndNavigate(args.product?.product)
                 true
             }
@@ -129,7 +129,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.moreOptions).isVisible = true
-        menu.findItem(R.id.createRecord).isVisible = true
+        menu.findItem(R.id.createOrder).isVisible = true
     }
 
     override fun onDestroyView() {

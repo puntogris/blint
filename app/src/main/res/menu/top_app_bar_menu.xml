@@ -13,8 +13,8 @@
                 android:title="@string/action_edit" />
             <item
                 android:visible="false"
-                android:id="@+id/createRecord"
-                android:title="@string/new_record" />
+                android:id="@+id/createOrder"
+                android:title="@string/new_order" />
             <item android:id="@+id/debtStatus"
                 android:visible="false"
                 android:title="@string/debts_label" />
@@ -104,6 +104,9 @@
                 android:title="@string/add_employee" />
             <item android:id="@+id/deleteBusiness"
                 android:title="@string/delete_business" />
+            <item android:id="@+id/cancelDeletionBusiness"
+                android:visible="false"
+                android:title="@string/cancel_business_deletion" />
         </menu>
     </item>
 

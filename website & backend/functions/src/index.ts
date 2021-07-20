@@ -119,28 +119,16 @@ export const onBusinessStatusChanged = functions.firestore.document('users/{user
     const businessId = context.params.businessId
     const userId = context.params.userId
     const status = snap.after.get("status")
-    const deletionTimestamp = snap.after.get("deletionTimestamp")
+    const statusTimestamp = snap.after.get("lastStatusTimestamp")
 
     return admin.firestore().runTransaction(async(t) => {
         let ref = admin.firestore().collection("users").doc(userId).collection("business").doc(businessId).collection("employees")
         let data = await t.get(ref)
-
         data.forEach(doc =>{
-           // let employeeRef = admin.firestore().collection("users").doc(userId).collection("business").doc(businessId).collection("employees").doc(doc.id)
-
-           if(status == 'ON_DELETE'){
             t.update(doc.ref,({
                 "businessStatus": status,
-                "deletionTimestamp": deletionTimestamp
+                "lastStatusTimestamp": statusTimestamp
             }))
-
-           }else{
-            t.update(doc.ref,({
-                "businessStatus": status
-            }))
-
-           }
         })
-
     })
 })

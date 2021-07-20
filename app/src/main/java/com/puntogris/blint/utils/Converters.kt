@@ -11,17 +11,15 @@ import kotlin.time.nanoseconds
 
 object Converters {
 
-    private val gson = Gson()
-
     @JvmStatic
     @TypeConverter
     fun toTimestamp(dateLong: Long?): Timestamp? {
-        return dateLong?.let { Timestamp(it, 0) }
+        return dateLong?.let { Timestamp(Date(dateLong)) }
     }
 
     @JvmStatic
     @TypeConverter
     fun fromTimestamp(date: Timestamp?): Long? {
-        return date?.seconds
+        return date?.toDate()?.time
     }
 }

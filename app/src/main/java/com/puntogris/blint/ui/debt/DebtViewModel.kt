@@ -28,7 +28,8 @@ class DebtViewModel @Inject constructor(
 
     suspend fun getLastDebts(traderId: String) = debtsRepository.getLastTraderDebts(traderId)
 
-    suspend fun getAllDebts() = debtsRepository.getBusinessDebtsPagingDataFlow().cachedIn(viewModelScope)
+    suspend fun getAllDebts() =
+        debtsRepository.getBusinessDebtsPagingDataFlow().cachedIn(viewModelScope)
 
     suspend fun getAllClients() = debtsRepository.getClientPagingDataFlow()
         .map{ pagingData -> pagingData.map { SimpleDebt(it.name, it.debt, it.clientId) } }

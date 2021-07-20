@@ -21,6 +21,7 @@ import com.puntogris.blint.utils.Constants.NEW_BUSINESS
 import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
 import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
+import java.time.ZoneId
 import java.util.*
 
 @BindingAdapter("imageFullSize")
@@ -130,6 +131,16 @@ fun TextView.setDateFromTimestamp(timestamp: Timestamp?){
     }
 }
 
+@BindingAdapter("deletionTimestamp")
+fun TextView.setDeletionTimestamp(timestamp: Timestamp?){
+    timestamp?.let{
+        val calendar = Calendar.getInstance()
+        calendar.time = it.toDate()
+        calendar.add(Calendar.DAY_OF_YEAR, 15)
+        text = calendar.time.getDateFormattedString()
+    }
+}
+
 @BindingAdapter("recordType")
 fun View.setRecordType(type:String){
     if (type == IN || type == "INITIAL"){
@@ -183,10 +194,10 @@ fun TextView.setOrderNumberTitle(number: Int){
 @BindingAdapter("debtColor")
 fun TextView.setDebtColor(amount: Float){
     if (amount >= 0){
-        text = context.getString(R.string.amount_debt_positive, amount)
+        text = context.getString(R.string.amount_debt_positive, amount.toMoneyFormatted())
         setTextColor(ContextCompat.getColor(context, R.color.card6))
     }else{
-        text = context.getString(R.string.amount_debt_normal, amount)
+        text = context.getString(R.string.amount_debt_normal, amount.toMoneyFormatted())
         setTextColor(ContextCompat.getColor(context, R.color.card1))
     }
 }

@@ -127,7 +127,9 @@
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Do yo want to delete this business?</string>
     <string name="delete_business_warning_dialog">Danger zone! Be aware this action will disable your business for 15 days and then it will be deleted permanently.</string>
+    <string name="delete_local_business_warning_dialog">Danger zone! Keep in mind that this will eliminate your business and is irreversible.</string>
     <string name="delete_business_warning">*For your safety when deleting a business, first we will disable your business for 15 days in case you change your mind, in this period no one can operate in the business. After the 15 days are completed, it will be automatically deleted and this action is irreversible.</string>
+    <string name="delete_local_business_warning">*The elimination of a local business occurs at the moment and is irreversible, unlike online businesses where you have a 15-day window to reverse this action.</string>
     <string name="snack_business_name_does_not_match">Your input does not match with name of the business</string>
     <string name="safety_ask_data">We will ask you some information for your safety</string>
 
@@ -151,9 +153,10 @@
     <string name="coming_soon">Coming soon</string>
     <string name="snack_delete_business_error">An error occurred deleting this business.</string>
     <string name="snack_delete_business_success">Business deleted successfully.</string>
-    <string name="account_sync_success">Account created/ synced successfully.</string>
+    <string name="account_sync_success">Account synced successfully.</string>
     <string name="account_adventure_message">Your account is ready to go on a new adventure!</string>
     <string name="snack_created_business_success">Business created successfully.</string>
+    <string name="cancel_business_deletion">Cancel elimination</string>
 
     <!-- Category-->
     <string name="rename_category">Rename category</string>
@@ -192,7 +195,7 @@
     <string name="snack_terms_and_conditions_are_necessary">You need to accept the terms and conditions.</string>
     <string name="snack_name_can_not_be_empty">The name can not be empty or have less that 3 characters</string>
     <string name="snack_country_can_not_be_empty">You need to select your country of residence.</string>
-    <string name="account_creation_in_progress_title">Generating account..</string>
+    <string name="account_syncing_in_progress_title">Syncing account..</string>
     <string name="account_creation_in_progress_message">We are preparing your account</string>
     <string name="snack_login_warning">Due to multiple consecutive login attempts, login to the app was temporarily disabled.</string>
     <string name="snack_network_problems">Found a problem with the connection. Check your network and try again.</string>
@@ -393,7 +396,7 @@
     <string name="new_client">New client</string>
     <string name="new_product">New product</string>
     <string name="action_edit">Edit</string>
-    <string name="new_record">New record</string>
+    <string name="new_order">New order</string>
     <string name="search_with_dots">Search…</string>
     <string name="search">Search</string>
 
@@ -472,8 +475,8 @@
 
     <!-- Binding -->
     <string name="order_number">Order %1$d</string>
-    <string name="amount_debt_positive">+%1$f $</string>
-    <string name="amount_debt_normal">%1$f $</string>
+    <string name="amount_debt_positive">+%1$s $</string>
+    <string name="amount_debt_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Client %1$s added to the order.</string>
     <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
@@ -487,6 +490,7 @@
     <string name="syncing_businesses">Syncing businesses</string>
     <string name="sync_cancel_warning">Closing this window will cancel the syncing.</string>
     <string name="snack_sync_account_cancelled">Sync cancelled</string>
+    <string name="out_of_sync_label">Sync</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">
@@ -521,7 +525,4 @@
         <item>2</item>
         <item>-1</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="out_of_sync_label">Sincronizacion</string>
 </resources>

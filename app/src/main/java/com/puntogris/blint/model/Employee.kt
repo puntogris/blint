@@ -47,4 +47,8 @@ data class Employee(
 
         @ColumnInfo
         val businessStatus: String = "",
+
+        @ColumnInfo
+        val lastStatusTimestamp: Timestamp = Timestamp.now()
+
 ):Parcelable

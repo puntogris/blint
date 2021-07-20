@@ -20,20 +20,16 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
 
     override fun initializeViews() {
         binding.fragment = this
-
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
-                lifecycleScope.launch {
-                    when(viewModel.createEvent(
-                        title = binding.eventTitleText.getString(),
-                        message = binding.eventMessageText.getString())){
-                        SimpleResult.Failure ->
-                            showLongSnackBarAboveFab(context.getString(R.string.snack_create_event_error))
-                        SimpleResult.Success -> {
-                            showLongSnackBarAboveFab(context.getString(R.string.snack_create_event_success))
-                            findNavController().navigateUp()
-                        }
+        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+            lifecycleScope.launch {
+                when(viewModel.createEvent(
+                    title = binding.eventTitleText.getString(),
+                    message = binding.eventMessageText.getString())){
+                    SimpleResult.Failure ->
+                        showLongSnackBarAboveFab(getString(R.string.snack_create_event_error))
+                    SimpleResult.Success -> {
+                        showLongSnackBarAboveFab(getString(R.string.snack_create_event_success))
+                        findNavController().navigateUp()
                     }
                 }
             }
