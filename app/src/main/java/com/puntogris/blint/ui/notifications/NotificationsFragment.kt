@@ -32,18 +32,22 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
         lifecycleScope.launchWhenCreated {
             viewModel.notificationsFetchResult.collect {
                 when(it){
-                    is NotificationsState.Success ->
+                    is NotificationsState.Success -> {
                         adapter.updateList(it.result)
-                    is NotificationsState.Error ->
+                        binding.progressBar2.gone()
+                    }
+                    is NotificationsState.Error -> {
+                        binding.progressBar2.gone()
                         showLongSnackBarAboveFab(getString(R.string.snack_error_connection_server_try_later))
+                    }
                     NotificationsState.Working.LoadFirstBatch ->
                         viewModel.getFirstBatchNotifications()
                     NotificationsState.Working.LoadMore ->
                         viewModel.getMoreNotifications()
                     NotificationsState.CollectionEmpty -> {
+                        binding.progressBar2.gone()
                         if (adapter.isListEmpty()) {
-                            binding.notificationsMessage.visible()
-                            binding.notificationsImage.visible()
+                            binding.noNotificationsStub.viewStub?.inflate()
                         }
                     }
                     is NotificationsState.OnDelete ->

@@ -12,6 +12,7 @@ import com.puntogris.blint.databinding.FragmentBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.LOCAL
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -68,7 +69,8 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
 
     override fun setUpMenuOptions(menu: Menu) {
         launchAndRepeatWithViewLifecycle {
-            if (viewModel.hasUserOwnerPermissions(args.employee.employeeId)){
+            val userData = viewModel.hasUserOwnerPermissions(args.employee.businessId)
+            if (userData.role == ADMINISTRATOR){
                 menu.findItem(R.id.businessFragmentMenu).isVisible = true
                 if(args.employee.businessType == LOCAL) {
                     menu.findItem(R.id.newEmployee).isVisible = false

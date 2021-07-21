@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/notificationsImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/notifications_icon"
+        android:scaleType="fitEnd"
+        android:layout_marginBottom="?actionBarSize"
+        app:srcCompat="@drawable/ic_scene_plants" />
+
+    <TextView
+        android:id="@+id/notificationsMessage"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/primaryColor"
+        android:text="@string/no_notifications_found"
+        android:textSize="20sp"/>
+</FrameLayout>

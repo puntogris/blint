@@ -120,8 +120,8 @@
         <menu >
             <item android:id="@+id/deleteEmployee"
                 android:title="@string/delete_employee" />
-            <item android:id="@+id/changeEmployeeRole"
-                android:title="@string/change_role" />
+<!--            <item android:id="@+id/changeEmployeeRole"-->
+<!--                android:title="@string/change_role" />-->
         </menu>
     </item>
 

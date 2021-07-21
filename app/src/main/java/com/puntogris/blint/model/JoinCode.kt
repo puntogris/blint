@@ -5,7 +5,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 class JoinCode(
-    val id: String = "",
+    val codeId: String = "",
     val timestamp: Timestamp = Timestamp.now(),
     val businessId: String = "",
     val ownerId: String = ""

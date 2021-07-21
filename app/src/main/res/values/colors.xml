@@ -10,14 +10,7 @@
 
     <color name="primaryColor">#EBB0A5</color>
     <color name="orange">#E1973D</color>
-    <color name="colorSecondary">#2571DF</color>
-<!--    <color name="colorSecondary">#4340C1</color>-->
-
-             <!-- colores logo -->
-<!--    <color name="azul">#3382F5</color>-->
-<!--    <color name="rojo">#F53163</color>-->
-<!--    <color name="amarillo">#FAB32A</color>-->
-
+    <color name="colorSecondary">#8280FC</color>
 
     <color name="nightBackground">#121212</color>
 

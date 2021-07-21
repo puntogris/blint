@@ -47,6 +47,7 @@ class LoginRepository @Inject constructor(
         employeeDao.deleteAll()
         auth.signOut()
         sharedPref.setShowNewUserScreenPref(true)
+        sharedPref.setLoginCompletedPref(false)
     }
 
 

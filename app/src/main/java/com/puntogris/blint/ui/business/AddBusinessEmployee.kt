@@ -4,13 +4,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAddBusinessEmployeeBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -36,9 +32,9 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
                     binding.loadedGroup.visible()
                     binding.loadingGroup.gone()
                     binding.addEmployeeSummary.visible()
-                    binding.joinBusinessCode.text = result.data.id
+                    binding.joinBusinessCode.text = result.data.codeId
                     binding.addEmployeeTitle.text = getString(R.string.code_generated)
-                    val bitmap = generateQRImage(result.data.id, 700, 700)
+                    val bitmap = generateQRImage(result.data.codeId, 700, 700)
                     binding.qrCodeImage.setImageBitmap(bitmap)
                     viewModel.codeExpirationCountDown(result.data.timestamp)
                 }
@@ -50,7 +46,7 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
         val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip: ClipData = ClipData.newPlainText("simple text", binding.joinBusinessCode.text)
         clipboard.setPrimaryClip(clip)
-        showLongSnackBarAboveFab(getString(R.string.copied_to_clipboard))
+        showSnackBarVisibilityAppBar(getString(R.string.copied_to_clipboard))
     }
 
     fun onShareCodeClicked(){

@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.main
 
+import android.content.Context
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -40,9 +41,15 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
 
+    override fun onAttach(context: Context) {
+        (context as MainFabListener).addListener(showFab = false)
+        super.onAttach(context)
+    }
+
     @ExperimentalTime
     override fun initializeViews() {
-        setUpUi(showFab = false)
+        //setUpUi(showFab = false)
+      //  (requireActivity() as MainFabListener).addListener(showFab = false)
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

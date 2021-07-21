@@ -13,6 +13,7 @@ import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
+import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
@@ -65,18 +66,21 @@ class UserRepository @Inject constructor(
 
    override suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode> = withContext(Dispatchers.IO){
         try {
-            val lastBusinessCode =
+            val codeRef =
                 firestore
-                .collection("joining_businesses_codes")
-                .whereEqualTo("businessId", businessId)
-                .whereEqualTo("ownerId", getCurrentUID())
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .collection(USERS_COLLECTION)
+                    .document(getCurrentUID())
+                    .collection("business")
+                    .document(businessId)
+                    .collection("join_codes")
+
+            val lastBusinessCode = codeRef.orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(1)
                 .get().await()
 
             if (lastBusinessCode.isEmpty || isTimeStampExpired(lastBusinessCode.first().getTimestamp("timestamp")!!)){
-                val newBusinessCode = firestore.collection("joining_businesses_codes").document()
-                val newJoinCode = JoinCode(newBusinessCode.id,timestamp = Timestamp.now(), businessId, getCurrentUID())
+                val newBusinessCode = codeRef.document()
+                val newJoinCode = JoinCode(newBusinessCode.id, timestamp = Timestamp.now(), businessId, getCurrentUID())
                 newBusinessCode.set(newJoinCode).await()
                 RepoResult.Success(newJoinCode)
             }else{
@@ -88,42 +92,72 @@ class UserRepository @Inject constructor(
 
     override suspend fun createEmployeeWithCode(code:String): JoinBusiness = withContext(Dispatchers.IO){
         try {
-            val joinCode = firestore.collection("joining_businesses_codes").document(code).get().await()
+            val joinCodes = firestore
+                .collectionGroup("join_codes")
+                .whereEqualTo("codeId", code)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(1)
+                .get().await()
 
-            if (!joinCode.exists() || isTimeStampExpired(joinCode.getTimestamp("timestamp")!!)){
+            if (joinCodes.isEmpty){
                 JoinBusiness.CodeInvalid
-            }else if (joinCode.get("ownerId").toString() == getCurrentUID()){
-                JoinBusiness.AlreadyJoined
             }else{
-                val employee = Employee(
-                    employeeId = getCurrentUID(),
-                    businessId = joinCode.get("businessId").toString(),
-                    businessName = joinCode.get("businessName").toString(),
-                    email = getCurrentUser()?.email.toString(),
-                    employeeCreatedAt = Timestamp.now(),
-                    businessOwner = joinCode.get("ownerId").toString(),
-                    businessType = "ONLINE",
-                    role = "EMPLOYEE",
-                    name = usersDao.getUser().username,
-                    businessCreatedAt = Timestamp.now()
-                )
+                val joinCode = joinCodes.first().toObject(JoinCode::class.java)
+                val businesses = employeeDao.getEmployeesList().map { it.businessId }
+                if (joinCode.ownerId == getCurrentUID() || joinCode.businessId in businesses){
+                    JoinBusiness.AlreadyJoined
+                }else if(isTimeStampExpired(joinCode.timestamp)){
+                    JoinBusiness.CodeInvalid
+                }else{
+                    val username = usersDao.getUser().username
+                    val employee = firestore.runTransaction {
+                        val businessRef = firestore.collection(USERS_COLLECTION)
+                            .document(joinCode.ownerId)
+                            .collection(BUSINESS_COLLECTION)
+                            .document(joinCode.businessId)
 
-                firestore
-                    .collection(USERS_COLLECTION)
-                    .document(joinCode.get("ownerId").toString())
-                    .collection("business")
-                    .document(joinCode.get("businessId").toString())
-                    .collection("employees")
-                    .document()
-                    .set(employee)
-                    .await()
-                employeeDao.insert(employee)
-                JoinBusiness.Success
+                        val business = it.get(businessRef).toObject(Business::class.java)
+
+                        if (business != null){
+                            val employee = Employee(
+                                employeeId = getCurrentUID(),
+                                businessId = business.businessId,
+                                businessName = business.businessName,
+                                email = getCurrentUser()?.email.toString(),
+                                employeeCreatedAt = Timestamp.now(),
+                                businessOwner = business.owner,
+                                businessType = business.type,
+                                role = "EMPLOYEE",
+                                name = username,
+                                businessCreatedAt = business.businessCreatedAt,
+                                businessStatus = business.status
+                            )
+
+                            val employeeRef =
+                                firestore
+                                    .collection(USERS_COLLECTION)
+                                    .document(joinCode.ownerId)
+                                    .collection(BUSINESS_COLLECTION)
+                                    .document(joinCode.businessId)
+                                    .collection("employees")
+                                    .document(employee.employeeId)
+
+                            it.set(employeeRef, employee)
+                            employee
+                        }else null
+                    }.await()
+
+                    if (employee == null){
+                        JoinBusiness.Error
+                    }else{
+                        sharedPref.setShowNewUserScreenPref(false)
+                        employeeDao.insert(employee)
+                        usersDao.updateCurrentBusiness(employee.businessId,employee.businessName,employee.businessType,employee.businessOwner, employee.employeeId,employee.businessStatus)
+                        JoinBusiness.Success
+                    }
+                }
             }
-
-        }catch (e:Exception){
-            JoinBusiness.Error
-        }
+        }catch (e:Exception){ JoinBusiness.Error }
     }
 
     override suspend fun syncAccountFromDatabase(userData: UserData?): SyncAccount = withContext(Dispatchers.IO){
@@ -145,7 +179,9 @@ class UserRepository @Inject constructor(
                     ).await()
             }
             if(userBusinesses.isEmpty){
+                employeeDao.deleteAll()
                 sharedPref.setShowNewUserScreenPref(true)
+                sharedPref.setLoginCompletedPref(true)
                 SyncAccount.Success.BusinessNotFound
             }else{
                 val businesses = userBusinesses.toObjects(Employee::class.java)
@@ -172,7 +208,6 @@ class UserRepository @Inject constructor(
                 SyncAccount.Success.HasBusiness
             }
         }catch (e:Exception){
-            println(e.localizedMessage)
             SyncAccount.Error(e)
         }
     }

@@ -40,7 +40,7 @@ interface EmployeeDao {
     @Query("SELECT COUNT(*) FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getCount(): Int
 
-    @Query("SELECT role FROM employee INNER JOIN roomuser ON employeeId = currentUid WHERE userId = '1' AND employeeId = :employeeId")
-    suspend fun getBusinessUserRole(employeeId: String):String
+    @Query("SELECT * FROM employee WHERE businessId = :businessId LIMIT 1")
+    suspend fun getBusinessUserRole(businessId: String): Employee
 
 }

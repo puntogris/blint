@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="colorSurface">#121212</item>
-        <item name="android:statusBarColor">@color/purple_200</item>
+        <item name="android:statusBarColor">@color/nightBackground</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>

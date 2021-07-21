@@ -25,7 +25,7 @@ sealed class StringValidator{
 
 sealed class AccountStatus(){
     class OutOfSync(val affectedBusinesses: List<Employee>): AccountStatus()
-    object Synced: AccountStatus()
+    class Synced(val hasBusiness: Boolean): AccountStatus()
     object Error:AccountStatus()
 }
 

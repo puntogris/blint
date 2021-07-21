@@ -39,6 +39,7 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBottomNavDrawerBinding
 import com.puntogris.blint.model.BusinessItem
+import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,35 +51,18 @@ import kotlin.math.abs
 
 @AndroidEntryPoint
 class BottomNavDrawerFragment :
-    Fragment(),
+    BaseFragment<FragmentBottomNavDrawerBinding>(R.layout.fragment_bottom_nav_drawer),
     NavigationAdapter.NavigationAdapterListener,
     AccountAdapter.AccountAdapterListener {
 
-    /**
-     * Enumeration of states in which the account picker can be in.
-     */
     enum class SandwichState {
-
-        /**
-         * The account picker is not visible. The navigation drawer is in its default state.
-         */
         CLOSED,
-
-        /**
-         * the account picker is visible and open.
-         */
         OPEN,
-
-        /**
-         * The account picker sandwiching animation is running. The account picker is neither open
-         * nor closed.
-         */
         SETTLING
     }
 
     @ExperimentalCoroutinesApi
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var binding: FragmentBottomNavDrawerBinding
 
     private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) {
         from(binding.backgroundContainer)
@@ -167,12 +151,7 @@ class BottomNavDrawerFragment :
         requireActivity().onBackPressedDispatcher.addCallback(this, closeDrawerOnBackPressed)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentBottomNavDrawerBinding.inflate(inflater, container, false)
+    override fun initializeViews() {
         binding.foregroundContainer.setOnApplyWindowInsetsListener { view, windowInsets ->
             // Record the window's top inset so it can be applied when the bottom sheet is slide up
             // to meet the top edge of the screen.
@@ -182,8 +161,8 @@ class BottomNavDrawerFragment :
             )
             windowInsets
         }
-        return binding.root
     }
+
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -245,7 +224,9 @@ class BottomNavDrawerFragment :
                             employee.businessName,
                             employee.businessType,
                             employee.businessOwner,
-                            R.drawable.ic_baseline_storefront_24, false)
+                            R.drawable.ic_baseline_storefront_24,
+                            false,
+                            businessStatus = employee.businessStatus)
 
                         if(tempBusiness.businessId == it.currentBusinessId){
                             tempBusiness.isCurrentAccount = true

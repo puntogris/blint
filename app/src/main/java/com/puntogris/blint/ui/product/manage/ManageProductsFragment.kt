@@ -1,10 +1,10 @@
 package com.puntogris.blint.ui.product.manage
 
 import android.Manifest
+import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,8 +14,7 @@ import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
-import com.puntogris.blint.ui.nav.ShowHideFabStateAction
+import com.puntogris.blint.ui.main.MainFabListener
 import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,22 +23,26 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
-
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var manageProductsAdapter : ManageProductsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
+    override fun onAttach(context: Context) {
+        (context as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
+            findNavController().navigate(R.id.editProductFragment)
+        }
+        super.onAttach(context)
+    }
+
     override fun initializeViews() {
+//
+//        (requireActivity() as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
+//            findNavController().navigate(R.id.editProductFragment)
+//        }
+
         binding.productSearch.clearFocus()
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.fragment = this
-
-        setUpUi(showToolbar = false, showAppBar = true, showFab = true){
-            findNavController().navigate(R.id.editProductFragment)
-        }
-
-        requireActivity().findViewById<FragmentContainerView>(R.id.bottom_nav_drawer).getFragment<BottomNavDrawerFragment>()
-            ?.addOnStateChangedAction(ShowHideFabStateAction(getParentFab(), true))
 
         manageProductsAdapter = ManageProductsAdapter({onProductShortClickListener(it)},{onProductLongClickListener(it)})
 

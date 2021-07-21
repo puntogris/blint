@@ -8,31 +8,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.notifications.NotificationsFragment">
 
-        <ImageView
-            android:id="@+id/notificationsImage"
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintBottom_toTopOf="@+id/notificationsMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.86"
-            app:srcCompat="@drawable/ic_outline_notifications_24"
-            android:contentDescription="@string/notifications_icon" />
-
-        <TextView
-            android:id="@+id/notificationsMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:text="@string/no_notifications_found"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ViewStub
+            android:id="@+id/noNotificationsStub"
+            android:inflatedId="@+id/noNotificationsStub"
+            android:layout="@layout/no_notifications_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notifications_rv"
@@ -40,8 +21,19 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

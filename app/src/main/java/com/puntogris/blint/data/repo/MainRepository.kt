@@ -52,6 +52,7 @@ class MainRepository @Inject constructor(
         owner: String,
         status: String
     ) {
+        println(status)
         usersDao.updateCurrentBusiness(id,name,type,owner, auth.currentUser?.uid.toString(), status)
     }
 
@@ -81,7 +82,9 @@ class MainRepository @Inject constructor(
     override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
         try {
             val roomEmployees = getBusinessListRoom()
-            if (roomEmployees.toSet() == employee.toSet()) AccountStatus.Synced
+            if (roomEmployees.toSet() == employee.toSet()) {
+                if (employee.isEmpty()) AccountStatus.Synced(false) else AccountStatus.Synced(true)
+            }
             else AccountStatus.OutOfSync(employee)
         }catch (e:Exception){
             AccountStatus.Error

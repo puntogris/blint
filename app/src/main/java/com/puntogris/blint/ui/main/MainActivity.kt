@@ -7,8 +7,10 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,9 +19,15 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
+import com.puntogris.blint.model.JoinCode
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
@@ -28,11 +36,46 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+interface MainFabListener{
+    fun addListener(showFab: Boolean = false,
+                    showAppBar: Boolean = true,
+                    showToolbar: Boolean = true,
+                    showFabCenter: Boolean = true,
+                    @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
+                    fabListener: View.OnClickListener? = null)
+}
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainFabListener {
+
+    override fun addListener(showFab: Boolean,
+                             showAppBar: Boolean,
+                             showToolbar: Boolean,
+                             showFabCenter: Boolean,
+                             @DrawableRes fabIcon: Int,
+                             fabListener: View.OnClickListener?) {
+       binding.toolbar.visibility = if (showToolbar) View.VISIBLE else View.GONE
+        if (showFab) {
+            binding.mainFab.apply {
+                show()
+                changeIconFromDrawable(fabIcon)
+                setOnClickListener(fabListener)
+            }
+            binding.bottomAppBar.fabAlignmentMode =
+                if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                else BottomAppBar.FAB_ALIGNMENT_MODE_END
+
+        } else binding.mainFab.hide()
+        changeFabStateBottomSheet(showFab)
+        if (showAppBar) {
+            binding.bottomAppBar.visible()
+            binding.bottomAppBar.performShow()
+        } else binding.bottomAppBar.gone()
+    }
+
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
@@ -64,13 +107,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
                         is RepoResult.Success -> {
-                            when(viewModel.getSyncStatus(it.data)){
+                            when(val result = viewModel.getSyncStatus(it.data)){
                                 AccountStatus.Error -> {}
                                 is AccountStatus.OutOfSync -> {
-                                    val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
-                                    navController.navigate(R.id.outOfSyncFragment, null, nav)
+                                    if(sharedPref.loginCompletedPref()){
+                                        val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
+                                        navController.navigate(R.id.outOfSyncFragment, null, nav)
+                                    }
                                 }
-                                AccountStatus.Synced -> {}
+                                is AccountStatus.Synced -> {
+                                    if(result.hasBusiness) {
+                                        if (sharedPref.showNewUserScreenPref()){
+                                            sharedPref.setShowNewUserScreenPref(false)
+                                            if (navController.currentDestination?.id == R.id.newUserFragment)
+                                                navController.navigate(R.id.mainFragment)
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -101,7 +154,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         }
                     } else R.id.loginFragment
             }
-
         binding.run {
             navController.addOnDestinationChangedListener(this@MainActivity)
         }
@@ -157,7 +209,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setUpBottomDrawer(){
         bottomNavDrawer.apply {
             addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
-                binding.bottomAppBar.replaceMenu(
+                this@MainActivity.binding.bottomAppBar.replaceMenu(
                     if (showSettings) R.menu.bottom_app_bar_settings_menu
                     else getBottomAppBarMenuForDestination()
                 )
@@ -192,7 +244,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
-
         if(destination.id == R.id.mainFragment){
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             binding.toolbar.setTitleTextColor(getColor(R.color.white))
@@ -249,4 +300,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             false
         }
     }
+
+
 }

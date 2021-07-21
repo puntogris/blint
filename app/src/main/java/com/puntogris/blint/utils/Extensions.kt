@@ -354,6 +354,22 @@ fun Fragment.setUpUi(showFab: Boolean = false,
     }
 }
 
+fun Fragment.setupFab(showFab: Boolean = false,
+                     @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
+                     fabListener: View.OnClickListener? = null
+){
+    (requireActivity() as MainActivity)
+        .findViewById<FloatingActionButton>(R.id.mainFab)
+        .apply {
+            if (showFab) {
+                show()
+                setImageDrawable(ContextCompat.getDrawable(context, fabIcon))
+                setOnClickListener(fabListener)
+            } else hide()
+        }
+}
+
+
 fun Activity.setToolbarAndStatusBarColor(color: Int){
     ContextCompat.getColor(this, color).apply {
         window.statusBarColor = this

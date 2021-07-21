@@ -153,6 +153,12 @@
     <string name="account_adventure_message">Tu cuenta esta lista para arrancar esta nueva aventura!</string>
     <string name="snack_created_business_success">Necogio creado satisfactoriamente.</string>
     <string name="cancel_business_deletion">Cancelar eliminacion</string>
+    <string name="delete_employee_title">Eliminar empleado</string>
+    <string name="delete_employee_warning">Zona de peligro! Estas a punto de eliminar un empleado, esta acción es irreversible!</string>
+    <string name="snack_delete_employee_success">Empleado eliminado correctamente</string>
+    <string name="snack_delete_employee_error">Ocurrio un error al eliminar el empleado</string>
+    <string name="joined_business_success_title">Te uniste al negocio</string>
+    <string name="joined_business_success_message">Ya sos parte de una nueva familia, te deseamos buena suerte en tu aventura.</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>
@@ -291,7 +297,7 @@
     <string name="tab_records">MOVIMIENTOS</string>
     <string name="tab_orders">ORDENES</string>
     <string name="retrieve_information_error">Error al retirar la informacion.</string>
-    <string name="no_notifications_found">No tienes notificaciones</string>
+    <string name="no_notifications_found">Ops, nada por aquí!</string>
     <string name="image_picker_folder_title">Imágenes</string>
     <string name="action_change">Cambiar</string>
     <string name="action_add_image">Agregar imagen</string>
