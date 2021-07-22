@@ -24,17 +24,10 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
             performHide()
         }
         val view = requireActivity().window.decorView
-        if (isDarkThemeOn()){
-            ContextCompat.getColor(requireContext(), R.color.nightBackground).apply {
-                requireActivity().window.statusBarColor = this
-            }
-            view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        }else{
-            ContextCompat.getColor(requireContext(), R.color.grey_3).apply {
-                requireActivity().window.statusBarColor = this
-            }
-            view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        ContextCompat.getColor(requireContext(), R.color.colorSecondary).apply {
+            requireActivity().window.statusBarColor = this
         }
+        view.systemUiVisibility = (view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
     }
 
     fun onLearnMoreClicked(){

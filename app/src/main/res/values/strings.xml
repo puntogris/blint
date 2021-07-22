@@ -123,6 +123,9 @@
     <string name="snack_send_suggestion_report_success">Report sent successfully, Thanks for your feedback!</string>
     <string name="snack_wait_for_operation">Please wait for the operation to complete.</string>
     <string name="snack_amount_cant_be_empty">The amount can not be empty or zero</string>
+    <string name="snack_text_empty">The text field can not be empty.</string>
+    <string name="snack_the_text_cant_contain_special_chars">The text field can not contain special characters.</string>
+    <string name="snack_text_min_max_length">The text field has to be at between 3 and 15 characters in length.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Do yo want to delete this business?</string>
@@ -148,7 +151,7 @@
     <string name="create">Create</string>
     <string name="join">Join</string>
     <string name="action_learn_about_blint">Learn more about blint</string>
-    <string name="new_user_message">You will need to be a part of a business to be able to operate in Blint.\n\nBut do not worry, it is as easy as riding a bike.</string>
+    <string name="new_user_message">You will need to be a part of a business to be able to operate in Blint.</string>
     <string name="new_user_title">Hello!\nYou must be new here.</string>
     <string name="coming_soon">Coming soon</string>
     <string name="snack_delete_business_error">An error occurred deleting this business.</string>
@@ -531,4 +534,12 @@
         <item>2</item>
         <item>-1</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="send_ticket_label">Enviar ticket</string>
+    <string name="action_close_keyboard">Cerrar teclado</string>
+    <string name="select_business_hint">Seleccionar negocio</string>
+    <string name="select_business_alert">*Nos contactaremos con usted a la brevedad.\nTambien puedes contactarnos en:\ncontact@blint.app</string>
+    <string name="snack_fill_all_data_ticket">Selecciona un negocio y dejanos tu mensaje.</string>
+    <string name="snack_ticket_sent_success">Ticket enviado correctamente, nos contactaremos via e-mail proximamente.</string>
 </resources>

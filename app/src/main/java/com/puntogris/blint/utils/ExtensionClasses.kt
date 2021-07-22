@@ -1,29 +1,31 @@
 package com.puntogris.blint.utils
 
+import androidx.annotation.StringRes
 import com.google.firebase.auth.FirebaseUser
+import com.puntogris.blint.R
 import com.puntogris.blint.model.*
 import java.lang.Exception
 
 sealed class StringValidator{
     class Valid(val value: String): StringValidator()
-    class NotValid(val error: String): StringValidator()
+    class NotValid(@StringRes val error: Int): StringValidator()
 
     companion object{
-        fun from(text: String, validLength: Int = 3, allowSpecialChars: Boolean = false): StringValidator{
+        fun from(text: String, minLength: Int = 3, maxLength:Int = 15, allowSpecialChars: Boolean = false): StringValidator{
             return when{
                 text.isBlank() ->
-                    NotValid("El nombre no puede estar vacio.")
+                    NotValid(R.string.snack_text_empty)
                 !allowSpecialChars && text.containsInvalidCharacters() ->
-                    NotValid("El nombre no puede contener caracteres especiales.")
-                text.isLengthInvalid(validLength) ->
-                    NotValid("El nombre tiene que tener al menos 3 letras.")
+                    NotValid(R.string.snack_the_text_cant_contain_special_chars)
+                text.length !in (minLength..maxLength) ->
+                    NotValid(R.string.snack_text_min_max_length)
                 else -> Valid(text)
             }
         }
     }
 }
 
-sealed class AccountStatus(){
+sealed class AccountStatus{
     class OutOfSync(val affectedBusinesses: List<Employee>): AccountStatus()
     class Synced(val hasBusiness: Boolean): AccountStatus()
     object Error:AccountStatus()

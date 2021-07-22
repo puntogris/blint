@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -12,12 +13,13 @@ import com.puntogris.blint.utils.Constants.BACKUP_PREF
 import com.puntogris.blint.utils.Constants.HELP_PREF
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_PREF
 import com.puntogris.blint.utils.Constants.THEME_PREF
-import com.puntogris.blint.utils.getParentFab
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PreferencesFragment: BasePreferences(R.xml.preferences) {
+
+    private val viewModel: PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
         setUpUi()
@@ -38,6 +40,7 @@ class PreferencesFragment: BasePreferences(R.xml.preferences) {
             true
         }
         findPreference<Preference>(HELP_PREF)?.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.sendTicketFragment)
             true
         }
         findPreference<Preference>(ABOUT_PREF)?.setOnPreferenceClickListener {
@@ -45,6 +48,5 @@ class PreferencesFragment: BasePreferences(R.xml.preferences) {
             true
         }
     }
-
 
 }

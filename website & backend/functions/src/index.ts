@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin'
+
 admin.initializeApp()
 
 /**
@@ -132,3 +133,23 @@ export const onBusinessStatusChanged = functions.firestore.document('users/{user
         })
     })
 })
+
+/**
+ * Runs once a day to delete businesses that passed the 2 weeks deactivation.
+ */
+//mepa que mejor hacer que todos los dias corra pero lo unico que haga es cambiar el ondelete por delete
+// y despues en la app si es delete, lo borramos de 
+// exports.scheduledFunction = functions.pubsub.schedule('every 2 minutes').onRun(async(context) => {
+//     const client = require('firebase-tools')
+//     const TWO_WEEKS_IN_SECONDS = 14*24*60*60
+//     const dateNow = admin.firestore.Timestamp.now()
+//     const twoWeeksTimestamp = new admin.firestore.Timestamp(dateNow.seconds - TWO_WEEKS_IN_SECONDS, 0)
+//     const businesses = await admin.firestore().collectionGroup("business").where("status","==", "ON_DELETE").where("lastStatusTimestamp", ">=", twoWeeksTimestamp)
+
+//     await client.firestore
+//       .delete(businesses, {
+//         project: process.env.GCP_PROJECT,
+//         recursive: true,
+//         yes: true
+//       })
+//   })

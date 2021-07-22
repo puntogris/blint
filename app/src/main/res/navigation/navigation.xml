@@ -615,4 +615,8 @@
         android:id="@+id/outOfSyncFragment"
         android:name="com.puntogris.blint.ui.sync.OutOfSyncFragment"
         android:label="" />
+    <fragment
+        android:id="@+id/sendTicketFragment"
+        android:name="com.puntogris.blint.ui.settings.SendTicketFragment"
+        android:label="@string/send_ticket_label" />
 </navigation>

@@ -47,7 +47,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                         }
                     }
                 }
-                is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
+                is StringValidator.NotValid -> createShortSnackBar(getString(validator.error)).setAnchorView(it).show()
             }
         }
 

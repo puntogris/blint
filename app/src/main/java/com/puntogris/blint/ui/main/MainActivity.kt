@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,14 +19,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
-import com.puntogris.blint.model.JoinCode
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
@@ -36,20 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-interface MainFabListener{
-    fun addListener(showFab: Boolean = false,
-                    showAppBar: Boolean = true,
-                    showToolbar: Boolean = true,
-                    showFabCenter: Boolean = true,
-                    @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
-                    fabListener: View.OnClickListener? = null)
-}
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainFabListener {
+class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainFabListener {
 
     override fun addListener(showFab: Boolean,
                              showAppBar: Boolean,
@@ -76,7 +61,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         } else binding.bottomAppBar.gone()
     }
 
-
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -102,27 +86,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED){
-                viewModel.getBusinessStatus().collect {
+                viewModel.accountStatus.collect {
                     when(it){
-                        is RepoResult.Error -> {}
-                        RepoResult.InProgress -> {}
-                        is RepoResult.Success -> {
-                            when(val result = viewModel.getSyncStatus(it.data)){
-                                AccountStatus.Error -> {}
-                                is AccountStatus.OutOfSync -> {
-                                    if(sharedPref.loginCompletedPref()){
-                                        val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
-                                        navController.navigate(R.id.outOfSyncFragment, null, nav)
-                                    }
-                                }
-                                is AccountStatus.Synced -> {
-                                    if(result.hasBusiness) {
-                                        if (sharedPref.showNewUserScreenPref()){
-                                            sharedPref.setShowNewUserScreenPref(false)
-                                            if (navController.currentDestination?.id == R.id.newUserFragment)
-                                                navController.navigate(R.id.mainFragment)
-                                        }
-                                    }
+                        AccountStatus.Error -> {}
+                        is AccountStatus.OutOfSync -> {
+                            if(sharedPref.loginCompletedPref()){
+                                val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
+                                navController.navigate(R.id.outOfSyncFragment, null, nav)
+                            }
+                        }
+                        is AccountStatus.Synced -> {
+                            if(it.hasBusiness) {
+                                if (sharedPref.showNewUserScreenPref()){
+                                    sharedPref.setShowNewUserScreenPref(false)
+                                    if (navController.currentDestination?.id == R.id.newUserFragment)
+                                        navController.navigate(R.id.mainFragment)
                                 }
                             }
                         }

@@ -48,7 +48,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                         }
                     }
                 }
-                is StringValidator.NotValid -> createShortSnackBar(validator.error).setAnchorView(it).show()
+                is StringValidator.NotValid -> createShortSnackBar(getString(validator.error)).setAnchorView(it).show()
             }
         }
 

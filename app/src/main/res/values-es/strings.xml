@@ -119,6 +119,9 @@
     <string name="snack_send_suggestion_report_success">Se envio satisfactioriamente el reporte, Gracias por tu ayuda!</string>
     <string name="snack_wait_for_operation">Por favor espera que se termine la operación para continuar.</string>
     <string name="snack_amount_cant_be_empty">La cantidad no puede estar vacia ni ser 0.</string>
+    <string name="snack_text_empty">El campo de text no puede estar vacio.</string>
+    <string name="snack_the_text_cant_contain_special_chars">El campo de texto no puede contener caracteres especiales.</string>
+    <string name="snack_text_min_max_length">El campo de texto tiene que tener entre 3 y 15 caracteres.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Queres eliminar este negocio?</string>
@@ -144,8 +147,8 @@
     <string name="create">crear</string>
     <string name="join">unirme</string>
     <string name="action_learn_about_blint">Aprende mas sobre blint</string>
-    <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.\n\nPero no te preocupes es tan fácil como andar en bicicleta.</string>
-    <string name="new_user_title">Hola!\nDebes ser nuevo/a por acá.</string>
+    <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.</string>
+    <string name="new_user_title">Hola!\nNo te había visto antes por acá.</string>
     <string name="coming_soon">Proximamente</string>
     <string name="snack_delete_business_error">Ocurrio un error al eliminar el negocio.</string>
     <string name="snack_delete_business_success">Se elimino el negocio correctamente</string>

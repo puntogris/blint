@@ -11,6 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/colorSecondary"
         android:layout_height="match_parent"
         tools:context=".ui.main.NewUserFragment">
 
@@ -36,9 +37,9 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:lineSpacingExtra="5dp"
                 android:text="@string/new_user_message"
                 android:textSize="16sp" />
@@ -53,27 +54,11 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/new_user_title"
             android:textSize="22sp"
+            android:textColor="@color/grey_5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/joinBusinessButton"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView4"
-            app:layout_constraintVertical_bias="0.578"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/girl_bike" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/joinBusinessButton"
@@ -83,6 +68,7 @@
             android:layout_marginEnd="8dp"
             android:onClick="@{()-> fragment.onCreateBusinessClicked()}"
             android:text="@string/create"
+
             app:layout_constraintBottom_toBottomOf="@+id/learnMoreButton"
             app:layout_constraintEnd_toStartOf="@+id/learnMoreButton"
             app:layout_constraintHorizontal_bias="0.5"
@@ -111,12 +97,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:textSize="16sp"
+            android:padding="8dp"
             android:foreground="?selectableItemBackground"
             android:onClick="@{()-> fragment.onLearnMoreClicked()}"
             android:text="@string/action_learn_about_blint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/joinBusinessButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView4"
+            app:srcCompat="@drawable/ic_man_running"
+            android:contentDescription="@string/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

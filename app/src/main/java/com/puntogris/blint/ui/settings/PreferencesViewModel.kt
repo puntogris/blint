@@ -34,4 +34,6 @@ class PreferencesViewModel @Inject constructor(
     fun getBackUpRequirements() = backupRepository.checkBackUpRequirements()
 
     fun getLastBackUpDate() = backupRepository.checkLastBackUpDate()
+
+    suspend fun getUserBusinesses() = userRepository.getUserBusiness()
 }

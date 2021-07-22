@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -53,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
+                        android:maxLength="30"
                         android:singleLine="true"
                         android:text="@{viewModel.currentProduct.product.name}" />
 
@@ -77,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
-                        android:inputType="textCapWords"
+                        android:maxLength="40"
                         android:singleLine="true"
                         android:text="@{viewModel.currentProduct.product.barcode}" />
 
@@ -117,6 +119,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
+                        android:maxLength="40"
                         android:text="@{viewModel.currentProduct.product.description}" />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -212,6 +212,8 @@ class UserRepository @Inject constructor(
         }
     }
 
+    override suspend fun getUserBusiness() = employeeDao.getEmployeesList()
+
     override suspend fun sendReportToFirestore(message: String): SimpleResult {
         val report = hashMapOf(
             REPORT_FIELD_FIRESTORE to message,

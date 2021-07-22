@@ -41,7 +41,7 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
                     }
                 }
             }
-            is StringValidator.NotValid -> showShortSnackBar(validator.error)
+            is StringValidator.NotValid -> showShortSnackBar(getString(validator.error))
         }
     }
 }

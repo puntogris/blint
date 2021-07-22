@@ -16,4 +16,5 @@ interface IUserRepository {
     suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode>
     suspend fun createEmployeeWithCode(code:String): JoinBusiness
     suspend fun syncAccountFromDatabase(userData: UserData? = null): SyncAccount
+    suspend fun getUserBusiness():List<Employee>
 }

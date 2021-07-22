@@ -17,15 +17,13 @@ import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.EventsDashboard
 import com.puntogris.blint.utils.RepoResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -78,6 +76,25 @@ class MainRepository @Inject constructor(
                 }
             awaitClose { ref.remove() }
         }
+
+
+
+    @ExperimentalCoroutinesApi
+    suspend fun getBusinessaesStatus(): Flow<RepoResult<List<Employee>>>  = callbackFlow {
+        val ref = firestore.collectionGroup("employees")
+            .whereEqualTo("employeeId", auth.currentUser?.uid.toString())
+            .addSnapshotListener { value, error ->
+
+                if (value != null){
+                    val businesses = value.toObjects(Employee::class.java)
+                    businesses.removeIf { it.businessStatus == "DELETED" }
+                    trySend(RepoResult.Success(businesses))
+                }else{
+                    if (error != null) trySend(RepoResult.Error(error))
+                }
+            }
+        awaitClose { ref.remove() }
+    }
 
     override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
         try {
