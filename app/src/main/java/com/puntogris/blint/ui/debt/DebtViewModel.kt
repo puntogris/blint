@@ -4,16 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.puntogris.blint.data.local.dao.ClientsDao
-import com.puntogris.blint.data.local.dao.DebtsDao
-import com.puntogris.blint.data.local.dao.SuppliersDao
-import com.puntogris.blint.data.repo.ClientRepository
-import com.puntogris.blint.data.repo.DebtsRepository
-import com.puntogris.blint.data.repo.SupplierRepository
+import com.puntogris.blint.data.repo.debts.DebtsRepository
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.SimpleDebt
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 

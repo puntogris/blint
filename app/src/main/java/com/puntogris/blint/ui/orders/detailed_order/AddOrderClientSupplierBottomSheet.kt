@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -19,8 +18,8 @@ import com.puntogris.blint.databinding.AddOrderClientSupplierBottomSheetBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.ui.client.ManageClientsAdapter
-import com.puntogris.blint.ui.supplier.ManageSuppliersAdapter
+import com.puntogris.blint.ui.client.manage.ManageClientsAdapter
+import com.puntogris.blint.ui.supplier.manage.ManageSuppliersAdapter
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +27,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddOrderClientSupplierBottomSheet:BaseBottomSheetFragment<AddOrderClientSupplierBottomSheetBinding>(R.layout.add_order_client_supplier_bottom_sheet) {
+class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientSupplierBottomSheetBinding>(R.layout.add_order_client_supplier_bottom_sheet) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private val args:AddOrderClientSupplierBottomSheetArgs by navArgs()

@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.local.dao.UsersDao
-import com.puntogris.blint.data.repo.EventRepository
+import com.puntogris.blint.data.repo.events.EventRepository
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.toEventUiFlow

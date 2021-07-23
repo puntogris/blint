@@ -2,14 +2,10 @@ package com.puntogris.blint.ui.orders
 
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
-import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.*
-import com.puntogris.blint.data.repo.OrderRepository
-import com.puntogris.blint.data.repo.ProductRepository
-import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.data.repo.orders.OrderRepository
+import com.puntogris.blint.data.repo.products.ProductRepository
 import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.Constants.IN
-import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

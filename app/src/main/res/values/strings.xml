@@ -259,6 +259,7 @@
     <string name="image">Image</string>
     <string name="prices_and_stock">Prices and stock</string>
     <string name="product_deleted">Product deleted.</string>
+    <string name="filter_by_category">Filter by category</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">A problem occurred when deleting the client</string>

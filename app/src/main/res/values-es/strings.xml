@@ -253,8 +253,9 @@
     <string name="stock">Stock</string>
     <string name="images">Imágenes</string>
     <string name="image">Imagen</string>
-    <string name="prices_and_stock">Prices and stock</string>
+    <string name="prices_and_stock">Precios y stock</string>
     <string name="product_deleted">Producto eliminado.</string>
+    <string name="filter_by_category">Filtrar por categoría</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>

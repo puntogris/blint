@@ -12,7 +12,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: CategoriesViewModel by viewModels()
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     @ExperimentalCoroutinesApi

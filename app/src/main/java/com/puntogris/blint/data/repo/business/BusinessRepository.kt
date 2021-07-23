@@ -163,26 +163,4 @@ class BusinessRepository @Inject constructor(
         }
     }
 
-    override suspend fun deleteEmployeeFromBusiness(employee: Employee): SimpleResult = withContext(Dispatchers.IO){
-        try {
-            val userData = employeeDao.getBusinessUserRole(employee.businessId)
-            if (
-                userData.businessOwner == getCurrentUser()?.uid.toString() &&
-                userData.businessType == ONLINE
-            ){
-                firestore
-                    .collection(USERS_COLLECTION)
-                    .document(employee.businessOwner)
-                    .collection(BUSINESS_COLLECTION)
-                    .document(employee.businessId)
-                    .collection("employees")
-                    .document(employee.employeeId)
-                    .delete().await()
-
-                SimpleResult.Success
-            }else SimpleResult.Failure
-        }catch (e:Exception){
-            SimpleResult.Failure
-        }
-    }
 }

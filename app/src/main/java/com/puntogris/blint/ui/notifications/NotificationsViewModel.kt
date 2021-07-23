@@ -2,7 +2,7 @@ package com.puntogris.blint.ui.notifications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.data.repo.NotificationsRepository
+import com.puntogris.blint.data.repo.notifications.NotificationsRepository
 import com.puntogris.blint.utils.NotificationsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

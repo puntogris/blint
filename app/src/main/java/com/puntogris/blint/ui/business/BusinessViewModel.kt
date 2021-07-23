@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.local.dao.EmployeeDao
-import com.puntogris.blint.data.repo.UserRepository
+import com.puntogris.blint.data.repo.user.UserRepository
 import com.puntogris.blint.data.repo.business.BusinessRepository
+import com.puntogris.blint.data.repo.employees.EmployeesRepository
 import com.puntogris.blint.model.Employee
-import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class BusinessViewModel @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val userRepository: UserRepository,
-    private val businessRepository: BusinessRepository
+    private val businessRepository: BusinessRepository,
+    private val employeesRepository: EmployeesRepository
 ): ViewModel() {
 
     private var expirationTimer:CountDownTimer? = null
@@ -52,7 +53,7 @@ class BusinessViewModel @Inject constructor(
         expirationTimer?.cancel()
     }
 
-    suspend fun createEmployee(code:String) = userRepository.createEmployeeWithCode(code)
+    suspend fun createEmployee(code:String) = employeesRepository.createEmployeeWithCode(code)
 
     override fun onCleared() {
         if(expirationTimer == null) expirationTimer?.cancel()
@@ -63,6 +64,6 @@ class BusinessViewModel @Inject constructor(
 
     suspend fun syncAccount() = userRepository.syncAccountFromDatabase()
 
-    suspend fun deleteEmployeeFromBusiness(employee:Employee)  =
-        businessRepository.deleteEmployeeFromBusiness(employee)
+    suspend fun deleteEmployeeFromBusiness(employee:Employee) =
+        employeesRepository.deleteEmployeeFromBusiness(employee)
 }

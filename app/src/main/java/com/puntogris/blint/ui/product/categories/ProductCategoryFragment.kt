@@ -41,12 +41,12 @@ class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.l
             adapter.initialCategories(it.toMutableList())
         }
 
-        binding.categoriesSearch.setOnItemClickListener { adapterView, view, i, l ->
+        binding.categoriesSearch.setOnItemClickListener { _, _, i, _ ->
             adapter.addCategory(items[i])
         }
 
-        binding.categoriesSearch.addTextChangedListener {
-            it?.toString()?.let { text ->
+        binding.categoriesSearch.addTextChangedListener { editText ->
+            editText?.toString()?.let { text ->
                 lifecycleScope.launch {
                     val data = viewModel.getCategoriesWithName(text)
                     items = data.toMutableList()

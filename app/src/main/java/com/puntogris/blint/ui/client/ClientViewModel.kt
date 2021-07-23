@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.ClientsDao
 import com.puntogris.blint.data.local.dao.UsersDao
-import com.puntogris.blint.data.repo.ClientRepository
+import com.puntogris.blint.data.repo.clients.ClientRepository
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,15 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientViewModel @Inject constructor(
-    private val clientsDao: ClientsDao,
-    private val usersDao: UsersDao,
     private val clientRepository: ClientRepository
 ) : ViewModel() {
 
     private val _currentClient = MutableStateFlow(Client())
     val currentClient : LiveData<Client> = _currentClient.asLiveData()
-
-    suspend fun getClientPaging() = clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
 
     suspend fun getClientsRecords(clientId: String) =
         clientRepository.getClientRecordsPagingDataFlow(clientId).cachedIn(viewModelScope)
@@ -36,11 +32,6 @@ class ClientViewModel @Inject constructor(
 
     suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
 
-    suspend fun getClientsWithName(name: String) =
-        clientRepository.getClientWithNamePagingDataFlow(name).cachedIn(viewModelScope)
-
-    suspend fun getClient(clientId:String) = clientsDao.getClient(clientId)
-
     fun setClientData(client: Client){
         _currentClient.value = client
     }
@@ -49,7 +40,4 @@ class ClientViewModel @Inject constructor(
         client.clientId = _currentClient.value.clientId
         _currentClient.value = client
     }
-
-    suspend fun getCurrentBusiness() = usersDao.getUser()
-
 }

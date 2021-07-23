@@ -15,7 +15,6 @@ import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.ui.main.MainFabListener
-import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -23,7 +22,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
-    private val viewModel: ProductViewModel by viewModels()
+
+    private val viewModel: ManageProductsViewModel by viewModels()
     private lateinit var manageProductsAdapter : ManageProductsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
