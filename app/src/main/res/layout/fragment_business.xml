@@ -15,15 +15,14 @@
         tools:context=".ui.business.BusinessFragment">
 
         <ViewStub
-            android:id="@+id/deletingAlertStub"
+            android:id="@+id/statusAlertStub"
             app:employee="@{employee}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:inflatedId="@+id/deletingAlertStub"
-            android:layout="@layout/deleting_alert_view"
+            android:inflatedId="@+id/statusAlertStub"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +97,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deletingAlertStub" />
+            app:layout_constraintTop_toBottomOf="@+id/statusAlertStub" />
 
         <TextView
             android:id="@+id/textView124"
@@ -157,6 +156,26 @@
             style="@style/Theme.Blint.DataTextView"
             app:layout_constraintStart_toStartOf="@+id/textView128"
             app:layout_constraintTop_toBottomOf="@+id/textView128" />
+
+        <TextView
+            android:id="@+id/textView193"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            app:layout_constraintBottom_toBottomOf="@+id/textView128"
+            app:layout_constraintStart_toStartOf="@+id/textView194"
+            app:layout_constraintTop_toTopOf="@+id/textView128" />
+
+        <TextView
+            android:id="@+id/textView194"
+            style="@style/Theme.Blint.DataTextView"
+            businessStatus="@{employee.businessStatus}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView193" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

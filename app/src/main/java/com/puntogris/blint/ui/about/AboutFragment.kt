@@ -16,6 +16,7 @@ import com.puntogris.blint.utils.Constants.PLAY_STORE_PACKAGE
 import com.puntogris.blint.utils.Constants.PRIVACY_POLICY_URI
 import com.puntogris.blint.utils.Constants.TERMS_AND_CONDITIONS_URI
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.launchWebBrowserIntent
 import com.puntogris.blint.utils.showShortSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,13 +54,11 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
         startActivity(intent)
     }
     fun onPrivacyPolicyClicked(){
-        val action = AboutFragmentDirections.actionAboutFragmentToWebPageFragment(PRIVACY_POLICY_URI)
-        findNavController().navigate(action)
-
+        launchWebBrowserIntent(PRIVACY_POLICY_URI)
     }
+
     fun onTermsAndConditionsClicked(){
-        val action = AboutFragmentDirections.actionAboutFragmentToWebPageFragment(TERMS_AND_CONDITIONS_URI)
-        findNavController().navigate(action)
+        launchWebBrowserIntent(TERMS_AND_CONDITIONS_URI)
     }
 
     private fun onResultSendReport(message: String){

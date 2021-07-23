@@ -8,6 +8,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.PRIVACY_POLICY_URI
+import com.puntogris.blint.utils.launchWebBrowserIntent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +23,6 @@ class UserAccountFragment : BaseFragment<FragmentUserAccountBinding>(R.layout.fr
     }
 
     fun onReadPrivacyPolicyClicked(){
-        val action = UserAccountFragmentDirections.actionUserAccountFragmentToWebPageFragment(PRIVACY_POLICY_URI)
-        findNavController().navigate(action)
+        launchWebBrowserIntent(PRIVACY_POLICY_URI)
     }
 }

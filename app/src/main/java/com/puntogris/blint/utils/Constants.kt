@@ -12,6 +12,7 @@ object Constants {
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
     const val BLINT_WEBSITE_LEARN_MORE = "https://blint.app"
+    const val BACKUP_WEBSITE_LEARN_MORE = "https://blint.app"
 
     const val ADMINISTRATOR = "ADMINISTRATOR"
 
@@ -46,6 +47,12 @@ object Constants {
     //Business type
     const val ONLINE = "ONLINE"
     const val LOCAL = "LOCAL"
+
+    //Business status
+    const val ENABLED = "ENABLED"
+    const val DISABLED = "DISABLED"
+    const val TO_DELETE = "TO_DELETE"
+    const val DELETED = "DELETED"
 
     //Product record/ order type
     const val IN = "IN"

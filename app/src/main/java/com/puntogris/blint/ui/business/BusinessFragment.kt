@@ -7,13 +7,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
-import com.puntogris.blint.databinding.DeletingAlertViewBinding
 import com.puntogris.blint.databinding.FragmentBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
+import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.LOCAL
+import com.puntogris.blint.utils.Constants.TO_DELETE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -44,8 +45,16 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
             binding.cardView2.gone()
         }
 
-        if(args.employee.businessStatus == "ON_DELETE"){
-            binding.deletingAlertStub.viewStub?.inflate()
+        if(args.employee.businessStatus == TO_DELETE){
+            binding.statusAlertStub.viewStub?.apply {
+                layoutResource = R.layout.business_deleting_alert_view
+                inflate()
+            }
+        }else if(args.employee.businessStatus == DISABLED){
+            binding.statusAlertStub.viewStub?.apply {
+                layoutResource = R.layout.business_deactivated_alert_view
+                inflate()
+            }
         }
     }
 

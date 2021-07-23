@@ -26,6 +26,8 @@ import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
+import com.puntogris.blint.utils.Constants.ENABLED
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -167,9 +169,11 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
         if (navMenu != NavMenu.HOME &&
             navMenu != NavMenu.SETTINGS &&
             navMenu != NavMenu.NOTIFICATIONS &&
-            viewModel.currentUser.value.currentBusinessStatus != "VALID") {
-            Snackbar.make(binding.root, "Sin permisos para realizar esta accion.", Snackbar.LENGTH_LONG)
-                .setAction("Leer mas"){}.show()
+            viewModel.currentUser.value.currentBusinessStatus != ENABLED) {
+            Snackbar.make(binding.root, getString(R.string.action_require_permissions), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.read_more)){
+                    launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
+                }.show()
         }else{
             when(navMenu){
                 NavMenu.HOME -> R.id.mainFragment
@@ -258,9 +262,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
                 bottomNavDrawer.close()
                 navController.navigate(R.id.preferencesFragment)
             }
-            R.id.menu_search -> if (checkIfBusinessExist()) requestPermissionLauncher.launch(
-                Manifest.permission.CAMERA
-            )
+            R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
         }
         return true
@@ -269,15 +271,5 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
     override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
         navigateToMenuDestinations(item.navMenu)
     }
-
-    private fun checkIfBusinessExist():Boolean{
-        return if (sharedPref.showNewUserScreenPref()){
-            true
-        }else{
-            showLongSnackBarAboveFab("No puedes acceder a esta funcion sin pertenecer a un negocio.")
-            false
-        }
-    }
-
 
 }

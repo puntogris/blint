@@ -22,8 +22,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     }
 
     fun onReadMoreAboutPolicesClicked(){
-        val action = IntroFragmentDirections.actionIntroFragmentToWebPageFragment(TERMS_AND_CONDITIONS_URI)
-        findNavController().navigate(action)
+        launchWebBrowserIntent(TERMS_AND_CONDITIONS_URI)
     }
 
     fun onExitButtonClicked(){

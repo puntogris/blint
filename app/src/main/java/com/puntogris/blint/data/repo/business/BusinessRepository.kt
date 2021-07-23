@@ -17,8 +17,11 @@ import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
+import com.puntogris.blint.utils.Constants.DELETED
+import com.puntogris.blint.utils.Constants.ENABLED
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.ONLINE
+import com.puntogris.blint.utils.Constants.TO_DELETE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.SimpleResult
@@ -58,7 +61,7 @@ class BusinessRepository @Inject constructor(
                 businessName = businessName,
                 type = LOCAL,
                 owner = employeeId,
-                status = "VALID"
+                status = ENABLED
             )
             val employee = Employee(
                 businessId = refId,
@@ -111,9 +114,9 @@ class BusinessRepository @Inject constructor(
                             firestore.collection(USERS_COLLECTION).document(user.currentBusinessOwner)
                                 .collection("business").document(businessId)
                         val businessFirestore = it.get(businessRef).toObject(Business::class.java)
-                        if (businessFirestore != null && businessFirestore.status != "ON_DELETE"){
+                        if (businessFirestore != null && businessFirestore.status != TO_DELETE){
                             it.update(businessRef,
-                                "status","ON_DELETE",
+                                "status", TO_DELETE,
                                 "lastStatusTimestamp", Timestamp.now()
                                 )
                             DeleteBusiness.Success.HasBusiness
@@ -131,7 +134,7 @@ class BusinessRepository @Inject constructor(
                         .document(auth.currentUser?.uid.toString())
 
                     firestore.runBatch {
-                        it.update(businessRef, "status", "DELETED",
+                        it.update(businessRef, "status", DELETED,
                             "lastStatusTimestamp", Timestamp.now())
                         it.update(userRef,"businessesCounter", FieldValue.increment(-1))
                     }

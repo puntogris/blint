@@ -23,6 +23,8 @@ import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
+import com.puntogris.blint.utils.Constants.ENABLED
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -115,15 +117,17 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     private fun onMenuCardClicked(menuCard: MenuCard){
         if (menuCard.navigationId != R.id.accountPreferences &&
-            viewModel.currentUser.value.currentBusinessStatus != "VALID"){
-            createLongSnackBar("Sin permisos para acceder a esta informacion.").setAction("Leer mas"){
+            viewModel.currentUser.value.currentBusinessStatus != ENABLED){
+            createLongSnackBar(getString(R.string.action_require_permissions)).setAction(getString(R.string.read_more)){
+                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
             }.show()
         }else findNavController().navigate(menuCard.navigationId)
     }
 
     fun onAddEventClicked(){
-        if (viewModel.currentUser.value.currentBusinessStatus != "VALID"){
-            createLongSnackBar("Sin permisos para acceder a esta informacion.").setAction("Leer mas"){
+        if (viewModel.currentUser.value.currentBusinessStatus != ENABLED){
+            createLongSnackBar(getString(R.string.action_require_permissions)).setAction(getString(R.string.read_more)){
+                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
             }.show()
         }else findNavController().navigate(R.id.createEventFragment)
     }

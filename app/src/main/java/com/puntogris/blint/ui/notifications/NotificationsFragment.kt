@@ -67,11 +67,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     }
 
     private fun notificationClickListener(notification: Notification){
-        try {
-            launchWebBrowserIntent(notification.navigationUri)
-        }catch (e:Exception){
-            showSnackBarVisibilityAppBar(getString(R.string.snack_ups_visit_blint))
-        }
+        launchWebBrowserIntent(notification.navigationUri)
     }
 
     override fun onDestroyView() {

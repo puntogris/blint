@@ -39,6 +39,10 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     }
 
+    fun onReadMoreAboutBackupsClicked(){
+        launchWebBrowserIntent(Constants.BACKUP_WEBSITE_LEARN_MORE)
+    }
+
     fun onRestorationButtonClicked(){
         showConfirmationDialogForBackUp()
     }

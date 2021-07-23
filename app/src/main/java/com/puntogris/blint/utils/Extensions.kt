@@ -2,8 +2,8 @@ package com.puntogris.blint.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -11,7 +11,6 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
-import android.opengl.Visibility
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -20,6 +19,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
@@ -27,12 +27,9 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
@@ -40,13 +37,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -62,19 +55,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.MainActivity
-import com.puntogris.blint.ui.nav.BottomNavDrawerFragment
-import com.puntogris.blint.ui.nav.ShowHideFabStateAction
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
+
 
 fun View.gone(){
     visibility = View.GONE
@@ -271,9 +260,23 @@ fun Activity.isDarkThemeOn() =
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
 
 fun Fragment.launchWebBrowserIntent(uri: String){
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.data = Uri.parse(uri)
-    startActivity(intent)
+    try {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(uri)
+        startActivity(intent)
+    }catch (e:Exception){
+        showSnackBarVisibilityAppBar(getString(R.string.snack_ups_visit_blint))
+    }
+}
+
+fun Activity.launchWebBrowserIntent(uri: String){
+    try {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(uri)
+        startActivity(intent)
+    }catch (e:Exception){
+        showLongSnackBar(getString(R.string.snack_ups_visit_blint))
+    }
 }
 
 inline val Context.screenWidth: Int

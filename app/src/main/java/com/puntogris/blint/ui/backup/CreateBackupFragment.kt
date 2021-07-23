@@ -11,6 +11,7 @@ import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.BACKUP_WEBSITE_LEARN_MORE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -42,6 +43,10 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
     private fun getUserBusiness(){
 
+    }
+
+    fun onReadMoreAboutBackupsClicked(){
+        launchWebBrowserIntent(BACKUP_WEBSITE_LEARN_MORE)
     }
 
     fun onBackupButtonClicked(){

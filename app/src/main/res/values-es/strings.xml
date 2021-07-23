@@ -122,6 +122,7 @@
     <string name="snack_text_empty">El campo de text no puede estar vacio.</string>
     <string name="snack_the_text_cant_contain_special_chars">El campo de texto no puede contener caracteres especiales.</string>
     <string name="snack_text_min_max_length">El campo de texto tiene que tener entre 3 y 15 caracteres.</string>
+    <string name="action_require_permissions">Sin permisos para realizar esta acción.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Queres eliminar este negocio?</string>
@@ -162,6 +163,11 @@
     <string name="snack_delete_employee_error">Ocurrio un error al eliminar el empleado</string>
     <string name="joined_business_success_title">Te uniste al negocio</string>
     <string name="joined_business_success_message">Ya sos parte de una nueva familia, te deseamos buena suerte en tu aventura.</string>
+    <string name="business_on_delete_alert">Este negocio fue desactivado por el administrador y será eliminado proximamente.</string>
+    <string name="business_disabled_alert">Este negocio fue desactivado por el administrador. Contactate con el por mas informacion.</string>
+    <string name="on_delete">Por eliminar</string>
+    <string name="disabled">Desactivado</string>
+    <string name="enabled">Habilitado</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>
@@ -496,6 +502,22 @@
     <string name="sync_cancel_warning">Cerrar esta ventana cancelara la sincronizacion.</string>
     <string name="snack_sync_account_cancelled">Sincronizacion cancelada</string>
     <string name="out_of_sync_label">Sincronizacion</string>
+
+    <!-- Tickets -->
+    <string name="send_ticket_label">Enviar ticket</string>
+    <string name="action_close_keyboard">Cerrar teclado</string>
+    <string name="select_business_hint">Seleccionar negocio</string>
+    <string name="select_business_alert">*Nos contactaremos con usted a la brevedad.\nTambién puedes contactarnos en:\ncontact@blint.app</string>
+    <string name="snack_fill_all_data_ticket">Selecciona un negocio y dejanos tu mensaje.</string>
+    <string name="snack_ticket_sent_success">Ticket enviado correctamente, nos contactaremos vía e-mail proximamente.</string>
+
+    <!-- Notifications -->
+    <string name="new_user_notif_title">Bienvenido a Blint!</string>
+    <string name="new_business_notif_title">Felicitaciones!</string>
+    <string name="new_employee_notif_title">Novedad!</string>
+    <string name="new_user_notif_message">Te recomendamos que veas esta guia para poder aprovechar al máximo la app.</string>
+    <string name="new_business_notif_message">Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella.</string>
+    <string name="new_employee_notif_message">El negocio se agranda, le damos la bienvenida a %1$s.</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

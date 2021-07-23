@@ -15,13 +15,15 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.NEW_BUSINESS
 import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
 import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
-import java.time.ZoneId
+import com.puntogris.blint.utils.Constants.TO_DELETE
 import java.util.*
 
 @BindingAdapter("imageFullSize")
@@ -114,13 +116,13 @@ fun TextView.setDateFromTimestampWithTime(timestamp: Timestamp){
 
 @BindingAdapter("amountSymbolWithRecordType")
 fun TextView.setAmountSymbolWithRecordType(type:String){
-    text =  if(type == IN || type == "INITIAL") "+" else "-"
+    text =  if(type == IN || type == INITIAL) "+" else "-"
 }
 
 @BindingAdapter("recordTypeString")
 fun TextView.setRecordTypeString(type:String){
     text =  
-        if(type == IN || type == "INITIAL") context.getString(R.string.in_entry)
+        if(type == IN || type == INITIAL) context.getString(R.string.in_entry)
         else context.getString(R.string.out_entry)
 }
 
@@ -143,7 +145,7 @@ fun TextView.setDeletionTimestamp(timestamp: Timestamp?){
 
 @BindingAdapter("recordType")
 fun View.setRecordType(type:String){
-    if (type == IN || type == "INITIAL"){
+    if (type == IN || type == INITIAL){
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
     }else{
         setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))
@@ -237,9 +239,9 @@ fun TextView.setTimeSinceCreated(timestamp: Timestamp){
 @BindingAdapter("notificationTypeTitle")
 fun TextView.setNotificationTypeTitle(notification: Notification){
     text = when(notification.type){
-        NEW_USER -> "Bienvenido a Blint!"
-        NEW_BUSINESS -> "Felicitaciones!"
-        NEW_EMPLOYEE -> "Novedad!"
+        NEW_USER -> context.getString(R.string.new_user_notif_title)
+        NEW_BUSINESS -> context.getString(R.string.new_business_notif_title)
+        NEW_EMPLOYEE -> context.getString(R.string.new_employee_notif_title)
         else -> {
             if (notification.title.isBlank()) gone()
             notification.title
@@ -250,9 +252,9 @@ fun TextView.setNotificationTypeTitle(notification: Notification){
 @BindingAdapter("notificationTypeMessage")
 fun TextView.setNotificationTypeMessage(notification: Notification){
     text = when(notification.type){
-        NEW_USER -> "Te recomendamos que veas esta guia para poder aprovechar al maximo la app."
-        NEW_BUSINESS -> "Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella."
-        NEW_EMPLOYEE -> "El negocio se agranda, le damos la bienvenida a ${notification.message}."
+        NEW_USER -> context.getString(R.string.new_user_notif_message)
+        NEW_BUSINESS -> context.getString(R.string.new_business_notif_message)
+        NEW_EMPLOYEE -> context.getString(R.string.new_employee_notif_message, notification.message)
         else -> {
             if (notification.message.isBlank()) gone()
             notification.message
@@ -275,5 +277,14 @@ fun ChipGroup.setProductSuppliersChips(suppliers: List<FirestoreSupplier>?){
         val chip = Chip(context)
         chip.text = it.companyName
         addView(chip)
+    }
+}
+
+@BindingAdapter("businessStatus")
+fun TextView.setBusinessStatus(status: String){
+    text = when(status){
+        TO_DELETE -> context.getString(R.string.on_delete)
+        DISABLED -> context.getString(R.string.disabled)
+        else -> context.getString(R.string.enabled)
     }
 }

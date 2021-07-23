@@ -31,9 +31,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onLearnMoreClicked(){
-        val url = BLINT_WEBSITE_LEARN_MORE
-        val openBrowserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(openBrowserIntent)
+        launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
     }
     fun onJoinBusinessClicked(){
         findNavController().navigate(R.id.joinBusinessFragment)
