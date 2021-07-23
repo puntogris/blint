@@ -50,7 +50,7 @@
                         android:inputType="textCapWords"
                         android:imeOptions="actionDone"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentClient.name}" />
+                        capitalizeWord="@{viewModel.currentClient.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton

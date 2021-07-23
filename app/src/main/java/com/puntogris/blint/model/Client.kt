@@ -14,7 +14,7 @@ data class Client(
     var clientId: String = "",
 
     @ColumnInfo
-    val name:String = "",
+    var name:String = "",
 
     @ColumnInfo
     val address:String ="",

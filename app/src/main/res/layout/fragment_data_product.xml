@@ -62,8 +62,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.product.name}" />
-
+                        capitalizeFirstChar="@{viewModel.currentProduct.product.name}" />
 
                     <TextView
                         android:id="@+id/textView20"

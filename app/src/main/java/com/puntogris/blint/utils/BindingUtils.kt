@@ -92,14 +92,17 @@ fun TextView.setDateFromFirebaseUser(user:FirebaseUser?){
 
 @BindingAdapter("userRoleFormatted")
 fun TextView.setUserRoleFormatted(role:String){
-    text = role.lowercase(Locale.getDefault())
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    text = role.lowercase(Locale.getDefault()).capitalizeFirstChar()
 }
 
-@BindingAdapter("upperCaseToLowerCapitalize")
-fun TextView.setUpperCaseToLowerCapitalize(role:String){
-    text = role.lowercase(Locale.getDefault())
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+@BindingAdapter("capitalizeFirstChar")
+fun TextView.setCapitalizeFirstChar(text:String){
+    this.text = text.capitalizeFirstChar()
+}
+
+@BindingAdapter("capitalizeWord")
+fun TextView.setCapitalizeWord(text:String){
+    this.text = text.split(" ").joinToString(" ") { it.capitalizeFirstChar() }
 }
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
@@ -206,7 +209,7 @@ fun TextView.setDebtColor(amount: Float){
 
 @BindingAdapter("categoriesCheckTv")
 fun CheckedTextView.setCategoriesCheckTv(category: Category){
-    text = category.name
+    text = category.name.capitalizeFirstChar()
     val color = if (isDarkThemeOn()){
         if (category.selected) R.color.grey_60
         else R.color.almostBlack

@@ -56,7 +56,7 @@
                         android:inputType="textCapWords"
                         android:maxLength="30"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentProduct.product.name}" />
+                        capitalizeFirstChar="@{viewModel.currentProduct.product.name}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

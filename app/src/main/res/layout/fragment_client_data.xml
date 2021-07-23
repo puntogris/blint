@@ -82,7 +82,7 @@
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentClient.name}"
+                        capitalizeWord="@{viewModel.currentClient.name}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 

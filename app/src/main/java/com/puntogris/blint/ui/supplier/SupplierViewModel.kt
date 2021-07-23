@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import com.puntogris.blint.data.local.dao.SuppliersDao
 import com.puntogris.blint.data.repo.SupplierRepository
 import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -25,7 +26,10 @@ class SupplierViewModel @Inject constructor(
 
     suspend fun deleteSupplierDatabase(supplierId: String) = supplierRepository.deleteSupplierDatabase(supplierId)
 
-    suspend fun saveSupplierDatabase() = supplierRepository.saveSupplierDatabase(_currentSupplier.value)
+    suspend fun saveSupplierDatabase(): SimpleResult{
+        _currentSupplier.value.companyName = _currentSupplier.value.companyName.lowercase()
+        return supplierRepository.saveSupplierDatabase(_currentSupplier.value)
+    }
 
     suspend fun getSupplierRecords(supplierId: String) =
         supplierRepository.getSupplierRecordsPagingDataFlow(supplierId).cachedIn(viewModelScope)

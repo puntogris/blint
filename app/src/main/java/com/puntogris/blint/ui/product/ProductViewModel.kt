@@ -6,6 +6,7 @@ import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.repo.ProductRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.SearchText
+import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -68,8 +69,13 @@ class ProductViewModel @Inject constructor(
     suspend fun getProductRecords(productId:String) =
         productRepository.getProductRecordsPagingDataFlow(productId).cachedIn(viewModelScope)
 
-    suspend fun saveProductDatabase() =
-        productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
+    suspend fun saveProductDatabase():SimpleResult {
+        _currentProduct.value.apply {
+            product.name = product.name.lowercase()
+            product.sku = product.sku.uppercase()
+        }
+       return productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
+    }
 
     suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 
@@ -89,15 +95,17 @@ class ProductViewModel @Inject constructor(
         productRepository.deleteProductCategoryDatabase(categories)
 
     suspend fun saveCategoryDatabase(name: String) =
-        productRepository.saveProductCategoryDatabase(Category(name = name))
+        productRepository.saveProductCategoryDatabase(Category(name = name.lowercase()))
 
-    suspend fun updateCategoryDatabase(category: Category) =
-        productRepository.updateProductCategoryDatabase(category)
+    suspend fun updateCategoryDatabase(category: Category):SimpleResult{
+        category.name = category.name.lowercase()
+        return productRepository.updateProductCategoryDatabase(category)
+    }
 
     suspend fun getCategoriesWithName(name:String) =
-        productRepository.getCategoriesWithNameDatabase(name)
+        productRepository.getCategoriesWithNameDatabase(name.lowercase())
 
     suspend fun getSuppliersWithName(name: String) =
-        productRepository.getSuppliersWithNameDatabase(name)
+        productRepository.getSuppliersWithNameDatabase(name.lowercase())
 
 }

@@ -15,7 +15,7 @@ data class Supplier(
     var supplierId: String = "",
 
     @ColumnInfo
-    val companyName: String = "",
+    var companyName: String = "",
 
     @ColumnInfo
     val companyPhone:String = "",

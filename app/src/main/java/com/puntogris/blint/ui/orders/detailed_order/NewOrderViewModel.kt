@@ -71,7 +71,7 @@ class NewOrderViewModel @Inject constructor(
 
     suspend fun getProductWithName(searchText: SearchText) =
         productRepository.getProductsWithNamePagingDataFlow(searchText)
-            .map { it.map { it.product } }.cachedIn(viewModelScope)
+            .map { pagingData ->pagingData.map { it.product } }.cachedIn(viewModelScope)
 
     fun getCurrentUserEmail() = userRepository.getCurrentUser()?.email
 

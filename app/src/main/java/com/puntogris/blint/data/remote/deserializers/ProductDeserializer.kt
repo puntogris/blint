@@ -3,6 +3,7 @@ package com.puntogris.blint.data.remote.deserializers
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.capitalizeFirstChar
 
 internal object ProductDeserializer :
     DocumentSnapshotDeserializer<ProductWithSuppliersCategories> {
@@ -26,6 +27,7 @@ internal object ProductDeserializer :
             if (input?.get("totalOutStock").toString().toIntOrNull() == null) 0 else input?.get("totalOutStock").toString().toInt(),
             input?.get("businessId") as? String ?: "",
         )
+        product.name = product.name.capitalizeFirstChar()
 
         val categories = (input?.get("categories") as? List<*>)?.map {
             it as HashMap<*, *>

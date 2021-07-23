@@ -52,7 +52,7 @@
                         android:inputType="textCapWords"
                         android:imeOptions="actionDone"
                         android:singleLine="true"
-                        android:text="@{viewModel.currentSupplier.companyName}" />
+                        capitalizeWord="@{viewModel.currentSupplier.companyName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

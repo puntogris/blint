@@ -17,6 +17,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
@@ -36,7 +37,6 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 binding.descriptionLayout.productImage.visible()
             }
         }
-
         setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateProductData(getProductDataFromViews())
             when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true)){

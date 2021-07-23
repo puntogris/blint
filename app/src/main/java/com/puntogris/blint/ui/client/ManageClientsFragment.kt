@@ -38,7 +38,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
             lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllClientsAndFillAdapter()
-                    else getAllClientsWithNameAndFillAdapter(it)
+                    else getAllClientsWithNameAndFillAdapter(it.lowercase())
                 }
             }
         }

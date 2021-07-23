@@ -14,7 +14,7 @@ data class Product(
     var productId: String = "",
 
     @ColumnInfo
-    val name: String = "",
+    var name: String = "",
 
     @ColumnInfo
     var barcode: String = "",
@@ -38,7 +38,7 @@ data class Product(
     val suggestedSellPrice: Float = 0F,
 
     @ColumnInfo
-    val sku: String = "",
+    var sku: String = "",
 
     @ColumnInfo
     val brand:String = "",

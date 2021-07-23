@@ -33,7 +33,7 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToCreateRecordFragment()
             findNavController().navigate(action)
         }
-        if (args.product != null){
+        if (args.product != null && !viewModel.productWithRecords.any { it.product.productId == args.product?.productId }){
             viewModel.productWithRecords.add(
                 ProductWithRecord(
                     args.product!!,

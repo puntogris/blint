@@ -52,6 +52,7 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.MainActivity
@@ -232,11 +233,11 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
                 }
 
                 if (before == null) {
-                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalize(Locale.getDefault()))
+                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
                 }
 
                 if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()){
-                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalize(Locale.getDefault()))
+                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
                 }else{
                     null
                 }
@@ -432,3 +433,7 @@ fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean): Int{
     return if (darkThemeOn) ContextCompat.getColor(requireContext(), R.color.nightBackground)
     else ContextCompat.getColor(requireContext(), R.color.grey_5)
 }
+
+fun String.capitalizeFirstChar() =
+    replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+

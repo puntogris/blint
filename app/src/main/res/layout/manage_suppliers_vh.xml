@@ -35,7 +35,7 @@
             tools:text="Supplier 1"
             android:layout_gravity="center"
             style="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@{supplier.companyName}"
+            capitalizeWord="@{supplier.companyName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

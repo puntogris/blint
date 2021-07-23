@@ -122,7 +122,7 @@ class SupplierRepository @Inject constructor(
             if (user.currentBusinessIsOnline()){
                 val query = firestoreQueries
                     .getSuppliersCollectionQuery(user)
-                    .whereArrayContains("search_name", name)
+                    .whereArrayContains("search_name", name.lowercase())
                     .limit(5)
 
                 FirestoreSuppliersPagingSource(query)

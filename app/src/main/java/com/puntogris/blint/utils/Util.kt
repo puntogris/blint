@@ -33,5 +33,6 @@ object Util {
 
     fun getPathToUserReceivedNotifications(uid:String) =
         "${USERS_COLLECTION}/$uid/${NOTIFICATIONS_SUB_COLLECTION}"
+    
 
 }

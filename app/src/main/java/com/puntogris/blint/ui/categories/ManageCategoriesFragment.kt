@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.categories
 
+import android.text.InputType
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,6 +108,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
             with(InputEditText{
                 required(true)
                 hint(this@ManageCategoriesFragment.getString(R.string.name))
+                inputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                 onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))
                 onPositive(this@ManageCategoriesFragment.getString(R.string.action_accept)){
                     onCreateCategoryConfirmed(it["0"].toString())

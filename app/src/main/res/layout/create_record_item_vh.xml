@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_toEndOf="@+id/chevron"
-                    android:text="@{item.product.name}"
+                    capitalizeFirstChar="@{item.product.name}"
                     app:layout_constraintBottom_toBottomOf="@+id/chevron"
                     app:layout_constraintEnd_toStartOf="@+id/recordAmount"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"

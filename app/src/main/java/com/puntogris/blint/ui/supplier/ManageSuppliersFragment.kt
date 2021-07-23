@@ -40,7 +40,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
             lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllSuppliersAndFillAdapter()
-                    else getAllSuppliersWithNameAndFillAdapter(it)
+                    else getAllSuppliersWithNameAndFillAdapter(it.lowercase())
                 }
             }
         }

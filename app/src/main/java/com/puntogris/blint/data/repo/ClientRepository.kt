@@ -121,7 +121,7 @@ class ClientRepository @Inject constructor(
             if (user.currentBusinessIsOnline()){
                 val query = firestoreQueries
                     .getClientsCollectionQuery(user)
-                    .whereArrayContains("search_name", name)
+                    .whereArrayContains("search_name", name.lowercase())
                     .limit(5)
 
                 FirestoreClientsPagingSource(query)

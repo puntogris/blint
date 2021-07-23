@@ -23,6 +23,7 @@ import com.puntogris.blint.data.remote.deserializers.ProductDeserializer
 import com.puntogris.blint.data.repo.irepo.IProductRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
@@ -71,7 +72,7 @@ class ProductRepository @Inject constructor(
             }
 
             val record = Record(
-                type = "INITIAL",
+                type = INITIAL,
                 amount = product.product.amount,
                 productId = product.product.productId,
                 productName = product.product.name,
@@ -186,12 +187,12 @@ class ProductRepository @Inject constructor(
                         is SearchText.InternalCode -> {
                             firestoreQueries
                                 .getProductsCollectionQuery(user)
-                                .whereEqualTo("internalCode", search.text)
+                                .whereEqualTo("sku", search.text.uppercase())
                         }
                         is SearchText.Name -> {
                             firestoreQueries
                                 .getProductsCollectionQuery(user)
-                                .whereArrayContains("search_name", search.text)
+                                .whereArrayContains("search_name", search.text.lowercase())
                         }
                         is SearchText.QrCode -> {
                             firestoreQueries

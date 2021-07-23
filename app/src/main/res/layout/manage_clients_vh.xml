@@ -35,7 +35,7 @@
                 tools:text="Cliente 1"
                 android:layout_gravity="center"
                 style="@style/TextAppearance.MaterialComponents.Body1"
-                android:text="@{client.name}"
+                capitalizeWord="@{client.name}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
