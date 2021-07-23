@@ -291,3 +291,8 @@ fun TextView.setBusinessStatus(status: String){
         else -> context.getString(R.string.enabled)
     }
 }
+
+@BindingAdapter("valueToMoneyString")
+fun TextView.setValueToMoneyString(value: Float){
+    text = context.getString(R.string.amount_debt_normal, value.toMoneyFormatted())
+}

@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/zero_dollars"
+            valueToMoneyString="@{viewModel.order.value}"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView154"
             app:layout_constraintStart_toEndOf="@+id/textView154"

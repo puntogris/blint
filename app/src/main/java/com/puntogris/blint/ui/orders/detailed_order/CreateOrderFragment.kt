@@ -136,8 +136,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             requireContext(),
             {onDataChanged()},
             {deleteListener(it)})
-        binding.recyclerView.adapter = recordsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.apply {
+            adapter = recordsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun deleteListener(productWithRecord: ProductWithRecord){
@@ -151,22 +153,25 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     private fun onDataChanged(){
         val newAmount = recordsAdapter.getRecordTotalPrice()
         viewModel.updateOrderValue(newAmount)
-        binding.textView155.text = newAmount.toString()
+        binding.textView155.text = getString(R.string.amount_debt_normal, newAmount.toMoneyFormatted())
     }
 
     private fun onProductAdded(product: Product){
         binding.productSearchText.setText("")
         binding.productSearchText.clearFocus()
         binding.searchTypeRadioGroup.gone()
-        hideKeyboard()
-        val productWithRecord =
-            ProductWithRecord(product,
-                Record(productName = product.name,
-                    productId = product.productId,
-                totalInStock = product.totalInStock,
-                totalOutStock = product.totalOutStock))
-        recordsAdapter.recordsList.add(productWithRecord)
-        recordsAdapter.notifyDataSetChanged()
+        if (!viewModel.productWithRecords.any { it.product.productId == product.productId }){
+            val productWithRecord =
+                ProductWithRecord(product,
+                    Record(productName = product.name,
+                        productId = product.productId,
+                        totalInStock = product.totalInStock,
+                        totalOutStock = product.totalOutStock))
+            recordsAdapter.recordsList.add(productWithRecord)
+            recordsAdapter.notifyDataSetChanged()
+        }else{
+            showSnackBarVisibilityAppBar(getString(R.string.product_already_added))
+        }
     }
 
     override fun onDestroyView() {

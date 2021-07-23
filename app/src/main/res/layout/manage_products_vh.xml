@@ -32,14 +32,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="Coffee Shops"
-            android:text="@{product.product.name}"
+            capitalizeFirstChar="@{product.product.name}"
             android:layout_marginTop="@dimen/spacing_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

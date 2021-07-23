@@ -27,7 +27,6 @@ internal object ProductDeserializer :
             if (input?.get("totalOutStock").toString().toIntOrNull() == null) 0 else input?.get("totalOutStock").toString().toInt(),
             input?.get("businessId") as? String ?: "",
         )
-        product.name = product.name.capitalizeFirstChar()
 
         val categories = (input?.get("categories") as? List<*>)?.map {
             it as HashMap<*, *>

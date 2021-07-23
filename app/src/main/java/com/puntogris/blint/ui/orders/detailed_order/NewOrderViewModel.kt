@@ -1,8 +1,6 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.puntogris.blint.data.local.dao.*
@@ -13,6 +11,8 @@ import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -25,15 +25,14 @@ class NewOrderViewModel @Inject constructor(
     private val clientRepository: ClientRepository
 ): ViewModel() {
 
-    private val order = Order()
+    private val _order = MutableStateFlow(Order())
+    val order:LiveData<Order> = _order.asLiveData()
     var productWithRecords = mutableListOf<ProductWithRecord>()
-
-    fun getOrder() = order
 
     private var debt :FirestoreDebt? = null
 
     fun refreshOrderValue(){
-        order.updateOrderValue()
+        _order.value.updateOrderValue()
     }
 
     fun updateOrderDebt(amount: Float){
@@ -42,24 +41,24 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun updateRecordType(code: Int){
-        order.type = when(code){
+        _order.value.type = when(code){
             0 -> IN
             else -> OUT
         }
     }
-    fun getOrderType() = order.type
+    fun getOrderType() = _order.value.type
 
     fun updateOrderValue(newValue:Float){
-        order.value = newValue
+        _order.value.value = newValue
     }
 
     fun updateOrderExternalInfo(name:String, id:String){
-        order.traderId = id
-        order.traderName = name
+        _order.value.traderId = id
+        _order.value.traderName = name
     }
 
     fun updateOrdersItems(items:List<ProductWithRecord>){
-        order.items = items.map {
+        _order.value.items = items.map {
             it.record
         }
     }
@@ -77,8 +76,8 @@ class NewOrderViewModel @Inject constructor(
 
     suspend fun publishOrderDatabase(): SimpleResult{
         val newOrder = OrderWithRecords(
-            order,
-            order.items.map { FirestoreRecord(
+            _order.value,
+            _order.value.items.map { FirestoreRecord(
                 amount = it.amount,
                 productId = it.productId,
                 productName = it.productName,

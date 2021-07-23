@@ -379,6 +379,7 @@
     <string name="snack_pick_record_type">Specify a record type.</string>
     <string name="created_successfully_title">Success creating it.</string>
     <string name="created_failed">Error creating it.</string>
+    <string name="product_already_added">Product already added.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>

@@ -375,6 +375,7 @@
     <string name="snack_pick_record_type">Especifica el tipo de movimiento.</string>
     <string name="created_successfully_title">Creacion satisfactoria.</string>
     <string name="created_failed">Creacion fallida.</string>
+    <string name="product_already_added">El producto ya se encuentra agregado.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>

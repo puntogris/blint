@@ -32,13 +32,13 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
             when(i){
                 0 -> {
                     binding.debtAmount.gone()
-                    binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.getOrder().value, viewModel.getOrder().value)
+                    binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.order.value?.value, viewModel.order.value?.value)
                     viewModel.updateOrderDebt(0F)
                 }
                 1 -> {
-                    if (viewModel.getOrder().traderId.isNotEmpty()){
+                    if (viewModel.order.value?.traderId!!.isNotEmpty()){
                         binding.debtAmount.visible()
-                        binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.getOrder().value, viewModel.getOrder().value)
+                        binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.order.value?.value, viewModel.order.value?.value)
                     }else{
                         showSnackBarVisibilityAppBar(getString(R.string.snack_order_debt_trader_alert))
                         binding.debtText.setText(items[1])
@@ -49,17 +49,17 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
         binding.debtAmountText.addTextChangedListener{
             if (it.toString().isNotEmpty()){
-                val debt = viewModel.getOrder().value - it.toString().toFloat()
-                binding.debtSummary.text = getString(R.string.order_debt_amount_summary, debt, viewModel.getOrder().value)
+                val debt = viewModel.order.value!!.value - it.toString().toFloat()
+                binding.debtSummary.text = getString(R.string.order_debt_amount_summary, debt, viewModel.order.value?.value)
             }
         }
 
         viewModel.refreshOrderValue()
-        binding.textView168.text = viewModel.getOrder().items.size.toString()
-        binding.textView166.text = viewModel.getOrder().items.sumOf { it.value.toDouble() }.toString()
+        binding.textView168.text = viewModel.order.value?.items?.size.toString()
+        binding.textView166.text = viewModel.order.value?.items?.sumOf { it.value.toDouble() }.toString()
         binding.textView175.text = viewModel.getCurrentUserEmail()
         binding.textView171.text = Date().getDateWithTimeFormattedString()
-        binding.textView178.text = if(viewModel.getOrder().traderName.isNotEmpty()) viewModel.getOrder().traderName else getString(R.string.not_specified)
+        binding.textView178.text = if(viewModel.order.value?.traderName!!.isNotEmpty()) viewModel.order.value?.traderName else getString(R.string.not_specified)
 
     }
 
