@@ -81,8 +81,6 @@ import kotlin.math.absoluteValue
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
 
-            //entra una orden pero necesito separarlo para room y juntarlo para firestore
-
             order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id
@@ -127,6 +125,7 @@ import kotlin.math.absoluteValue
 
                 firestore.runBatch { batch ->
                     if (order.debt != null){
+                        println("ada")
                         val debt = Debt(
                             orderId = order.order.orderId,
                             debtId = order.debt!!.debtId,
@@ -166,7 +165,9 @@ import kotlin.math.absoluteValue
                 ordersDao.insertOrderWithRecords(order, recordsFinal)
             }
             SimpleResult.Success
-        }catch (e:Exception){ SimpleResult.Failure }
+        }catch (e:Exception){
+            println(e.localizedMessage)
+            SimpleResult.Failure }
     }
 
      fun test(){

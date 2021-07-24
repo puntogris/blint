@@ -54,8 +54,4 @@ data class Order(
     @Ignore
     @IgnoredOnParcel
     var items:List<Record> = listOf()
-
-    fun updateOrderValue(){
-        value = items.sumOf { it.value.toDouble() }.toFloat()
-    }
 }

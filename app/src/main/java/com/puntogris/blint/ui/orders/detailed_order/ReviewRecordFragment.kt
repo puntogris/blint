@@ -17,100 +17,105 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
-    private var debt = 0f
+    private var discount = 0F
+    private var debt = 0F
 
     override fun initializeViews() {
+        binding.viewModel = viewModel
         setUpUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
-            if (binding.debtAmountText.getString().toFloatOrNull() != null){
-                viewModel.updateOrderDebt(binding.debtAmountText.getFloat())
-            }else{
-                showShortSnackBar(getString(R.string.snack_debt_value_error))
-            }
-
-            viewModel.updateOrderDebt(debt)
-
-            findNavController().navigate(R.id.publishOrderFragment)
-
-        }
-        val items = resources.getStringArray(R.array.debt_type)
-        binding.debtText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
-
-        binding.debtText.setOnItemClickListener { _, _, i, _ ->
-            when(i){
-                0 -> {
-                    binding.debtAmount.gone()
-                    binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.order.value?.value, viewModel.order.value?.value)
-                    viewModel.updateOrderDebt(0F)
+            val orderValue = viewModel.order.value?.value!!
+            when {
+                discount >= orderValue -> showShortSnackBar(getString(R.string.snack_discount_limit))
+                debt >= orderValue -> showShortSnackBar(getString(R.string.snack_debt_value_error))
+                else -> {
+                    if (discount != 0F) viewModel.updateOrderDiscount(discount)
+                    if (debt != 0F) viewModel.updateOrderDebt(debt)
+                    findNavController().navigate(R.id.publishOrderFragment)
                 }
-                1 -> {
-                    if (viewModel.order.value?.traderId!!.isNotEmpty()){
-                        binding.debtAmount.visible()
-                        binding.debtSummary.text = getString(R.string.order_debt_amount_summary, viewModel.order.value?.value, viewModel.order.value?.value)
-                    }else{
-                        showSnackBarVisibilityAppBar(getString(R.string.snack_order_debt_trader_alert))
-                        binding.debtText.setText(items[1])
+            }
+        }
+
+        updateSummary()
+
+        binding.debtText.apply {
+            setOnFocusChangeListener { _, _ -> hideKeyboard() }
+            val items = resources.getStringArray(R.array.debt_type)
+            setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
+            setOnItemClickListener { _, _, i, _ ->
+                when(i){
+                    0 -> {
+                        binding.debtAmount.gone()
+                        binding.debtAmountText.setText("")
+                        viewModel.updateOrderDebt(0F)
+                    }
+                    1 -> {
+                        if (viewModel.order.value?.traderId!!.isNotEmpty()){
+                            binding.debtAmount.visible()
+                        }else{
+                            showSnackBarVisibilityAppBar(getString(R.string.snack_order_debt_trader_alert))
+                            binding.debtText.setText(items[0])
+                        }
                     }
                 }
+                updateSummary()
             }
         }
 
         binding.debtAmountText.addTextChangedListener{
-            if (it.toString().isNotEmpty()){
-                val debt = viewModel.order.value!!.value - it.toString().toFloat()
-                binding.debtSummary.text = getString(R.string.order_debt_amount_summary, debt, viewModel.order.value?.value)
-            }
+            debt = if (it.toString().isBlank()) 0F else it.toString().toFloat()
+            updateSummary()
         }
 
         binding.discountText.addTextChangedListener {
             val value = it.toString()
-            if (value.isNotEmpty()){
+            val orderValue = viewModel.order.value?.value!!
+            discount = if (value.isNotEmpty()){
                 when {
                     binding.changeValueTypeText.getString() == "%" -> {
-                        debt = (viewModel.order.value?.value!! * value.toFloat() / 100)
-                        val newTotal = viewModel.order.value?.value!! - debt
-                        binding.textView155.text = newTotal.toMoneyFormatted()
+                         (orderValue * value.toFloat() / 100)
                     }
                     binding.changeValueTypeText.getString() == "$" -> {
-                        val newTotal = viewModel.order.value?.value!! - value.toFloat()
-                        binding.textView155.text = newTotal.toMoneyFormatted()
-                        debt = value.toFloat()
+                        value.toFloat()
                     }
+                    else -> 0F
                 }
-            }
+            } else 0F
+            binding.totalText.text = (orderValue - discount).toMoneyFormatted()
+            updateSummary()
         }
 
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, listOf("%", "$"))
-        (binding.changeValueTypeText as? AutoCompleteTextView)?.setAdapter(adapter)
+        binding.changeValueTypeText.apply {
+            setOnFocusChangeListener { _, _ -> hideKeyboard() }
+            setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, listOf("%", "$")))
+            setOnItemClickListener { _, _, i, _ ->
+                val value = binding.discountText.getString()
+                val orderValue = viewModel.order.value?.value!!
 
-        binding.changeValueTypeText.setOnItemClickListener { _, _, i, _ ->
-            val value = binding.discountText.getString()
+                discount = if (value.isNotEmpty()){
+                    when(i){
+                        0 -> (orderValue * value.toFloat() / 100)
+                        1 -> value.toFloat()
+                        else -> 0F
+                    }
+                }else 0F
 
-            if (value.isNotEmpty()){
-                when(i){
-                    0 -> {
-                        debt = (viewModel.order.value?.value!! * value.toFloat() / 100)
-                        val newTotal = viewModel.order.value?.value!! - debt
-                        binding.textView155.text = newTotal.toMoneyFormatted()
-                    }
-                    1 -> {
-                        val newTotal = viewModel.order.value?.value!! - value.toFloat()
-                        binding.textView155.text = newTotal.toMoneyFormatted()
-                        debt = value.toFloat()
-                    }
-                }
+                binding.totalText.text = (orderValue - discount).toMoneyFormatted()
+                updateSummary()
             }
         }
+    }
 
-        viewModel.refreshOrderValue()
-        binding.textView168.text = viewModel.order.value?.items?.size.toString()
-        binding.textView155.text = viewModel.order.value?.items?.sumOf { it.value.toDouble() }.toString()
-        binding.textView175.text = viewModel.getCurrentUserEmail()
-        binding.textView171.text = Date().getDateWithTimeFormattedString()
-        binding.textView178.text = if(viewModel.order.value?.traderName!!.isNotEmpty()) viewModel.order.value?.traderName else getString(R.string.not_specified)
-
+    private fun updateSummary(){
+        val orderValue = viewModel.order.value?.value!!
+        binding.debtSummary.text =
+            getString(R.string.order_debt_amount_summary,
+                (orderValue - discount - debt).toMoneyFormatted(),
+                (orderValue - discount).toMoneyFormatted()
+            )
     }
 
     override fun onDestroyView() {
+        binding.changeValueTypeText.setAdapter(null)
         binding.debtText.setAdapter(null)
         super.onDestroyView()
     }

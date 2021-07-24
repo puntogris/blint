@@ -379,6 +379,9 @@
     <string name="created_successfully_title">Creacion satisfactoria.</string>
     <string name="created_failed">Creacion fallida.</string>
     <string name="product_already_added">El producto ya se encuentra agregado.</string>
+    <string name="buy_sell_sug_prices">Com./ Ven./ Sug.</string>
+    <string name="snack_discount_error">Error con el valor del descuento.</string>
+    <string name="snack_discount_limit">El descuento no puede ser mayor que el total de la orden.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -450,9 +453,6 @@
     <!-- Symbols, numbers -->
     <string name="dollar_symbol">$</string>
     <string name="zero_dollars">$0</string>
-    <string name="plus_symbol">+</string>
-    <string name="zero_float">0.0</string>
-    <string name="percentage_symbol">%</string>
 
     <!-- Debt -->
     <string name="modify_debt_alert">*Este valor será sumado/ restado al valor total de la deuda previamente registrada.</string>
@@ -461,7 +461,7 @@
     <string name="last_debts">Ultimas deudas</string>
     <string name="snack_update_debt_error">Ocurrio un error al actualizar la dedua.</string>
     <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
-    <string name="snack_debt_value_error">Error con el valor de deuda.</string>
+    <string name="snack_debt_value_error">La deuda no puede ser mayor que el total de la orden.</string>
     <string name="snack_order_debt_trader_alert">Se necesita un cliente/ proveedor para la deuda.</string>
 
     <!-- Reports -->
@@ -495,7 +495,7 @@
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
     <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>
-    <string name="order_debt_amount_summary">Se pago $%1$f del total de $%2$f</string>
+    <string name="order_debt_amount_summary">Se pago $%1$s del total de $%2$s</string>
 
     <!-- Sync account -->
     <string name="sync_businesses">Sincronizar negocios</string>

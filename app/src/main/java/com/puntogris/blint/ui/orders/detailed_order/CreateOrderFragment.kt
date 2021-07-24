@@ -180,6 +180,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         }else{
             showSnackBarVisibilityAppBar(getString(R.string.product_already_added))
         }
+        hideKeyboard()
     }
 
     override fun onDestroyView() {

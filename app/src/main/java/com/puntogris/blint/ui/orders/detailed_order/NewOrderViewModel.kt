@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val userRepository: UserRepository,
+    userRepository: UserRepository,
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
     private val supplierRepository: SupplierRepository,
@@ -33,17 +33,13 @@ class NewOrderViewModel @Inject constructor(
 
     private var debt :FirestoreDebt? = null
 
-    fun refreshOrderValue(){
-        _order.value.updateOrderValue()
-    }
-
     fun updateOrderDebt(amount: Float){
-        debt = if (amount == 0f) null
-        else FirestoreDebt(amount = amount)
+        debt = FirestoreDebt(amount = amount)
     }
 
     fun updateOrderDiscount(amount: Float){
-        _order.value.value = amount
+        _order.value.value = _order.value.value - amount
+        _order.value.discount = amount
     }
 
     fun updateRecordType(code: Int){
@@ -78,7 +74,7 @@ class NewOrderViewModel @Inject constructor(
         productRepository.getProductsWithNamePagingDataFlow(searchText)
             .map { pagingData ->pagingData.map { it.product } }.cachedIn(viewModelScope)
 
-    fun getCurrentUserEmail() = userRepository.getCurrentUser()?.email
+    val currentUserEmail = userRepository.getCurrentUser()?.email.toString()
 
     suspend fun publishOrderDatabase(): SimpleResult{
         val newOrder = OrderWithRecords(

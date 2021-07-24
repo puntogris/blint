@@ -20,6 +20,7 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
     private val args: DetailedOrderGraphNavArgs by navArgs()
 
     override fun initializeViews() {
+        binding.fragment = this
         setUpUi(
             showFab = true,
             showAppBar = false,

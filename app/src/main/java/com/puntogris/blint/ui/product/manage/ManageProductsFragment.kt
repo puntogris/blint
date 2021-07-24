@@ -128,10 +128,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
 
     }
 
-    fun onFilterClicked(){
-        findNavController().navigate(R.id.filterCategoriesBottomSheet)
-    }
-
     fun onScanBarcodeClicked(){
         hideKeyboard()
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)

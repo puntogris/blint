@@ -144,7 +144,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/buy_sell_sugg_prices"
+                        android:text="@string/buy_sell_sug_prices"
                         app:layout_constraintBottom_toTopOf="@+id/textView6118"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textField2"

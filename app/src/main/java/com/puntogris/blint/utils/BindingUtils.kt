@@ -26,6 +26,7 @@ import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
 import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
 import com.puntogris.blint.utils.Constants.TO_DELETE
+import org.w3c.dom.Text
 import java.util.*
 
 @BindingAdapter("imageFullSize")
@@ -181,6 +182,12 @@ fun Chip.setExternalChipName(name: String){
         text = context.getString(R.string.not_specified)
         isEnabled = false
     }
+}
+
+@BindingAdapter("externalName")
+fun TextView.setExternalName(name: String){
+    text = if (name.isNotEmpty()) name.capitalizeFirstChar()
+    else context.getString(R.string.not_specified)
 }
 
 @BindingAdapter("eventStatus")

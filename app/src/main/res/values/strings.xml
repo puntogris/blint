@@ -383,6 +383,9 @@
     <string name="created_successfully_title">Success creating it.</string>
     <string name="created_failed">Error creating it.</string>
     <string name="product_already_added">Product already added.</string>
+    <string name="buy_sell_sug_prices">Buy/ Sell/ Sug.</string>
+    <string name="snack_discount_error">Error with the discount amount.</string>
+    <string name="snack_discount_limit">The discount can not be more than the order total.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
@@ -454,9 +457,10 @@
     <!-- Symbols, numbers -->
     <string name="dollar_symbol">$</string>
     <string name="zero_dollars">$0</string>
-    <string name="plus_symbol">+</string>
-    <string name="zero_float">0.0</string>
-    <string name="percentage_symbol">%</string>
+    <string name="plus_symbol" translatable="false">+</string>
+    <string name="zero_float" translatable="false">0.0</string>
+    <string name="zero_int" translatable="false">0</string>
+    <string name="percentage_symbol" translatable="false">%</string>
 
     <!-- Debt -->
     <string name="modify_debt_alert">*This value will be added / subtracted from the total value of the debt previously registered.</string>
@@ -465,7 +469,7 @@
     <string name="last_debts">Last debts</string>
     <string name="snack_update_debt_error">An error occurred updating the debt.</string>
     <string name="snack_update_debt_success">Debt updated successfully.</string>
-    <string name="snack_debt_value_error">Error with the debt amount.</string>
+    <string name="snack_debt_value_error">The debt can not be more than the order total.</string>
     <string name="snack_order_debt_trader_alert">A client/ supplier is needed to register a debt in the order.</string>
 
     <!-- Reports -->
@@ -499,7 +503,7 @@
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Client %1$s added to the order.</string>
     <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
-    <string name="order_debt_amount_summary">Paying $%1$f of the total of $%2$f</string>
+    <string name="order_debt_amount_summary">Paying $%1$s of the total of $%2$s</string>
 
     <!-- Sync account -->
     <string name="sync_businesses">Sync businesses</string>
@@ -526,8 +530,7 @@
     <string name="new_user_notif_message">We recommend that you see this guide in order to get the most out of the app.</string>
     <string name="new_business_notif_message">Today a new adventure starts and we are happy to be able to accompany you on it.</string>
     <string name="new_employee_notif_message">The business grows, we welcome %1$s.</string>
-    <string name="buy_sell_sugg_prices">Com./ Ven./ Sug.</string>
-
+    <string name="supplier_or_client">Proveedor/ Cliente:</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">
