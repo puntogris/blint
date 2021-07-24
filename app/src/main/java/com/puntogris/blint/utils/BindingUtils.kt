@@ -3,8 +3,10 @@ package com.puntogris.blint.utils
 import android.view.View
 import android.widget.*
 import androidx.annotation.DrawableRes
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.children
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -54,6 +56,22 @@ fun Button.setLoadImageButtonText(image: String){
 @BindingAdapter("removeImageVisibility")
 fun Button.setRemoveImageVisibility(image: String){
     if (image.isNotEmpty()) visible() else gone()
+}
+
+@BindingAdapter("removeImageVisibility")
+fun TextView.setRemoveImageVisibility(image: String){
+    if (image.isNotEmpty()) visible() else gone()
+}
+
+
+@BindingAdapter("removeListVisibility")
+fun TextView.setRemoveListVisibility(list: List<Any>?){
+    if (list.isNullOrEmpty()) gone() else visible()
+}
+
+@BindingAdapter("removeListVisibility")
+fun CardView.setRemoveListVisibility(product: ProductWithSuppliersCategories){
+    if (product.categories.isNullOrEmpty() && product.suppliers.isNullOrEmpty()) gone() else visible()
 }
 
 @BindingAdapter("emptyEditTextWithNumber")
@@ -207,19 +225,6 @@ fun TextView.setDebtColor(amount: Float){
     }
 }
 
-@BindingAdapter("categoriesCheckTv")
-fun CheckedTextView.setCategoriesCheckTv(category: Category){
-    text = category.name.capitalizeFirstChar()
-    val color = if (isDarkThemeOn()){
-        if (category.selected) R.color.grey_60
-        else R.color.almostBlack
-    }else{
-        if (category.selected) R.color.grey_20
-        else R.color.grey_10
-    }
-    setBackgroundColor(context.getColor(color))
-}
-
 @BindingAdapter("notificationImage")
 fun ImageView.setNotificationImage(uri:String){
     Glide.with(context)
@@ -266,20 +271,26 @@ fun TextView.setNotificationTypeMessage(notification: Notification){
 }
 
 @BindingAdapter("productCategoriesChipGroup")
-fun ChipGroup.setProductCategoriesChip(categories: List<FirestoreCategory>?){
+fun ChipGroup.setProductCategoriesChip(categories: List<Category>?){
+    val data = this.children.map { (it as Chip).text }
     categories?.forEach {
-        val chip = Chip(context)
-        chip.text = it.name
-        addView(chip)
+        if (!data.contains(it.categoryName)){
+            val chip = Chip(context)
+            chip.text = it.categoryName
+            addView(chip)
+        }
     }
 }
 
 @BindingAdapter("productSuppliersChipGroup")
 fun ChipGroup.setProductSuppliersChips(suppliers: List<FirestoreSupplier>?){
+    val data = this.children.map { (it as Chip).text }
     suppliers?.forEach {
-        val chip = Chip(context)
-        chip.text = it.companyName
-        addView(chip)
+        if (!data.contains(it.companyName)) {
+            val chip = Chip(context)
+            chip.text = it.companyName
+            addView(chip)
+        }
     }
 }
 
@@ -295,4 +306,19 @@ fun TextView.setBusinessStatus(status: String){
 @BindingAdapter("valueToMoneyString")
 fun TextView.setValueToMoneyString(value: Float){
     text = context.getString(R.string.amount_debt_normal, value.toMoneyFormatted())
+}
+
+
+@BindingAdapter("productOrderPrices")
+fun TextView.setProductOrderPrices(product: Product){
+    text = "${product.buyPrice.toMoneyFormatted()} /${product.sellPrice.toMoneyFormatted()} /${product.suggestedSellPrice.toMoneyFormatted()}"
+}
+
+@BindingAdapter("productRecordPriceEntry")
+fun TextView.setProductRecordPriceEntry(product: ProductWithRecord){
+    text = if (product.record.type == IN){
+        product.product.buyPrice.toString()
+    }else{
+        product.product.sellPrice.toString()
+    }
 }

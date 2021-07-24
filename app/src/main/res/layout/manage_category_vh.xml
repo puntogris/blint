@@ -15,14 +15,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp">
 
-            <CheckedTextView
+            <TextView
                 android:id="@+id/textView72"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                categoriesCheckTv="@{category}"
+                capitalizeFirstChar="@{category.categoryName}"
                 android:paddingTop="8dp"
                 android:drawablePadding="20dp"
                 android:textSize="17sp"

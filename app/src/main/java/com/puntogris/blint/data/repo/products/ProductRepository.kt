@@ -7,6 +7,8 @@ import android.net.Uri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.room.RoomDatabase
+import androidx.room.withTransaction
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.local.AppDatabase
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
@@ -118,6 +121,7 @@ class ProductRepository @Inject constructor(
                     }
                 }.await()
             }else{
+
                 productsDao.insertProduct(product)
                 if (isNewProduct) statisticsDao.incrementTotalProducts()
                 if (product.product.amount != 0) ordersDao.insert(record)
@@ -190,6 +194,11 @@ class ProductRepository @Inject constructor(
                             firestoreQueries
                                 .getProductsCollectionQuery(user)
                                 .whereEqualTo("barcode", search.text)
+                        }
+                        is SearchText.Category -> {
+                            firestoreQueries
+                                .getProductsCollectionQuery(user)
+                                .whereArrayContains("search_categories", search.text.lowercase())
                         }
                     }
                 FirestoreProductsPagingSource(query)

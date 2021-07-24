@@ -21,9 +21,10 @@ import com.puntogris.blint.utils.dp
 import com.puntogris.blint.utils.getValueAnimator
 import com.puntogris.blint.utils.screenWidth
 
-class CreateRecordsAdapter(private val context: Context,
-                           private val amountListener: () -> (Unit),
-                           private val deleteListener: (ProductWithRecord) -> Unit):
+class CreateRecordsAdapter(
+    context: Context,
+    private val amountListener: () -> (Unit),
+    private val deleteListener: (ProductWithRecord) -> Unit):
     ListAdapter<ProductWithRecord, OrderItemViewHolder>(ProductWithRecordItemDiffCallBack()) {
 
     var recordsList = mutableListOf<ProductWithRecord>()
@@ -42,7 +43,7 @@ class CreateRecordsAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
-        return OrderItemViewHolder.from(parent, context)
+        return OrderItemViewHolder.from(parent)
     }
     private var expandedModel: ProductWithRecord? = null
 

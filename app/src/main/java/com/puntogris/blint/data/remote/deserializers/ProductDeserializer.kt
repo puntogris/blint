@@ -29,8 +29,7 @@ internal object ProductDeserializer :
         )
 
         val categories = (input?.get("categories") as? List<*>)?.map {
-            it as HashMap<*, *>
-            FirestoreCategory(name = it["name"].toString(), categoryId = it["categoryId"].toString())
+            Category(categoryName = it.toString(), businessId = product.businessId)
         }
 
         val suppliers = (input?.get("suppliers") as? List<*>)?.map {

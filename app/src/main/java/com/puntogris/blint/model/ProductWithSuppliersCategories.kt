@@ -19,8 +19,8 @@ data class ProductWithSuppliersCategories(
     @Relation(
         entity = Category::class,
         parentColumn = "productId",
-        entityColumn = "categoryId",
+        entityColumn = "categoryName",
         associateBy = Junction(ProductCategoryCrossRef::class)
     )
-    var categories:List<FirestoreCategory>? = null
+    var categories:List<Category>? = null
 ):Parcelable

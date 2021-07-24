@@ -1,6 +1,7 @@
 package com.puntogris.blint.model
 
 import com.google.firebase.Timestamp
+import java.util.*
 
 data class FirestoreProduct(
     val productId: String = "",
@@ -20,13 +21,15 @@ data class FirestoreProduct(
     val totalOutStock: Int = 0,
     val businessId:String = "",
     val suppliers:List<FirestoreSupplier>? = null,
-    val categories:List<FirestoreCategory>? = null,
-    val search_name:List<String> = listOf()
+    val categories:List<String>? = null,
+    val search_name:List<String> = listOf(),
+    var search_categories:List<String> = listOf()
 ){
 
     companion object{
         fun from(product: ProductWithSuppliersCategories): FirestoreProduct{
-            return FirestoreProduct(
+            val firestore =
+                FirestoreProduct(
                 product.product.productId,
                 product.product.name,
                 product.product.barcode,
@@ -50,11 +53,19 @@ data class FirestoreProduct(
                     )
                 },
                 product.categories?.map {
-                    FirestoreCategory(name = it.name, categoryId = it.categoryId)
+                    it.categoryName
                 },
                 createSearchName(product.product.name)
-
             )
+            val list = mutableListOf<String>()
+            firestore.categories?.forEach {
+                list.addAll(createSearchName(it))
+            }
+
+            list.addAll(createSearchName(UUID.randomUUID().toString()))
+
+            firestore.search_categories = list.distinct()
+            return firestore
         }
 
         private fun createSearchName(text:String): List<String>{

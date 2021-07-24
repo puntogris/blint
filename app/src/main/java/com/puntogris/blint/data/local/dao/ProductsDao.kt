@@ -1,5 +1,6 @@
 package com.puntogris.blint.data.local.dao
 
+import android.app.Service
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
@@ -16,23 +17,23 @@ interface ProductsDao {
 
     @Transaction
     suspend fun insertProduct(product: ProductWithSuppliersCategories){
-      //  println(product.product)
         insert(product.product)
-
+        val productId = product.product.productId
         //if (isNewProduct) statisticsDao.incrementTotalProducts()
 
         product.suppliers?.map {
-            ProductSupplierCrossRef(product.product.productId, it.supplierId)
+            ProductSupplierCrossRef(productId, it.supplierId)
         }?.let {
-            insertProductSupplierCrossRef(it)
+            renewProductSuppliers(it, productId)
         }
         product.categories?.map {
-            ProductCategoryCrossRef(product.product.productId, it.categoryId)
+            ProductCategoryCrossRef(productId, it.categoryName)
         }?.let {
-            insertProductCategoriesCrossRef(it)
+            renewProductCategories(it, productId)
+         //   insertProductCategoriesCrossRef(it)
         }
        // if (product.product.amount != 0) ordersDao.insert(record)
-//
+
     }
 
     @Update
@@ -44,6 +45,7 @@ interface ProductsDao {
     @Query("SELECT * FROM product WHERE productId = :id ")
     suspend fun getProduct(id: String): Product
 
+    @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): ProductWithSuppliersCategories?
@@ -75,11 +77,53 @@ interface ProductsDao {
     @Query("SELECT * FROM product WHERE productId = :id")
     suspend fun getProductWithSuppliersCategories(id: String): ProductWithSuppliersCategories
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProductSupplierCrossRef(items: List<ProductSupplierCrossRef>)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProductCategoriesCrossRef(items: List<ProductCategoryCrossRef>)
+
+    @Query("SELECT * FROM productcategorycrossref WHERE productId = :productId")
+    suspend fun getProductCategoriesCrossRefs(productId:String): List<ProductCategoryCrossRef>
+
+    @Query("SELECT * FROM productsuppliercrossref WHERE productId = :productId")
+    suspend fun getProductSupplierCrossRefs(productId:String): List<ProductSupplierCrossRef>
+
+    @Delete
+    suspend fun deleteProductCategoriesCrossRef(productCategoryCrossRef: ProductCategoryCrossRef)
+
+    @Delete
+    suspend fun deleteProductSupplierCrossRef(productCategoryCrossRef: ProductSupplierCrossRef)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProductCategoriesCrossRef(items: ProductCategoryCrossRef)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProductSupplierCrossRef(items: ProductSupplierCrossRef)
+
+    @Transaction
+    suspend fun renewProductCategories(items: List<ProductCategoryCrossRef> ,productId: String){
+        val oldRefs = getProductCategoriesCrossRefs(productId)
+        if (oldRefs.isNullOrEmpty()) insertProductCategoriesCrossRef(items)
+        else{
+            oldRefs.forEach {
+                if (!items.contains(it)) deleteProductCategoriesCrossRef(it)
+                else insertProductCategoriesCrossRef(it)
+            }
+        }
+    }
+
+    @Transaction
+    suspend fun renewProductSuppliers(items: List<ProductSupplierCrossRef>, productId: String){
+        val oldRefs = getProductSupplierCrossRefs(productId)
+        if (oldRefs.isNullOrEmpty()) insertProductSupplierCrossRef(items)
+        else{
+            oldRefs.forEach {
+                if (!items.contains(it)) deleteProductSupplierCrossRef(it)
+                else insertProductSupplierCrossRef(it)
+            }
+        }
+    }
 
     @Transaction
     @Query(

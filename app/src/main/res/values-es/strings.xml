@@ -173,8 +173,8 @@
     <string name="rename_category">Renombrar categoría</string>
     <string name="add_category">Agregar categoría</string>
     <string name="delete_category">Eliminar categorias</string>
-    <string name="snack_categories_delete_success">Categorias eliminadas satisfactoriamente.</string>
-    <string name="snack_categories_delete_error">Ocurrio un error al eliminar las categorias.</string>
+    <string name="snack_categories_delete_success">Categoría eliminada satisfactoriamente.</string>
+    <string name="snack_categories_delete_error">Ocurrio un error al eliminar la categoría.</string>
     <string name="snack_category_create_success">Categoría guardada correctamente.</string>
     <string name="snack_category_create_error">Ocurrio un error al crear la categoría.</string>
     <string name="delete_categories_warning">Estas por eliminar las categorias ,esta acción es irreversible.</string>
@@ -339,7 +339,9 @@
     <string name="product_categories">Categorias de este producto</string>
     <string name="product_suppliers">Proveedores de este producto</string>
     <string name="connecting_with_servers">Conectandonos con los servidores..</string>
-    <string name="size">Tamano</string>
+    <string name="size">Tamaño</string>
+    <string name="suppliers_and_categories">Proveedores y categorias</string>
+    <string name="category">Categoría</string>
 
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>

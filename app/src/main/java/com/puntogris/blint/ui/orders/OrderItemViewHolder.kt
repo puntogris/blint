@@ -11,15 +11,12 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.CreateRecordItemVhBinding
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.model.Record
+import com.puntogris.blint.utils.toMoneyFormatted
 
-class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root){
+class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBinding) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(productWithRecord: ProductWithRecord, amountListener: () -> Unit) {
         binding.item = productWithRecord
-
-        val items = listOf("%", "$")
-        val adapter = ArrayAdapter(context, R.layout.dropdown_item_list, items)
-        (binding.discountType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.amountText.addTextChangedListener {
             if (it.toString().isNotEmpty()){
@@ -48,14 +45,14 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
     }
 
     private fun updateTotalProductValue(value: Float){
-        binding.textView13516.text = (value).toString()
+        binding.textView13516.text = (value).toMoneyFormatted()
     }
 
     companion object{
-        fun from(parent: ViewGroup, context: Context) :OrderItemViewHolder {
+        fun from(parent: ViewGroup) :OrderItemViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = CreateRecordItemVhBinding.inflate(layoutInflater,parent, false)
-            return OrderItemViewHolder(binding, context)
+            return OrderItemViewHolder(binding)
         }
     }
 

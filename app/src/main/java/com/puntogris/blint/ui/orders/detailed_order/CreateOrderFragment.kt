@@ -40,8 +40,16 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         setUpUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             viewModel.updateOrdersItems(recordsAdapter.recordsList)
             viewModel.productWithRecords = recordsAdapter.recordsList
-            findNavController().navigate(R.id.reviewRecordFragment)
-            job.cancel()
+            if (viewModel.productWithRecords.size != 0){
+                if (viewModel.productWithRecords.all { it.record.amount != 0 }){
+                    job.cancel()
+                    findNavController().navigate(R.id.reviewRecordFragment)
+                }else{
+                    showSnackBarVisibilityAppBar("La cantidad del producto no puede ser 0.")
+                }
+            }else{
+                showSnackBarVisibilityAppBar("Necesita agregar productos.")
+            }
         }
 
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }
@@ -104,8 +112,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             binding.productSearchText.setText("")
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) {
+        onBackStackLiveData<String>("key"){
             lifecycleScope.launch {
                 binding.productSearchText.setText(it)
                 binding.searchTypeRadioGroup.visible()
@@ -164,6 +171,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             val productWithRecord =
                 ProductWithRecord(product,
                     Record(productName = product.name,
+                        type = viewModel.order.value?.type!!,
                         productId = product.productId,
                         totalInStock = product.totalInStock,
                         totalOutStock = product.totalOutStock))
@@ -180,4 +188,3 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         super.onDestroyView()
     }
 }
-

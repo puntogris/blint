@@ -16,7 +16,8 @@
         style="@style/Theme.Blint.CardView"
         android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -24,15 +25,12 @@
                     android:id="@+id/productScopeButton"
                     style="@style/Theme.Blint.TextButton"
                     android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:text="@string/suppliers_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    android:text="@string/suppliers_and_categories" />
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/supplierChipGroup"
@@ -41,12 +39,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     productSuppliersChipGroup="@{viewModel.currentProduct.suppliers}"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productScopeButton">
+                    android:layout_marginBottom="24dp">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/addSupplierChip"
@@ -56,6 +49,23 @@
                         android:text="@string/add_suppliers"
                         app:chipIcon="@drawable/ic_baseline_add_24" />
                 </com.google.android.material.chip.ChipGroup>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categoriesChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="16dp"
+                    productCategoriesChipGroup="@{viewModel.currentProduct.categories}">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/addCategoryChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->fragment.navigateToProductCategories()}"
+                        android:text="@string/add_categories"
+                        app:chipIcon="@drawable/ic_baseline_add_24" />
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

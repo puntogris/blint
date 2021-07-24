@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
@@ -437,3 +438,6 @@ fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean): Int{
 fun String.capitalizeFirstChar() =
     replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
+fun <T>Fragment.onBackStackLiveData(key:String, observer: Observer<T>){
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)?.observe(viewLifecycleOwner, observer)
+}

@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductCategoryBinding
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.FirestoreCategory
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.ProductViewModel
+import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
+import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.setUpUi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,39 +22,48 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.layout.fragment_product_category) {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: FilterCategoriesViewModel by viewModels()
     private val args: ProductCategoryFragmentArgs by navArgs()
-    private lateinit var adapter: ProductCategoryAdapter
-    private var items = mutableListOf<FirestoreCategory>()
+    private lateinit var categoriesAdapter: ProductCategoryAdapter
+    private var items = listOf<Category>()
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpUi(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_save_24, showToolbar = false){
+        setUpUi(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false,
+        showFabCenter = false){
             findNavController().apply {
-                previousBackStackEntry!!.savedStateHandle.set("categories_key", adapter.getFinalCategories())
+                previousBackStackEntry!!.savedStateHandle.set("categories_key", categoriesAdapter.getFinalCategories())
                 popBackStack()
             }
         }
-        adapter = ProductCategoryAdapter()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
+
+        categoriesAdapter = ProductCategoryAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = categoriesAdapter
+        }
+
         args.categories?.let {
-            adapter.initialCategories(it.toMutableList())
+            categoriesAdapter.initialCategories(it.toMutableList())
         }
 
-        binding.categoriesSearch.setOnItemClickListener { _, _, i, _ ->
-            adapter.addCategory(items[i])
+        binding.categoriesSearch.setOnItemClickListener { adapterView, _, i, _ ->
+            val item = adapterView.getItemAtPosition(i)
+            val category = items.singleOrNull{ it.categoryName == item }
+            if (category != null) categoriesAdapter.addCategory(category)
         }
 
-        binding.categoriesSearch.addTextChangedListener { editText ->
-            editText?.toString()?.let { text ->
-                lifecycleScope.launch {
-                    val data = viewModel.getCategoriesWithName(text)
-                    items = data.toMutableList()
-                    val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, data.map { it.name })
-                    (binding.categoriesSearch as? AutoCompleteTextView)?.setAdapter(adapter)
+        launchAndRepeatWithViewLifecycle {
+            when(val result = viewModel.getAllCategories()){
+                is RepoResult.Error -> {}
+                RepoResult.InProgress -> {}
+                is RepoResult.Success -> {
+                    items = result.data
+                    val searchAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, result.data.map { it.categoryName })
+                    (binding.categoriesSearch as? AutoCompleteTextView)?.setAdapter(searchAdapter)
                 }
             }
+
         }
     }
 

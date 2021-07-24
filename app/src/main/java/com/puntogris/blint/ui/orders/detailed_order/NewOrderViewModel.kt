@@ -42,6 +42,10 @@ class NewOrderViewModel @Inject constructor(
         else FirestoreDebt(amount = amount)
     }
 
+    fun updateOrderDiscount(amount: Float){
+        _order.value.value = amount
+    }
+
     fun updateRecordType(code: Int){
         _order.value.type = when(code){
             0 -> IN

@@ -8,12 +8,8 @@ import com.puntogris.blint.model.Category
 
 class CategoryViewHolder private constructor(val binding: ManageCategoryVhBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(category: Category, clickListener: ()-> Unit) {
+    fun bind(category: Category) {
         binding.category = category
-        binding.root.setOnClickListener {
-            category.selected = !category.selected
-            clickListener()
-        }
         binding.executePendingBindings()
     }
 
@@ -24,5 +20,4 @@ class CategoryViewHolder private constructor(val binding: ManageCategoryVhBindin
             return CategoryViewHolder(binding)
         }
     }
-
 }

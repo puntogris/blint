@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.ui.main.MainFabListener
@@ -19,6 +21,7 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
@@ -27,18 +30,18 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     private lateinit var manageProductsAdapter : ManageProductsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-    override fun onAttach(context: Context) {
-        (context as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
-            findNavController().navigate(R.id.editProductFragment)
-        }
-        super.onAttach(context)
-    }
-
-    override fun initializeViews() {
-//
-//        (requireActivity() as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
+//    override fun onAttach(context: Context) {
+//        (context as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
 //            findNavController().navigate(R.id.editProductFragment)
 //        }
+//        super.onAttach(context)
+//    }
+
+    override fun initializeViews() {
+
+        (requireActivity() as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
+            findNavController().navigate(R.id.editProductFragment)
+        }
 
         binding.productSearch.clearFocus()
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -67,6 +70,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                             val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
                                 R.id.qrSearchType -> SearchText.QrCode(text)
                                 R.id.internalCodeSearchType -> SearchText.InternalCode(text)
+                                R.id.categorySearchType -> SearchText.Category(text)
                                 else -> SearchText.Name(text)
                             }
                             searchProductWithNameAndFillAdapter(data)
@@ -104,27 +108,33 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
             }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) {
-            it?.let { code ->
-                binding.productSearch.setText(code)
-                binding.searchTypeRadioGroup.visible()
-                binding.searchTypeRadioGroup.check(R.id.qrSearchType)
-                launchAndRepeatWithViewLifecycle {
-                    searchProductWithNameAndFillAdapter(SearchText.QrCode(code))
+        findNavController().currentBackStackEntry?.savedStateHandle?.apply {
+            getLiveData<String>("key").observe(
+                viewLifecycleOwner) {
+                it?.let { code ->
+                    binding.productSearch.setText(code)
+                    binding.searchTypeRadioGroup.visible()
+                    binding.searchTypeRadioGroup.check(R.id.qrSearchType)
+                    launchAndRepeatWithViewLifecycle {
+                        searchProductWithNameAndFillAdapter(SearchText.QrCode(code))
+                    }
                 }
+            }
+
+            getLiveData<Boolean>("simple_order_key").observe(viewLifecycleOwner){
+                if (it) manageProductsAdapter.refresh()
             }
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("simple_order_key")?.observe(viewLifecycleOwner){
-            if (it) manageProductsAdapter.refresh()
-        }
+    }
+
+    fun onFilterClicked(){
+        findNavController().navigate(R.id.filterCategoriesBottomSheet)
     }
 
     fun onScanBarcodeClicked(){
         hideKeyboard()
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-
     }
 
     private suspend fun searchProductAndFillAdapter(){
@@ -148,7 +158,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     private fun onProductLongClickListener(product: ProductWithSuppliersCategories){
         showOrderPickerAndNavigate(product.product)
     }
-
 
     override fun onDestroyView() {
         binding.searchToolbar.setNavigationOnClickListener(null)

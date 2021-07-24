@@ -72,31 +72,27 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 productPricesTitle.text = getString(R.string.prices_and_initial_stock)
             }
         }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
-            viewLifecycleOwner) {
-            binding.descriptionLayout.productBarcodeText.setText(it)
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<FirestoreCategory>>("categories_key")?.observe(
-            viewLifecycleOwner) {
+        onBackStackLiveData<List<Category>>("categories_key"){
             viewModel.updateCategories(it)
-            binding.productExtrasLayout.categoriesChipGroup.let { group->
+            binding.scopeLayout.categoriesChipGroup.let { group->
                 group.removeViews(1,group.size - 1)
             }
             it.forEach { category ->
-               if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()){
-                   if (viewModel.currentProduct.value?.categories!!.contains(category)){
-                       val chip = Chip(requireContext())
-                       chip.text = category.name
-                       binding.productExtrasLayout.categoriesChipGroup.addView(chip)
-                   }
-               }
+                if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()){
+                    if (viewModel.currentProduct.value?.categories!!.contains(category)){
+                        val chip = Chip(requireContext())
+                        chip.text = category.categoryName.capitalizeFirstChar()
+                        binding.scopeLayout.categoriesChipGroup.addView(chip)
+                    }
+                }
             }
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<List<FirestoreSupplier>>("suppliers_key")?.observe(
-            viewLifecycleOwner) {
+        onBackStackLiveData<String>("key") {
+            binding.descriptionLayout.productBarcodeText.setText(it)
+        }
+
+        onBackStackLiveData<List<FirestoreSupplier>>("suppliers_key"){
             viewModel.updateSuppliers(it)
             binding.scopeLayout.supplierChipGroup.let { group->
                 group.removeViews(1,group.size - 1)
@@ -176,5 +172,4 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             .actionEditProductFragmentToProductCategoryFragment(viewModel.currentProduct.value?.categories?.toTypedArray())
         findNavController().navigate(action)
     }
-
 }

@@ -14,8 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
-    private val categoriesRepository: CategoriesRepository
+    private val productRepository: ProductRepository
 ):ViewModel() {
 
     var viewsLoaded = false
@@ -30,7 +29,7 @@ class ProductViewModel @Inject constructor(
         _currentProduct.value.suppliers = suppliers
     }
 
-    fun updateCategories(categories: List<FirestoreCategory>){
+    fun updateCategories(categories: List<Category>){
         _currentProduct.value.categories = categories
     }
 
@@ -76,6 +75,4 @@ class ProductViewModel @Inject constructor(
     suspend fun getSuppliersWithName(name: String) =
         productRepository.getSuppliersWithNameDatabase(name.lowercase())
 
-    suspend fun getCategoriesWithName(name: String) =
-        categoriesRepository.getCategoriesWithNameDatabase(name.lowercase())
 }

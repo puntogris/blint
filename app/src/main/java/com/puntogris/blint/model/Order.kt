@@ -45,7 +45,10 @@ data class Order(
     var debtId: String = "",
 
     @ColumnInfo
-    var businessName: String = ""
+    var businessName: String = "",
+
+    @ColumnInfo
+    var discount: Float = 0F
 
 ):Parcelable{
     @Ignore

@@ -11,14 +11,11 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class Category(
-    @PrimaryKey
-    var categoryId: String = "",
 
-    @ColumnInfo
-    var name: String = "",
+    @PrimaryKey(autoGenerate = false)
+    var categoryName: String = "",
 
     @ColumnInfo
     var businessId: String = "",
 
-    @Ignore @get:Exclude var selected: Boolean = false
     ):Parcelable

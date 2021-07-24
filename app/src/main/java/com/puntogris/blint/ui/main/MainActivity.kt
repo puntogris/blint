@@ -110,6 +110,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
                 }
             }
         }
+        sharedPref.setCategoryFilterPref("ALL")
     }
 
     private fun setUpScanner() {

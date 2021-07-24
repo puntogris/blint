@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.product.categories
+package com.puntogris.blint.ui.categories.manage
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -9,46 +9,43 @@ import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.categories.CategoryViewHolder
 import com.puntogris.blint.ui.notifications.SwipeToDeleteCallback
 
-class ProductCategoryAdapter: ListAdapter<Category, CategoryViewHolder>(
+class ManageCategoriesAdapter(private val deleteListener:(String) -> Unit): ListAdapter<Category, CategoryViewHolder>(
     CategoryDiffCallBack()
 ) {
 
-    private var categories = mutableListOf<Category>()
+    private var list = mutableListOf<Category>()
 
-    init {
-        submitList(categories)
+    fun updateList(list:List<Category>){
+        this.list = list.toMutableList()
+        notifyDataSetChanged()
     }
 
-    fun initialCategories(list:MutableList<Category>){
-        categories = list
+    fun addCategory(category: Category){
+        list.add(category)
+        notifyDataSetChanged()
     }
-
-    fun getFinalCategories() = categories
-
-    override fun getItemCount() = categories.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder.from(parent)
     }
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categories[position])
+        holder.bind(list[position])
     }
+
+    override fun getItemCount() = list.size
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
+
         object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewHolder.bindingAdapterPosition.apply {
-                    categories.removeAt(this)
+                    deleteListener.invoke(list[this].categoryName)
+                    list.removeAt(this)
                     notifyItemRemoved(this)
                 }
             }
         }.apply { ItemTouchHelper(this).attachToRecyclerView(recyclerView) }
-    }
-
-    fun addCategory(category: Category){
-        if (!categories.contains(category)) categories.add(category)
-        notifyDataSetChanged()
     }
 }
 

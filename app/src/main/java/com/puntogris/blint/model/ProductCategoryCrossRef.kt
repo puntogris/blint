@@ -2,8 +2,8 @@ package com.puntogris.blint.model
 
 import androidx.room.Entity
 
-@Entity(primaryKeys = ["productId", "categoryId"])
+@Entity(primaryKeys = ["productId", "categoryName"])
 data class ProductCategoryCrossRef(
     val productId: String,
-    val categoryId: String
+    val categoryName: String
 )

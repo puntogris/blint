@@ -321,7 +321,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageCategoriesFragment"
-        android:name="com.puntogris.blint.ui.categories.ManageCategoriesFragment"
+        android:name="com.puntogris.blint.ui.categories.manage.ManageCategoriesFragment"
         android:label="@string/categories_label" />
     <fragment
         android:id="@+id/welcomeFragment"
@@ -579,7 +579,7 @@
         <argument
             android:name="categories"
             app:nullable="true"
-            app:argType="com.puntogris.blint.model.FirestoreCategory[]"
+            app:argType="com.puntogris.blint.model.Category[]"
             android:defaultValue="@null" />
     </fragment>
     <fragment

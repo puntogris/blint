@@ -44,14 +44,14 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private val viewModel: MainViewModel by viewModels()
 
     override fun onAttach(context: Context) {
-        (context as MainFabListener).addListener(showFab = false)
+      //  (context as MainFabListener).addListener(showFab = false)
         super.onAttach(context)
     }
 
     @ExperimentalTime
     override fun initializeViews() {
         //setUpUi(showFab = false)
-      //  (requireActivity() as MainFabListener).addListener(showFab = false)
+        (requireActivity() as MainFabListener).addListener(showFab = false)
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
