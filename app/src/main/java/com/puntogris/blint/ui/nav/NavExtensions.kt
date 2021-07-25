@@ -12,10 +12,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.StyleRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.use
-import com.google.android.material.animation.ArgbEvaluatorCompat
 import com.puntogris.blint.R
-import kotlin.math.roundToInt
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.View.GONE
@@ -23,10 +20,8 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.annotation.DrawableRes
-import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
@@ -35,7 +30,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
-import com.google.android.material.elevation.ElevationOverlayProvider
 
 fun Float.normalize(
     inputMin: Float,
@@ -88,15 +82,6 @@ fun Context.themeInterpolator(@AttrRes attr: Int): Interpolator {
     )
 }
 
-
-fun lerp(
-    startValue: Int,
-    endValue: Int,
-    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
-): Int {
-    return (startValue + fraction * (endValue - startValue)).roundToInt()
-}
-
 fun lerp(
     startValue: Float,
     endValue: Float,
@@ -126,64 +111,8 @@ fun lerp(
     return lerp(startValue, endValue, (fraction - startFraction) / (endFraction - startFraction))
 }
 
-/**
- * Linearly interpolate between two values when the fraction is in a given range.
- */
-fun lerp(
-    startValue: Int,
-    endValue: Int,
-    @FloatRange(
-        from = 0.0,
-        fromInclusive = true,
-        to = 1.0,
-        toInclusive = false
-    ) startFraction: Float,
-    @FloatRange(from = 0.0, fromInclusive = false, to = 1.0, toInclusive = true) endFraction: Float,
-    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
-): Int {
-    if (fraction < startFraction) return startValue
-    if (fraction > endFraction) return endValue
-
-    return lerp(startValue, endValue, (fraction - startFraction) / (endFraction - startFraction))
-}
-
-/**
- * Linearly interpolate between two colors when the fraction is in a given range.
- */
-@ColorInt
-fun lerpArgb(
-    @ColorInt startColor: Int,
-    @ColorInt endColor: Int,
-    @FloatRange(
-        from = 0.0,
-        fromInclusive = true,
-        to = 1.0,
-        toInclusive = false
-    ) startFraction: Float,
-    @FloatRange(from = 0.0, fromInclusive = false, to = 1.0, toInclusive = true) endFraction: Float,
-    @FloatRange(from = 0.0, fromInclusive = true, to = 1.0, toInclusive = true) fraction: Float
-): Int {
-    if (fraction < startFraction) return startColor
-    if (fraction > endFraction) return endColor
-
-    return ArgbEvaluatorCompat.getInstance().evaluate(
-        (fraction - startFraction) / (endFraction - startFraction),
-        startColor,
-        endColor
-    )
-}
 fun Context.getDrawableOrNull(@DrawableRes id: Int?): Drawable? {
     return if (id == null || id == 0) null else AppCompatResources.getDrawable(this, id)
-}
-
-@BindingAdapter(
-    "popupElevationOverlay"
-)
-fun Spinner.bindPopupElevationOverlay(popupElevationOverlay: Float) {
-    setPopupBackgroundDrawable(ColorDrawable(
-        ElevationOverlayProvider(context)
-            .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
-    ))
 }
 
 @BindingAdapter(
@@ -300,14 +229,6 @@ fun View.bindGoneIf(gone: Boolean) {
     }
 }
 
-@BindingAdapter("layoutFullscreen")
-fun View.bindLayoutFullscreen(previousFullscreen: Boolean, fullscreen: Boolean) {
-    if (previousFullscreen != fullscreen && fullscreen) {
-        systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-    }
-}
 
 @BindingAdapter(
     "paddingLeftSystemWindowInsets",
@@ -346,46 +267,6 @@ fun View.applySystemWindowInsetsPadding(
             padding.right + right,
             padding.bottom + bottom
         )
-    }
-}
-
-@BindingAdapter(
-    "marginLeftSystemWindowInsets",
-    "marginTopSystemWindowInsets",
-    "marginRightSystemWindowInsets",
-    "marginBottomSystemWindowInsets",
-    requireAll = false
-)
-fun View.applySystemWindowInsetsMargin(
-    previousApplyLeft: Boolean,
-    previousApplyTop: Boolean,
-    previousApplyRight: Boolean,
-    previousApplyBottom: Boolean,
-    applyLeft: Boolean,
-    applyTop: Boolean,
-    applyRight: Boolean,
-    applyBottom: Boolean
-) {
-    if (previousApplyLeft == applyLeft &&
-        previousApplyTop == applyTop &&
-        previousApplyRight == applyRight &&
-        previousApplyBottom == applyBottom
-    ) {
-        return
-    }
-
-    doOnApplyWindowInsets { view, insets, _, margin, _ ->
-        val left = if (applyLeft) insets.systemWindowInsetLeft else 0
-        val top = if (applyTop) insets.systemWindowInsetTop else 0
-        val right = if (applyRight) insets.systemWindowInsetRight else 0
-        val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
-
-        view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            leftMargin = margin.left + left
-            topMargin = margin.top + top
-            rightMargin = margin.right + right
-            bottomMargin = margin.bottom + bottom
-        }
     }
 }
 
