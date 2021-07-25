@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.snackbar.Snackbar
@@ -78,9 +79,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                     binding.summaryMessage.text = getString(R.string.snack_error_connection_server_try_later)
                     binding.button2.visible()
                 }
-                JoinBusiness.InProgress -> {
-
-                }
+                JoinBusiness.InProgress -> { }
                 JoinBusiness.CodeInvalid -> {
                     binding.animationView.playAnimationOnce(R.raw.error)
                     binding.fragmentTitle.text = getString(R.string.incorrect_code)
@@ -91,7 +90,8 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                     requireActivity().runOnUiThread {
                         binding.button8.visible()
                         binding.button8.setOnClickListener {
-                            findNavController().navigate(R.id.mainFragment)
+                            val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                            findNavController().navigate(R.id.mainFragment, null, nav)
                         }
                         binding.fragmentTitle.text = getString(R.string.joined_business_success_title)
                         binding.summaryMessage.text = getString(R.string.joined_business_success_message)

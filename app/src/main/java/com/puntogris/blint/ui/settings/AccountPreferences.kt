@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.settings
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import com.puntogris.blint.R
@@ -43,7 +44,8 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
         findPreference<Preference>(SIGN_OUT_PREF)?.setOnPreferenceClickListener {
             lifecycleScope.launch {
                 viewModel.logOut()
-                findNavController().navigate(R.id.loginFragment)
+                val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                findNavController().navigate(R.id.loginFragment, null, nav)
             }
             true
         }

@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.sync
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
@@ -43,11 +44,13 @@ class SyncAccountFragment : BaseFragment<FragmentSyncAccountBinding>(R.layout.fr
     }
 
     fun onExitButtonClicked(){
-        findNavController().navigate(R.id.loginFragment)
+        val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+        findNavController().navigate(R.id.loginFragment,null, nav)
     }
 
     fun onContinueButtonClicked(){
-        if (sharedPref.showNewUserScreenPref()) findNavController().navigate(R.id.newUserFragment)
-        else findNavController().navigate(R.id.mainFragment)
+        val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+        if (sharedPref.showNewUserScreenPref()) findNavController().navigate(R.id.newUserFragment, null, nav)
+        else findNavController().navigate(R.id.mainFragment, null, nav)
     }
 }

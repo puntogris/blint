@@ -146,7 +146,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
                 R.id.introFragment,
                 R.id.syncAccountFragment,
                 R.id.newUserFragment,
-                R.id.outOfSyncFragment
+                R.id.outOfSyncFragment,
+                R.id.publishOrderFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

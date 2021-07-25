@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -23,7 +25,8 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
             if (isOperationInProgress){
                 showSnackBarVisibilityAppBar(getString(R.string.snack_wait_for_operation))
             }else{
-                findNavController().navigate(R.id.mainFragment)
+                val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                findNavController().navigate(R.id.mainFragment, null, nav)
             }
         }
         lifecycleScope.launchWhenStarted {

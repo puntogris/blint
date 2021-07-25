@@ -30,7 +30,7 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
                 else -> {
                     if (discount != 0F) viewModel.updateOrderDiscount(discount)
                     if (debt != 0F) viewModel.updateOrderDebt(debt)
-                    findNavController().navigate(R.id.publishOrderFragment)
+                    findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
                 }
             }
         }

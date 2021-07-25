@@ -329,7 +329,9 @@
         android:label="" >
         <action
             android:id="@+id/action_welcomeFragment_to_firstSyncFragment"
-            app:destination="@id/syncAccountFragment" />
+            app:destination="@id/syncAccountFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_welcomeFragment_to_introFragment"
             app:destination="@id/introFragment" />
@@ -440,7 +442,9 @@
             android:label="@string/review_order_label">
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
-                app:destination="@id/publishOrderFragment" />
+                app:destination="@id/publishOrderFragment"
+                app:popUpTo="@id/navigation"
+                app:popUpToInclusive="true" />
         </fragment>
         <dialog
             android:id="@+id/addOrderClientSupplierBottomSheet"

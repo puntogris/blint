@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.business.register_business
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterLocalBusinessBinding
@@ -36,7 +37,8 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
                         }
                         SimpleResult.Success -> {
                             showSnackBarVisibilityAppBar(getString(R.string.snack_created_business_success))
-                            findNavController().navigate(R.id.mainFragment)
+                            val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                            findNavController().navigate(R.id.mainFragment, null, nav)
                         }
                     }
                 }
