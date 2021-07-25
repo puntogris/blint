@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="$ 0.00 / mes - Gratis"
+                        android:text="@string/local_business_price"
                         android:textColor="@color/primaryColor"
                         android:textSize="20sp"
                         android:textStyle="bold"

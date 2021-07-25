@@ -9,11 +9,10 @@ import com.puntogris.blint.ui.business.register_business.RegisterBusinessFragmen
 import com.puntogris.blint.ui.main.MainViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layout.fragment_local_business) {
-
-    private val viewModel: MainViewModel by activityViewModels()
 
         override fun initializeViews() {
             setUpUi(showAppBar = false)

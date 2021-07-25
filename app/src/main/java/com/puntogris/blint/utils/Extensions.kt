@@ -175,7 +175,7 @@ fun Context.pxToDp(px : Int) : Float {
 
 fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
 
-fun String.containsInvalidCharacters() = !all { it.isLetter() }
+fun String.containsInvalidCharacters() = !all { it.isLetter() || it.isWhitespace()}
 
 fun Activity.hideKeyboard() {
     hideKeyboard(currentFocus ?: View(this))

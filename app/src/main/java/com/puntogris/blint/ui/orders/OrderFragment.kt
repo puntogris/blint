@@ -23,6 +23,7 @@ import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.IN
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -81,9 +82,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                 requireActivity().contentResolver.openOutputStream(uri)?.let {
                     createPdf(it)
                 }
-                showShortSnackBar("Se guardo la factura correctamente.")
+                showShortSnackBar(getString(R.string.snack_invoice_saved_success))
             }catch (e:Exception){
-                showShortSnackBar("Ocurrio un error al guardar la factura.")
+                showShortSnackBar(getString(R.string.snack_invoice_save_error))
             }
         }
     }
@@ -92,9 +93,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         OptionsSheet().build(requireContext()){
             displayMode(DisplayMode.GRID_HORIZONTAL)
             with(
-                Option(R.drawable.ic_baseline_article_24,"Ver"),
-                Option(R.drawable.ic_baseline_share_24, "Compartir"),
-                Option(R.drawable.ic_baseline_archive_24,"Guardar")
+                Option(R.drawable.ic_baseline_article_24, this@OrderFragment.getString(R.string.see)),
+                Option(R.drawable.ic_baseline_share_24, this@OrderFragment.getString(R.string.share)),
+                Option(R.drawable.ic_baseline_archive_24,this@OrderFragment.getString(R.string.action_save))
             )
             onPositive { index: Int, _: Option ->
                 when(index){
@@ -154,15 +155,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
         var canvas = pageCanvas.canvas
         val horizontalMargin = 40F
-
-        canvas.drawText("Factura orden ${viewModel.order.value?.order?.number}.", horizontalMargin,40f, paintLeft)
-        canvas.drawText("Negocio: ${viewModel.order.value?.order?.businessName} ", horizontalMargin,70f, paintLeft)
-        canvas.drawText("Fecha: ${Date().getDateWithTimeFormattedString()}", horizontalMargin,100f, paintLeft)
-        val trader = if (viewModel.order.value?.order?.type == "IN") "Proveedor" else "Cliente"
-        val traderName = if(viewModel.order.value?.order?.traderName.isNullOrBlank()) "No especificado" else viewModel.order.value?.order?.traderName.toString()
+        canvas.drawText(getString(R.string.order_number_invoice, viewModel.order.value?.order?.number), horizontalMargin,40f, paintLeft)
+        canvas.drawText("${getString(R.string.business)}: ${viewModel.order.value?.order?.businessName} ", horizontalMargin,70f, paintLeft)
+        canvas.drawText("${getString(R.string.date)}: ${Date().getDateWithTimeFormattedString()}", horizontalMargin,100f, paintLeft)
+        val trader = if (viewModel.order.value?.order?.type == IN) getString(R.string.supplier_label) else getString(R.string.client_label)
+        val traderName = if(viewModel.order.value?.order?.traderName.isNullOrBlank()) getString(R.string.not_specified) else viewModel.order.value?.order?.traderName.toString()
         canvas.drawText("$trader: $traderName", horizontalMargin,130f, paintLeft)
 
-        val bitmap:Bitmap = generateQRImage("order:${viewModel.order.value?.order?.orderId.toString()}", 75, 75)
+        val bitmap:Bitmap = generateQRImage("ORDER:${viewModel.order.value?.order?.orderId.toString()}", 75, 75)
         canvas.drawBitmap(bitmap, width.toFloat() - 100, 25f, paintRight)
 
         canvas.drawLine(horizontalMargin,150f,width - horizontalMargin, 150f, paintCenter)
@@ -171,10 +171,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         val xRow3 = ((width - 100) / 3f *2) + horizontalMargin
         val xRow4 = width - horizontalMargin
 
-        canvas.drawText("Producto", horizontalMargin, 190F, paintLeft)
-        canvas.drawText("SKU", xRow2,190f, paintCenter)
-        canvas.drawText("Cantidad", xRow3 ,190f, paintCenter)
-        canvas.drawText("Valor", xRow4, 190f , paintRight)
+        canvas.drawText(getString(R.string.product), horizontalMargin, 190F, paintLeft)
+        canvas.drawText(getString(R.string.sku_caps), xRow2,190f, paintCenter)
+        canvas.drawText(getString(R.string.amount), xRow3 ,190f, paintCenter)
+        canvas.drawText(getString(R.string.value), xRow4, 190f , paintRight)
 
         var initY = 230F
 
@@ -219,32 +219,31 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         file.close()
     }
 
-
     private fun Canvas.drawFooter(width: Int, height: Int, pageNumber: Int, isLastPage: Boolean){
         if (isLastPage){
-            drawText("TOTAL:" ,40f, height - 75f, paintLeft)
+            drawText("${getString(R.string.total_caps)}:" ,40f, height - 75f, paintLeft)
             drawText("${viewModel.order.value?.order?.value}$" ,width - 40f, height - 75f ,paintRight)
         }
         drawLine(40f, height - 50f,width - 40f, height - 50f, paintCenter)
         drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
-        drawText("Generado por blint.app" ,width - 40f, height - 25f , blintPaint)
+        drawText(getString(R.string.invoice_by_blint) ,width - 40f, height - 25f , blintPaint)
     }
 
     private fun onSeeReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/receipt.pdf")
+        val file = File(requireContext().filesDir.absolutePath + "/${getString(R.string.invoice_file_name, viewModel.order.value?.order?.number)}")
         createPdf(file.outputStream())
         startActivity(
             PdfViewerActivity.launchPdfFromPath(
             context,
                 file.path,
-            "Factura orden ${viewModel.order.value?.order?.number}",
+                getString(R.string.order_number_invoice, viewModel.order.value?.order?.number),
             "pdf",
             enableDownload = false
         ))
     }
 
     private fun onShareReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/order${viewModel.order.value?.order?.number}_receipt.pdf")
+        val file = File(requireContext().filesDir.absolutePath + "/${getString(R.string.invoice_file_name, viewModel.order.value?.order?.number)}")
         createPdf(file.outputStream())
         val uri = FileProvider.getUriForFile(requireContext(), "com.puntogris.blint", file)
         val intent = Intent(Intent.ACTION_SEND)
@@ -254,7 +253,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun onSaveReceipt(){
-        activityResultLauncher.launch("order${viewModel.order.value?.order?.number}_receipt.pdf")
+        activityResultLauncher.launch(getString(R.string.invoice_file_name, viewModel.order.value?.order?.number))
     }
 
     fun onExternalChipClicked(){

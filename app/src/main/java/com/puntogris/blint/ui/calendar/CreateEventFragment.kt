@@ -37,6 +37,7 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
     }
 
     fun onSelectDateClicked(){
+        hideKeyboard()
         CalendarSheet().build(requireContext()){
             title(this@CreateEventFragment.getString(R.string.ask_event_date))
             selectionMode(SelectionMode.DATE)

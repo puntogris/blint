@@ -10,11 +10,11 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.puntogris.blint.R
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID
 import com.puntogris.blint.utils.showLongSnackBar
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class OneTapLogin @Inject constructor(@ApplicationContext private val context: Context) {
+class OneTapLogin @Inject constructor(@ActivityContext private val context: Context) {
 
     private val oneTapClient: SignInClient = Identity.getSignInClient(context)
     private var counter = 0
@@ -55,10 +55,8 @@ class OneTapLogin @Inject constructor(@ApplicationContext private val context: C
                 activityResultLauncher.launch(IntentSenderRequest.Builder(it.pendingIntent.intentSender).build())
             }
             .addOnFailureListener {
-                it.localizedMessage?.let { message ->
-                    //integrar esto con las de abajo dealguna forma
-                    context.showLongSnackBar(message)
-                }
+                //integrar esto con las de abajo dealguna forma
+                context.showLongSnackBar(context.getString(R.string.snack_no_google_account_found))
             }
     }
 

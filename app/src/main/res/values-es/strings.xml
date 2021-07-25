@@ -211,6 +211,7 @@
     <string name="snack_login_warning">Debido a multiples intentos de ingreso consecutivos, se deshabilito el ingreso a la app momentaneamente.</string>
     <string name="snack_network_problems">Se encontro un problema con la conexion. Revisa tu red y intenta nuevamente.</string>
     <string name="snack_technical_problems">Estamos teniendo dificultades tecnicas. Intenta nuevamente en un rato.</string>
+    <string name="snack_no_google_account_found">No se encontro una cuenta de google en su celular.</string>
 
     <!-- Calendar -->
     <string name="action_add_event">Agregar evento</string>
@@ -385,7 +386,7 @@
     <string name="snack_discount_limit">El descuento no puede ser mayor que el total de la orden.</string>
     <string name="supplier_or_client">Proveedor/ Cliente:</string>
     <string name="order_needs_products">Necesita agregar productos.</string>
-    <string name="product_amount_empty">La cantidad del producto no puede ser cero.</string>
+    <string name="product_amount_empty">La cantidad del producto no puede ser cero o mas del stock.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -526,6 +527,19 @@
     <string name="new_user_notif_message">Te recomendamos que veas esta guia para poder aprovechar al máximo la app.</string>
     <string name="new_business_notif_message">Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella.</string>
     <string name="new_employee_notif_message">El negocio se agranda, le damos la bienvenida a %1$s.</string>
+
+    <!-- Invoice -->
+    <string name="share">Compartir</string>
+    <string name="see">Ver</string>
+    <string name="snack_invoice_saved_success">Se guardo la factura correctamente.</string>
+    <string name="snack_invoice_save_error">Ocurrio un error al guardar la factura.</string>
+    <string name="invoice_by_blint">Generado por blint.app</string>
+    <string name="business">Negocio</string>
+    <string name="order_number_invoice">Orden numero: %1$f</string>
+    <string name="invoice_file_name">factura_orden_%1$f.pdf</string>
+
+    <!-- Business Tiers -->
+    <string name="local_business_price">$ 0.00 / mes - Gratis</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

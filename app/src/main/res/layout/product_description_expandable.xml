@@ -117,7 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
-                        android:inputType="textCapWords"
+                        android:inputType="textCapSentences"
                         android:singleLine="true"
                         android:maxLength="40"
                         android:text="@{viewModel.currentProduct.product.description}" />
