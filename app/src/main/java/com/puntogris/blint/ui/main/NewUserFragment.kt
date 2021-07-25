@@ -1,12 +1,7 @@
 package com.puntogris.blint.ui.main
 
-import android.content.Intent
-import android.net.Uri
-import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNewUserBinding
@@ -18,16 +13,17 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showAppBar = true, showToolbar = false)
+        registerUiInterface.register(showAppBar = true, showToolbar = false)
         getParentBottomAppBar().apply {
             invisible()
             performHide()
         }
-        val view = requireActivity().window.decorView
         ContextCompat.getColor(requireContext(), R.color.colorSecondary).apply {
             requireActivity().window.statusBarColor = this
         }
-        view.systemUiVisibility = (view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+        val view = requireActivity().window
+        val wic = WindowInsetsControllerCompat(view, view.decorView)
+        wic.isAppearanceLightStatusBars = false
     }
 
     fun onLearnMoreClicked(){
@@ -36,7 +32,6 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     fun onJoinBusinessClicked(){
         findNavController().navigate(R.id.joinBusinessFragment)
     }
-
     fun onCreateBusinessClicked(){
         findNavController().navigate(R.id.registerBusinessFragment)
     }

@@ -8,10 +8,7 @@ import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.playAnimationOnce
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showSnackBarVisibilityAppBar
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +18,7 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
     private var isOperationInProgress = true
 
     override fun initializeViews() {
-        setUpUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        registerUiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             if (isOperationInProgress){
                 showSnackBarVisibilityAppBar(getString(R.string.snack_wait_for_operation))
             }else{

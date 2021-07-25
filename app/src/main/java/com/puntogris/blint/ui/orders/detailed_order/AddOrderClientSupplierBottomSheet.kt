@@ -23,6 +23,7 @@ import com.puntogris.blint.ui.supplier.manage.ManageSuppliersAdapter
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -33,6 +34,7 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
     private val args:AddOrderClientSupplierBottomSheetArgs by navArgs()
     private lateinit var manageSuppliersAdapter: ManageSuppliersAdapter
     private lateinit var manageClientsAdapter: ManageClientsAdapter
+    private var searchJob: Job? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -89,23 +91,27 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val adapter = if (args.orderType == IN){
-            manageSuppliersAdapter = ManageSuppliersAdapter{ onSupplierClicked(it) }
-            manageSuppliersAdapter
-        }else{
-            manageClientsAdapter = ManageClientsAdapter{ onClientClicked(it)}
-            manageClientsAdapter
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter =
+                if (args.orderType == IN){
+                    manageSuppliersAdapter = ManageSuppliersAdapter{ onSupplierClicked(it) }
+                    manageSuppliersAdapter
+                }else{
+                    manageClientsAdapter = ManageClientsAdapter{ onClientClicked(it)}
+                    manageClientsAdapter
+                }
         }
-        binding.recyclerView.adapter = adapter
+
+
 
         launchAndRepeatWithViewLifecycle {
             getAllAndFillAdapter()
         }
 
         binding.supplierSearch.addTextChangedListener {
-            lifecycleScope.launch {
+            searchJob?.cancel()
+            searchJob = lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllAndFillAdapter()
                     else getAllWithNameAndFillAdapter(it)

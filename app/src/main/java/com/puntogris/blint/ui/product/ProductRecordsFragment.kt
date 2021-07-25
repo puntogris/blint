@@ -15,7 +15,7 @@ import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -27,7 +27,7 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
     private val viewModel: ProductViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
-        setUpUi(showFab = true){
+        registerUiInterface.register(showFab = true){
             showOrderPickerAndNavigate()
         }
 

@@ -40,7 +40,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        setUpUi(showAppBar = false)
+        registerUiInterface.register(showAppBar = false)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

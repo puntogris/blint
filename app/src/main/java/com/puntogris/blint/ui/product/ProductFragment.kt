@@ -30,7 +30,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditProductFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)

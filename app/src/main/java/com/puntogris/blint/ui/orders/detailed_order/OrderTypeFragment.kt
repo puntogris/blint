@@ -10,7 +10,7 @@ import com.puntogris.blint.databinding.FragmentOrderTypeBinding
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(
+        registerUiInterface.register(
             showFab = true,
             showAppBar = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24,

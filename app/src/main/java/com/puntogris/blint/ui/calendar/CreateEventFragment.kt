@@ -20,7 +20,7 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             lifecycleScope.launch {
                 when(viewModel.createEvent(
                     title = binding.eventTitleText.getString(),

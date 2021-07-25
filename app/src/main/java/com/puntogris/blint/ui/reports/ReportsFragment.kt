@@ -24,7 +24,7 @@ import com.puntogris.blint.utils.Constants.QUARTERLY
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.WEEKLY
 import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = false)
+        registerUiInterface.register(showFab = false)
 
         val reportDashboardAdapter = ReportsDashboardAdapter()
         binding.dashboardRv.apply {

@@ -33,7 +33,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateSupplierData(getSupplierFromViews())
             when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
                 is StringValidator.Valid -> {

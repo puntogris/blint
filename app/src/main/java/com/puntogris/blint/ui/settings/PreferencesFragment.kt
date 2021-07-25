@@ -13,16 +13,14 @@ import com.puntogris.blint.utils.Constants.BACKUP_PREF
 import com.puntogris.blint.utils.Constants.HELP_PREF
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_PREF
 import com.puntogris.blint.utils.Constants.THEME_PREF
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PreferencesFragment: BasePreferences(R.xml.preferences) {
 
-    private val viewModel: PreferencesViewModel by viewModels()
-
     override fun initializeViews() {
-        setUpUi()
+        registerUiInterface.register()
         findPreference<Preference>(ACCOUNT_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.accountPreferences)
             true

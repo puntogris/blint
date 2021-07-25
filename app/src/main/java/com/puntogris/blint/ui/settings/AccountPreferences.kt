@@ -14,6 +14,7 @@ import com.puntogris.blint.utils.Constants.SIGN_OUT_PREF
 import com.puntogris.blint.utils.Constants.USER_BUSINESS_PREF
 import com.puntogris.blint.utils.Constants.USER_DATA_PREF
 import com.puntogris.blint.utils.getParentFab
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,8 +23,9 @@ import javax.inject.Inject
 class AccountPreferences: BasePreferences(R.xml.account_preferences) {
 
     private val viewModel: PreferencesViewModel by viewModels()
+
     override fun initializeViews() {
-        getParentFab().hide()
+        registerUiInterface.register()
         findPreference<Preference>(USER_DATA_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.userAccountFragment)
             true

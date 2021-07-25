@@ -25,7 +25,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     @SuppressLint("ShowToast")
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showAppBar = true, showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_check_24){
+        registerUiInterface.register(showAppBar = true, showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_check_24){
             val text = binding.joinBusinessCodeText.getString()
             if(text.isBlank()){
                 Snackbar.make(binding.root, getString(R.string.snack_type_or_scan_code_to_continue), Snackbar.LENGTH_LONG)

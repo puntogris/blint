@@ -15,9 +15,8 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.layout.fragment_product_category) {
@@ -29,7 +28,7 @@ class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.l
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpUi(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false,
+        registerUiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false,
         showFabCenter = false){
             findNavController().apply {
                 previousBackStackEntry!!.savedStateHandle.set("categories_key", categoriesAdapter.getFinalCategories())

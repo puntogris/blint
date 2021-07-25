@@ -32,7 +32,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateClientData(getClientFromViews())
             when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
                 is StringValidator.Valid -> {

@@ -31,7 +31,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     private val viewModel:ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditClientFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)

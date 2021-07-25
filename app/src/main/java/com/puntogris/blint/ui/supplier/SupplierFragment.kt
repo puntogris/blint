@@ -32,7 +32,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditSupplierFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)

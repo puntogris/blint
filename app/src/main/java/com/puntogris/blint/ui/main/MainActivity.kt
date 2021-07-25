@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -36,14 +37,14 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), MainFabListener {
+class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), SetupUiListener {
 
-    override fun addListener(showFab: Boolean,
-                             showAppBar: Boolean,
-                             showToolbar: Boolean,
-                             showFabCenter: Boolean,
-                             @DrawableRes fabIcon: Int,
-                             fabListener: View.OnClickListener?) {
+    override fun register(showFab: Boolean,
+                          showAppBar: Boolean,
+                          showToolbar: Boolean,
+                          showFabCenter: Boolean,
+                          @DrawableRes fabIcon: Int,
+                          fabListener: View.OnClickListener?) {
        binding.toolbar.visibility = if (showToolbar) View.VISIBLE else View.GONE
         if (showFab) {
             binding.mainFab.apply {
@@ -163,7 +164,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
         }
     }
 
-    fun changeFabStateBottomSheet(value: Boolean) {
+    private fun changeFabStateBottomSheet(value: Boolean) {
         bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.mainFab, value))
     }
 
@@ -230,14 +231,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
     ) {
         if(destination.id == R.id.mainFragment){
             setToolbarAndStatusBarColor(R.color.colorSecondary)
-            binding.toolbar.setTitleTextColor(getColor(R.color.white))
             setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
-            binding.notification.visible()
-            binding.badge.visible()
-            if (!isDarkThemeOn()){
-                val view = window.decorView
-                view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+            binding.apply {
+                toolbar.setTitleTextColor(getColor(R.color.white))
+                notification.visible()
+                badge.visible()
             }
+            val wic = WindowInsetsControllerCompat(window, window.decorView)
+            wic.isAppearanceLightStatusBars = false
         }else{
             binding.badge.gone()
             binding.notification.gone()
@@ -247,14 +248,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), M
     }
 
     private fun setupToolbarAndStatusBar(){
-        val view = window.decorView
+        val wic = WindowInsetsControllerCompat(window, window.decorView)
         if (isDarkThemeOn()){
             setToolbarAndStatusBarColor(R.color.nightBackground)
-            view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            wic.isAppearanceLightStatusBars = false
         }else{
             setToolbarAndStatusBarColor(R.color.grey_3)
             binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
-            view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            wic.isAppearanceLightStatusBars = true
         }
     }
 

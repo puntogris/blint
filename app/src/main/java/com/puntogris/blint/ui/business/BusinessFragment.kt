@@ -26,7 +26,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     private lateinit var businessEmployeeAdapter: BusinessEmployeeAdapter
 
     override fun initializeViews() {
-        setUpUi()
+        registerUiInterface.register()
         binding.employee = args.employee
 
         launchAndRepeatWithViewLifecycle {

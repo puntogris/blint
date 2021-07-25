@@ -27,7 +27,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     @ExperimentalCoroutinesApi
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = true){ showCreateCategoryDialog() }
+        registerUiInterface.register(showFab = true){ showCreateCategoryDialog() }
 
         categoriesAdapter = ManageCategoriesAdapter{ onCategoryDeleted(it) }
         binding.recyclerView.apply {

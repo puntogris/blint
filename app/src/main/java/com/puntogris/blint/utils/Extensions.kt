@@ -2,8 +2,8 @@ package com.puntogris.blint.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -11,7 +11,6 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
@@ -27,6 +25,7 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -53,10 +52,10 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.MainActivity
+import com.puntogris.blint.ui.main.SetupUiListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -65,7 +64,6 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 fun View.gone(){
     visibility = View.GONE
@@ -110,6 +108,7 @@ fun AppCompatActivity.getNavController() =
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
 
+@SuppressLint("ShowToast")
 fun Fragment.showLongSnackBarAboveFab(message: String){
     val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
     Snackbar
@@ -126,6 +125,7 @@ fun Fragment.createLongSnackBarAboveFab(message: String): Snackbar{
     return snack
 }
 
+@SuppressLint("ShowToast")
 fun Activity.showLongSnackBarAboveFab(message: String){
     val snackLayout = findViewById<View>(android.R.id.content)
     Snackbar
@@ -159,7 +159,6 @@ fun Fragment.showShortSnackBar(message: String){
 fun Context.showLongSnackBar(message: String){
     val snackLayout: View = (this as Activity).findViewById(android.R.id.content)
     Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG).show()
-
 }
 
 fun Context.dpToPx(dp : Float) : Float {
@@ -168,9 +167,8 @@ fun Context.dpToPx(dp : Float) : Float {
     )
 }
 
-fun Context.pxToDp(px : Int) : Float {
-    val displayMetrics = resources.displayMetrics
-    return px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)
+fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
+    context.resources.getDimension(id)
 }
 
 fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
@@ -190,12 +188,8 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun HashMap<String, String>.containsImage() = any { it.value.isNotEmpty() }
-
-fun ViewGroup.inflate(@LayoutRes res: Int): View {
-    return LayoutInflater.from(context)
-        .inflate(res, this, false)
-}
+fun ViewGroup.inflate(@LayoutRes res: Int): View =
+    LayoutInflater.from(context).inflate(res, this, false)
 
 fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
     return DecimalFormat("###,###,##0.00").format(this).apply {
@@ -214,9 +208,6 @@ fun Date.getDateWithTimeFormattedString() =
 
 fun Fragment.getDatabasePath():String =
     requireActivity().getDatabasePath("blint_database").absolutePath
-
-fun Date.getMonthWithYear() =
-    SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this).toString()
 
 fun Timestamp.getMonthAndYeah() =
     SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this.toDate()).toString()
@@ -282,7 +273,13 @@ fun Activity.launchWebBrowserIntent(uri: String){
 }
 
 inline val Context.screenWidth: Int
-    get() = Point().also { (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(it) }.x
+    get() =
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            Point().also { display?.getRealSize(it) }.x
+        } else {
+            @Suppress("DEPRECATION")
+            Point().also { (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(it) }.x
+        }
 
 inline val View.screenWidth: Int
     get() = context!!.screenWidth
@@ -310,10 +307,6 @@ inline fun getValueAnimator(
     return a
 }
 
-fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
-    context.resources.getDimension(id)
-}
-
 fun Fragment.showSnackBarVisibilityAppBar(text:String){
     getParentBottomAppBar().let {
         if (it.isVisible)
@@ -327,36 +320,6 @@ fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.t
 
 fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById(R.id.badge)
 
-fun Fragment.setUpUi(showFab: Boolean = false,
-                     showAppBar: Boolean = true,
-                     showToolbar: Boolean = true,
-                     showFabCenter: Boolean = true,
-                     @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
-                     fabListener: View.OnClickListener? = null
-){
-    (requireActivity() as MainActivity).apply {
-        findViewById<Toolbar>(R.id.toolbar).visibility = if (showToolbar) View.VISIBLE else View.GONE
-        val fab = findViewById<FloatingActionButton>(R.id.mainFab)
-        val appBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
-        if (showFab) {
-            fab.apply {
-                show()
-                changeIconFromDrawable(fabIcon)
-                setOnClickListener(fabListener)
-            }
-            appBar.fabAlignmentMode =
-                if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                else BottomAppBar.FAB_ALIGNMENT_MODE_END
-
-        } else fab.hide()
-        changeFabStateBottomSheet(showFab)
-        if (showAppBar) {
-            appBar.visible()
-            appBar.performShow()
-        } else appBar.gone()
-    }
-}
-
 fun Activity.setToolbarAndStatusBarColor(color: Int){
     ContextCompat.getColor(this, color).apply {
         window.statusBarColor = this
@@ -369,8 +332,8 @@ fun Fragment.setupStatusBarForLoginBackground(){
     val window = requireActivity().window
     window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorSecondary)
     if (!isDarkThemeOn()){
-        val view = window.decorView
-        view.setSystemUiVisibility(view.getSystemUiVisibility() and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+        val wic = WindowInsetsControllerCompat(window, window.decorView)
+        wic.isAppearanceLightStatusBars = false
     }
 }
 
@@ -441,3 +404,6 @@ fun String.capitalizeFirstChar() =
 fun <T>Fragment.onBackStackLiveData(key:String, observer: Observer<T>){
     findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)?.observe(viewLifecycleOwner, observer)
 }
+
+inline val Fragment.registerUiInterface: SetupUiListener
+    get() = (requireActivity() as SetupUiListener)

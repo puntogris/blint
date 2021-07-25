@@ -33,7 +33,7 @@ class GenerateReportFragment:
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
             val uri = viewModel.getDownloadUri()
             if (uri == null)
                 showLongSnackBarAboveFab(getString(R.string.snack_report_generating_or_error))

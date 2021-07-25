@@ -17,7 +17,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = false, showAppBar = false)
+        registerUiInterface.register(showFab = false, showAppBar = false)
         setupStatusBarForLoginBackground()
     }
 

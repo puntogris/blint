@@ -4,13 +4,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentWelcomeBinding
-import com.puntogris.blint.model.UserData
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import com.puntogris.blint.utils.setupStatusBarForLoginBackground
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_welcome) {
@@ -19,7 +16,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_w
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showFab = false, showAppBar = false, showToolbar = false)
+        registerUiInterface.register(showFab = false, showAppBar = false, showToolbar = false)
         setupStatusBarForLoginBackground()
     }
 

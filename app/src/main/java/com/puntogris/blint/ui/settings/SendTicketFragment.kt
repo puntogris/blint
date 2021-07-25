@@ -19,7 +19,7 @@ class SendTicketFragment: BaseFragment<FragmentSendTicketBinding>(R.layout.fragm
     private val viewModel: TicketsViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_send_24, showAppBar = false){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_send_24, showAppBar = false){
             if (
                 binding.messageText.getString().isNotBlank() &&
                 !binding.businessText.text.isNullOrBlank()

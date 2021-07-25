@@ -13,6 +13,7 @@ import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -21,10 +22,11 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
 
     private val viewModel: ManageClientsViewModel by viewModels()
     private lateinit var manageProductsAdapter: ManageClientsAdapter
+    private var searchJob: Job? = null
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpUi(showToolbar = false, showAppBar = true, showFab = true)
+        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true)
 
         manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
@@ -35,7 +37,8 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         }
 
         binding.clientSearch.addTextChangedListener {
-            lifecycleScope.launch {
+            searchJob?.cancel()
+            searchJob = lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllClientsAndFillAdapter()
                     else getAllClientsWithNameAndFillAdapter(it.lowercase())

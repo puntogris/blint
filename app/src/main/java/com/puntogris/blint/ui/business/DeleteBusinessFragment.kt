@@ -20,7 +20,7 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
     private val viewModel: BusinessViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
+        registerUiInterface.register(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
             if (binding.businessNameText.getString() == args.business.businessName){
                 showDeleteBusinessUi()
             }else{

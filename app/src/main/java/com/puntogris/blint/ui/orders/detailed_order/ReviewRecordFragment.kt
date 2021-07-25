@@ -22,7 +22,7 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
     override fun initializeViews() {
         binding.viewModel = viewModel
-        setUpUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        registerUiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             val orderValue = viewModel.order.value?.value!!
             when {
                 discount >= orderValue -> showShortSnackBar(getString(R.string.snack_discount_limit))

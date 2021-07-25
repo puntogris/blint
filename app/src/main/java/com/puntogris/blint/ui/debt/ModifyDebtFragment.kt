@@ -20,7 +20,7 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     private val args: ModifyDebtFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             onSaveDebtClicked()
         }
         binding.debtTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))

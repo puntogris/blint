@@ -26,7 +26,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
     override fun initializeViews() {
         binding.fragment = this
-        setUpUi(showAppBar = false)
+        registerUiInterface.register(showAppBar = false)
         setUpRecyclerView()
         getUserBusiness()
 

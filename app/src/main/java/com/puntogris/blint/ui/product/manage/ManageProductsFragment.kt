@@ -1,10 +1,8 @@
 package com.puntogris.blint.ui.product.manage
 
 import android.Manifest
-import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,15 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-import com.puntogris.blint.ui.main.MainFabListener
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
@@ -29,17 +26,11 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     private val viewModel: ManageProductsViewModel by viewModels()
     private lateinit var manageProductsAdapter : ManageProductsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-
-//    override fun onAttach(context: Context) {
-//        (context as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
-//            findNavController().navigate(R.id.editProductFragment)
-//        }
-//        super.onAttach(context)
-//    }
+    private var searchJob: Job? = null
 
     override fun initializeViews() {
 
-        (requireActivity() as MainFabListener).addListener(showToolbar = false, showAppBar = true, showFab = true){
+        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editProductFragment)
         }
 
@@ -63,7 +54,8 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 binding.searchTypeRadioGroup.visible()
             }
             addTextChangedListener {
-                lifecycleScope.launch {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
                     it.toString().let { text ->
                         if (text.isBlank()) searchProductAndFillAdapter()
                         else {
@@ -125,7 +117,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 if (it) manageProductsAdapter.refresh()
             }
         }
-
     }
 
     fun onScanBarcodeClicked(){

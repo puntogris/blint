@@ -26,7 +26,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private lateinit var recordsAdapter: CreateRecordsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private var job = Job()
+    private var searchJob: Job? = null
 
     override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
@@ -35,14 +35,14 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         setUpRecyclerView()
 
-        setUpUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        registerUiInterface.register(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             viewModel.updateOrdersItems(recordsAdapter.recordsList)
             viewModel.productWithRecords = recordsAdapter.recordsList
             if (viewModel.productWithRecords.size != 0){
                 if (viewModel.productWithRecords.all {
                         it.record.amount != 0 && it.record.amount <= it.product.amount
                 }){
-                    job.cancel()
+                    searchJob?.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)
                 }else{
                     showSnackBarVisibilityAppBar(getString(R.string.product_amount_empty))
@@ -68,7 +68,8 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchTypeRadioGroup.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener{
             override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
                 if (binding.productSearchText.getString().isNotEmpty()){
-                    lifecycleScope.launch(job) {
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
                         val text = binding.productSearchText.getString()
                         val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
                             R.id.qrSearchType -> SearchText.QrCode(text)
@@ -85,6 +86,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         })
 
         binding.productSearchText.addTextChangedListener {
+            searchJob?.cancel()
             it?.toString()?.let{ text ->
                 if(text.isNotEmpty()){
                     val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
@@ -92,7 +94,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         R.id.internalCodeSearchType -> SearchText.InternalCode(text)
                         else -> SearchText.Name(text)
                     }
-                    lifecycleScope.launch(job) {
+                    searchJob = lifecycleScope.launch {
                         viewModel.getProductWithName(data).collect { pagingData ->
                             binding.productSearchRecyclerView.visible()
                             binding.searchTypeRadioGroup.visible()

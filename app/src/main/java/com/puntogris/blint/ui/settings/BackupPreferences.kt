@@ -8,13 +8,12 @@ import com.puntogris.blint.ui.base.BasePreferences
 import com.puntogris.blint.utils.Constants.AUTO_BACKUP_PREF
 import com.puntogris.blint.utils.Constants.CREATE_BACKUP_PREF
 import com.puntogris.blint.utils.Constants.RESTORE_BACKUP_PREF
-import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 
 class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
-        setUpUi()
+        registerUiInterface.register()
         findPreference<SwitchPreference>(AUTO_BACKUP_PREF)?.setOnPreferenceClickListener {
             true
         }

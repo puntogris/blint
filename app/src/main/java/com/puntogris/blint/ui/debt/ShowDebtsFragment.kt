@@ -9,7 +9,7 @@ import com.puntogris.blint.databinding.FragmentShowDebtsBinding
 import com.puntogris.blint.model.SimpleDebt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -20,7 +20,7 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
     private val viewModel: DebtViewModel by viewModels()
 
     override fun initializeViews() {
-        setUpUi()
+        registerUiInterface.register()
 
         val simpleDebtAdapter = SimpleDebtAdapter{ onDebtClicked(it) }
         binding.recyclerView.apply {

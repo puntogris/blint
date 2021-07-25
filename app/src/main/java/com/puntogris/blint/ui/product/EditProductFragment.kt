@@ -37,7 +37,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 binding.descriptionLayout.productImage.visible()
             }
         }
-        setUpUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateProductData(getProductDataFromViews())
             when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true)){
                 is StringValidator.Valid -> {

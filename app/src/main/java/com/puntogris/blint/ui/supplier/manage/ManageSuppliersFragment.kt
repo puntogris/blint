@@ -14,6 +14,7 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.supplier.SupplierViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -22,10 +23,11 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
 
     private val viewModel: ManageSuppliersViewModel by viewModels()
     private lateinit var manageProductsAdapter: ManageSuppliersAdapter
+    private var searchJob: Job? = null
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpUi(showToolbar = false, showAppBar = true, showFab = true){
+        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editSupplierFragment)
         }
 
@@ -38,7 +40,8 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         }
 
         binding.supplierSearch.addTextChangedListener {
-            lifecycleScope.launch {
+            searchJob?.cancel()
+            searchJob = lifecycleScope.launch {
                 it.toString().let {
                     if (it.isBlank()) getAllSuppliersAndFillAdapter()
                     else getAllSuppliersWithNameAndFillAdapter(it.lowercase())

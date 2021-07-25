@@ -5,13 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.XmlRes
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.fragment.findNavController
-import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.puntogris.blint.R
-import com.puntogris.blint.utils.setUpUi
+import com.puntogris.blint.utils.registerUiInterface
 
 abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompat() {
 
@@ -24,7 +19,7 @@ abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setUpUi()
+        registerUiInterface.register()
         initializeViews()
         return super.onCreateView(inflater, container, savedInstanceState)
     }

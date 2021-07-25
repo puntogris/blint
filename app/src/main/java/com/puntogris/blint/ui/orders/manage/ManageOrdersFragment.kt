@@ -10,8 +10,7 @@ import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.showOrderPickerAndNavigate
+import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +19,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        setUpUi(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
+        registerUiInterface.register(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }

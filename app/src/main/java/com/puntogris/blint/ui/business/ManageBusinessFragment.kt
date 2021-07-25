@@ -9,10 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.gone
-import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.setUpUi
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +19,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     private lateinit var businessAdapter: ManageBusinessAdapter
 
     override fun initializeViews() {
-        setUpUi()
+        registerUiInterface.register()
         binding.fragment = this
         launchAndRepeatWithViewLifecycle {
             val businesses = viewModel.getBusiness()
