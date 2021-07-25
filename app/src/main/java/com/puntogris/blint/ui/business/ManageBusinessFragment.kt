@@ -56,7 +56,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
                 true
             }
             R.id.syncBusiness -> {
-                findNavController().navigate(R.id.action_manageBusinessFragment_to_syncBusinessDialog)
+                findNavController().navigate(R.id.syncAccountFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

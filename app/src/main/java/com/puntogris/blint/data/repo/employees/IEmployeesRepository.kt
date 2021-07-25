@@ -8,5 +8,5 @@ interface IEmployeesRepository {
     suspend fun getEmployeeListRoom(): List<Employee>
     suspend fun deleteEmployeeFromBusiness(employee: Employee): SimpleResult
     suspend fun createEmployeeWithCode(code:String): JoinBusiness
-
+    suspend fun getEmployeeWithBusinessId(businessId: String): Employee
 }

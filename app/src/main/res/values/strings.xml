@@ -346,6 +346,7 @@
     <string name="size">Size</string>
     <string name="suppliers_and_categories">Suppliers and categories</string>
     <string name="category">Category</string>
+    <string name="discount_abbreviation">disc.</string>
 
     <!-- Orders -->
     <string name="select_supplier">Select supplier</string>
@@ -386,6 +387,9 @@
     <string name="buy_sell_sug_prices">Buy/ Sell/ Sug.</string>
     <string name="snack_discount_error">Error with the discount amount.</string>
     <string name="snack_discount_limit">The discount can not be more than the order total.</string>
+    <string name="supplier_or_client">Supplier/ Client:</string>
+    <string name="order_needs_products">You need to add products.</string>
+    <string name="product_amount_empty">The product amount can not be zero.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
@@ -499,7 +503,7 @@
     <!-- Binding -->
     <string name="order_number">Order %1$d</string>
     <string name="amount_debt_positive">+%1$s $</string>
-    <string name="amount_debt_normal">%1$s $</string>
+    <string name="amount_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Client %1$s added to the order.</string>
     <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
@@ -530,7 +534,6 @@
     <string name="new_user_notif_message">We recommend that you see this guide in order to get the most out of the app.</string>
     <string name="new_business_notif_message">Today a new adventure starts and we are happy to be able to accompany you on it.</string>
     <string name="new_employee_notif_message">The business grows, we welcome %1$s.</string>
-    <string name="supplier_or_client">Proveedor/ Cliente:</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

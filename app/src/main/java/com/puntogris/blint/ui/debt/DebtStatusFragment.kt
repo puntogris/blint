@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.debt
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,10 +10,8 @@ import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT
-import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.fragment_debt_status) {
@@ -32,7 +29,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         launchAndRepeatWithViewLifecycle {
             if (args.client != null){
                 args.client?.let {
-                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt.toMoneyFormatted())
+                    binding.textView184.text = getString(R.string.amount_normal, it.debt.toMoneyFormatted())
                     when(val debts = viewModel.getLastDebts(it.clientId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -43,7 +40,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                 }
             }else {
                 args.supplier?.let {
-                    binding.textView184.text = getString(R.string.amount_debt_normal, it.debt.toMoneyFormatted())
+                    binding.textView184.text = getString(R.string.amount_normal, it.debt.toMoneyFormatted())
                     when(val debts = viewModel.getLastDebts(it.supplierId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}

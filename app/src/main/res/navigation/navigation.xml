@@ -367,9 +367,6 @@
         <action
             android:id="@+id/action_manageBusinessFragment_to_businessFragment"
             app:destination="@id/businessFragment" />
-        <action
-            android:id="@+id/action_manageBusinessFragment_to_syncBusinessDialog"
-            app:destination="@id/syncBusinessDialog" />
     </fragment>
     <fragment
         android:id="@+id/businessFragment"
@@ -547,10 +544,7 @@
             android:name="debtType"
             app:argType="integer" />
     </fragment>
-    <dialog
-        android:id="@+id/syncBusinessDialog"
-        android:name="com.puntogris.blint.ui.business.SyncBusinessDialog"
-        android:label="" />
+
     <action
         android:id="@+id/action_global_newOrderGraphNav"
         app:destination="@id/detailedOrderGraphNav">

@@ -44,7 +44,7 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/author"
             app:layout_constraintStart_toStartOf="@+id/textView76"
             app:layout_constraintTop_toBottomOf="@+id/textView76" />
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="@string/type"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,22 +87,22 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/value"
-            app:layout_constraintBottom_toBottomOf="@+id/textView79"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView83"
-            app:layout_constraintTop_toTopOf="@+id/textView79" />
+            app:layout_constraintStart_toStartOf="@+id/textView78"
+            app:layout_constraintTop_toBottomOf="@+id/textView78" />
 
         <TextView
             android:id="@+id/textView83"
             style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
+            totalOrderWithDetails="@{viewModel.order}"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@{String.valueOf(viewModel.order.order.value)}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView80"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView82"
+            app:layout_constraintTop_toBottomOf="@+id/textView82" />
 
         <TextView
             android:id="@+id/externalNameTitle"
@@ -110,10 +110,10 @@
             clientOrSupplierTitleWithRecordType="@{viewModel.order.order.type}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/textView78"
-            app:layout_constraintTop_toBottomOf="@+id/textView78" />
+            app:layout_constraintTop_toBottomOf="@+id/textView83" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
@@ -131,15 +131,56 @@
                 android:onClick="@{()->fragment.onExternalChipClicked()}" />
         </com.google.android.material.chip.ChipGroup>
 
+        <TextView
+            android:id="@+id/textView68"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/product"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/textView157"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+        <TextView
+            android:id="@+id/textView157"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/textView68"
+            app:layout_constraintEnd_toStartOf="@+id/textView158"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView68"
+            app:layout_constraintTop_toTopOf="@+id/textView68" />
+
+        <TextView
+            android:id="@+id/textView158"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/price"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/textView157"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView157"
+            app:layout_constraintTop_toTopOf="@+id/textView157" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/button24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/textView68" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button24"

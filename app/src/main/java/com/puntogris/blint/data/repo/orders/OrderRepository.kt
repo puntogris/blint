@@ -125,7 +125,6 @@ import kotlin.math.absoluteValue
 
                 firestore.runBatch { batch ->
                     if (order.debt != null){
-                        println("ada")
                         val debt = Debt(
                             orderId = order.order.orderId,
                             debtId = order.debt!!.debtId,
@@ -166,13 +165,8 @@ import kotlin.math.absoluteValue
             }
             SimpleResult.Success
         }catch (e:Exception){
-            println(e.localizedMessage)
             SimpleResult.Failure }
     }
-
-     fun test(){
-
-     }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords = withContext(Dispatchers.IO){
         val user = currentBusiness()

@@ -7,7 +7,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
@@ -17,7 +16,6 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -45,10 +43,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                     job.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)
                 }else{
-                    showSnackBarVisibilityAppBar("La cantidad del producto no puede ser 0.")
+                    showSnackBarVisibilityAppBar(getString(R.string.product_amount_empty))
                 }
             }else{
-                showSnackBarVisibilityAppBar("Necesita agregar productos.")
+                showSnackBarVisibilityAppBar(getString(R.string.order_needs_products))
             }
         }
 
@@ -160,7 +158,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     private fun onDataChanged(){
         val newAmount = recordsAdapter.getRecordTotalPrice()
         viewModel.updateOrderValue(newAmount)
-        binding.textView155.text = getString(R.string.amount_debt_normal, newAmount.toMoneyFormatted())
+        binding.textView155.text = getString(R.string.amount_normal, newAmount.toMoneyFormatted())
     }
 
     private fun onProductAdded(product: Product){

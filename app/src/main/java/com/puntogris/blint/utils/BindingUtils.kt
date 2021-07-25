@@ -26,7 +26,6 @@ import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
 import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
 import com.puntogris.blint.utils.Constants.TO_DELETE
-import org.w3c.dom.Text
 import java.util.*
 
 @BindingAdapter("imageFullSize")
@@ -51,7 +50,6 @@ fun Button.setLoadImageButtonText(image: String){
     text =
         if (image.isNotEmpty()) context.getString(R.string.action_change)
         else context.getString(R.string.action_add_image)
-
 }
 
 @BindingAdapter("removeImageVisibility")
@@ -63,7 +61,6 @@ fun Button.setRemoveImageVisibility(image: String){
 fun TextView.setRemoveImageVisibility(image: String){
     if (image.isNotEmpty()) visible() else gone()
 }
-
 
 @BindingAdapter("removeListVisibility")
 fun TextView.setRemoveListVisibility(list: List<Any>?){
@@ -124,11 +121,33 @@ fun TextView.setCapitalizeWord(text:String){
     this.text = text.split(" ").joinToString(" ") { it.capitalizeFirstChar() }
 }
 
+
+@BindingAdapter("numberToMoneyString")
+fun TextView.setNumberToMoneyString(number: Float){
+    text = context.getString(R.string.amount_normal, number.toMoneyFormatted())
+}
+
+
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
     text = 
-        if(type == IN) context.getString(R.string.suppliers_label)
-        else context.getString(R.string.clients_label)
+        if(type == IN) context.getString(R.string.supplier_label)
+        else context.getString(R.string.client_label)
+}
+
+@BindingAdapter("totalOrderWithDetails")
+fun TextView.setTotalOrderWithDetails(order: OrderWithRecords){
+    var data = context.getString(R.string.amount_normal, order.order.value.toMoneyFormatted())
+    if (order.order.discount != 0F){
+        data += " / ${context.getString(R.string.discount_abbreviation)}: " +
+                context.getString(R.string.amount_normal, order.order.discount.toMoneyFormatted())
+    }
+    if (order.debt != null){
+
+        data += " / ${context.getString(R.string.debt_label).lowercase()}: " +
+                context.getString(R.string.amount_normal, order.debt?.amount?.toMoneyFormatted())
+    }
+    text = data
 }
 
 @BindingAdapter("dateFromTimestampWithTime")
@@ -177,7 +196,7 @@ fun View.setRecordType(type:String){
 @BindingAdapter("externalChipName")
 fun Chip.setExternalChipName(name: String){
     if (name.isNotEmpty()){
-        text = name
+        text = name.capitalizeFirstChar()
     }else{
         text = context.getString(R.string.not_specified)
         isEnabled = false
@@ -227,7 +246,7 @@ fun TextView.setDebtColor(amount: Float){
         text = context.getString(R.string.amount_debt_positive, amount.toMoneyFormatted())
         setTextColor(ContextCompat.getColor(context, R.color.card6))
     }else{
-        text = context.getString(R.string.amount_debt_normal, amount.toMoneyFormatted())
+        text = context.getString(R.string.amount_normal, amount.toMoneyFormatted())
         setTextColor(ContextCompat.getColor(context, R.color.card1))
     }
 }
@@ -312,7 +331,7 @@ fun TextView.setBusinessStatus(status: String){
 
 @BindingAdapter("valueToMoneyString")
 fun TextView.setValueToMoneyString(value: Float){
-    text = context.getString(R.string.amount_debt_normal, value.toMoneyFormatted())
+    text = context.getString(R.string.amount_normal, value.toMoneyFormatted())
 }
 
 

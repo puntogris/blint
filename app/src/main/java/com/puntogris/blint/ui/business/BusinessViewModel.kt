@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusinessViewModel @Inject constructor(
-    private val employeeDao: EmployeeDao,
     private val userRepository: UserRepository,
     private val businessRepository: BusinessRepository,
     private val employeesRepository: EmployeesRepository
@@ -26,11 +25,11 @@ class BusinessViewModel @Inject constructor(
     private val _codeExpirationInSeconds = MutableLiveData<Int>()
     val codeExpirationInSeconds: LiveData<Int> = _codeExpirationInSeconds
 
-    suspend fun getBusiness() = employeeDao.getEmployeesList()
+    suspend fun getBusiness() = employeesRepository.getEmployeeListRoom()
 
     fun getBusinessEmployees(businessId:String) = userRepository.getBusinessEmployees(businessId)
 
-    suspend fun hasUserOwnerPermissions(businessId: String) = employeeDao.getBusinessUserRole(businessId)
+    suspend fun hasUserOwnerPermissions(businessId: String) = employeesRepository.getEmployeeWithBusinessId(businessId)
 
     suspend fun fetchJoiningCode(businessId: String) = userRepository.generateJoiningCode(businessId)
 
@@ -61,8 +60,6 @@ class BusinessViewModel @Inject constructor(
     }
 
     suspend fun deleteBusiness(businessId: String) = businessRepository.deleteBusinessDatabase(businessId)
-
-    suspend fun syncAccount() = userRepository.syncAccountFromDatabase()
 
     suspend fun deleteEmployeeFromBusiness(employee:Employee) =
         employeesRepository.deleteEmployeeFromBusiness(employee)

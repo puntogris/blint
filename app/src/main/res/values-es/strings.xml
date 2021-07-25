@@ -342,6 +342,7 @@
     <string name="size">Tamaño</string>
     <string name="suppliers_and_categories">Proveedores y categorias</string>
     <string name="category">Categoría</string>
+    <string name="discount_abbreviation">disc.</string>
 
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
@@ -382,6 +383,9 @@
     <string name="buy_sell_sug_prices">Com./ Ven./ Sug.</string>
     <string name="snack_discount_error">Error con el valor del descuento.</string>
     <string name="snack_discount_limit">El descuento no puede ser mayor que el total de la orden.</string>
+    <string name="supplier_or_client">Proveedor/ Cliente:</string>
+    <string name="order_needs_products">Necesita agregar productos.</string>
+    <string name="product_amount_empty">La cantidad del producto no puede ser cero.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -491,7 +495,7 @@
     <!-- Binding -->
     <string name="order_number">Orden %1$d</string>
     <string name="amount_debt_positive">+%1$s $</string>
-    <string name="amount_debt_normal">%1$s $</string>
+    <string name="amount_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
     <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>

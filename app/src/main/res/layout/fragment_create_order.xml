@@ -21,8 +21,6 @@
         android:focusableInTouchMode="true"
         tools:context=".ui.orders.detailed_order.CreateOrderFragment">
 
-
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             style="@style/Theme.Blint.CustomToolbar"
@@ -74,42 +72,50 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView68"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
-            tools:layout_editor_absoluteX="8dp">
+            android:layout_weight="1"
+            android:text="@string/product"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/textView157"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
-            <TextView
-                android:id="@+id/textView68"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/product"
-                android:textAlignment="center" />
+        <TextView
+            android:id="@+id/textView157"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/amount"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/textView68"
+            app:layout_constraintEnd_toStartOf="@+id/textView158"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView68"
+            app:layout_constraintTop_toTopOf="@+id/textView68" />
 
-            <TextView
-                android:id="@+id/textView157"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/amount"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/textView158"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/price"
-                android:textAlignment="center" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView158"
+            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_weight="1"
+            android:text="@string/price"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/textView157"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView157"
+            app:layout_constraintTop_toTopOf="@+id/textView157" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -120,8 +126,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView154"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
+            app:layout_constraintTop_toBottomOf="@+id/textView68" />
 
         <TextView
             android:id="@+id/textView154"

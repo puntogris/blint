@@ -127,4 +127,6 @@ class EmployeesRepository @Inject constructor(
             }
         }catch (e:Exception){ JoinBusiness.Error }
     }
+
+    override suspend fun getEmployeeWithBusinessId(businessId: String) = employeeDao.getBusinessUserRole(businessId)
 }
