@@ -13,9 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val productsDao: ProductsDao,
-    private val suppliersDao: SuppliersDao,
-    private val clientsDao: ClientsDao,
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository
 ): ViewModel() {
@@ -37,15 +34,7 @@ class OrdersViewModel @Inject constructor(
         _currentProduct.value = product
     }
 
-    suspend fun getBusinessOrders() = orderRepository.getBusinessOrdersPagingDataFlow().cachedIn(viewModelScope)
-
-    suspend fun getBusinessRecords() = orderRepository.getBusinessRecordsPagingDataFlow().cachedIn(viewModelScope)
-
-    suspend fun getProduct(id: String) = productsDao.getProduct(id)
-
-    suspend fun fetchOrderRecords(orderId:String) =
-        orderRepository.getOrderRecords(orderId)
-
+    suspend fun fetchOrderRecords(orderId:String) = orderRepository.getOrderRecords(orderId)
 
     suspend fun getProductWithBarCode(barcode:String) = productRepository.getProductWithBarcode(barcode)
 
@@ -56,10 +45,6 @@ class OrdersViewModel @Inject constructor(
     }
 
     fun getCodeScanned() = _barcodeScanned.value.toString()
-
-    suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
-
-    suspend fun getAllClients() = clientsDao.getAllClients()
 
     suspend fun createSimpleOrder(orderWithRecords: OrderWithRecords): SimpleResult{
         orderWithRecords.order.value = orderWithRecords.records.first().value

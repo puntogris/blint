@@ -162,7 +162,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         val traderName = if(viewModel.order.value?.order?.traderName.isNullOrBlank()) getString(R.string.not_specified) else viewModel.order.value?.order?.traderName.toString()
         canvas.drawText("$trader: $traderName", horizontalMargin,130f, paintLeft)
 
-        val bitmap:Bitmap = generateQRImage("ORDER:${viewModel.order.value?.order?.orderId.toString()}", 75, 75)
+        val bitmap:Bitmap = generateQRImage("ORDER:${viewModel.order.value?.order?.orderId.toString()}", 75, 75, true)
         canvas.drawBitmap(bitmap, width.toFloat() - 100, 25f, paintRight)
 
         canvas.drawLine(horizontalMargin,150f,width - horizontalMargin, 150f, paintCenter)

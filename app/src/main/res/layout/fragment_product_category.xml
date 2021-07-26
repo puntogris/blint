@@ -36,14 +36,6 @@
                     android:imeOptions="flagNoExtractUi|actionDone"
                     android:inputType="textNoSuggestions" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/actionBarItemBackground"
-                    android:padding="@dimen/grid_2"
-                    app:srcCompat="@drawable/ic_baseline_close_24"
-                    android:contentDescription="@string/close_icon" />
-
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

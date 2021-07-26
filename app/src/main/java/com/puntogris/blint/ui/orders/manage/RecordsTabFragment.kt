@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.fragment_records_tab) {
 
-    private val viewModel: OrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
+    private val viewModel: ManageOrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
         val recordsAdapter = RecordsAdapter{onRecordClickedListener(it)}

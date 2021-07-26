@@ -77,7 +77,8 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
                     val text = binding.productSearch.getString()
                     if (text.isNotEmpty()){
-                        lifecycleScope.launch {
+                        searchJob?.cancel()
+                        searchJob = lifecycleScope.launch {
                             searchProductWithNameAndFillAdapter(
                                 when(it.checkedRadioButtonId){
                                 R.id.qrSearchType -> SearchText.QrCode(text)
@@ -104,17 +105,22 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             getLiveData<String>("key").observe(
                 viewLifecycleOwner) {
                 it?.let { code ->
+                    binding.searchTypeRadioGroup.check(R.id.qrSearchType)
                     binding.productSearch.setText(code)
                     binding.searchTypeRadioGroup.visible()
-                    binding.searchTypeRadioGroup.check(R.id.qrSearchType)
-                    launchAndRepeatWithViewLifecycle {
-                        searchProductWithNameAndFillAdapter(SearchText.QrCode(code))
-                    }
                 }
             }
 
             getLiveData<Boolean>("simple_order_key").observe(viewLifecycleOwner){
                 if (it) manageProductsAdapter.refresh()
+            }
+            getLiveData<String>("search_category_filter").observe(viewLifecycleOwner){
+                binding.searchTypeRadioGroup.visible()
+                binding.searchTypeRadioGroup.check(R.id.categorySearchType)
+                binding.productSearch.setText(it)
+            }
+            binding.categorySearchType.setOnClickListener {
+                findNavController().navigate(R.id.filterCategoriesBottomSheet)
             }
         }
     }

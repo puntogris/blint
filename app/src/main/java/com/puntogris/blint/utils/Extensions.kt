@@ -374,7 +374,7 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
     }
 }
 
-fun Fragment.generateQRImage(code: String, width:Int, height: Int): Bitmap{
+fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolean = false): Bitmap{
     val writer = QRCodeWriter()
     val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, width, height)
     val widthB = bitMatrix.width
@@ -382,8 +382,8 @@ fun Fragment.generateQRImage(code: String, width:Int, height: Int): Bitmap{
     val bitmap = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.RGB_565)
 
     val darkThemeOn = isDarkThemeOn()
-    val background = getQrCodeWithTheme(darkThemeOn)
-    val qrCode = getQrCodeWithTheme(!darkThemeOn)
+    val background = if (isPdf) getQrCodeWithTheme(false) else getQrCodeWithTheme(darkThemeOn)
+    val qrCode = if (isPdf) getQrCodeWithTheme(true) else getQrCodeWithTheme(darkThemeOn)
 
     for (x in 0 until widthB) {
         for (y in 0 until heightB) {

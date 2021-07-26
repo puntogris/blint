@@ -58,13 +58,12 @@ class DebtsRepository @Inject constructor(
     override suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult = withContext(Dispatchers.IO) {
         val user = currentUser()
         try {
+            val debtRef = firestoreQueries.getDebtCollectionQuery(user)
+            debt.debtId = debtRef.document().id
+            debt.author = firestoreQueries.getCurrentUserEmail()
+            debt.businessId = user.currentBusinessId
+
             if (user.currentBusinessIsOnline()){
-                val debtRef = firestoreQueries.getDebtCollectionQuery(user)
-
-                debt.debtId = debtRef.document().id
-                debt.author = firestoreQueries.getCurrentUserEmail()
-                debt.businessId = user.currentBusinessId
-
                 firestore.runBatch {
                     val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
                     if (debt.type == "CLIENT"){
@@ -86,6 +85,7 @@ class DebtsRepository @Inject constructor(
                     debtsDao.updateSupplierDebt(debt.traderId, debt.amount)
                     debtsDao.updateSupplierDebt(debt.amount)
                 }
+                debtsDao.insert(debt)
             }
             SimpleResult.Success
         }catch (e:Exception){

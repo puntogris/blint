@@ -1,8 +1,11 @@
 package com.puntogris.blint.ui.orders.manage
 
 import androidx.annotation.NonNull
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -12,6 +15,9 @@ import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.fragment_manage_orders) {
@@ -19,10 +25,10 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, showToolbar = false, fabIcon = R.drawable.ic_baseline_add_24){
+        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_add_24){
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
-        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+      //  binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -33,6 +39,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
         }
         mediator?.attach()
     }
+
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 

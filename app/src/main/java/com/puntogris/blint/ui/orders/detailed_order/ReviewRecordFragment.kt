@@ -25,8 +25,8 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         registerUiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             val orderValue = viewModel.order.value?.value!!
             when {
-                discount >= orderValue -> showShortSnackBar(getString(R.string.snack_discount_limit))
-                debt >= orderValue -> showShortSnackBar(getString(R.string.snack_debt_value_error))
+                discount > orderValue -> showShortSnackBar(getString(R.string.snack_discount_limit))
+                debt > orderValue -> showShortSnackBar(getString(R.string.snack_debt_value_error))
                 else -> {
                     if (discount != 0F) viewModel.updateOrderDiscount(discount)
                     if (debt != 0F) viewModel.updateOrderDebt(debt)

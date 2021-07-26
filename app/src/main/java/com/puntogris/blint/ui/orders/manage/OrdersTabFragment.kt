@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragment_orders_tab) {
 
-    private val viewModel: OrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
+    private val viewModel: ManageOrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
 
     override fun initializeViews() {
         val ordersAdapter = OrdersAdapter{onOrderClickListener(it)}

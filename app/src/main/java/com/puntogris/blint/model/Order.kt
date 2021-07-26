@@ -39,7 +39,7 @@ data class Order(
     var businessId:String = "",
 
     @ColumnInfo
-    var number: Int = 0,
+    var number: Int = 1,
 
     @ColumnInfo
     var debtId: String = "",

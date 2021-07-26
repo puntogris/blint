@@ -40,7 +40,8 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             viewModel.productWithRecords = recordsAdapter.recordsList
             if (viewModel.productWithRecords.size != 0){
                 if (viewModel.productWithRecords.all {
-                        it.record.amount != 0 && it.record.amount <= it.product.amount
+                        it.record.amount != 0 &&
+                                (if (viewModel.order.value?.type == "IN") true else it.record.amount <= it.product.amount)
                 }){
                     searchJob?.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)

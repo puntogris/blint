@@ -62,7 +62,6 @@ class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.l
                     (binding.categoriesSearch as? AutoCompleteTextView)?.setAdapter(searchAdapter)
                 }
             }
-
         }
     }
 

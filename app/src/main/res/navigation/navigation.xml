@@ -597,4 +597,8 @@
         android:id="@+id/sendTicketFragment"
         android:name="com.puntogris.blint.ui.settings.SendTicketFragment"
         android:label="@string/send_ticket_label" />
+    <dialog
+        android:id="@+id/filterCategoriesBottomSheet"
+        android:name="com.puntogris.blint.ui.categories.FilterCategoriesBottomSheet"
+        android:label="" />
 </navigation>

@@ -14,7 +14,7 @@ data class FirestoreOrder(
     var traderId: String = "",
     var traderName: String = "",
     var businessId:String = "",
-    var number: Int = 0,
+    var number: Int = 1,
     val records: List<FirestoreRecord> = listOf(),
     val debt: FirestoreDebt? = null,
     val businessName: String = "",

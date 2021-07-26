@@ -344,6 +344,8 @@
     <string name="suppliers_and_categories">Proveedores y categorias</string>
     <string name="category">Categoría</string>
     <string name="discount_abbreviation">disc.</string>
+    <string name="managment">Gestion</string>
+    <string name="administration">Administración</string>
 
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
@@ -535,8 +537,8 @@
     <string name="snack_invoice_save_error">Ocurrio un error al guardar la factura.</string>
     <string name="invoice_by_blint">Generado por blint.app</string>
     <string name="business">Negocio</string>
-    <string name="order_number_invoice">Orden numero: %1$f</string>
-    <string name="invoice_file_name">factura_orden_%1$f.pdf</string>
+    <string name="order_number_invoice">Orden numero: %1$d</string>
+    <string name="invoice_file_name">factura_orden_%1$d.pdf</string>
 
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>

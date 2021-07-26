@@ -39,6 +39,9 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupCalendarRecyclerView()
 
         //view?.doOnPreDraw { startPostponedEnterTransition() }
+
+        binding.imageView11.setOnClickListener { findNavController().navigate(R.id.manageCategoriesFragment) }
+        binding.imageView17.setOnClickListener { findNavController().navigate(R.id.manageDebtFragment) }
     }
     private fun setupBadgeListener(){
         launchAndRepeatWithViewLifecycle {
@@ -86,11 +89,20 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         findNavController().navigate(action)
     }
 
+
     private fun setupMenuRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
-            layoutManager = GridLayoutManager(requireContext(), 3)
+            val manager = GridLayoutManager(requireContext(), 3).also {
+                it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (mainMenuAdapter.isHeader(position)) it.spanCount else 1
+                    }
+                }
+            }
+            layoutManager = manager
+
         }
     }
 
