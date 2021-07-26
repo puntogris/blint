@@ -129,8 +129,8 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toStartOf="@+id/cardView3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView">
@@ -140,15 +140,15 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView3"
-                android:layout_width="50dp"
+                android:layout_width="45dp"
                 android:layout_height="0dp"
-                android:layout_marginVertical="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="10dp"
                 app:cardCornerRadius="18dp"
                 app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/recyclerView"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toTopOf="@+id/recyclerView">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,24 +158,33 @@
 
                     <ImageView
                         android:id="@+id/imageView17"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="11dp"
+                        android:layout_height="24dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_outline_local_shipping_24" />
+                        android:foreground="?selectableItemBackground"
+                        android:onClick="@{() -> fragment.onSideMenuClicked(0)}"
+                        app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                     <ImageView
                         android:id="@+id/imageView11"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="11dp"
+                        android:layout_height="24dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+                        android:foreground="?selectableItemBackground"
+                        android:onClick="@{() -> fragment.onSideMenuClicked(1)}"
+                        app:srcCompat="@drawable/ic_baseline_label_24" />
 
                     <ImageView
                         android:id="@+id/imageView18"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="11dp"
+                        android:layout_height="24dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_help_24" />
+                        android:foreground="?selectableItemBackground"
+                        android:onClick="@{() -> fragment.onSideMenuClicked(2)}"
+                        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
                 </LinearLayout>
 
 

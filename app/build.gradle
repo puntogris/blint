@@ -189,6 +189,7 @@ dependencies {
     implementation 'id.zelory:compressor:3.0.1'
     implementation 'com.github.afreakyelf:Pdf-Viewer:1.0.7'
     implementation 'com.github.tejpratap46:PDFCreatorAndroid:2.2.1'
+    implementation 'com.rubensousa:decorator:2.0.0'
 
 
 }

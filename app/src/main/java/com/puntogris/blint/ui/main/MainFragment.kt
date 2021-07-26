@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.main
 
-import android.content.Context
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -8,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.*
@@ -15,6 +15,10 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
 import com.puntogris.blint.utils.Constants.ENABLED
+import com.rubensousa.decorator.ColumnProvider
+import com.rubensousa.decorator.DecorationLookup
+import com.rubensousa.decorator.GridMarginDecoration
+import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -40,8 +44,15 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
         //view?.doOnPreDraw { startPostponedEnterTransition() }
 
-        binding.imageView11.setOnClickListener { findNavController().navigate(R.id.manageCategoriesFragment) }
-        binding.imageView17.setOnClickListener { findNavController().navigate(R.id.manageDebtFragment) }
+    }
+
+    fun onSideMenuClicked(item: Int){
+        val nav = when(item){
+            0 -> R.id.calendarFragment
+            1 -> R.id.manageCategoriesFragment
+            else -> R.id.accountPreferences
+        }
+        findNavController().navigate(nav)
     }
     private fun setupBadgeListener(){
         launchAndRepeatWithViewLifecycle {
@@ -102,7 +113,12 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
                 }
             }
             layoutManager = manager
-
+            addItemDecoration(
+                GridSpanMarginDecoration(
+                    10,10,
+                    gridLayoutManager = manager
+                )
+            )
         }
     }
 
