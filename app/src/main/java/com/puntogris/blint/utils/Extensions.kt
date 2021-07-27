@@ -202,6 +202,8 @@ fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
 fun Date.getDateFormattedString() =
     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(this).toString()
 
+fun Date.getDateFormattedStringUnderLine() =
+    SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(this).toString()
 
 fun Date.getDateWithTimeFormattedString() =
     SimpleDateFormat("dd/MM/yyyy - h:mm a", Locale.getDefault()).format(this).toString()

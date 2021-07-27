@@ -11,53 +11,55 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="2dp"
             app:cardCornerRadius="20dp"
-            app:cardUseCompatPadding="true"
-            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:weightSum="10"
-                android:foreground="?selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:foreground="?selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:weightSum="10">
 
                 <ImageView
                     android:id="@+id/imageView"
-                    menuCardIcon="@{menuCard.icon}"
                     style="@style/Theme.Blint.ImageView"
-                    android:layout_weight="7"
-                    android:padding="10dp"
-                    android:layout_marginTop="10dp"
+                    menuCardIcon="@{menuCard.icon}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:layout_gravity="bottom"
-                    android:contentDescription="@string/menu_item_image" />
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="7"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/menu_item_image"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
-                    android:text="@{menuCard.title}"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="3"
                     android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="@{menuCard.title}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

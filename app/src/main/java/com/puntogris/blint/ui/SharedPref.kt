@@ -25,11 +25,4 @@ class SharedPref @Inject constructor(@ApplicationContext private val context: Co
     fun setShowNewUserScreenPref(value:Boolean){
         sharedPref.edit().putBoolean(USER_HAS_BUSINESS_PREF, value).apply()
     }
-
-    fun getCategoryFilterPref() = sharedPref.getString("category_filter_pref", "ALL")
-
-    fun setCategoryFilterPref(value: String){
-        sharedPref.edit().putString("category_filter_pref", value).apply()
-    }
-
 }

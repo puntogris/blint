@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
@@ -49,25 +50,24 @@ class GenerateReportFragment:
                 }
             }
         }
-        var fileName = ""
+
+        val date = Date().getDateFormattedStringUnderLine()
+        val fileName = when(args.reportCode){
+            SUPPLIERS_LIST -> getString(R.string.report_list_suppliers, date)
+            CLIENTS_LIST -> getString(R.string.report_list_clients, date)
+            PRODUCTS_LIST -> getString(R.string.report_list_products, date)
+            PRODUCTS_RECORDS -> getString(R.string.report_product_records, date)
+            else -> ""
+        }
+
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
-            when (args.reportCode) {
-                SUPPLIERS_LIST -> {
-                    fileName = getString(R.string.report_list_suppliers, Date().getDateFormattedString())
-                    exportSupplierList(uri)
-                }
-                CLIENTS_LIST -> {
-                    fileName = getString(R.string.report_list_clients, Date().getDateFormattedString())
-                    exportClientList(uri)
-                }
-                PRODUCTS_LIST -> {
-                    fileName = getString(R.string.report_list_products, Date().getDateFormattedString())
-                    exportProductList(uri)
-                }
-                PRODUCTS_RECORDS -> {
-                    fileName = getString(R.string.report_product_records, Date().getDateFormattedString())
-                    exportProductRecords(uri)
-                }
+            if (uri != null){
+                println(args.reportCode)
+                when (args.reportCode) {
+                    SUPPLIERS_LIST -> exportSupplierList(uri)
+                    CLIENTS_LIST -> exportClientList(uri)
+                    PRODUCTS_LIST -> exportProductList(uri)
+                    PRODUCTS_RECORDS -> exportProductRecords(uri)
 //                SUPPLIERS_RECORDS -> {
 //                    fileName = "proveedores_movimientos_${Date().getDateFormattedString()}"
 //                    exportSupplierRecords(uri)
@@ -76,7 +76,8 @@ class GenerateReportFragment:
 //                    fileName = "clientes_movimientos_${Date().getDateFormattedString()}"
 //                    exportClientRecords(uri)
 //                }
-            }
+                }
+            }else findNavController().navigateUp()
         }
         activityResultLauncher.launch("${fileName}.xls")
     }
@@ -112,7 +113,6 @@ class GenerateReportFragment:
                 RepoResult.InProgress -> {}
                 is RepoResult.Success -> {
                     try {
-                        println(records.data)
                         records.data.sortedBy { it.name }
                         records.data.forEach {
 

@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.*
@@ -22,6 +23,7 @@ import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import java.util.*
 import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
@@ -105,17 +107,20 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
-            val manager = GridLayoutManager(requireContext(), 3).also {
+            setHasFixedSize(true)
+            val manager = GridLayoutManager(requireContext(), 3)
+                .also {
                 it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return if (mainMenuAdapter.isHeader(position)) it.spanCount else 1
                     }
                 }
             }
+
             layoutManager = manager
             addItemDecoration(
                 GridSpanMarginDecoration(
-                    10,10,
+                    30,10,
                     gridLayoutManager = manager
                 )
             )

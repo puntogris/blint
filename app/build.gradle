@@ -9,14 +9,14 @@ plugins {
 }
 
 android {
-//    signingConfigs {
-//        release {
-//            storeFile file('/home/joaco/Documentos/.keys/blint.p12')
-//            keyPassword 'Blackblack1'
-//            storePassword 'Blackblack1'
-//            keyAlias 'blint_key'
-//        }
-//    }
+    signingConfigs {
+        release {
+            storeFile file('/home/joaco/Documentos/.keys/blint.p12')
+            keyPassword 'Blackblack1'
+            storePassword 'Blackblack1'
+            keyAlias 'blint_key'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -24,11 +24,11 @@ android {
         applicationId "com.puntogris.blint"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 9
+        versionCode 12
         versionName "1.0.0"
-        //resConfigs "en", "es"
+        resConfigs "en", "es"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-      //  signingConfig signingConfigs.release
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -39,8 +39,8 @@ android {
         }
 
         debug {
-          //  minifyEnabled false
-         //   proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {

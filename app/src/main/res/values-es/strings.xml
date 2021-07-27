@@ -450,6 +450,8 @@
     <string name="edit_icon">editar</string>
     <string name="filter_image">filtrar</string>
     <string name="product_image">imagen producto</string>
+    <string name="calendar_image">imagen calendario</string>
+    <string name="categories_image">imagen categorias</string>
 
     <!-- Auto fill hints -->
     <string name="auto_fill_hint_search_product">busquedaProductos</string>
@@ -529,6 +531,8 @@
     <string name="new_user_notif_message">Te recomendamos que veas esta guia para poder aprovechar al máximo la app.</string>
     <string name="new_business_notif_message">Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella.</string>
     <string name="new_employee_notif_message">El negocio se agranda, le damos la bienvenida a %1$s.</string>
+    <string name="days_notif">%1$d días</string>
+    <string name="day_notif">%1$d día</string>
 
     <!-- Invoice -->
     <string name="share">Compartir</string>

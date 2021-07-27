@@ -53,11 +53,13 @@ class LoginRepository @Inject constructor(
 
     override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
         try {
+            println(user.uid)
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
             val userdata = document.toObject(UserData::class.java) ?: UserData()
+            println(document.get("name").toString())
             //set user room
             val roomUser = RoomUser(currentUid = user.uid)
-
+            println(userdata)
             //new user
             if (!document.exists()) {
                 usersDao.insert(roomUser)
@@ -65,6 +67,7 @@ class LoginRepository @Inject constructor(
                 RegistrationData.NotFound
             }//user created but no name or country data, uncompleted registration
             else if (userdata.dataMissing()) {
+                println("missing")
                 usersDao.insert(roomUser)
                 RegistrationData.Incomplete
             } else {

@@ -80,15 +80,15 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
     @Suppress("SameParameterValue")
     private fun showTimeFrameBottomSheet(code: Int){
         OptionsSheet().build(requireContext()) {
-            title(getString(R.string.ask_report_time_frame_title))
+            title(this@ReportsFragment.getString(R.string.ask_report_time_frame_title))
             displayMode(DisplayMode.LIST)
             with(
-                Option(getString(R.string.weekly)),
-                Option(getString(R.string.monthly)),
-                Option(getString(R.string.quarterly)),
-                Option(getString(R.string.biannual)),
-                Option(getString(R.string.annual)),
-                Option(getString(R.string.historical))
+                Option(this@ReportsFragment.getString(R.string.weekly)),
+                Option(this@ReportsFragment.getString(R.string.monthly)),
+                Option(this@ReportsFragment.getString(R.string.quarterly)),
+                Option(this@ReportsFragment.getString(R.string.biannual)),
+                Option(this@ReportsFragment.getString(R.string.annual)),
+                Option(this@ReportsFragment.getString(R.string.historical))
             )
             onPositive { index: Int, _: Option ->
                 val timeCode = when(index){
