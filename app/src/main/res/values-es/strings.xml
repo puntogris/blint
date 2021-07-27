@@ -297,7 +297,7 @@
     <string name="name">Nombre</string>
     <string name="type">Tipo</string>
     <string name="billing">Facturacion</string>
-    <string name="employees">Empleados</string>
+    <string name="members">Integrantes</string>
     <string name="information">Informacion</string>
     <string name="phone">Telefono</string>
     <string name="address">Direccion</string>

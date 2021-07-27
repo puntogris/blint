@@ -4,10 +4,7 @@ import android.app.Service
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductCategoryCrossRef
-import com.puntogris.blint.model.ProductSupplierCrossRef
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.*
 
 @Dao
 interface ProductsDao {
@@ -62,6 +59,14 @@ interface ProductsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :text OR barcode LIKE :text OR sku LIKE :text")
     fun getPagedSearch(text: String): PagingSource<Int, ProductWithSuppliersCategories>
+
+    @Query("select productId From productcategorycrossref where categoryName like :text")
+    suspend fun getProductIdWithCategory(text: String):List<String>
+
+    @Transaction
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' and productId in (:list)")
+    fun getPagedProductsWithCategory(list: List<String>): PagingSource<Int, ProductWithSuppliersCategories>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name LIMIT 30")

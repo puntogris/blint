@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -36,9 +36,9 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
+import com.puntogris.blint.ui.business.SingleLiveEvent
 
 @SuppressLint("LogNotTimber")
-
 class BillingClientLifecycle private constructor(
     private val app: Application
 ) : LifecycleObserver, PurchasesUpdatedListener, BillingClientStateListener,
@@ -63,12 +63,12 @@ class BillingClientLifecycle private constructor(
     /**
      * Instantiate a new BillingClient instance.
      */
-    lateinit private var billingClient: BillingClient
+    private lateinit var billingClient: BillingClient
 
     companion object {
         private const val TAG = "BillingLifecycle"
-        const val BASIC_SKU = "basic_subscription"
-        const val PREMIUM_SKU = "premium_subscription"
+        private const val BASIC_SKU = "basic_subscription"
+        private const val PREMIUM_SKU = "premium_subscription"
         private val LIST_OF_SKUS = listOf(
             BASIC_SKU,
             PREMIUM_SKU
@@ -101,9 +101,9 @@ class BillingClientLifecycle private constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun destroy() {
-        Log.d(TAG, "ON_DESTROY")
+     //   Log.d(TAG, "ON_DESTROY")
         if (billingClient.isReady) {
-            Log.d(TAG, "BillingClient can only be used once -- closing connection")
+         //   Log.d(TAG, "BillingClient can only be used once -- closing connection")
             // BillingClient can only be used once.
             // After calling endConnection(), we must create a new BillingClient.
             billingClient.endConnection()
@@ -122,7 +122,7 @@ class BillingClientLifecycle private constructor(
     }
 
     override fun onBillingServiceDisconnected() {
-        Log.d(TAG, "onBillingServiceDisconnected")
+      //  Log.d(TAG, "onBillingServiceDisconnected")
         // TODO: Try connecting again with exponential backoff.
         // billingClient.startConnection(this)
     }
@@ -138,7 +138,7 @@ class BillingClientLifecycle private constructor(
             .setSkusList(LIST_OF_SKUS)
             .build()
         params.let { skuDetailsParams ->
-            Log.i(TAG, "querySkuDetailsAsync")
+         //   Log.i(TAG, "querySkuDetailsAsync")
             billingClient.querySkuDetailsAsync(skuDetailsParams, this)
         }
     }
@@ -156,16 +156,16 @@ class BillingClientLifecycle private constructor(
         val debugMessage = billingResult.debugMessage
         when (responseCode) {
             BillingClient.BillingResponseCode.OK -> {
-                Log.i(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
+            //    Log.i(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
                 val expectedSkuDetailsCount = LIST_OF_SKUS.size
                 if (skuDetailsList == null) {
                     skusWithSkuDetails.postValue(emptyMap())
-                    Log.e(
-                        TAG, "onSkuDetailsResponse: " +
-                            "Expected ${expectedSkuDetailsCount}, " +
-                            "Found null SkuDetails. " +
-                            "Check to see if the SKUs you requested are correctly published " +
-                            "in the Google Play Console.")
+//                    Log.e(
+//                        TAG, "onSkuDetailsResponse: " +
+//                            "Expected ${expectedSkuDetailsCount}, " +
+//                            "Found null SkuDetails. " +
+//                            "Check to see if the SKUs you requested are correctly published " +
+//                            "in the Google Play Console.")
                 } else
                     skusWithSkuDetails.postValue(HashMap<String, SkuDetails>().apply {
                         for (details in skuDetailsList) {

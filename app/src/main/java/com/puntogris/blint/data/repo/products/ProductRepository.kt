@@ -4,9 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.*
 import androidx.room.RoomDatabase
 import androidx.room.withTransaction
 import com.google.firebase.Timestamp
@@ -30,6 +28,8 @@ import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -170,41 +170,52 @@ class ProductRepository @Inject constructor(
 
     override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            if (user.currentBusinessIsOnline()){
-                val query =
-                    when(search){
-                        is SearchText.InternalCode -> {
-                            firestoreQueries
-                                .getProductsCollectionQuery(user)
-                                .whereEqualTo("sku", search.text.uppercase())
+        if(!user.currentBusinessIsOnline() && search is SearchText.Category){
+            val ids = productsDao.getProductIdWithCategory(search.text)
+            Pager(
+                PagingConfig(
+                    pageSize = 30,
+                    enablePlaceholders = true,
+                    maxSize = 200
+                )
+            ){ productsDao.getPagedProductsWithCategory(ids) }.flow
+        }else {
+            Pager(
+                PagingConfig(
+                    pageSize = 30,
+                    enablePlaceholders = true,
+                    maxSize = 200
+                )
+            ) {
+                if (user.currentBusinessIsOnline()){
+                    val query =
+                        when(search){
+                            is SearchText.InternalCode -> {
+                                firestoreQueries
+                                    .getProductsCollectionQuery(user)
+                                    .whereEqualTo("sku", search.text.uppercase())
+                            }
+                            is SearchText.Name -> {
+                                firestoreQueries
+                                    .getProductsCollectionQuery(user)
+                                    .whereArrayContains("search_name", search.text.lowercase())
+                            }
+                            is SearchText.QrCode -> {
+                                firestoreQueries
+                                    .getProductsCollectionQuery(user)
+                                    .whereEqualTo("barcode", search.text)
+                            }
+                            is SearchText.Category -> {
+                                firestoreQueries
+                                    .getProductsCollectionQuery(user)
+                                    .whereArrayContains("categories", search.text.lowercase())
+                            }
                         }
-                        is SearchText.Name -> {
-                            firestoreQueries
-                                .getProductsCollectionQuery(user)
-                                .whereArrayContains("search_name", search.text.lowercase())
-                        }
-                        is SearchText.QrCode -> {
-                            firestoreQueries
-                                .getProductsCollectionQuery(user)
-                                .whereEqualTo("barcode", search.text)
-                        }
-                        is SearchText.Category -> {
-                            firestoreQueries
-                                .getProductsCollectionQuery(user)
-                                .whereArrayContains("search_categories", search.text.lowercase())
-                        }
-                    }
-                FirestoreProductsPagingSource(query)
-            }
-            else{ productsDao.getPagedSearch("%${search.getData()}%") }
-        }.flow
+                    FirestoreProductsPagingSource(query)
+                }
+                else productsDao.getPagedSearch("%${search.getData()}%")
+            }.flow
+        }
     }
 
     override suspend fun getProductRecordsPagingDataFlow(productId: String) = withContext(Dispatchers.IO){

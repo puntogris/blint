@@ -22,14 +22,12 @@ data class FirestoreProduct(
     val businessId:String = "",
     val suppliers:List<FirestoreSupplier>? = null,
     val categories:List<String>? = null,
-    val search_name:List<String> = listOf(),
-    var search_categories:List<String> = listOf()
+    val search_name:List<String> = listOf()
 ){
 
     companion object{
         fun from(product: ProductWithSuppliersCategories): FirestoreProduct{
-            val firestore =
-                FirestoreProduct(
+            return FirestoreProduct(
                 product.product.productId,
                 product.product.name,
                 product.product.barcode,
@@ -57,15 +55,6 @@ data class FirestoreProduct(
                 },
                 createSearchName(product.product.name)
             )
-            val list = mutableListOf<String>()
-            firestore.categories?.forEach {
-                list.addAll(createSearchName(it))
-            }
-
-            list.addAll(createSearchName(UUID.randomUUID().toString()))
-
-            firestore.search_categories = list.distinct()
-            return firestore
         }
 
         private fun createSearchName(text:String): List<String>{
