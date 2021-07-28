@@ -304,7 +304,7 @@ fun ChipGroup.setProductCategoriesChip(categories: List<Category>?){
     categories?.forEach {
         if (!data.contains(it.categoryName)){
             val chip = Chip(context)
-            chip.text = it.categoryName
+            chip.text = it.categoryName.capitalizeFirstChar()
             addView(chip)
         }
     }
@@ -316,7 +316,7 @@ fun ChipGroup.setProductSuppliersChips(suppliers: List<FirestoreSupplier>?){
     suppliers?.forEach {
         if (!data.contains(it.companyName)) {
             val chip = Chip(context)
-            chip.text = it.companyName
+            chip.text = it.companyName.capitalizeFirstChar()
             addView(chip)
         }
     }

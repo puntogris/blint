@@ -3,21 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent"
         tools:context=".ui.product.categories.ProductCategoryFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
+            style="@style/Theme.Blint.CustomToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:paddingLeft="@dimen/grid_1"
             android:paddingRight="@dimen/grid_1"
-            style="@style/Theme.Blint.CustomToolbar"
             app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
 
             <LinearLayout
@@ -26,7 +29,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/categoriesSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -40,20 +43,70 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
+            android:id="@+id/textView164"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/product_categories"
             android:textSize="18sp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/product_categories" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView195">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textView166"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Categorias disponibles"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productCategories" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layoutAnimation="@anim/layout_anim_slide_up"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
+            android:layoutAnimation="@anim/layout_anim_slide_up"
             android:paddingBottom="88dp"
-            android:scrollbars="vertical" />
-    </LinearLayout>
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView166" />
+
+        <TextView
+            android:id="@+id/textView195"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primaryColor"
+            android:text="*Sin categorias, seleccione las categorias mostradas abajo para agregarlas."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView164" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

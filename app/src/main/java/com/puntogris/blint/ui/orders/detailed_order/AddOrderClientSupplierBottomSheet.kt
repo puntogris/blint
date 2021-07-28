@@ -103,8 +103,6 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
                 }
         }
 
-
-
         launchAndRepeatWithViewLifecycle {
             getAllAndFillAdapter()
         }
