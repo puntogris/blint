@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
+@Keep
 data class Client(
 
     @PrimaryKey

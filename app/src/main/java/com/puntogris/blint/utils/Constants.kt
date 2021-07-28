@@ -16,6 +16,9 @@ object Constants {
 
     const val ADMINISTRATOR = "ADMINISTRATOR"
 
+    //Product categories/ suppliers limit
+    const val CATEGORIES_SUPPLIERS_LIMIT = 4
+
     //Report types
     const val SUPPLIERS_LIST = 101
     const val CLIENTS_LIST = 102

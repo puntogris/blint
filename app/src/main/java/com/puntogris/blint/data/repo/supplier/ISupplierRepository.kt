@@ -1,6 +1,7 @@
 package com.puntogris.blint.data.repo.supplier
 
 import androidx.paging.PagingData
+import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.utils.SimpleResult

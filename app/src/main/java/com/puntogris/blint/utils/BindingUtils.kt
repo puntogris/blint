@@ -338,9 +338,19 @@ fun TextView.setValueToMoneyString(value: Float){
 
 
 @BindingAdapter("productOrderPrices")
-fun TextView.setProductOrderPrices(product: Product){
-    text = "${product.buyPrice.toMoneyFormatted()} /${product.sellPrice.toMoneyFormatted()} /${product.suggestedSellPrice.toMoneyFormatted()}"
+fun TextView.setProductOrderPrices(product: ProductWithRecord){
+    text = if (product.record.type == IN){ product.product.buyPrice.toMoneyFormatted()
+    }else{
+        "${product.product.sellPrice.toMoneyFormatted()} /${product.product.suggestedSellPrice.toMoneyFormatted()}"
+    }
 }
+
+@BindingAdapter("productOrderPricesTitle")
+fun TextView.setProductOrderPricesTitle(record:Record){
+    text = context.getString(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
+
+}
+
 
 @BindingAdapter("productRecordPriceEntry")
 fun TextView.setProductRecordPriceEntry(product: ProductWithRecord){

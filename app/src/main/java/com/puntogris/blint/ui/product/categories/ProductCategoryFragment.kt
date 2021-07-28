@@ -11,6 +11,7 @@ import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class ProductCategoryFragment:
     private var items = mutableListOf<Category>()
 
     override fun initializeViews() {
+
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         registerUiInterface.register(
             showFab = true,
@@ -88,8 +90,13 @@ class ProductCategoryFragment:
     }
 
     private fun onCategoryClicked(category: Category) {
-        removeCategoryAdapter.addCategory(category)
-        if (removeCategoryAdapter.itemCount != 0) binding.textView195.gone()
+        if (removeCategoryAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
+            showSnackBarVisibilityAppBar(getString(R.string.snack_product_categories_limit, CATEGORIES_SUPPLIERS_LIMIT))
+        else {
+            removeCategoryAdapter.addCategory(category)
+            if (removeCategoryAdapter.itemCount != 0) binding.textView195.gone()
+        }
+
     }
 
     override fun onDestroyView() {

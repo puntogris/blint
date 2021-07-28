@@ -72,7 +72,4 @@ class ProductViewModel @Inject constructor(
 
     suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
 
-    suspend fun getSuppliersWithName(name: String) =
-        productRepository.getSuppliersWithNameDatabase(name.lowercase())
-
 }

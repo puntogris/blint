@@ -1,7 +1,5 @@
 package com.puntogris.blint.ui.product.suppliers
 
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,21 +10,21 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
 import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.product.ProductViewModel
-import com.puntogris.blint.utils.registerUiInterface
-import com.puntogris.blint.utils.visible
+import com.puntogris.blint.ui.supplier.manage.ManageSuppliersViewModel
+import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.layout.fragment_product_supplier) {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: ProductSupplierViewModel by viewModels()
     private val args: ProductSupplierFragmentArgs by navArgs()
     private lateinit var searchAdapter: ProductSupplierAdapter
     private lateinit var removeSupplierAdapter: RemoveProductSupplierAdapter
-    private var items = mutableListOf<FirestoreSupplier>()
     private var searchJob: Job? = null
 
     override fun initializeViews() {
@@ -53,26 +51,45 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
         if (args.suppliers.isNullOrEmpty()) binding.textView195.visible()
         else removeSupplierAdapter.initialSuppliers(args.suppliers!!.toMutableList())
 
+        launchAndRepeatWithViewLifecycle {
+            getAllSuppliersAndFillAdapter()
+        }
+
         binding.categoriesSearch.addTextChangedListener {
             searchJob?.cancel()
-            val text = it.toString()
             searchJob = lifecycleScope.launch {
-                if (text.isBlank()){
-
-                }else{
-                    val data = viewModel.getSuppliersWithName(text)
-                    items = data.toMutableList()
+                it.toString().let {
+                    if (it.isBlank()) getAllSuppliersAndFillAdapter()
+                    else getAllSuppliersWithNameAndFillAdapter(it.lowercase())
                 }
             }
         }
     }
 
+    private suspend fun getAllSuppliersWithNameAndFillAdapter(text:String){
+        viewModel.getSuppliersWithName(text).collect {
+            searchAdapter.submitData(it)
+        }
+    }
+
+    private suspend fun getAllSuppliersAndFillAdapter(){
+        viewModel.getSuppliersPaging().collect {
+            searchAdapter.submitData(it)
+        }
+    }
+
     private fun onAddSupplier(supplier: FirestoreSupplier){
-        removeSupplierAdapter.addSupplier(supplier)
+        if (removeSupplierAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
+            showSnackBarVisibilityAppBar(getString(R.string.snack_product_suppliers_limit, CATEGORIES_SUPPLIERS_LIMIT))
+        else {
+            removeSupplierAdapter.addSupplier(supplier)
+            if (removeSupplierAdapter.itemCount != 0) binding.textView195.gone()
+        }
     }
 
     private fun onRemoveSupplier(supplier: FirestoreSupplier){
         removeSupplierAdapter.removeSupplier(supplier)
+        if (removeSupplierAdapter.itemCount == 0) binding.textView195.visible()
     }
 
     override fun onDestroyView() {

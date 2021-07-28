@@ -1,10 +1,12 @@
 package com.puntogris.blint.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Keep
 data class ProductWithSuppliersCategories(
 
     @Embedded var product: Product = Product(),

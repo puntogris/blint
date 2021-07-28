@@ -236,15 +236,7 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun getSuppliersWithNameDatabase(search: String): List<FirestoreSupplier>  = withContext(Dispatchers.IO){
-        val user = currentBusiness()
-        if (user.currentBusinessIsOnline()){
-            firestoreQueries
-                .getSuppliersCollectionQuery(user)
-                .whereArrayContains("search_name", search).limit(5).get().await().toObjects(FirestoreSupplier::class.java)
-        }
-        else{ suppliersDao.getProductSupplier("%${search}%") }
-    }
+
 
     override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> = withContext(Dispatchers.IO){
         try {

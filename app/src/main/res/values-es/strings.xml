@@ -257,6 +257,12 @@
     <string name="prices_and_stock">Precios y stock</string>
     <string name="product_deleted">Producto eliminado.</string>
     <string name="filter_by_category">Filtrar por categoría</string>
+    <string name="available_categories">Categorias disponibles</string>
+    <string name="empty_product_categories_message">*Sin categorias, seleccione las categorias mostradas abajo para agregarlas.</string>
+    <string name="available_suppliers">Proveedores disponibles</string>
+    <string name="empty_product_suppliers_message">*Sin proveedores, seleccione las categorias mostradas abajo para agregarlas.</string>
+    <string name="snack_product_suppliers_limit">Un producto no puede tener mas de %1$d proveedores</string>
+    <string name="snack_product_categories_limit">Un producto no puede tener mas de %1$d categorias</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>
@@ -383,7 +389,8 @@
     <string name="created_successfully_title">Creacion satisfactoria.</string>
     <string name="created_failed">Creacion fallida.</string>
     <string name="product_already_added">El producto ya se encuentra agregado.</string>
-    <string name="buy_sell_sug_prices">Com./ Ven./ Sug.</string>
+    <string name="buy_prices">Compra</string>
+    <string name="sell_prices">Venta/ Sug.</string>
     <string name="snack_discount_error">Error con el valor del descuento.</string>
     <string name="snack_discount_limit">El descuento no puede ser mayor que el total de la orden.</string>
     <string name="supplier_or_client">Proveedor/ Cliente:</string>

@@ -1,6 +1,7 @@
 package com.puntogris.blint.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Junction
@@ -8,6 +9,7 @@ import androidx.room.Relation
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Keep
 data class OrderWithRecords(
     @Embedded var order: Order = Order(),
 

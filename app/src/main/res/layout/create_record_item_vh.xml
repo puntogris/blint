@@ -144,7 +144,7 @@
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/buy_sell_sug_prices"
+                        productOrderPricesTitle="@{item.record}"
                         app:layout_constraintBottom_toTopOf="@+id/textView6118"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textField2"
@@ -154,7 +154,8 @@
                     <TextView
                         android:id="@+id/textView6118"
                         style="@style/Theme.Blint.DataTextView"
-                        productOrderPrices="@{item.product}"
+                        productOrderPrices="@{item}"
+                        tools:text="1341.00/1234.00/1234.00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textField2"

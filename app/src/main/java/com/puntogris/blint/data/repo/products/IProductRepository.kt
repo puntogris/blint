@@ -13,6 +13,5 @@ interface IProductRepository {
     suspend fun deleteProductDatabase(productId:String): SimpleResult
     suspend fun getProductsWithNamePagingDataFlow(search: SearchText): Flow<PagingData<ProductWithSuppliersCategories>>
     suspend fun getProductRecordsPagingDataFlow(productId: String): Flow<PagingData<Record>>
-    suspend fun getSuppliersWithNameDatabase(search: String): List<FirestoreSupplier>
     suspend fun getProductWithBarcode(barcode:String): RepoResult<ProductWithSuppliersCategories>
 }

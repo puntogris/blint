@@ -261,6 +261,12 @@
     <string name="prices_and_stock">Prices and stock</string>
     <string name="product_deleted">Product deleted.</string>
     <string name="filter_by_category">Filter by category</string>
+    <string name="available_categories">Categories available</string>
+    <string name="empty_product_categories_message">*There are no categories added, select the categories shown below to add them.</string>
+    <string name="available_suppliers">Suppliers available</string>
+    <string name="empty_product_suppliers_message">*There are no suppliers added, select the categories shown below to add them.</string>
+    <string name="snack_product_suppliers_limit">A product can not have more than %1$d suppliers</string>
+    <string name="snack_product_categories_limit">A product can not have more than %1$d categories</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">A problem occurred when deleting the client</string>
@@ -387,7 +393,8 @@
     <string name="created_successfully_title">Success creating it.</string>
     <string name="created_failed">Error creating it.</string>
     <string name="product_already_added">Product already added.</string>
-    <string name="buy_sell_sug_prices">Buy/ Sell/ Sug.</string>
+    <string name="buy_prices">Buy</string>
+    <string name="sell_prices">Sell/ Sug.</string>
     <string name="snack_discount_error">Error with the discount amount.</string>
     <string name="snack_discount_limit">The discount can not be more than the order total.</string>
     <string name="supplier_or_client">Supplier/ Client:</string>
@@ -560,9 +567,6 @@
 
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>
-    <string name="available_categories">Categorias disponibles</string>
-    <string name="empty_product_categories_message">*Sin categorias, seleccione las categorias mostradas abajo para agregarlas.</string>
-    <string name="available_suppliers">Proveedores disponibles</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

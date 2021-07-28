@@ -32,7 +32,3 @@
 -keep class com.puntogris.blint.model.Debt
 -keep class com.puntogris.blint.model.Category
 -keep class com.puntogris.blint.model.FirestoreSupplier
-
--keepnames class * implements android.os.Parcelable {
-    public static final ** CREATOR;
-}
