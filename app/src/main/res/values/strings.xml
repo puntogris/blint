@@ -560,6 +560,9 @@
 
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>
+    <string name="available_categories">Categorias disponibles</string>
+    <string name="empty_product_categories_message">*Sin categorias, seleccione las categorias mostradas abajo para agregarlas.</string>
+    <string name="available_suppliers">Proveedores disponibles</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

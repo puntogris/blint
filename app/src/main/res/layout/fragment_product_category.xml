@@ -73,7 +73,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="Categorias disponibles"
+            android:text="@string/available_categories"
             android:fontFamily="sans-serif-medium"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +104,7 @@
             android:textAlignment="center"
             android:layout_marginTop="16dp"
             android:textColor="@color/primaryColor"
-            android:text="*Sin categorias, seleccione las categorias mostradas abajo para agregarlas."
+            android:text="@string/empty_product_categories_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView164" />

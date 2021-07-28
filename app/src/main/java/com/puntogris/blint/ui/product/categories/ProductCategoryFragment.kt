@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.product.categories
 
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +12,10 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.layout.fragment_product_category) {
+class ProductCategoryFragment:
+    BaseFragment<FragmentProductCategoryBinding>(R.layout.fragment_product_category) {
 
     private val viewModel: FilterCategoriesViewModel by viewModels()
     private val args: ProductCategoryFragmentArgs by navArgs()
@@ -27,47 +25,55 @@ class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.l
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false,
-        showFabCenter = false){
+        registerUiInterface.register(
+            showFab = true,
+            showAppBar = false,
+            fabIcon = R.drawable.ic_baseline_arrow_forward_24,
+            showToolbar = false,
+            showFabCenter = false
+        ) {
             findNavController().apply {
-                previousBackStackEntry!!.savedStateHandle.set("categories_key", removeCategoryAdapter.getFinalCategories())
+                previousBackStackEntry!!.savedStateHandle.set(
+                    "categories_key",
+                    removeCategoryAdapter.getFinalCategories()
+                )
                 popBackStack()
             }
         }
 
-        addCategoryAdapter = AddProductCategoryAdapter{onCategoryClicked(it)}
+        addCategoryAdapter = AddProductCategoryAdapter { onCategoryClicked(it) }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = addCategoryAdapter
         }
 
-        removeCategoryAdapter = RemoveProductCategoryAdapter{onRemoveCategory(it)}
+        removeCategoryAdapter = RemoveProductCategoryAdapter { onRemoveCategory(it) }
         binding.productCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = removeCategoryAdapter
         }
 
-        if (args.categories.isNullOrEmpty()){
-            binding.textView195.visible()
-        }else{
-            removeCategoryAdapter.initialCategories(args.categories!!.toMutableList())
-        }
+        if (args.categories.isNullOrEmpty()) binding.textView195.visible()
+        else removeCategoryAdapter.initialCategories(args.categories!!.toMutableList())
+
 
         binding.categoriesSearch.addTextChangedListener {
             it.toString().let { text ->
                 if (text.isBlank()) addCategoryAdapter.submitList(items)
-                else{
+                else {
                     addCategoryAdapter.currentList.filter { category ->
                         category.categoryName.contains(text)
-                    }.also { list-> addCategoryAdapter.submitList(list) }
+                    }.also { list -> addCategoryAdapter.submitList(list) }
                 }
             }
         }
 
         launchAndRepeatWithViewLifecycle {
-            when(val result = viewModel.getAllCategories()){
-                is RepoResult.Error -> {}
-                RepoResult.InProgress -> {}
+            when (val result = viewModel.getAllCategories()) {
+                is RepoResult.Error -> {
+                }
+                RepoResult.InProgress -> {
+                }
                 is RepoResult.Success -> {
                     items = result.data.toMutableList()
                     addCategoryAdapter.submitList(result.data)
@@ -76,12 +82,12 @@ class ProductCategoryFragment : BaseFragment<FragmentProductCategoryBinding>(R.l
         }
     }
 
-    private fun onRemoveCategory(category: Category){
+    private fun onRemoveCategory(category: Category) {
         removeCategoryAdapter.removeCategory(category)
         if (removeCategoryAdapter.itemCount == 0) binding.textView195.visible()
     }
 
-    private fun onCategoryClicked(category: Category){
+    private fun onCategoryClicked(category: Category) {
         removeCategoryAdapter.addCategory(category)
         if (removeCategoryAdapter.itemCount != 0) binding.textView195.gone()
     }

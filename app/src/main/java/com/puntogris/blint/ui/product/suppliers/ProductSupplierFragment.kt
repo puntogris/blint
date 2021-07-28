@@ -14,6 +14,7 @@ import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.product.ProductViewModel
 import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
     private val viewModel: ProductViewModel by viewModels()
     private val args: ProductSupplierFragmentArgs by navArgs()
     private lateinit var searchAdapter: ProductSupplierAdapter
+    private lateinit var removeSupplierAdapter: RemoveProductSupplierAdapter
     private var items = mutableListOf<FirestoreSupplier>()
     private var searchJob: Job? = null
 
@@ -31,42 +33,51 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         registerUiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
             findNavController().apply {
-                previousBackStackEntry!!.savedStateHandle.set("suppliers_key", searchAdapter.getFinalSuppliers())
+                previousBackStackEntry!!.savedStateHandle.set("suppliers_key", removeSupplierAdapter.getFinalSuppliers())
                 popBackStack()
             }
         }
 
-        searchAdapter = ProductSupplierAdapter()
+        searchAdapter = ProductSupplierAdapter{ onAddSupplier(it)}
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = searchAdapter
         }
 
-        args.suppliers?.let {
-            searchAdapter.initialSuppliers(it.toMutableList())
+        removeSupplierAdapter = RemoveProductSupplierAdapter { onRemoveSupplier(it) }
+        binding.productCategories.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = removeSupplierAdapter
         }
 
-        binding.categoriesSearch.setOnItemClickListener { _, _, i, _ ->
-            searchAdapter.addSupplier(items[i])
-        }
+        if (args.suppliers.isNullOrEmpty()) binding.textView195.visible()
+        else removeSupplierAdapter.initialSuppliers(args.suppliers!!.toMutableList())
 
         binding.categoriesSearch.addTextChangedListener {
             searchJob?.cancel()
-            it?.toString()?.let { text ->
-                searchJob = lifecycleScope.launch {
+            val text = it.toString()
+            searchJob = lifecycleScope.launch {
+                if (text.isBlank()){
+
+                }else{
                     val data = viewModel.getSuppliersWithName(text)
                     items = data.toMutableList()
-                    val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, data.map { it.companyName })
-                    (binding.categoriesSearch as? AutoCompleteTextView)?.setAdapter(adapter)
                 }
             }
         }
     }
 
-    override fun onDestroyView() {
-        binding.recyclerView.adapter = null
-        binding.categoriesSearch.setAdapter(null)
-        super.onDestroyView()
+    private fun onAddSupplier(supplier: FirestoreSupplier){
+        removeSupplierAdapter.addSupplier(supplier)
     }
 
+    private fun onRemoveSupplier(supplier: FirestoreSupplier){
+        removeSupplierAdapter.removeSupplier(supplier)
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        binding.productCategories.adapter = null
+        super.onDestroyView()
+    }
 }
