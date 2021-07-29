@@ -154,14 +154,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button23"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:text="@string/action_see_complete_order"
-            android:backgroundTint="@color/primaryColor"
-            android:textColor="@color/almostBlack"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -267,6 +267,10 @@
     <string name="empty_product_suppliers_message">*There are no suppliers added, select the categories shown below to add them.</string>
     <string name="snack_product_suppliers_limit">A product can not have more than %1$d suppliers</string>
     <string name="snack_product_categories_limit">A product can not have more than %1$d categories</string>
+    <string name="go_to_product">Go to product</string>
+    <string name="create_product_with_code">Create product with this barcode</string>
+    <string name="no_product_found_with_code">A product with this barcode was not found.</string>
+    <string name="code_with_dots">Code:</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">A problem occurred when deleting the client</string>
@@ -354,8 +358,9 @@
     <string name="suppliers_and_categories">Suppliers and categories</string>
     <string name="category">Category</string>
     <string name="discount_abbreviation">disc.</string>
-    <string name="managment">Management</string>
+    <string name="management">Management</string>
     <string name="administration">Administration</string>
+    <string name="shortcuts">Shortcuts</string>
 
     <!-- Orders -->
     <string name="select_supplier">Select supplier</string>
@@ -469,6 +474,7 @@
     <string name="auto_fill_hint_client_search">clientsSearch</string>
     <string name="auto_fill_hint_search_orders">searchOrders</string>
     <string name="auto_fill_hint_search_supplier">supplierSearch</string>
+    <string name="auto_fill_hint_search_categories">categoriesSearch</string>
 
     <!-- Symbols, numbers -->
     <string name="dollar_symbol">$</string>
@@ -530,6 +536,9 @@
     <string name="sync_cancel_warning">Closing this window will cancel the syncing.</string>
     <string name="snack_sync_account_cancelled">Sync cancelled</string>
     <string name="out_of_sync_label">Sync</string>
+    <string name="read_more_sync">Read more about synchronization.</string>
+    <string name="out_of_sync_message">We notice that your account is not synchronized with our databases.</string>
+    <string name="out_of_sync_title">Account not synced</string>
 
     <!-- Tickets -->
     <string name="send_ticket_label">Send ticket</string>

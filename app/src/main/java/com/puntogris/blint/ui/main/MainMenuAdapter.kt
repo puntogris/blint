@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.main
 
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
@@ -17,11 +16,12 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) : ListAdapt
             MenuCard(R.string.products_label, R.id.manageProductsFragment,R.drawable.ic_packages),
             MenuCard(R.string.suppliers_label, R.id.manageSuppliersFragment,R.drawable.ic_shipped),
             MenuCard(R.string.clients_label, R.id.manageClientsFragment,R.drawable.ic_rating),
-            MenuCard(R.string.managment, 0,0),
+            MenuCard(R.string.management, 0,0),
             MenuCard(R.string.orders_label, R.id.manageOrdersFragment, R.drawable.ic_report),
             MenuCard(R.string.reports_label, R.id.reportsFragment, R.drawable.ic_analytics),
-            MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_loan)
-
+            MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_loan),
+            MenuCard(R.string.shortcuts,0,0)
+        
 //            MenuCard(R.string.calendar_label, R.id.calendarFragment, R.drawable.ic_calendar),
 //            MenuCard(R.string.categories_label, R.id.manageCategoriesFragment, R.drawable.ic_category),
 //            MenuCard(R.string.account_label, R.id.accountPreferences, R.drawable.ic_profile)

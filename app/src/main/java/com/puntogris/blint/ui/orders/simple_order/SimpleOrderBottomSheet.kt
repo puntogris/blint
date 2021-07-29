@@ -47,7 +47,8 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
 
     fun onSaveButtonClicked(){
         val amount = binding.productAmountText.getString().toIntOrNull()
-        if (amount != null && amount > 0){
+        if (amount != null && amount > 0 &&
+            if (orderType == IN) true else amount <= args.product.amount){
             binding.simpleOrderGroup.gone()
             binding.progressBar.visible()
             val order = OrderWithRecords()
@@ -73,7 +74,7 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
                     }
                 }
             }
-        }else{ showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty)) }
+        }else{ showSackBarAboveBottomSheet(getString(R.string.product_amount_empty)) }
     }
 
     private fun navigateBack(){

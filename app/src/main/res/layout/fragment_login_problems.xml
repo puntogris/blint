@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:layout_marginBottom="24dp"
             android:text="@string/action_go_back_to_start"
             android:onClick="@{()-> fragment.onGoBackButtonClicked()}"

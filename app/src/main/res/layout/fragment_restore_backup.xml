@@ -86,6 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:textSize="16sp"
+            android:padding="8dp"
+            android:foreground="?selectableItemBackground"
             android:onClick="@{()->fragment.onReadMoreAboutBackupsClicked()}"
             android:textColor="@color/primaryColor"
             android:text="@string/action_read_more_about_backups"

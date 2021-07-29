@@ -72,8 +72,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rateAppButton"
             android:layout_width="0dp"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
-            app:strokeColor="@color/purple_200"
+            style="@style/Theme.Blint.Button"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"

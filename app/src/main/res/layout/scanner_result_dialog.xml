@@ -144,19 +144,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button5"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
+            style="@style/Theme.Blint.Button"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:onClick="@{()->fragment.onGoToProductClicked()}"
-            android:text="ir al producto"
+            android:text="@string/go_to_product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView200"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintTop_toBottomOf="@+id/textView200" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/recordType"
@@ -177,7 +176,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="@string/in_entry" />
+                android:text="@string/in_entry"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,7 +207,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button7"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -215,12 +215,11 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:onClick="@{()-> fragment.onCreateNewProductClicked()}"
-            android:text="crear producto con este codigo"
+            android:text="@string/create_product_with_code"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView67"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintTop_toBottomOf="@+id/textView67" />
 
         <TextView
             android:id="@+id/textView66"
@@ -229,7 +228,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:text="No se encontro un producto con este codigo de barras."
+            android:text="@string/no_product_found_with_code"
             android:textAlignment="center"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -243,7 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Codigo:"
+            android:text="@string/code_with_dots"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView66" />
 
@@ -266,7 +265,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal"
+            android:contentDescription="@string/top_window_bar_image" />
 
         <TextView
             android:id="@+id/textView196"

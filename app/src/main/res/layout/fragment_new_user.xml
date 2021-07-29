@@ -68,13 +68,12 @@
             android:layout_marginEnd="8dp"
             android:onClick="@{()-> fragment.onCreateBusinessClicked()}"
             android:text="@string/create"
-
+            style="@style/Theme.Blint.Button"
             app:layout_constraintBottom_toBottomOf="@+id/learnMoreButton"
             app:layout_constraintEnd_toStartOf="@+id/learnMoreButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/learnMoreButton"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintTop_toTopOf="@+id/learnMoreButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/learnMoreButton"
@@ -84,12 +83,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:text="@string/join"
+            style="@style/Theme.Blint.Button"
             android:onClick="@{()-> fragment.onJoinBusinessClicked()}"
             app:layout_constraintBottom_toTopOf="@+id/textView147"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/joinBusinessButton"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintStart_toEndOf="@+id/joinBusinessButton" />
 
         <TextView
             android:id="@+id/textView147"

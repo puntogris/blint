@@ -13,6 +13,7 @@ object Constants {
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
     const val BLINT_WEBSITE_LEARN_MORE = "https://blint.app"
     const val BACKUP_WEBSITE_LEARN_MORE = "https://blint.app"
+    const val SYNC_INFO_WEBSITE_LEARN_MORE = "https://blint.app"
     const val WHATS_APP_PACKAGE = "com.whatsapp"
 
     const val ADMINISTRATOR = "ADMINISTRATOR"

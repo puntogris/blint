@@ -65,10 +65,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/almostBlack"
             android:text="@string/action_next"
             android:onClick="@{()-> fragment.onContinueButtonClicked()}"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -79,9 +78,8 @@
             android:onClick="@{()-> fragment.onExitButtonClicked()}"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:text="@string/action_exit"
-            android:textColor="@color/almostBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

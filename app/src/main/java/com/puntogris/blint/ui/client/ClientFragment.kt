@@ -44,24 +44,6 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         }
         mediator?.attach()
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position){
-                    0 -> {
-                        (requireActivity() as SetupUiListener)
-                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24){
-                                navigateToEditClientFragment()
-                            }
-                    }
-                    else -> {
-                        (requireActivity() as SetupUiListener)
-                            .setFabImageAndClickListener(fabListener = {})
-                    }
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
     }
 
     private fun navigateToEditClientFragment(){

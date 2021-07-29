@@ -51,7 +51,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

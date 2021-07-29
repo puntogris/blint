@@ -90,8 +90,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button25"
-            style="@style/Widget.MaterialComponents.Button"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:onClick="@{()-> fragment.onSaveButtonClicked()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

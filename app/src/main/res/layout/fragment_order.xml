@@ -187,13 +187,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/primaryColor"
+            style="@style/Theme.Blint.Button"
             android:onClick="@{()->fragment.onGenerateOrderReceiptClicked()}"
             android:text="@string/generate_receipt"
-            android:textColor="@color/almostBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

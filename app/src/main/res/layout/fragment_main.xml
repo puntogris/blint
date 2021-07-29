@@ -135,20 +135,6 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-
-            <TextView
-                android:id="@+id/textView162"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Atajos"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
@@ -159,7 +145,7 @@
                 app:cardCornerRadius="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView162">
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -172,36 +158,36 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:paddingVertical="11dp"
+                        android:contentDescription="@string/calendar_image"
                         android:foreground="?selectableItemBackground"
                         android:onClick="@{() -> fragment.onSideMenuClicked(0)}"
                         android:paddingHorizontal="11dp"
-                        app:srcCompat="@drawable/ic_baseline_calendar_today_24"
-                        android:contentDescription="@string/calendar_image" />
+                        android:paddingVertical="11dp"
+                        app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                     <ImageView
                         android:id="@+id/imageView11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingVertical="11dp"
                         android:layout_weight="1"
+                        android:contentDescription="@string/categories_image"
                         android:foreground="?selectableItemBackground"
                         android:onClick="@{() -> fragment.onSideMenuClicked(1)}"
                         android:paddingHorizontal="11dp"
-                        app:srcCompat="@drawable/ic_baseline_label_24"
-                        android:contentDescription="@string/categories_image" />
+                        android:paddingVertical="11dp"
+                        app:srcCompat="@drawable/ic_baseline_label_24" />
 
                     <ImageView
                         android:id="@+id/imageView18"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:paddingVertical="11dp"
+                        android:contentDescription="@string/profile_image"
                         android:foreground="?selectableItemBackground"
                         android:onClick="@{() -> fragment.onSideMenuClicked(2)}"
                         android:paddingHorizontal="11dp"
-                        app:srcCompat="@drawable/ic_baseline_account_circle_24"
-                        android:contentDescription="@string/profile_image" />
+                        android:paddingVertical="11dp"
+                        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -256,7 +242,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button17"
-                app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

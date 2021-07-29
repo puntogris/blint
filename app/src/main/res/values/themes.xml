@@ -21,6 +21,11 @@
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
+    <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceOverlay">@style/Theme.Blint.RoundButtonShapeOverlay</item>
+        <item name="android:textColor">@color/almostBlack</item>
+    </style>
+
     <style name="Theme.Blint.ListHolderLayout" >
         <item name="android:background">@color/grey_10</item>
     </style>

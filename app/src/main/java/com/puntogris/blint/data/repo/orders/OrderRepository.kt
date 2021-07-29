@@ -137,7 +137,7 @@ import kotlin.math.absoluteValue
                         )
                         batch.set(debtRef.document(debt.debtId), debt)
                         val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
-                        if (order.debt?.type == "CLIENT"){
+                        if (order.debt?.type == CLIENT){
                             val updateClientRef = firestoreQueries.getClientsCollectionQuery(user)
                             batch.update(updateClientRef.document(debt.traderId), "debt",FieldValue.increment(debt.amount.toLong()))
                             batch.update(updateCounterRef,"clientsDebt", FieldValue.increment(debt.amount.toLong()))

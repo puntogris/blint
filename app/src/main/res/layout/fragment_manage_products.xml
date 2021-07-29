@@ -115,17 +115,5 @@
                 android:clipToPadding="false"
                 android:paddingBottom="88dp"
                 android:scrollbars="vertical" />
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/searchCodeButton"-->
-<!--            style="@style/Theme.Blint.ImageButton"-->
-<!--            android:onClick="@{() -> fragment.onSearchCodeClicked()}"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/productSearch"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/productSearch"-->
-<!--            app:srcCompat="@drawable/ic_barcode" />-->
     </LinearLayout>
 </layout>

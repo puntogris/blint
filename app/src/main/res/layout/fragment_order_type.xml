@@ -56,11 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/select_supplier"
+            style="@style/Theme.Blint.Button"
             android:onClick="@{()-> fragment.onAddTraderClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordType"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintTop_toBottomOf="@+id/recordType" />
 
         <TextView
             android:id="@+id/textView169"

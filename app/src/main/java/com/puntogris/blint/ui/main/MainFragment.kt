@@ -39,9 +39,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupMenuRecyclerView()
         setupBadgeListener()
         setupCalendarRecyclerView()
-
-        //view?.doOnPreDraw { startPostponedEnterTransition() }
-
     }
 
     fun onSideMenuClicked(item: Int){

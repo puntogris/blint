@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.sync.OutOfSyncFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
-            android:text="Cuenta no sincronizada"
+            android:text="@string/out_of_sync_title"
             android:textSize="21sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -34,8 +36,8 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="24dp"
             android:lineSpacingExtra="5dp"
-            android:text="Notamos que tu cuenta esta no esta sincronizada con nuestras bases de datos."
-            android:textSize="16dp"
+            android:text="@string/out_of_sync_message"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,9 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="144dp"
-            android:text="Te invitamos a leer mas sobre esto."
+            android:text="@string/read_more_sync"
             android:textColor="@color/primaryColor"
             android:textSize="17sp"
+            android:padding="8dp"
+            android:foreground="?selectableItemBackground"
+            android:onClick="@{()-> fragment.onReadMoreAboutSyncClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.428"
@@ -66,6 +71,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView159"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+            app:layout_constraintTop_toBottomOf="@+id/textView38"
+            android:contentDescription="@string/image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

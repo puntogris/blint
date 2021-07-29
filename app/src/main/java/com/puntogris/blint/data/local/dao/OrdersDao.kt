@@ -3,6 +3,7 @@ package com.puntogris.blint.data.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.Constants.CLIENT
 import kotlin.math.absoluteValue
 
 @Dao
@@ -39,7 +40,7 @@ interface OrdersDao {
                 businessId = order.order.businessId,
                 type = order.debt!!.type
             )
-            if (debt.type == "CLIENT"){
+            if (debt.type == CLIENT){
                 updateClientsDebt(debt.amount)
                 updateClientDebt(debt.traderId, debt.amount)
             }else {

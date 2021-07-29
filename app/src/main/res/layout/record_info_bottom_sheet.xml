@@ -163,18 +163,15 @@
                 android:onClick="@{()->bottomSheet.onExternalChipClicked()}" />
         </com.google.android.material.chip.ChipGroup>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button23"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:text="@string/action_see_complete_order"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"
-            android:backgroundTint="@color/primaryColor"
-            android:textColor="@color/almostBlack"
+            style="@style/Theme.Blint.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

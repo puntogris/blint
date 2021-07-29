@@ -263,6 +263,10 @@
     <string name="empty_product_suppliers_message">*Sin proveedores, seleccione las categorias mostradas abajo para agregarlas.</string>
     <string name="snack_product_suppliers_limit">Un producto no puede tener mas de %1$d proveedores</string>
     <string name="snack_product_categories_limit">Un producto no puede tener mas de %1$d categorias</string>
+    <string name="go_to_product">ir al producto</string>
+    <string name="create_product_with_code">crear producto con este codigo</string>
+    <string name="no_product_found_with_code">No se encontro un producto con este codigo de barras.</string>
+    <string name="code_with_dots">Codigo:</string>
 
     <!-- Client -->
     <string name="snack_delete_client_error">Ocurrio un error al eliminar al cliente.</string>
@@ -350,8 +354,9 @@
     <string name="suppliers_and_categories">Proveedores y categorias</string>
     <string name="category">Categoría</string>
     <string name="discount_abbreviation">disc.</string>
-    <string name="managment">Gestion</string>
+    <string name="management">Gestion</string>
     <string name="administration">Administración</string>
+    <string name="shortcuts">Atajos</string>
 
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
@@ -465,6 +470,7 @@
     <string name="auto_fill_hint_client_search">busquedaCliente</string>
     <string name="auto_fill_hint_search_orders">busquedaOrden</string>
     <string name="auto_fill_hint_search_supplier">busquedaProveedor</string>
+    <string name="auto_fill_hint_search_categories">busquedaCategorias</string>
 
     <!-- Symbols, numbers -->
     <string name="dollar_symbol">$</string>
@@ -522,6 +528,9 @@
     <string name="sync_cancel_warning">Cerrar esta ventana cancelara la sincronizacion.</string>
     <string name="snack_sync_account_cancelled">Sincronizacion cancelada</string>
     <string name="out_of_sync_label">Sincronizacion</string>
+    <string name="read_more_sync">Te invitamos a leer mas sobre esto.</string>
+    <string name="out_of_sync_message">Notamos que tu cuenta esta no esta sincronizada con nuestras bases de datos.</string>
+    <string name="out_of_sync_title">Cuenta no sincronizada</string>
 
     <!-- Tickets -->
     <string name="send_ticket_label">Enviar ticket</string>
