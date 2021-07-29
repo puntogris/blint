@@ -262,12 +262,14 @@ fun ImageView.setNotificationImage(uri:String){
 @BindingAdapter("timeSinceCreated")
 fun TextView.setTimeSinceCreated(timestamp: Timestamp){
     val minutes = ((Timestamp.now().seconds - timestamp.seconds) / 60).toInt()
+    println(minutes)
     text =
         when {
             minutes in 0..1 -> context.getString(R.string.minute_notif, minutes)
             minutes < 60 -> context.getString(R.string.minutes_notif, minutes)
             minutes == 60 -> context.getString(R.string.hour_notif, (minutes / 60))
-            minutes in 61..1440 -> context.getString(R.string.day_notif, (minutes / 60))
+            minutes in 61..1440 -> context.getString(R.string.hours_notif, (minutes / 60))
+            minutes in 1440..2880 -> context.getString(R.string.day_notif)
             else -> context.getString(R.string.days_notif, (minutes / 60 / 24))
         }
 }

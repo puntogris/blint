@@ -560,7 +560,7 @@
     <string name="hour_notif" translatable="false">%1$d hr.</string>
     <string name="hours_notif" translatable="false">%1$d hrs.</string>
     <string name="days_notif">%1$d days</string>
-    <string name="day_notif">%1$d day</string>
+    <string name="day_notif">1 day</string>
 
     <!-- Invoice -->
     <string name="share">Share</string>

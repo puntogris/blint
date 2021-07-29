@@ -548,7 +548,7 @@
     <string name="new_business_notif_message">Hoy arranca una nueva aventura y estamos felices de poder acompañarte en ella.</string>
     <string name="new_employee_notif_message">El negocio se agranda, le damos la bienvenida a %1$s.</string>
     <string name="days_notif">%1$d días</string>
-    <string name="day_notif">%1$d día</string>
+    <string name="day_notif">1 día</string>
 
     <!-- Invoice -->
     <string name="share">Compartir</string>

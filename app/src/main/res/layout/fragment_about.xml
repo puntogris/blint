@@ -90,7 +90,6 @@
             android:layout_marginBottom="32dp"
             android:text="@string/suggestions"
             android:onClick="@{()-> fragment.onSendSuggestionClicked()}"
-            android:textColor="@color/primaryColor"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
