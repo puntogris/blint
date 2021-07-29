@@ -12,6 +12,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.ExecutorService
@@ -90,7 +91,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                                 .show(parentFragmentManager, ScannerResultBottomSheet::class.java.simpleName)
                     }else{
                         findNavController().apply {
-                            previousBackStackEntry!!.savedStateHandle.set("key", it)
+                            previousBackStackEntry!!.savedStateHandle.set(PRODUCT_BARCODE_KEY, it)
                             popBackStack()
                         }
                     }

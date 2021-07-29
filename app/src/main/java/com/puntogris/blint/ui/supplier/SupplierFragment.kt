@@ -20,6 +20,7 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.client.ClientFragmentDirections
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -80,7 +81,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) SupplierDataFragment() else SupplierRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putParcelable("supplier_key", args.supplier)
+                    putParcelable(SUPPLIER_DATA_KEY, args.supplier)
                 }
             }
     }

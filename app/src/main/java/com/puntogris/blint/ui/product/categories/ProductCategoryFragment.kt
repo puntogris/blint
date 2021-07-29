@@ -12,6 +12,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
+import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +37,7 @@ class ProductCategoryFragment:
         ) {
             findNavController().apply {
                 previousBackStackEntry!!.savedStateHandle.set(
-                    "categories_key",
+                    PRODUCT_CATEGORY_KEY,
                     removeCategoryAdapter.getFinalCategories()
                 )
                 popBackStack()

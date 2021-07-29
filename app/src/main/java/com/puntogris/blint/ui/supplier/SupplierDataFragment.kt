@@ -14,6 +14,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierDataBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
+import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,11 +32,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getParcelable<Supplier>("supplier_key")?.let {
-                lifecycleScope.launchWhenStarted {
-                    viewModel.setSupplierData(it)
-                }
+        arguments?.takeIf { it.containsKey(SUPPLIER_DATA_KEY) }?.apply {
+            getParcelable<Supplier>(SUPPLIER_DATA_KEY)?.let {
+                viewModel.setSupplierData(it)
             }
         }
 
@@ -104,7 +104,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                     2 -> {
                         val uri = Uri.parse("smsto:$phone")
                         val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        intent.setPackage("com.whatsapp")
+                        intent.setPackage(WHATS_APP_PACKAGE)
                         startActivity(intent)
                     }
                 }

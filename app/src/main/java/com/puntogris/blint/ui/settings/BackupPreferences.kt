@@ -14,9 +14,9 @@ class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
         registerUiInterface.register()
-        findPreference<SwitchPreference>(AUTO_BACKUP_PREF)?.setOnPreferenceClickListener {
-            true
-        }
+//        findPreference<SwitchPreference>(AUTO_BACKUP_PREF)?.setOnPreferenceClickListener {
+//            true
+//        }
         findPreference<Preference>(CREATE_BACKUP_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.createBackupFragment)
             true

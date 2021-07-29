@@ -19,7 +19,7 @@ import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.CLIENT_DEBT
+import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -79,7 +79,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         override fun createFragment(position: Int): Fragment =
             (if (position == 0 ) ClientDataFragment() else ClientRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putParcelable("client_key", args.client)
+                    putParcelable(CLIENT_DATA_KEY, args.client)
                 }
             }
     }

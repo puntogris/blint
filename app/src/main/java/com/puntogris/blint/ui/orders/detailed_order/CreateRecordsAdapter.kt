@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.ProductWithRecordItemDiffCallBack
 import com.puntogris.blint.model.ProductWithRecord
-import com.puntogris.blint.ui.notifications.SwipeToDeleteCallback
+import com.puntogris.blint.utils.SwipeToDeleteCallback
 import com.puntogris.blint.ui.orders.OrderItemViewHolder
 import com.puntogris.blint.utils.bindDimen
 import com.puntogris.blint.utils.dp
@@ -22,7 +22,7 @@ import com.puntogris.blint.utils.getValueAnimator
 import com.puntogris.blint.utils.screenWidth
 
 class CreateRecordsAdapter(
-    context: Context,
+    private val context: Context,
     private val amountListener: () -> (Unit),
     private val deleteListener: (ProductWithRecord) -> Unit):
     ListAdapter<ProductWithRecord, OrderItemViewHolder>(ProductWithRecordItemDiffCallBack()) {
@@ -49,7 +49,7 @@ class CreateRecordsAdapter(
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        object : SwipeToDeleteCallback() {
+        object : SwipeToDeleteCallback(context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewHolder.bindingAdapterPosition.apply {
                     deleteListener.invoke(getItem(this))

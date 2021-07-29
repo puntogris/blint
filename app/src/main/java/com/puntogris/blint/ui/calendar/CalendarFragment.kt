@@ -12,6 +12,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
 import com.puntogris.blint.utils.registerUiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,7 +52,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
             }
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("dismiss_key")?.observe(
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(DISMISS_EVENT_KEY)?.observe(
             viewLifecycleOwner) {
             if (it) calendarEventsAdapter.notifyDataSetChanged()
         }

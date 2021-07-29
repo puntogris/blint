@@ -9,6 +9,7 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
+import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -22,8 +23,8 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        arguments?.takeIf { it.containsKey("supplier_key") }?.apply {
-            getParcelable<Supplier>("supplier_key")?.let {
+        arguments?.takeIf { it.containsKey(SUPPLIER_DATA_KEY) }?.apply {
+            getParcelable<Supplier>(SUPPLIER_DATA_KEY)?.let {
                 lifecycleScope.launchWhenStarted {
                     viewModel.getSupplierRecords(it.supplierId).collect {
                         productsRecordsAdapter.submitData(it)

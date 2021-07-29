@@ -553,6 +553,10 @@
 
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>
+    <string name="local_business_point_1">El negocio vive localemente en tu dispositivo.</string>
+    <string name="local_business_point_2">Un solo integrante.</string>
+    <string name="local_business_point_3">Crea facturas en pdf y informes en excel.</string>
+    <string name="local_business_point_4">Acceso a productos, clientes, proveedoresy mucho mas..</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

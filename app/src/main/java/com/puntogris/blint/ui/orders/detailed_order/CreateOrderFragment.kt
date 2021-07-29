@@ -15,6 +15,8 @@ import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -41,7 +43,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             if (viewModel.productWithRecords.size != 0){
                 if (viewModel.productWithRecords.all {
                         it.record.amount != 0 &&
-                                (if (viewModel.order.value?.type == "IN") true else it.record.amount <= it.product.amount)
+                                (if (viewModel.order.value?.type == IN) true else it.record.amount <= it.product.amount)
                 }){
                     searchJob?.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)
@@ -54,8 +56,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         }
 
         val searchAdapter = SearchProductAdapter{ onProductAdded(it) }
-        binding.productSearchRecyclerView.adapter = searchAdapter
-        binding.productSearchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.productSearchRecyclerView.apply {
+            adapter = searchAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
 
         if (recordsAdapter.currentList.isEmpty()){
             if (viewModel.productWithRecords.isNotEmpty()) {
@@ -115,7 +119,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
             binding.productSearchText.setText("")
         }
 
-        onBackStackLiveData<String>("key"){
+        onBackStackLiveData<String>(PRODUCT_BARCODE_KEY){
             lifecycleScope.launch {
                 binding.productSearchText.setText(it)
                 binding.searchTypeRadioGroup.visible()

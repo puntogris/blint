@@ -15,6 +15,7 @@ import com.puntogris.blint.ui.custom_views.pie_chart.PieChartAnimation
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPieData
 import com.puntogris.blint.ui.custom_views.pie_chart.RallyPiePortion
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
+import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import com.puntogris.blint.utils.registerUiInterface
 import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,8 +36,8 @@ class ProductRecordsFragment : BaseFragment<FragmentProductRecordsBinding>(R.lay
         binding.recyclerView.adapter = productsRecordsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getParcelable<ProductWithSuppliersCategories>("product_key")?.let { product ->
+        arguments?.takeIf { it.containsKey(PRODUCT_DATA_KEY) }?.apply {
+            getParcelable<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY)?.let { product ->
                 lifecycleScope.launch {
                     viewModel.getProductRecords(product.product.productId).collect {
                         productsRecordsAdapter.submitData(it)

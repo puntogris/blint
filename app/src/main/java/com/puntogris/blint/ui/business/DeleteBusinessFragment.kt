@@ -35,11 +35,11 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
 
     private fun showDeleteBusinessUi(){
         InfoSheet().build(requireContext()){
-            title(
+            title(this@DeleteBusinessFragment.getString(R.string.do_you_want_to_delete_business))
+            content(
                 if (args.business.businessType == LOCAL) this@DeleteBusinessFragment.getString(R.string.delete_local_business_warning_dialog)
-                else this@DeleteBusinessFragment.getString(R.string.do_you_want_to_delete_business)
+                else this@DeleteBusinessFragment.getString(R.string.delete_business_warning_dialog)
             )
-            content(this@DeleteBusinessFragment.getString(R.string.delete_business_warning_dialog))
             onNegative(this@DeleteBusinessFragment.getString(R.string.action_no))
             onPositive(this@DeleteBusinessFragment.getString(R.string.action_delete)) {
                 onDeleteConfirmation()

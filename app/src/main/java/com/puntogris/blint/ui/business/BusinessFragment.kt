@@ -84,7 +84,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 if(args.employee.businessType == LOCAL) {
                     menu.findItem(R.id.newEmployee).isVisible = false
                 }
-                if(args.employee.businessStatus == "ON_DELETE") {
+                if(args.employee.businessStatus == TO_DELETE) {
                     menu.findItem(R.id.newEmployee).isVisible = false
                     menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
                     menu.findItem(R.id.deleteBusiness).isVisible = false

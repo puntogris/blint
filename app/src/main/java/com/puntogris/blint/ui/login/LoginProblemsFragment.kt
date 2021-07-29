@@ -8,6 +8,7 @@ import com.puntogris.blint.databinding.FragmentLoginProblemsBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.FIX_GOOGLE_PLAY_SERVICES_URL
 import com.puntogris.blint.utils.Constants.SUPPORT_EMAIL
+import com.puntogris.blint.utils.launchWebBrowserIntent
 
 class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layout.fragment_login_problems) {
 
@@ -27,8 +28,6 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
     }
 
     fun onEnableAccountClicked(){
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(FIX_GOOGLE_PLAY_SERVICES_URL)
-        startActivity(intent)
+        launchWebBrowserIntent(FIX_GOOGLE_PLAY_SERVICES_URL)
     }
 }

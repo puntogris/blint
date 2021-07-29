@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.notifications
 
+import android.content.Context
 import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -7,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.model.Notification
 import com.puntogris.blint.utils.NotificationsState
+import com.puntogris.blint.utils.SwipeToDeleteCallback
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 
 class NotificationsAdapter @Inject constructor(
+    private val context: Context,
     private val newNotificationListener: (String) -> Unit,
     private val clickListener: (Notification) -> Unit
 ):  RecyclerView.Adapter<NotificationViewHolder>() {
@@ -67,7 +70,7 @@ class NotificationsAdapter @Inject constructor(
             }
         }.apply { recyclerView.addOnScrollListener(this)}
 
-        object : SwipeToDeleteCallback() {
+        object : SwipeToDeleteCallback(context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewHolder.bindingAdapterPosition.apply {
                     state.value = NotificationsState.OnDelete(list[this].id)

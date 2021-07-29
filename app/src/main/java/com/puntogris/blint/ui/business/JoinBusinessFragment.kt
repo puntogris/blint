@@ -13,6 +13,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -40,7 +41,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
             performHide()
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(PRODUCT_BARCODE_KEY)?.observe(
             viewLifecycleOwner) {
             joinBusinessWithCode(it)
         }

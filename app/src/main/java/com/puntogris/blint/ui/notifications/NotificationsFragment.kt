@@ -20,6 +20,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     override fun initializeViews() {
         registerUiInterface.register()
         val adapter = NotificationsAdapter(
+            requireContext(),
             clickListener = { notificationClickListener(it)},
             newNotificationListener = { newNotificationListener(it)})
 

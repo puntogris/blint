@@ -69,7 +69,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="24dp"
-                        android:text="Un negocio localemente en tu dispositivo."
+                        android:text="@string/local_business_point_1"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -83,7 +83,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="24dp"
-                        android:text="Un solo administrador."
+                        android:text="@string/local_business_point_2"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -98,7 +98,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="24dp"
-                        android:text="Exportar e importar a Excel."
+                        android:text="@string/local_business_point_3"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -127,6 +127,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView7"
                         app:srcCompat="@drawable/ic_baseline_check_circle_24"
+                        android:contentDescription="@string/image"
                         app:tint="@color/green_500" />
 
                     <ImageView
@@ -137,10 +138,12 @@
                         app:layout_constraintStart_toStartOf="@+id/imageView2"
                         app:layout_constraintTop_toTopOf="@+id/textView8"
                         app:srcCompat="@drawable/ic_baseline_check_circle_24"
+                        android:contentDescription="@string/image"
                         app:tint="@color/green_500" />
 
                     <ImageView
                         android:id="@+id/imageView4"
+                        android:contentDescription="@string/image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView10"
@@ -158,7 +161,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="24dp"
                         android:layout_marginBottom="32dp"
-                        android:text="Acceso a productos, clientes y proveedores."
+                        android:text="@string/local_business_point_4"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -170,6 +173,7 @@
                         android:id="@+id/imageView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/image"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
                         app:layout_constraintStart_toStartOf="@+id/imageView4"
                         app:layout_constraintTop_toTopOf="@+id/textView11"

@@ -34,14 +34,14 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
             findNavController().navigate(R.id.manageBusinessFragment)
             true
         }
-        findPreference<Preference>(PAYMENTS_PREF)?.setOnPreferenceClickListener {
-
-            true
-        }
-        findPreference<Preference>(PRIVACY_PREF)?.setOnPreferenceClickListener {
-
-            true
-        }
+//        findPreference<Preference>(PAYMENTS_PREF)?.setOnPreferenceClickListener {
+//
+//            true
+//        }
+//        findPreference<Preference>(PRIVACY_PREF)?.setOnPreferenceClickListener {
+//
+//            true
+//        }
 
         findPreference<Preference>(SIGN_OUT_PREF)?.setOnPreferenceClickListener {
             lifecycleScope.launch {

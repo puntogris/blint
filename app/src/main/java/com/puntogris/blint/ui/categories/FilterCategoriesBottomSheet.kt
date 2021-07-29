@@ -7,6 +7,7 @@ import com.google.android.material.chip.Chip
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FilterCategoriesBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
+import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
@@ -45,7 +46,7 @@ class FilterCategoriesBottomSheet: BaseBottomSheetFragment<FilterCategoriesBotto
 
     private fun onChipClicked(category: String){
         findNavController().apply {
-            previousBackStackEntry!!.savedStateHandle.set("search_category_filter", category)
+            previousBackStackEntry!!.savedStateHandle.set(CATEGORY_FILTER_KEY, category)
             popBackStack()
         }
     }

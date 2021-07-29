@@ -15,6 +15,9 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
+import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
+import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -102,7 +105,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.apply {
-            getLiveData<String>("key").observe(
+            getLiveData<String>(PRODUCT_BARCODE_KEY).observe(
                 viewLifecycleOwner) {
                 it?.let { code ->
                     binding.searchTypeRadioGroup.check(R.id.qrSearchType)
@@ -111,17 +114,18 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 }
             }
 
-            getLiveData<Boolean>("simple_order_key").observe(viewLifecycleOwner){
+            getLiveData<Boolean>(SIMPLE_ORDER_KEY).observe(viewLifecycleOwner){
                 if (it) manageProductsAdapter.refresh()
             }
-            getLiveData<String>("search_category_filter").observe(viewLifecycleOwner){
+            getLiveData<String>(CATEGORY_FILTER_KEY).observe(viewLifecycleOwner){
                 binding.searchTypeRadioGroup.visible()
                 binding.searchTypeRadioGroup.check(R.id.categorySearchType)
                 binding.productSearch.setText(it)
             }
-            binding.categorySearchType.setOnClickListener {
-                findNavController().navigate(R.id.filterCategoriesBottomSheet)
-            }
+        }
+
+        binding.categorySearchType.setOnClickListener {
+            findNavController().navigate(R.id.filterCategoriesBottomSheet)
         }
     }
 

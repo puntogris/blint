@@ -19,6 +19,7 @@ import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -77,7 +78,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             (if (position == 0 ) ProductDataFragment()
              else ProductRecordsFragment()).apply {
                 arguments = Bundle().apply {
-                    putParcelable("product_key", args.product)
+                    putParcelable(PRODUCT_DATA_KEY, args.product)
                 }
             }
     }

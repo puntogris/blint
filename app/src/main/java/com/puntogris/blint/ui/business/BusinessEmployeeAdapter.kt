@@ -14,6 +14,4 @@ class BusinessEmployeeAdapter(private val clickListener: (Employee)->(Unit)): Li
     override fun onBindViewHolder(holder: BusinessEmployeeViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }
-
-
 }

@@ -11,15 +11,15 @@
         android:key="user_business_pref"
         android:icon="@drawable/ic_baseline_store_24" />
 
-    <Preference
-        android:title="@string/billing_pref"
-        android:key="payments_pref"
-        android:icon="@drawable/ic_baseline_payment_24" />
+<!--    <Preference-->
+<!--        android:title="@string/billing_pref"-->
+<!--        android:key="payments_pref"-->
+<!--        android:icon="@drawable/ic_baseline_payment_24" />-->
 
-    <Preference
-        android:title="@string/privacy_pref"
-        android:key="privacy_pref"
-        android:icon="@drawable/ic_baseline_security_24" />
+<!--    <Preference-->
+<!--        android:title="@string/privacy_pref"-->
+<!--        android:key="privacy_pref"-->
+<!--        android:icon="@drawable/ic_baseline_security_24" />-->
 
     <Preference
         android:title="@string/sign_out_pref"

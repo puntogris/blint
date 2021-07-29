@@ -13,6 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.supplier.manage.ManageSuppliersViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
+import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -31,7 +32,7 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         registerUiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
             findNavController().apply {
-                previousBackStackEntry!!.savedStateHandle.set("suppliers_key", removeSupplierAdapter.getFinalSuppliers())
+                previousBackStackEntry!!.savedStateHandle.set(PRODUCT_SUPPLIER_KEY, removeSupplierAdapter.getFinalSuppliers())
                 popBackStack()
             }
         }

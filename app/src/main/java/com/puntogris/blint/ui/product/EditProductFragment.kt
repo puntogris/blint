@@ -15,6 +15,9 @@ import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
+import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
+import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -72,7 +75,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 productPricesTitle.text = getString(R.string.prices_and_initial_stock)
             }
         }
-        onBackStackLiveData<List<Category>>("categories_key"){
+        onBackStackLiveData<List<Category>>(PRODUCT_CATEGORY_KEY){
             viewModel.updateCategories(it)
             binding.scopeLayout.categoriesChipGroup.let { group->
                 group.removeViews(1,group.size - 1)
@@ -88,11 +91,11 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             }
         }
 
-        onBackStackLiveData<String>("key") {
+        onBackStackLiveData<String>(PRODUCT_BARCODE_KEY) {
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
-        onBackStackLiveData<List<FirestoreSupplier>>("suppliers_key"){
+        onBackStackLiveData<List<FirestoreSupplier>>(PRODUCT_SUPPLIER_KEY){
             viewModel.updateSuppliers(it)
             binding.scopeLayout.supplierChipGroup.let { group->
                 group.removeViews(1,group.size - 1)

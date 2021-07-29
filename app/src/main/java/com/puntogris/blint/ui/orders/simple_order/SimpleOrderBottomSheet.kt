@@ -17,6 +17,7 @@ import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
+import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,9 +78,8 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
 
     private fun navigateBack(){
         findNavController().apply {
-            previousBackStackEntry!!.savedStateHandle.set("simple_order_key", true)
+            previousBackStackEntry!!.savedStateHandle.set(SIMPLE_ORDER_KEY, true)
             popBackStack()
         }
     }
-
 }

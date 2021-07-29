@@ -12,6 +12,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
 import com.puntogris.blint.utils.Constants.PENDING
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -68,7 +69,7 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
                     showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {
                     findNavController().apply {
-                        previousBackStackEntry!!.savedStateHandle.set("dismiss_key", true)
+                        previousBackStackEntry!!.savedStateHandle.set(DISMISS_EVENT_KEY, true)
                         popBackStack()
                         showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_success))
                     }

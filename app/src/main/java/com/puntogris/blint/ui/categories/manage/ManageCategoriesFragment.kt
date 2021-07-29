@@ -29,7 +29,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         binding.fragment = this
         registerUiInterface.register(showFab = true){ showCreateCategoryDialog() }
 
-        categoriesAdapter = ManageCategoriesAdapter{ onCategoryDeleted(it) }
+        categoriesAdapter = ManageCategoriesAdapter(requireContext()){ onCategoryDeleted(it) }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoriesAdapter

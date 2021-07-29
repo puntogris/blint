@@ -567,6 +567,10 @@
 
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>
+    <string name="local_business_point_1">Lives locally in your device.</string>
+    <string name="local_business_point_2">One member only.</string>
+    <string name="local_business_point_3">Create invoices in pdf and reports in excel.</string>
+    <string name="local_business_point_4">Access product, clients, suppliers and more..</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

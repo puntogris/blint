@@ -17,6 +17,7 @@ import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
+import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
 import com.puntogris.blint.utils.Constants.ENABLED
 import com.rubensousa.decorator.ColumnProvider
 import com.rubensousa.decorator.DecorationLookup
@@ -77,17 +78,17 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         launchAndRepeatWithViewLifecycle {
             when(val data = viewModel.getBusinessLastEvents()){
                 EventsDashboard.DataNotFound -> {
-                    view?.findViewById<Button>(R.id.button17)?.visible()
-                    view?.findViewById<TextView>(R.id.textView151)?.visible()
+                    binding.button17.visible()
+                    binding.textView151.visible()
                 }
                 is EventsDashboard.Error -> {
-                    view?.findViewById<Button>(R.id.textView151)?.apply {
+                    binding.textView151.apply {
                         text = context.getString(R.string.retrieve_information_error)
                         visible()
                     }
                 }
                 is EventsDashboard.Success -> {
-                    view?.findViewById<CardView>(R.id.materialCardView2)?.visible()
+                    binding.materialCardView2.visible()
                     mainCalendarAdapter.submitList(data.data)
                 }
             }
@@ -97,9 +98,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
             adapter = mainCalendarAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("dismiss_key")?.observe(
-            viewLifecycleOwner) {
+        onBackStackLiveData<Boolean>(DISMISS_EVENT_KEY){
             if (it) mainCalendarAdapter.notifyDataSetChanged()
         }
     }

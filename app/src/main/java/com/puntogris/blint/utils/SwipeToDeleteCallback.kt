@@ -1,14 +1,19 @@
-package com.puntogris.blint.ui.notifications
+package com.puntogris.blint.utils
 
+import android.content.Context
 import android.graphics.*
 import android.text.TextPaint
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.R
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-abstract class SwipeToDeleteCallback: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+abstract class SwipeToDeleteCallback(context: Context):
+    ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
     private val textPaint: TextPaint = TextPaint()
-    private val text = "Eliminar"
+    private val text = context.getString(R.string.action_delete)
 
     init {
         textPaint.isAntiAlias = true

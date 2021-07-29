@@ -6,6 +6,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDataProductBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,11 +20,9 @@ class ProductDataFragment : BaseFragment<FragmentDataProductBinding>(R.layout.fr
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("product_key") }?.apply {
-            getParcelable<ProductWithSuppliersCategories>("product_key")?.let {
-                lifecycleScope.launch {
-                    viewModel.setProductData(it)
-                }
+        arguments?.takeIf { it.containsKey(PRODUCT_DATA_KEY) }?.apply {
+            getParcelable<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY)?.let {
+                viewModel.setProductData(it)
             }
         }
     }

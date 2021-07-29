@@ -14,6 +14,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientDataBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
+import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.showLongSnackBarAboveFab
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,11 +31,9 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey("client_key") }?.apply {
-            getParcelable<Client>("client_key")?.let {
-                lifecycleScope.launchWhenStarted {
-                    viewModel.setClientData(it)
-                }
+        arguments?.takeIf { it.containsKey(CLIENT_DATA_KEY) }?.apply {
+            getParcelable<Client>(CLIENT_DATA_KEY)?.let {
+                viewModel.setClientData(it)
             }
         }
         setupContactPermissions()
@@ -87,7 +87,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                     2 -> {
                         val uri = Uri.parse("smsto:$phone")
                         val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        intent.setPackage("com.whatsapp")
+                        intent.setPackage(WHATS_APP_PACKAGE)
                         activityResultLauncher.launch(intent)
                     }
                 }

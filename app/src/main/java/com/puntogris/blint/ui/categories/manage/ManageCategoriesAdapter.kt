@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.categories.manage
 
+import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
@@ -7,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.diffcallback.CategoryDiffCallBack
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.categories.CategoryViewHolder
-import com.puntogris.blint.ui.notifications.SwipeToDeleteCallback
+import com.puntogris.blint.utils.SwipeToDeleteCallback
 
-class ManageCategoriesAdapter(private val deleteListener:(String) -> Unit): ListAdapter<Category, CategoryViewHolder>(
+class ManageCategoriesAdapter(private val context: Context, private val deleteListener:(String) -> Unit): ListAdapter<Category, CategoryViewHolder>(
     CategoryDiffCallBack()
 ) {
 
@@ -37,7 +38,7 @@ class ManageCategoriesAdapter(private val deleteListener:(String) -> Unit): List
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
 
-        object : SwipeToDeleteCallback() {
+        object : SwipeToDeleteCallback(context) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewHolder.bindingAdapterPosition.apply {
                     deleteListener.invoke(list[this].categoryName)
