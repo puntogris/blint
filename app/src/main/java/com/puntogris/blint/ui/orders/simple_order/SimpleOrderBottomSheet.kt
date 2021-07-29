@@ -56,7 +56,7 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
             order.records = listOf(FirestoreRecord(
                 productId = args.product.productId,
                 productName = args.product.name,
-                amount = if (orderType == IN) amount else -amount,
+                amount = amount,
                 totalOutStock = args.product.totalOutStock,
                 totalInStock = args.product.totalInStock
             ))

@@ -121,6 +121,7 @@ export const onBusinessStatusChanged = functions.firestore.document('users/{user
     const userId = context.params.userId
     const status = snap.after.get("status")
     const statusTimestamp = snap.after.get("lastStatusTimestamp")
+    const type = snap.after.get("type")
 
     return admin.firestore().runTransaction(async(t) => {
         let ref = admin.firestore().collection("users").doc(userId).collection("business").doc(businessId).collection("employees")
@@ -128,7 +129,8 @@ export const onBusinessStatusChanged = functions.firestore.document('users/{user
         data.forEach(doc =>{
             t.update(doc.ref,({
                 "businessStatus": status,
-                "lastStatusTimestamp": statusTimestamp
+                "lastStatusTimestamp": statusTimestamp,
+                "businessType": type
             }))
         })
     })
