@@ -8,8 +8,8 @@ import com.google.android.gms.auth.api.identity.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.puntogris.blint.R
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.Constants.WEB_CLIENT_ID
-import com.puntogris.blint.utils.showLongSnackBar
 import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -56,19 +56,19 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
             }
             .addOnFailureListener {
                 //integrar esto con las de abajo dealguna forma
-                context.showLongSnackBar(context.getString(R.string.snack_no_google_account_found))
+                (context as SetupUiListener).showSnackBar(context.getString(R.string.snack_no_google_account_found))
             }
     }
 
     fun onOneTapException(exception: ApiException){
         when (exception.statusCode) {
-            CommonStatusCodes.CANCELED -> {
-                loginCanceled()
-            }
+            CommonStatusCodes.CANCELED -> loginCanceled()
             CommonStatusCodes.NETWORK_ERROR ->
-                context.showLongSnackBar(context.getString(R.string.snack_network_problems))
+                (context as SetupUiListener)
+                    .showSnackBar(context.getString(R.string.snack_network_problems))
             else ->
-                context.showLongSnackBar(context.getString(R.string.snack_technical_problems))
+                (context as SetupUiListener)
+                    .showSnackBar(context.getString(R.string.snack_technical_problems))
         }
     }
 }

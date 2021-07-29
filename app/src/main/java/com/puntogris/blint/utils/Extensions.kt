@@ -2,7 +2,6 @@ package com.puntogris.blint.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -18,7 +17,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.DimenRes
 import androidx.annotation.RawRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -89,18 +87,12 @@ fun AppCompatActivity.getNavController() =
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
 
-
-fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message:String){
+fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message: String){
     Snackbar.make(
         dialog?.window!!.decorView,
         message,
         Snackbar.LENGTH_SHORT
     ).show()
-}
-
-fun Context.showLongSnackBar(message: String){
-    val snackLayout: View = (this as Activity).findViewById(android.R.id.content)
-    Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG).show()
 }
 
 fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
@@ -202,7 +194,7 @@ fun Activity.launchWebBrowserIntent(uri: String){
         intent.data = Uri.parse(uri)
         startActivity(intent)
     }catch (e:Exception){
-        showLongSnackBar(getString(R.string.snack_ups_visit_blint))
+        (this as SetupUiListener).showSnackBar(getString(R.string.snack_ups_visit_blint))
     }
 }
 
@@ -240,7 +232,6 @@ inline fun getValueAnimator(
     a.interpolator = interpolator
     return a
 }
-
 
 fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
     setAnimation(animation)

@@ -111,9 +111,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
         snack.anchorView = when {
             binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
             binding.fab.isVisible -> binding.fab
-            else -> binding.bottomAppBar
+            binding.bottomAppBar.isVisible -> binding.bottomAppBar
+            else -> null
         }
-
         if (action != null) snack.setAction(actionText, action)
 
         snack.show()
