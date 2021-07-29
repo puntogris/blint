@@ -85,7 +85,7 @@ object Constants {
     const val WAS_READ_FIELD = "wasRead"
     const val REPORT_FIELD_FIRESTORE = "report"
     const val TIMESTAMP_FIELD_FIRESTORE = "timestamp"
-    const val BUG_REPORT_COLLECTION_NAME = "bug_reports"
+    const val SUGGESTION_COLLECTION_NAME = "suggestions"
     const val TIMESTAMP_FIELD = "timestamp"
     const val USERS_COLLECTION = "users"
     const val NOTIFICATIONS_SUB_COLLECTION = "notifications"

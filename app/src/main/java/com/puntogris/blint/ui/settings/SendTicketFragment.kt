@@ -46,10 +46,8 @@ class SendTicketFragment: BaseFragment<FragmentSendTicketBinding>(R.layout.fragm
         binding.businessText.setOnItemClickListener { _, _, i, _ ->
             viewModel.updateTicketBusiness(businesses[i])
         }
-
-        binding.textView186.setOnClickListener {
-            hideKeyboard()
-        }
-
+    }
+    fun onHideKeyboardClicked(){
+        hideKeyboard()
     }
 }

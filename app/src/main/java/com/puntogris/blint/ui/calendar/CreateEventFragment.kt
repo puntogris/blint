@@ -48,4 +48,8 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
 
         }.show(parentFragmentManager, "")
     }
+
+    fun onHideKeyboardClicked(){
+        hideKeyboard()
+    }
 }

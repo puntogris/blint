@@ -11,8 +11,7 @@ import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.BUG_REPORT_COLLECTION_NAME
-import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
+import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
@@ -149,7 +148,7 @@ class UserRepository @Inject constructor(
             TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
         )
         return try {
-            firestore.collection(BUG_REPORT_COLLECTION_NAME).document().set(report).await()
+            firestore.collection(SUGGESTION_COLLECTION_NAME).document().set(report).await()
             SimpleResult.Success
         }catch (e: Exception){
             SimpleResult.Failure

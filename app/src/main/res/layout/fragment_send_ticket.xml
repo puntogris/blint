@@ -4,14 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.ui.settings.SendTicketFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.settings.SendTicketFragment">
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/business"
@@ -75,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:onClick="@{()-> fragment.onHideKeyboardClicked()}"
             android:fontFamily="sans-serif-medium"
             android:text="@string/action_close_keyboard"
             android:foreground="?selectableItemBackground"

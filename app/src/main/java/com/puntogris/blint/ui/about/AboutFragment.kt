@@ -34,7 +34,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
 
     fun onSendSuggestionClicked(){
         InputSheet().show(requireParentFragment().requireContext()) {
-            title(getString(R.string.problems_and_advice))
+            title(this@AboutFragment.getString(R.string.problems_and_advice))
             //content("Reporta un problema o envianos tus consejos.")
             with(InputEditText {
                 required()

@@ -50,10 +50,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/eventMessage"
             style="@style/Theme.Blint.TextInput"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:hint="@string/message_hint"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,11 +64,24 @@
                 android:id="@+id/eventMessageText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:singleLine="true" />
+                android:gravity="top"
+                android:lines="4"
+                android:maxLines="4" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView186"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:foreground="?selectableItemBackground"
+            android:padding="8dp"
+            android:onClick="@{()-> fragment.onHideKeyboardClicked()}"
+            android:text="@string/action_close_keyboard"
+            android:textColor="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="@+id/eventMessage"
+            app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button9"
@@ -86,17 +99,17 @@
 
         <TextView
             android:id="@+id/textView3"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:text="@string/date"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             app:layout_constraintEnd_toStartOf="@+id/button9"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
+            app:layout_constraintTop_toBottomOf="@+id/textView186" />
 
         <TextView
             android:id="@+id/eventDate"
