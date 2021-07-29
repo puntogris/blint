@@ -22,7 +22,7 @@
 
     <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearanceOverlay">@style/Theme.Blint.RoundButtonShapeOverlay</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/almostBlack</item>
     </style>
 
     <style name="Theme.Blint.ListHolderLayout" >
