@@ -37,7 +37,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         setUpRecyclerView()
 
-        registerUiInterface.register(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.register(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             viewModel.updateOrdersItems(recordsAdapter.recordsList)
             viewModel.productWithRecords = recordsAdapter.recordsList
             if (viewModel.productWithRecords.size != 0){
@@ -48,10 +48,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                     searchJob?.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)
                 }else{
-                    showSnackBarVisibilityAppBar(getString(R.string.product_amount_empty))
+                    UiInterface.showSnackBar(getString(R.string.product_amount_empty))
                 }
             }else{
-                showSnackBarVisibilityAppBar(getString(R.string.order_needs_products))
+                UiInterface.showSnackBar(getString(R.string.order_needs_products))
             }
         }
 
@@ -137,7 +137,8 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                     val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
+                else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+
             }
     }
 
@@ -157,11 +158,10 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     }
 
     private fun deleteListener(productWithRecord: ProductWithRecord){
-        createLongSnackBarAboveFab(getString(R.string.product_deleted)).setAction(getString(R.string.action_undo)){
-            recordsAdapter.recordsList.add(productWithRecord)
-            recordsAdapter.notifyDataSetChanged()
+        UiInterface.showSnackBar(getString(R.string.product_deleted), actionText = R.string.action_undo){
+            recordsAdapter.addProductWithRecord(productWithRecord)
             onDataChanged()
-        }.show()
+        }
     }
 
     private fun onDataChanged(){
@@ -182,10 +182,9 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
                         productId = product.productId,
                         totalInStock = product.totalInStock,
                         totalOutStock = product.totalOutStock))
-            recordsAdapter.recordsList.add(productWithRecord)
-            recordsAdapter.notifyDataSetChanged()
+            recordsAdapter.addProductWithRecord(productWithRecord)
         }else{
-            showSnackBarVisibilityAppBar(getString(R.string.product_already_added))
+            UiInterface.showSnackBar(getString(R.string.product_already_added))
         }
         hideKeyboard()
     }

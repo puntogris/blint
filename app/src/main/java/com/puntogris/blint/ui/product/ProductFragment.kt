@@ -32,7 +32,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditProductFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
@@ -108,9 +108,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         lifecycleScope.launch {
             when (viewModel.deleteProductDatabase(args.product?.product!!.productId)) {
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_product_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_product_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_success))
                     findNavController().navigateUp()
                 }
             }

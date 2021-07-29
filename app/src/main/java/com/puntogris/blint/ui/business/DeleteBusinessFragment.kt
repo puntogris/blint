@@ -20,11 +20,11 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
     private val viewModel: BusinessViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
+        UiInterface.register(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
             if (binding.businessNameText.getString() == args.business.businessName){
                 showDeleteBusinessUi()
             }else{
-                showLongSnackBarAboveFab(getString(R.string.snack_business_name_does_not_match))
+                UiInterface.showSnackBar(getString(R.string.snack_business_name_does_not_match))
             }
         }
 
@@ -51,14 +51,14 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
         lifecycleScope.launch {
             when(viewModel.deleteBusiness(args.business.businessId)){
                 DeleteBusiness.Failure -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_error))
                 }
                 DeleteBusiness.Success.HasBusiness -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))
                     findNavController().navigate(R.id.mainFragment)
                 }
                 DeleteBusiness.Success.NoBusiness -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_business_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))
                     findNavController().navigate(R.id.newUserFragment)
                 }
             }

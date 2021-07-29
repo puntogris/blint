@@ -34,10 +34,10 @@ class GenerateReportFragment:
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
             val uri = viewModel.getDownloadUri()
             if (uri == null)
-                showLongSnackBarAboveFab(getString(R.string.snack_report_generating_or_error))
+                UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
             else shareFileIntent(uri)
         }
 
@@ -95,7 +95,7 @@ class GenerateReportFragment:
     private fun showErrorUi(){
         binding.progressBar.gone()
         binding.reportTitle.text = getString(R.string.report_exported_error_title)
-        showLongSnackBarAboveFab(getString(R.string.report_exported_error_message))
+        UiInterface.showSnackBar(getString(R.string.report_exported_error_message))
     }
 
     private fun exportProductRecords(downloadFileUri: Uri) {

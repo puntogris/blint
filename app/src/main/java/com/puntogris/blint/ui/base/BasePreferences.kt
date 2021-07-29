@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.XmlRes
 import androidx.preference.PreferenceFragmentCompat
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 
 abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompat() {
 
@@ -19,7 +19,7 @@ abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        registerUiInterface.register()
+        UiInterface.register()
         initializeViews()
         return super.onCreateView(inflater, container, savedInstanceState)
     }

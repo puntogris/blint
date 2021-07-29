@@ -9,7 +9,6 @@ import android.graphics.pdf.PdfDocument
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import androidx.core.graphics.scale
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -19,7 +18,6 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderBinding
-import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
@@ -40,7 +38,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        registerUiInterface.register(showAppBar = false)
+        UiInterface.register(showAppBar = false)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -82,9 +80,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                 requireActivity().contentResolver.openOutputStream(uri)?.let {
                     createPdf(it)
                 }
-                showShortSnackBar(getString(R.string.snack_invoice_saved_success))
+                UiInterface.showSnackBar(getString(R.string.snack_invoice_saved_success))
             }catch (e:Exception){
-                showShortSnackBar(getString(R.string.snack_invoice_save_error))
+                UiInterface.showSnackBar(getString(R.string.snack_invoice_save_error))
             }
         }
     }

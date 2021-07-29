@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -13,14 +12,14 @@ import com.puntogris.blint.utils.Constants.BACKUP_PREF
 import com.puntogris.blint.utils.Constants.HELP_PREF
 import com.puntogris.blint.utils.Constants.NOTIFICATIONS_PREF
 import com.puntogris.blint.utils.Constants.THEME_PREF
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PreferencesFragment: BasePreferences(R.xml.preferences) {
 
     override fun initializeViews() {
-        registerUiInterface.register()
+        UiInterface.register()
         findPreference<Preference>(ACCOUNT_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.accountPreferences)
             true

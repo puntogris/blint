@@ -22,7 +22,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showFab = true){
+        UiInterface.register(showFab = true){
             onModifyDebtButtonClicked()
         }
 

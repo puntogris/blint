@@ -206,5 +206,10 @@ class CreateRecordsAdapter(
     }
 
     override fun getItemCount() = recordsList.size
+
+    fun addProductWithRecord(productWithRecord: ProductWithRecord){
+        recordsList.add(productWithRecord)
+        notifyDataSetChanged()
+    }
 }
 

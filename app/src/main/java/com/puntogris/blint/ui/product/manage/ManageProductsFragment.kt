@@ -13,7 +13,6 @@ import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
@@ -33,7 +32,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
 
     override fun initializeViews() {
 
-        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editProductFragment)
         }
 
@@ -101,7 +100,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                     val action = ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
+                else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.apply {

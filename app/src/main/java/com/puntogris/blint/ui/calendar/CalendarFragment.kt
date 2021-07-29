@@ -13,7 +13,7 @@ import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +26,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     private lateinit var calendarEventsAdapter:CalendarEventsAdapter
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true){
+        UiInterface.register(showFab = true){
             findNavController().navigate(R.id.createEventFragment)
         }
 

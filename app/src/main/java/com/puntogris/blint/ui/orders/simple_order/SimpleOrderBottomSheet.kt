@@ -65,12 +65,12 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
                 when(viewModel.createSimpleOrder(order)){
                     SimpleResult.Failure -> {
                         dismiss()
-                        showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
+                        UiInterface.showSnackBar(getString(R.string.snack_order_created_error))
                     }
                     SimpleResult.Success -> {
                         navigateBack()
                         dismiss()
-                        showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
+                        UiInterface.showSnackBar(getString(R.string.snack_created_order_success))
                     }
                 }
             }

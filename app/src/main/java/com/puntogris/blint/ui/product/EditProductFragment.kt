@@ -40,22 +40,22 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 binding.descriptionLayout.productImage.visible()
             }
         }
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateProductData(getProductDataFromViews())
             when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveProductDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar(getString(R.string.snack_create_product_success)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_create_product_success))
                             SimpleResult.Success -> {
-                                createShortSnackBar(getString(R.string.snack_create_product_error)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_create_product_error))
                                 findNavController().navigateUp()
                             }
                         }
                     }
                 }
-                is StringValidator.NotValid -> createShortSnackBar(getString(validator.error)).setAnchorView(it).show()
+                is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
             }
         }
 
@@ -118,7 +118,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                     val action = EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
                     findNavController().navigate(action)
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
+                else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
             }
     }
 

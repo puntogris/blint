@@ -32,22 +32,23 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateClientData(getClientFromViews())
             when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveClientDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar(getString(R.string.snack_save_client_error)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_save_client_error))
                             SimpleResult.Success -> {
-                                createShortSnackBar(getString(R.string.snack_save_client_success)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_save_client_success))
                                 findNavController().navigateUp()
                             }
                         }
                     }
                 }
-                is StringValidator.NotValid -> createShortSnackBar(getString(validator.error)).setAnchorView(it).show()
+                is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
+
             }
         }
 
@@ -92,7 +93,8 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                     }
                     activityResultLauncher.launch(intent)
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
+                else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+
             }
     }
 

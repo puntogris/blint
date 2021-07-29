@@ -4,8 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.maxkeppeler.sheets.calendar.CalendarSheet
-import com.maxkeppeler.sheets.calendar.SelectionMode
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
@@ -24,7 +22,7 @@ import com.puntogris.blint.utils.Constants.QUARTERLY
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.WEEKLY
 import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +32,7 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showFab = false)
+        UiInterface.register(showFab = false)
 
         val reportDashboardAdapter = ReportsDashboardAdapter()
         binding.dashboardRv.apply {

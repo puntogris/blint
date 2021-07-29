@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.debt
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
@@ -10,7 +9,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -23,7 +22,7 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        registerUiInterface.register()
+        UiInterface.register()
 
         val debtPagingAdapter = DebtPagingAdapter{}
 

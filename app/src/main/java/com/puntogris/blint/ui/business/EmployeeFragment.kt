@@ -13,7 +13,7 @@ import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.showSnackBarVisibilityAppBar
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -61,10 +61,10 @@ class EmployeeFragment : BaseFragmentOptions<FragmentEmployeeBinding>(R.layout.f
         lifecycleScope.launch {
             when(viewModel.deleteEmployeeFromBusiness(args.employee)){
                 SimpleResult.Failure -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_employee_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_employee_error))
                 }
                 SimpleResult.Success -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_employee_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_employee_success))
                     findNavController().navigateUp()
                 }
             }

@@ -11,7 +11,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.supplier.SupplierViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -27,7 +26,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editSupplierFragment)
         }
 

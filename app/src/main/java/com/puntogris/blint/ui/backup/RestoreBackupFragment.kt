@@ -24,7 +24,7 @@ class RestoreBackupFragment : BaseFragment<FragmentRestoreBackupBinding>(R.layou
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showAppBar = false)
+        UiInterface.register(showAppBar = false)
         setUpRecyclerView()
 
         launchAndRepeatWithViewLifecycle {

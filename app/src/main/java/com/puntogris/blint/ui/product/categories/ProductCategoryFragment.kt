@@ -28,7 +28,7 @@ class ProductCategoryFragment:
     override fun initializeViews() {
 
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(
+        UiInterface.register(
             showFab = true,
             showAppBar = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24,
@@ -92,7 +92,7 @@ class ProductCategoryFragment:
 
     private fun onCategoryClicked(category: Category) {
         if (removeCategoryAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
-            showSnackBarVisibilityAppBar(getString(R.string.snack_product_categories_limit, CATEGORIES_SUPPLIERS_LIMIT))
+            UiInterface.showSnackBar(getString(R.string.snack_product_categories_limit, CATEGORIES_SUPPLIERS_LIMIT))
         else {
             removeCategoryAdapter.addCategory(category)
             if (removeCategoryAdapter.itemCount != 0) binding.textView195.gone()

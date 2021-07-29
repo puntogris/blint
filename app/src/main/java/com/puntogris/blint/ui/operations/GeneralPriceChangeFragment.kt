@@ -25,17 +25,17 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
     override fun initializeViews() {
         (requireActivity() as SetupUiListener).register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             if (binding.productsAffectedText.text.isNullOrBlank())
-                showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
+              //  showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
             else if (!listOf(binding.buyPriceCheckBox, binding.sellPriceCheckBox, binding.suggestedPriceCheckBox).any {
                     it.isChecked
                 })
-                showLongSnackBarAboveFab("Selecciona al menos un precio a modificar.")
+                //showLongSnackBarAboveFab("Selecciona al menos un precio a modificar.")
             else if (binding.changeValueText.text.isNullOrBlank() ||
                 binding.changeValueText.getFloat() == 0F)
-                showLongSnackBarAboveFab("Ingresa un valor distinto de 0 para la modificacion.")
+             //   showLongSnackBarAboveFab("Ingresa un valor distinto de 0 para la modificacion.")
             else if (binding.changeValueTypeText.getString() == "%" &&
                 binding.changeValueText.getFloat() > 100)
-                showLongSnackBarAboveFab("El valor no puede ser mayor a 100 %.")
+           //     showLongSnackBarAboveFab("El valor no puede ser mayor a 100 %.")
             else
                 onSaveChangesClicked()
         }
@@ -60,7 +60,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
         lifecycleScope.launch {
             val suppliers = viewModel.getAllSuppliers()
             if (suppliers.isNullOrEmpty()){
-                showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
+           //     showLongSnackBarAboveFab("No se encontraron proveedores registrados.")
             }else{
                 val optionSuppliers = suppliers.map { Option(it.companyName) }.toMutableList()
                 OptionsSheet().build(requireContext()){
@@ -121,7 +121,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
                 affectsSuggestedPrice = binding.suggestedPriceCheckBox.isChecked
             )
 
-            showLongSnackBarAboveFab("Cambios realizados correctamente. Afecto $result productos.")
+          //  showLongSnackBarAboveFab("Cambios realizados correctamente. Afecto $result productos.")
             findNavController().navigateUp()
         }
 

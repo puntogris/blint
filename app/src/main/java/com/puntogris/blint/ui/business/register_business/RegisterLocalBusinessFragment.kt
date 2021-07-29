@@ -6,13 +6,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterLocalBusinessBinding
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.login.LoginViewModel
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusinessBinding>(R.layout.fragment_register_local_business) {
@@ -31,19 +28,19 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
                 lifecycleScope.launch {
                     when(viewModel.registerNewBusiness(validator.value)){
                         SimpleResult.Failure -> {
-                            showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                            UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
                             binding.continueButton.isEnabled = true
                             binding.animationView.playAnimationOnce(R.raw.error)
                         }
                         SimpleResult.Success -> {
-                            showSnackBarVisibilityAppBar(getString(R.string.snack_created_business_success))
+                            UiInterface.showSnackBar(getString(R.string.snack_created_business_success))
                             val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
                             findNavController().navigate(R.id.mainFragment, null, nav)
                         }
                     }
                 }
             }
-            is StringValidator.NotValid -> showShortSnackBar(getString(validator.error))
+            is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
         }
     }
 }

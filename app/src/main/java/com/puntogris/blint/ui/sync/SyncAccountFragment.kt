@@ -22,18 +22,14 @@ class SyncAccountFragment : BaseFragment<FragmentSyncAccountBinding>(R.layout.fr
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.apply {
+        UiInterface.apply {
             register(showFab = false, showAppBar = false, showToolbar = false)
             setDarkStatusBar()
         }
         launchAndRepeatWithViewLifecycle(Lifecycle.State.CREATED) {
             when(viewModel.syncAccount(args.userData)){
-                is SyncAccount.Error -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_an_error_occurred))
-                }
-                is SyncAccount.Success -> {
-                    onSuccessSync()
-                }
+                is SyncAccount.Error -> UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+                is SyncAccount.Success -> onSuccessSync()
             }
         }
     }

@@ -6,7 +6,6 @@ import android.provider.ContactsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
@@ -16,7 +15,7 @@ import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
-import com.puntogris.blint.utils.showLongSnackBarAboveFab
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,7 +56,7 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                             }
                         }.also { activityResultLauncher.launch(it) }
                 }
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
+                else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
 

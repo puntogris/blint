@@ -19,7 +19,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     private lateinit var businessAdapter: ManageBusinessAdapter
 
     override fun initializeViews() {
-        registerUiInterface.register()
+        UiInterface.register()
         binding.fragment = this
         launchAndRepeatWithViewLifecycle {
             val businesses = viewModel.getBusiness()

@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -10,7 +9,6 @@ import com.puntogris.blint.databinding.FragmentReviewRecordBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.fragment_review_record) {
@@ -22,11 +20,11 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
     override fun initializeViews() {
         binding.viewModel = viewModel
-        registerUiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             val orderValue = viewModel.order.value?.value!!
             when {
-                discount > orderValue -> showShortSnackBar(getString(R.string.snack_discount_limit))
-                debt > orderValue -> showShortSnackBar(getString(R.string.snack_debt_value_error))
+                discount > orderValue -> UiInterface.showSnackBar(getString(R.string.snack_discount_limit))
+                debt > orderValue -> UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
                 else -> {
                     if (discount != 0F) viewModel.updateOrderDiscount(discount)
                     if (debt != 0F) viewModel.updateOrderDebt(debt)
@@ -52,7 +50,7 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
                         if (viewModel.order.value?.traderId!!.isNotEmpty()){
                             binding.debtAmount.visible()
                         }else{
-                            showSnackBarVisibilityAppBar(getString(R.string.snack_order_debt_trader_alert))
+                            UiInterface.showSnackBar(getString(R.string.snack_order_debt_trader_alert))
                             binding.debtText.setText(items[0])
                         }
                     }

@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentModifyDebtBinding
-import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +19,7 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     private val args: ModifyDebtFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             onSaveDebtClicked()
         }
         binding.debtTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))
@@ -36,10 +35,10 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
 
             when(viewModel.registerNewDebt(args.debt)){
                 SimpleResult.Failure -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_update_debt_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
                 }
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_update_debt_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_update_debt_success))
                     findNavController().navigateUp()
                 }
             }

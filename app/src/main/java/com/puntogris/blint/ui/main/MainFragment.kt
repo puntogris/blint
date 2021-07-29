@@ -32,7 +32,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     @ExperimentalTime
     override fun initializeViews() {
-        registerUiInterface.register(showFab = false)
+        UiInterface.register(showFab = false)
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -117,20 +117,22 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         }
     }
 
+    private fun showRequirePermissionsSnackBar(){
+        UiInterface.showSnackBar(getString(R.string.action_require_permissions)){
+            launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
+        }
+    }
+
     private fun onMenuCardClicked(menuCard: MenuCard){
         if (menuCard.navigationId != R.id.accountPreferences &&
             viewModel.currentUser.value.currentBusinessStatus != ENABLED){
-            createLongSnackBar(getString(R.string.action_require_permissions)).setAction(getString(R.string.read_more)){
-                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-            }.show()
+            showRequirePermissionsSnackBar()
         }else findNavController().navigate(menuCard.navigationId)
     }
 
     fun onAddEventClicked(){
         if (viewModel.currentUser.value.currentBusinessStatus != ENABLED){
-            createLongSnackBar(getString(R.string.action_require_permissions)).setAction(getString(R.string.read_more)){
-                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-            }.show()
+            showRequirePermissionsSnackBar()
         }else findNavController().navigate(R.id.createEventFragment)
     }
 

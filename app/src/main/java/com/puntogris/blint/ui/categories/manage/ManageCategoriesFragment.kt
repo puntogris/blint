@@ -5,14 +5,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maxkeppeler.sheets.core.SheetStyle
-import com.maxkeppeler.sheets.info.InfoSheet
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.categories.manage.ManageCategoriesAdapter
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +25,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     @ExperimentalCoroutinesApi
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showFab = true){ showCreateCategoryDialog() }
+        UiInterface.register(showFab = true){ showCreateCategoryDialog() }
 
         categoriesAdapter = ManageCategoriesAdapter(requireContext()){ onCategoryDeleted(it) }
         binding.recyclerView.apply {
@@ -50,9 +48,9 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         lifecycleScope.launch {
             when(viewModel.deleteCategory(name)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_categories_delete_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_categories_delete_error))
                 SimpleResult.Success ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_categories_delete_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_categories_delete_success))
             }
         }
     }
@@ -78,10 +76,10 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
         lifecycleScope.launch {
             when(viewModel.saveCategoryDatabase(name)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_category_create_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_category_create_error))
                 SimpleResult.Success -> {
                     categoriesAdapter.addCategory(Category(name))
-                    showLongSnackBarAboveFab(getString(R.string.snack_category_create_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_category_create_success))
                 }
             }
         }

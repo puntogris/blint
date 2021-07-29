@@ -26,7 +26,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editClientFragment)
 
         }

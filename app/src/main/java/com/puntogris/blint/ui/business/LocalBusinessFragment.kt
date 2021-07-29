@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layout.fragment_local_business) {
 
         override fun initializeViews() {
-            registerUiInterface.register(showAppBar = false)
+            UiInterface.register(showAppBar = false)
             binding.localBusinessFragment = this
             binding.animationView.setPadding(-400)
         }

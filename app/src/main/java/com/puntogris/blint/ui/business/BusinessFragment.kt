@@ -26,13 +26,13 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     private lateinit var businessEmployeeAdapter: BusinessEmployeeAdapter
 
     override fun initializeViews() {
-        registerUiInterface.register()
+        UiInterface.register()
         binding.employee = args.employee
 
         launchAndRepeatWithViewLifecycle {
             viewModel.getBusinessEmployees(args.employee.businessId).collect {
                 when(it){
-                    is UserBusiness.Error -> showLongSnackBarAboveFab(getString(R.string.snack_an_error_occurred))
+                    is UserBusiness.Error -> UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                     UserBusiness.InProgress -> binding.progressBar.visible()
                     UserBusiness.NotFound -> onDataNotFound()
                     is UserBusiness.Success -> onDataFound(it.data)

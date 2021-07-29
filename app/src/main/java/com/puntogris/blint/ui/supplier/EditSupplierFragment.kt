@@ -33,22 +33,22 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateSupplierData(getSupplierFromViews())
             when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveSupplierDatabase()){
                             SimpleResult.Failure ->
-                                createShortSnackBar(getString(R.string.snack_save_supplier_error)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
                             SimpleResult.Success -> {
-                                createShortSnackBar(getString(R.string.snack_save_supplier_success)).setAnchorView(it).show()
+                                UiInterface.showSnackBar(getString(R.string.snack_save_supplier_success))
                                 findNavController().navigateUp()
                             }
                         }
                     }
                 }
-                is StringValidator.NotValid -> createShortSnackBar(getString(validator.error)).setAnchorView(it).show()
+                is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
             }
         }
 
@@ -98,7 +98,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                 }
                 activityResultLauncher.launch(intent)
             }
-            else showLongSnackBarAboveFab(getString(R.string.snack_require_contact_permission))
+            else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
         }
 
     private fun getEmailWithLookUpKey(key: String, requestCode: Int){

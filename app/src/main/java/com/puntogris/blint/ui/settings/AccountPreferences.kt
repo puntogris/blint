@@ -6,18 +6,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import com.puntogris.blint.R
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BasePreferences
-import com.puntogris.blint.utils.Constants.PAYMENTS_PREF
-import com.puntogris.blint.utils.Constants.PRIVACY_PREF
 import com.puntogris.blint.utils.Constants.SIGN_OUT_PREF
 import com.puntogris.blint.utils.Constants.USER_BUSINESS_PREF
 import com.puntogris.blint.utils.Constants.USER_DATA_PREF
-import com.puntogris.blint.utils.getParentFab
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountPreferences: BasePreferences(R.xml.account_preferences) {
@@ -25,7 +20,7 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
     private val viewModel: PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register()
+        UiInterface.register()
         findPreference<Preference>(USER_DATA_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.userAccountFragment)
             true

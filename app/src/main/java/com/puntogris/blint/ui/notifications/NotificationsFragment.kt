@@ -18,7 +18,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     private val viewModel: NotificationsViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register()
+        UiInterface.register()
         val adapter = NotificationsAdapter(
             requireContext(),
             clickListener = { notificationClickListener(it)},
@@ -39,7 +39,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
                     }
                     is NotificationsState.Error -> {
                         binding.progressBar2.gone()
-                        showLongSnackBarAboveFab(getString(R.string.snack_error_connection_server_try_later))
+                        UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
                     }
                     NotificationsState.Working.LoadFirstBatch ->
                         viewModel.getFirstBatchNotifications()

@@ -10,8 +10,6 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
-import com.puntogris.blint.utils.registerUiInterface
-import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

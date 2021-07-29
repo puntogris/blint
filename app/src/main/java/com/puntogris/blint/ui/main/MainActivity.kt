@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.main
 
 import android.Manifest
-import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +11,9 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -51,7 +50,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
                           fabListener: View.OnClickListener?) {
        binding.toolbar.visibility = if (showToolbar) View.VISIBLE else View.GONE
         if (showFab) {
-            binding.mainFab.apply {
+            binding.fab.apply {
                 show()
                 changeIconFromDrawable(fabIcon)
                 setOnClickListener(fabListener)
@@ -60,7 +59,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
                 if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 else BottomAppBar.FAB_ALIGNMENT_MODE_END
 
-        } else binding.mainFab.hide()
+        } else binding.fab.hide()
         changeFabStateBottomSheet(showFab)
         if (showAppBar) {
             binding.bottomAppBar.visible()
@@ -80,18 +79,18 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
     }
 
     override fun hideFab() {
-        binding.mainFab.hide()
+        binding.fab.hide()
     }
 
     override fun setFabImageAndClickListener(fabIcon: Int, fabListener: View.OnClickListener?) {
-        binding.mainFab.apply {
+        binding.fab.apply {
             changeIconFromDrawable(fabIcon)
             setOnClickListener(fabListener)
         }
     }
 
     override fun setFabImage(fabIcon: Int) {
-        binding.mainFab.changeIconFromDrawable(fabIcon)
+        binding.fab.changeIconFromDrawable(fabIcon)
     }
 
     override fun setToolbarAndStatusBarColor(@ColorRes color:Int){
@@ -104,6 +103,20 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
     override fun setDarkStatusBar() {
         val wic = WindowInsetsControllerCompat(window, window.decorView)
         wic.isAppearanceLightStatusBars = false
+    }
+
+    override fun showSnackBar(message: String, duration: Int, actionText: Int, action: View.OnClickListener?){
+        val snack = Snackbar.make(binding.root, message, duration)
+
+        snack.anchorView = when {
+            binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
+            binding.fab.isVisible -> binding.fab
+            else -> binding.bottomAppBar
+        }
+
+        if (action != null) snack.setAction(actionText, action)
+
+        snack.show()
     }
 
     private val viewModel: MainViewModel by viewModels()
@@ -160,7 +173,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) navController.navigate(R.id.scannerFragment)
-                else showLongSnackBarAboveFab(getString(R.string.snack_require_camera_permission))
+                else showSnackBar(getString(R.string.snack_require_camera_permission))
             }
     }
 
@@ -206,7 +219,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
     }
 
     private fun changeFabStateBottomSheet(value: Boolean) {
-        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.mainFab, value))
+        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.fab, value))
     }
 
     private fun navigateToMenuDestinations(navMenu: NavMenu) {

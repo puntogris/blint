@@ -12,18 +12,15 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.DimenRes
-import androidx.annotation.LayoutRes
 import androidx.annotation.RawRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -35,7 +32,6 @@ import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -83,12 +79,6 @@ fun EditText.getFloat(): Float{
     return if (text.isNotBlank()) text.toFloat() else 0F
 }
 
-fun Fragment.getParentFab(): FloatingActionButton =
-    requireActivity().findViewById(R.id.mainFab)
-
-fun Fragment.getParentBottomAppBar(): BottomAppBar =
-    requireActivity().findViewById(R.id.bottomAppBar)
-
 fun FloatingActionButton.changeIconFromDrawable(icon: Int){
     setImageDrawable(ContextCompat.getDrawable(context, icon))
 }
@@ -99,35 +89,6 @@ fun AppCompatActivity.getNavController() =
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
 
-@SuppressLint("ShowToast")
-fun Fragment.showLongSnackBarAboveFab(message: String){
-    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    Snackbar
-            .make(snackLayout, message, Snackbar.LENGTH_LONG)
-            .setAnchorView(getParentFab())
-            .show()
-}
-
-fun Fragment.createLongSnackBarAboveFab(message: String): Snackbar{
-    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    val snack = Snackbar
-        .make(snackLayout, message, Snackbar.LENGTH_LONG)
-        snack.anchorView = getParentFab()
-    return snack
-}
-
-@SuppressLint("ShowToast")
-fun Activity.showLongSnackBarAboveFab(message: String){
-    val snackLayout = findViewById<View>(android.R.id.content)
-    Snackbar
-        .make(snackLayout, message, Snackbar.LENGTH_LONG)
-        .setAnchorView(findViewById(R.id.mainFab)).show()
-}
-
-fun Fragment.createLongSnackBar(message: String): Snackbar{
-    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    return Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG)
-}
 
 fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message:String){
     Snackbar.make(
@@ -135,16 +96,6 @@ fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message:String){
         message,
         Snackbar.LENGTH_SHORT
     ).show()
-}
-
-fun Fragment.createShortSnackBar(message: String): Snackbar{
-    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    return Snackbar.make(snackLayout, message, Snackbar.LENGTH_SHORT)
-}
-
-fun Fragment.showShortSnackBar(message: String){
-    val snackLayout = this.requireActivity().findViewById<View>(android.R.id.content)
-    Snackbar.make(snackLayout, message, Snackbar.LENGTH_SHORT).show()
 }
 
 fun Context.showLongSnackBar(message: String){
@@ -172,9 +123,6 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
-
-fun ViewGroup.inflate(@LayoutRes res: Int): View =
-    LayoutInflater.from(context).inflate(res, this, false)
 
 fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
     return DecimalFormat("###,###,##0.00").format(this).apply {
@@ -235,13 +183,16 @@ fun Activity.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
 
-fun Fragment.launchWebBrowserIntent(uri: String){
+fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null){
     try {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(uri)
-        startActivity(intent)
+        Intent(Intent.ACTION_VIEW).let {
+            it.data = Uri.parse(uri)
+            if (packageName != null) it.setPackage(packageName)
+            startActivity(it)
+        }
+
     }catch (e:Exception){
-        showSnackBarVisibilityAppBar(getString(R.string.snack_ups_visit_blint))
+        UiInterface.showSnackBar(getString(R.string.snack_ups_visit_blint))
     }
 }
 
@@ -290,14 +241,6 @@ inline fun getValueAnimator(
     return a
 }
 
-fun Fragment.showSnackBarVisibilityAppBar(text:String){
-    getParentBottomAppBar().let {
-        if (it.isVisible)
-            createLongSnackBar(text).setAnchorView(it).show()
-        else
-            showShortSnackBar(text)
-    }
-}
 
 fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
     setAnimation(animation)
@@ -367,5 +310,5 @@ fun <T>Fragment.onBackStackLiveData(key:String, observer: Observer<T>){
     findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)?.observe(viewLifecycleOwner, observer)
 }
 
-inline val Fragment.registerUiInterface: SetupUiListener
+inline val Fragment.UiInterface: SetupUiListener
     get() = (requireActivity() as SetupUiListener)

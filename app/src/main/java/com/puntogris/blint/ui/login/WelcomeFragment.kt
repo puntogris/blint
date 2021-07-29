@@ -5,7 +5,7 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentWelcomeBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +15,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_w
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.apply {
+        UiInterface.apply {
             register(showFab = false, showAppBar = false, showToolbar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()

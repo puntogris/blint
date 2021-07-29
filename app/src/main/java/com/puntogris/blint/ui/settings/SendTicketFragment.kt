@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.settings
 
 import android.widget.ArrayAdapter
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,7 +18,7 @@ class SendTicketFragment: BaseFragment<FragmentSendTicketBinding>(R.layout.fragm
     private val viewModel: TicketsViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_send_24, showAppBar = false){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_send_24, showAppBar = false){
             if (
                 binding.messageText.getString().isNotBlank() &&
                 !binding.businessText.text.isNullOrBlank()
@@ -27,14 +26,14 @@ class SendTicketFragment: BaseFragment<FragmentSendTicketBinding>(R.layout.fragm
                 lifecycleScope.launch {
                     when(viewModel.sendTicket(binding.messageText.getString())){
                         SimpleResult.Failure ->
-                            showSnackBarVisibilityAppBar(getString(R.string.snack_error_connection_server_try_later))
+                            UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
                         SimpleResult.Success -> {
                             findNavController().navigateUp()
-                            showSnackBarVisibilityAppBar(getString(R.string.snack_ticket_sent_success))
+                            UiInterface.showSnackBar(getString(R.string.snack_ticket_sent_success))
                         }
                     }
                 }
-            }else showSnackBarVisibilityAppBar(getString(R.string.snack_fill_all_data_ticket))
+            }else UiInterface.showSnackBar(getString(R.string.snack_fill_all_data_ticket))
         }
         var businesses = listOf<Employee>()
         launchAndRepeatWithViewLifecycle {

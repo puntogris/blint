@@ -46,7 +46,7 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
         val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip: ClipData = ClipData.newPlainText("simple text", binding.joinBusinessCode.text)
         clipboard.setPrimaryClip(clip)
-        showSnackBarVisibilityAppBar(getString(R.string.copied_to_clipboard))
+        UiInterface.showSnackBar(getString(R.string.copied_to_clipboard))
     }
 
     fun onShareCodeClicked(){

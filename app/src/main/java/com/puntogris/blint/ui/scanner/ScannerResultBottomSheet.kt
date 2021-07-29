@@ -108,11 +108,11 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         when(viewModel.createSimpleOrder(order)){
                             SimpleResult.Failure -> {
                                 dismiss()
-                                showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
+                                showSackBarAboveBottomSheet(getString(R.string.snack_order_created_error))
                             }
                             SimpleResult.Success -> {
                                 dismiss()
-                                showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
+                                showSackBarAboveBottomSheet(getString(R.string.snack_created_order_success))
                             }
                         }
                     }

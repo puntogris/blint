@@ -10,7 +10,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
 import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.supplier.manage.ManageSuppliersViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
 import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
@@ -30,7 +29,7 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
+        UiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
             findNavController().apply {
                 previousBackStackEntry!!.savedStateHandle.set(PRODUCT_SUPPLIER_KEY, removeSupplierAdapter.getFinalSuppliers())
                 popBackStack()
@@ -81,7 +80,7 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
 
     private fun onAddSupplier(supplier: FirestoreSupplier){
         if (removeSupplierAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
-            showSnackBarVisibilityAppBar(getString(R.string.snack_product_suppliers_limit, CATEGORIES_SUPPLIERS_LIMIT))
+            UiInterface.showSnackBar(getString(R.string.snack_product_suppliers_limit, CATEGORIES_SUPPLIERS_LIMIT))
         else {
             removeSupplierAdapter.addSupplier(supplier)
             if (removeSupplierAdapter.itemCount != 0) binding.textView195.gone()

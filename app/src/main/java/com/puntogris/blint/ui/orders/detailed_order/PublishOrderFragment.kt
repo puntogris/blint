@@ -4,7 +4,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -18,9 +17,9 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
     private var isOperationInProgress = true
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             if (isOperationInProgress){
-                showSnackBarVisibilityAppBar(getString(R.string.snack_wait_for_operation))
+                UiInterface.showSnackBar(getString(R.string.snack_wait_for_operation))
             }else{
                 val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
                 findNavController().navigate(R.id.mainFragment, null, nav)
@@ -36,17 +35,21 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
 
     private fun onPublishOrderSuccessUi(){
         isOperationInProgress = false
-        showSnackBarVisibilityAppBar(getString(R.string.snack_created_order_success))
-        binding.title.text = getString(R.string.created_successfully_title)
-        binding.subtitle.text = getString(R.string.order_create_success_message)
-        binding.animationView.playAnimationOnce(R.raw.done)
+        binding.apply {
+            title.text = getString(R.string.created_successfully_title)
+            subtitle.text = getString(R.string.order_create_success_message)
+            animationView.playAnimationOnce(R.raw.done)
+        }
+        UiInterface.showSnackBar(getString(R.string.snack_created_order_success))
     }
 
     private fun onPublishOrderFailureUi(){
         isOperationInProgress = false
-        binding.title.text = getString(R.string.created_failed)
-        binding.subtitle.text = getString(R.string.order_create_error_message)
-        showSnackBarVisibilityAppBar(getString(R.string.snack_order_created_error))
-        binding.animationView.playAnimationOnce(R.raw.error)
+        binding.apply {
+            title.text = getString(R.string.created_failed)
+            subtitle.text = getString(R.string.order_create_error_message)
+            animationView.playAnimationOnce(R.raw.error)
+        }
+        UiInterface.showSnackBar(getString(R.string.snack_order_created_error))
     }
 }

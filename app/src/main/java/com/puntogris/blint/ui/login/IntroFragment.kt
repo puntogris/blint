@@ -17,7 +17,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.apply {
+        UiInterface.apply {
             register(showFab = false, showAppBar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
@@ -35,11 +35,11 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     fun onGoToSyncUserBusiness(){
         val username = binding.usernameText.getString()
         if (!isCheckBoxChecked()){
-            showShortSnackBar(getString(R.string.snack_terms_and_conditions_are_necessary))
+            UiInterface.showSnackBar(getString(R.string.snack_terms_and_conditions_are_necessary))
         }else if (country.isEmpty()){
-            showShortSnackBar(getString(R.string.snack_country_can_not_be_empty))
+            UiInterface.showSnackBar(getString(R.string.snack_country_can_not_be_empty))
         }else if(username.isBlank() || username.length < 3){
-            showShortSnackBar(getString(R.string.snack_name_can_not_be_empty))
+            UiInterface.showSnackBar(getString(R.string.snack_name_can_not_be_empty))
         }else{
             val action = IntroFragmentDirections.actionIntroFragmentToSyncAccountFragment(UserData(username, country))
             findNavController().navigate(action)
@@ -59,7 +59,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     private fun isCheckBoxChecked(): Boolean{
         return if(binding.termsAndConditionsCheckBox.isChecked) true
         else{
-            showShortSnackBar(getString(R.string.snack_accept_our_conditions_to_continue))
+            UiInterface.showSnackBar(getString(R.string.snack_accept_our_conditions_to_continue))
             false
         }
     }

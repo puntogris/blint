@@ -9,19 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLoginBinding
-import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,7 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.apply {
+        UiInterface.apply {
             register(showAppBar = false, showToolbar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
@@ -49,7 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             .start()
 
         if (oneTapLogin.isLoginEnabled()) oneTapLogin.showSingInUI(activityResultLauncher)
-        else showShortSnackBar(getString(R.string.snack_login_warning))
+        else UiInterface.showSnackBar(getString(R.string.snack_login_warning))
     }
 
     fun onLoginProblemsClicked(){
@@ -82,7 +76,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 }
                 RegistrationData.Error -> {
                     binding.logInProgressBar.gone()
-                    showShortSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                    UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
                 }
                 RegistrationData.Incomplete -> {
                     val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = true)
@@ -99,7 +93,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun onErrorLogIn(result: AuthResult.Error) {
         binding.logInProgressBar.gone()
         result.exception.localizedMessage?.let {
-            showShortSnackBar(it)
+            UiInterface.showSnackBar(it)
         }
     }
 }

@@ -11,18 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.client.ClientFragmentDirections
-import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
-import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,7 +30,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditSupplierFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
@@ -45,8 +41,6 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             }
         }
         mediator?.attach()
-
-
 
     }
 
@@ -95,9 +89,9 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         lifecycleScope.launch {
             when(viewModel.deleteSupplierDatabase(args.supplier.supplierId)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_supplier_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_supplier_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_supplier_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_supplier_success))
                     findNavController().navigateUp()
                 }
             }

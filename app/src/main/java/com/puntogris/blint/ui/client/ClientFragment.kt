@@ -11,14 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +30,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     private val viewModel:ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        registerUiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditClientFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
@@ -91,9 +89,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         lifecycleScope.launch {
             when(viewModel.deleteClientDatabase(args.client.clientId)){
                 SimpleResult.Failure ->
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_client_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_client_error))
                 SimpleResult.Success -> {
-                    showLongSnackBarAboveFab(getString(R.string.snack_delete_client_success))
+                        UiInterface.showSnackBar(getString(R.string.snack_delete_client_success))
                     findNavController().navigateUp()
                 }
             }

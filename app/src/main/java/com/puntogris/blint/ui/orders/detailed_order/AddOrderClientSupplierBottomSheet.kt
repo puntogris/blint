@@ -125,12 +125,12 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
     private fun onClientClicked(client: Client){
         viewModel.updateOrderExternalInfo(client.name, client.clientId)
         findNavController().navigate(R.id.createOrderFragment)
-        showLongSnackBarAboveFab(getString(R.string.snack_client_added_order, client.name))
+        UiInterface.showSnackBar(getString(R.string.snack_client_added_order, client.name))
     }
 
     private fun onSupplierClicked(supplier: Supplier){
         viewModel.updateOrderExternalInfo(supplier.companyName, supplier.supplierId)
         findNavController().navigate(R.id.createOrderFragment)
-        showLongSnackBarAboveFab(getString(R.string.snack_suppliers_added_order, supplier.companyName))
+        UiInterface.showSnackBar(getString(R.string.snack_suppliers_added_order, supplier.companyName))
     }
 }

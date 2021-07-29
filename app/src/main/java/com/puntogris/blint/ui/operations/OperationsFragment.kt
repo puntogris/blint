@@ -4,13 +4,13 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOperationsBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.registerUiInterface
+import com.puntogris.blint.utils.UiInterface
 
 class OperationsFragment : BaseFragment<FragmentOperationsBinding>(R.layout.fragment_operations) {
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register()
+        UiInterface.register()
     }
 
     fun onGeneralPriceChangeClicked(){

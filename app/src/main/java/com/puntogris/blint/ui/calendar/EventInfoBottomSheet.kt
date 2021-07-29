@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.calendar
 
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -53,9 +52,9 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         lifecycleScope.launch {
             when (viewModel.deleteEvent(args.event.eventId)) {
                 SimpleResult.Failure ->
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_event_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_event_error))
                 SimpleResult.Success -> {
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_delete_event_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_event_success))
                     findNavController().navigateUp()
                 }
             }
@@ -66,12 +65,12 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         lifecycleScope.launch {
             when(viewModel.updateEvent()){
                 SimpleResult.Failure ->
-                    showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_error))
+                    UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {
                     findNavController().apply {
                         previousBackStackEntry!!.savedStateHandle.set(DISMISS_EVENT_KEY, true)
                         popBackStack()
-                        showSnackBarVisibilityAppBar(getString(R.string.snack_update_event_success))
+                        UiInterface.showSnackBar(getString(R.string.snack_update_event_success))
                     }
                 }
             }

@@ -3,6 +3,8 @@ package com.puntogris.blint.ui.main
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 
 interface SetupUiListener{
@@ -23,4 +25,9 @@ interface SetupUiListener{
     fun setFabImage(@DrawableRes fabIcon: Int)
     fun setToolbarAndStatusBarColor(@ColorRes color:Int)
     fun setDarkStatusBar()
+    fun showSnackBar(message: String,
+                     duration: Int = Snackbar.LENGTH_SHORT,
+                     @StringRes actionText: Int = R.string.read_more,
+                     action: View.OnClickListener? = null)
+
 }
