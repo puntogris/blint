@@ -12,6 +12,7 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentGeneralPriceChangeBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,6 +23,22 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
     private val viewModel:OperationsViewModel by viewModels()
 
     override fun initializeViews() {
+        (requireActivity() as SetupUiListener).register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+            if (binding.productsAffectedText.text.isNullOrBlank())
+                showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
+            else if (!listOf(binding.buyPriceCheckBox, binding.sellPriceCheckBox, binding.suggestedPriceCheckBox).any {
+                    it.isChecked
+                })
+                showLongSnackBarAboveFab("Selecciona al menos un precio a modificar.")
+            else if (binding.changeValueText.text.isNullOrBlank() ||
+                binding.changeValueText.getFloat() == 0F)
+                showLongSnackBarAboveFab("Ingresa un valor distinto de 0 para la modificacion.")
+            else if (binding.changeValueTypeText.getString() == "%" &&
+                binding.changeValueText.getFloat() > 100)
+                showLongSnackBarAboveFab("El valor no puede ser mayor a 100 %.")
+            else
+                onSaveChangesClicked()
+        }
 
         val productsAffectedList = listOf("Proveedor", "Categoria")
         val productsAffectedAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, productsAffectedList)
@@ -35,26 +52,6 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
             when(i){
                 0-> openSuppliersBottomSheet()
                 1-> openCategoryBottomSheet()
-            }
-        }
-
-        getParentFab().apply {
-            changeIconFromDrawable(R.drawable.ic_baseline_save_24)
-            setOnClickListener {
-                if (binding.productsAffectedText.text.isNullOrBlank())
-                    showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
-                else if (!listOf(binding.buyPriceCheckBox, binding.sellPriceCheckBox, binding.suggestedPriceCheckBox).any {
-                    it.isChecked
-                    })
-                        showLongSnackBarAboveFab("Selecciona al menos un precio a modificar.")
-                else if (binding.changeValueText.text.isNullOrBlank() ||
-                        binding.changeValueText.getFloat() == 0F)
-                    showLongSnackBarAboveFab("Ingresa un valor distinto de 0 para la modificacion.")
-                else if (binding.changeValueTypeText.getString() == "%" &&
-                        binding.changeValueText.getFloat() > 100)
-                            showLongSnackBarAboveFab("El valor no puede ser mayor a 100 %.")
-                else
-                    onSaveChangesClicked()
             }
         }
     }

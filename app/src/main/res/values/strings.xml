@@ -546,12 +546,12 @@
     <string name="new_user_notif_message">We recommend that you see this guide in order to get the most out of the app.</string>
     <string name="new_business_notif_message">Today a new adventure starts and we are happy to be able to accompany you on it.</string>
     <string name="new_employee_notif_message">The business grows, we welcome %1$s.</string>
-    <string name="minute_notif" translatable="false">min.</string>
+    <string name="minute_notif" translatable="false">%1$d min.</string>
     <string name="minutes_notif" translatable="false">%1$d mins.</string>
     <string name="hour_notif" translatable="false">%1$d hr.</string>
     <string name="hours_notif" translatable="false">%1$d hrs.</string>
     <string name="days_notif">%1$d days</string>
-    <string name="day_notif">%1$d days</string>
+    <string name="day_notif">%1$d day</string>
 
     <!-- Invoice -->
     <string name="share">Share</string>

@@ -94,10 +94,6 @@ fun Fragment.getParentFab(): FloatingActionButton =
 fun Fragment.getParentBottomAppBar(): BottomAppBar =
     requireActivity().findViewById(R.id.bottomAppBar)
 
-fun Fragment.setParentFabAlignment(alignment: Int){
-    requireActivity().findViewById<BottomAppBar>(R.id.bottomAppBar).fabAlignmentMode = alignment
-}
-
 fun FloatingActionButton.changeIconFromDrawable(icon: Int){
     setImageDrawable(ContextCompat.getDrawable(context, icon))
 }

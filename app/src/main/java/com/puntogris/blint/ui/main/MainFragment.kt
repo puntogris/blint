@@ -1,15 +1,9 @@
 package com.puntogris.blint.ui.main
 
-import android.widget.Button
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Timestamp
 import com.puntogris.blint.R
 import com.puntogris.blint.data.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
@@ -19,16 +13,10 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
 import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
 import com.puntogris.blint.utils.Constants.ENABLED
-import com.rubensousa.decorator.ColumnProvider
-import com.rubensousa.decorator.DecorationLookup
-import com.rubensousa.decorator.GridMarginDecoration
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
@@ -67,7 +55,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun setupBadgeListener(){
         launchAndRepeatWithViewLifecycle {
             viewModel.getUnreadNotificationsCount().collect {
-                getParentBadge().setNumber(it)
+                (requireActivity() as SetupUiListener).updateBadge(it)
             }
         }
     }
@@ -107,7 +95,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         val action = MainFragmentDirections.actionMainFragmentToEventInfoBottomSheet(event)
         findNavController().navigate(action)
     }
-
 
     private fun setupMenuRecyclerView(){
         mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }

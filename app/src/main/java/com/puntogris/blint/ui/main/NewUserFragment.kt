@@ -14,10 +14,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     override fun initializeViews() {
         binding.fragment = this
         registerUiInterface.register(showAppBar = true, showToolbar = false)
-        getParentBottomAppBar().apply {
-            invisible()
-            performHide()
-        }
+        (requireActivity() as SetupUiListener).setBottomAppBarInvisible()
         ContextCompat.getColor(requireContext(), R.color.colorSecondary).apply {
             requireActivity().window.statusBarColor = this
         }

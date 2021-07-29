@@ -10,6 +10,7 @@ import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentAboutBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.ui.settings.PreferencesViewModel
 import com.puntogris.blint.utils.Constants.APP_PLAY_STORE_URI
 import com.puntogris.blint.utils.Constants.PLAY_STORE_PACKAGE
@@ -27,6 +28,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
     private val viewModel:PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
+        (requireActivity() as SetupUiListener).register(showAppBar = false)
         binding.fragment = this
     }
 

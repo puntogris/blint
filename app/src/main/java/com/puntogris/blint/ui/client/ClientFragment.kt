@@ -18,6 +18,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,18 +48,14 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener { navigateToEditClientFragment() }
-                        }
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24){
+                                navigateToEditClientFragment()
+                            }
                     }
                     else -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-                            setOnClickListener {
-
-                            }
-                        }
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(fabListener = {})
                     }
                 }
             }

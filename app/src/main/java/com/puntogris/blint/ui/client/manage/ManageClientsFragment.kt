@@ -26,7 +26,10 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true)
+        registerUiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
+            findNavController().navigate(R.id.editClientFragment)
+
+        }
 
         manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
         binding.recyclerView.adapter = manageProductsAdapter
@@ -44,9 +47,6 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
                     else getAllClientsWithNameAndFillAdapter(it.lowercase())
                 }
             }
-        }
-        getParentFab().setOnClickListener {
-            findNavController().navigate(R.id.editClientFragment)
         }
     }
 

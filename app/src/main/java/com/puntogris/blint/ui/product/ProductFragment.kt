@@ -18,6 +18,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,16 +48,14 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener { navigateToEditProductFragment() }
-                        }
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24){
+                                navigateToEditProductFragment()
+                            }
                     }
                     else -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-                            setOnClickListener { showOrderPickerAndNavigate(args.product?.product) }
-                        }
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(fabListener = {showOrderPickerAndNavigate(args.product?.product)})
                     }
                 }
             }

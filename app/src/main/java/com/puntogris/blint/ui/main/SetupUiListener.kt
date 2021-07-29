@@ -11,4 +11,13 @@ interface SetupUiListener{
                  showFabCenter: Boolean = true,
                  @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
                  fabListener: View.OnClickListener? = null)
+
+    fun updateBadge(value: Int)
+    fun setBottomAppBarInvisible()
+    fun hideFab()
+    fun setFabImageAndClickListener(
+        @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
+        fabListener: View.OnClickListener? = null
+    )
+    fun setFabImage(@DrawableRes fabIcon: Int)
 }

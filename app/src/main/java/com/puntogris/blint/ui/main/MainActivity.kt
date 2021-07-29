@@ -64,6 +64,32 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
         } else binding.bottomAppBar.gone()
     }
 
+    override fun updateBadge(value: Int) {
+        binding.badge.setNumber(value)
+    }
+
+    override fun setBottomAppBarInvisible() {
+        binding.bottomAppBar.apply {
+            invisible()
+            performHide()
+        }
+    }
+
+    override fun hideFab() {
+        binding.mainFab.hide()
+    }
+
+    override fun setFabImageAndClickListener(fabIcon: Int, fabListener: View.OnClickListener?) {
+        binding.mainFab.apply {
+            changeIconFromDrawable(fabIcon)
+            setOnClickListener(fabListener)
+        }
+    }
+
+    override fun setFabImage(fabIcon: Int) {
+        binding.mainFab.changeIconFromDrawable(fabIcon)
+    }
+
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration

@@ -11,6 +11,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -103,20 +104,20 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 preview!!.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 camera = cameraProvider?.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
-                val parentFab = getParentFab()
                 if (camera!!.cameraInfo.hasFlashUnit()) {
-                    parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_off_24)
-                    parentFab.setOnClickListener {
-                        camera!!.cameraControl.enableTorch(!flashEnabled)
-                    }
+                    (requireActivity() as SetupUiListener)
+                        .setFabImageAndClickListener(R.drawable.ic_baseline_flash_off_24){
+                            camera?.cameraControl?.enableTorch(!flashEnabled)
+                        }
+
                     camera!!.cameraInfo.torchState.observe(viewLifecycleOwner) {
                         it?.let { torchState ->
                             if (torchState == TorchState.ON) {
                                 flashEnabled = true
-                                parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_on_24)
+                                (requireActivity() as SetupUiListener).setFabImage(R.drawable.ic_baseline_flash_on_24)
                             } else {
                                 flashEnabled = false
-                                parentFab.changeIconFromDrawable(R.drawable.ic_baseline_flash_off_24)
+                                (requireActivity() as SetupUiListener).setFabImage(R.drawable.ic_baseline_flash_on_24)
                             }
                         }
                     }

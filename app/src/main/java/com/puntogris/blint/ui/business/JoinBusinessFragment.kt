@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,13 +37,9 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                 joinBusinessWithCode(text)
             }
         }
-        getParentBottomAppBar().apply {
-            invisible()
-            performHide()
-        }
+        (requireActivity() as SetupUiListener).setBottomAppBarInvisible()
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(PRODUCT_BARCODE_KEY)?.observe(
-            viewLifecycleOwner) {
+        onBackStackLiveData<String>(PRODUCT_BARCODE_KEY){
             joinBusinessWithCode(it)
         }
 
@@ -62,7 +59,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     }
 
     private fun joinBusinessWithCode(code:String){
-        getParentFab().hide()
+        (requireActivity() as SetupUiListener).hideFab()
         binding.setDataGroup.gone()
         binding.animationView.visible()
         binding.summaryMessage.visible()

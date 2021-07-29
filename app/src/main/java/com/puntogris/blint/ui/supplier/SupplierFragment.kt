@@ -19,6 +19,7 @@ import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.ui.client.ClientFragmentDirections
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
@@ -49,18 +50,16 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_edit_24)
-                            setOnClickListener { navigateToEditSupplierFragment() }
-                        }
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
+                                navigateToEditSupplierFragment()
+                            }
                     }
                     else -> {
-                        getParentFab().apply {
-                            changeIconFromDrawable(R.drawable.ic_baseline_add_24)
-                            setOnClickListener {
+                        (requireActivity() as SetupUiListener)
+                            .setFabImageAndClickListener(fabListener = {
 
-                            }
-                        }
+                            })
                     }
                 }
             }
