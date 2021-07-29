@@ -1,7 +1,5 @@
 package com.puntogris.blint.ui.main
 
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNewUserBinding
@@ -13,14 +11,12 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showAppBar = true, showToolbar = false)
-        (requireActivity() as SetupUiListener).setBottomAppBarInvisible()
-        ContextCompat.getColor(requireContext(), R.color.colorSecondary).apply {
-            requireActivity().window.statusBarColor = this
+        registerUiInterface.apply {
+            register(showAppBar = true, showToolbar = false)
+            setBottomAppBarInvisible()
+            setToolbarAndStatusBarColor(R.color.colorSecondary)
+            setDarkStatusBar()
         }
-        val view = requireActivity().window
-        val wic = WindowInsetsControllerCompat(view, view.decorView)
-        wic.isAppearanceLightStatusBars = false
     }
 
     fun onLearnMoreClicked(){

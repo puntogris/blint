@@ -19,13 +19,10 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.DimenRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -49,12 +46,10 @@ import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
-import com.nex3z.notificationbadge.NotificationBadge
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.ui.main.MainActivity
 import com.puntogris.blint.ui.main.SetupUiListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -157,12 +152,6 @@ fun Context.showLongSnackBar(message: String){
     Snackbar.make(snackLayout, message, Snackbar.LENGTH_LONG).show()
 }
 
-fun Context.dpToPx(dp : Float) : Float {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
-}
-
 fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
     context.resources.getDimension(id)
 }
@@ -238,10 +227,6 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
 fun String.getDateWithFileName() =
     SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date()).toString() + "_$this.xls"
 
-fun View.isDarkThemeOn() =
-    (resources.configuration.uiMode and
-            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
-
 fun Fragment.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
@@ -311,27 +296,6 @@ fun Fragment.showSnackBarVisibilityAppBar(text:String){
             createLongSnackBar(text).setAnchorView(it).show()
         else
             showShortSnackBar(text)
-    }
-}
-
-fun Fragment.getParentToolbar(): Toolbar = requireActivity().findViewById(R.id.toolbar)
-
-fun Fragment.getParentBadge(): NotificationBadge = requireActivity().findViewById(R.id.badge)
-
-fun Activity.setToolbarAndStatusBarColor(color: Int){
-    ContextCompat.getColor(this, color).apply {
-        window.statusBarColor = this
-        findViewById<Toolbar>(R.id.toolbar).setBackgroundColor(this)
-    }
-}
-
-fun Fragment.setupStatusBarForLoginBackground(){
-    getParentToolbar().setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorSecondary))
-    val window = requireActivity().window
-    window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorSecondary)
-    if (!isDarkThemeOn()){
-        val wic = WindowInsetsControllerCompat(window, window.decorView)
-        wic.isAppearanceLightStatusBars = false
     }
 }
 

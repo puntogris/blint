@@ -34,8 +34,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showAppBar = false, showToolbar = false)
-        setupStatusBarForLoginBackground()
+        registerUiInterface.apply {
+            register(showAppBar = false, showToolbar = false)
+            setToolbarAndStatusBarColor(R.color.colorSecondary)
+            setDarkStatusBar()
+        }
         activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
     }
 

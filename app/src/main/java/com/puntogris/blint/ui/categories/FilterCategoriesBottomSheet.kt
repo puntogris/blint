@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.categories
 
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
@@ -11,7 +10,6 @@ import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.setProductCategoriesChip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,15 +1,19 @@
 package com.puntogris.blint.ui.main
 
 import android.Manifest
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -88,6 +92,18 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
 
     override fun setFabImage(fabIcon: Int) {
         binding.mainFab.changeIconFromDrawable(fabIcon)
+    }
+
+    override fun setToolbarAndStatusBarColor(@ColorRes color:Int){
+        ContextCompat.getColor(this, color).apply {
+            window.statusBarColor = this
+            binding.toolbar.setBackgroundColor(this)
+        }
+    }
+
+    override fun setDarkStatusBar() {
+        val wic = WindowInsetsControllerCompat(window, window.decorView)
+        wic.isAppearanceLightStatusBars = false
     }
 
     private val viewModel: MainViewModel by viewModels()

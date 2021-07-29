@@ -1,6 +1,7 @@
 package com.puntogris.blint.ui.main
 
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.puntogris.blint.R
 
@@ -20,4 +21,6 @@ interface SetupUiListener{
         fabListener: View.OnClickListener? = null
     )
     fun setFabImage(@DrawableRes fabIcon: Int)
+    fun setToolbarAndStatusBarColor(@ColorRes color:Int)
+    fun setDarkStatusBar()
 }

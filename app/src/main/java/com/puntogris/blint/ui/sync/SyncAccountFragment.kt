@@ -22,8 +22,10 @@ class SyncAccountFragment : BaseFragment<FragmentSyncAccountBinding>(R.layout.fr
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showFab = false, showAppBar = false, showToolbar = false)
-        setupStatusBarForLoginBackground()
+        registerUiInterface.apply {
+            register(showFab = false, showAppBar = false, showToolbar = false)
+            setDarkStatusBar()
+        }
         launchAndRepeatWithViewLifecycle(Lifecycle.State.CREATED) {
             when(viewModel.syncAccount(args.userData)){
                 is SyncAccount.Error -> {

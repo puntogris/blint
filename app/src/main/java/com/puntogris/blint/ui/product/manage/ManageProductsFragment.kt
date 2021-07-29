@@ -124,9 +124,10 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             }
         }
 
-        binding.categorySearchType.setOnClickListener {
-            findNavController().navigate(R.id.filterCategoriesBottomSheet)
-        }
+    }
+
+    fun onCategoryClicked(){
+        findNavController().navigate(R.id.filterCategoriesBottomSheet)
     }
 
     fun onScanBarcodeClicked(){

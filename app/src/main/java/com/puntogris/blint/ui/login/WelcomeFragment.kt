@@ -6,7 +6,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentWelcomeBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.registerUiInterface
-import com.puntogris.blint.utils.setupStatusBarForLoginBackground
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,8 +15,11 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_w
 
     override fun initializeViews() {
         binding.fragment = this
-        registerUiInterface.register(showFab = false, showAppBar = false, showToolbar = false)
-        setupStatusBarForLoginBackground()
+        registerUiInterface.apply {
+            register(showFab = false, showAppBar = false, showToolbar = false)
+            setToolbarAndStatusBarColor(R.color.colorSecondary)
+            setDarkStatusBar()
+        }
     }
 
     fun onExitButtonClicked(){

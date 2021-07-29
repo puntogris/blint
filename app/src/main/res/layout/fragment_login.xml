@@ -79,12 +79,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_light"
             android:text="@string/app_slogan"
+            android:textColor="@color/almostBlack"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
-            app:layout_constraintVertical_bias="0.48000002" />
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

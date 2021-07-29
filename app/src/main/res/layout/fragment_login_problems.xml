@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.login.LoginProblemsFragment" />
@@ -23,8 +24,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:text="@string/if_account_disabled"
-            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/grey_10"
             android:text="@string/account_disabled_message"
+            android:textColor="@color/grey_10"
             app:layout_constraintEnd_toEndOf="@+id/textView8"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView8"
@@ -59,8 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/grey_10"
             android:text="@string/account_blocked_message"
+            android:textColor="@color/grey_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView23"
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -71,13 +72,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            style="@style/Theme.Blint.Button"
             android:layout_marginBottom="24dp"
-            android:text="@string/action_go_back_to_start"
             android:onClick="@{()-> fragment.onGoBackButtonClicked()}"
+            android:text="@string/action_go_back_to_start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
 
         <TextView
             android:id="@+id/enableAccountLink"
@@ -85,10 +86,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()-> fragment.onEnableAccountClicked()}"
             android:text="@string/action_solve_account_disabled"
             android:textColor="#EBB0A5"
             android:textSize="16sp"
-            android:onClick="@{()-> fragment.onEnableAccountClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView20"
@@ -100,9 +101,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()-> fragment.onSendEmailClicked()}"
             android:text="@string/action_solve_account_blocked"
             android:textColor="#EBB0A5"
-            android:onClick="@{()-> fragment.onSendEmailClicked()}"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView24"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
