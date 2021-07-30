@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.puntogris.blint.data.repo.main.MainRepository
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.RoomUser
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,8 +24,8 @@ class MainViewModel @Inject constructor(
 
     suspend fun getSyncStatus(employee: List<Employee>) = mainRepository.checkIfAccountIsSynced(employee)
 
-    private val _currentUser = MutableStateFlow(RoomUser())
-    val currentUser:StateFlow<RoomUser> = _currentUser
+    private val _currentUser = MutableStateFlow(Employee())
+    val currentUser:StateFlow<Employee> = _currentUser
 
     private val _accountStatus: MutableSharedFlow<AccountStatus> = MutableSharedFlow()
     val accountStatus: SharedFlow<AccountStatus> = _accountStatus
@@ -57,7 +56,7 @@ class MainViewModel @Inject constructor(
 
     suspend fun getBusinessList() = mainRepository.getBusinessListRoom()
 
-    suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner: String, status:String) = mainRepository.updateCurrentBusiness(id,name,type,owner,status)
+    suspend fun updateCurrentBusiness(id:String) = mainRepository.updateCurrentBusiness(id)
 
     fun getBusinessStatus() = mainRepository.getBusinessesStatus()
 }

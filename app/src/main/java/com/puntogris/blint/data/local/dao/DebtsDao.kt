@@ -1,6 +1,5 @@
 package com.puntogris.blint.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.BusinessDebtsData
@@ -18,17 +17,17 @@ interface DebtsDao {
     suspend fun getDebtsWithId(traderId: String): List<Debt>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getDebtsForBusiness(): BusinessDebtsData
 
-    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)
 
-    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1')")
+    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateSupplierDebt(suppliersDebt: Float)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM debt INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
+    @Query("SELECT * FROM debt INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
     fun getPagedDebts(): PagingSource<Int, Debt>
 
     @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
@@ -38,10 +37,10 @@ interface DebtsDao {
     suspend fun updateSupplierDebt(supplierId: String, amount: Float)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
+    @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
     fun getClientDebtsPaged(): PagingSource<Int, Client>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
     fun getSupplierDebtsPaged(): PagingSource<Int, Supplier>
 }

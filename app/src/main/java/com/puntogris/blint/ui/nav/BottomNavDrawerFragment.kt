@@ -228,7 +228,7 @@ class BottomNavDrawerFragment :
                             false,
                             businessStatus = employee.businessStatus)
 
-                        if(tempBusiness.businessId == it.currentBusinessId){
+                        if(tempBusiness.businessId == it.businessId){
                             tempBusiness.isCurrentAccount = true
                             binding.currentUserAccount = tempBusiness
                         }
@@ -287,7 +287,7 @@ class BottomNavDrawerFragment :
     @ExperimentalCoroutinesApi
     override fun onAccountClicked(employee: BusinessItem) {
         lifecycleScope.launch {
-            viewModel.updateCurrentBusiness(employee.businessId, employee.businessName, employee.businessType, employee.businessOwner, employee.businessStatus)
+            viewModel.updateCurrentBusiness(employee.businessId)
             findNavController().navigate(R.id.mainFragment)
         }
         toggleSandwich()

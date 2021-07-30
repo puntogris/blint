@@ -3,7 +3,7 @@ package com.puntogris.blint.data.repo.main
 import androidx.lifecycle.LiveData
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.model.User
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.EventsDashboard
 import com.puntogris.blint.utils.RepoResult
@@ -15,10 +15,10 @@ interface IMainRepository {
     fun getAllUnreadNotifications(): StateFlow<Int>
     suspend fun getBusinessCounterFlow(): Flow<BusinessCounters>
     fun checkIfUserIsLogged():Boolean
-    suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner:String, status:String)
-    fun getUserLiveDataRoom(): LiveData<RoomUser>
+    suspend fun updateCurrentBusiness(id:String)
+    fun getUserLiveDataRoom(): LiveData<User>
     suspend fun getBusinessListRoom(): List<Employee>
     fun getBusinessesStatus(): Flow<RepoResult<List<Employee>>>
     suspend fun checkIfAccountIsSynced(employee: List<Employee>):AccountStatus
-    fun getCurrentUserFlow(): Flow<RoomUser>
+    fun getCurrentUserFlow(): Flow<Employee>
 }

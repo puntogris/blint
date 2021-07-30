@@ -224,7 +224,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (navMenu != NavMenu.HOME &&
             navMenu != NavMenu.SETTINGS &&
             navMenu != NavMenu.NOTIFICATIONS &&
-            viewModel.currentUser.value.currentBusinessStatus != ENABLED) {
+            viewModel.currentUser.value.businessStatus != ENABLED) {
                 showSnackBar(getString(R.string.action_require_permissions)){
                     launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
                 }

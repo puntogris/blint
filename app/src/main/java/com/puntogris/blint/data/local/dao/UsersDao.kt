@@ -2,40 +2,36 @@ package com.puntogris.blint.data.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.User
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(roomUser: RoomUser)
-
-    @Transaction
-    suspend fun checkAndCreateUser(roomUser: RoomUser){
-        if (userExists() == null) {
-            insert(roomUser)
-        }
-    }
-
-    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
-    suspend fun userExists(): RoomUser?
+    suspend fun insert(user: User)
 
     @Update
-    suspend fun update(roomUser: RoomUser)
+    suspend fun update(user: User)
 
-    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
-    suspend fun getUser(): RoomUser
+    @Query("SELECT * FROM user WHERE userId = '1' ")
+    suspend fun getUser(): User
 
-    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
-    fun getUserLiveData(): LiveData<RoomUser>
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM employee INNER JOIN user WHERE userId = '1' AND currentBusinessId = businessId LIMIT 1")
+    suspend fun getCurrentBusiness(): Employee
 
-    @Query("SELECT * FROM roomuser WHERE userId = '1' ")
-    fun getUserFlow(): Flow<RoomUser>
+    @Query("SELECT * FROM user WHERE userId = '1' ")
+    fun getUserLiveData(): LiveData<User>
 
-    @Query("UPDATE roomuser SET currentBusinessId = :id, currentBusinessName = :name, currentBusinessType = :type, currentBusinessOwner = :owner, currentUid = :currentUid, currentBusinessStatus = :status WHERE userId = '1' ")
-    suspend fun updateCurrentBusiness(id:String, name:String, type:String, owner:String, currentUid: String, status:String)
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM employee INNER JOIN user WHERE userId = '1' AND currentBusinessId = businessId LIMIT 1")
+    fun getUserFlow(): Flow<Employee>
 
-    @Query("UPDATE roomuser SET username= :name, country = :country WHERE userId = '1'")
+    @Query("UPDATE user SET currentBusinessId = :id WHERE userId = '1' ")
+    suspend fun updateCurrentBusiness(id:String)
+
+    @Query("UPDATE user SET username = :name, country = :country WHERE userId = '1'")
     suspend fun updateUserNameCountry(name:String, country: String)
 }

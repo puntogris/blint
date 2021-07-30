@@ -19,34 +19,22 @@ interface SuppliersDao {
     @Query("DELETE FROM supplier WHERE supplierId = :id")
     suspend fun delete(id: String)
 
-    @Query("SELECT * FROM supplier WHERE supplierId = :id")
-    suspend fun getSupplier(id: String): Supplier
-
-    @Query("SELECT COUNT(*) FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT COUNT(*) FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount(): LiveData<Int>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     fun getAllPaged(): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name")
     fun getPagedSearch(name :String): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getAllSuppliers(): List<Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name LIMIT 30")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name LIMIT 30")
     suspend fun getSupplierWithName(name: String): List<Supplier>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name LIMIT 5")
-    suspend fun getProductSupplier(name: String): List<FirestoreSupplier>
-
-
-    @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
-
 }

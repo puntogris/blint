@@ -16,28 +16,24 @@ interface EventsDao {
     suspend fun delete(eventId: String)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC")
+    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC")
     fun getAllPaged(): PagingSource<Int, Event>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND date(timestamp, 'unixepoch','localtime') = date(:timestamp, 'unixepoch','localtime') ORDER BY timestamp ASC")
+    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND date(timestamp, 'unixepoch','localtime') = date(:timestamp, 'unixepoch','localtime') ORDER BY timestamp ASC")
     fun getDayEvents(timestamp:Timestamp): PagingSource<Int, Event>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND status = :status ORDER BY timestamp ASC")
+    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND status = :status ORDER BY timestamp ASC")
     fun getPagedEventsWithFilter(status: String): PagingSource<Int, Event>
 
     @Update
     suspend fun updateEvent(event: Event)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
+    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
     fun getLastThreeEvents():List<Event>
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
-    fun getLastThreeEventsFlow(): Flow<List<Event>>
-
-    @Query("SELECT COUNT(*) FROM event INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT COUNT(*) FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     fun getCount() :Int
 }

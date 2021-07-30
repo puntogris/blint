@@ -262,9 +262,9 @@
     <string name="product_deleted">Product deleted.</string>
     <string name="filter_by_category">Filter by category</string>
     <string name="available_categories">Categories available</string>
-    <string name="empty_product_categories_message">*There are no categories added, select the categories shown below to add them.</string>
+    <string name="empty_product_categories_message">*There are no categories added, select from the categories shown below to add them.</string>
     <string name="available_suppliers">Suppliers available</string>
-    <string name="empty_product_suppliers_message">*There are no suppliers added, select the categories shown below to add them.</string>
+    <string name="empty_product_suppliers_message">*There are no suppliers added, select from the suppliers shown below to add them.</string>
     <string name="snack_product_suppliers_limit">A product can not have more than %1$d suppliers</string>
     <string name="snack_product_categories_limit">A product can not have more than %1$d categories</string>
     <string name="go_to_product">Go to product</string>

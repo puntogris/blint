@@ -120,7 +120,7 @@ class EmployeesRepository @Inject constructor(
                     }else{
                         sharedPref.setShowNewUserScreenPref(false)
                         employeeDao.insert(employee)
-                        usersDao.updateCurrentBusiness(employee.businessId,employee.businessName,employee.businessType,employee.businessOwner, employee.employeeId,employee.businessStatus)
+                        usersDao.updateCurrentBusiness(employee.businessId)
                         JoinBusiness.Success
                     }
                 }

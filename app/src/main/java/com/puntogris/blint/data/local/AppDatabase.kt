@@ -13,7 +13,7 @@ import com.puntogris.blint.utils.Converters
     Product::class,
     Record::class,
     Supplier::class,
-    RoomUser::class,
+    User::class,
     ProductSupplierCrossRef::class,
     Event::class,
     Statistic::class,

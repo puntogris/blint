@@ -34,7 +34,7 @@ class ClientRepository @Inject constructor(
 
     private val firestore = Firebase.firestore
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
 
     override suspend fun saveClientDatabase(client: Client): SimpleResult = withContext(Dispatchers.IO){
         try {
@@ -43,11 +43,11 @@ class ClientRepository @Inject constructor(
             val clientRef = firestoreQueries.getClientsCollectionQuery(user)
             if (isNewClient){
                 client.apply {
-                    businessId = user.currentBusinessId
+                    businessId = user.businessId
                     clientId = clientRef.document().id
                 }
             }
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val clientRefCounter = firestoreQueries.getBusinessCountersQuery(user)
                 firestore.runBatch {
                     it.set(clientRef.document(client.clientId), client)
@@ -70,7 +70,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries.getClientsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreClientsPagingSource(query)
             }
@@ -81,7 +81,7 @@ class ClientRepository @Inject constructor(
     override suspend fun deleteClientDatabase(clientId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestoreQueries.getClientsCollectionQuery(user)
                     .document(clientId)
                     .delete()
@@ -102,7 +102,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries.getRecordsWithTraderIdQuery(user, clientId)
                 FirestoreRecordsPagingSource(query)
             }
@@ -118,7 +118,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries
                     .getClientsCollectionQuery(user)
                     .whereArrayContains("search_name", name.lowercase())

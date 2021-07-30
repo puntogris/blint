@@ -3,8 +3,6 @@ package com.puntogris.blint.data.repo.business
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
@@ -14,7 +12,6 @@ import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.ui.SharedPref
-import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
 import com.puntogris.blint.utils.Constants.DELETED
@@ -26,7 +23,6 @@ import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -41,7 +37,7 @@ class BusinessRepository @Inject constructor(
     val firestore = Firebase.firestore
     val auth = FirebaseAuth.getInstance()
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
 
     private fun getCurrentUser() = auth.currentUser
 
@@ -89,7 +85,7 @@ class BusinessRepository @Inject constructor(
 
             if (result is SimpleResult.Success){
                 employeeDao.insert(employee)
-                usersDao.updateCurrentBusiness(business.businessId, businessName, business.type, business.owner, getCurrentUser()?.uid.toString(), business.status)
+                usersDao.updateCurrentBusiness(business.businessId)
                 statisticsDao.insert(Statistic(businessId = refId))
                 sharedPref.setShowNewUserScreenPref(false)
             }
@@ -111,7 +107,7 @@ class BusinessRepository @Inject constructor(
                 if (business.businessType == ONLINE){
                     firestore.runTransaction {
                         val businessRef =
-                            firestore.collection(USERS_COLLECTION).document(user.currentBusinessOwner)
+                            firestore.collection(USERS_COLLECTION).document(user.businessOwner)
                                 .collection("business").document(businessId)
                         val businessFirestore = it.get(businessRef).toObject(Business::class.java)
                         if (businessFirestore != null && businessFirestore.status != TO_DELETE){
@@ -125,7 +121,7 @@ class BusinessRepository @Inject constructor(
                 }else{
                     val businessRef = firestore
                         .collection(USERS_COLLECTION)
-                        .document(user.currentBusinessOwner)
+                        .document(user.businessOwner)
                         .collection("business")
                         .document(businessId)
 
@@ -142,14 +138,7 @@ class BusinessRepository @Inject constructor(
                     employeeDao.deleteBusiness(businessId)
                     if (businessRemaining.isNotEmpty()){
                         businessRemaining.first().let {
-                            usersDao.updateCurrentBusiness(
-                                it.businessId,
-                                it.businessName,
-                                it.businessType,
-                                it.businessOwner,
-                                getCurrentUser()?.uid.toString(),
-                                it.businessStatus
-                            )
+                            usersDao.updateCurrentBusiness(it.businessId)
                         }
                         DeleteBusiness.Success.HasBusiness
                     }else{

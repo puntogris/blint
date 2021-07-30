@@ -122,14 +122,7 @@ class UserRepository @Inject constructor(
                 }
 
                 businesses.first().let {
-                    usersDao.updateCurrentBusiness(
-                        id = it.businessId,
-                        name = it.businessName,
-                        type = it.businessType,
-                        owner = it.businessOwner,
-                        currentUid = getCurrentUID(),
-                        status = it.businessStatus
-                    )
+                    usersDao.updateCurrentBusiness(it.businessId)
                 }
                 sharedPref.setShowNewUserScreenPref(false)
                 sharedPref.setLoginCompletedPref(true)

@@ -31,28 +31,19 @@ class MainRepository @Inject constructor(
     private val employeeDao: EmployeeDao
 ): IMainRepository {
 
-
     private val auth = FirebaseAuth.getInstance()
 
     private val firestore = Firebase.firestore
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
 
     override fun checkIfUserIsLogged() = auth.currentUser != null
 
-    override suspend fun updateCurrentBusiness(
-        id: String,
-        name: String,
-        type: String,
-        owner: String,
-        status: String
-    ) {
-        println(status)
-        usersDao.updateCurrentBusiness(id,name,type,owner, auth.currentUser?.uid.toString(), status)
+    override suspend fun updateCurrentBusiness(id: String) {
+        usersDao.updateCurrentBusiness(id)
     }
 
     override fun getCurrentUserFlow() = usersDao.getUserFlow()
-
 
     override fun getUserLiveDataRoom() = usersDao.getUserLiveData()
 
@@ -109,7 +100,7 @@ class MainRepository @Inject constructor(
         try {
             val user = currentBusiness()
             val events =
-                if (user.currentBusinessIsOnline()){
+                if (user.isBusinessOnline()){
                     val query = firestoreQueries.getEventsCollectionQuery(user).limit(3).get().await()
                     query.toObjects(Event::class.java)
                 }else{
@@ -135,7 +126,7 @@ class MainRepository @Inject constructor(
     @ExperimentalCoroutinesApi
     override suspend fun getBusinessCounterFlow(): Flow<BusinessCounters> = withContext(Dispatchers.IO) {
         val user = currentBusiness()
-        return@withContext if (user.currentBusinessIsOnline()){
+        return@withContext if (user.isBusinessOnline()){
             callbackFlow {
                 val ref = firestoreQueries.getBusinessCountersQuery(user).addSnapshotListener { doc, _ ->
                     if (doc != null) {

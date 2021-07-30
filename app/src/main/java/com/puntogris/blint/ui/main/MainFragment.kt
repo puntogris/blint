@@ -125,13 +125,13 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     private fun onMenuCardClicked(menuCard: MenuCard){
         if (menuCard.navigationId != R.id.accountPreferences &&
-            viewModel.currentUser.value.currentBusinessStatus != ENABLED){
+            viewModel.currentUser.value.businessStatus != ENABLED){
             showRequirePermissionsSnackBar()
         }else findNavController().navigate(menuCard.navigationId)
     }
 
     fun onAddEventClicked(){
-        if (viewModel.currentUser.value.currentBusinessStatus != ENABLED){
+        if (viewModel.currentUser.value.businessStatus != ENABLED){
             showRequirePermissionsSnackBar()
         }else findNavController().navigate(R.id.createEventFragment)
     }

@@ -10,16 +10,11 @@ import kotlin.time.milliseconds
 import kotlin.time.nanoseconds
 
 object Converters {
+    @JvmStatic
+    @TypeConverter
+    fun toTimestamp(dateLong: Long?): Timestamp? = dateLong?.let { Timestamp(Date(dateLong)) }
 
     @JvmStatic
     @TypeConverter
-    fun toTimestamp(dateLong: Long?): Timestamp? {
-        return dateLong?.let { Timestamp(Date(dateLong)) }
-    }
-
-    @JvmStatic
-    @TypeConverter
-    fun fromTimestamp(date: Timestamp?): Long? {
-        return date?.toDate()?.time
-    }
+    fun fromTimestamp(date: Timestamp?): Long? = date?.toDate()?.time
 }

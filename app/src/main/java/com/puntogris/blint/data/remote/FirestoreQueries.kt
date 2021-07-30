@@ -6,7 +6,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.model.Employee
 import com.puntogris.blint.utils.Constants.APP_VERSION
 import com.puntogris.blint.utils.Constants.BACKUP_PATH
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
@@ -26,9 +26,7 @@ import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.Constants.USERS_PATH
 import com.puntogris.blint.utils.Constants.WAS_READ_FIELD
 import com.puntogris.blint.utils.Util.getPathToUserReceivedNotifications
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class FirestoreQueries @Inject constructor(){
 
@@ -42,8 +40,8 @@ class FirestoreQueries @Inject constructor(){
 
     fun getCurrentUserEmail() = auth.currentUser?.email.toString()
 
-    fun getUserBusinessProductImagesQuery(user: RoomUser, imageName:String) =
-        storage.child("users/${user.currentBusinessOwner}/business/${user.currentBusinessId}/products_images/$imageName")
+    fun getUserBusinessProductImagesQuery(user: Employee, imageName:String) =
+        storage.child("users/${user.businessOwner}/business/${user.businessId}/products_images/$imageName")
 
     fun getUserLocalBusinessQuery() =
         firestore
@@ -82,33 +80,33 @@ class FirestoreQueries @Inject constructor(){
     fun deleteNotificationQuery() =
         firestore.collection(getPathToUserReceivedNotifications(currentUserId()))
 
-    fun getBusinessCollectionQuery(user: RoomUser) = firestore
+    private fun getBusinessCollectionQuery(business: Employee) = firestore
         .collection(USERS_COLLECTION)
-        .document(user.currentBusinessOwner)
+        .document(business.businessOwner)
         .collection(BUSINESS_COLLECTION)
-        .document(user.currentBusinessId)
+        .document(business.businessId)
 
-    fun getBusinessCountersQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("statistics").document("counters")
+    fun getBusinessCountersQuery(business: Employee) = getBusinessCollectionQuery(business).collection("statistics").document("counters")
 
-    fun getEventsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(EVENTS_COLLECTION)
+    fun getEventsCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(EVENTS_COLLECTION)
 
-    fun getProductsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(PRODUCTS_COLLECTION)
+    fun getProductsCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(PRODUCTS_COLLECTION)
 
-    fun getRecordsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(RECORDS_COLLECTION)
+    fun getRecordsCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(RECORDS_COLLECTION)
 
-    fun getClientsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(CLIENTS_COLLECTION)
+    fun getClientsCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(CLIENTS_COLLECTION)
 
-    fun getSuppliersCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(SUPPLIERS_COLLECTION)
+    fun getSuppliersCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(SUPPLIERS_COLLECTION)
 
-    fun getCategoriesCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(CATEGORIES_COLLECTION)
+    fun getCategoriesCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(CATEGORIES_COLLECTION)
 
-    fun getOrdersCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection(ORDERS_COLLECTION)
+    fun getOrdersCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection(ORDERS_COLLECTION)
 
-    fun getStatisticsCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("statistics")
+    fun getStatisticsCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection("statistics")
 
-    fun getDebtCollectionQuery(user: RoomUser) = getBusinessCollectionQuery(user).collection("debts")
+    fun getDebtCollectionQuery(business: Employee) = getBusinessCollectionQuery(business).collection("debts")
 
-    fun getRecordsWithTraderIdQuery(user: RoomUser, traderId: String) =
-        getRecordsCollectionQuery(user).whereEqualTo("traderId", traderId)
+    fun getRecordsWithTraderIdQuery(business: Employee, traderId: String) =
+        getRecordsCollectionQuery(business).whereEqualTo("traderId", traderId)
 
 }

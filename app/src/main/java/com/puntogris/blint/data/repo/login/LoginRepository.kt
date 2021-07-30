@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.FirestoreUser
-import com.puntogris.blint.model.RoomUser
+import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.AuthResult
@@ -53,28 +53,18 @@ class LoginRepository @Inject constructor(
 
     override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
         try {
-            println(user.uid)
             val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
             val userdata = document.toObject(UserData::class.java) ?: UserData()
-            println(document.get("name").toString())
-            //set user room
-            val roomUser = RoomUser(currentUid = user.uid)
-            println(userdata)
-            //new user
+            val roomUser = User(currentUid = user.uid)
+            usersDao.insert(roomUser)
+
             if (!document.exists()) {
-                usersDao.insert(roomUser)
                 firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
                 RegistrationData.NotFound
-            }//user created but no name or country data, uncompleted registration
-            else if (userdata.dataMissing()) {
-                println("missing")
-                usersDao.insert(roomUser)
-                RegistrationData.Incomplete
-            } else {
-                //user fully registered
-                usersDao.insert(roomUser)
-                RegistrationData.Complete(userdata)
             }
+            else if (userdata.dataMissing()) RegistrationData.Incomplete
+            else RegistrationData.Complete(userdata)
+
         }
         catch (e:Exception){ RegistrationData.Error }
     }

@@ -19,13 +19,13 @@ class CategoriesRepository @Inject constructor(
     private val categoriesDao: CategoriesDao
 ): ICategoriesRepository {
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
 
     override suspend fun deleteProductCategoryDatabase(categoryName: String): SimpleResult = withContext(
         Dispatchers.IO) {
         try {
             val user = currentBusiness()
-            if (user.currentBusinessIsOnline()) {
+            if (user.isBusinessOnline()) {
                 firestoreQueries.getCategoriesCollectionQuery(user)
                     .document("categories")
                     .update("categories", FieldValue.arrayRemove(categoryName.lowercase()))
@@ -43,11 +43,11 @@ class CategoriesRepository @Inject constructor(
             val user = currentBusiness()
             val categoryRef = firestoreQueries.getCategoriesCollectionQuery(user).document("categories")
 
-            if (user.currentBusinessIsOnline()) {
+            if (user.isBusinessOnline()) {
                 categoryRef.set(hashMapOf("categories" to FieldValue.arrayUnion(category.categoryName.lowercase())), SetOptions.merge()).await()
             }
             else {
-                category.businessId = user.currentBusinessId
+                category.businessId = user.businessId
                 categoriesDao.insert(category)
             }
             SimpleResult.Success
@@ -58,7 +58,7 @@ class CategoriesRepository @Inject constructor(
     override suspend fun getAllCategoriesDatabase(): RepoResult<List<Category>> = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            val data = if (user.currentBusinessIsOnline()){
+            val data = if (user.isBusinessOnline()){
                 val ref = firestoreQueries
                     .getCategoriesCollectionQuery(user).document("categories")
 

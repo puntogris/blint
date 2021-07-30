@@ -32,7 +32,7 @@ class DebtsRepository @Inject constructor(
     private val firestoreQueries: FirestoreQueries
 ): IDebtsRepository {
 
-    private suspend fun currentUser() = usersDao.getUser()
+    private suspend fun currentUser() = usersDao.getCurrentBusiness()
 
     private val firestore = Firebase.firestore
 
@@ -40,7 +40,7 @@ class DebtsRepository @Inject constructor(
         val user = currentUser()
         return try {
             val data =
-                if (user.currentBusinessIsOnline()){
+                if (user.isBusinessOnline()){
                     firestoreQueries.getDebtCollectionQuery(user)
                         .whereEqualTo("traderId", traderId)
                         .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -61,9 +61,9 @@ class DebtsRepository @Inject constructor(
             val debtRef = firestoreQueries.getDebtCollectionQuery(user)
             debt.debtId = debtRef.document().id
             debt.author = firestoreQueries.getCurrentUserEmail()
-            debt.businessId = user.currentBusinessId
+            debt.businessId = user.businessId
 
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestore.runBatch {
                     val updateCounterRef = firestoreQueries.getBusinessCountersQuery(user)
                     if (debt.type == "CLIENT"){
@@ -95,7 +95,7 @@ class DebtsRepository @Inject constructor(
 
     override suspend fun getBusinessDebtData(): BusinessDebtsData = withContext(Dispatchers.IO){
         val user = currentUser()
-        if (user.currentBusinessIsOnline()){
+        if (user.isBusinessOnline()){
             firestoreQueries.getBusinessCountersQuery(user)
                 .get().await().toObject(BusinessDebtsData::class.java) ?: BusinessDebtsData(0f,0f)
         }else{
@@ -111,7 +111,7 @@ class DebtsRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries.getDebtCollectionQuery(user)
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                 FirestoreDebtsPagingSource(query)
@@ -128,7 +128,7 @@ class DebtsRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries.getClientsCollectionQuery(user)
                     .whereNotEqualTo("debt", 0)
                 FirestoreClientsPagingSource(query)
@@ -145,7 +145,7 @@ class DebtsRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if(user.currentBusinessIsOnline()){
+            if(user.isBusinessOnline()){
                 val query = firestoreQueries.getSuppliersCollectionQuery(user)
                     .whereNotEqualTo("debt", 0)
                 FirestoreSuppliersPagingSource(query)

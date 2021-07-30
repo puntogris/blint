@@ -24,12 +24,12 @@ class StatisticRepository @Inject constructor(
 ): IStatisticRepository {
 
     val firestore = Firebase.firestore
-    suspend fun currentUser() = usersDao.getUser()
+    suspend fun currentUser() = usersDao.getCurrentBusiness()
 
     override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
-            val data = if (user.currentBusinessIsOnline()){
+            val data = if (user.isBusinessOnline()){
                 firestoreQueries.getClientsCollectionQuery(user)
                     .limit(500)
                     .get().await().toObjects(Client::class.java)
@@ -43,7 +43,7 @@ class StatisticRepository @Inject constructor(
     override suspend fun getAllProducts(): RepoResult<List<Product>> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
-            val data = if (user.currentBusinessIsOnline()){
+            val data = if (user.isBusinessOnline()){
                 firestoreQueries.getProductsCollectionQuery(user)
                     .limit(500)
                     .get().await().toObjects(Product::class.java)
@@ -57,7 +57,7 @@ class StatisticRepository @Inject constructor(
     override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
-            val data = if (user.currentBusinessIsOnline()){
+            val data = if (user.isBusinessOnline()){
                 firestoreQueries.getSuppliersCollectionQuery(user)
                     .limit(500)
                     .get().await().toObjects(Supplier::class.java)
@@ -71,7 +71,7 @@ class StatisticRepository @Inject constructor(
     override suspend fun getBusinessCounters(): RepoResult<BusinessCounters> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
-            val data = if (user.currentBusinessIsOnline()) {
+            val data = if (user.isBusinessOnline()) {
                 firestoreQueries.getBusinessCountersQuery(user)
                     .get().await().toObject(BusinessCounters::class.java) ?: BusinessCounters()
             }else{
@@ -84,7 +84,7 @@ class StatisticRepository @Inject constructor(
     override suspend fun getProductsReports(timeCode: String): RepoResult<List<ProductRecordExcel>> = withContext(Dispatchers.IO){
         val user = currentUser()
         try {
-            val data = if (user.currentBusinessIsOnline()) {
+            val data = if (user.isBusinessOnline()) {
                 val products = firestoreQueries.getProductsCollectionQuery(user)
                     .limit(500)
                     .get().await().toObjects(Product::class.java)

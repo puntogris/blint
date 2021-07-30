@@ -34,7 +34,7 @@ class SupplierRepository @Inject constructor(
 
     private val firestore = Firebase.firestore
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
 
     override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult = withContext(Dispatchers.IO){
         try {
@@ -43,12 +43,12 @@ class SupplierRepository @Inject constructor(
             val supplierRef = firestoreQueries.getSuppliersCollectionQuery(user)
             if (isNewSupplier){
                 supplier.apply {
-                    businessId = user.currentBusinessId
+                    businessId = user.businessId
                     supplierId = supplierRef.document().id
                 }
             }
 
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestore.runBatch {
                     it.set(supplierRef.document(supplier.supplierId), supplier)
                     if (isNewSupplier){
@@ -72,7 +72,7 @@ class SupplierRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if(user.currentBusinessIsOnline()){
+            if(user.isBusinessOnline()){
                 val query = firestoreQueries.getSuppliersCollectionQuery(user).orderBy("companyName", Query.Direction.ASCENDING)
                 FirestoreSuppliersPagingSource(query)
             }
@@ -83,7 +83,7 @@ class SupplierRepository @Inject constructor(
     override suspend fun deleteSupplierDatabase(supplierId: String): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val user = currentBusiness()
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestoreQueries.getSuppliersCollectionQuery(user)
                     .document(supplierId)
                     .delete()
@@ -103,7 +103,7 @@ class SupplierRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries.getRecordsWithTraderIdQuery(user, supplierId)
                 FirestoreRecordsPagingSource(query)
             }
@@ -119,7 +119,7 @@ class SupplierRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries
                     .getSuppliersCollectionQuery(user)
                     .whereArrayContains("search_name", name.lowercase())

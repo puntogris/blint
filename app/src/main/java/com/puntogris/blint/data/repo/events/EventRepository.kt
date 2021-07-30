@@ -21,7 +21,7 @@ class EventRepository @Inject constructor(
     private val firestoreQueries: FirestoreQueries
 ): IEventRepository {
 
-    private suspend fun currentUser() = usersDao.getUser()
+    private suspend fun currentUser() = usersDao.getCurrentBusiness()
 
     override suspend fun createEventDatabase(event: Event): SimpleResult = withContext(Dispatchers.IO){
         try {
@@ -29,9 +29,9 @@ class EventRepository @Inject constructor(
             val eventRef = firestoreQueries.getEventsCollectionQuery(user).document()
             event.apply {
                 eventId = eventRef.id
-                businessId = user.currentBusinessId
+                businessId = user.businessId
             }
-            if (user.currentBusinessIsOnline()) eventRef.set(event).await()
+            if (user.isBusinessOnline()) eventRef.set(event).await()
             else eventsDao.insert(event)
 
             SimpleResult.Success
@@ -46,7 +46,7 @@ class EventRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200)
         ) {
-            if(user.currentBusinessIsOnline()){
+            if(user.isBusinessOnline()){
                 val query = firestoreQueries.getEventsCollectionQuery(user)
 
                 if (filter == "ALL") FirestoreEventsPagingSource(query)
@@ -63,7 +63,7 @@ class EventRepository @Inject constructor(
     override suspend fun deleteEventDatabase(eventId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentUser()
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestoreQueries.getEventsCollectionQuery(user)
                     .document(eventId)
                     .delete()
@@ -75,7 +75,7 @@ class EventRepository @Inject constructor(
     override suspend fun updateEventStatusDatabase(event: Event): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val user = currentUser()
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 firestoreQueries.getEventsCollectionQuery(user).document(event.eventId).set(event)
             }else{ eventsDao.updateEvent(event) }
             SimpleResult.Success

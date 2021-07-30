@@ -5,8 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.paging.*
-import androidx.room.RoomDatabase
-import androidx.room.withTransaction
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -14,7 +12,6 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.local.AppDatabase
 import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreProductsPagingSource
 import com.puntogris.blint.data.remote.FirestoreQueries
@@ -28,8 +25,6 @@ import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -41,14 +36,13 @@ class ProductRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
     private val ordersDao: OrdersDao,
     private val firestoreQueries: FirestoreQueries,
-    private val suppliersDao: SuppliersDao,
     @ApplicationContext private val context: Context
 ): IProductRepository {
 
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
     private fun getCurrentUid() = auth.currentUser
 
     override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){
@@ -61,7 +55,7 @@ class ProductRepository @Inject constructor(
             if (isNewProduct){
                 product.product.apply {
                     productId = productRef.document().id
-                    businessId = user.currentBusinessId
+                    businessId = user.businessId
                     totalInStock = amount
                 }
             }
@@ -73,18 +67,18 @@ class ProductRepository @Inject constructor(
                 productName = product.product.name,
                 timestamp = Timestamp.now(),
                 author = getCurrentUid()?.email.toString(),
-                businessId = user.currentBusinessId,
+                businessId = user.businessId,
                 barcode = product.product.barcode,
                 totalInStock = product.product.amount,
                 sku = product.product.sku,
                 recordId = recordRef.document().id
             )
 
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 if (imageChanged){
                     product.product.image =
                     if (product.product.image.isNotEmpty()){
-                        val imageCompressedName = "${user.currentBusinessId}_${product.product.productId}"
+                        val imageCompressedName = "${user.businessId}_${product.product.productId}"
 //                        val compressedImageFile = Compressor.compress(context, File(imagePath)) {
 //                            resolution(544, 306)
 //                            quality(50)
@@ -141,7 +135,7 @@ class ProductRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if(user.currentBusinessIsOnline()){
+            if(user.isBusinessOnline()){
                 val query = firestoreQueries.getProductsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreProductsPagingSource(query)
             }
@@ -152,7 +146,7 @@ class ProductRepository @Inject constructor(
     override suspend fun deleteProductDatabase(productId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
 
                 firestore.runBatch {
                     it.delete(firestoreQueries.getProductsCollectionQuery(user).document(productId))
@@ -171,7 +165,7 @@ class ProductRepository @Inject constructor(
 
     override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        if(!user.currentBusinessIsOnline() && search is SearchText.Category){
+        if(!user.isBusinessOnline() && search is SearchText.Category){
             val ids = productsDao.getProductIdWithCategory(search.text)
             Pager(
                 PagingConfig(
@@ -188,7 +182,7 @@ class ProductRepository @Inject constructor(
                     maxSize = 200
                 )
             ) {
-                if (user.currentBusinessIsOnline()){
+                if (user.isBusinessOnline()){
                     val query =
                         when(search){
                             is SearchText.InternalCode -> {
@@ -227,7 +221,7 @@ class ProductRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries
                     .getRecordsCollectionQuery(user)
                     .whereEqualTo("productId", productId)
@@ -243,7 +237,7 @@ class ProductRepository @Inject constructor(
         try {
             val user = currentBusiness()
             val product:ProductWithSuppliersCategories? =
-                if (user.currentBusinessIsOnline()){
+                if (user.isBusinessOnline()){
                     val data = firestoreQueries
                         .getProductsCollectionQuery(user)
                         .whereEqualTo("barcode", barcode).limit(1).get().await()

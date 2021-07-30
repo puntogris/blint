@@ -9,6 +9,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.encoders.annotations.Encodable
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
+import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.Constants.ONLINE
 import kotlinx.parcelize.Parcelize
 
 @IgnoreExtraProperties
@@ -53,4 +55,6 @@ data class Employee(
         @ColumnInfo
         val lastStatusTimestamp: Timestamp = Timestamp.now()
 
-):Parcelable
+):Parcelable{
+        fun isBusinessOnline() = businessType == ONLINE
+}

@@ -33,7 +33,7 @@ import kotlin.math.absoluteValue
     private val ordersDao: OrdersDao
 ): IOrdersRepository {
 
-    private suspend fun currentBusiness() = usersDao.getUser()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
@@ -46,10 +46,10 @@ import kotlin.math.absoluteValue
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries
                     .getOrdersCollectionQuery(user)
-                    .whereEqualTo("businessId", user.currentBusinessId)
+                    .whereEqualTo("businessId", user.businessId)
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                 FirestoreOrdersPagingSource(query)
             }
@@ -65,10 +65,10 @@ import kotlin.math.absoluteValue
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.currentBusinessIsOnline()){
+            if (user.isBusinessOnline()){
                 val query = firestoreQueries
                     .getRecordsCollectionQuery(user)
-                    .whereEqualTo("businessId", user.currentBusinessId)
+                    .whereEqualTo("businessId", user.businessId)
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                 FirestoreRecordsPagingSource(query)
             }
@@ -81,9 +81,9 @@ import kotlin.math.absoluteValue
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
             order.order.author = auth.currentUser?.email.toString()
-            order.order.businessId = user.currentBusinessId
+            order.order.businessId = user.businessId
             order.order.orderId = orderRef.document().id
-            order.order.businessName = user.currentBusinessName
+            order.order.businessName = user.businessName
             val debtRef = firestoreQueries.getDebtCollectionQuery(user)
 
             if (order.debt != null){
@@ -118,7 +118,7 @@ import kotlin.math.absoluteValue
                     else rec.totalOutStock += rec.amount.absoluteValue
                 }
             }
-            if (user.currentBusinessIsOnline()) {
+            if (user.isBusinessOnline()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
                 countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
 
@@ -169,7 +169,7 @@ import kotlin.math.absoluteValue
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        if (user.currentBusinessIsOnline()){
+        if (user.isBusinessOnline()){
             val query =
                 firestoreQueries.getOrdersCollectionQuery(user)
                     .whereEqualTo("orderId", orderId).limit(1).get().await()
