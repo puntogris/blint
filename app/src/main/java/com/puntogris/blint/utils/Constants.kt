@@ -28,6 +28,7 @@ object Constants {
     const val CLIENT_DATA_KEY = "client_data_key"
     const val SUPPLIER_DATA_KEY = "supplier_data_key"
     const val PRODUCT_DATA_KEY = " product_data_key"
+    const val UPDATE_DEBT_KEY = "update_debt_key"
 
     //Product categories/ suppliers limit
     const val CATEGORIES_SUPPLIERS_LIMIT = 4

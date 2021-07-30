@@ -405,6 +405,11 @@
     <string name="supplier_or_client">Supplier/ Client:</string>
     <string name="order_needs_products">You need to add products.</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
+    <string name="order_value_discount_summary">A general discount of $%1$s was applied of the total value</string>
+    <string name="order_value_debt_client_summary">A debt of $%1$s was generated towards the supplier.</string>
+    <string name="order_value_debt_supplier_summary">A debt of $%1$s was generated against the client.</string>
+    <string name="order_value_debt_client_summary2">and a debt of $%1$s was generated towards the supplier.</string>
+    <string name="order_value_debt_supplier_summary2">and a debt of $%1$s was generated against the client.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
@@ -487,7 +492,7 @@
     <!-- Debt -->
     <string name="modify_debt_alert">*This value will be added / subtracted from the total value of the debt previously registered.</string>
     <string name="debt_value">Debt value</string>
-    <string name="total_debt_balance">Total debt balance:</string>
+    <string name="total_debt_balance">Total debt balance</string>
     <string name="last_debts">Last debts</string>
     <string name="snack_update_debt_error">An error occurred updating the debt.</string>
     <string name="snack_update_debt_success">Debt updated successfully.</string>

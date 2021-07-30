@@ -16,12 +16,32 @@
         android:background="@color/colorSecondary"
         tools:context=".ui.login.LoginProblemsFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            app:navigationIconTint="@color/white"
+            android:id="@+id/search_toolbar"
+            app:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/colorSecondary"
+            app:title="@string/help_label"
+            app:titleTextColor="@color/grey_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
         <TextView
             android:id="@+id/textView8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:text="@string/if_account_disabled"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
@@ -29,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
         <TextView
             android:id="@+id/textView20"

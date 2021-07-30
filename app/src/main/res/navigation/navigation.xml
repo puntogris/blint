@@ -443,8 +443,8 @@
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
                 app:destination="@id/publishOrderFragment"
-                app:popUpTo="@id/navigation"
-                app:popUpToInclusive="true" />
+                app:popUpTo="@id/detailedOrderGraphNav"
+                app:popUpToInclusive="false" />
         </fragment>
         <dialog
             android:id="@+id/addOrderClientSupplierBottomSheet"

@@ -40,7 +40,7 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), SetupUiListener {
+class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
     override fun register(showFab: Boolean,
                           showAppBar: Boolean,
@@ -48,18 +48,17 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
                           showFabCenter: Boolean,
                           @DrawableRes fabIcon: Int,
                           fabListener: View.OnClickListener?) {
-       binding.toolbar.visibility = if (showToolbar) View.VISIBLE else View.GONE
+        if (showToolbar) binding.toolbar.visible() else binding.toolbar.gone()
         if (showFab) {
             binding.fab.apply {
                 show()
-                changeIconFromDrawable(fabIcon)
-                setOnClickListener(fabListener)
+                setFabImageAndClickListener(fabIcon, fabListener)
             }
             binding.bottomAppBar.fabAlignmentMode =
                 if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 else BottomAppBar.FAB_ALIGNMENT_MODE_END
-
         } else binding.fab.hide()
+
         changeFabStateBottomSheet(showFab)
         if (showAppBar) {
             binding.bottomAppBar.visible()
@@ -93,7 +92,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
         binding.fab.changeIconFromDrawable(fabIcon)
     }
 
-    override fun setToolbarAndStatusBarColor(@ColorRes color:Int){
+    override fun setToolbarAndStatusBarColor(@ColorRes color: Int){
         ContextCompat.getColor(this, color).apply {
             window.statusBarColor = this
             binding.toolbar.setBackgroundColor(this)
@@ -106,17 +105,16 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
     }
 
     override fun showSnackBar(message: String, duration: Int, actionText: Int, action: View.OnClickListener?){
-        val snack = Snackbar.make(binding.root, message, duration)
-
-        snack.anchorView = when {
-            binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
-            binding.fab.isVisible -> binding.fab
-            binding.bottomAppBar.isVisible -> binding.bottomAppBar
-            else -> null
+        Snackbar.make(binding.root, message, duration).apply {
+            anchorView = when {
+                binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
+                binding.fab.isVisible -> binding.fab
+                binding.bottomAppBar.isVisible -> binding.bottomAppBar
+                else -> null
+            }
+            if (action != null) setAction(actionText, action)
+            show()
         }
-        if (action != null) snack.setAction(actionText, action)
-
-        snack.show()
     }
 
     private val viewModel: MainViewModel by viewModels()
@@ -227,10 +225,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
             navMenu != NavMenu.SETTINGS &&
             navMenu != NavMenu.NOTIFICATIONS &&
             viewModel.currentUser.value.currentBusinessStatus != ENABLED) {
-            Snackbar.make(binding.root, getString(R.string.action_require_permissions), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.read_more)){
+                showSnackBar(getString(R.string.action_require_permissions)){
                     launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-                }.show()
+                }
         }else{
             when(navMenu){
                 NavMenu.HOME -> R.id.mainFragment
@@ -272,7 +269,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main), S
 
     private fun setBottomAppBarForHome(@MenuRes menuRes: Int) {
         binding.run {
-            bottomAppBar.visibility = View.VISIBLE
+            bottomAppBar.visible()
             bottomAppBar.replaceMenu(menuRes)
             bottomAppBar.performShow()
         }

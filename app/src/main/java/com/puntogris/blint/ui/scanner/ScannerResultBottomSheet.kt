@@ -27,7 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ScannerResultBottomSheet(private val listener: DialogDismissListener): BaseBottomSheetFragment<ScannerResultDialogBinding>(R.layout.scanner_result_dialog) {
+class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
+    BaseBottomSheetFragment<ScannerResultDialogBinding>(R.layout.scanner_result_dialog) {
 
     private val viewModel: OrdersViewModel by viewModels()
     private var returnAndActivateCamera = true
@@ -52,15 +53,9 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
         viewModel.updateBarcodeScanned(scannedResult.toString())
         lifecycleScope.launch {
             when(val product = viewModel.getProductWithBarCode(scannedResult.toString())){
-                is RepoResult.Error -> {
-                    showProductNotFoundUI()
-                }
-                RepoResult.InProgress -> {
-
-                }
-                is RepoResult.Success -> {
-                    showProductUI(product.data)
-                }
+                is RepoResult.Error -> showProductNotFoundUI()
+                RepoResult.InProgress -> { }
+                is RepoResult.Success -> showProductUI(product.data)
             }
         }
     }
@@ -98,7 +93,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener): Bas
                         FirestoreRecord(
                             productId = viewModel.currentProduct.value!!.product.productId,
                             productName = viewModel.currentProduct.value!!.product.name,
-                            amount = if (orderType == IN) amount else -amount,
+                            amount = amount,
                             totalOutStock = viewModel.currentProduct.value!!.product.totalOutStock,
                             totalInStock = viewModel.currentProduct.value!!.product.totalInStock
                         )

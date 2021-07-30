@@ -195,7 +195,7 @@
     <string name="action_go_back_to_start">Volver al inicio</string>
     <string name="welcome_you">¡Hola terrícola!</string>
     <string name="start_your_business_in_blint">Empeza tu negocio\nen Blint</string>
-    <string name="take_your_business_with_you">Lleva tu negocio siempre con vos\nno pierdas ninguna oportunidad</string>
+    <string name="take_your_business_with_you">Lleva tu negocio siempre en el bolsillo\n así no te perdes ninguna oportunidad.</string>
     <string name="read_more">Leer más.</string>
     <string name="action_accept_terms_and_conditions">Acepto los términos y condiciones.</string>
     <string name="select_country">Seleccionar país</string>
@@ -361,7 +361,7 @@
     <!-- Orders -->
     <string name="select_supplier">Seleccionar Proveedor</string>
     <string name="select_client">Seleccionar Cliente</string>
-    <string name="ask_order_type_title">Que tipo de orden es?</string>
+    <string name="ask_order_type_title">Elige el tipo de orden</string>
     <string name="in_entry">Entrada</string>
     <string name="out_entry">Salida</string>
     <string name="order_type_alert">*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio.</string>
@@ -401,6 +401,11 @@
     <string name="supplier_or_client">Proveedor/ Cliente:</string>
     <string name="order_needs_products">Necesita agregar productos.</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
+    <string name="order_value_discount_summary">Se aplico un descuento general de %1$s$ ya deducido del valor final</string>
+    <string name="order_value_debt_client_summary">Se genero una deuda de %1$s$ a favor del proveedor.</string>
+    <string name="order_value_debt_supplier_summary">Se genero una deuda de %1$s$ en contra del cliente.</string>
+    <string name="order_value_debt_client_summary2">y se genero una deuda de %1$s$ a favor del proveedor.</string>
+    <string name="order_value_debt_supplier_summary2">y se genero una deuda de %1$s$ en contra del cliente.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -479,7 +484,7 @@
     <!-- Debt -->
     <string name="modify_debt_alert">*Este valor será sumado/ restado al valor total de la deuda previamente registrada.</string>
     <string name="debt_value">Valor deuda</string>
-    <string name="total_debt_balance">Balance total de deuda:</string>
+    <string name="total_debt_balance">Balance total de deuda</string>
     <string name="last_debts">Últimas deudas</string>
     <string name="snack_update_debt_error">Ocurrió un error al actualizar la deuda.</string>
     <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
@@ -528,8 +533,8 @@
     <string name="sync_cancel_warning">Cerrar esta ventana cancelará la sincronizacion.</string>
     <string name="snack_sync_account_cancelled">Sincronización cancelada</string>
     <string name="out_of_sync_label">Sincronización</string>
-    <string name="read_more_sync">Te invitamos a leer mas sobre sincronizaciones.</string>
-    <string name="out_of_sync_message">Notamos que tu cuenta esta no esta sincronizada con nuestras bases de datos.</string>
+    <string name="read_more_sync">Leer más sobre sincronizaciones.</string>
+    <string name="out_of_sync_message">Notamos que tu cuenta no esta sincronizada con nuestras bases de datos.</string>
     <string name="out_of_sync_title">Cuenta no sincronizada</string>
 
     <!-- Tickets -->

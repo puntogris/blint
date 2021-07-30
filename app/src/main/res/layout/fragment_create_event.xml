@@ -41,6 +41,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eventTitleText"
                 android:layout_width="match_parent"
+                android:maxLength="30"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:singleLine="true" />
@@ -66,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:lines="4"
+                android:maxLength="200"
                 android:maxLines="4" />
 
         </com.google.android.material.textfield.TextInputLayout>

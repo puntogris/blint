@@ -37,7 +37,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
                 joinBusinessWithCode(text)
             }
         }
-        (requireActivity() as SetupUiListener).setBottomAppBarInvisible()
+        UiInterface.setBottomAppBarInvisible()
 
         onBackStackLiveData<String>(PRODUCT_BARCODE_KEY){
             joinBusinessWithCode(it)
@@ -59,7 +59,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     }
 
     private fun joinBusinessWithCode(code:String){
-        (requireActivity() as SetupUiListener).hideFab()
+        UiInterface.hideFab()
         binding.setDataGroup.gone()
         binding.animationView.visible()
         binding.summaryMessage.visible()

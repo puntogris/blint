@@ -1,7 +1,9 @@
 package com.puntogris.blint.model
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 
+@Keep
 data class Business(
     var businessId: String = "",
     val businessName: String = "",

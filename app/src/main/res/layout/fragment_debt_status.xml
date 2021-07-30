@@ -13,49 +13,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.debt.DebtStatusFragment">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView5"
+            style="@style/Theme.Blint.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            style="@style/Theme.Blint.CardView"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView181"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="sans-serif-black"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-black"
                     android:text="@string/total_debt_balance"
+                    android:textSize="18sp"
                     tools:layout_editor_absoluteX="116dp"
                     tools:layout_editor_absoluteY="99dp" />
 
                 <TextView
                     android:id="@+id/textView184"
-                    android:textSize="18sp"
-                    android:textAlignment="viewEnd"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/card6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1"
-                    tools:text="154$"
-                    tools:ignore="RtlCompat" />
+                    android:fontFamily="sans-serif-black"
+                    android:textAlignment="viewEnd"
+                    android:textSize="18sp"
+                    tools:ignore="RtlCompat"
+                    tools:text="154$" />
 
             </LinearLayout>
 

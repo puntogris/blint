@@ -48,14 +48,14 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
-                        (requireActivity() as SetupUiListener)
+                        UiInterface
                             .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24){
                                 navigateToEditProductFragment()
                             }
                     }
                     else -> {
-                        (requireActivity() as SetupUiListener)
-                            .setFabImageAndClickListener(fabListener = {showOrderPickerAndNavigate(args.product?.product)})
+                        UiInterface
+                            .setFabImageAndClickListener{ showOrderPickerAndNavigate(args.product?.product) }
                     }
                 }
             }

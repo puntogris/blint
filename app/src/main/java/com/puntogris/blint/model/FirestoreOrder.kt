@@ -1,9 +1,11 @@
 package com.puntogris.blint.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class FirestoreOrder(
     var orderId: String = "",

@@ -52,7 +52,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun setupBadgeListener(){
         launchAndRepeatWithViewLifecycle {
             viewModel.getUnreadNotificationsCount().collect {
-                (requireActivity() as SetupUiListener).updateBadge(it)
+                UiInterface.updateBadge(it)
             }
         }
     }

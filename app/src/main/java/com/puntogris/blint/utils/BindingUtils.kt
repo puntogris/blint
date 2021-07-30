@@ -27,6 +27,7 @@ import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
 import com.puntogris.blint.utils.Constants.TO_DELETE
 import java.util.*
+import kotlin.math.absoluteValue
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String){
@@ -121,12 +122,10 @@ fun TextView.setCapitalizeWord(text:String){
     this.text = text.split(" ").joinToString(" ") { it.capitalizeFirstChar() }
 }
 
-
 @BindingAdapter("numberToMoneyString")
 fun TextView.setNumberToMoneyString(number: Float){
     text = context.getString(R.string.amount_normal, number.toMoneyFormatted())
 }
-
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
@@ -135,19 +134,27 @@ fun TextView.setClientOrSupplierTitleWithRecordType(type:String){
         else context.getString(R.string.client_label)
 }
 
+
 @BindingAdapter("totalOrderWithDetails")
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords){
-    var data = context.getString(R.string.amount_normal, order.order.value.toMoneyFormatted())
-    if (order.order.discount != 0F){
-        data += " / ${context.getString(R.string.discount_abbreviation)}: " +
-                context.getString(R.string.amount_normal, order.order.discount.toMoneyFormatted())
-    }
-    if (order.debt != null){
+    var data = ""
 
-        data += " / ${context.getString(R.string.debt_label).lowercase()}: " +
-                context.getString(R.string.amount_normal, order.debt?.amount?.toMoneyFormatted())
+    if (order.order.discount != 0F){
+        data += context.getString(R.string.order_value_discount_summary, order.order.discount.toMoneyFormatted())
     }
-    text = data
+
+    if (order.debt != null){
+        val debt = order.debt?.amount?.absoluteValue?.toMoneyFormatted()
+        if (data.isBlank()) {
+            data = if (order.order.type == IN) context.getString(R.string.order_value_debt_supplier_summary, debt)
+            else context.getString(R.string.order_value_debt_client_summary, debt)
+        }else{
+            data += if (order.order.type == IN) " " + context.getString(R.string.order_value_debt_supplier_summary2, debt)
+            else " " + context.getString(R.string.order_value_debt_client_summary2, debt)
+        }
+    } else {if (order.order.discount != 0F) data += "."}
+
+    if (data.isEmpty()) gone() else text = data
 }
 
 @BindingAdapter("dateFromTimestampWithTime")
@@ -186,11 +193,8 @@ fun TextView.setDeletionTimestamp(timestamp: Timestamp?){
 
 @BindingAdapter("recordType")
 fun View.setRecordType(type:String){
-    if (type == IN || type == INITIAL){
-        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
-    }else{
-        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card1, null))
-    }
+    val color = if (type == IN || type == INITIAL) R.color.card6 else R.color.card1
+    setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
 }
 
 @BindingAdapter("externalChipName")
@@ -262,7 +266,6 @@ fun ImageView.setNotificationImage(uri:String){
 @BindingAdapter("timeSinceCreated")
 fun TextView.setTimeSinceCreated(timestamp: Timestamp){
     val minutes = ((Timestamp.now().seconds - timestamp.seconds) / 60).toInt()
-    println(minutes)
     text =
         when {
             minutes in 0..1 -> context.getString(R.string.minute_notif, minutes)
@@ -333,12 +336,6 @@ fun TextView.setBusinessStatus(status: String){
     }
 }
 
-@BindingAdapter("valueToMoneyString")
-fun TextView.setValueToMoneyString(value: Float){
-    text = context.getString(R.string.amount_normal, value.toMoneyFormatted())
-}
-
-
 @BindingAdapter("productOrderPrices")
 fun TextView.setProductOrderPrices(product: ProductWithRecord){
     text = if (product.record.type == IN){ product.product.buyPrice.toMoneyFormatted()
@@ -352,7 +349,6 @@ fun TextView.setProductOrderPricesTitle(record:Record){
     text = context.getString(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
 
 }
-
 
 @BindingAdapter("productRecordPriceEntry")
 fun TextView.setProductRecordPriceEntry(product: ProductWithRecord){

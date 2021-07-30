@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/record_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView80" />
@@ -44,7 +44,7 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/author"
             app:layout_constraintStart_toStartOf="@+id/textView76"
             app:layout_constraintTop_toBottomOf="@+id/textView76" />
@@ -54,12 +54,9 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:text="@{viewModel.order.order.author}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView77"
-            app:layout_constraintTop_toBottomOf="@+id/textView77"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView77" />
 
         <TextView
             android:id="@+id/textView79"
@@ -67,7 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
             android:text="@string/type"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +83,7 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/value"
             app:layout_constraintStart_toStartOf="@+id/textView78"
             app:layout_constraintTop_toBottomOf="@+id/textView78" />
@@ -95,12 +91,9 @@
         <TextView
             android:id="@+id/textView83"
             style="@style/Theme.Blint.DataTextView"
-            totalOrderWithDetails="@{viewModel.order}"
-            android:layout_width="match_parent"
+            numberToMoneyString="@{viewModel.order.order.value}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView82"
             app:layout_constraintTop_toBottomOf="@+id/textView82" />
 
@@ -110,10 +103,10 @@
             clientOrSupplierTitleWithRecordType="@{viewModel.order.order.type}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/textView78"
-            app:layout_constraintTop_toBottomOf="@+id/textView83" />
+            app:layout_constraintTop_toBottomOf="@+id/textView203" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
@@ -184,14 +177,27 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button24"
+            style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            style="@style/Theme.Blint.Button"
+            android:layout_marginBottom="24dp"
             android:onClick="@{()->fragment.onGenerateOrderReceiptClicked()}"
             android:text="@string/generate_receipt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView203"
+            android:layout_width="0dp"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            totalOrderWithDetails="@{viewModel.order}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView82"
+            app:layout_constraintTop_toBottomOf="@+id/textView83" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

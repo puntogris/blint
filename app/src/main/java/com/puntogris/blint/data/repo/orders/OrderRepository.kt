@@ -80,7 +80,6 @@ import kotlin.math.absoluteValue
         val user = currentBusiness()
         try {
             val orderRef = firestoreQueries.getOrdersCollectionQuery(user)
-
             order.order.author = auth.currentUser?.email.toString()
             order.order.businessId = user.currentBusinessId
             order.order.orderId = orderRef.document().id

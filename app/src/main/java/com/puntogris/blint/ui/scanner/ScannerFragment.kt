@@ -104,7 +104,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 camera = cameraProvider?.bindToLifecycle(
                         this, cameraSelector, imageAnalysis, preview)
                 if (camera!!.cameraInfo.hasFlashUnit()) {
-                    (requireActivity() as SetupUiListener)
+                    UiInterface
                         .setFabImageAndClickListener(R.drawable.ic_baseline_flash_off_24){
                             camera?.cameraControl?.enableTorch(!flashEnabled)
                         }
@@ -113,10 +113,10 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                         it?.let { torchState ->
                             if (torchState == TorchState.ON) {
                                 flashEnabled = true
-                                (requireActivity() as SetupUiListener).setFabImage(R.drawable.ic_baseline_flash_on_24)
+                                UiInterface.setFabImage(R.drawable.ic_baseline_flash_on_24)
                             } else {
                                 flashEnabled = false
-                                (requireActivity() as SetupUiListener).setFabImage(R.drawable.ic_baseline_flash_on_24)
+                                UiInterface.setFabImage(R.drawable.ic_baseline_flash_on_24)
                             }
                         }
                     }

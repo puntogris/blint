@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
+import androidx.annotation.Keep
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
@@ -28,13 +29,13 @@ class NewOrderViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _order = MutableStateFlow(Order())
-    val order:LiveData<Order> = _order.asLiveData()
+    val order: LiveData<Order> = _order.asLiveData()
     var productWithRecords = mutableListOf<ProductWithRecord>()
 
     private var debt :FirestoreDebt? = null
 
     fun updateOrderDebt(amount: Float){
-        debt = FirestoreDebt(amount = amount)
+        debt = FirestoreDebt(amount = -amount)
     }
 
     fun updateOrderDiscount(amount: Float){

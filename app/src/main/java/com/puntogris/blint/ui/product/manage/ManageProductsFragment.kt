@@ -1,13 +1,22 @@
 package com.puntogris.blint.ui.product.manage
 
 import android.Manifest
+import android.media.Image
+import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.ListPopupWindow
+import androidx.core.widget.PopupWindowCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Slide
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
@@ -31,7 +40,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
     private var searchJob: Job? = null
 
     override fun initializeViews() {
-
         UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editProductFragment)
         }
@@ -122,7 +130,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 binding.productSearch.setText(it)
             }
         }
-
     }
 
     fun onCategoryClicked(){

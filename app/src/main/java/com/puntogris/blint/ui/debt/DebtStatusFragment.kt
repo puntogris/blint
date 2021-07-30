@@ -11,6 +11,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.SUPPLIER
+import com.puntogris.blint.utils.Constants.UPDATE_DEBT_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,10 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         launchAndRepeatWithViewLifecycle {
             if (args.client != null){
                 args.client?.let {
-                    binding.textView184.text = getString(R.string.amount_normal, it.debt.toMoneyFormatted())
+                    it.debt.let {
+
+                    }
+                    binding.textView184.setDebtColor(it.debt)
                     when(val debts = viewModel.getLastDebts(it.clientId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -40,7 +44,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                 }
             }else {
                 args.supplier?.let {
-                    binding.textView184.text = getString(R.string.amount_normal, it.debt.toMoneyFormatted())
+                    binding.textView184.setDebtColor(it.debt)
                     when(val debts = viewModel.getLastDebts(it.supplierId)){
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
@@ -51,6 +55,21 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                 }
             }
         }
+
+        onBackStackLiveData<Float>(UPDATE_DEBT_KEY){ deb->
+            if (args.client != null){
+                args.client?.let { client ->
+                    binding.textView184.setDebtColor(client.debt + deb)
+                    client.debt += deb
+                }
+            }else{
+                args.supplier?.let { sup ->
+                    binding.textView184.setDebtColor(sup.debt + deb)
+                    sup.debt += deb
+                }
+            }
+        }
+
     }
 
     private fun setUpDebtsRecyclerView(debts: List<Debt>){

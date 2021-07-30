@@ -38,12 +38,10 @@ interface DebtsDao {
     suspend fun updateSupplierDebt(supplierId: String, amount: Float)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt > 0")
+    @Query("SELECT * FROM client INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
     fun getClientDebtsPaged(): PagingSource<Int, Client>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt > 0")
+    @Query("SELECT * FROM supplier INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")
     fun getSupplierDebtsPaged(): PagingSource<Int, Supplier>
-
-
 }

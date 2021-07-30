@@ -10,6 +10,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -44,14 +45,6 @@
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="textNoSuggestions"
                     android:autofillHints="@string/auto_fill_hint_search_product" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/actionBarItemBackground"
-                    android:padding="16dp"
-                    app:srcCompat="@drawable/ic_baseline_more_vert_24"
-                    android:contentDescription="@string/more_image" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

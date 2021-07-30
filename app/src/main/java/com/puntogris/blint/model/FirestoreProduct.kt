@@ -1,8 +1,10 @@
 package com.puntogris.blint.model
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import java.util.*
 
+@Keep
 data class FirestoreProduct(
     val productId: String = "",
     val name: String = "",

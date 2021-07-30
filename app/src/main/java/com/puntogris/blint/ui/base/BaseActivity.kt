@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import com.puntogris.blint.R
+import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.ui.nav.NavigationAdapter
 import com.puntogris.blint.utils.getNavHostFragment
 
@@ -16,7 +17,8 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
     AppCompatActivity(),
     NavController.OnDestinationChangedListener,
     Toolbar.OnMenuItemClickListener,
-    NavigationAdapter.NavigationAdapterListener {
+    NavigationAdapter.NavigationAdapterListener,
+    SetupUiListener {
 
     private var _binding : T? = null
     val binding get() = _binding!!
@@ -41,9 +43,7 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
             && getNavHostFragment().childFragmentManager.backStackEntryCount == 0
             && supportFragmentManager.backStackEntryCount == 0) {
             finishAfterTransition()
-        } else {
-            super.onBackPressed()
-        }
+        } else super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

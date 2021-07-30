@@ -23,7 +23,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
     private val viewModel:OperationsViewModel by viewModels()
 
     override fun initializeViews() {
-        (requireActivity() as SetupUiListener).register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             if (binding.productsAffectedText.text.isNullOrBlank())
               //  showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
             else if (!listOf(binding.buyPriceCheckBox, binding.sellPriceCheckBox, binding.suggestedPriceCheckBox).any {

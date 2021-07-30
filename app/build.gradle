@@ -16,14 +16,15 @@ android {
         applicationId "com.puntogris.blint"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 12
+        versionCode 19
         versionName "1.0.0"
         resConfigs "en", "es"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    ndkVersion '22.1.7171670'
     buildTypes {
         release {
+            ndk.debugSymbolLevel 'FULL'
             minifyEnabled true
             shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -181,6 +182,5 @@ dependencies {
     implementation 'com.github.afreakyelf:Pdf-Viewer:1.0.7'
     implementation 'com.github.tejpratap46:PDFCreatorAndroid:2.2.1'
     implementation 'com.rubensousa:decorator:2.0.0'
-
 
 }

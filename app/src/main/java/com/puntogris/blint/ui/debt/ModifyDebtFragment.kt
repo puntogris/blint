@@ -9,6 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentModifyDebtBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.UPDATE_DEBT_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,15 +24,14 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
             onSaveDebtClicked()
         }
         binding.debtTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))
+        binding.debtTypeText.setOnFocusChangeListener { _, _ -> hideKeyboard() }
     }
 
     private fun onSaveDebtClicked(){
         lifecycleScope.launch {
-            if(binding.debtTypeText.getString() == "-"){
-                args.debt.amount = -binding.debtAmountText.getFloat()
-            }else{
-                args.debt.amount = binding.debtAmountText.getFloat()
-            }
+            args.debt.amount =
+                if (binding.debtTypeText.getString() == "-") -binding.debtAmountText.getFloat()
+                else binding.debtAmountText.getFloat()
 
             when(viewModel.registerNewDebt(args.debt)){
                 SimpleResult.Failure -> {
@@ -39,7 +39,10 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
                 }
                 SimpleResult.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_debt_success))
-                    findNavController().navigateUp()
+                    findNavController().apply {
+                        previousBackStackEntry!!.savedStateHandle.set(UPDATE_DEBT_KEY, args.debt.amount)
+                        popBackStack()
+                    }
                 }
             }
         }

@@ -1,9 +1,11 @@
 package com.puntogris.blint.model
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
+@Keep
 class Notification(
     val id: String = "",
     val title: String = "",
