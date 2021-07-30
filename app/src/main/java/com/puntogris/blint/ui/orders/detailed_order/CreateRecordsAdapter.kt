@@ -33,11 +33,6 @@ class CreateRecordsAdapter(
     private lateinit var recyclerView: RecyclerView
     var animationPlaybackSpeed: Double = 0.8
 
-    private val listItemHorizontalPadding: Float by bindDimen(context, R.dimen.list_item_horizontal_padding)
-    private val listItemVerticalPadding: Float by bindDimen(context, R.dimen.list_item_vertical_padding)
-
-    private var isScaledDown = false
-
     init {
         submitList(recordsList)
     }
@@ -68,7 +63,6 @@ class CreateRecordsAdapter(
         holder.bind(recordsList[position], amountListener)
 
         expandItem(holder, getItem(position) == expandedModel, animate = false)
-  //      scaleDownItem(holder, position, isScaledDown)
 
         holder.binding.cardContainer.setOnClickListener {
             when (expandedModel) {
@@ -95,53 +89,6 @@ class CreateRecordsAdapter(
                 }
             }
         }
-    }
-
-//    fun getScaleDownAnimator(isScaledDown: Boolean): ValueAnimator {
-//        val lm = recyclerView.layoutManager as LinearLayoutManager
-//
-//        val animator = getValueAnimator(isScaledDown,
-//            duration = 300L, interpolator = AccelerateDecelerateInterpolator()
-//        ) { progress ->
-//
-//            // Get viewHolder for all visible items and animate attributes
-//            for (i in lm.visibleItemsRange) {
-//                val holder = recyclerView.findViewHolderForLayoutPosition(i) as RecordItemViewHolder
-//                setScaleDownProgress(holder, i, progress)
-//            }
-//        }
-//
-//        // Set adapter variable when animation starts so that newly binded views in
-//        // onBindViewHolder will respect the new size when they come into the screen
-//        animator.doOnStart { this.isScaledDown = isScaledDown }
-//
-//        // For all the non visible items in the layout manager, notify them to adjust the
-//        // view to the new size
-//        animator.doOnEnd {
-//            repeat(lm.itemCount) { if (it !in lm.visibleItemsRange) notifyItemChanged(it) }
-//        }
-//        return animator
-//    }
-
-    private fun setScaleDownProgress(holder: OrderItemViewHolder, position: Int, progress: Float) {
-        val itemExpanded = position >= 0 && getItem(position) == expandedModel
-        holder.binding.cardContainer.layoutParams.apply {
-            width = ((if (itemExpanded) expandedWidth else originalWidth) * (1 - 0.1f * progress)).toInt()
-            height = ((if (itemExpanded) expandedHeight else originalHeight) * (1 - 0.1f * progress)).toInt()
-        }
-        holder.binding.cardContainer.requestLayout()
-
-        holder.binding.scaleContainer.scaleX = 1 - 0.05f * progress
-        holder.binding.scaleContainer.scaleY = 1 - 0.05f * progress
-
-        holder.binding.scaleContainer.setPadding(
-            (listItemHorizontalPadding * (1 - 0.2f * progress)).toInt(),
-            (listItemVerticalPadding * (1 - 0.2f * progress)).toInt(),
-            (listItemHorizontalPadding * (1 - 0.2f * progress)).toInt(),
-            (listItemVerticalPadding * (1 - 0.2f * progress)).toInt()
-        )
-
-        //holder.listItemFg.alpha = progress
     }
 
     override fun onViewAttachedToWindow(holder: OrderItemViewHolder) {
@@ -184,11 +131,6 @@ class CreateRecordsAdapter(
         }
     }
 
-    /** Convenience method for calling from onBindViewHolder */
-    private fun scaleDownItem(holder: OrderItemViewHolder, position: Int, isScaleDown: Boolean) {
-        setScaleDownProgress(holder, position, if (isScaleDown) 1f else 0f)
-    }
-
     private val originalWidth = context.screenWidth - 16.dp
     private val expandedWidth = context.screenWidth - 0.dp
 
@@ -200,7 +142,6 @@ class CreateRecordsAdapter(
         holder.binding.cardContainer.layoutParams.width =
             (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
 
-        //holder.binding.cardView.setBackgroundColor(blendColors(originalBg, expandedBg, progress))
         holder.binding.cardContainer.requestLayout()
         holder.binding.chevron.rotation = 90 * progress
     }

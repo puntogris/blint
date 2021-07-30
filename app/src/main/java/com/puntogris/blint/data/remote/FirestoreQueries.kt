@@ -25,7 +25,6 @@ import com.puntogris.blint.utils.Constants.TYPE_FIELD
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.Constants.USERS_PATH
 import com.puntogris.blint.utils.Constants.WAS_READ_FIELD
-import com.puntogris.blint.utils.Util.getPathToUserReceivedNotifications
 import javax.inject.Inject
 
 class FirestoreQueries @Inject constructor(){
@@ -35,6 +34,9 @@ class FirestoreQueries @Inject constructor(){
 
     private fun currentUserId() = auth.currentUser?.uid.toString()
     private val storage =  Firebase.storage.reference
+
+    fun getPathToUserReceivedNotifications(uid:String) =
+        "${USERS_COLLECTION}/$uid/${NOTIFICATIONS_SUB_COLLECTION}"
 
     fun getUserBackupStorageQuery() = storage.child("$USERS_PATH/${currentUserId()}/${BACKUP_PATH}_$APP_VERSION")
 

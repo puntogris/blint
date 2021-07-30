@@ -255,6 +255,19 @@ fun TextView.setDebtColor(amount: Float){
     }
 }
 
+@BindingAdapter("debtColorWithLimit")
+fun TextView.setDebtColorWithLimit(amount: Float){
+    val newAmount = if (amount > 1000000) (amount / 1000000).toMoneyFormatted() + "M." else amount.toMoneyFormatted()
+    if (amount >= 0){
+        text = context.getString(R.string.amount_debt_positive, newAmount)
+        setTextColor(ContextCompat.getColor(context, R.color.card6))
+    }else{
+        text = context.getString(R.string.amount_normal, newAmount)
+        setTextColor(ContextCompat.getColor(context, R.color.card1))
+    }
+}
+
+
 @BindingAdapter("notificationImage")
 fun ImageView.setNotificationImage(uri:String){
     Glide.with(context)

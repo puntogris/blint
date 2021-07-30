@@ -16,7 +16,6 @@ import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
-import com.puntogris.blint.utils.Util.isTimeStampExpired
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -76,7 +75,7 @@ class UserRepository @Inject constructor(
                 .limit(1)
                 .get().await()
 
-            if (lastBusinessCode.isEmpty || isTimeStampExpired(lastBusinessCode.first().getTimestamp("timestamp")!!)){
+            if (lastBusinessCode.isEmpty || lastBusinessCode.first().getTimestamp("timestamp")!!.is10MinutesOld()){
                 val newBusinessCode = codeRef.document()
                 val newJoinCode = JoinCode(newBusinessCode.id, timestamp = Timestamp.now(), businessId, getCurrentUID())
                 newBusinessCode.set(newJoinCode).await()
@@ -97,7 +96,6 @@ class UserRepository @Inject constructor(
                     .get().await()
 
             if(userData != null){
-                usersDao.updateUserNameCountry(userData.name, userData.country)
                 firestore
                     .collection(USERS_COLLECTION)
                     .document(getCurrentUID())

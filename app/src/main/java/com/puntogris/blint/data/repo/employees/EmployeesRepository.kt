@@ -9,12 +9,12 @@ import com.puntogris.blint.data.local.dao.EmployeeDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.JoinCode
 import com.puntogris.blint.ui.SharedPref
-import com.puntogris.blint.utils.Constants
-import com.puntogris.blint.utils.JoinBusiness
-import com.puntogris.blint.utils.SimpleResult
-import com.puntogris.blint.utils.Util
+import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
+import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -40,12 +40,12 @@ class EmployeesRepository @Inject constructor(
             val userData = employeeDao.getBusinessUserRole(employee.businessId)
             if (
                 userData.businessOwner == getCurrentUserId() &&
-                userData.businessType == Constants.ONLINE
+                userData.isBusinessOnline()
             ){
                 firestore
-                    .collection(Constants.USERS_COLLECTION)
+                    .collection(USERS_COLLECTION)
                     .document(employee.businessOwner)
-                    .collection(Constants.BUSINESS_COLLECTION)
+                    .collection(BUSINESS_COLLECTION)
                     .document(employee.businessId)
                     .collection("employees")
                     .document(employee.employeeId)
@@ -71,19 +71,21 @@ class EmployeesRepository @Inject constructor(
                 JoinBusiness.CodeInvalid
             }else{
                 val joinCode = joinCodes.first().toObject(JoinCode::class.java)
-                val businesses = employeeDao.getEmployeesList().map { it.businessId }
-                if (joinCode.ownerId == getCurrentUserId() || joinCode.businessId in businesses){
-                    JoinBusiness.AlreadyJoined
-                }else if(Util.isTimeStampExpired(joinCode.timestamp)){
+                if (joinCode.ownerId == getCurrentUserId() ||
+                    joinCode.businessId in employeeDao.getBusinessIdsList()){
+                        JoinBusiness.AlreadyJoined
+                }else if(joinCode.timestamp.is10MinutesOld()){
                     JoinBusiness.CodeInvalid
                 }else{
-                    val username = usersDao.getUser().username
                     val employee = firestore.runTransaction {
-                        val businessRef = firestore.collection(Constants.USERS_COLLECTION)
+                        val userRef = firestore.collection(USERS_COLLECTION).document(getCurrentUserId())
+
+                        val businessRef = firestore.collection(USERS_COLLECTION)
                             .document(joinCode.ownerId)
-                            .collection(Constants.BUSINESS_COLLECTION)
+                            .collection(BUSINESS_COLLECTION)
                             .document(joinCode.businessId)
 
+                        val user = it.get(userRef).toObject(FirestoreUser::class.java)!!
                         val business = it.get(businessRef).toObject(Business::class.java)
 
                         if (business != null){
@@ -96,14 +98,14 @@ class EmployeesRepository @Inject constructor(
                                 businessOwner = business.owner,
                                 businessType = business.type,
                                 role = "EMPLOYEE",
-                                name = username,
+                                name = user.name,
                                 businessCreatedAt = business.businessCreatedAt,
                                 businessStatus = business.status
                             )
 
                             val employeeRef =
                                 firestore
-                                    .collection(Constants.USERS_COLLECTION)
+                                    .collection(USERS_COLLECTION)
                                     .document(joinCode.ownerId)
                                     .collection(Constants.BUSINESS_COLLECTION)
                                     .document(joinCode.businessId)
@@ -115,9 +117,8 @@ class EmployeesRepository @Inject constructor(
                         }else null
                     }.await()
 
-                    if (employee == null){
-                        JoinBusiness.Error
-                    }else{
+                    if (employee == null) JoinBusiness.Error
+                    else{
                         sharedPref.setShowNewUserScreenPref(false)
                         employeeDao.insert(employee)
                         usersDao.updateCurrentBusiness(employee.businessId)

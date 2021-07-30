@@ -43,7 +43,6 @@ class BusinessRepository @Inject constructor(
 
     override suspend fun registerLocalBusiness(businessName: String): SimpleResult = withContext(Dispatchers.IO) {
         try {
-            val user = usersDao.getUser()
             val employeeId = getCurrentUser()?.uid.toString()
             val ref = firestore
                 .collection(USERS_COLLECTION)
@@ -64,7 +63,6 @@ class BusinessRepository @Inject constructor(
                 businessName = businessName,
                 businessType = LOCAL,
                 businessOwner = employeeId,
-                name = user.username,
                 role = ADMINISTRATOR,
                 employeeId = employeeId,
                 email = getCurrentUser()?.email.toString(),
@@ -73,14 +71,15 @@ class BusinessRepository @Inject constructor(
 
             val result =
                 firestore.runTransaction { transition->
-                val data = transition.get(userRef)
-                val counter = data.get("businessesCounter").toString().toIntOrNull() ?: 0
-                if(counter < 10){
-                    transition.set(ref.document(refId), business)
-                    transition.update(userRef,"businessesCounter",FieldValue.increment(1))
-                    transition.set(ref.document(refId).collection("employees").document(getCurrentUser()?.uid.toString()), employee)
-                    SimpleResult.Success
-                }else SimpleResult.Failure
+                    val data = transition.get(userRef)
+                    employee.name = data.get("name").toString()
+                    val counter = data.get("businessesCounter").toString().toIntOrNull() ?: 0
+                    if(counter < 10){
+                        transition.set(ref.document(refId), business)
+                        transition.update(userRef,"businessesCounter",FieldValue.increment(1))
+                        transition.set(ref.document(refId).collection("employees").document(employeeId), employee)
+                        SimpleResult.Success
+                    }else SimpleResult.Failure
             }.await()
 
             if (result is SimpleResult.Success){

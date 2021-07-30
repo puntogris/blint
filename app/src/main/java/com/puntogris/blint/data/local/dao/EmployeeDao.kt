@@ -31,6 +31,10 @@ interface EmployeeDao {
     @Query("SELECT * FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getEmployeesList(): List<Employee>
 
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT businessId FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
+    suspend fun getBusinessIdsList(): List<String>
+
     @Query("SELECT COUNT(*) FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getCount(): Int
 

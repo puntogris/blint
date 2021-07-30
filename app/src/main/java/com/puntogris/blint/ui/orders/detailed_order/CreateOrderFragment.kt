@@ -158,6 +158,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
     }
 
     private fun deleteListener(productWithRecord: ProductWithRecord){
+        viewModel.productWithRecords.remove(productWithRecord)
         UiInterface.showSnackBar(getString(R.string.product_deleted), actionText = R.string.action_undo){
             recordsAdapter.addProductWithRecord(productWithRecord)
             onDataChanged()

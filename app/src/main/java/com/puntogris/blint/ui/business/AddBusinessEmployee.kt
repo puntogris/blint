@@ -27,6 +27,8 @@ class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.l
             when(val result = viewModel.fetchJoiningCode(args.business.businessId)){
                 is RepoResult.Error -> {
                     binding.loadingGroup.gone()
+                    binding.addEmployeeTitle.text = getString(R.string.snack_an_error_occurred)
+                    binding.addEmployeeSummary.text = getString(R.string.snack_error_connection_server_try_later)
                 }
                 is RepoResult.Success -> {
                     binding.loadedGroup.visible()

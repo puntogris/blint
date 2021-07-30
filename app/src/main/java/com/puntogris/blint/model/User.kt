@@ -6,19 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-
         @PrimaryKey(autoGenerate = false)
-        val userId:String = "1",
+        val userId: String = "1",
 
         @ColumnInfo
-        var country: String = "",
+        val currentUid: String = "",
 
         @ColumnInfo
-        var username:String = "",
-
-        @ColumnInfo
-        val currentUid:String = "",
-
-        @ColumnInfo
-        val currentBusinessId:String = ""
+        val currentBusinessId: String = ""
 )

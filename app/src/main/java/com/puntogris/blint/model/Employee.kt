@@ -26,7 +26,7 @@ data class Employee(
         var businessId: String = "",
 
         @ColumnInfo
-        val name: String = "",
+        var name: String = "",
 
         @ColumnInfo
         val businessName: String = "",

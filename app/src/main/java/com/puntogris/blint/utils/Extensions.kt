@@ -278,8 +278,8 @@ fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolea
     val bitmap = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.RGB_565)
 
     val darkThemeOn = isDarkThemeOn()
-    val background = if (isPdf) getQrCodeWithTheme(false) else getQrCodeWithTheme(darkThemeOn)
-    val qrCode = if (isPdf) getQrCodeWithTheme(true) else getQrCodeWithTheme(darkThemeOn)
+    val background = if (isPdf) getQrCodeWithTheme(false, isPdf = true) else getQrCodeWithTheme(darkThemeOn)
+    val qrCode = if (isPdf) getQrCodeWithTheme(true) else getQrCodeWithTheme(!darkThemeOn)
 
     for (x in 0 until widthB) {
         for (y in 0 until heightB) {
@@ -289,9 +289,13 @@ fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolea
     return bitmap
 }
 
-fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean): Int{
-    return if (darkThemeOn) ContextCompat.getColor(requireContext(), R.color.nightBackground)
-    else ContextCompat.getColor(requireContext(), R.color.grey_5)
+fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): Int{
+    val color = if (darkThemeOn) R.color.nightBackground
+    else{
+        if (isPdf) R.color.white
+        else R.color.grey_3
+    }
+    return ContextCompat.getColor(requireContext(), color)
 }
 
 fun String.capitalizeFirstChar() =
@@ -303,3 +307,5 @@ fun <T>Fragment.onBackStackLiveData(key:String, observer: Observer<T>){
 
 inline val Fragment.UiInterface: SetupUiListener
     get() = (requireActivity() as SetupUiListener)
+
+fun Timestamp.is10MinutesOld() = Timestamp.now().seconds - seconds >= 600 //10 minutes
