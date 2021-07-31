@@ -3,6 +3,7 @@ package com.puntogris.blint.data.repo.business
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.local.dao.EmployeeDao
@@ -10,6 +11,7 @@ import com.puntogris.blint.data.local.dao.StatisticsDao
 import com.puntogris.blint.data.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.JoinCode
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
@@ -21,7 +23,9 @@ import com.puntogris.blint.utils.Constants.ONLINE
 import com.puntogris.blint.utils.Constants.TO_DELETE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DeleteBusiness
+import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.is10MinutesOld
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -37,7 +41,7 @@ class BusinessRepository @Inject constructor(
     val firestore = Firebase.firestore
     val auth = FirebaseAuth.getInstance()
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     private fun getCurrentUser() = auth.currentUser
 
@@ -84,7 +88,7 @@ class BusinessRepository @Inject constructor(
 
             if (result is SimpleResult.Success){
                 employeeDao.insert(employee)
-                usersDao.updateCurrentBusiness(business.businessId)
+                usersDao.updateUserCurrentBusiness(business.businessId)
                 statisticsDao.insert(Statistic(businessId = refId))
                 sharedPref.setShowNewUserScreenPref(false)
             }
@@ -134,10 +138,10 @@ class BusinessRepository @Inject constructor(
                         it.update(userRef,"businessesCounter", FieldValue.increment(-1))
                     }
 
-                    employeeDao.deleteBusiness(businessId)
+                    employeeDao.deleteEmployeeWithBusinessId(businessId)
                     if (businessRemaining.isNotEmpty()){
                         businessRemaining.first().let {
-                            usersDao.updateCurrentBusiness(it.businessId)
+                            usersDao.updateUserCurrentBusiness(it.businessId)
                         }
                         DeleteBusiness.Success.HasBusiness
                     }else{
@@ -149,6 +153,33 @@ class BusinessRepository @Inject constructor(
         }catch (e:Exception){
             DeleteBusiness.Failure
         }
+    }
+
+    override suspend fun generateJoiningCode(businessId: String): RepoResult<JoinCode> = withContext(Dispatchers.IO){
+        try {
+            val uid = getCurrentUser()?.uid.toString()
+            val codeRef =
+                firestore
+                    .collection(USERS_COLLECTION)
+                    .document(uid)
+                    .collection("business")
+                    .document(businessId)
+                    .collection("join_codes")
+
+            val lastBusinessCode = codeRef.orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(1)
+                .get().await()
+
+            if (lastBusinessCode.isEmpty || lastBusinessCode.first().getTimestamp("timestamp")!!.is10MinutesOld()){
+                val newBusinessCode = codeRef.document()
+                val newJoinCode = JoinCode(newBusinessCode.id, timestamp = Timestamp.now(), businessId, uid)
+                newBusinessCode.set(newJoinCode).await()
+                RepoResult.Success(newJoinCode)
+            }else{
+                val lastCode = lastBusinessCode.first().toObject(JoinCode::class.java)
+                RepoResult.Success(lastCode)
+            }
+        }catch (e:Exception){ RepoResult.Error(e) }
     }
 
 }

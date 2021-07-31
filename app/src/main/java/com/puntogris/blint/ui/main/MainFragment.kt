@@ -32,7 +32,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
 
     @ExperimentalTime
     override fun initializeViews() {
-        UiInterface.register(showFab = false)
+        UiInterface.apply {
+            register(showFab = false)
+            setToolbarAndStatusBarColor(R.color.colorSecondary)
+            setDarkStatusBar()
+        }
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel

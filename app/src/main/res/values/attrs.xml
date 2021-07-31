@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomButtonIconArrows">
-        <attr name="startOpen" format="boolean"/>
-    </declare-styleable>
-    <declare-styleable name="RallyLineGraphChart">
-        <attr name="barColor" format="color"/>
-        <attr name="curveBorderColor" format="color"/>
-        <attr name="curveFillColor" format="color"/>
-        <attr name="curveTopMargin" format="dimension"/>
-    </declare-styleable>
-    <declare-styleable name="RallyScrollableTab">
-        <attr name="selectedColor" format="color"/>
-        <attr name="unSelectedColor" format="color"/>
-        <attr name="tabTextAppearance" format="reference"/>
-    </declare-styleable>
-
     <attr name="bottomSheetDayNight" format="color" />
 
     <!--A variant of primarySurface which corresponds to colorPrimaryVariant in light theme-->

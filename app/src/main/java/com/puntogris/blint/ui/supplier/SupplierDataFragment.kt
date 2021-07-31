@@ -16,6 +16,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,10 +32,8 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        arguments?.takeIf { it.containsKey(SUPPLIER_DATA_KEY) }?.apply {
-            getParcelable<Supplier>(SUPPLIER_DATA_KEY)?.let {
-                viewModel.setSupplierData(it)
-            }
+        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY){
+            viewModel.setSupplierData(it)
         }
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}

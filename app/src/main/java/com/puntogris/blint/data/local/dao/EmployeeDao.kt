@@ -22,10 +22,7 @@ interface EmployeeDao {
     }
 
     @Query("DELETE FROM employee where businessId = :businessId")
-    suspend fun deleteBusiness(businessId: String)
-
-    @Update
-    suspend fun update(employee: Employee)
+    suspend fun deleteEmployeeWithBusinessId(businessId: String)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
@@ -35,10 +32,6 @@ interface EmployeeDao {
     @Query("SELECT businessId FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
     suspend fun getBusinessIdsList(): List<String>
 
-    @Query("SELECT COUNT(*) FROM employee INNER JOIN user ON employeeId = currentUid WHERE userId = '1'")
-    suspend fun getCount(): Int
-
     @Query("SELECT * FROM employee WHERE businessId = :businessId LIMIT 1")
-    suspend fun getBusinessUserRole(businessId: String): Employee
-
+    suspend fun getEmployeeWithBusinessId(businessId: String): Employee
 }

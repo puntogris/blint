@@ -3,14 +3,14 @@
     <style name="Theme.Blint" parent="Base.Theme.Blint">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/colorSecondary</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorSecondaryVariant">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="colorSurface">#121212</item>
+        <item name="colorSurface">@color/almostBlack</item>
         <item name="android:statusBarColor">@color/nightBackground</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>

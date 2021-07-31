@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.fragment_edit_client) {
 
-    private val viewModel:ClientViewModel by viewModels()
-    private val args:EditClientFragmentArgs by navArgs()
+    private val viewModel: ClientViewModel by viewModels()
+    private val args: EditClientFragmentArgs by navArgs()
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 

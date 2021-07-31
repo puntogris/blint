@@ -16,6 +16,8 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BUSINESS_COLLECTION
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -37,7 +39,7 @@ class EmployeesRepository @Inject constructor(
     override suspend fun deleteEmployeeFromBusiness(employee: Employee): SimpleResult = withContext(
         Dispatchers.IO){
         try {
-            val userData = employeeDao.getBusinessUserRole(employee.businessId)
+            val userData = employeeDao.getEmployeeWithBusinessId(employee.businessId)
             if (
                 userData.businessOwner == getCurrentUserId() &&
                 userData.isBusinessOnline()
@@ -107,7 +109,7 @@ class EmployeesRepository @Inject constructor(
                                 firestore
                                     .collection(USERS_COLLECTION)
                                     .document(joinCode.ownerId)
-                                    .collection(Constants.BUSINESS_COLLECTION)
+                                    .collection(BUSINESS_COLLECTION)
                                     .document(joinCode.businessId)
                                     .collection("employees")
                                     .document(employee.employeeId)
@@ -121,7 +123,7 @@ class EmployeesRepository @Inject constructor(
                     else{
                         sharedPref.setShowNewUserScreenPref(false)
                         employeeDao.insert(employee)
-                        usersDao.updateCurrentBusiness(employee.businessId)
+                        usersDao.updateUserCurrentBusiness(employee.businessId)
                         JoinBusiness.Success
                     }
                 }
@@ -129,5 +131,17 @@ class EmployeesRepository @Inject constructor(
         }catch (e:Exception){ JoinBusiness.Error }
     }
 
-    override suspend fun getEmployeeWithBusinessId(businessId: String) = employeeDao.getBusinessUserRole(businessId)
+    override suspend fun getEmployeeWithBusinessId(businessId: String) = employeeDao.getEmployeeWithBusinessId(businessId)
+
+    override fun getBusinessEmployees(businessId:String): StateFlow<UserBusiness> =
+        MutableStateFlow<UserBusiness>(UserBusiness.InProgress).also { result->
+            firestore.collectionGroup("employees").whereEqualTo("businessId", businessId).get()
+                .addOnSuccessListener {
+                    if (!it.documents.isNullOrEmpty()){
+                        result.value = UserBusiness.Success(it.toObjects(Employee::class.java))
+                    } else result.value = UserBusiness.NotFound
+                }
+                .addOnFailureListener { result.value = UserBusiness.Error(it) }
+        }
+
 }

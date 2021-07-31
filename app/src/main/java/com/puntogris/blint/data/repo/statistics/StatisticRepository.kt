@@ -4,8 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.local.dao.StatisticsDao
-import com.puntogris.blint.data.local.dao.UsersDao
+import com.puntogris.blint.data.local.dao.*
 import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.RepoResult
@@ -19,12 +18,14 @@ import kotlin.math.absoluteValue
 
 class StatisticRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
+    private val clientsDao: ClientsDao,
+    private val suppliersDao: SuppliersDao,
     private val usersDao: UsersDao,
     private val firestoreQueries: FirestoreQueries
 ): IStatisticRepository {
 
     val firestore = Firebase.firestore
-    suspend fun currentUser() = usersDao.getCurrentBusiness()
+    suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(Dispatchers.IO){
         val user = currentUser()
@@ -34,7 +35,7 @@ class StatisticRepository @Inject constructor(
                     .limit(500)
                     .get().await().toObjects(Client::class.java)
             }else{
-                statisticsDao.getAllClients()
+                clientsDao.getAllClients()
             }
             RepoResult.Success(data)
         }catch (e:Exception){ RepoResult.Error(e) }
@@ -62,7 +63,7 @@ class StatisticRepository @Inject constructor(
                     .limit(500)
                     .get().await().toObjects(Supplier::class.java)
             }else{
-                statisticsDao.getAllSuppliers()
+                suppliersDao.getAllSuppliers()
             }
             RepoResult.Success(data)
         }catch (e:Exception){ RepoResult.Error(e) }

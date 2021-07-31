@@ -14,13 +14,13 @@ interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(statistics: List<Statistic>)
 
-    @Query("SELECT * FROM statistic")
-    suspend fun getStatistic(): List<Statistic>
+    @Query("SELECT businessId FROM statistic")
+    suspend fun getBusinessIdsFromStatisticOnDb(): List<String>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAccountStatistic(statistics: List<Statistic>){
-        val db = getStatistic().map { it.businessId }
+        val db = getBusinessIdsFromStatisticOnDb()
         statistics.forEach { stat ->
             if (!db.contains(stat.businessId)) insert(stat)
         }
@@ -55,14 +55,6 @@ interface StatisticsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getAllProducts(): List<Product>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
-    suspend fun getAllClients(): List<Client>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
-    suspend fun getAllSuppliers(): List<Supplier>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")

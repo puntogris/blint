@@ -42,7 +42,7 @@ class ProductRepository @Inject constructor(
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
     private fun getCurrentUid() = auth.currentUser
 
     override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){

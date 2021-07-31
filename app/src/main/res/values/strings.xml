@@ -127,6 +127,7 @@
     <string name="snack_the_text_cant_contain_special_chars">The text field can not contain special characters.</string>
     <string name="snack_text_min_max_length">The text field has to be at between 3 and 15 characters in length.</string>
     <string name="action_require_permissions">No permission to perform this action.</string>
+    <string name="snack_action_success">The task was carried out satisfactorily.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">Do yo want to delete this business?</string>
@@ -172,6 +173,7 @@
     <string name="on_delete">Deleting</string>
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
+    <string name="empty_businesses_message">Nothing was found here, we invite you to create a new business or join an existing one.</string>
 
     <!-- Category-->
     <string name="rename_category">Rename category</string>
@@ -311,7 +313,7 @@
     <string name="name">Name</string>
     <string name="type">Type</string>
     <string name="billing">Billing</string>
-    <string name="members">Members</string>
+    <string name="members">Team members</string>
     <string name="information">Information</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
@@ -423,8 +425,8 @@
     <string name="create_backup_summary_pref">Your entire businesses are backed up in the cloud</string>
     <string name="restore_backup_pref">Restore from backup</string>
     <string name="restore_backup_summary_pref">Your business is restored from the cloud</string>
-    <string name="my_information_pref">My information</string>
-    <string name="my_businesses_pref">My businesses</string>
+    <string name="my_information_pref">Information</string>
+    <string name="my_businesses_pref">Businesses</string>
     <string name="billing_pref">Billing</string>
     <string name="privacy_pref">Privacy</string>
     <string name="sign_out_pref">Log out</string>
@@ -582,7 +584,7 @@
     <!-- Business Tiers -->
     <string name="local_business_price">$ 0.00 / mes - Gratis</string>
     <string name="local_business_point_1">Lives locally in your device.</string>
-    <string name="local_business_point_2">One member only.</string>
+    <string name="local_business_point_2">One team member only.</string>
     <string name="local_business_point_3">Create invoices in pdf and reports in excel.</string>
     <string name="local_business_point_4">Access product, clients, suppliers and more..</string>
 

@@ -19,7 +19,7 @@ class CategoriesRepository @Inject constructor(
     private val categoriesDao: CategoriesDao
 ): ICategoriesRepository {
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun deleteProductCategoryDatabase(categoryName: String): SimpleResult = withContext(
         Dispatchers.IO) {

@@ -80,18 +80,11 @@ interface OrdersDao {
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
     suspend fun getStatistics(): Statistic
 
-
     @Query("UPDATE statistic SET totalOrders = totalOrders + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1') ")
     suspend fun incrementTotalOrders()
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
-
-    @Update
-    suspend fun update(record: Record)
-
-    @Query("SELECT COUNT(*) FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
-    suspend fun getCount(): Int
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")

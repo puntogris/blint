@@ -32,16 +32,15 @@
             android:layout_marginEnd="24dp"
             android:textSize="17sp"
             android:fontFamily="sans-serif-black"
-            android:text="No se encontro nada por aqui, te invitamos a crear un nuevo negocio o unirte a uno ya existente."
+            android:text="@string/empty_businesses_message"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <com.google.android.material.button.MaterialButton
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:id="@+id/button13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <com.google.android.material.button.MaterialButton
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
+            style="@style/Theme.Blint.Button"
             android:id="@+id/button14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +67,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layoutAnimation="@anim/layout_anim_slide_up"
+            android:paddingBottom="?actionBarSize"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

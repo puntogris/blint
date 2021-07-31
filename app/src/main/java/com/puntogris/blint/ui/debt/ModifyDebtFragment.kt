@@ -21,10 +21,15 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
 
     override fun initializeViews() {
         UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
-            onSaveDebtClicked()
+            if (binding.debtAmountText.getString().toFloatOrNull() != null &&
+                binding.debtAmountText.getFloat() > 0){
+                    onSaveDebtClicked()
+            } else UiInterface.showSnackBar(getString(R.string.snack_amount_cant_be_empty))
         }
-        binding.debtTypeText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))
-        binding.debtTypeText.setOnFocusChangeListener { _, _ -> hideKeyboard() }
+        binding.debtTypeText.apply {
+            setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))
+            setOnFocusChangeListener { _, _ -> hideKeyboard() }
+        }
     }
 
     private fun onSaveDebtClicked(){
@@ -34,9 +39,7 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
                 else binding.debtAmountText.getFloat()
 
             when(viewModel.registerNewDebt(args.debt)){
-                SimpleResult.Failure -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
-                }
+                SimpleResult.Failure ->  UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
                 SimpleResult.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_debt_success))
                     findNavController().apply {

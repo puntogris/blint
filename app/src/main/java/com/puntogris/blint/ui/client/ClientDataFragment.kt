@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.client
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -16,6 +18,7 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,18 +29,24 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        arguments?.takeIf { it.containsKey(CLIENT_DATA_KEY) }?.apply {
-            getParcelable<Client>(CLIENT_DATA_KEY)?.let {
-                viewModel.setClientData(it)
-            }
+        binding.let {
+            it.fragment = this
+            it.viewModel = viewModel
+            it.lifecycleOwner = viewLifecycleOwner
         }
+
+        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY){
+            viewModel.setClientData(it)
+        }
+
         setupContactPermissions()
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val resultMessage =
+                if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
+                else R.string.snack_an_error_occurred
+            UiInterface.showSnackBar(getString(resultMessage))
+        }
     }
 
     private fun setupContactPermissions(){

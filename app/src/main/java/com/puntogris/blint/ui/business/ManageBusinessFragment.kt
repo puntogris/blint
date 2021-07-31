@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.business
 
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
 
     private val viewModel: BusinessViewModel by viewModels()
-    private lateinit var businessAdapter: ManageBusinessAdapter
 
     override fun initializeViews() {
         UiInterface.register()
@@ -30,10 +30,11 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
 
     private fun onBusinessFoundUi(employees: List<Employee>){
         binding.progressBar.gone()
+        val businessAdapter = ManageBusinessAdapter{ onBusinessClicked(it) }
         binding.recyclerView.apply {
-            businessAdapter = ManageBusinessAdapter{onBusinessClicked(it)}
             adapter = businessAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            scheduleLayoutAnimation()
             businessAdapter.submitList(employees)
         }
     }
@@ -61,8 +62,10 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     }
 
     private fun onBusinessEmptyUi(){
-        binding.progressBar.gone()
-        binding.businessEmptyUi.visible()
+        binding.apply {
+            progressBar.gone()
+            businessEmptyUi.visible()
+        }
     }
 
     fun onCreateNewBusinessClicked(){

@@ -21,7 +21,7 @@ class EventRepository @Inject constructor(
     private val firestoreQueries: FirestoreQueries
 ): IEventRepository {
 
-    private suspend fun currentUser() = usersDao.getCurrentBusiness()
+    private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun createEventDatabase(event: Event): SimpleResult = withContext(Dispatchers.IO){
         try {

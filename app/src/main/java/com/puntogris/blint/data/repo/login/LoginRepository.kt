@@ -44,10 +44,14 @@ class LoginRepository @Inject constructor(
         }
 
     override suspend fun signOutUser() = withContext(Dispatchers.IO){
-        employeeDao.deleteAll()
-        auth.signOut()
-        sharedPref.setShowNewUserScreenPref(true)
-        sharedPref.setLoginCompletedPref(false)
+        try {
+            employeeDao.deleteAll()
+            sharedPref.setShowNewUserScreenPref(true)
+            sharedPref.setLoginCompletedPref(false)
+            auth.signOut()
+        }catch (e:Exception){
+            //handle
+        }
     }
 
 

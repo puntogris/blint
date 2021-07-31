@@ -50,11 +50,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/new_user_title"
-            android:textSize="22sp"
             android:textColor="@color/grey_5"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +116,21 @@
             app:layout_constraintTop_toBottomOf="@+id/materialCardView4"
             app:srcCompat="@drawable/ic_man_running"
             android:contentDescription="@string/image" />
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:padding="8dp"
+            app:tint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:foreground="?selectableItemBackground"
+            android:onClick="@{()-> fragment.onLogOutClicked()}"
+            android:contentDescription="@string/close_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_close_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

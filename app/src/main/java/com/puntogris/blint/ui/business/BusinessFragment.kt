@@ -32,7 +32,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         launchAndRepeatWithViewLifecycle {
             viewModel.getBusinessEmployees(args.employee.businessId).collect {
                 when(it){
-                    is UserBusiness.Error -> UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+                    is UserBusiness.Error -> UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
                     UserBusiness.InProgress -> binding.progressBar.visible()
                     UserBusiness.NotFound -> onDataNotFound()
                     is UserBusiness.Success -> onDataFound(it.data)
@@ -40,7 +40,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
             }
         }
 
-        if (args.employee.businessType == LOCAL){
+        if (!args.employee.isBusinessOnline()){
             binding.textView103.gone()
             binding.cardView2.gone()
         }
@@ -59,7 +59,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     }
 
     private fun onDataNotFound(){
-
+        UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
     }
 
     private fun onDataFound(data:List<Employee>){

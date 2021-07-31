@@ -10,32 +10,34 @@ import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
+import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.layout.fragment_supplier_records) {
 
-    private val viewModel:SupplierViewModel by viewModels()
+    private val viewModel: SupplierViewModel by viewModels()
 
     override fun initializeViews() {
-        val productsRecordsAdapter = RecordsAdapter { onRecordClickListener(it) }
-        binding.recyclerView.adapter = productsRecordsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val recordsAdapter = RecordsAdapter { onRecordClickListener(it) }
 
-        arguments?.takeIf { it.containsKey(SUPPLIER_DATA_KEY) }?.apply {
-            getParcelable<Supplier>(SUPPLIER_DATA_KEY)?.let {
-                lifecycleScope.launchWhenStarted {
-                    viewModel.getSupplierRecords(it.supplierId).collect {
-                        productsRecordsAdapter.submitData(it)
-                    }
+        binding.recyclerView.apply {
+            adapter = recordsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY){
+            lifecycleScope.launchWhenStarted {
+                viewModel.getSupplierRecords(it.supplierId).collect {
+                    recordsAdapter.submitData(it)
                 }
             }
         }
     }
 
     private fun onRecordClickListener(record: Record){
-        val supplierFragment = requireParentFragment() as SupplierFragment
-        supplierFragment.navigateToInfoRecord(record)
+        (requireParentFragment() as SupplierFragment).navigateToInfoRecord(record)
     }
 }

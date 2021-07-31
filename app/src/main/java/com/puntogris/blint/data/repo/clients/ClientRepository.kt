@@ -16,7 +16,6 @@ import com.puntogris.blint.data.remote.FirestoreQueries
 import com.puntogris.blint.data.remote.FirestoreRecordsPagingSource
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +33,7 @@ class ClientRepository @Inject constructor(
 
     private val firestore = Firebase.firestore
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun saveClientDatabase(client: Client): SimpleResult = withContext(Dispatchers.IO){
         try {

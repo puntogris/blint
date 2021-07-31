@@ -35,17 +35,15 @@ class MainRepository @Inject constructor(
 
     private val firestore = Firebase.firestore
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     override fun checkIfUserIsLogged() = auth.currentUser != null
 
     override suspend fun updateCurrentBusiness(id: String) {
-        usersDao.updateCurrentBusiness(id)
+        usersDao.updateUserCurrentBusiness(id)
     }
 
     override fun getCurrentUserFlow() = usersDao.getUserFlow()
-
-    override fun getUserLiveDataRoom() = usersDao.getUserLiveData()
 
     override suspend fun getBusinessListRoom() = employeeDao.getEmployeesList()
 
@@ -65,24 +63,6 @@ class MainRepository @Inject constructor(
             awaitClose { ref.remove() }
         }
 
-
-
-    @ExperimentalCoroutinesApi
-    suspend fun getBusinessaesStatus(): Flow<RepoResult<List<Employee>>>  = callbackFlow {
-        val ref = firestore.collectionGroup("employees")
-            .whereEqualTo("employeeId", auth.currentUser?.uid.toString())
-            .addSnapshotListener { value, error ->
-
-                if (value != null){
-                    val businesses = value.toObjects(Employee::class.java)
-                    businesses.removeIf { it.businessStatus == "DELETED" }
-                    trySend(RepoResult.Success(businesses))
-                }else{
-                    if (error != null) trySend(RepoResult.Error(error))
-                }
-            }
-        awaitClose { ref.remove() }
-    }
 
     override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
         try {

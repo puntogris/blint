@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusinessViewModel @Inject constructor(
-    private val userRepository: UserRepository,
     private val businessRepository: BusinessRepository,
     private val employeesRepository: EmployeesRepository
 ): ViewModel() {
@@ -27,11 +26,11 @@ class BusinessViewModel @Inject constructor(
 
     suspend fun getBusiness() = employeesRepository.getEmployeeListRoom()
 
-    fun getBusinessEmployees(businessId:String) = userRepository.getBusinessEmployees(businessId)
+    fun getBusinessEmployees(businessId:String) = employeesRepository.getBusinessEmployees(businessId)
 
     suspend fun hasUserOwnerPermissions(businessId: String) = employeesRepository.getEmployeeWithBusinessId(businessId)
 
-    suspend fun fetchJoiningCode(businessId: String) = userRepository.generateJoiningCode(businessId)
+    suspend fun fetchJoiningCode(businessId: String) = businessRepository.generateJoiningCode(businessId)
 
     fun codeExpirationCountDown(timestamp: Timestamp){
         val lastCodeTime = timestamp.seconds
@@ -55,11 +54,12 @@ class BusinessViewModel @Inject constructor(
     suspend fun createEmployee(code:String) = employeesRepository.createEmployeeWithCode(code)
 
     override fun onCleared() {
-        if(expirationTimer == null) expirationTimer?.cancel()
+        expirationTimer?.cancel()
         super.onCleared()
     }
 
-    suspend fun deleteBusiness(businessId: String) = businessRepository.deleteBusinessDatabase(businessId)
+    suspend fun deleteBusiness(businessId: String) =
+        businessRepository.deleteBusinessDatabase(businessId)
 
     suspend fun deleteEmployeeFromBusiness(employee:Employee) =
         employeesRepository.deleteEmployeeFromBusiness(employee)

@@ -20,10 +20,10 @@ class LoginViewModel @Inject constructor(
     suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser): RegistrationData {
         return loginRepository.checkUserDataInFirestore(
                 FirestoreUser(
-                firebaseUser.uid,
-                firebaseUser.displayName.toString(),
-                firebaseUser.photoUrl.toString(),
-                firebaseUser.email.toString()
+                uid = firebaseUser.uid,
+                name = firebaseUser.displayName.toString(),
+                imageUrl = firebaseUser.photoUrl.toString(),
+                email = firebaseUser.email.toString()
                 )
         )
     }

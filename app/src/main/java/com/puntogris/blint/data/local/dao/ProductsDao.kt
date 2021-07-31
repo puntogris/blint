@@ -1,6 +1,5 @@
 package com.puntogris.blint.data.local.dao
 
-import android.app.Service
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
@@ -33,22 +32,13 @@ interface ProductsDao {
 
     }
 
-    @Update
-    suspend fun update(product: Product)
-
-    @Query("DELETE FROM product WHERE productId = :id")
-    suspend fun delete(id: String)
-
-    @Query("SELECT * FROM product WHERE productId = :id ")
-    suspend fun getProduct(id: String): Product
+    @Query("DELETE FROM product WHERE productId = :productId")
+    suspend fun delete(productId: String)
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): ProductWithSuppliersCategories?
-
-    @Query("SELECT COUNT(*) FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
-    fun getCount(): LiveData<Int>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
@@ -67,10 +57,6 @@ interface ProductsDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' and productId in (:list)")
     fun getPagedProductsWithCategory(list: List<String>): PagingSource<Int, ProductWithSuppliersCategories>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :name LIMIT 30")
-    suspend fun getProductsWithName(name: String): List<Product>
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)

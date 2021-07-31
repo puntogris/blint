@@ -123,6 +123,7 @@
     <string name="snack_the_text_cant_contain_special_chars">El campo de texto no puede contener caracteres especiales.</string>
     <string name="snack_text_min_max_length">El campo de texto debe tener entre 3 y 15 caracteres.</string>
     <string name="action_require_permissions">Sin permisos para realizar esta acción.</string>
+    <string name="snack_action_success">La tarea se llevó a cabo satisfactoriamente.</string>
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_business">¿Deseas eliminar este negocio?</string>
@@ -168,6 +169,7 @@
     <string name="on_delete">Por eliminar</string>
     <string name="disabled">Desactivado</string>
     <string name="enabled">Habilitado</string>
+    <string name="empty_businesses_message">No se encontro nada por aquí, te invitamos a crear un nuevo negocio o unirte a uno ya existente.</string>
 
     <!-- Category-->
     <string name="rename_category">Renombrar categoría</string>

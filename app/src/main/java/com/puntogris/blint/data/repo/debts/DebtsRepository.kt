@@ -32,7 +32,7 @@ class DebtsRepository @Inject constructor(
     private val firestoreQueries: FirestoreQueries
 ): IDebtsRepository {
 
-    private suspend fun currentUser() = usersDao.getCurrentBusiness()
+    private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
     private val firestore = Firebase.firestore
 

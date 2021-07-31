@@ -281,15 +281,12 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         arguments: Bundle?
     ) {
         if(destination.id == R.id.mainFragment){
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
             setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
             binding.apply {
                 toolbar.setTitleTextColor(getColor(R.color.white))
-                notification.visible()
                 badge.visible()
+                notification.visible()
             }
-            val wic = WindowInsetsControllerCompat(window, window.decorView)
-            wic.isAppearanceLightStatusBars = false
         }else{
             binding.badge.gone()
             binding.notification.gone()
@@ -304,7 +301,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             setToolbarAndStatusBarColor(R.color.nightBackground)
             wic.isAppearanceLightStatusBars = false
         }else{
-            setToolbarAndStatusBarColor(R.color.grey_3)
+            setToolbarAndStatusBarColor(R.color.dayBackground)
             binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
             wic.isAppearanceLightStatusBars = true
         }

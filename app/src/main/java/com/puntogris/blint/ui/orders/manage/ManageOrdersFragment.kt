@@ -22,7 +22,6 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
         UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_add_24){
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
-      //  binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -35,12 +34,10 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     }
 
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
-
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager): FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
         override fun getItemCount(): Int = 2
-
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0) OrdersTabFragment() else RecordsTabFragment())
+            if (position == 0) OrdersTabFragment() else RecordsTabFragment()
     }
 
     override fun onDestroyView() {

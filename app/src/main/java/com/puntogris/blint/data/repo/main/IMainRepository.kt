@@ -16,7 +16,6 @@ interface IMainRepository {
     suspend fun getBusinessCounterFlow(): Flow<BusinessCounters>
     fun checkIfUserIsLogged():Boolean
     suspend fun updateCurrentBusiness(id:String)
-    fun getUserLiveDataRoom(): LiveData<User>
     suspend fun getBusinessListRoom(): List<Employee>
     fun getBusinessesStatus(): Flow<RepoResult<List<Employee>>>
     suspend fun checkIfAccountIsSynced(employee: List<Employee>):AccountStatus

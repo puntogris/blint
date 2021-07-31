@@ -33,7 +33,7 @@ import kotlin.math.absoluteValue
     private val ordersDao: OrdersDao
 ): IOrdersRepository {
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusiness()
+    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 

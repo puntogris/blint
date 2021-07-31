@@ -17,11 +17,9 @@
 package com.puntogris.blint.ui.nav
 
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.puntogris.blint.utils.visible
 
 /**
  * An action to be performed when a bottom sheet's state is changed.

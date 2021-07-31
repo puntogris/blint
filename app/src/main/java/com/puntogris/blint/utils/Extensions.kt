@@ -10,6 +10,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
+import android.os.Parcelable
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
@@ -42,6 +43,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
+import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.SetupUiListener
@@ -293,7 +295,7 @@ fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): I
     val color = if (darkThemeOn) R.color.nightBackground
     else{
         if (isPdf) R.color.white
-        else R.color.grey_3
+        else R.color.dayBackground
     }
     return ContextCompat.getColor(requireContext(), color)
 }
@@ -309,3 +311,11 @@ inline val Fragment.UiInterface: SetupUiListener
     get() = (requireActivity() as SetupUiListener)
 
 fun Timestamp.is10MinutesOld() = Timestamp.now().seconds - seconds >= 600 //10 minutes
+
+inline fun <T: Parcelable>Fragment.takeArgsIfNotNull(key: String, action:(T)->(Unit)){
+    arguments?.takeIf { it.containsKey(key) }?.apply {
+        getParcelable<T>(key)?.let {
+            action(it)
+        }
+    }
+}

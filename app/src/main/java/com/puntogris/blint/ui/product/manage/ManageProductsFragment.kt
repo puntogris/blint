@@ -3,6 +3,7 @@ package com.puntogris.blint.ui.product.manage
 import android.Manifest
 import android.media.Image
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -43,7 +44,6 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editProductFragment)
         }
-
         binding.productSearch.clearFocus()
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.fragment = this
