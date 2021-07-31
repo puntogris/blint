@@ -21,7 +21,7 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register(
+        UiInterface.registerUi(
             showFab = true,
             showAppBar = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24,

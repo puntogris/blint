@@ -17,7 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
+class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
 
     private val viewModel: ManageCategoriesViewModel by viewModels()
     private lateinit var categoriesAdapter: ManageCategoriesAdapter
@@ -25,7 +25,7 @@ class ManageCategoriesFragment : BaseFragment<FragmentManageCategoriesBinding>(R
     @ExperimentalCoroutinesApi
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register(showFab = true){ showCreateCategoryDialog() }
+        UiInterface.registerUi(showFab = true){ showCreateCategoryDialog() }
 
         categoriesAdapter = ManageCategoriesAdapter(requireContext()){ onCategoryDeleted(it) }
         binding.recyclerView.apply {

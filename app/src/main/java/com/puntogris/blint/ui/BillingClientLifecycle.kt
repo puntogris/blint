@@ -36,7 +36,6 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.SkuDetailsResponseListener
-import com.puntogris.blint.ui.business.SingleLiveEvent
 
 @SuppressLint("LogNotTimber")
 class BillingClientLifecycle private constructor(

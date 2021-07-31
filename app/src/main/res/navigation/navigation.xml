@@ -205,7 +205,7 @@
     </fragment>
     <fragment
         android:id="@+id/joinBusinessFragment"
-        android:name="com.puntogris.blint.ui.business.JoinBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.join.JoinBusinessFragment"
         android:label="" >
         <action
             android:id="@+id/action_joinBusinessFragment_to_scannerFragment"
@@ -364,7 +364,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageBusinessFragment"
-        android:name="com.puntogris.blint.ui.business.ManageBusinessFragment"
+        android:name="com.puntogris.blint.ui.business.manage.ManageBusinessFragment"
         android:label="@string/my_businesses_pref" >
         <action
             android:id="@+id/action_manageBusinessFragment_to_businessFragment"
@@ -389,7 +389,7 @@
     </fragment>
     <fragment
         android:id="@+id/employeeFragment"
-        android:name="com.puntogris.blint.ui.business.EmployeeFragment"
+        android:name="com.puntogris.blint.ui.employee.EmployeeFragment"
         android:label="@string/employee" >
         <argument
             android:name="employee"
@@ -405,7 +405,7 @@
     </fragment>
     <fragment
         android:id="@+id/addBusinessEmployee"
-        android:name="com.puntogris.blint.ui.business.AddBusinessEmployee"
+        android:name="com.puntogris.blint.ui.business.generate_code.GenerateJoinCodeFragment"
         android:label="@string/new_employee_label" >
         <argument
             android:name="business"

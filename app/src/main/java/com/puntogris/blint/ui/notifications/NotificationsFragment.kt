@@ -18,7 +18,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>(R.layou
     private val viewModel: NotificationsViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
         val adapter = NotificationsAdapter(
             requireContext(),
             clickListener = { notificationClickListener(it)},

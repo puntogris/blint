@@ -22,7 +22,7 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        UiInterface.register()
+        UiInterface.registerUi()
 
         val debtPagingAdapter = DebtPagingAdapter{}
 

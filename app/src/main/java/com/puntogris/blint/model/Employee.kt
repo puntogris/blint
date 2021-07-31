@@ -10,6 +10,8 @@ import com.google.firebase.encoders.annotations.Encodable
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
+import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.ONLINE
 import kotlinx.parcelize.Parcelize
 
@@ -56,5 +58,7 @@ data class Employee(
         val lastStatusTimestamp: Timestamp = Timestamp.now()
 
 ):Parcelable{
-        fun isBusinessOnline() = businessType == ONLINE
+        fun isOnlineBusiness() = businessType == ONLINE
+        fun iLocalBusiness() = businessType == LOCAL
+        fun isAdministrator() = role == ADMINISTRATOR
 }

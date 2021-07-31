@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.apply {
-            register(showAppBar = false, showToolbar = false)
+            registerUi(showAppBar = false, showToolbar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
         }

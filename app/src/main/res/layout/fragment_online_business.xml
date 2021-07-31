@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onlineBusinessFragment"
-            type="com.puntogris.blint.ui.business.OnlineBusinessFragment" />
+            type="com.puntogris.blint.ui.business.register_business.OnlineBusinessFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

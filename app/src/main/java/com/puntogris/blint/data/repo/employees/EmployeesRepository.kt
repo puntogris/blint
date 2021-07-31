@@ -42,7 +42,7 @@ class EmployeesRepository @Inject constructor(
             val userData = employeeDao.getEmployeeWithBusinessId(employee.businessId)
             if (
                 userData.businessOwner == getCurrentUserId() &&
-                userData.isBusinessOnline()
+                userData.isOnlineBusiness()
             ){
                 firestore
                     .collection(USERS_COLLECTION)

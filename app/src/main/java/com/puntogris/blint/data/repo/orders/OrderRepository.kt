@@ -46,7 +46,7 @@ import kotlin.math.absoluteValue
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries
                     .getOrdersCollectionQuery(user)
                     .whereEqualTo("businessId", user.businessId)
@@ -65,7 +65,7 @@ import kotlin.math.absoluteValue
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries
                     .getRecordsCollectionQuery(user)
                     .whereEqualTo("businessId", user.businessId)
@@ -118,7 +118,7 @@ import kotlin.math.absoluteValue
                     else rec.totalOutStock += rec.amount.absoluteValue
                 }
             }
-            if (user.isBusinessOnline()) {
+            if (user.isOnlineBusiness()) {
                 val countersRef = firestoreQueries.getBusinessCountersQuery(user)
                 countersRef.get().await().get("totalOrders").toString().toIntOrNull()?.let { order.order.number = it }
 
@@ -169,7 +169,7 @@ import kotlin.math.absoluteValue
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        if (user.isBusinessOnline()){
+        if (user.isOnlineBusiness()){
             val query =
                 firestoreQueries.getOrdersCollectionQuery(user)
                     .whereEqualTo("orderId", orderId).limit(1).get().await()

@@ -24,7 +24,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
     private val viewModel:PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register(showAppBar = false)
+        UiInterface.registerUi(showAppBar = false)
         binding.fragment = this
     }
 

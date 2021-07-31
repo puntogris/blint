@@ -21,7 +21,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.apply {
-            register(showAppBar = true, showToolbar = false)
+            registerUi(showAppBar = true, showToolbar = false)
             setBottomAppBarInvisible()
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()

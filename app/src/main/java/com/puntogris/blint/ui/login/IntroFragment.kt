@@ -18,7 +18,7 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.apply {
-            register(showFab = false, showAppBar = false)
+            registerUi(showFab = false, showAppBar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
         }

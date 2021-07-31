@@ -26,7 +26,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     private lateinit var calendarEventsAdapter:CalendarEventsAdapter
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true){
+        UiInterface.registerUi(showFab = true){
             findNavController().navigate(R.id.createEventFragment)
         }
 

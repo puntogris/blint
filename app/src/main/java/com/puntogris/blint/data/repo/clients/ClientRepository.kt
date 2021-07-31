@@ -46,7 +46,7 @@ class ClientRepository @Inject constructor(
                     clientId = clientRef.document().id
                 }
             }
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val clientRefCounter = firestoreQueries.getBusinessCountersQuery(user)
                 firestore.runBatch {
                     it.set(clientRef.document(client.clientId), client)
@@ -69,7 +69,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries.getClientsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreClientsPagingSource(query)
             }
@@ -80,7 +80,7 @@ class ClientRepository @Inject constructor(
     override suspend fun deleteClientDatabase(clientId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 firestoreQueries.getClientsCollectionQuery(user)
                     .document(clientId)
                     .delete()
@@ -101,7 +101,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries.getRecordsWithTraderIdQuery(user, clientId)
                 FirestoreRecordsPagingSource(query)
             }
@@ -117,7 +117,7 @@ class ClientRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries
                     .getClientsCollectionQuery(user)
                     .whereArrayContains("search_name", name.lowercase())

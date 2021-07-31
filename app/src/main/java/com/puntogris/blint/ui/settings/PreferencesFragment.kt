@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PreferencesFragment: BasePreferences(R.xml.preferences) {
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
         findPreference<Preference>(ACCOUNT_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.accountPreferences)
             true

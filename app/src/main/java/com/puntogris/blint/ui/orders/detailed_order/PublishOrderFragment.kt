@@ -17,7 +17,7 @@ class PublishOrderFragment : BaseFragment<FragmentPublishOrderBinding>(R.layout.
     private var isOperationInProgress = true
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.registerUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             if (isOperationInProgress){
                 UiInterface.showSnackBar(getString(R.string.snack_wait_for_operation))
             }else{

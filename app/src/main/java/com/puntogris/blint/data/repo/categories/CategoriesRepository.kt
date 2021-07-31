@@ -25,7 +25,7 @@ class CategoriesRepository @Inject constructor(
         Dispatchers.IO) {
         try {
             val user = currentBusiness()
-            if (user.isBusinessOnline()) {
+            if (user.isOnlineBusiness()) {
                 firestoreQueries.getCategoriesCollectionQuery(user)
                     .document("categories")
                     .update("categories", FieldValue.arrayRemove(categoryName.lowercase()))
@@ -43,7 +43,7 @@ class CategoriesRepository @Inject constructor(
             val user = currentBusiness()
             val categoryRef = firestoreQueries.getCategoriesCollectionQuery(user).document("categories")
 
-            if (user.isBusinessOnline()) {
+            if (user.isOnlineBusiness()) {
                 categoryRef.set(hashMapOf("categories" to FieldValue.arrayUnion(category.categoryName.lowercase())), SetOptions.merge()).await()
             }
             else {
@@ -58,7 +58,7 @@ class CategoriesRepository @Inject constructor(
     override suspend fun getAllCategoriesDatabase(): RepoResult<List<Category>> = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            val data = if (user.isBusinessOnline()){
+            val data = if (user.isOnlineBusiness()){
                 val ref = firestoreQueries
                     .getCategoriesCollectionQuery(user).document("categories")
 

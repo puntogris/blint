@@ -10,7 +10,7 @@ class OperationsFragment : BaseFragment<FragmentOperationsBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register()
+        UiInterface.registerUi()
     }
 
     fun onGeneralPriceChangeClicked(){

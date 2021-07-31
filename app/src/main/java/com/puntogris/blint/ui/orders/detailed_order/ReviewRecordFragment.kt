@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.orders.detailed_order
 
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
@@ -21,7 +20,7 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
     override fun initializeViews() {
         binding.viewModel = viewModel
-        UiInterface.register(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.registerUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             val orderValue = viewModel.order.value?.value!!
             when {
                 discount > orderValue -> UiInterface.showSnackBar(getString(R.string.snack_discount_limit))

@@ -1,10 +1,9 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.register_business
 
 import androidx.core.view.setPadding
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentLocalBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.business.register_business.RegisterBusinessFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocalBusinessFragment : BaseFragment<FragmentLocalBusinessBinding>(R.layout.fragment_local_business) {
 
         override fun initializeViews() {
-            UiInterface.register(showAppBar = false)
+            UiInterface.registerUi(showAppBar = false)
             binding.localBusinessFragment = this
             binding.animationView.setPadding(-400)
         }

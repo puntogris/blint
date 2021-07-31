@@ -20,7 +20,7 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
     private val viewModel: BusinessViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
+        UiInterface.registerUi(showFab = true,showAppBar = false, fabIcon = R.drawable.ic_baseline_delete_24){
             if (binding.businessNameText.getString() == args.business.businessName){
                 showDeleteBusinessUi()
             }else{
@@ -28,7 +28,7 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
             }
         }
 
-        if (args.business.businessType == LOCAL){
+        if (args.business.iLocalBusiness()){
             binding.textView120.text = getString(R.string.delete_local_business_warning)
         }
     }

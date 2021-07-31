@@ -14,7 +14,7 @@ class OutOfSyncFragment : BaseFragment<FragmentOutOfSyncBinding>(R.layout.fragme
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_sync_24, showAppBar = false){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_sync_24, showAppBar = false){
             findNavController().navigate(R.id.syncAccountFragment)
         }
     }

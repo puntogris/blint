@@ -11,7 +11,7 @@ import com.puntogris.blint.utils.UiInterface
 class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
 //        findPreference<SwitchPreference>(AUTO_BACKUP_PREF)?.setOnPreferenceClickListener {
 //            true
 //        }

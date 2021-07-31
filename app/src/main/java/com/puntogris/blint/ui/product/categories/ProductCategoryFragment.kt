@@ -28,7 +28,7 @@ class ProductCategoryFragment:
     override fun initializeViews() {
 
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.register(
+        UiInterface.registerUi(
             showFab = true,
             showAppBar = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24,

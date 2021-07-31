@@ -37,7 +37,7 @@ class CreateOrderFragment : BaseFragment<FragmentCreateOrderBinding>(R.layout.fr
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         setUpRecyclerView()
 
-        UiInterface.register(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.registerUi(showFab = true, showAppBar = false, showToolbar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
             viewModel.updateOrdersItems(recordsAdapter.recordsList)
             viewModel.productWithRecords = recordsAdapter.recordsList
             if (viewModel.productWithRecords.size != 0){

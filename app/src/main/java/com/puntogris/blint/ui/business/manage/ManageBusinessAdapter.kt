@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.manage
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

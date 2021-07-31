@@ -19,7 +19,7 @@ abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        UiInterface.register()
+        UiInterface.registerUi()
         initializeViews()
         return super.onCreateView(inflater, container, savedInstanceState)
     }

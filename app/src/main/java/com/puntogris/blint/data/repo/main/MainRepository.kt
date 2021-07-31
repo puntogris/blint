@@ -80,7 +80,7 @@ class MainRepository @Inject constructor(
         try {
             val user = currentBusiness()
             val events =
-                if (user.isBusinessOnline()){
+                if (user.isOnlineBusiness()){
                     val query = firestoreQueries.getEventsCollectionQuery(user).limit(3).get().await()
                     query.toObjects(Event::class.java)
                 }else{
@@ -106,7 +106,7 @@ class MainRepository @Inject constructor(
     @ExperimentalCoroutinesApi
     override suspend fun getBusinessCounterFlow(): Flow<BusinessCounters> = withContext(Dispatchers.IO) {
         val user = currentBusiness()
-        return@withContext if (user.isBusinessOnline()){
+        return@withContext if (user.isOnlineBusiness()){
             callbackFlow {
                 val ref = firestoreQueries.getBusinessCountersQuery(user).addSnapshotListener { doc, _ ->
                     if (doc != null) {

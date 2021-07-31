@@ -14,13 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.fragment_modify_debt) {
+class ModifyDebtFragment :BaseFragment<FragmentModifyDebtBinding>(R.layout.fragment_modify_debt) {
 
     private val viewModel: DebtViewModel by viewModels()
     private val args: ModifyDebtFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             if (binding.debtAmountText.getString().toFloatOrNull() != null &&
                 binding.debtAmountText.getFloat() > 0){
                     onSaveDebtClicked()

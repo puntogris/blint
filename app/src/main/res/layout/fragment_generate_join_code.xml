@@ -6,16 +6,16 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.business.AddBusinessEmployee" />
+            type="com.puntogris.blint.ui.business.generate_code.GenerateJoinCodeFragment" />
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.business.BusinessViewModel" />
+            type="com.puntogris.blint.ui.business.generate_code.GenerateJoinCodeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.business.AddBusinessEmployee">
+        tools:context=".ui.business.generate_code.GenerateJoinCodeFragment">
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/loadingGroup"

@@ -12,7 +12,6 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentGeneralPriceChangeBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
     private val viewModel:OperationsViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             if (binding.productsAffectedText.text.isNullOrBlank())
               //  showLongSnackBarAboveFab("Necesitas especificar un proveedor o una categoria.")
             else if (!listOf(binding.buyPriceCheckBox, binding.sellPriceCheckBox, binding.suggestedPriceCheckBox).any {

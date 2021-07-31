@@ -20,7 +20,7 @@ class AccountPreferences: BasePreferences(R.xml.account_preferences) {
     private val viewModel: PreferencesViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
         findPreference<Preference>(USER_DATA_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.userAccountFragment)
             true

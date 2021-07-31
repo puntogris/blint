@@ -20,7 +20,7 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
     private val viewModel: DebtViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
 
         val simpleDebtAdapter = SimpleDebtAdapter{ onDebtClicked(it) }
         binding.recyclerView.apply {

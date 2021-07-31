@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.register_business
 
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOnlineBusinessBinding
@@ -8,7 +8,7 @@ import com.puntogris.blint.utils.UiInterface
 class OnlineBusinessFragment : BaseFragment<FragmentOnlineBusinessBinding>(R.layout.fragment_online_business) {
 
     override fun initializeViews() {
-        UiInterface.register(showAppBar = false)
+        UiInterface.registerUi(showAppBar = false)
 //        binding.onlineBusinessFragment = this
 //        binding.animationView.setPadding(-300)
 //

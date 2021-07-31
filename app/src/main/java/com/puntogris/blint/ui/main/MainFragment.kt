@@ -33,7 +33,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     @ExperimentalTime
     override fun initializeViews() {
         UiInterface.apply {
-            register(showFab = false)
+            registerUi(showFab = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
         }

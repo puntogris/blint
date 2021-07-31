@@ -29,7 +29,7 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.register(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
+        UiInterface.registerUi(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
             findNavController().apply {
                 previousBackStackEntry!!.savedStateHandle.set(PRODUCT_SUPPLIER_KEY, removeSupplierAdapter.getFinalSuppliers())
                 popBackStack()

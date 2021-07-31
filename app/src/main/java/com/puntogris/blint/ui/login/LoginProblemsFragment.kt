@@ -16,7 +16,7 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.apply {
-            register(showAppBar = false, showToolbar = false)
+            registerUi(showAppBar = false, showToolbar = false)
             setToolbarAndStatusBarColor(R.color.colorSecondary)
             setDarkStatusBar()
         }

@@ -32,7 +32,7 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register(showFab = false)
+        UiInterface.registerUi(showFab = false)
 
         val reportDashboardAdapter = ReportsDashboardAdapter()
         binding.dashboardRv.apply {

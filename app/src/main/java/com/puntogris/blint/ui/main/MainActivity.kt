@@ -42,12 +42,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
 
-    override fun register(showFab: Boolean,
-                          showAppBar: Boolean,
-                          showToolbar: Boolean,
-                          showFabCenter: Boolean,
-                          @DrawableRes fabIcon: Int,
-                          fabListener: View.OnClickListener?) {
+    override fun registerUi(showFab: Boolean,
+                            showAppBar: Boolean,
+                            showToolbar: Boolean,
+                            showFabCenter: Boolean,
+                            @DrawableRes fabIcon: Int,
+                            fabListener: View.OnClickListener?) {
         if (showToolbar) binding.toolbar.visible() else binding.toolbar.gone()
         if (showFab) {
             binding.fab.apply {

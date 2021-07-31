@@ -31,7 +31,7 @@ class EventRepository @Inject constructor(
                 eventId = eventRef.id
                 businessId = user.businessId
             }
-            if (user.isBusinessOnline()) eventRef.set(event).await()
+            if (user.isOnlineBusiness()) eventRef.set(event).await()
             else eventsDao.insert(event)
 
             SimpleResult.Success
@@ -46,7 +46,7 @@ class EventRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200)
         ) {
-            if(user.isBusinessOnline()){
+            if(user.isOnlineBusiness()){
                 val query = firestoreQueries.getEventsCollectionQuery(user)
 
                 if (filter == "ALL") FirestoreEventsPagingSource(query)
@@ -63,7 +63,7 @@ class EventRepository @Inject constructor(
     override suspend fun deleteEventDatabase(eventId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentUser()
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 firestoreQueries.getEventsCollectionQuery(user)
                     .document(eventId)
                     .delete()
@@ -75,7 +75,7 @@ class EventRepository @Inject constructor(
     override suspend fun updateEventStatusDatabase(event: Event): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val user = currentUser()
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 firestoreQueries.getEventsCollectionQuery(user).document(event.eventId).set(event)
             }else{ eventsDao.updateEvent(event) }
             SimpleResult.Success

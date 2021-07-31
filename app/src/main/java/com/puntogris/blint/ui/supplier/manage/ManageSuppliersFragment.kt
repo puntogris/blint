@@ -26,7 +26,7 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.register(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true){
             findNavController().navigate(R.id.editSupplierFragment)
         }
 

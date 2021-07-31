@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.join
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

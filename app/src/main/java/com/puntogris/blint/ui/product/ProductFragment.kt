@@ -18,7 +18,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +31,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
             navigateToEditProductFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)

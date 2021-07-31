@@ -74,7 +74,7 @@ class ProductRepository @Inject constructor(
                 recordId = recordRef.document().id
             )
 
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 if (imageChanged){
                     product.product.image =
                     if (product.product.image.isNotEmpty()){
@@ -135,7 +135,7 @@ class ProductRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if(user.isBusinessOnline()){
+            if(user.isOnlineBusiness()){
                 val query = firestoreQueries.getProductsCollectionQuery(user).orderBy("name", Query.Direction.ASCENDING)
                 FirestoreProductsPagingSource(query)
             }
@@ -146,7 +146,7 @@ class ProductRepository @Inject constructor(
     override suspend fun deleteProductDatabase(productId: String): SimpleResult = withContext(Dispatchers.IO){
         try {
             val user = currentBusiness()
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
 
                 firestore.runBatch {
                     it.delete(firestoreQueries.getProductsCollectionQuery(user).document(productId))
@@ -165,7 +165,7 @@ class ProductRepository @Inject constructor(
 
     override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) = withContext(Dispatchers.IO){
         val user = currentBusiness()
-        if(!user.isBusinessOnline() && search is SearchText.Category){
+        if(!user.isOnlineBusiness() && search is SearchText.Category){
             val ids = productsDao.getProductIdWithCategory(search.text)
             Pager(
                 PagingConfig(
@@ -182,7 +182,7 @@ class ProductRepository @Inject constructor(
                     maxSize = 200
                 )
             ) {
-                if (user.isBusinessOnline()){
+                if (user.isOnlineBusiness()){
                     val query =
                         when(search){
                             is SearchText.InternalCode -> {
@@ -221,7 +221,7 @@ class ProductRepository @Inject constructor(
                 enablePlaceholders = true,
                 maxSize = 200                )
         ) {
-            if (user.isBusinessOnline()){
+            if (user.isOnlineBusiness()){
                 val query = firestoreQueries
                     .getRecordsCollectionQuery(user)
                     .whereEqualTo("productId", productId)
@@ -237,7 +237,7 @@ class ProductRepository @Inject constructor(
         try {
             val user = currentBusiness()
             val product:ProductWithSuppliersCategories? =
-                if (user.isBusinessOnline()){
+                if (user.isOnlineBusiness()){
                     val data = firestoreQueries
                         .getProductsCollectionQuery(user)
                         .whereEqualTo("barcode", barcode).limit(1).get().await()

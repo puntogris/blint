@@ -19,7 +19,7 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        UiInterface.register(showFab = true, fabIcon = R.drawable.ic_baseline_add_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_add_24){
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
 

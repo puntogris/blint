@@ -1,8 +1,7 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.manage
 
 import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,13 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
 
-    private val viewModel: BusinessViewModel by viewModels()
+    private val viewModel: ManageBusinessViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.register()
+        UiInterface.registerUi()
         binding.fragment = this
         launchAndRepeatWithViewLifecycle {
-            val businesses = viewModel.getBusiness()
+            val businesses = viewModel.getBusinessList()
             if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
             else onBusinessFoundUi(businesses)
         }

@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.join
 
 import android.annotation.SuppressLint
 import androidx.activity.result.ActivityResultLauncher
@@ -8,11 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
-import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentJoinBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.main.SetupUiListener
+import com.puntogris.blint.ui.business.BusinessViewModel
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class JoinBusinessFragment : BaseFragment<FragmentJoinBusinessBinding>(R.layout.
     @SuppressLint("ShowToast")
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.register(showAppBar = true, showFab = true, fabIcon = R.drawable.ic_baseline_check_24){
+        UiInterface.registerUi(showAppBar = true, showFab = true, fabIcon = R.drawable.ic_baseline_check_24){
             val text = binding.joinBusinessCodeText.getString()
             if(text.isBlank()) UiInterface.showSnackBar(getString(R.string.snack_type_or_scan_code_to_continue))
             else joinBusinessWithCode(text)

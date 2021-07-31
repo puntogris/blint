@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.business
+package com.puntogris.blint.ui.business.generate_code
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -8,21 +8,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
-import com.puntogris.blint.databinding.FragmentAddBusinessEmployeeBinding
+import com.puntogris.blint.databinding.FragmentGenerateJoinCodeBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddBusinessEmployee : BaseFragment<FragmentAddBusinessEmployeeBinding>(R.layout.fragment_add_business_employee) {
+class GenerateJoinCodeFragment : BaseFragment<FragmentGenerateJoinCodeBinding>(R.layout.fragment_generate_join_code) {
 
-    private val viewModel: BusinessViewModel by viewModels()
-    private val args: AddBusinessEmployeeArgs by navArgs()
+    private val viewModel: GenerateJoinCodeViewModel by viewModels()
+    private val args: GenerateJoinCodeFragmentArgs by navArgs()
 
     override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.fragment = this
+        
         lifecycleScope.launchWhenStarted {
             when(val result = viewModel.fetchJoiningCode(args.business.businessId)){
                 is RepoResult.Error -> {
