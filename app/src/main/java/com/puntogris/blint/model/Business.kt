@@ -11,5 +11,6 @@ data class Business(
     val owner: String = "",
     val status: String = "",
     val businessCreatedAt: Timestamp = Timestamp.now(),
-    val lastStatusTimestamp: Timestamp = Timestamp.now()
+    val lastStatusTimestamp: Timestamp = Timestamp.now(),
+    val logoUri: String = ""
 )

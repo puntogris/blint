@@ -41,7 +41,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         }
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateProductData(getProductDataFromViews())
-            when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true)){
+            when(val validator = StringValidator.from(viewModel.currentProduct.value!!.product.name, allowSpecialChars = true, isName = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveProductDatabase()){

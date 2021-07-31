@@ -35,7 +35,7 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateSupplierData(getSupplierFromViews())
-            when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true)){
+            when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true, isName = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveSupplierDatabase()){

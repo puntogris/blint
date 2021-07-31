@@ -21,7 +21,7 @@ class RegisterLocalBusinessFragment : BaseFragment<FragmentRegisterLocalBusiness
     }
 
     fun onEndRegistrationButtonClicked(){
-        when(val validator = StringValidator.from(binding.businessNameText.getString())){
+        when(val validator = StringValidator.from(binding.businessNameText.getString(), isName = true)){
             is StringValidator.Valid -> {
                 binding.continueButton.isEnabled = false
                 binding.animationView.playAnimationOnce(R.raw.loading)

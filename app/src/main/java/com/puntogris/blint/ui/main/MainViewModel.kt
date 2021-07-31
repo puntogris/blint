@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(
         emitSource(mainRepository.getBusinessCounterFlow().asLiveData())
     }
 
-    suspend fun getSyncStatus(employee: List<Employee>) = mainRepository.checkIfAccountIsSynced(employee)
+    private suspend fun getSyncStatus(employee: List<Employee>) = mainRepository.checkIfAccountIsSynced(employee)
 
     private val _currentUser = MutableStateFlow(Employee())
     val currentUser:StateFlow<Employee> = _currentUser
@@ -58,5 +58,5 @@ class MainViewModel @Inject constructor(
 
     suspend fun updateCurrentBusiness(id:String) = mainRepository.updateCurrentBusiness(id)
 
-    fun getBusinessStatus() = mainRepository.getBusinessesStatus()
+    private fun getBusinessStatus() = mainRepository.getBusinessesStatus()
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="question"
+            type="com.puntogris.blint.model.Question" />
+    </data>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView7"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/questionText"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingHorizontal="10dp"
+                    app:drawableStartCompat="@drawable/ic_baseline_arrow_drop_down_24"
+                    android:paddingVertical="12dp"
+                    android:textAlignment="center"
+                    android:foreground="?selectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{question.question}" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/questionExpandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="500"
+                app:el_expanded="false"
+                app:el_parallax="0.5">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:text="@{question.answer}" />
+
+            </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+</layout>

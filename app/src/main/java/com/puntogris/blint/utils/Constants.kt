@@ -1,8 +1,9 @@
 package com.puntogris.blint.utils
 
 object Constants {
-    const val APP_VERSION = "1.0.0"
-
+    //It's the stable version, changes when the room schema changes, only Mayor.Minor
+    //Schema change will trigger Minor update
+    const val APP_VERSION_BACKUP = "1.0"
     const val ARG_SCANNING_RESULT = "scanning_result"
     const val WEB_CLIENT_ID = "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
     const val FIX_GOOGLE_PLAY_SERVICES_URL = "https://support.google.com/googleplay/answer/9037938"
@@ -100,6 +101,7 @@ object Constants {
     const val ORDERS_COLLECTION = "orders"
     const val TYPE_FIELD = "type"
     const val OWNER_FIELD = "owner"
+    const val USER_ID_FIELD = "userId"
 
     //Storage
     const val USERS_PATH = "users"

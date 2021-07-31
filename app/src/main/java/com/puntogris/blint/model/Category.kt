@@ -4,9 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.google.firebase.firestore.Exclude
 import kotlinx.parcelize.Parcelize
 
 @Entity

@@ -68,7 +68,8 @@ class MainRepository @Inject constructor(
         try {
             val roomEmployees = getBusinessListRoom()
             if (roomEmployees.toSet() == employee.toSet()) {
-                if (employee.isEmpty()) AccountStatus.Synced(false) else AccountStatus.Synced(true)
+                if (employee.isEmpty()) AccountStatus.Synced(false)
+                else AccountStatus.Synced(true)
             }
             else AccountStatus.OutOfSync(employee)
         }catch (e:Exception){
@@ -81,8 +82,10 @@ class MainRepository @Inject constructor(
             val user = currentBusiness()
             val events =
                 if (user.isOnlineBusiness()){
-                    val query = firestoreQueries.getEventsCollectionQuery(user).limit(3).get().await()
-                    query.toObjects(Event::class.java)
+                    firestoreQueries.getEventsCollectionQuery(user)
+                        .limit(3)
+                        .get().await()
+                        .toObjects(Event::class.java)
                 }else{
                     eventsDao.getLastThreeEvents()
                 }
@@ -97,9 +100,7 @@ class MainRepository @Inject constructor(
         MutableStateFlow(0).also { stateFlow ->
             firestoreQueries.getAllUnreadNotificationsQuery()
                 .addSnapshotListener { snap, _ ->
-                    snap?.documents?.let { docs ->
-                        stateFlow.value = docs.size
-                    }
+                    snap?.documents?.let { docs -> stateFlow.value = docs.size }
                 }
         }
 
@@ -108,17 +109,11 @@ class MainRepository @Inject constructor(
         val user = currentBusiness()
         return@withContext if (user.isOnlineBusiness()){
             callbackFlow {
-                val ref = firestoreQueries.getBusinessCountersQuery(user).addSnapshotListener { doc, _ ->
-                    if (doc != null) {
-                        doc.toObject(BusinessCounters::class.java)?.let {
-                            trySend(it)
-                        }
-                    }
-                }
-                awaitClose { ref.remove() }
+                firestoreQueries.getBusinessCountersQuery(user)
+                    .addSnapshotListener { doc, _ ->
+                        doc?.toObject(BusinessCounters::class.java)?.let { trySend(it) }
+                    }.let { awaitClose { it.remove() } }
             }
-        } else{
-            statisticsDao.getBusinessStatisticsFlow()
-        }
+        } else statisticsDao.getBusinessStatisticsFlow()
     }
 }

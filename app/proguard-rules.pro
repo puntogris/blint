@@ -32,3 +32,51 @@
 -keep class com.puntogris.blint.model.Debt
 -keep class com.puntogris.blint.model.Category
 -keep class com.puntogris.blint.model.FirestoreSupplier
+
+
+-keeppackagenames javax.**
+-keeppackagenames org.apache.poi.**
+-keeppackagenames org.apache.poi.ss.formula.function
+-keeppackagenames org.openxmlformats.**
+-keeppackagenames org.openxmlformats.schemas.**
+
+-keep class javax.** {*;}
+-keep class org.apache.poi.** {*;}
+-keep class org.apache.xmlbeans.** {*;}
+-keep class com.fasterxml.** {*;}
+-keep class com.microsoft.schemas.** {*;}
+
+-keep class org.openxmlformats.** {*;}
+-keep class org.openxmlformats.schemas.** {*;}
+-keep class schemaorg_apache_xmlbeans.** {*;}
+-keep class schemasMicrosoftComVml.** {*;}
+-keep class schemasMicrosoftComOfficeExcel.** {*;}
+-keep class schemasMicrosoftComOfficeOffice.** {*;}
+
+-keepclasseswithmembers class javax.** {*;}
+-keepclasseswithmembers class org.apache.poi.** {*;}
+-keepclasseswithmembers class org.apache.xmlbeans.** {*;}
+-keepclasseswithmembers class com.fasterxml.** {*;}
+-keepclasseswithmembers class com.microsoft.schemas.** {*;}
+
+-keepclasseswithmembers class org.openxmlformats.** {*;}
+-keepclasseswithmembers class org.openxmlformats.schemas.** {*;}
+-keepclasseswithmembers class schemaorg_apache_xmlbeans.** {*;}
+-keepclasseswithmembers class schemasMicrosoftComVml.** {*;}
+-keepclasseswithmembers class schemasMicrosoftComOfficeExcel.** {*;}
+-keepclasseswithmembers class schemasMicrosoftComOfficeOffice.** {*;}
+
+-keep class org.w3c.** {*;}
+-keep class org.dom4j.** {*;}
+-keep class org.etsi.** {*;}
+-keep class com.graphbuilder.** {*;}
+-dontwarn org.etsi.**
+-dontnote com.microsoft.schemas.**
+-dontnote com.graphbuilder.**
+-dontwarn org.openxmlformats.**
+-dontwarn org.w3c.**
+-dontwarn org.dom4j.**
+-dontwarn schemasMicrosoftComVml.**
+-dontwarn schemasMicrosoftComOfficeExcel.**
+-dontwarn schemasMicrosoftComOfficeOffice.**
+-dontwarn schemasMicrosoftComOfficeWord.**

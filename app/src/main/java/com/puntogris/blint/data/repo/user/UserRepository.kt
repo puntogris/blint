@@ -15,6 +15,7 @@ import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import com.puntogris.blint.utils.Constants.USER_ID_FIELD
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -87,6 +88,7 @@ class UserRepository @Inject constructor(
 
     override suspend fun sendReportToFirestore(message: String): SimpleResult {
         val report = hashMapOf(
+            USER_ID_FIELD to getCurrentUID(),
             REPORT_FIELD_FIRESTORE to message,
             TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
         )

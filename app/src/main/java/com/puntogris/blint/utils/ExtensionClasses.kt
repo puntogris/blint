@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
+import kotlinx.coroutines.flow.Flow
 import java.lang.Exception
 
 sealed class StringValidator{
@@ -11,14 +12,18 @@ sealed class StringValidator{
     class NotValid(@StringRes val error: Int): StringValidator()
 
     companion object{
-        fun from(text: String, minLength: Int = 3, maxLength:Int = 15, allowSpecialChars: Boolean = false): StringValidator{
+        fun from(text: String, minLength: Int = 3, maxLength:Int = 15, allowSpecialChars: Boolean = false, isName:Boolean = false): StringValidator{
             return when{
                 text.isBlank() ->
-                    NotValid(R.string.snack_text_empty)
+                    NotValid(if (isName) R.string.snack_name_empty else R.string.snack_text_empty)
                 !allowSpecialChars && text.containsInvalidCharacters() ->
-                    NotValid(R.string.snack_the_text_cant_contain_special_chars)
+                    NotValid(
+                        if (isName) R.string.snack_name_cant_contain_special_chars
+                        else R.string.snack_the_text_cant_contain_special_chars)
                 text.length !in (minLength..maxLength) ->
-                    NotValid(R.string.snack_text_min_max_length)
+                    NotValid(
+                        if (isName) R.string.snack_name_min_max_length
+                        else R.string.snack_text_min_max_length)
                 else -> Valid(text)
             }
         }
@@ -136,10 +141,10 @@ sealed class SearchText{
     class Category(val text:String): SearchText()
     fun getData(): String{
         return when(this){
-            is InternalCode -> this.text
-            is Name -> this.text
-            is QrCode -> this.text
-            is Category -> this.text
+            is InternalCode -> text
+            is Name -> text
+            is QrCode -> text
+            is Category -> text
         }
     }
 }

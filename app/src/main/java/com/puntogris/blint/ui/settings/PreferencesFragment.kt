@@ -37,7 +37,7 @@ class PreferencesFragment: BasePreferences(R.xml.preferences) {
             true
         }
         findPreference<Preference>(HELP_PREF)?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.sendTicketFragment)
+            findNavController().navigate(R.id.helpFragment)
             true
         }
         findPreference<Preference>(ABOUT_PREF)?.setOnPreferenceClickListener {

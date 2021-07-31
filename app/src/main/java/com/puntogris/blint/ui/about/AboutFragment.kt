@@ -2,6 +2,7 @@ package com.puntogris.blint.ui.about
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
@@ -31,7 +32,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>(R.layout.fragment_about
     fun onSendSuggestionClicked(){
         InputSheet().show(requireParentFragment().requireContext()) {
             title(this@AboutFragment.getString(R.string.problems_and_advice))
-            //content("Reporta un problema o envianos tus consejos.")
+            style(SheetStyle.DIALOG)
             with(InputEditText {
                 required()
                 label(this@AboutFragment.getString(R.string.tell_us_more))

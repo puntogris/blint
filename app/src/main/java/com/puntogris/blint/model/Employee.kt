@@ -55,7 +55,10 @@ data class Employee(
         val businessStatus: String = "",
 
         @ColumnInfo
-        val lastStatusTimestamp: Timestamp = Timestamp.now()
+        val lastStatusTimestamp: Timestamp = Timestamp.now(),
+
+        @ColumnInfo
+        val businessLogoUri: String = ""
 
 ):Parcelable{
         fun isOnlineBusiness() = businessType == ONLINE

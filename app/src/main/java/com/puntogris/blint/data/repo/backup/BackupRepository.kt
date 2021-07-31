@@ -30,6 +30,7 @@ class BackupRepository @Inject constructor(
                     else result.value = RepoResult.Error(Exception())
                 }
                 .addOnFailureListener {
+                    println(it.localizedMessage)
                     result.value = RepoResult.Error(it)
                 }
     }

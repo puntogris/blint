@@ -1,9 +1,7 @@
 package com.puntogris.blint.data.repo.main
 
-import androidx.lifecycle.LiveData
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.User
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.EventsDashboard
 import com.puntogris.blint.utils.RepoResult

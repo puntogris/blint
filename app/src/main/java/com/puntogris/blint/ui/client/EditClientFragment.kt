@@ -34,7 +34,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
 
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
             viewModel.updateClientData(getClientFromViews())
-            when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true)){
+            when(val validator = StringValidator.from(viewModel.currentClient.value!!.name, allowSpecialChars = true, isName = true)){
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
                         when(viewModel.saveClientDatabase()){

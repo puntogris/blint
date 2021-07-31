@@ -45,9 +45,9 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
                         Intent(Intent.ACTION_INSERT).apply {
                             type = ContactsContract.Contacts.CONTENT_TYPE
                             if (permissionCode == 1){
-                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
-                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)
-                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.sellerEmail)
+                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.companyName)
+                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.companyPhone)
+                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.companyEmail)
                             }else{
                                 putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
                                 putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)

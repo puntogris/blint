@@ -64,7 +64,7 @@
     <string name="action_undo">Deshacer</string>
 
     <!-- Problems and advice -->
-    <string name="problems_and_advice">Problemas y consejos</string>
+    <string name="problems_and_advice">Sugerencia o mensaje</string>
     <string name="tell_us_more">¿Que nos queres contar?</string>
     <string name="message_hint">Mensaje</string>
 
@@ -122,6 +122,9 @@
     <string name="snack_text_empty">El campo de texto no puede estar vacio.</string>
     <string name="snack_the_text_cant_contain_special_chars">El campo de texto no puede contener caracteres especiales.</string>
     <string name="snack_text_min_max_length">El campo de texto debe tener entre 3 y 15 caracteres.</string>
+    <string name="snack_name_empty">El nombre no puede estar vacio</string>
+    <string name="snack_name_cant_contain_special_chars">El nombre no puede contener caracteres especiales.</string>
+    <string name="snack_name_min_max_length">El nombre debe tener entre 3 y 15 caracteres.</string>
     <string name="action_require_permissions">Sin permisos para realizar esta acción.</string>
     <string name="snack_action_success">La tarea se llevó a cabo satisfactoriamente.</string>
 
@@ -186,7 +189,7 @@
 
     <!-- Login -->
     <string name="action_solve_login_problems">Solucionar problemas para entrar</string>
-    <string name="action_tap_login">Tap para entrar</string>
+    <string name="action_tap_login">tap para entrar</string>
     <string name="problem_with_blint_account">Problema con mi cuenta de Blint</string>
     <string name="if_account_disabled">Si tu cuenta se deshabilitó:</string>
     <string name="account_disabled_message">Probablemente se introdujeron datos incorrectos o se alcanzo el límite de intentos, debe esperar 24hs o visite</string> <!-- colocar enlace -->
@@ -573,6 +576,21 @@
     <string name="local_business_point_2">Un solo integrante.</string>
     <string name="local_business_point_3">Crea facturas en pdf y informes en excel.</string>
     <string name="local_business_point_4">Acceso a productos, clientes, proveedores y mucho más…</string>
+
+    <!-- Questions -->
+    <string name="question1">¿Cómo selecciono otro negocio?</string>
+    <string name="answer1">Apretando el menu del inicio( icono con 3 líneas) veras que te aparece una imagen de un negocio, haciendole click podras elegir entre tus negocios disponibles.</string>
+    <string name="question2">¿Puedo agregar otro integrante a mi negocio?</string>
+    <string name="answer2">Claro, pero recorda que esta acción solo esta disponible para negocios online, en la pestaña de tu negocio encontraras un codigo, compartilo para que se unan, por tu seguridad este codigo se renueva cada 10 minutos.</string>
+    <string name="question3">¿Cómo realizo un cambio de stock rápido?</string>
+    <string name="answer3">Al mantener precionado un producto te saldra la opcion de una orden rápida.</string>
+    <string name="question4">¿Las copias de seguridad son solo para negocios Locales?</string>
+    <string name="answer4">Si, las copias son solo para negocios Locales, ya que en los Online todo tu negocio vive en la nube. Ten en cuenta que las copias son generales, incluyen a todos tus negocios Locales en tu dispositivo.</string>
+    <string name="question5">¿Hasta cuantos negocios puedo tener?</string>
+    <string name="answer5">Por el momento solo podes crear hasta 10 negocios, pero no temas puede que esto en un futuro.</string>
+    <string name="question6">¿Mi informacion es publica?</string>
+    <string name="answer6">No! Nos aseguramos de solo compartir tu informacion con los integrantes de tu negocio y nadie mas.</string>
+    <string name="help_ticket_message">Si tu duda no esta solucionada, te invitamos a que nos mandes un ticket y nos contactaremos a la brevedad por e-mail.</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">

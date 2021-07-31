@@ -238,6 +238,7 @@ class GenerateReportFragment:
                             row.createCell(8).setCellValue(it.size)
 
                         }
+
                         workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)
                     }
@@ -250,6 +251,7 @@ class GenerateReportFragment:
         withContext(Dispatchers.IO) {
             val file = requireActivity().contentResolver.openOutputStream(uri)
             write(file)
+
             file?.close()
             viewModel.saveDownloadUri(uri)
         }

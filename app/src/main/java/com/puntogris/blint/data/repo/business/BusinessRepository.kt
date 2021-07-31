@@ -181,5 +181,4 @@ class BusinessRepository @Inject constructor(
             }
         }catch (e:Exception){ RepoResult.Error(e) }
     }
-
 }
