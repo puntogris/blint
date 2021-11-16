@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.*
-import com.puntogris.blint.data.repo.main.MainRepository
+import com.puntogris.blint.data.repository.main.MainRepository
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.utils.AccountStatus
@@ -16,16 +16,17 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
-):ViewModel() {
+) : ViewModel() {
 
-    val businessCounter:LiveData<BusinessCounters> = liveData {
+    val businessCounter: LiveData<BusinessCounters> = liveData {
         emitSource(mainRepository.getBusinessCounterFlow().asLiveData())
     }
 
-    private suspend fun getSyncStatus(employee: List<Employee>) = mainRepository.checkIfAccountIsSynced(employee)
+    private suspend fun getSyncStatus(employee: List<Employee>) =
+        mainRepository.checkIfAccountIsSynced(employee)
 
     private val _currentUser = MutableStateFlow(Employee())
-    val currentUser:StateFlow<Employee> = _currentUser
+    val currentUser: StateFlow<Employee> = _currentUser
 
     private val _accountStatus: MutableSharedFlow<AccountStatus> = MutableSharedFlow()
     val accountStatus: SharedFlow<AccountStatus> = _accountStatus
@@ -37,7 +38,7 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             getBusinessStatus().collect {
-                when(it){
+                when (it) {
                     is RepoResult.Error -> {}
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -50,13 +51,11 @@ class MainViewModel @Inject constructor(
 
     fun isUserLoggedIn() = mainRepository.checkIfUserIsLogged()
 
-    fun getUnreadNotificationsCount() = mainRepository.getAllUnreadNotifications()
-
     suspend fun getBusinessLastEvents() = mainRepository.getBusinessLastEventsDatabase()
 
     suspend fun getBusinessList() = mainRepository.getBusinessListRoom()
 
-    suspend fun updateCurrentBusiness(id:String) = mainRepository.updateCurrentBusiness(id)
+    suspend fun updateCurrentBusiness(id: String) = mainRepository.updateCurrentBusiness(id)
 
     private fun getBusinessStatus() = mainRepository.getBusinessesStatus()
 }

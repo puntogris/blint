@@ -24,8 +24,6 @@ class SyncAccountFragment : BaseFragment<FragmentSyncAccountBinding>(R.layout.fr
         binding.fragment = this
         UiInterface.apply {
             registerUi(showFab = false, showAppBar = false, showToolbar = false)
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
         launchAndRepeatWithViewLifecycle(Lifecycle.State.CREATED) {
             when(viewModel.syncAccount(args.userData)){

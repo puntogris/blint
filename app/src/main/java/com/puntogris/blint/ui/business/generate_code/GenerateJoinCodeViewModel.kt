@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.repo.business.BusinessRepository
+import com.puntogris.blint.data.repository.business.BusinessRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

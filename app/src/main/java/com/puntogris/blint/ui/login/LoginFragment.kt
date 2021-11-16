@@ -1,18 +1,18 @@
 package com.puntogris.blint.ui.login
 
-import android.animation.ObjectAnimator
+import android.content.Intent
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.common.api.ApiException
 import com.puntogris.blint.R
+import com.puntogris.blint.data.data_source.remote.LoginResult
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -24,76 +24,69 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     @Inject
     lateinit var oneTapLogin: OneTapLogin
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>
+    private lateinit var loginActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.apply {
             registerUi(showAppBar = false, showToolbar = false)
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
-        activityResultLauncher = registerForActivityResult(StartIntentSenderForResult()){ onLoginResult(it) }
+        registerActivityResultLauncher()
     }
 
-    fun onLoginButtonClicked(){
-        ObjectAnimator
-            .ofFloat(binding.textView118,"translationX", 0f, 25f, -25f, 25f, -25f,15f, -15f, 6f, -6f, 0f)
-            .setDuration(800L)
-            .start()
+    private fun registerActivityResultLauncher() {
+        loginActivityResultLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                   // onLoginFinished()
+                    authGoogleUserIntoServer(it)
+                }
+    }
 
-        if (oneTapLogin.isLoginEnabled()) oneTapLogin.showSingInUI(activityResultLauncher)
-        else UiInterface.showSnackBar(getString(R.string.snack_login_warning))
+    private fun authGoogleUserIntoServer(result: ActivityResult) {
+        lifecycleScope.launch {
+            viewModel.authGoogleUser(result).collect(::handleAuthUserIntoServerResult)
+        }
+    }
+
+    private fun handleAuthUserIntoServerResult(result: LoginResult) {
+        when (result) {
+            is LoginResult.Error -> {
+                UiInterface.showSnackBar(
+                        getString(R.string.snack_error_connection_server_try_later)
+                )
+               // onLoginError()
+            }
+            LoginResult.InProgress -> {
+              //  onLoginStarted()
+            }
+            is LoginResult.Success -> {
+                findNavController().navigate(R.id.mainFragment)
+
+            }
+        }
+    }
+
+    fun startLoginWithGoogle() {
+     //   onLoginStarted()
+        val intent = viewModel.getGoogleSignInIntent()
+        loginActivityResultLauncher.launch(intent)
+    }
+
+    fun continueAnonymously() {
+        lifecycleScope.launch {
+            when (viewModel.registerAnonymousUser()) {
+                SimpleResult.Failure -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                 //   onLoginError()
+                }
+                SimpleResult.Success -> {
+                    findNavController().navigate(R.id.welcomeFragment)
+                }
+            }
+        }
     }
 
     fun onLoginProblemsClicked(){
         findNavController().navigate(R.id.action_loginFragment_to_loginProblemsFragment)
-    }
-
-    private fun onLoginResult(activityResult: ActivityResult){
-        try {
-            oneTapLogin.getSingInCredentials(activityResult.data).googleIdToken?.let { credentialToken ->
-                lifecycleScope.launch {
-                    viewModel.logInUserToFirestore(credentialToken).collect { result ->
-                        when (result) {
-                            AuthResult.InProgress -> binding.logInProgressBar.visible()
-                            is AuthResult.Success -> onSuccessLogIn(result)
-                            is AuthResult.Error -> onErrorLogIn(result)
-                        }
-                    }
-                }
-            }
-        } catch (e: ApiException) { oneTapLogin.onOneTapException(e) }
-    }
-
-    private fun onSuccessLogIn(result: AuthResult.Success){
-        lifecycleScope.launch {
-            when(val data = viewModel.lookUpUserBusinessData(result.user)){
-                is RegistrationData.Complete -> {
-                    binding.logInProgressBar.gone()
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = false, data.userData)
-                    findNavController().navigate(action)
-                }
-                RegistrationData.Error -> {
-                    binding.logInProgressBar.gone()
-                    UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                }
-                RegistrationData.Incomplete -> {
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = true)
-                    findNavController().navigate(action)
-                }
-                RegistrationData.NotFound -> {
-                    val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(showIntro = true)
-                    findNavController().navigate(action)
-                }
-            }
-        }
-    }
-
-    private fun onErrorLogIn(result: AuthResult.Error) {
-        binding.logInProgressBar.gone()
-        result.exception.localizedMessage?.let {
-            UiInterface.showSnackBar(it)
-        }
     }
 }

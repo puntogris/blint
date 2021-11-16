@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.puntogris.blint.data.local.dao.ClientsDao
-import com.puntogris.blint.data.local.dao.UsersDao
-import com.puntogris.blint.data.repo.clients.ClientRepository
+import com.puntogris.blint.data.repository.clients.ClientRepository
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel

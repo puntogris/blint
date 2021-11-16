@@ -15,13 +15,14 @@ data class FirestoreProduct(
     val sellPrice:Float = 0F,
     val buyPrice:Float = 0F,
     val suggestedSellPrice: Float = 0F,
-    val internalCode: String = "",
+    val sku: String = "",
     val brand:String = "",
     val size:String = "",
     val lastRecordTimestamp: Timestamp = Timestamp.now(),
     val totalInStock: Int = 0,
     val totalOutStock: Int = 0,
     val businessId:String = "",
+    val minStock: Int = 0,
     val suppliers:List<FirestoreSupplier>? = null,
     val categories:List<String>? = null,
     val search_name:List<String> = listOf()
@@ -46,6 +47,7 @@ data class FirestoreProduct(
                 product.product.totalInStock,
                 product.product.totalOutStock,
                 product.product.businessId,
+                product.product.minStock,
                 product.suppliers?.map {
                     FirestoreSupplier(
                         companyName = it.companyName,

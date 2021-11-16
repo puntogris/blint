@@ -12,7 +12,7 @@ sealed class StringValidator{
     class NotValid(@StringRes val error: Int): StringValidator()
 
     companion object{
-        fun from(text: String, minLength: Int = 3, maxLength:Int = 15, allowSpecialChars: Boolean = false, isName:Boolean = false): StringValidator{
+        fun from(text: String, minLength: Int = 3, maxLength:Int = 20, allowSpecialChars: Boolean = false, isName:Boolean = false): StringValidator{
             return when{
                 text.isBlank() ->
                     NotValid(if (isName) R.string.snack_name_empty else R.string.snack_text_empty)

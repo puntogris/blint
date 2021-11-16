@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.categories.manage
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repo.categories.CategoriesRepository
+import com.puntogris.blint.data.repository.categories.CategoriesRepository
 import com.puntogris.blint.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

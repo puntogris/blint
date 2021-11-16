@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.puntogris.blint.data.repo.debts.DebtsRepository
+import com.puntogris.blint.data.repository.debts.DebtsRepository
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.SimpleDebt
 import dagger.hilt.android.lifecycle.HiltViewModel

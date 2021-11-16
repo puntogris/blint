@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
-                        android:maxLength="30"
+                        android:maxLength="50"
                         android:singleLine="true"
                         capitalizeFirstChar="@{viewModel.currentProduct.product.name}" />
 

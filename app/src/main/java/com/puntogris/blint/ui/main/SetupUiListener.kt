@@ -15,7 +15,6 @@ interface SetupUiListener{
                    @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
                    fabListener: View.OnClickListener? = null)
 
-    fun updateBadge(value: Int)
     fun setBottomAppBarInvisible()
     fun hideFab()
     fun setFabImageAndClickListener(
@@ -23,8 +22,6 @@ interface SetupUiListener{
         fabListener: View.OnClickListener? = null
     )
     fun setFabImage(@DrawableRes fabIcon: Int)
-    fun setToolbarAndStatusBarColor(@ColorRes color:Int)
-    fun setDarkStatusBar()
     fun showSnackBar(message: String,
                      duration: Int = Snackbar.LENGTH_SHORT,
                      @StringRes actionText: Int = R.string.read_more,

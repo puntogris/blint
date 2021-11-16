@@ -1,8 +1,8 @@
 package com.puntogris.blint.ui.settings
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repo.employees.EmployeesRepository
-import com.puntogris.blint.data.repo.tickets.TicketsRepository
+import com.puntogris.blint.data.repository.employees.EmployeesRepository
+import com.puntogris.blint.data.repository.tickets.TicketsRepository
 import com.puntogris.blint.model.Employee
 import com.puntogris.blint.model.Ticket
 import com.puntogris.blint.utils.SimpleResult

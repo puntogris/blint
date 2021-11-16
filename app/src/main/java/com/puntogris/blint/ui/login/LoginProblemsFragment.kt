@@ -17,8 +17,6 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
         binding.fragment = this
         UiInterface.apply {
             registerUi(showAppBar = false, showToolbar = false)
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }

@@ -1,8 +1,8 @@
 package com.puntogris.blint.ui.operations
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.local.dao.ProductsDao
-import com.puntogris.blint.data.local.dao.SuppliersDao
+import com.puntogris.blint.data.data_source.local.dao.ProductsDao
+import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

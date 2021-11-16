@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.employee
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repo.employees.EmployeesRepository
+import com.puntogris.blint.data.repository.employees.EmployeesRepository
 import com.puntogris.blint.model.Employee
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -7,12 +7,9 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -66,10 +63,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         } else binding.bottomAppBar.gone()
     }
 
-    override fun updateBadge(value: Int) {
-        binding.badge.setNumber(value)
-    }
-
     override fun setBottomAppBarInvisible() {
         binding.bottomAppBar.apply {
             invisible()
@@ -92,17 +85,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.fab.changeIconFromDrawable(fabIcon)
     }
 
-    override fun setToolbarAndStatusBarColor(@ColorRes color: Int){
-        ContextCompat.getColor(this, color).apply {
-            window.statusBarColor = this
-            binding.toolbar.setBackgroundColor(this)
-        }
-    }
-
-    override fun setDarkStatusBar() {
-        val wic = WindowInsetsControllerCompat(window, window.decorView)
-        wic.isAppearanceLightStatusBars = false
-    }
 
     override fun showSnackBar(message: String, duration: Int, actionText: Int, action: View.OnClickListener?){
         Snackbar.make(binding.root, message, duration).apply {
@@ -211,9 +193,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
-        binding.notification.setOnClickListener {
-            navController.navigate(R.id.notificationsFragment)
-        }
     }
 
     private fun changeFabStateBottomSheet(value: Boolean) {
@@ -267,45 +246,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         }
     }
 
-    private fun setBottomAppBarForHome(@MenuRes menuRes: Int) {
-        binding.run {
-            bottomAppBar.visible()
-            bottomAppBar.replaceMenu(menuRes)
-            bottomAppBar.performShow()
-        }
-    }
-
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        if(destination.id == R.id.mainFragment){
-            setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
-            binding.apply {
-                toolbar.setTitleTextColor(getColor(R.color.white))
-                badge.visible()
-                notification.visible()
-            }
-        }else{
-            binding.badge.gone()
-            binding.notification.gone()
-            setupToolbarAndStatusBar()
-        }
         hideKeyboard()
     }
 
-    private fun setupToolbarAndStatusBar(){
-        val wic = WindowInsetsControllerCompat(window, window.decorView)
-        if (isDarkThemeOn()){
-            setToolbarAndStatusBarColor(R.color.nightBackground)
-            wic.isAppearanceLightStatusBars = false
-        }else{
-            setToolbarAndStatusBarColor(R.color.dayBackground)
-            binding.toolbar.setTitleTextColor(getColor(R.color.grey_60))
-            wic.isAppearanceLightStatusBars = true
-        }
-    }
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {

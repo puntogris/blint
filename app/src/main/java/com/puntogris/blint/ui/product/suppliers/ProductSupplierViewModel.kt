@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.data.repo.supplier.SupplierRepository
+import com.puntogris.blint.data.repository.supplier.SupplierRepository
 import com.puntogris.blint.model.FirestoreSupplier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map

@@ -19,8 +19,6 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         binding.fragment = this
         UiInterface.apply {
             registerUi(showFab = false, showAppBar = false)
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
     }
 

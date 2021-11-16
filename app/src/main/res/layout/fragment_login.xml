@@ -4,87 +4,139 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.login.LoginFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/ic_squares_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.login.LoginFragment">
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_app_logo"
+                tools:ignore="ContentDescription" />
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppins_light"
-            android:gravity="bottom"
-            android:lineSpacingExtra="-15dp"
             android:text="@string/app_name_lowercase_with_dot"
-            android:textColor="@color/almostBlack"
-            android:textSize="55sp"
+            android:textAlignment="center"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
-        <TextView
-            android:id="@+id/loginProblems"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:padding="10dp"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/almostBlack"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Button
+            android:id="@+id/textView35"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:onClick="@{()-> fragment.onLoginProblemsClicked()}"
             android:text="@string/action_solve_login_problems"
-            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:textColor="?colorControlNormal"
+            android:fontFamily="sans-serif"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/logInProgressBar"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/textView58"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/primaryColor"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/loginProblems"
+            android:layout_marginBottom="60dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textAllCaps="false"
+            android:onClick="@{()-> fragment.continueAnonymously()}"
+            android:text="@string/action_continue_anonymously"
+            android:textColor="?colorControlNormal"
+            app:icon="@drawable/ic_fi_sr_incognito"
+            app:iconTint="@color/grey"
+            app:strokeWidth="1dp"
+            android:paddingHorizontal="16dp"
+            app:iconPadding="8dp"
+            app:strokeColor="@color/grey"
+            app:cornerRadius="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView35"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView118" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView118"
+            android:id="@+id/textView59"
+            android:fontFamily="sans-serif-medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:foreground="?selectableItemBackgroundBorderless"
-            android:onClick="@{()-> fragment.onLoginButtonClicked()}"
-            android:padding="20dp"
-            android:text="@string/action_tap_login"
-            android:textColor="@color/almostBlack"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/loginProblems"
+            android:layout_marginBottom="16dp"
+            android:text="@string/fast_login"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/white"
+            android:onClick="@{()->fragment.startLoginWithGoogle()}"
+            app:backgroundTint="@color/grey"
+            app:borderWidth="1dp"
+            app:elevation="0dp"
+            app:fabCustomSize="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView107" />
+            app:rippleColor="@color/grey_5"
+            app:srcCompat="@drawable/ic_google_logo"
+            app:tint="@null"
+            tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/textView107"
+        <ImageView
+            android:id="@+id/imageView7"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/app_slogan"
-            android:textColor="@color/almostBlack"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
-            app:layout_constraintEnd_toEndOf="@+id/textView13"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            android:layout_height="30dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView58"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/divider_with_middle_circle"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

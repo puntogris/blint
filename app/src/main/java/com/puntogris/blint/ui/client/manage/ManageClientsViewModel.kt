@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.client.manage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.puntogris.blint.data.repo.clients.ClientRepository
+import com.puntogris.blint.data.repository.clients.ClientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

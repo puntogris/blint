@@ -2,7 +2,9 @@ package com.puntogris.blint.di
 
 import android.content.Context
 import androidx.room.Room
-import com.puntogris.blint.data.local.AppDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.puntogris.blint.data.data_source.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,12 +49,19 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideUserDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE product ADD minStock INTEGER default 0 NOT NULL")
+            }
+        }
+
         return Room
             .databaseBuilder(
                 appContext,
                 AppDatabase::class.java,
                 "blint_database"
             )
+            .addMigrations(MIGRATION_1_2)
             .build()
     }
 

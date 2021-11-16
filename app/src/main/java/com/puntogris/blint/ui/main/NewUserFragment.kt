@@ -23,14 +23,12 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         UiInterface.apply {
             registerUi(showAppBar = true, showToolbar = false)
             setBottomAppBarInvisible()
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
     }
 
     fun onLogOutClicked(){
         lifecycleScope.launch {
-            viewModel.singOut()
+            //viewModel.singOut()
             val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
             findNavController().navigate(R.id.loginFragment, null, nav)
         }

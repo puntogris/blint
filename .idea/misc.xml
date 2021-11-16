@@ -3,14 +3,44 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_barcode.xml" value="0.16215277777777778" />
+        <entry key="app/src/main/res/drawable/ic_fi_sr_incognito.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/top_background_round_corners.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2454861111111111" />
+        <entry key="app/src/main/res/layout/business_deactivated_alert_view.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/business_deleting_alert_view.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/client_information_expandable.xml" value="0.10173611111111111" />
+        <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_business.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_client.xml" value="0.21388888888888888" />
+        <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_edit_supplier.xml" value="0.10173611111111111" />
+        <entry key="app/src/main/res/layout/fragment_employee.xml" value="0.2429553264604811" />
+        <entry key="app/src/main/res/layout/fragment_generate_join_code.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_login_problems.xml" value="0.23127147766323025" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
+        <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_register_local_business.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_supplier_data.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_sync_account.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/help_vh.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/main_fragment2.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
       </map>
     </option>
   </component>

@@ -68,28 +68,5 @@
             app:layout_anchor="@id/bottomAppBar"
             app:srcCompat="@drawable/ic_baseline_add_24"
             android:contentDescription="@string/fab_action_button" />
-
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foreground="?attr/actionBarItemBackground"
-            android:background="?attr/actionBarItemBackground"
-            app:tint="@color/grey_5"
-            android:layout_marginEnd="20dp"
-            app:layout_anchor="@id/toolbar"
-            app:layout_anchorGravity="center_vertical|end"
-            app:srcCompat="@drawable/ic_baseline_notifications_24"
-            android:contentDescription="@string/notifications_icon" />
-
-        <com.nex3z.notificationbadge.NotificationBadge
-            android:id="@+id/badge"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            app:layout_anchor="@id/notification"
-            app:layout_anchorGravity="end|top"
-            android:textSize="12sp"
-            app:nbMaxTextLength="2"/>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -1,0 +1,95 @@
+package com.puntogris.blint.data.repository.login
+
+import androidx.activity.result.ActivityResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.data_source.local.dao.EmployeeDao
+import com.puntogris.blint.data.data_source.local.dao.UsersDao
+import com.puntogris.blint.data.data_source.remote.AuthServerApi
+import com.puntogris.blint.data.data_source.remote.GoogleSingInApi
+import com.puntogris.blint.data.data_source.remote.LoginResult
+import com.puntogris.blint.model.FirestoreUser
+import com.puntogris.blint.model.User
+import com.puntogris.blint.model.UserData
+import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.utils.AuthResult
+import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import com.puntogris.blint.utils.RegistrationData
+import com.puntogris.blint.utils.SimpleResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+class LoginRepository @Inject constructor(
+    private val employeeDao: EmployeeDao,
+    private val usersDao: UsersDao,
+    private val sharedPref: SharedPref,
+    private val authServerApi: AuthServerApi,
+    private val googleSingInApi: GoogleSingInApi
+    ):ILoginRepository {
+
+    val auth = FirebaseAuth.getInstance()
+    val firestore = Firebase.firestore
+
+    override fun serverAuthWithGoogle(result: ActivityResult): Flow<LoginResult> = flow {
+        try {
+            emit(LoginResult.InProgress)
+            val credential = googleSingInApi.getCredentialWithIntent(requireNotNull(result.data))
+            val authResult = authServerApi.signInWithCredential(credential)
+            //todo return user to sync maybe
+            emit(LoginResult.Success())
+        } catch (e: Exception) {
+            googleSingInApi.signOut()
+            emit(LoginResult.Error)
+        }
+    }
+
+    override suspend fun singInAnonymously() = withContext(Dispatchers.IO) {
+        try{
+         //   userDao.insert(UserPrivateData())
+         //   dataStore.setShowLoginPref(false)
+
+            SimpleResult.Success
+        }catch(e: Exception){
+            SimpleResult.Failure
+        }
+    }
+
+    override suspend fun signOutUser() = withContext(Dispatchers.IO){
+        try {
+            googleSingInApi.signOut()
+            authServerApi.signOut()
+
+            employeeDao.deleteAll()
+            sharedPref.setShowNewUserScreenPref(true)
+            sharedPref.setLoginCompletedPref(false)
+            auth.signOut()
+        }catch (e:Exception){
+            //handle
+        }
+    }
+
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
+        try {
+            val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+            val userdata = document.toObject(UserData::class.java) ?: UserData()
+            val roomUser = User(currentUid = user.uid)
+            usersDao.insert(roomUser)
+
+            if (!document.exists()) {
+                firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
+                RegistrationData.NotFound
+            }
+            else if (userdata.dataMissing()) RegistrationData.Incomplete
+            else RegistrationData.Complete(userdata)
+
+        }
+        catch (e:Exception){ RegistrationData.Error }
+    }
+}

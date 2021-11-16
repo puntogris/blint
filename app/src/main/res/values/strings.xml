@@ -4,7 +4,7 @@
     <string name="app_name" translatable="false">Blint</string>
     <string name="app_slogan" translatable="false">make it simpler</string>
     <string name="app_version">Version</string>
-    <string name="app_version_number" translatable="false">1.0.1-a1</string>
+    <string name="app_version_number" translatable="false">1.0.1-a2</string>
     <string name="app_name_lowercase_with_dot" translatable="false">blint.</string>
 
     <!-- Navigation -->
@@ -129,7 +129,7 @@
     <string name="snack_text_min_max_length">The text field has to be at between 3 and 15 characters in length.</string>
     <string name="snack_name_empty">The name not be empty.</string>
     <string name="snack_name_cant_contain_special_chars">The name can not contain special characters.</string>
-    <string name="snack_name_min_max_length">The name has to be at between 3 and 15 characters in length.</string>
+    <string name="snack_name_min_max_length">The name has to be at between 3 and 50 characters in length.</string>
     <string name="action_require_permissions">No permission to perform this action.</string>
     <string name="snack_action_success">The task was carried out satisfactorily.</string>
 
@@ -222,6 +222,8 @@
     <string name="snack_network_problems">Found a problem with the connection. Check your network and try again.</string>
     <string name="snack_technical_problems">We are having technical difficulties. Please try again in a bit.</string>
     <string name="snack_no_google_account_found">We did not found a google account in your phone.</string>
+    <string name="fast_login">Quick login</string>
+    <string name="action_continue_anonymously">Continue anonymously</string>
 
     <!-- Calendar -->
     <string name="action_add_event">Add event</string>

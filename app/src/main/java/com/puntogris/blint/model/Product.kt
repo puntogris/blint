@@ -60,4 +60,7 @@ data class Product(
     @ColumnInfo
     var businessId:String = "",
 
+    @ColumnInfo
+    val minStock: Int = 0
+
     ):Parcelable

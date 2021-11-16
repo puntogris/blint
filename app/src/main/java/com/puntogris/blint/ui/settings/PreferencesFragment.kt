@@ -36,6 +36,7 @@ class PreferencesFragment: BasePreferences(R.xml.preferences) {
             AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newValue.toString()))
             true
         }
+
         findPreference<Preference>(HELP_PREF)?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.helpFragment)
             true

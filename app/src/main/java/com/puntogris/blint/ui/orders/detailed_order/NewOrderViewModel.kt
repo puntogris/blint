@@ -1,14 +1,13 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
-import androidx.annotation.Keep
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.data.repo.clients.ClientRepository
-import com.puntogris.blint.data.repo.orders.OrderRepository
-import com.puntogris.blint.data.repo.products.ProductRepository
-import com.puntogris.blint.data.repo.supplier.SupplierRepository
-import com.puntogris.blint.data.repo.user.UserRepository
+import com.puntogris.blint.data.repository.clients.ClientRepository
+import com.puntogris.blint.data.repository.orders.OrderRepository
+import com.puntogris.blint.data.repository.products.ProductRepository
+import com.puntogris.blint.data.repository.supplier.SupplierRepository
+import com.puntogris.blint.data.repository.user.UserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT

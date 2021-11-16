@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
-import com.puntogris.blint.data.local.dao.ProductsDao
+import com.puntogris.blint.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.*
 import com.puntogris.blint.ui.base.BaseFragmentOptions
@@ -28,20 +28,15 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
 
-    @Inject lateinit var productsDao: ProductsDao
-
-    @ExperimentalTime
     override fun initializeViews() {
         UiInterface.apply {
             registerUi(showFab = false)
-            setToolbarAndStatusBarColor(R.color.colorSecondary)
-            setDarkStatusBar()
         }
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
         setupMenuRecyclerView()
-        setupBadgeListener()
         setupCalendarRecyclerView()
     }
 
@@ -52,13 +47,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
             else -> R.id.accountPreferences
         }
         findNavController().navigate(nav)
-    }
-    private fun setupBadgeListener(){
-        launchAndRepeatWithViewLifecycle {
-            viewModel.getUnreadNotificationsCount().collect {
-                UiInterface.updateBadge(it)
-            }
-        }
     }
 
     private fun setupCalendarRecyclerView(){
@@ -121,23 +109,12 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         }
     }
 
-    private fun showRequirePermissionsSnackBar(){
-        UiInterface.showSnackBar(getString(R.string.action_require_permissions)){
-            launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-        }
-    }
-
     private fun onMenuCardClicked(menuCard: MenuCard){
-        if (menuCard.navigationId != R.id.accountPreferences &&
-            viewModel.currentUser.value.businessStatus != ENABLED){
-            showRequirePermissionsSnackBar()
-        }else findNavController().navigate(menuCard.navigationId)
+        findNavController().navigate(menuCard.navigationId)
     }
 
     fun onAddEventClicked(){
-        if (viewModel.currentUser.value.businessStatus != ENABLED){
-            showRequirePermissionsSnackBar()
-        }else findNavController().navigate(R.id.createEventFragment)
+        findNavController().navigate(R.id.createEventFragment)
     }
 
     override fun onDestroyView() {

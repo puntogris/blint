@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.login
 
+import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.data.repo.login.LoginRepository
+import com.puntogris.blint.data.repository.login.LoginRepository
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.utils.RegistrationData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,21 +12,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository
-    ): ViewModel() {
+    private val loginRepository: LoginRepository,
+    private val googleSignInClient: GoogleSignInClient
+): ViewModel() {
 
-    fun logInUserToFirestore(credential:String) = loginRepository.logInUserWithCredentialToken(credential)
+    fun authGoogleUser(result: ActivityResult) = loginRepository.serverAuthWithGoogle(result)
 
-    suspend fun singOut() = loginRepository.signOutUser()
+    fun getGoogleSignInIntent() = googleSignInClient.signInIntent
 
-    suspend fun lookUpUserBusinessData(firebaseUser: FirebaseUser): RegistrationData {
-        return loginRepository.checkUserDataInFirestore(
-                FirestoreUser(
-                uid = firebaseUser.uid,
-                name = firebaseUser.displayName.toString(),
-                imageUrl = firebaseUser.photoUrl.toString(),
-                email = firebaseUser.email.toString()
-                )
-        )
-    }
+    suspend fun registerAnonymousUser() = loginRepository.singInAnonymously()
+
+
 }

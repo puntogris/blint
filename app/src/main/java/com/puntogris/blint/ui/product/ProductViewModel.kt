@@ -2,11 +2,8 @@ package com.puntogris.blint.ui.product
 
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
-import com.puntogris.blint.data.local.dao.*
-import com.puntogris.blint.data.repo.products.ProductRepository
-import com.puntogris.blint.data.repo.categories.CategoriesRepository
+import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

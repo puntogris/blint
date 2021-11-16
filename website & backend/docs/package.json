@@ -1,0 +1,19 @@
+{
+  "name": "blint.",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "authors": {
+    "name": "Puntogris",
+    "email": "puntogrishelp@gmail.com"
+  },
+  "repository": "puntogris/blint/blint.",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
