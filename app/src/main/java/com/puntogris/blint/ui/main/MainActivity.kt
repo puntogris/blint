@@ -205,7 +205,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun navigateToMenuDestinations(navMenu: NavMenu) {
         if (navMenu != NavMenu.HOME &&
             navMenu != NavMenu.SETTINGS &&
-            navMenu != NavMenu.NOTIFICATIONS &&
             viewModel.currentUser.value.businessStatus != ENABLED
         ) {
             showSnackBar(getString(R.string.action_require_permissions)) {
@@ -218,7 +217,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 NavMenu.CLIENTS -> R.id.manageClientsFragment
                 NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
                 NavMenu.ORDERS -> R.id.manageOrdersFragment
-                NavMenu.NOTIFICATIONS -> R.id.notificationsFragment
                 NavMenu.SETTINGS -> R.id.preferencesFragment
             }.apply { navController.navigate(this) }
         }

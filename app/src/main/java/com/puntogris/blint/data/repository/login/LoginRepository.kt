@@ -2,10 +2,9 @@ package com.puntogris.blint.data.repository.login
 
 import androidx.activity.result.ActivityResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.data_source.local.dao.EmployeeDao
+import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.AuthServerApi
 import com.puntogris.blint.data.data_source.remote.GoogleSingInApi
@@ -14,20 +13,18 @@ import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.SharedPref
-import com.puntogris.blint.utils.AuthResult
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RegistrationData
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
-    private val employeeDao: EmployeeDao,
+    private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
     private val sharedPref: SharedPref,
     private val authServerApi: AuthServerApi,
@@ -66,7 +63,7 @@ class LoginRepository @Inject constructor(
             googleSingInApi.signOut()
             authServerApi.signOut()
 
-            employeeDao.deleteAll()
+            businessDao.deleteAll()
             sharedPref.setShowNewUserScreenPref(true)
             sharedPref.setLoginCompletedPref(false)
             auth.signOut()

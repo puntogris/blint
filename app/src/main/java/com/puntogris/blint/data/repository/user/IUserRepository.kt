@@ -10,5 +10,5 @@ interface IUserRepository {
     fun getCurrentUID(): String
     fun getCurrentUser(): FirebaseUser?
     suspend fun syncAccountFromDatabase(userData: UserData? = null): SyncAccount
-    suspend fun getUserBusiness():List<Employee>
+    suspend fun getUserBusiness():List<Business>
 }

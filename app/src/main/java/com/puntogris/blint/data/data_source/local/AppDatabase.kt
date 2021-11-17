@@ -8,7 +8,7 @@ import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Converters
 
 @Database(entities = [
-    Employee::class,
+    Business::class,
     Client::class,
     Product::class,
     Record::class,
@@ -25,7 +25,7 @@ import com.puntogris.blint.utils.Converters
                      ], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun employeesDao(): EmployeeDao
+    abstract fun businessDao(): BusinessDao
     abstract fun clientsDao(): ClientsDao
     abstract fun productsDao(): ProductsDao
     abstract fun ordersDao(): OrdersDao

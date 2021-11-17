@@ -8,7 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBusinessBinding
-import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.DISABLED
@@ -25,30 +25,29 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
 
     override fun initializeViews() {
         UiInterface.registerUi()
-        binding.employee = args.employee
+        binding.employee = args.business
 
         launchAndRepeatWithViewLifecycle {
-            viewModel.getBusinessEmployees(args.employee.businessId).collect {
-                when(it){
-                    is UserBusiness.Error -> UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                    UserBusiness.InProgress -> binding.progressBar.visible()
-                    UserBusiness.NotFound -> onDataNotFound()
-                    is UserBusiness.Success -> onDataFound(it.data)
-                }
-            }
+//            viewModel.getBusinessEmployees(args.business.businessId).collect {
+//                when(it){
+//                    is UserBusiness.Error -> UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+//                    UserBusiness.InProgress -> binding.progressBar.visible()
+//                    UserBusiness.NotFound -> onDataNotFound()
+//                    is UserBusiness.Success -> onDataFound(it.data)
+//                }
+//            }
         }
 
-        if (!args.employee.isOnlineBusiness()){
             binding.textView103.gone()
             binding.cardView2.gone()
-        }
 
-        if(args.employee.businessStatus == TO_DELETE){
+
+        if(args.business.businessStatus == TO_DELETE){
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deleting_alert_view
                 inflate()
             }
-        }else if(args.employee.businessStatus == DISABLED){
+        }else if(args.business.businessStatus == DISABLED){
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deactivated_alert_view
                 inflate()
@@ -60,7 +59,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
     }
 
-    private fun onDataFound(data:List<Employee>){
+    private fun onDataFound(data:List<Business>){
         binding.progressBar.gone()
         binding.recyclerView.apply {
             businessEmployeeAdapter = BusinessEmployeeAdapter{onEmployeeClicked(it)}
@@ -69,36 +68,30 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
             businessEmployeeAdapter.submitList(data)
         }
     }
-    private fun onEmployeeClicked(employee:Employee){
-        val action = BusinessFragmentDirections.actionBusinessFragmentToEmployeeFragment(employee)
-        findNavController().navigate(action)
+    private fun onEmployeeClicked(business:Business){
+//        val action = BusinessFragmentDirections.actionBusinessFragmentToEmployeeFragment(business)
+//        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        launchAndRepeatWithViewLifecycle {
-            val userData = viewModel.getBusinessEmployee(args.employee.businessId)
-            if (userData.isAdministrator()){
-                menu.findItem(R.id.businessFragmentMenu).isVisible = true
-                if(args.employee.iLocalBusiness()) menu.findItem(R.id.newEmployee).isVisible = false
-                if(args.employee.businessStatus == TO_DELETE) {
-                    menu.findItem(R.id.newEmployee).isVisible = false
-                    menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
-                    menu.findItem(R.id.deleteBusiness).isVisible = false
-                }
-            }
+        menu.findItem(R.id.businessFragmentMenu).isVisible = true
+        if(args.business.businessStatus == TO_DELETE) {
+            menu.findItem(R.id.newEmployee).isVisible = false
+            menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
+            menu.findItem(R.id.deleteBusiness).isVisible = false
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.deleteBusiness -> {
-                val action = BusinessFragmentDirections.actionBusinessFragmentToDeleteBusinessFragment(args.employee)
+                val action = BusinessFragmentDirections.actionBusinessFragmentToDeleteBusinessFragment(args.business)
                 findNavController().navigate(action)
                 true
             }
             R.id.newEmployee -> {
-                val action = BusinessFragmentDirections.actionBusinessFragmentToAddBusinessEmployee(args.employee)
-                findNavController().navigate(action)
+//                val action = BusinessFragmentDirections.actionBusinessFragmentToAddBusinessEmployee(args.employee)
+//                findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)

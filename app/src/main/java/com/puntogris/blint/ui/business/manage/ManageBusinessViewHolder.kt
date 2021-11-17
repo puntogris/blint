@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.BusinessItemVhBinding
-import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.Business
 
 class ManageBusinessViewHolder private constructor(val binding: BusinessItemVhBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(employee: Employee, clickListener: (Employee)-> (Unit)) {
-        binding.business = employee
-        binding.root.setOnClickListener { clickListener(employee) }
+    fun bind(business: Business, clickListener: (Business)-> (Unit)) {
+        binding.business = business
+        binding.root.setOnClickListener { clickListener(business) }
         binding.executePendingBindings()
     }
 

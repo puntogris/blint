@@ -26,7 +26,6 @@ class DebtsRepository @Inject constructor(
     override suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>> {
         return try {
             val data = debtsDao.getDebtsWithId(traderId)
-
             RepoResult.Success(data)
         } catch (e: Exception) {
             RepoResult.Error(e)
@@ -37,7 +36,6 @@ class DebtsRepository @Inject constructor(
         withContext(Dispatchers.IO) {
             val user = currentUser()
             try {
-                debt.debtId = "" //todo id room
                 debt.author = ""
                 debt.businessId = user.businessId
 

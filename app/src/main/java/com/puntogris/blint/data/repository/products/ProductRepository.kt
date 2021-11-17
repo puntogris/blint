@@ -1,25 +1,20 @@
 package com.puntogris.blint.data.repository.products
 
-import android.content.Context
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.data.data_source.remote.FirestoreQueries
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SearchText
 import com.puntogris.blint.utils.SimpleResult
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -29,12 +24,9 @@ class ProductRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val productsDao: ProductsDao,
     private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao,
-    private val firestoreQueries: FirestoreQueries,
-    @ApplicationContext private val context: Context
+    private val ordersDao: OrdersDao
 ) : IProductRepository {
 
-    private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
     private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
@@ -47,8 +39,6 @@ class ProductRepository @Inject constructor(
         try {
             val isNewProduct = product.product.productId == 0
             val user = currentBusiness()
-            val productRef = firestoreQueries.getProductsCollectionQuery(user)
-            val recordRef = firestoreQueries.getRecordsCollectionQuery(user)
 
             if (isNewProduct) {
                 product.product.apply {
@@ -68,7 +58,6 @@ class ProductRepository @Inject constructor(
                 barcode = product.product.barcode,
                 totalInStock = product.product.amount,
                 sku = product.product.sku,
-                recordId = recordRef.document().id
             )
 
             productsDao.insertProduct(product)
@@ -109,8 +98,7 @@ class ProductRepository @Inject constructor(
 
     override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) =
         withContext(Dispatchers.IO) {
-            val user = currentBusiness()
-            if (!user.isOnlineBusiness() && search is SearchText.Category) {
+            if (search is SearchText.Category) {
                 val ids = productsDao.getProductIdWithCategory(search.text)
                 Pager(
                     PagingConfig(

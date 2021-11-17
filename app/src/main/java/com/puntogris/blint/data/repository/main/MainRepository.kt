@@ -3,31 +3,26 @@ package com.puntogris.blint.data.repository.main
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.data_source.local.dao.EmployeeDao
+import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.EventsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.data.data_source.remote.FirestoreQueries
 import com.puntogris.blint.model.BusinessCounters
-import com.puntogris.blint.model.Employee
-import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.EventsDashboard
 import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val eventsDao: EventsDao,
     private val statisticsDao: StatisticsDao,
-    private val employeeDao: EmployeeDao
+    private val businessDao: BusinessDao
 ): IMainRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -44,15 +39,14 @@ class MainRepository @Inject constructor(
 
     override fun getCurrentUserFlow() = usersDao.getUserFlow()
 
-    override suspend fun getBusinessListRoom() = employeeDao.getEmployeesList()
+    override suspend fun getBusinessListRoom() = businessDao.getBusiness()
 
-    @ExperimentalCoroutinesApi
-    override fun getBusinessesStatus(): Flow<RepoResult<List<Employee>>>  = callbackFlow {
+    override fun getBusinessesStatus(): Flow<RepoResult<List<Business>>>  = callbackFlow {
             val ref = firestore.collectionGroup("employees")
                 .whereEqualTo("employeeId", auth.currentUser?.uid.toString())
                 .addSnapshotListener { value, error ->
                     if (value != null){
-                        val businesses = value.toObjects(Employee::class.java)
+                        val businesses = value.toObjects(Business::class.java)
                         businesses.removeIf { it.businessStatus == "DELETED" }
                         trySend(RepoResult.Success(businesses))
                     }else{
@@ -62,15 +56,14 @@ class MainRepository @Inject constructor(
             awaitClose { ref.remove() }
         }
 
-
-    override suspend fun checkIfAccountIsSynced(employee: List<Employee>): AccountStatus = withContext(Dispatchers.IO){
+    override suspend fun checkIfAccountIsSynced(business: List<Business>): AccountStatus = withContext(Dispatchers.IO){
         try {
             val roomEmployees = getBusinessListRoom()
-            if (roomEmployees.toSet() == employee.toSet()) {
-                if (employee.isEmpty()) AccountStatus.Synced(false)
+            if (roomEmployees.toSet() == business.toSet()) {
+                if (business.isEmpty()) AccountStatus.Synced(false)
                 else AccountStatus.Synced(true)
             }
-            else AccountStatus.OutOfSync(employee)
+            else AccountStatus.OutOfSync(business)
         }catch (e:Exception){
             AccountStatus.Error
         }

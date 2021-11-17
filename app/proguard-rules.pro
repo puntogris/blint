@@ -26,7 +26,7 @@
 -keep class com.puntogris.blint.model.Record
 -keep class com.puntogris.blint.model.Event
 -keep class com.puntogris.blint.model.UserData
--keep class com.puntogris.blint.model.Employee
+-keep class com.puntogris.blint.model.Business
 -keep class com.puntogris.blint.model.Product
 -keep class com.puntogris.blint.model.OrderWithRecords
 -keep class com.puntogris.blint.model.Debt

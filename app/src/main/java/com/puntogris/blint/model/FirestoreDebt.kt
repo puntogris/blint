@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class FirestoreDebt(
-    var debtId: String = "",
+    var debtId: Int = 0,
     var type: String = "",
     var amount: Float = 0f
 ):Parcelable

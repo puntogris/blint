@@ -2,7 +2,6 @@ package com.puntogris.blint.data.repository.categories
 
 import com.puntogris.blint.data.data_source.local.dao.CategoriesDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.data.data_source.remote.FirestoreQueries
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SimpleResult

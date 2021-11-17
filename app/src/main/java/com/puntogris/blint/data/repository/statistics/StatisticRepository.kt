@@ -6,7 +6,6 @@ import com.puntogris.blint.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.data.data_source.remote.FirestoreQueries
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.RepoResult
 import kotlinx.coroutines.Dispatchers

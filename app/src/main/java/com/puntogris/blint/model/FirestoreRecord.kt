@@ -10,11 +10,11 @@ import kotlinx.parcelize.Parcelize
 data class FirestoreRecord(
     var amount: Int = 0,
     val productId: Int = 0,
-    val productName:String = "",
-    var recordId: String = "",
+    val productName: String = "",
+    var recordId: Int = 0,
     val value: Float = 0F,
     val sku: String = "",
-    val barcode:String = "",
+    val barcode: String = "",
     @get:Exclude var totalInStock: Int = 0,
     @get:Exclude var totalOutStock: Int = 0
-    ):Parcelable
+) : Parcelable

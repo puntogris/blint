@@ -103,8 +103,8 @@ class NewOrderViewModel @Inject constructor(
     }
 
     suspend fun getClientPaging() =
-        clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
+        clientRepository.getAllClientsPaged().cachedIn(viewModelScope)
 
     suspend fun getClientsWithName(name: String) =
-        clientRepository.getClientWithNamePagingDataFlow(name).cachedIn(viewModelScope)
+        clientRepository.getClientsWithNamePaged(name).cachedIn(viewModelScope)
 }

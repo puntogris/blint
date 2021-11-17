@@ -1,16 +1,53 @@
 package com.puntogris.blint.model
 
+import android.os.Parcelable
 import androidx.annotation.Keep
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.IgnoreExtraProperties
+import com.puntogris.blint.utils.Constants.ADMINISTRATOR
+import com.puntogris.blint.utils.Constants.LOCAL
+import com.puntogris.blint.utils.Constants.ONLINE
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
+@Entity
 @Keep
 data class Business(
+
+    @PrimaryKey(autoGenerate = false)
     var businessId: String = "",
+
+    @ColumnInfo
     val businessName: String = "",
-    val type: String = "",
-    val owner: String = "",
-    val status: String = "",
+
+    @ColumnInfo
+    val businessType: String = "",
+
+    @ColumnInfo
+    val businessOwner: String = "",
+
+    @ColumnInfo
+    val role: String = "",
+
+    @ColumnInfo
+    val employeeCreatedAt: Timestamp = Timestamp.now(),
+
+    @ColumnInfo
     val businessCreatedAt: Timestamp = Timestamp.now(),
+
+    @ColumnInfo
+    val email: String = "",
+
+    @ColumnInfo
+    val businessStatus: String = "",
+
+    @ColumnInfo
     val lastStatusTimestamp: Timestamp = Timestamp.now(),
-    val logoUri: String = ""
-)
+
+    @ColumnInfo
+    val businessLogoUri: String = ""
+
+) : Parcelable

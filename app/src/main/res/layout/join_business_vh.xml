@@ -5,7 +5,7 @@
     <data>
         <variable
             name="business"
-            type="com.puntogris.blint.model.Employee" />
+            type="com.puntogris.blint.model.Business" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@{business.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView46"
             app:layout_constraintStart_toStartOf="@+id/textView46"

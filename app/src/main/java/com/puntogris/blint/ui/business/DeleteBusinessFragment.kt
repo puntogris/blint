@@ -28,9 +28,8 @@ class DeleteBusinessFragment : BaseFragment<FragmentDeleteBusinessBinding>(R.lay
             }
         }
 
-        if (args.business.iLocalBusiness()){
             binding.textView120.text = getString(R.string.delete_local_business_warning)
-        }
+
     }
 
     private fun showDeleteBusinessUi(){

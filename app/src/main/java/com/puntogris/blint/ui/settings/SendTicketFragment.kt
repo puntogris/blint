@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSendTicketBinding
-import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,11 +36,11 @@ class SendTicketFragment: BaseFragment<FragmentSendTicketBinding>(R.layout.fragm
                 }
             }else UiInterface.showSnackBar(getString(R.string.snack_fill_all_data_ticket))
         }
-        var businesses = listOf<Employee>()
+        var businesses = listOf<Business>()
         launchAndRepeatWithViewLifecycle {
-            businesses = viewModel.getEmployeeList()
-            val items = businesses.map { it.businessName }
-            binding.businessText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
+//            businesses = viewModel.()
+//            val items = businesses.map { it.businessName }
+//            binding.businessText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
         }
 
         binding.businessText.setOnItemClickListener { _, _, i, _ ->

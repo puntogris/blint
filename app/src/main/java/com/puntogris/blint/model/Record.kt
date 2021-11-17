@@ -15,8 +15,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Record(
 
-    @PrimaryKey
-     var recordId: String = "",
+    @PrimaryKey(autoGenerate = true)
+     var recordId: Int = 0,
 
     @ColumnInfo
      var type: String = "",
@@ -49,7 +49,7 @@ data class Record(
     var productUnitPrice: Float = 0F,
 
     @ColumnInfo
-    var orderId: String = "",
+    var orderId: Int = 0,
 
     @ColumnInfo
     var value: Float = 0F,

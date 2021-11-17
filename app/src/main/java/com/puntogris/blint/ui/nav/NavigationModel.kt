@@ -73,13 +73,6 @@ object NavigationModel {
 
     private val secondaryItems = listOf(
         NavigationModelItem.NavMenuItem(
-            id = NOTIFICATIONS_ID,
-            icon = R.drawable.ic_twotone_notifications_24,
-            titleRes = R.string.notifications_label,
-            checked = false,
-            navMenu = NavMenu.NOTIFICATIONS
-        ),
-        NavigationModelItem.NavMenuItem(
             id = SETTINGS_ID,
             icon = R.drawable.ic_twotone_settings_24,
             titleRes = R.string.settings_label,

@@ -40,7 +40,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onJoinBusinessClicked() {
-        findNavController().navigate(R.id.joinBusinessFragment)
+
     }
 
     fun onCreateBusinessClicked() {

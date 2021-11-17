@@ -24,44 +24,27 @@ class ManageClientsFragment :
     BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
 
     private val viewModel: ManageClientsViewModel by viewModels()
-    private lateinit var manageProductsAdapter: ManageClientsAdapter
-    private var searchJob: Job? = null
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+
         UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editClientFragment)
-
         }
 
-        manageProductsAdapter = ManageClientsAdapter { onClientClickListener(it) }
-        binding.recyclerView.adapter = manageProductsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        launchAndRepeatWithViewLifecycle {
-            getAllClientsAndFillAdapter()
+        ManageClientsAdapter { onClientClickListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
 
         binding.clientSearch.addTextChangedListener {
-            searchJob?.cancel()
-            searchJob = lifecycleScope.launch {
-                it.toString().let {
-                    if (it.isBlank()) getAllClientsAndFillAdapter()
-                    else getAllClientsWithNameAndFillAdapter(it.lowercase())
-                }
-            }
+            viewModel.setQuery(it.toString())
         }
     }
 
-    private suspend fun getAllClientsWithNameAndFillAdapter(text: String) {
-        viewModel.getClientsWithName(text).collect {
-            manageProductsAdapter.submitData(it)
-        }
-    }
-
-    private suspend fun getAllClientsAndFillAdapter() {
-        viewModel.getClientPaging().collect {
-            manageProductsAdapter.submitData(it)
+    private fun subscribeUi(adapter: ManageClientsAdapter) {
+        viewModel.clientsPaged.observe(viewLifecycleOwner){
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
@@ -70,11 +53,6 @@ class ManageClientsFragment :
         val action =
             ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
         findNavController().navigate(action)
-    }
-
-    override fun onDestroyView() {
-        binding.recyclerView.adapter = null
-        super.onDestroyView()
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -88,4 +66,8 @@ class ManageClientsFragment :
         } else super.onOptionsItemSelected(item)
     }
 
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
+    }
 }

@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.client.manage
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.clients.ClientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +11,15 @@ class ManageClientsViewModel @Inject constructor(
     private val clientRepository: ClientRepository
 ) : ViewModel() {
 
-    suspend fun getClientPaging() =
-        clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
+    private val _query = MutableLiveData<String>()
+    val query: LiveData<String> get() = _query
 
-    suspend fun getClientsWithName(name: String) =
-        clientRepository.getClientWithNamePagingDataFlow(name).cachedIn(viewModelScope)
+    val clientsPaged = _query.switchMap {
+        if (it.isNullOrBlank()) clientRepository.getAllClientsPaged().asLiveData()
+        else clientRepository.getClientsWithNamePaged(it).asLiveData()
+    }.cachedIn(viewModelScope)
+
+    fun setQuery(query: String){
+        _query.value = query
+    }
 }

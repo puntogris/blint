@@ -49,7 +49,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             adapter = ordersAdapter
         }
 
-        if (!args.orderId.isNullOrEmpty()) {
+        if (args.orderId != 0) {
             lifecycleScope.launch {
                 val order = viewModel.fetchOrderRecords(args.orderId.toString())
                 if (!order.records.isNullOrEmpty()) {

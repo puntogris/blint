@@ -14,8 +14,8 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "Orders")
 data class Order(
 
-    @PrimaryKey
-    var orderId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var orderId: Int = 0,
 
     @ColumnInfo
     val timestamp: Timestamp = Timestamp.now(),
@@ -42,7 +42,7 @@ data class Order(
     var number: Int = 1,
 
     @ColumnInfo
-    var debtId: String = "",
+    var debtId: Int = 0,
 
     @ColumnInfo
     var businessName: String = "",

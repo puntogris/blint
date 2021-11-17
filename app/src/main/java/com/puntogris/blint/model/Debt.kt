@@ -13,14 +13,14 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Debt(
 
-    @PrimaryKey
-    var debtId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var debtId: Int = 0,
 
     @ColumnInfo
     var amount: Float = 0F,
 
     @ColumnInfo
-    var orderId: String = "",
+    var orderId: Int = 0,
 
     @ColumnInfo
     var traderId: Int = 0,

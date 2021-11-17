@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
-import kotlinx.coroutines.flow.Flow
 import java.lang.Exception
 
 sealed class StringValidator{
@@ -31,7 +30,7 @@ sealed class StringValidator{
 }
 
 sealed class AccountStatus{
-    class OutOfSync(val affectedBusinesses: List<Employee>): AccountStatus()
+    class OutOfSync(val affectedBusinesses: List<Business>): AccountStatus()
     class Synced(val hasBusiness: Boolean): AccountStatus()
     object Error:AccountStatus()
 }
@@ -93,7 +92,7 @@ sealed class SyncAccount{
 }
 
 sealed class UserBusiness(){
-    class Success(val data:List<Employee>) : UserBusiness()
+    class Success(val data:List<Business>) : UserBusiness()
     class Error(val exception: Exception): UserBusiness()
     object NotFound: UserBusiness()
     object InProgress: UserBusiness()

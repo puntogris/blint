@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
-import com.puntogris.blint.model.Employee
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,20 +21,20 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
         UiInterface.registerUi()
         binding.fragment = this
         launchAndRepeatWithViewLifecycle {
-            val businesses = viewModel.getBusinessList()
-            if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
-            else onBusinessFoundUi(businesses)
+//            val businesses = viewModel.getBusinessList()
+//            if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
+//            else onBusinessFoundUi(businesses)
         }
     }
 
-    private fun onBusinessFoundUi(employees: List<Employee>){
+    private fun onBusinessFoundUi(businesses: List<Business>){
         binding.progressBar.gone()
         val businessAdapter = ManageBusinessAdapter{ onBusinessClicked(it) }
         binding.recyclerView.apply {
             adapter = businessAdapter
             layoutManager = LinearLayoutManager(requireContext())
             scheduleLayoutAnimation()
-            businessAdapter.submitList(employees)
+            businessAdapter.submitList(businesses)
         }
     }
 
@@ -49,7 +49,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
                 true
             }
             R.id.joinBusiness -> {
-                findNavController().navigate(R.id.joinBusinessFragment)
+               // findNavController().navigate(R.id.joinBusinessFragment)
                 true
             }
             R.id.syncBusiness -> {
@@ -72,11 +72,11 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
     }
 
     fun onJoinBusinessClicked(){
-        findNavController().navigate(R.id.joinBusinessFragment)
+       // findNavController().navigate(R.id.joinBusinessFragment)
     }
 
-    private fun onBusinessClicked(employee: Employee){
-        val action = ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(employee)
+    private fun onBusinessClicked(business: Business){
+        val action = ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
         findNavController().navigate(action)
     }
 

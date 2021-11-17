@@ -22,7 +22,6 @@ class ClientRepository @Inject constructor(
     private val ordersDao: OrdersDao,
 ) : IClientRepository {
 
-
     private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun saveClientDatabase(client: Client): SimpleResult =
@@ -46,18 +45,17 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override suspend fun getClientPagingDataFlow(): Flow<PagingData<Client>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                clientsDao.getAllPaged()
-            }.flow
-        }
+    override fun getAllClientsPaged(): Flow<PagingData<Client>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            clientsDao.getAllPaged()
+        }.flow
+    }
 
     override suspend fun deleteClientDatabase(clientId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
@@ -84,17 +82,16 @@ class ClientRepository @Inject constructor(
             }.flow
         }
 
-    override suspend fun getClientWithNamePagingDataFlow(name: String): Flow<PagingData<Client>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                clientsDao.getPagedSearch("%${name}%")
-            }.flow
-        }
+    override fun getClientsWithNamePaged(name: String): Flow<PagingData<Client>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            clientsDao.getPagedSearch("%${name}%")
+        }.flow
+    }
 
 }

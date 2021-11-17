@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class FirestoreOrder(
-    var orderId: String = "",
+    var orderId: Int = 0,
     val timestamp: Timestamp = Timestamp.now(),
     var value: Float = 0F,
     var type:String =  "IN",

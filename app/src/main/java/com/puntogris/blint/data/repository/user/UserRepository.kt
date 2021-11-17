@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.data_source.local.dao.EmployeeDao
+import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
@@ -22,7 +22,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
-    private val employeeDao: EmployeeDao,
+    private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao,
     private val sharedPref: SharedPref
@@ -55,15 +55,15 @@ class UserRepository @Inject constructor(
                     ).await()
             }
             if(userBusinesses.isEmpty){
-                employeeDao.deleteAll()
+                businessDao.deleteAll()
                 sharedPref.apply {
                     setShowNewUserScreenPref(true)
                     setLoginCompletedPref(true)
                 }
                 SyncAccount.Success.BusinessNotFound
             }else{
-                val businesses = userBusinesses.toObjects(Employee::class.java)
-                employeeDao.syncEmployees(businesses)
+                val businesses = userBusinesses.toObjects(Business::class.java)
+                businessDao.syncEmployees(businesses)
 
                 businesses.filter { it.businessType == LOCAL }
                     .map { Statistic(businessId = it.businessId) }
@@ -84,7 +84,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    override suspend fun getUserBusiness() = employeeDao.getEmployeesList()
+    override suspend fun getUserBusiness() = businessDao.getBusiness()
 
     override suspend fun sendReportToFirestore(message: String): SimpleResult {
         val report = hashMapOf(
