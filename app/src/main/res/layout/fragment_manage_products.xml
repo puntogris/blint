@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.manage.ManageProductsFragment" />
@@ -13,12 +14,12 @@
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:animateLayoutChanges="true"
         android:focusableInTouchMode="true"
-        tools:context=".ui.product.manage.ManageProductsFragment"
-        android:animateLayoutChanges="true">
+        android:orientation="vertical"
+        tools:context=".ui.product.manage.ManageProductsFragment">
 
-    <androidx.appcompat.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,67 +40,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:autofillHints="@string/auto_fill_hint_search_product"
                     android:background="@null"
                     android:hint="@string/search"
                     android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions"
-                    android:autofillHints="@string/auto_fill_hint_search_product" />
+                    android:inputType="textNoSuggestions" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
-
-        <com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-            android:id="@+id/searchTypeRadioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent">
-
-            <RadioButton
-                android:id="@+id/nameSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/name"
-                app:layout_constraintEnd_toStartOf="@+id/internalCodeSearchType"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <RadioButton
-                android:id="@+id/internalCodeSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sku"
-                app:layout_constraintEnd_toStartOf="@+id/qrSearchType"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/nameSearchType"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <RadioButton
-                android:id="@+id/qrSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/qr"
-                android:onClick="@{()-> fragment.onScanBarcodeClicked()}"
-                app:layout_constraintEnd_toStartOf="@+id/categorySearchType"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/internalCodeSearchType"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <RadioButton
-                android:id="@+id/categorySearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/category"
-                android:onClick="@{()-> fragment.onCategoryClicked()}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/qrSearchType"
-                tools:layout_editor_absoluteY="0dp" />
-
-        </com.puntogris.blint.ui.custom_views.ConstraintRadioGroup>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -107,6 +54,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="88dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

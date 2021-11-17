@@ -15,6 +15,9 @@ interface UsersDao {
     @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND userId = '1'LIMIT 1")
     suspend fun getCurrentBusinessFromUser(): Business
 
+    @Query("SELECT currentBusinessId FROM user WHERE userId = '1'")
+    suspend fun getCurrentBusinessId(): String
+
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId WHERE userId = '1' LIMIT 1")
     fun getUserFlow(): Flow<Business>

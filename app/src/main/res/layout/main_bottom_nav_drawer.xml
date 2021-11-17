@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/color_tinted_surface"
         app:layout_constraintBottom_toTopOf="@+id/drawer_navigation_view"
         app:layout_constraintTop_toTopOf="@+id/drawer_navigation_view">
 

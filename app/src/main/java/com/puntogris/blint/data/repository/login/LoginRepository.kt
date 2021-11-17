@@ -13,7 +13,7 @@ import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
-import com.puntogris.blint.ui.SharedPreferences
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.types.RegistrationData
 import com.puntogris.blint.utils.types.SimpleResult

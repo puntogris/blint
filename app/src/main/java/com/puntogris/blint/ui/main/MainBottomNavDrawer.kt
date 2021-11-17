@@ -17,18 +17,17 @@ class MainBottomNavDrawer : BottomSheetDialogFragment() {
     private lateinit var binding: MainBottomNavDrawerBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog = super.onCreateDialog(savedInstanceState)
-
-        bottomSheetDialog.setOnShowListener {
-            val bottomSheet = bottomSheetDialog
-                .findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-            BottomSheetBehavior.from(bottomSheet).apply {
-                skipCollapsed = true
-                state = BottomSheetBehavior.STATE_EXPANDED
+        return super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.setOnShowListener {
+                val bottomSheet = dialog.findViewById<FrameLayout>(
+                    com.google.android.material.R.id.design_bottom_sheet
+                )
+                BottomSheetBehavior.from(bottomSheet).apply {
+                    skipCollapsed = true
+                    state = BottomSheetBehavior.STATE_EXPANDED
+                }
             }
         }
-
-        return bottomSheetDialog
     }
 
     override fun onCreateView(
@@ -50,6 +49,7 @@ class MainBottomNavDrawer : BottomSheetDialogFragment() {
                 R.id.action_suppliers -> R.id.manageSuppliersFragment
                 R.id.action_clients -> R.id.manageClientsFragment
                 R.id.action_orders -> R.id.manageOrdersFragment
+                R.id.action_settings -> R.id.preferencesFragment
                 else -> null
             }?.let { action -> findNavController().navigate(action) }
 

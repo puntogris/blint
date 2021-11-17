@@ -22,26 +22,16 @@ class ClientRepository @Inject constructor(
     private val ordersDao: OrdersDao,
 ) : IClientRepository {
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
-
     override suspend fun saveClientDatabase(client: Client): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
-                val isNewClient = client.clientId == 0
-                val user = currentBusiness()
+            SimpleResult.build {
 
-                if (isNewClient) {
-                    client.apply {
-                        businessId = user.businessId
-                    }
+                if (client.clientId == 0) {
+                    client.businessId = usersDao.getCurrentBusinessId()
+                    statisticsDao.incrementTotalClients()
                 }
 
                 clientsDao.insert(client)
-                if (isNewClient) statisticsDao.incrementTotalClients()
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
@@ -59,13 +49,9 @@ class ClientRepository @Inject constructor(
 
     override suspend fun deleteClientDatabase(clientId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
+            SimpleResult.build {
                 clientsDao.delete(clientId)
                 statisticsDao.decrementTotalClients()
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
@@ -90,7 +76,7 @@ class ClientRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            clientsDao.getPagedSearch("%${name}%")
+            clientsDao.getPagedSearch("%$name%")
         }.flow
     }
 

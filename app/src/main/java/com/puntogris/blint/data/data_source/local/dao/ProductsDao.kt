@@ -60,6 +60,16 @@ interface ProductsDao {
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' and productId in (:list)")
     fun getPagedProductsWithCategory(list: List<Int>): PagingSource<Int, ProductWithSuppliersCategories>
 
+    @Transaction
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :query OR barcode LIKE :query OR sku LIKE :query")
+    fun getProductsWithQuery(query: String): PagingSource<Int, ProductWithSuppliersCategories>
+
+    @Transaction
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :query OR barcode LIKE :query OR sku LIKE :query LIMIT 5")
+    suspend fun getProductsSimpleWithQuery(query: String): List<Product>
+
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
 

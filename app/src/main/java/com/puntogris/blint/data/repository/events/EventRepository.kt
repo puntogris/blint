@@ -17,20 +17,12 @@ class EventRepository @Inject constructor(
     private val usersDao: UsersDao
 ) : IEventRepository {
 
-    private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun createEventDatabase(event: Event): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
-                val user = currentUser()
-                event.apply {
-                    //todo hook the current user to the event with an id
-                }
+            SimpleResult.build {
+                event.businessId = usersDao.getCurrentBusinessId()
                 eventsDao.insert(event)
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
@@ -43,30 +35,22 @@ class EventRepository @Inject constructor(
                     maxSize = 200
                 )
             ) {
-
                 if (filter == "ALL") eventsDao.getAllPaged()
                 else eventsDao.getPagedEventsWithFilter(filter)
-
             }.flow
         }
 
     override suspend fun deleteEventDatabase(eventId: String): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
+            SimpleResult.build {
                 eventsDao.delete(eventId)
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
     override suspend fun updateEventStatusDatabase(event: Event): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
+            SimpleResult.build {
                 eventsDao.updateEvent(event)
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 }

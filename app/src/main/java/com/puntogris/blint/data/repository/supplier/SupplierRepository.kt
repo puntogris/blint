@@ -22,24 +22,15 @@ class SupplierRepository @Inject constructor(
     private val ordersDao: OrdersDao
 ) : ISupplierRepository {
 
-    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
-
     override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
-                val isNewSupplier = supplier.supplierId == 0
-                val user = currentBusiness()
-
-                if (isNewSupplier) {
-                    supplier.businessId = user.businessId
+            SimpleResult.build {
+                if (supplier.supplierId == 0) {
+                    supplier.businessId = usersDao.getCurrentBusinessId()
+                    statisticsDao.incrementTotalSuppliers()
                 }
 
                 suppliersDao.insert(supplier)
-                if (isNewSupplier) statisticsDao.incrementTotalSuppliers()
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
@@ -57,13 +48,9 @@ class SupplierRepository @Inject constructor(
 
     override suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
+            SimpleResult.build {
                 suppliersDao.delete(supplierId)
                 statisticsDao.decrementTotalSuppliers()
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 

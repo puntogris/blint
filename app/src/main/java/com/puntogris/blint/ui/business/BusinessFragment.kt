@@ -78,7 +78,6 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.businessFragmentMenu).isVisible = true
         if (args.business.status == TO_DELETE) {
-            menu.findItem(R.id.newEmployee).isVisible = false
             menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
             menu.findItem(R.id.deleteBusiness).isVisible = false
         }
@@ -92,13 +91,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
                 findNavController().navigate(action)
                 true
             }
-            R.id.newEmployee -> {
-//                val action = BusinessFragmentDirections.actionBusinessFragmentToAddBusinessEmployee(args.employee)
-//                findNavController().navigate(action)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

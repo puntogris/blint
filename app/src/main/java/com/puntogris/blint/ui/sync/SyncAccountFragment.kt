@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSyncAccountBinding
-import com.puntogris.blint.ui.SharedPreferences
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle

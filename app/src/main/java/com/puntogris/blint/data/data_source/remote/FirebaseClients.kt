@@ -16,6 +16,6 @@ class FirebaseClients @Inject constructor() {
     val currentUid: String?
         get() = auth.uid
 
-    val getCurrentUser: FirebaseUser?
+    val currentUser: FirebaseUser?
         get() = auth.currentUser
 }

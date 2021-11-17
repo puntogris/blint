@@ -4,89 +4,93 @@
 
     <item
         android:id="@+id/moreOptions"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="always">
-        <menu >
-            <item android:id="@+id/editOption"
+        <menu>
+            <item
+                android:id="@+id/editOption"
                 android:title="@string/action_edit" />
             <item
-                android:visible="false"
                 android:id="@+id/createOrder"
-                android:title="@string/new_order" />
-            <item android:id="@+id/debtStatus"
-                android:visible="false"
-                android:title="@string/debts_label" />
-            <item android:id="@+id/deleteOption"
+                android:title="@string/new_order"
+                android:visible="false" />
+            <item
+                android:id="@+id/debtStatus"
+                android:title="@string/debts_label"
+                android:visible="false" />
+            <item
+                android:id="@+id/deleteOption"
                 android:title="@string/action_delete" />
 
         </menu>
     </item>
     <item
         android:id="@+id/manageProductFragmentMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="always">
-        <menu >
-            <item android:id="@+id/newProduct"
+        <menu>
+            <item
+                android:id="@+id/newProduct"
                 android:title="@string/new_product" />
-            <item android:id="@+id/manageCategories"
+            <item
+                android:id="@+id/manageCategories"
                 android:title="@string/categories_label" />
         </menu>
     </item>
 
     <item
         android:id="@+id/manageClientsFragmentMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/newClient"
+        <menu>
+            <item
+                android:id="@+id/newClient"
                 android:title="@string/new_client" />
         </menu>
     </item>
 
     <item
         android:id="@+id/manageSuppliersFragmentMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/newSupplier"
+        <menu>
+            <item
+                android:id="@+id/newSupplier"
                 android:title="@string/new_supplier" />
         </menu>
     </item>
 
     <item
         android:id="@+id/calendarFragmentMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/newEvent"
+        <menu>
+            <item
+                android:id="@+id/newEvent"
                 android:title="@string/new_event" />
-
         </menu>
     </item>
 
     <item
         android:id="@+id/manageBusinessMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="ifRoom">
-        <menu >
+        <menu>
             <item
                 android:id="@+id/newBusiness"
                 android:title="@string/new_business" />
-            <item
-                android:id="@+id/joinBusiness"
-                android:title="@string/join_business" />
             <item
                 android:id="@+id/syncBusiness"
                 android:title="@string/sync_businesses" />
@@ -95,36 +99,19 @@
 
     <item
         android:id="@+id/businessFragmentMenu"
-        android:visible="false"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
+        android:visible="false"
         app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/newEmployee"
-                android:title="@string/add_employee" />
-            <item android:id="@+id/deleteBusiness"
+        <menu>
+            <item
+                android:id="@+id/deleteBusiness"
                 android:title="@string/delete_business" />
-            <item android:id="@+id/cancelDeletionBusiness"
-                android:visible="false"
-                android:title="@string/cancel_business_deletion" />
+            <item
+                android:id="@+id/cancelDeletionBusiness"
+                android:title="@string/cancel_business_deletion"
+                android:visible="false" />
         </menu>
     </item>
-
-
-    <item
-        android:id="@+id/employeeFragmentMenu"
-        android:visible="false"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="@string/options"
-        app:showAsAction="ifRoom">
-        <menu >
-            <item android:id="@+id/deleteEmployee"
-                android:title="@string/delete_employee" />
-<!--            <item android:id="@+id/changeEmployeeRole"-->
-<!--                android:title="@string/change_role" />-->
-        </menu>
-    </item>
-
-
 
 </menu>

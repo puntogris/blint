@@ -1,6 +1,7 @@
 package com.puntogris.blint.data.repository.products
 
 import androidx.paging.PagingData
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.types.RepoResult
@@ -14,11 +15,13 @@ interface IProductRepository {
         imageChanged: Boolean = false
     ): SimpleResult
 
-    suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>>
+    fun getProductsWithSuppliersCategoriesPaged(): Flow<PagingData<ProductWithSuppliersCategories>>
 
     suspend fun deleteProductDatabase(productId: Int): SimpleResult
 
-    suspend fun getProductsWithNamePagingDataFlow(search: SearchText): Flow<PagingData<ProductWithSuppliersCategories>>
+    fun getProductsSupplierCategoryWithQueryFlow(query: String): Flow<PagingData<ProductWithSuppliersCategories>>
+
+    suspend fun getProductsWithQuery(query: String): List<Product>
 
     suspend fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>>
 

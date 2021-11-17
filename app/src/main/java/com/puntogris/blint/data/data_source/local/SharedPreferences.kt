@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui
+package com.puntogris.blint.data.data_source.local
 
 import android.content.Context
 import androidx.preference.PreferenceManager

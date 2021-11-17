@@ -10,7 +10,7 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.UserData
-import com.puntogris.blint.ui.SharedPreferences
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME

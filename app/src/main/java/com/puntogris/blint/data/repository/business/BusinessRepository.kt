@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.ui.SharedPreferences
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.types.DeleteBusiness
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers

@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
 import android.Manifest
+import android.annotation.SuppressLint
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,14 +17,10 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithRecord
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
-import com.puntogris.blint.utils.types.SearchText
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -31,15 +29,14 @@ class CreateOrderFragment :
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
     private lateinit var recordsAdapter: CreateRecordsAdapter
-    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private var searchJob: Job? = null
+    lateinit var scannerLauncher: ActivityResultLauncher<String>
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initializeViews() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
         binding.viewModel = viewModel
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        setUpRecyclerView()
 
         UiInterface.registerUi(
             showFab = true,
@@ -55,7 +52,6 @@ class CreateOrderFragment :
                         it.record.amount != 0 &&
                                 (if (viewModel.order.value?.type == IN) true else it.record.amount <= it.product.amount)
                     }) {
-                    searchJob?.cancel()
                     findNavController().navigate(R.id.reviewRecordFragment)
                 } else {
                     UiInterface.showSnackBar(getString(R.string.product_amount_empty))
@@ -65,10 +61,12 @@ class CreateOrderFragment :
             }
         }
 
-        val searchAdapter = SearchProductAdapter { onProductAdded(it) }
-        binding.productSearchRecyclerView.apply {
-            adapter = searchAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+        setUpRecyclerView()
+        setupScannerLauncher()
+
+        SearchProductAdapter { onProductAdded(it) }.let {
+            binding.productSearchRecyclerView.adapter = it
+            subscribeSearchUi(it)
         }
 
         if (recordsAdapter.currentList.isEmpty()) {
@@ -80,50 +78,8 @@ class CreateOrderFragment :
             }
         }
 
-        binding.searchTypeRadioGroup.setOnCheckedChangeListener(object :
-            ConstraintRadioGroup.OnCheckedChangeListener {
-            override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
-                if (binding.productSearchText.getString().isNotEmpty()) {
-                    searchJob?.cancel()
-                    searchJob = lifecycleScope.launch {
-                        val text = binding.productSearchText.getString()
-                        val data = when (binding.searchTypeRadioGroup.checkedRadioButtonId) {
-                            R.id.qrSearchType -> SearchText.QrCode(text)
-                            R.id.internalCodeSearchType -> SearchText.InternalCode(text)
-                            else -> SearchText.Name(text)
-                        }
-                        viewModel.getProductWithName(data).collect { pagingData ->
-                            binding.productSearchRecyclerView.visible()
-                            searchAdapter.submitData(pagingData)
-                        }
-                    }
-                }
-            }
-        })
-
         binding.productSearchText.addTextChangedListener {
-            searchJob?.cancel()
-            it?.toString()?.let { text ->
-                if (text.isNotEmpty()) {
-                    val data = when (binding.searchTypeRadioGroup.checkedRadioButtonId) {
-                        R.id.qrSearchType -> SearchText.QrCode(text)
-                        R.id.internalCodeSearchType -> SearchText.InternalCode(text)
-                        else -> SearchText.Name(text)
-                    }
-                    searchJob = lifecycleScope.launch {
-                        viewModel.getProductWithName(data).collect { pagingData ->
-                            binding.productSearchRecyclerView.visible()
-                            binding.searchTypeRadioGroup.visible()
-                            searchAdapter.submitData(pagingData)
-                        }
-                    }
-                    binding.clearTextButton.visible()
-                } else {
-                    binding.searchTypeRadioGroup.gone()
-                    binding.productSearchRecyclerView.gone()
-                    binding.clearTextButton.gone()
-                }
-            }
+            viewModel.setQuery(it.toString())
         }
 
         binding.clearTextButton.setOnClickListener {
@@ -133,27 +89,32 @@ class CreateOrderFragment :
         onBackStackLiveData<String>(PRODUCT_BARCODE_KEY) {
             lifecycleScope.launch {
                 binding.productSearchText.setText(it)
-                binding.searchTypeRadioGroup.visible()
-                viewModel.getProductWithName(SearchText.QrCode(it)).collect { pagingData ->
-                    binding.productSearchRecyclerView.visible()
-                    searchAdapter.submitData(pagingData)
-                }
+                binding.productSearchRecyclerView.visible()
             }
         }
+    }
 
-        requestPermissionLauncher =
+    private fun setupScannerLauncher() {
+        scannerLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
                     val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(1)
                     findNavController().navigate(action)
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
-
             }
     }
 
+    private fun subscribeSearchUi(adapter: SearchProductAdapter) {
+        viewModel.productsLiveData.observe(viewLifecycleOwner) {
+            binding.clearTextButton.isVisible = it.isNotEmpty()
+            binding.productSearchRecyclerView.isVisible = it.isNotEmpty()
+            adapter.submitList(it)
+        }
+    }
+
     fun onScanBarcodeButtonClicked() {
-        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        scannerLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private fun setUpRecyclerView() {
@@ -187,7 +148,6 @@ class CreateOrderFragment :
     private fun onProductAdded(product: Product) {
         binding.productSearchText.setText("")
         binding.productSearchText.clearFocus()
-        binding.searchTypeRadioGroup.gone()
         if (!viewModel.productWithRecords.any { it.product.productId == product.productId }) {
             val productWithRecord =
                 ProductWithRecord(

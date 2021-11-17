@@ -4,16 +4,16 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
+import com.puntogris.blint.data.data_source.remote.FirebaseClients
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.types.RepoResult
-import com.puntogris.blint.utils.types.SearchText
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -24,13 +24,9 @@ class ProductRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val productsDao: ProductsDao,
     private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao
+    private val ordersDao: OrdersDao,
+    private val firebase: FirebaseClients
 ) : IProductRepository {
-
-    private val auth = FirebaseAuth.getInstance()
-
-    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
-    private fun getCurrentUid() = auth.currentUser
 
     override suspend fun saveProductDatabase(
         product: ProductWithSuppliersCategories,
@@ -38,11 +34,11 @@ class ProductRepository @Inject constructor(
     ): SimpleResult = withContext(Dispatchers.IO) {
         try {
             val isNewProduct = product.product.productId == 0
-            val user = currentBusiness()
+            val currentBusinessId = usersDao.getCurrentBusinessId()
 
             if (isNewProduct) {
                 product.product.apply {
-                    businessId = user.businessId
+                    businessId = currentBusinessId
                     totalInStock = amount
                 }
             }
@@ -53,8 +49,8 @@ class ProductRepository @Inject constructor(
                 productId = product.product.productId,
                 productName = product.product.name,
                 timestamp = Timestamp.now(),
-                author = getCurrentUid()?.email.toString(),
-                businessId = user.businessId,
+                author = requireNotNull(firebase.currentUser?.email),
+                businessId = currentBusinessId,
                 barcode = product.product.barcode,
                 totalInStock = product.product.amount,
                 sku = product.product.sku,
@@ -70,55 +66,39 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    override suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                productsDao.getAllPaged()
-            }.flow
-        }
+    override fun getProductsWithSuppliersCategoriesPaged(): Flow<PagingData<ProductWithSuppliersCategories>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) { productsDao.getAllPaged() }.flow
+    }
 
     override suspend fun deleteProductDatabase(productId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
-            try {
-
+            SimpleResult.build {
                 productsDao.delete(productId)
                 statisticsDao.decrementTotalProducts()
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
-    override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) =
-        withContext(Dispatchers.IO) {
-            if (search is SearchText.Category) {
-                val ids = productsDao.getProductIdWithCategory(search.text)
-                Pager(
-                    PagingConfig(
-                        pageSize = 30,
-                        enablePlaceholders = true,
-                        maxSize = 200
-                    )
-                ) { productsDao.getPagedProductsWithCategory(ids) }.flow
-            } else {
-                Pager(
-                    PagingConfig(
-                        pageSize = 30,
-                        enablePlaceholders = true,
-                        maxSize = 200
-                    )
-                ) {
-                    productsDao.getPagedSearch("%${search.getData()}%")
-                }.flow
-            }
-        }
+    override fun getProductsSupplierCategoryWithQueryFlow(query: String): Flow<PagingData<ProductWithSuppliersCategories>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            productsDao.getProductsWithQuery("%$query%")
+        }.flow
+    }
+
+    override suspend fun getProductsWithQuery(query: String): List<Product> = withContext(Dispatchers.IO){
+        productsDao.getProductsSimpleWithQuery("%$query%")
+    }
 
     override suspend fun getProductRecordsPagingDataFlow(productId: Int) =
         withContext(Dispatchers.IO) {
@@ -128,19 +108,15 @@ class ProductRepository @Inject constructor(
                     enablePlaceholders = true,
                     maxSize = 200
                 )
-            ) {
-                ordersDao.getProductRecordsPaged(productId)
-            }.flow
+            ) { ordersDao.getProductRecordsPaged(productId) }.flow
         }
+
 
     override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> =
         withContext(Dispatchers.IO) {
             try {
-                val product: ProductWithSuppliersCategories? =
-                    productsDao.getProductWithBarcode(barcode)
-
-                if (product != null) RepoResult.Success(product)
-                else RepoResult.Error(Exception())
+                val product = productsDao.getProductWithBarcode(barcode)
+                RepoResult.Success(requireNotNull(product))
             } catch (e: Exception) {
                 RepoResult.Error(e)
             }

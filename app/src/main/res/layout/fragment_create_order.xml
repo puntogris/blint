@@ -141,50 +141,6 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-        <com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
-            android:id="@+id/searchTypeRadioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
-
-            <RadioButton
-                android:id="@+id/nameSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/name"
-                app:layout_constraintEnd_toStartOf="@+id/internalCodeSearchType"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <RadioButton
-                android:id="@+id/internalCodeSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sku"
-                app:layout_constraintEnd_toStartOf="@+id/qrSearchType"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/nameSearchType"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <RadioButton
-                android:id="@+id/qrSearchType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/qr"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/internalCodeSearchType"
-                tools:layout_editor_absoluteY="0dp" />
-        </com.puntogris.blint.ui.custom_views.ConstraintRadioGroup>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productSearchRecyclerView"
             android:layout_width="match_parent"
@@ -195,13 +151,13 @@
             android:clipChildren="false"
             android:clipToPadding="false"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="225dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchTypeRadioGroup" />
-
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
         <TextView
             android:id="@+id/textView155"

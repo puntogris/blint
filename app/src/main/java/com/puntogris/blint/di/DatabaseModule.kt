@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.puntogris.blint.data.data_source.local.AppDatabase
+import com.puntogris.blint.utils.DispatcherProvider
+import com.puntogris.blint.utils.StandardDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,6 +65,12 @@ class DatabaseModule {
             )
             .addMigrations(MIGRATION_1_2)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideDispatcherProvider(): DispatcherProvider {
+        return StandardDispatchers()
     }
 
 }

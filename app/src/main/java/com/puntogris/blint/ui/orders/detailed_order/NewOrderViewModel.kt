@@ -1,11 +1,7 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.puntogris.blint.data.repository.clients.ClientRepository
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
@@ -14,11 +10,11 @@ import com.puntogris.blint.data.repository.user.UserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
-import com.puntogris.blint.utils.types.SearchText
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +25,8 @@ class NewOrderViewModel @Inject constructor(
     private val supplierRepository: SupplierRepository,
     private val clientRepository: ClientRepository
 ) : ViewModel() {
+
+    private var job : Job? = null
 
     private val _order = MutableStateFlow(Order())
     val order: LiveData<Order> = _order.asLiveData()
@@ -69,15 +67,26 @@ class NewOrderViewModel @Inject constructor(
         }
     }
 
-    suspend fun getSuppliersWithName(name: String) =
+    fun getSuppliersWithName(name: String) =
         supplierRepository.getSuppliersWithNamePaged(name).cachedIn(viewModelScope)
 
-    suspend fun getSuppliersPaging() =
-        supplierRepository.getAllSuppliersPaged().cachedIn(viewModelScope)
+    fun getSuppliersPaging() = supplierRepository.getAllSuppliersPaged().cachedIn(viewModelScope)
 
-    suspend fun getProductWithName(searchText: SearchText) =
-        productRepository.getProductsWithNamePagingDataFlow(searchText)
-            .map { pagingData -> pagingData.map { it.product } }.cachedIn(viewModelScope)
+    private val _productsLiveData = MutableLiveData<List<Product>>()
+    val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
+
+    fun setQuery(query: String) {
+        job?.cancel()
+        if (query.isEmpty()) {
+            _productsLiveData.value = emptyList()
+        }
+        else {
+            job = viewModelScope.launch {
+                val products = productRepository.getProductsWithQuery(query)
+                _productsLiveData.value = products
+            }
+        }
+    }
 
     val currentUserEmail = userRepository.getCurrentUser()?.email.toString()
 
@@ -102,9 +111,13 @@ class NewOrderViewModel @Inject constructor(
         return orderRepository.saveOrderIntoDatabase(newOrder)
     }
 
-    suspend fun getClientPaging() =
-        clientRepository.getAllClientsPaged().cachedIn(viewModelScope)
+    fun getClientPaging() = clientRepository.getAllClientsPaged().cachedIn(viewModelScope)
 
-    suspend fun getClientsWithName(name: String) =
+    fun getClientsWithName(name: String) =
         clientRepository.getClientsWithNamePaged(name).cachedIn(viewModelScope)
+
+    override fun onCleared() {
+        job?.cancel()
+        super.onCleared()
+    }
 }

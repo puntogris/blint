@@ -1,10 +1,8 @@
 package com.puntogris.blint.ui.product.manage
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.utils.types.SearchText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -13,10 +11,18 @@ class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    suspend fun getProductsPaging() =
-        productRepository.getProductsPagingDataFlow().cachedIn(viewModelScope)
+    private val query = MutableLiveData("")
 
-    suspend fun getProductWithName(search: SearchText) =
-        productRepository.getProductsWithNamePagingDataFlow(search).cachedIn(viewModelScope)
+    val productsLiveData = query.switchMap {
+        if (it.isNullOrBlank()) {
+            productRepository.getProductsWithSuppliersCategoriesPaged().asLiveData()
+        }
+        else {
+            productRepository.getProductsSupplierCategoryWithQueryFlow(it).asLiveData()
+        }
+    }.cachedIn(viewModelScope)
 
+    fun setQuery(query: String) {
+        this.query.value = query
+    }
 }

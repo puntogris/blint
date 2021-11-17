@@ -52,10 +52,6 @@ class ManageBusinessFragment :
                 findNavController().navigate(R.id.registerBusinessFragment)
                 true
             }
-            R.id.joinBusiness -> {
-                // findNavController().navigate(R.id.joinBusinessFragment)
-                true
-            }
             R.id.syncBusiness -> {
                 findNavController().navigate(R.id.syncAccountFragment)
                 true
