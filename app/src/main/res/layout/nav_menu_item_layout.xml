@@ -24,7 +24,6 @@
         android:onClick="@{() -> navListener.onNavMenuItemClicked(navMenuItem)}"
         android:ellipsize="end"
         android:lines="1"
-        style="@style/Theme.Blint.CheckedTextNav"
         android:text="@{navMenuItem.titleRes}"
         android:checked="@{navMenuItem.checked}"
         android:textAppearance="?attr/textAppearanceSubtitle1"

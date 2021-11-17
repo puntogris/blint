@@ -49,7 +49,6 @@
                 android:layout_width="@dimen/navigation_drawer_profile_image_size"
                 android:layout_height="@dimen/navigation_drawer_profile_image_size"
                 android:padding="@dimen/grid_1"
-                style="@style/Theme.Blint.ImageView"
                 android:layout_gravity="center|top"
                 android:foreground="?attr/actionBarItemBackground"
                 app:glideSrc="@{currentUserAccount.avatar}"

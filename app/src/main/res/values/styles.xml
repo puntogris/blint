@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@color/grey_20</item>
+    </style>
+
+    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/primaryColor</item>
+    </style>
+
+    <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopEnd">2dp</item>
+        <item name="boxCornerRadiusTopStart">2dp</item>
+    </style>
+
+    <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
+        <item name="backgroundTint">@color/primaryColor</item>
+        <item name="tint">@android:color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="SplashTheme">
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="Theme.Blint.DataTextView" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Theme.Blint.DataSubTitleTextView" parent="@style/TextAppearance.AppCompat.Small" >
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+    </style>
+
+</resources>

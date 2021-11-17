@@ -1,116 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.Blint" parent="Base.Theme.Blint">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/colorSecondary</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/primaryColor</item>
-        <item name="colorSecondaryVariant">@color/nightBackground</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Customize your theme here. -->
+
+    <style name="Blint.Theme.DayNight" parent="Base.Theme" />
+
+    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="android:colorBackground">@color/color_background</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor">?colorSurface</item>
+
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Surface</item>
-        <item name="colorSurface">@color/grey_5</item>
-        <item name="android:statusBarColor">@color/dayBackground</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:colorBackground">@color/dayBackground</item>
         <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
-        <item name="bottomSheetDayNight">@color/dayBackground</item>
+        <item name="bottomSheetDayNight">@color/color_background</item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
         <item name="shapeAppearanceLargeComponent">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
-    <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button">
-        <item name="shapeAppearanceOverlay">@style/Theme.Blint.RoundButtonShapeOverlay</item>
-        <item name="android:textColor">@color/almostBlack</item>
-    </style>
-
-    <style name="Theme.Blint.ListHolderLayout" >
-        <item name="android:background">@color/grey_10</item>
-    </style>
-
-    <style name="Theme.Blint.CheckedTextNav" >
-        <item name="android:textColor">@color/color_navigation_drawer_menu_item_dark</item>
-        <item name="drawableTint">@color/color_navigation_drawer_menu_item_dark</item>
-    </style>
-
-    <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
-        <item name="backgroundTint">@color/grey_20</item>
-    </style>
-
-    <style name="Theme.Blint.Notifications" parent="Base.Theme.Blint" >
-        <item name="android:background" >@color/cardview_light_background</item>
-    </style>
-
-    <style name="Theme.Blint.CustomToolbar" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">@color/dayBackground</item>
-    </style>
-
-    <style name="Theme.Blint.TabLayout" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">@color/dayBackground</item>
-    </style>
-
-    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconPadding">0dp</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconTint">@color/primaryColor</item>
-    </style>
-
-    <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
-        <item name="android:textColor">@color/primaryColor</item>
-        <item name="fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
-    </style>
-
-    <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxCornerRadiusTopEnd">2dp</item>
-        <item name="boxCornerRadiusTopStart">2dp</item>
-    </style>
-
-    <style name="Theme.Blint.RoundButtonShapeOverlay">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="Base.Theme.Blint" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
-
-    <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
-        <item name="backgroundTint">@color/primaryColor</item>
-        <item name="tint">@android:color/white</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
-    <style name="SplashTheme" parent="Base.Theme.Blint">
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
-    <style name="Theme.Blint.ImageView" >
-        <item name="android:tint">@color/grey_60</item>
-    </style>
-
-    <style name="Theme.Blint.DataTextView" parent="@style/TextAppearance.MaterialComponents.Body2">
-        <item name="android:textSize">16sp</item>
-        <item name="fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="Theme.Blint.CalendarSeparator" >
-        <item name="android:textColor">@color/primaryColor</item>
-    </style>
-
-    <style name="Theme.Blint.DataSubTitleTextView" parent="@style/TextAppearance.AppCompat.Small" >
-        <item name="fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
-
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-    </style>
 </resources>

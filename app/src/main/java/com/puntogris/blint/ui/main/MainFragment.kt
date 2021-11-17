@@ -1,9 +1,9 @@
 package com.puntogris.blint.ui.main
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
@@ -17,14 +17,10 @@ import com.puntogris.blint.utils.types.EventsDashboard
 import com.puntogris.blint.utils.visible
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
 
-    private lateinit var mainMenuAdapter: MainMenuAdapter
-    private lateinit var mainCalendarAdapter: MainCalendarAdapter
     private val viewModel: MainViewModel by viewModels()
 
     override fun initializeViews() {
@@ -48,9 +44,20 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         findNavController().navigate(nav)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupCalendarRecyclerView() {
-        mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
+        MainCalendarAdapter { onCalendarEventClicked(it) }.let {
+            binding.calendarRecyclerView.adapter = it
 
+            subscribeEventsUi(it)
+
+            onBackStackLiveData<Boolean>(DISMISS_EVENT_KEY) { dismiss ->
+                if (dismiss) it.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun subscribeEventsUi(adapter: MainCalendarAdapter) {
         launchAndRepeatWithViewLifecycle {
             when (val data = viewModel.getBusinessLastEvents()) {
                 EventsDashboard.DataNotFound -> {
@@ -65,17 +72,9 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
                 }
                 is EventsDashboard.Success -> {
                     binding.materialCardView2.visible()
-                    mainCalendarAdapter.submitList(data.data)
+                    adapter.submitList(data.data)
                 }
             }
-        }
-
-        binding.calendarRecyclerView.apply {
-            adapter = mainCalendarAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-        onBackStackLiveData<Boolean>(DISMISS_EVENT_KEY) {
-            if (it) mainCalendarAdapter.notifyDataSetChanged()
         }
     }
 
@@ -85,15 +84,16 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     }
 
     private fun setupMenuRecyclerView() {
-        mainMenuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
+        val adapter = MainMenuAdapter { onMenuCardClicked(it) }
+        
         binding.recyclerView.apply {
-            adapter = mainMenuAdapter
+            this.adapter = adapter
             setHasFixedSize(true)
             val manager = GridLayoutManager(requireContext(), 3)
                 .also {
                     it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                         override fun getSpanSize(position: Int): Int {
-                            return if (mainMenuAdapter.isHeader(position)) it.spanCount else 1
+                            return if (adapter.isHeader(position)) it.spanCount else 1
                         }
                     }
                 }

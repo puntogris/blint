@@ -23,7 +23,6 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/search_toolbar"
-            style="@style/Theme.Blint.CustomToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
@@ -145,7 +144,6 @@
 
         <com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
             android:id="@+id/searchTypeRadioGroup"
-            style="@style/Theme.Blint.ListHolderLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

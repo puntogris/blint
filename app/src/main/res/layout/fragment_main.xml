@@ -29,10 +29,8 @@
                 android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="20dp"
-                app:cardUseCompatPadding="true">
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="10dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -42,7 +40,7 @@
                         android:id="@+id/textView108"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@{String.valueOf(viewModel.businessCounter.totalProducts)}"
                         android:textColor="@color/primaryColor"
@@ -57,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="16dp"
                         android:text="@string/products_label"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -125,6 +123,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                android:layout_marginHorizontal="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -205,6 +204,7 @@
                     android:id="@+id/calendarRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:layout_editor_absoluteX="157dp"
                     tools:layout_editor_absoluteY="65dp" />
             </com.google.android.material.card.MaterialCardView>

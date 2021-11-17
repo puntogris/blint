@@ -131,8 +131,7 @@
             app:layout_constraintBottom_toTopOf="@+id/backupSummary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView70"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintTop_toBottomOf="@+id/textView70"/>
 
         <TextView
             android:id="@+id/textView70"

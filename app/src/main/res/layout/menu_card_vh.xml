@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="2dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,6 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    style="@style/Theme.Blint.ImageView"
                     menuCardIcon="@{menuCard.icon}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

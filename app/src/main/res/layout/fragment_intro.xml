@@ -74,7 +74,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/action_next"
-            style="@style/Theme.Blint.Button"
             android:onClick="@{()-> fragment.onGoToSyncUserBusiness()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -87,7 +86,6 @@
             android:text="@string/action_exit"
             android:onClick="@{()->fragment.onExitButtonClicked()}"
             android:layout_marginBottom="16dp"
-            style="@style/Theme.Blint.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -96,7 +94,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_country"
-            style="@style/Theme.Blint.Button"
             android:onClick="@{()->fragment.onSelectCountryClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/textView132"
             app:layout_constraintEnd_toEndOf="parent"

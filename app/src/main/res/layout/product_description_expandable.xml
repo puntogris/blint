@@ -175,7 +175,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
-                    app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay"
                     android:onClick="@{()->fragment.onRemoveImageButtonClicked()}"
                     android:text="@string/action_delete"
                     android:textColor="@color/almostBlack"

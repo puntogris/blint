@@ -112,7 +112,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun preInitViews() {
-        setTheme(R.style.Theme_Blint)
+        setTheme(R.style.Blint_Theme_DayNight)
     }
 
     override fun initializeViews() {

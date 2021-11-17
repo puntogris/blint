@@ -17,6 +17,7 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY
+import com.puntogris.blint.utils.types.SearchText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect

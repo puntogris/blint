@@ -7,7 +7,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.MenuCardDiffCallback
 import com.puntogris.blint.model.MenuCard
 
-
 class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
     ListAdapter<MenuCard, RecyclerView.ViewHolder>(MenuCardDiffCallback()) {
 

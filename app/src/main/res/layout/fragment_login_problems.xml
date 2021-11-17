@@ -97,8 +97,7 @@
             android:text="@string/action_go_back_to_start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:shapeAppearanceOverlay="@style/Theme.Blint.RoundButtonShapeOverlay" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/enableAccountLink"

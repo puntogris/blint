@@ -28,7 +28,6 @@
             android:layout_width="@dimen/navigation_drawer_profile_image_size"
             android:layout_height="@dimen/navigation_drawer_profile_image_size"
             android:padding="@dimen/grid_1"
-            style="@style/Theme.Blint.ImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

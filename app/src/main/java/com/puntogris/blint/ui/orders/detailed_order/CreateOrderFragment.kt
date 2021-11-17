@@ -19,6 +19,7 @@ import com.puntogris.blint.ui.custom_views.ConstraintRadioGroup
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
+import com.puntogris.blint.utils.types.SearchText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
