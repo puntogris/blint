@@ -14,7 +14,7 @@ class SharedPreferences @Inject constructor(@ApplicationContext private val cont
 
     fun showLoginScreen() = sharedPref.getBoolean(SHOW_WELCOME_PREF, true)
 
-    fun setShowLoginScreen(value: Boolean){
+    fun setShowLoginScreen(value: Boolean) {
         sharedPref.edit().putBoolean(SHOW_WELCOME_PREF, value).apply()
     }
 
@@ -22,7 +22,7 @@ class SharedPreferences @Inject constructor(@ApplicationContext private val cont
 
     fun showNewUserScreenPref() = sharedPref.getBoolean(USER_HAS_BUSINESS_PREF, true)
 
-    fun setShowNewUserScreenPref(value:Boolean){
+    fun setShowNewUserScreenPref(value: Boolean) {
         sharedPref.edit().putBoolean(USER_HAS_BUSINESS_PREF, value).apply()
     }
 }

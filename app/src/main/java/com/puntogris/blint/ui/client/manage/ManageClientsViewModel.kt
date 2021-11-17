@@ -18,7 +18,7 @@ class ManageClientsViewModel @Inject constructor(
         else clientRepository.getClientsWithNamePaged(it).asLiveData()
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String){
+    fun setQuery(query: String) {
         this.query.value = query
     }
 }

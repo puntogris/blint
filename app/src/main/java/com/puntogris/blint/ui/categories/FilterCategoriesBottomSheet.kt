@@ -7,13 +7,14 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FilterCategoriesBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.utils.Constants.CATEGORY_FILTER_KEY
-import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FilterCategoriesBottomSheet: BaseBottomSheetFragment<FilterCategoriesBottomSheetBinding>(R.layout.filter_categories_bottom_sheet) {
+class FilterCategoriesBottomSheet :
+    BaseBottomSheetFragment<FilterCategoriesBottomSheetBinding>(R.layout.filter_categories_bottom_sheet) {
 
     private val viewModel: FilterCategoriesViewModel by viewModels()
 
@@ -22,7 +23,7 @@ class FilterCategoriesBottomSheet: BaseBottomSheetFragment<FilterCategoriesBotto
         binding.viewModel = viewModel
 
         launchAndRepeatWithViewLifecycle {
-            when(val result = viewModel.getAllCategories()){
+            when (val result = viewModel.getAllCategories()) {
                 is RepoResult.Error -> {
                     binding.progressBar3.gone()
                 }
@@ -42,7 +43,7 @@ class FilterCategoriesBottomSheet: BaseBottomSheetFragment<FilterCategoriesBotto
         }
     }
 
-    private fun onChipClicked(category: String){
+    private fun onChipClicked(category: String) {
         findNavController().apply {
             previousBackStackEntry!!.savedStateHandle.set(CATEGORY_FILTER_KEY, category)
             popBackStack()

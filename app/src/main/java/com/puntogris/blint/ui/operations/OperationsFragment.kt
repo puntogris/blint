@@ -13,10 +13,11 @@ class OperationsFragment : BaseFragment<FragmentOperationsBinding>(R.layout.frag
         UiInterface.registerUi()
     }
 
-    fun onGeneralPriceChangeClicked(){
+    fun onGeneralPriceChangeClicked() {
         findNavController().navigate(R.id.generalPriceChangeFragment)
     }
-    fun onImportProductsClicked(){
+
+    fun onImportProductsClicked() {
         findNavController().navigate(R.id.importProductsFragment)
     }
 }

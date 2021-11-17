@@ -9,10 +9,10 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSyncAccountBinding
 import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.SyncAccount
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.playAnimationOnce
+import com.puntogris.blint.utils.types.SyncAccount
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,6 +22,7 @@ class SyncAccountFragment :
 
     private val viewModel: SyncViewModel by viewModels()
     private val args: SyncAccountFragmentArgs by navArgs()
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 

@@ -14,8 +14,8 @@ import com.puntogris.blint.data.repository.user.UserRepository
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
-import com.puntogris.blint.utils.SearchText
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.SearchText
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map

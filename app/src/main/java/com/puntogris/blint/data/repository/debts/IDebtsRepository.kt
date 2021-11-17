@@ -5,8 +5,8 @@ import com.puntogris.blint.model.BusinessDebtsData
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Supplier
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IDebtsRepository {

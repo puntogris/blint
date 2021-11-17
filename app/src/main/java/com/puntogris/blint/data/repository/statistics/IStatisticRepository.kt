@@ -1,7 +1,7 @@
 package com.puntogris.blint.data.repository.statistics
 
 import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.types.RepoResult
 
 interface IStatisticRepository {
     suspend fun getAllClients(): RepoResult<List<Client>>

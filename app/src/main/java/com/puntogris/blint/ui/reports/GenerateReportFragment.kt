@@ -16,6 +16,8 @@ import com.puntogris.blint.utils.Constants.CLIENTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
+import com.puntogris.blint.utils.types.ExportResult
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -26,7 +28,7 @@ import java.util.*
 
 @Suppress("BlockingMethodInNonBlockingContext")
 @AndroidEntryPoint
-class GenerateReportFragment:
+class GenerateReportFragment :
     BaseFragment<FragmentGenerateReportBinding>(R.layout.fragment_generate_report) {
 
     private val viewModel: ReportsViewModel by viewModels()
@@ -34,7 +36,7 @@ class GenerateReportFragment:
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24) {
             val uri = viewModel.getDownloadUri()
             if (uri == null)
                 UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
@@ -43,7 +45,7 @@ class GenerateReportFragment:
 
         launchAndRepeatWithViewLifecycle {
             viewModel.exportingState.collect {
-                when(it){
+                when (it) {
                     is ExportResult.Error -> showErrorUi()
                     ExportResult.InProgress -> showInProgressUi()
                     ExportResult.Success -> showSuccessUi()
@@ -52,7 +54,7 @@ class GenerateReportFragment:
         }
 
         val date = Date().getDateFormattedStringUnderLine()
-        val fileName = when(args.reportCode){
+        val fileName = when (args.reportCode) {
             SUPPLIERS_LIST -> getString(R.string.report_list_suppliers, date)
             CLIENTS_LIST -> getString(R.string.report_list_clients, date)
             PRODUCTS_LIST -> getString(R.string.report_list_products, date)
@@ -60,14 +62,15 @@ class GenerateReportFragment:
             else -> ""
         }
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
-            if (uri != null){
-                println(args.reportCode)
-                when (args.reportCode) {
-                    SUPPLIERS_LIST -> exportSupplierList(uri)
-                    CLIENTS_LIST -> exportClientList(uri)
-                    PRODUCTS_LIST -> exportProductList(uri)
-                    PRODUCTS_RECORDS -> exportProductRecords(uri)
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
+                if (uri != null) {
+                    println(args.reportCode)
+                    when (args.reportCode) {
+                        SUPPLIERS_LIST -> exportSupplierList(uri)
+                        CLIENTS_LIST -> exportClientList(uri)
+                        PRODUCTS_LIST -> exportProductList(uri)
+                        PRODUCTS_RECORDS -> exportProductRecords(uri)
 //                SUPPLIERS_RECORDS -> {
 //                    fileName = "proveedores_movimientos_${Date().getDateFormattedString()}"
 //                    exportSupplierRecords(uri)
@@ -76,15 +79,15 @@ class GenerateReportFragment:
 //                    fileName = "clientes_movimientos_${Date().getDateFormattedString()}"
 //                    exportClientRecords(uri)
 //                }
-                }
-            }else findNavController().navigateUp()
-        }
+                    }
+                } else findNavController().navigateUp()
+            }
         activityResultLauncher.launch("${fileName}.xls")
     }
 
-    private fun showInProgressUi(){}
+    private fun showInProgressUi() {}
 
-    private fun showSuccessUi(){
+    private fun showSuccessUi() {
         binding.reportTitle.text = getString(R.string.report_exported_success_title)
         binding.reportMessage.text = getString(R.string.report_exported_success_message)
         binding.progressBar.gone()
@@ -92,7 +95,7 @@ class GenerateReportFragment:
         binding.animationView.playAnimation()
     }
 
-    private fun showErrorUi(){
+    private fun showErrorUi() {
         binding.progressBar.gone()
         binding.reportTitle.text = getString(R.string.report_exported_error_title)
         UiInterface.showSnackBar(getString(R.string.report_exported_error_message))
@@ -108,7 +111,7 @@ class GenerateReportFragment:
         var numberOfRows = 0
 
         lifecycleScope.launch {
-            when(val records = viewModel.getProductRecords(args.timeCode)){
+            when (val records = viewModel.getProductRecords(args.timeCode)) {
                 is RepoResult.Error -> {}
                 RepoResult.InProgress -> {}
                 is RepoResult.Success -> {
@@ -124,7 +127,7 @@ class GenerateReportFragment:
                         }
                         workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)
-                    }catch (e: Exception) {
+                    } catch (e: Exception) {
                         viewModel.updateExportState(ExportResult.Error(e))
                     }
                 }
@@ -151,7 +154,7 @@ class GenerateReportFragment:
 
         lifecycleScope.launch {
             try {
-                when(val suppliers = viewModel.getAllSuppliersData()){
+                when (val suppliers = viewModel.getAllSuppliersData()) {
                     is RepoResult.Error -> {}
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -167,7 +170,9 @@ class GenerateReportFragment:
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
+            } catch (e: Exception) {
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
         }
     }
 
@@ -183,7 +188,7 @@ class GenerateReportFragment:
 
         lifecycleScope.launch {
             try {
-                when(val suppliers = viewModel.getAllClientsData()){
+                when (val suppliers = viewModel.getAllClientsData()) {
                     is RepoResult.Error -> {}
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -199,7 +204,9 @@ class GenerateReportFragment:
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
+            } catch (e: Exception) {
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
         }
     }
 
@@ -220,7 +227,7 @@ class GenerateReportFragment:
 
         lifecycleScope.launch {
             try {
-                when(val suppliers = viewModel.getAllProductsData()){
+                when (val suppliers = viewModel.getAllProductsData()) {
                     is RepoResult.Error -> {}
                     RepoResult.InProgress -> {}
                     is RepoResult.Success -> {
@@ -243,11 +250,13 @@ class GenerateReportFragment:
                         viewModel.updateExportState(ExportResult.Success)
                     }
                 }
-            }catch (e:Exception){ viewModel.updateExportState(ExportResult.Error(e)) }
+            } catch (e: Exception) {
+                viewModel.updateExportState(ExportResult.Error(e))
+            }
         }
     }
 
-    private suspend fun XSSFWorkbook.writeToFile(uri: Uri){
+    private suspend fun XSSFWorkbook.writeToFile(uri: Uri) {
         withContext(Dispatchers.IO) {
             val file = requireActivity().contentResolver.openOutputStream(uri)
             write(file)

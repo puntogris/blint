@@ -9,12 +9,15 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 
 @GlideModule
-class BlintGlideModule: AppGlideModule()
-{
+class BlintGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
-        builder.apply { RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).signature(
-            ObjectKey(System.currentTimeMillis().toShort())
-        ) }
+        builder.apply {
+            setDefaultRequestOptions {
+                RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).signature(
+                    ObjectKey(System.currentTimeMillis().toShort())
+                )
+            }
+        }
     }
 }

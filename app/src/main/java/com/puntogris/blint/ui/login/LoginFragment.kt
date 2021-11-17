@@ -11,8 +11,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.data.data_source.remote.LoginResult
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

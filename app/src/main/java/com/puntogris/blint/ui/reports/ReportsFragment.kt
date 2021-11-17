@@ -21,12 +21,12 @@ import com.puntogris.blint.utils.Constants.PRODUCTS_RECORDS
 import com.puntogris.blint.utils.Constants.QUARTERLY
 import com.puntogris.blint.utils.Constants.SUPPLIERS_LIST
 import com.puntogris.blint.utils.Constants.WEEKLY
-import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
+class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
 
     private val viewModel: ReportsViewModel by viewModels()
 
@@ -41,14 +41,23 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
         }
 
         lifecycleScope.launchWhenStarted {
-            when(val result =  viewModel.getStatistics()){
+            when (val result = viewModel.getStatistics()) {
                 is RepoResult.Error -> {}
                 RepoResult.InProgress -> {}
                 is RepoResult.Success -> {
                     val data = listOf(
-                        DashboardItem(getString(R.string.products_label), result.data.totalProducts.toString()),
-                        DashboardItem(getString(R.string.suppliers_label), result.data.totalSuppliers.toString()),
-                        DashboardItem(getString(R.string.clients_label), result.data.totalClients.toString())
+                        DashboardItem(
+                            getString(R.string.products_label),
+                            result.data.totalProducts.toString()
+                        ),
+                        DashboardItem(
+                            getString(R.string.suppliers_label),
+                            result.data.totalSuppliers.toString()
+                        ),
+                        DashboardItem(
+                            getString(R.string.clients_label),
+                            result.data.totalClients.toString()
+                        )
                     )
                     reportDashboardAdapter.submitList(data)
                 }
@@ -56,27 +65,32 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
         }
     }
 
-    fun onProductsReportClicked(){ showTimeFrameBottomSheet(PRODUCTS_RECORDS) }
+    fun onProductsReportClicked() {
+        showTimeFrameBottomSheet(PRODUCTS_RECORDS)
+    }
     //fun onClientsReportClicked(){ showTimeFrameBottomSheet(CLIENTS_RECORDS) }
     //fun onSuppliersReportClicked(){ showTimeFrameBottomSheet(SUPPLIERS_RECORDS) }
 
-    fun onProductListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = PRODUCTS_LIST)
+    fun onProductListClicked() {
+        val action =
+            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = PRODUCTS_LIST)
         findNavController().navigate(action)
     }
 
-    fun onClientListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = CLIENTS_LIST)
+    fun onClientListClicked() {
+        val action =
+            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = CLIENTS_LIST)
         findNavController().navigate(action)
     }
 
-    fun onSuppliersListClicked(){
-        val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = SUPPLIERS_LIST)
+    fun onSuppliersListClicked() {
+        val action =
+            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = SUPPLIERS_LIST)
         findNavController().navigate(action)
     }
 
     @Suppress("SameParameterValue")
-    private fun showTimeFrameBottomSheet(code: Int){
+    private fun showTimeFrameBottomSheet(code: Int) {
         OptionsSheet().build(requireContext()) {
             title(this@ReportsFragment.getString(R.string.ask_report_time_frame_title))
             displayMode(DisplayMode.LIST)
@@ -89,7 +103,7 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
                 Option(this@ReportsFragment.getString(R.string.historical))
             )
             onPositive { index: Int, _: Option ->
-                val timeCode = when(index){
+                val timeCode = when (index) {
                     0 -> WEEKLY
                     1 -> MONTHLY
                     2 -> QUARTERLY
@@ -97,8 +111,12 @@ class ReportsFragment: BaseFragment<FragmentReportsBinding>(R.layout.fragment_re
                     4 -> ANNUAL
                     else -> HISTORICAL
                 }
-            val action = ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = code, timeCode = timeCode)
-            this@ReportsFragment.findNavController().navigate(action)
+                val action =
+                    ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(
+                        reportCode = code,
+                        timeCode = timeCode
+                    )
+                this@ReportsFragment.findNavController().navigate(action)
             }
         }.show(parentFragmentManager, "")
     }

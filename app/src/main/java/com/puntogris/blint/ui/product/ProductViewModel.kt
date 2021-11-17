@@ -3,16 +3,19 @@ package com.puntogris.blint.ui.product
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.model.Category
+import com.puntogris.blint.model.FirestoreSupplier
+import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository
-):ViewModel() {
+) : ViewModel() {
 
     var viewsLoaded = false
 
@@ -22,35 +25,35 @@ class ProductViewModel @Inject constructor(
     private val _currentProduct = MutableStateFlow(ProductWithSuppliersCategories())
     val currentProduct: LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
 
-    fun updateSuppliers(suppliers: List<FirestoreSupplier>){
+    fun updateSuppliers(suppliers: List<FirestoreSupplier>) {
         _currentProduct.value.suppliers = suppliers
     }
 
-    fun updateCategories(categories: List<Category>){
+    fun updateCategories(categories: List<Category>) {
         _currentProduct.value.categories = categories
     }
 
-    fun removeCurrentImage(){
+    fun removeCurrentImage() {
         val image = ""
         _productImage.value = image
         _currentProduct.value.product.image = image
     }
 
-    fun updateCurrentProductBarcode(barcode: String){
+    fun updateCurrentProductBarcode(barcode: String) {
         _currentProduct.value.product.barcode = barcode
     }
 
-    fun updateProductData(product: Product){
+    fun updateProductData(product: Product) {
         product.productId = _currentProduct.value.product.productId
         product.businessId = _currentProduct.value.product.businessId
         _currentProduct.value.product = product
     }
 
-    fun setProductData(product: ProductWithSuppliersCategories){
+    fun setProductData(product: ProductWithSuppliersCategories) {
         _currentProduct.value = product
     }
 
-    fun updateProductImage(image: String){
+    fun updateProductImage(image: String) {
         imageChanged = true
         _productImage.value = image
         _currentProduct.value.product.image = image
@@ -64,9 +67,10 @@ class ProductViewModel @Inject constructor(
             product.name = product.name.lowercase()
             product.sku = product.sku.uppercase()
         }
-       return productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
+        return productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
     }
 
-    suspend fun deleteProductDatabase(productId: Int) = productRepository.deleteProductDatabase(productId)
+    suspend fun deleteProductDatabase(productId: Int) =
+        productRepository.deleteProductDatabase(productId)
 
 }

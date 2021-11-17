@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ManageCategoriesViewModel @Inject constructor(
     private val categoriesRepository: CategoriesRepository
-):ViewModel() {
+) : ViewModel() {
 
     @ExperimentalCoroutinesApi
     suspend fun getProductCategories() = categoriesRepository.getAllCategoriesDatabase()

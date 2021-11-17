@@ -10,15 +10,16 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
 import com.puntogris.blint.utils.Constants.PENDING
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
-class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(R.layout.event_info_bottom_sheet) {
+class EventInfoBottomSheet :
+    BaseBottomSheetFragment<EventInfoBottomSheetBinding>(R.layout.event_info_bottom_sheet) {
 
     private val viewModel: CalendarViewModel by viewModels()
     private val args: EventInfoBottomSheetArgs by navArgs()
@@ -39,7 +40,7 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         }
     }
 
-    fun onDeleteEventButtonClicked(){
+    fun onDeleteEventButtonClicked() {
         InfoSheet().show(requireParentFragment().requireContext()) {
             title(R.string.ask_delete_event_title)
             content(R.string.delete_event_warning)
@@ -48,7 +49,7 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         }
     }
 
-    fun onDeleteEventConfirmed(){
+    fun onDeleteEventConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteEvent(args.event.eventId)) {
                 SimpleResult.Failure ->
@@ -61,9 +62,9 @@ class EventInfoBottomSheet:BaseBottomSheetFragment<EventInfoBottomSheetBinding>(
         }
     }
 
-    fun onSaveButtonClicked(){
+    fun onSaveButtonClicked() {
         lifecycleScope.launch {
-            when(viewModel.updateEvent()){
+            when (viewModel.updateEvent()) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {

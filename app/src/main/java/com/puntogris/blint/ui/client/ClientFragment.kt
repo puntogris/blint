@@ -18,8 +18,8 @@ import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
-import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

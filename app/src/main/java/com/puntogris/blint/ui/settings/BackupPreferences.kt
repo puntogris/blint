@@ -8,7 +8,7 @@ import com.puntogris.blint.utils.Constants.CREATE_BACKUP_PREF
 import com.puntogris.blint.utils.Constants.RESTORE_BACKUP_PREF
 import com.puntogris.blint.utils.UiInterface
 
-class BackupPreferences:BasePreferences(R.xml.backup_preferences) {
+class BackupPreferences : BasePreferences(R.xml.backup_preferences) {
 
     override fun initializeViews() {
         UiInterface.registerUi()

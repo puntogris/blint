@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.puntogris.blint.data.data_source.local.dao.EventsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

@@ -7,7 +7,7 @@ import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

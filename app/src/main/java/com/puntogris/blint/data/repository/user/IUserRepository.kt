@@ -1,8 +1,10 @@
 package com.puntogris.blint.data.repository.user
 
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.model.*
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.UserData
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.SyncAccount
 
 interface IUserRepository {
     fun checkIfUserIsLogged(): Boolean
@@ -10,5 +12,5 @@ interface IUserRepository {
     fun getCurrentUID(): String
     fun getCurrentUser(): FirebaseUser?
     suspend fun syncAccountFromDatabase(userData: UserData? = null): SyncAccount
-    suspend fun getUserBusiness():List<Business>
+    suspend fun getUserBusiness(): List<Business>
 }

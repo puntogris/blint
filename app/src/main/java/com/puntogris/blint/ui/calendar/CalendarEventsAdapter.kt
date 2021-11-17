@@ -6,21 +6,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.EventDiffCallBack
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.utils.EventUi
+import com.puntogris.blint.utils.types.EventUi
 
-class CalendarEventsAdapter(private val clickListener: (Event) -> Unit): PagingDataAdapter<EventUi, RecyclerView.ViewHolder>(
-    EventDiffCallBack()
-) {
+class CalendarEventsAdapter(private val clickListener: (Event) -> Unit) :
+    PagingDataAdapter<EventUi, RecyclerView.ViewHolder>(
+        EventDiffCallBack()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
+        return when (viewType) {
             R.layout.calendar_event_vh -> CalendarEventsViewHolder.from(parent)
             else -> CalendarSeparatorViewHolder.from(parent)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)){
+        return when (getItem(position)) {
             is EventUi.EventItem -> R.layout.calendar_event_vh
             is EventUi.SeparatorItem -> R.layout.calendar_separator_vh
             null -> throw UnsupportedOperationException("Unknown view")
@@ -30,8 +31,8 @@ class CalendarEventsAdapter(private val clickListener: (Event) -> Unit): PagingD
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val eventUi = getItem(position)!!
         eventUi.let {
-            when(eventUi){
-                is EventUi.EventItem ->{
+            when (eventUi) {
+                is EventUi.EventItem -> {
                     (holder as CalendarEventsViewHolder)
                     holder.bind(eventUi.event, clickListener)
                 }

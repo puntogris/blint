@@ -1,6 +1,5 @@
 package com.puntogris.blint.ui.product
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
@@ -20,9 +19,9 @@ import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
-import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.showOrderPickerAndNavigate
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

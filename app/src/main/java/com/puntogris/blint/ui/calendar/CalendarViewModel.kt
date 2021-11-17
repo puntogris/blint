@@ -6,22 +6,23 @@ import androidx.lifecycle.asLiveData
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.repository.events.EventRepository
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.utils.SimpleResult
 import com.puntogris.blint.utils.toEventUiFlow
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     private val eventRepository: EventRepository
-):ViewModel() {
+) : ViewModel() {
 
     private val _event = MutableStateFlow(Event())
-    val event:LiveData<Event> = _event.asLiveData()
+    val event: LiveData<Event> = _event.asLiveData()
 
-    fun setEvent(event: Event){
+    fun setEvent(event: Event) {
         _event.value = event
     }
 
@@ -29,15 +30,15 @@ class CalendarViewModel @Inject constructor(
 
     private val eventsFilter = MutableStateFlow("ALL")
 
-    fun setPendingFilter(){
+    fun setPendingFilter() {
         eventsFilter.value = "PENDING"
     }
 
-    fun setFinishedFilter(){
+    fun setFinishedFilter() {
         eventsFilter.value = "FINISHED"
     }
 
-    fun setAllFilter(){
+    fun setAllFilter() {
         eventsFilter.value = "ALL"
     }
 
@@ -46,11 +47,12 @@ class CalendarViewModel @Inject constructor(
         eventRepository.getEventPagingDataFlow(it).toEventUiFlow()
     }
 
-    suspend fun createEvent(title:String, message:String): SimpleResult{
+    suspend fun createEvent(title: String, message: String): SimpleResult {
         val event = Event(
             title = title,
             message = message,
-            timestamp = timestamp)
+            timestamp = timestamp
+        )
         return eventRepository.createEventDatabase(event)
     }
 
@@ -58,11 +60,11 @@ class CalendarViewModel @Inject constructor(
 
     suspend fun updateEvent() = eventRepository.updateEventStatusDatabase(_event.value)
 
-    fun updateEventDate(timeInMillis:Long){
-        timestamp = Timestamp(timeInMillis / 1000,0)
+    fun updateEventDate(timeInMillis: Long) {
+        timestamp = Timestamp(timeInMillis / 1000, 0)
     }
 
-    fun updateEventStatus(position:Int){
+    fun updateEventStatus(position: Int) {
         _event.value.status = if (position == 0) "PENDING" else "FINISHED"
     }
 

@@ -12,12 +12,15 @@ import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
+class ManageCategoriesFragment :
+    BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
 
     private val viewModel: ManageCategoriesViewModel by viewModels()
     private lateinit var categoriesAdapter: ManageCategoriesAdapter
@@ -25,16 +28,16 @@ class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.
     @ExperimentalCoroutinesApi
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = true){ showCreateCategoryDialog() }
+        UiInterface.registerUi(showFab = true) { showCreateCategoryDialog() }
 
-        categoriesAdapter = ManageCategoriesAdapter(requireContext()){ onCategoryDeleted(it) }
+        categoriesAdapter = ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoriesAdapter
         }
 
         launchAndRepeatWithViewLifecycle {
-            when(val result = viewModel.getProductCategories()){
+            when (val result = viewModel.getProductCategories()) {
                 is RepoResult.Error -> {}
                 RepoResult.InProgress -> {}
                 is RepoResult.Success -> {
@@ -44,9 +47,9 @@ class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.
         }
     }
 
-    private fun onCategoryDeleted(name:String){
+    private fun onCategoryDeleted(name: String) {
         lifecycleScope.launch {
-            when(viewModel.deleteCategory(name)){
+            when (viewModel.deleteCategory(name)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_categories_delete_error))
                 SimpleResult.Success ->
@@ -55,16 +58,16 @@ class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.
         }
     }
 
-    private fun showCreateCategoryDialog(){
-        InputSheet().build(requireContext()){
+    private fun showCreateCategoryDialog() {
+        InputSheet().build(requireContext()) {
             style(SheetStyle.DIALOG)
             title(this@ManageCategoriesFragment.getString(R.string.add_category))
-            with(InputEditText{
+            with(InputEditText {
                 required(true)
                 hint(this@ManageCategoriesFragment.getString(R.string.name))
                 inputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                 onNegative(this@ManageCategoriesFragment.getString(R.string.action_cancel))
-                onPositive(this@ManageCategoriesFragment.getString(R.string.action_accept)){
+                onPositive(this@ManageCategoriesFragment.getString(R.string.action_accept)) {
                     onCreateCategoryConfirmed(it["0"].toString())
                     hideKeyboard()
                 }
@@ -72,9 +75,9 @@ class ManageCategoriesFragment :BaseFragment<FragmentManageCategoriesBinding>(R.
         }.show(parentFragmentManager, "")
     }
 
-    private fun onCreateCategoryConfirmed(name: String){
+    private fun onCreateCategoryConfirmed(name: String) {
         lifecycleScope.launch {
-            when(viewModel.saveCategoryDatabase(name)){
+            when (viewModel.saveCategoryDatabase(name)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_category_create_error))
                 SimpleResult.Success -> {

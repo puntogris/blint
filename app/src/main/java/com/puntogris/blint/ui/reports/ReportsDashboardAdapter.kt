@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.DashboardItemDiffCallBack
 import com.puntogris.blint.model.DashboardItem
 
-class ReportsDashboardAdapter: ListAdapter<DashboardItem, ReportDashboardViewHolder>(
+class ReportsDashboardAdapter : ListAdapter<DashboardItem, ReportDashboardViewHolder>(
     DashboardItemDiffCallBack()
 ) {
 

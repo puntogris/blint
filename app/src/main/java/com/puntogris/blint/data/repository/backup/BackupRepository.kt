@@ -3,21 +3,17 @@ package com.puntogris.blint.data.repository.backup
 import android.content.Context
 import com.puntogris.blint.data.data_source.local.AppDatabase
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.utils.BackupState
-import com.puntogris.blint.utils.Constants.BACKUP_PATH
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.Util.copyFile
+import com.puntogris.blint.utils.types.BackupState
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.io.File
-import java.io.FileInputStream
 import javax.inject.Inject
 
 class BackupRepository @Inject constructor(
     @ApplicationContext val context: Context,
     private val appDatabase: AppDatabase
-    ): IBackupRepository {
+) : IBackupRepository {
 
     override fun checkBackUpRequirements(): StateFlow<RepoResult<List<Business>>> =
         MutableStateFlow<RepoResult<List<Business>>>(RepoResult.InProgress).also { result ->
@@ -31,7 +27,7 @@ class BackupRepository @Inject constructor(
 //                    println(it.localizedMessage)
 //                    result.value = RepoResult.Error(it)
 //                }
-    }
+        }
 
     override fun checkLastBackUpDate(): StateFlow<RepoResult<Long>> =
         MutableStateFlow<RepoResult<Long>>(RepoResult.InProgress).also { result ->
@@ -56,7 +52,7 @@ class BackupRepository @Inject constructor(
 //                    }
 //                    .addOnSuccessListener{ result.value = BackupState.Success }
 //                    .addOnFailureListener{ result.value = BackupState.Error(it) }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 result.value = BackupState.Error(e)
             }
         }
@@ -81,7 +77,7 @@ class BackupRepository @Inject constructor(
 //                        result.value = BackupState.Success
 //                    }
 //                    .addOnFailureListener{ result.value = BackupState.Error(it) }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 result.value = BackupState.Error(e)
             }
         }

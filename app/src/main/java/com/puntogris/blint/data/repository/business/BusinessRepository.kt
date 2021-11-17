@@ -5,8 +5,8 @@ import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.ui.SharedPreferences
-import com.puntogris.blint.utils.DeleteBusiness
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.DeleteBusiness
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -81,7 +81,7 @@ class BusinessRepository @Inject constructor(
 //                        }
 //
 //                } else
-                    DeleteBusiness.Failure
+                DeleteBusiness.Failure
             } catch (e: Exception) {
                 DeleteBusiness.Failure
             }

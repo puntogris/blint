@@ -1,7 +1,7 @@
 package com.puntogris.blint.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.puntogris.blint.utils.EventUi
+import com.puntogris.blint.utils.types.EventUi
 
 class EventDiffCallBack : DiffUtil.ItemCallback<EventUi>() {
     override fun areItemsTheSame(oldItem: EventUi, newItem: EventUi): Boolean {

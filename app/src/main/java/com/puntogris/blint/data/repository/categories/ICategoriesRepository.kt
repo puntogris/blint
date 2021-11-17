@@ -1,8 +1,8 @@
 package com.puntogris.blint.data.repository.categories
 
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleResult
 
 interface ICategoriesRepository {
     suspend fun deleteProductCategoryDatabase(categoryName: String): SimpleResult

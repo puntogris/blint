@@ -4,7 +4,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.ui.base.BasePreferences
 import com.puntogris.blint.utils.UiInterface
 
-class NotificationsPreferences: BasePreferences(R.xml.notifications_preferences) {
+class NotificationsPreferences : BasePreferences(R.xml.notifications_preferences) {
 
     override fun initializeViews() {
         UiInterface.registerUi()

@@ -10,9 +10,11 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentBusinessBinding
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.TO_DELETE
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,16 +39,16 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
 //            }
         }
 
-            binding.textView103.gone()
-            binding.cardView2.gone()
+        binding.textView103.gone()
+        binding.cardView2.gone()
 
 
-        if(args.business.status == TO_DELETE){
+        if (args.business.status == TO_DELETE) {
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deleting_alert_view
                 inflate()
             }
-        }else if(args.business.status == DISABLED){
+        } else if (args.business.status == DISABLED) {
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deactivated_alert_view
                 inflate()
@@ -54,27 +56,28 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         }
     }
 
-    private fun onDataNotFound(){
+    private fun onDataNotFound() {
         UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
     }
 
-    private fun onDataFound(data:List<Business>){
+    private fun onDataFound(data: List<Business>) {
         binding.progressBar.gone()
         binding.recyclerView.apply {
-            businessEmployeeAdapter = BusinessEmployeeAdapter{onEmployeeClicked(it)}
+            businessEmployeeAdapter = BusinessEmployeeAdapter { onEmployeeClicked(it) }
             adapter = businessEmployeeAdapter
             layoutManager = LinearLayoutManager(requireContext())
             businessEmployeeAdapter.submitList(data)
         }
     }
-    private fun onEmployeeClicked(business:Business){
+
+    private fun onEmployeeClicked(business: Business) {
 //        val action = BusinessFragmentDirections.actionBusinessFragmentToEmployeeFragment(business)
 //        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.businessFragmentMenu).isVisible = true
-        if(args.business.status == TO_DELETE) {
+        if (args.business.status == TO_DELETE) {
             menu.findItem(R.id.newEmployee).isVisible = false
             menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
             menu.findItem(R.id.deleteBusiness).isVisible = false
@@ -84,7 +87,8 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.deleteBusiness -> {
-                val action = BusinessFragmentDirections.actionBusinessFragmentToDeleteBusinessFragment(args.business)
+                val action =
+                    BusinessFragmentDirections.actionBusinessFragmentToDeleteBusinessFragment(args.business)
                 findNavController().navigate(action)
                 true
             }

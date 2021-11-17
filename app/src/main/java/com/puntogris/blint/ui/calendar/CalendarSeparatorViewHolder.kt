@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.CalendarSeparatorVhBinding
 
-class CalendarSeparatorViewHolder private constructor(val binding: CalendarSeparatorVhBinding) : RecyclerView.ViewHolder(binding.root){
+class CalendarSeparatorViewHolder private constructor(val binding: CalendarSeparatorVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(date: String) {
         binding.date = date
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): CalendarSeparatorViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = CalendarSeparatorVhBinding.inflate(layoutInflater,parent, false)
+            val binding = CalendarSeparatorVhBinding.inflate(layoutInflater, parent, false)
             return CalendarSeparatorViewHolder(binding)
         }
     }

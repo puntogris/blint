@@ -8,21 +8,22 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
+import com.puntogris.blint.utils.getInt
+import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.showSackBarAboveBottomSheet
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -44,7 +45,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
         (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.recordTypeText.setOnItemClickListener { _, _, i, _ ->
-            orderType = if(i == 0) IN else OUT
+            orderType = if (i == 0) IN else OUT
         }
     }
 
@@ -52,41 +53,42 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
         val scannedResult = arguments?.getString(ARG_SCANNING_RESULT)
         viewModel.updateBarcodeScanned(scannedResult.toString())
         lifecycleScope.launch {
-            when(val product = viewModel.getProductWithBarCode(scannedResult.toString())){
+            when (val product = viewModel.getProductWithBarCode(scannedResult.toString())) {
                 is RepoResult.Error -> showProductNotFoundUI()
-                RepoResult.InProgress -> { }
+                RepoResult.InProgress -> {}
                 is RepoResult.Success -> showProductUI(product.data)
             }
         }
     }
 
-    private fun showProductUI(product: ProductWithSuppliersCategories){
+    private fun showProductUI(product: ProductWithSuppliersCategories) {
         viewModel.setProductData(product)
         binding.productFoundGroup.visible()
     }
 
-    private fun showProductNotFoundUI(){
+    private fun showProductNotFoundUI() {
         binding.productNotFoundGroup.visible()
     }
 
-    fun onGoToProductClicked(){
+    fun onGoToProductClicked() {
         returnAndActivateCamera = false
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.currentProduct.value)
+        val action =
+            ScannerFragmentDirections.actionScannerFragmentToProductFragment(viewModel.currentProduct.value)
         findNavController().navigate(action)
     }
 
-    fun onSaveProductClicked(){
+    fun onSaveProductClicked() {
         when {
             binding.recordTypeText.text.isNullOrBlank() -> {
                 showSackBarAboveBottomSheet(getString(R.string.snack_pick_record_type))
             }
-            binding.productAmountText.getInt() == 0  || binding.productAmountText.text.isNullOrBlank() -> {
+            binding.productAmountText.getInt() == 0 || binding.productAmountText.text.isNullOrBlank() -> {
                 showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty))
             }
             else -> {
                 val amount = binding.productAmountText.getString().toIntOrNull()
-                if (amount != null && amount > 0){
+                if (amount != null && amount > 0) {
                     val order = OrderWithRecords()
                     order.order.type = orderType
                     order.records = listOf(
@@ -100,7 +102,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
                     )
 
                     lifecycleScope.launch {
-                        when(viewModel.createSimpleOrder(order)){
+                        when (viewModel.createSimpleOrder(order)) {
                             SimpleResult.Failure -> {
                                 dismiss()
                                 showSackBarAboveBottomSheet(getString(R.string.snack_order_created_error))
@@ -111,25 +113,28 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
                             }
                         }
                     }
-                }else{ showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty)) }
+                } else {
+                    showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty))
+                }
             }
         }
     }
 
-    fun onCreateNewProductClicked(){
+    fun onCreateNewProductClicked() {
         dismiss()
-        val action = ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getCodeScanned())
+        val action =
+            ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getCodeScanned())
         findNavController().navigate(action)
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if(returnAndActivateCamera) listener.onDismiss()
+        if (returnAndActivateCamera) listener.onDismiss()
     }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        if(returnAndActivateCamera) listener.onDismiss()
+        if (returnAndActivateCamera) listener.onDismiss()
     }
 
     interface DialogDismissListener {
@@ -137,7 +142,10 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
     }
 
     companion object {
-        fun newInstance(scanningResult: String, listener: DialogDismissListener): ScannerResultBottomSheet =
+        fun newInstance(
+            scanningResult: String,
+            listener: DialogDismissListener
+        ): ScannerResultBottomSheet =
             ScannerResultBottomSheet(listener).apply {
                 arguments = Bundle().apply {
                     putString(ARG_SCANNING_RESULT, scanningResult)

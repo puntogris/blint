@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.RemoveCategoryProductVhBinding
 import com.puntogris.blint.model.Category
 
-class RemoveProductCategoryViewHolder private constructor(val binding: RemoveCategoryProductVhBinding) : RecyclerView.ViewHolder(binding.root){
+class RemoveProductCategoryViewHolder private constructor(val binding: RemoveCategoryProductVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category, clickListener: (Category) -> Unit) {
         binding.category = category
@@ -16,10 +17,10 @@ class RemoveProductCategoryViewHolder private constructor(val binding: RemoveCat
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): RemoveProductCategoryViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = RemoveCategoryProductVhBinding.inflate(layoutInflater,parent, false)
+            val binding = RemoveCategoryProductVhBinding.inflate(layoutInflater, parent, false)
             return RemoveProductCategoryViewHolder(binding)
         }
     }

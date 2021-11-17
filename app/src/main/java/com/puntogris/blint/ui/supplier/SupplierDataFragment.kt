@@ -20,7 +20,8 @@ import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
+class SupplierDataFragment :
+    BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
 
     private val viewModel: SupplierViewModel by viewModels()
     lateinit var requestPermissionContact: ActivityResultLauncher<String>
@@ -32,39 +33,57 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY){
+        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY) {
             viewModel.setSupplierData(it)
         }
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){}
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
 
         requestPermissionContact =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                        Intent(Intent.ACTION_INSERT).apply {
-                            type = ContactsContract.Contacts.CONTENT_TYPE
-                            if (permissionCode == 1){
-                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.companyName)
-                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.companyPhone)
-                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.companyEmail)
-                            }else{
-                                putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentSupplier.value!!.sellerName)
-                                putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentSupplier.value!!.sellerPhone)
-                                putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentSupplier.value!!.sellerEmail)
-                            }
-                        }.also { activityResultLauncher.launch(it) }
-                }
-                else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                    Intent(Intent.ACTION_INSERT).apply {
+                        type = ContactsContract.Contacts.CONTENT_TYPE
+                        if (permissionCode == 1) {
+                            putExtra(
+                                ContactsContract.Intents.Insert.NAME,
+                                viewModel.currentSupplier.value!!.companyName
+                            )
+                            putExtra(
+                                ContactsContract.Intents.Insert.PHONE,
+                                viewModel.currentSupplier.value!!.companyPhone
+                            )
+                            putExtra(
+                                ContactsContract.Intents.Insert.EMAIL,
+                                viewModel.currentSupplier.value!!.companyEmail
+                            )
+                        } else {
+                            putExtra(
+                                ContactsContract.Intents.Insert.NAME,
+                                viewModel.currentSupplier.value!!.sellerName
+                            )
+                            putExtra(
+                                ContactsContract.Intents.Insert.PHONE,
+                                viewModel.currentSupplier.value!!.sellerPhone
+                            )
+                            putExtra(
+                                ContactsContract.Intents.Insert.EMAIL,
+                                viewModel.currentSupplier.value!!.sellerEmail
+                            )
+                        }
+                    }.also { activityResultLauncher.launch(it) }
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
 
-    fun onCreateContactClicked(code: Int){
+    fun onCreateContactClicked(code: Int) {
         permissionCode = code
         requestPermissionContact.launch(android.Manifest.permission.WRITE_CONTACTS)
     }
 
-    fun onEmailButtonClicked(code:Int){
+    fun onEmailButtonClicked(code: Int) {
         val email =
             if (code == 0) viewModel.currentSupplier.value!!.companyEmail
             else viewModel.currentSupplier.value!!.sellerEmail
@@ -76,19 +95,28 @@ class SupplierDataFragment : BaseFragment<FragmentSupplierDataBinding>(R.layout.
         }
     }
 
-    fun onPhoneButtonClicked(code: Int){
+    fun onPhoneButtonClicked(code: Int) {
         val phone =
             if (code == 0) viewModel.currentSupplier.value!!.companyPhone
             else viewModel.currentSupplier.value!!.sellerPhone
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24, this@SupplierDataFragment.getString(R.string.action_call)),
-                Option(R.drawable.ic_baseline_message_24, this@SupplierDataFragment.getString(R.string.action_message)),
-                Option(R.drawable.ic_whatsapp, this@SupplierDataFragment.getString(R.string.action_whats_app))
+                Option(
+                    R.drawable.ic_baseline_call_24,
+                    this@SupplierDataFragment.getString(R.string.action_call)
+                ),
+                Option(
+                    R.drawable.ic_baseline_message_24,
+                    this@SupplierDataFragment.getString(R.string.action_message)
+                ),
+                Option(
+                    R.drawable.ic_whatsapp,
+                    this@SupplierDataFragment.getString(R.string.action_whats_app)
+                )
             )
             onPositive { index: Int, _: Option ->
-                when(index){
+                when (index) {
                     0 -> {
                         val uri = Uri.fromParts("tel", phone, null)
                         val intent = Intent(Intent.ACTION_DIAL, uri)

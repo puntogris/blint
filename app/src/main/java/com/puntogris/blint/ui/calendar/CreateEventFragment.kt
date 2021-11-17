@@ -9,22 +9,25 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateEventBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fragment_create_event) {
+class CreateEventFragment :
+    BaseFragment<FragmentCreateEventBinding>(R.layout.fragment_create_event) {
 
-    private val viewModel:CalendarViewModel by viewModels()
+    private val viewModel: CalendarViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             lifecycleScope.launch {
-                when(viewModel.createEvent(
+                when (viewModel.createEvent(
                     title = binding.eventTitleText.getString(),
-                    message = binding.eventMessageText.getString())){
+                    message = binding.eventMessageText.getString()
+                )) {
                     SimpleResult.Failure ->
                         UiInterface.showSnackBar(getString(R.string.snack_create_event_error))
                     SimpleResult.Success -> {
@@ -36,9 +39,9 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
         }
     }
 
-    fun onSelectDateClicked(){
+    fun onSelectDateClicked() {
         hideKeyboard()
-        CalendarSheet().build(requireContext()){
+        CalendarSheet().build(requireContext()) {
             title(this@CreateEventFragment.getString(R.string.ask_event_date))
             selectionMode(SelectionMode.DATE)
             onPositive { dateStart: Calendar, _: Calendar? ->
@@ -49,7 +52,7 @@ class CreateEventFragment : BaseFragment<FragmentCreateEventBinding>(R.layout.fr
         }.show(parentFragmentManager, "")
     }
 
-    fun onHideKeyboardClicked(){
+    fun onHideKeyboardClicked() {
         hideKeyboard()
     }
 }

@@ -9,8 +9,12 @@ import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.onBackStackLiveData
+import com.puntogris.blint.utils.types.EventsDashboard
+import com.puntogris.blint.utils.visible
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

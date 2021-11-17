@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AccountPreferences: BasePreferences(R.xml.account_preferences) {
+class AccountPreferences : BasePreferences(R.xml.account_preferences) {
 
     private val viewModel: PreferencesViewModel by viewModels()
 

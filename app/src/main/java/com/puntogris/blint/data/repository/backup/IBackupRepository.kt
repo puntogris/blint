@@ -1,8 +1,8 @@
 package com.puntogris.blint.data.repository.backup
 
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.utils.BackupState
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.types.BackupState
+import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.flow.StateFlow
 
 interface IBackupRepository {

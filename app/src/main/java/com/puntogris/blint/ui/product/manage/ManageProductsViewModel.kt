@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.utils.SearchText
+import com.puntogris.blint.utils.types.SearchText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

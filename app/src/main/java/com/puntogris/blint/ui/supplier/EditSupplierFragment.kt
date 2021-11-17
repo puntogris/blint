@@ -16,14 +16,18 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditSupplierBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @SuppressLint("Range")
 @AndroidEntryPoint
-class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.fragment_edit_supplier) {
+class EditSupplierFragment :
+    BaseFragment<FragmentEditSupplierBinding>(R.layout.fragment_edit_supplier) {
 
     private val viewModel: SupplierViewModel by viewModels()
     private val args: EditSupplierFragmentArgs by navArgs()
@@ -36,13 +40,17 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             viewModel.updateSupplierData(getSupplierFromViews())
-            when(val validator = StringValidator.from(viewModel.currentSupplier.value!!.companyName, allowSpecialChars = true, isName = true
-            ,maxLength = 20)){
+            when (val validator = StringValidator.from(
+                viewModel.currentSupplier.value!!.companyName,
+                allowSpecialChars = true,
+                isName = true,
+                maxLength = 20
+            )) {
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
-                        when(viewModel.saveSupplierDatabase()){
+                        when (viewModel.saveSupplierDatabase()) {
                             SimpleResult.Failure ->
                                 UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
                             SimpleResult.Success -> {
@@ -64,31 +72,39 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
 
         requestPermissionContact = getPermissionLauncher()
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.let {
-                    val contactUri = it.data!!
-                    val resolver = requireActivity().contentResolver
-                    val cursorLookUpKey = resolver.query(contactUri, arrayOf(ContactsContract.Data.LOOKUP_KEY), null, null, null)
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    result.data?.let {
+                        val contactUri = it.data!!
+                        val resolver = requireActivity().contentResolver
+                        val cursorLookUpKey = resolver.query(
+                            contactUri,
+                            arrayOf(ContactsContract.Data.LOOKUP_KEY),
+                            null,
+                            null,
+                            null
+                        )
 
-                    cursorLookUpKey?.let { cursor ->
-                        if (cursor.moveToFirst()){
-                            val lookUpKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
-                            if (lookUpKey != null){
-                                getEmailWithLookUpKey(lookUpKey, activityResultCode)
-                                getPhoneAndNameWithLookUpKey(lookUpKey, activityResultCode)
-                                if (activityResultCode == 1) loadAddressWithLookUpKey(lookUpKey)
+                        cursorLookUpKey?.let { cursor ->
+                            if (cursor.moveToFirst()) {
+                                val lookUpKey =
+                                    cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
+                                if (lookUpKey != null) {
+                                    getEmailWithLookUpKey(lookUpKey, activityResultCode)
+                                    getPhoneAndNameWithLookUpKey(lookUpKey, activityResultCode)
+                                    if (activityResultCode == 1) loadAddressWithLookUpKey(lookUpKey)
+                                }
                             }
                         }
+                        cursorLookUpKey?.close()
                     }
-                    cursorLookUpKey?.close()
                 }
             }
-        }
 
     }
 
-    fun onAddContactInfoClicked(code: Int){
+    fun onAddContactInfoClicked(code: Int) {
         activityResultCode = code
         requestPermissionContact.launch(Manifest.permission.READ_CONTACTS)
     }
@@ -101,11 +117,10 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                     type = ContactsContract.Contacts.CONTENT_TYPE
                 }
                 activityResultLauncher.launch(intent)
-            }
-            else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+            } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
         }
 
-    private fun getEmailWithLookUpKey(key: String, requestCode: Int){
+    private fun getEmailWithLookUpKey(key: String, requestCode: Int) {
         val emailWhere =
             ContactsContract.Data.LOOKUP_KEY + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?"
         val emailWhereParams = arrayOf(
@@ -123,17 +138,21 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
             val emailId = emailCursor.getString(
                 emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)
             )
-            if (requestCode == 1){
-                if (!emailId.isNullOrEmpty()) binding.companyLayout.supplierCompanyEmailText.setText(emailId)
-            }else{
-                if (!emailId.isNullOrEmpty()) binding.sellerLayout.supplierSellerEmailText.setText(emailId)
+            if (requestCode == 1) {
+                if (!emailId.isNullOrEmpty()) binding.companyLayout.supplierCompanyEmailText.setText(
+                    emailId
+                )
+            } else {
+                if (!emailId.isNullOrEmpty()) binding.sellerLayout.supplierSellerEmailText.setText(
+                    emailId
+                )
             }
         }
         emailCursor.close()
 
     }
 
-    private fun loadAddressWithLookUpKey(key: String){
+    private fun loadAddressWithLookUpKey(key: String) {
         val addrWhere =
             ContactsContract.Data.LOOKUP_KEY + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?"
         val addrWhereParams =
@@ -148,13 +167,15 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
         if (addrCursor!!.moveToNext()) {
             val formattedAddress: String =
                 addrCursor.getString(addrCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS))
-            if (formattedAddress.isNotEmpty()) binding.companyLayout.supplierCompanyAddressText.setText(formattedAddress)
+            if (formattedAddress.isNotEmpty()) binding.companyLayout.supplierCompanyAddressText.setText(
+                formattedAddress
+            )
 
         }
         addrCursor.close()
     }
 
-    private fun getPhoneAndNameWithLookUpKey(key: String, requestCode: Int){
+    private fun getPhoneAndNameWithLookUpKey(key: String, requestCode: Int) {
         val contentResolver: ContentResolver = requireActivity().contentResolver
         val contactWhere =
             ContactsContract.Data.LOOKUP_KEY + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?"
@@ -178,12 +199,20 @@ class EditSupplierFragment : BaseFragment<FragmentEditSupplierBinding>(R.layout.
                         cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
 
-                    if (requestCode == 1){
-                        if (!givenName.isNullOrEmpty()) binding.companyLayout.supplierCompanyNameText.setText(givenName)
-                        if (!phoneNo.isNullOrEmpty()) binding.companyLayout.supplierCompanyPhoneText.setText(phoneNo)
-                    }else{
-                        if (!givenName.isNullOrEmpty()) binding.sellerLayout.supplierSellerNameText.setText(givenName)
-                        if (!phoneNo.isNullOrEmpty()) binding.sellerLayout.supplierSellerPhoneText.setText(phoneNo)
+                    if (requestCode == 1) {
+                        if (!givenName.isNullOrEmpty()) binding.companyLayout.supplierCompanyNameText.setText(
+                            givenName
+                        )
+                        if (!phoneNo.isNullOrEmpty()) binding.companyLayout.supplierCompanyPhoneText.setText(
+                            phoneNo
+                        )
+                    } else {
+                        if (!givenName.isNullOrEmpty()) binding.sellerLayout.supplierSellerNameText.setText(
+                            givenName
+                        )
+                        if (!phoneNo.isNullOrEmpty()) binding.sellerLayout.supplierSellerPhoneText.setText(
+                            phoneNo
+                        )
                     }
                 }
             }

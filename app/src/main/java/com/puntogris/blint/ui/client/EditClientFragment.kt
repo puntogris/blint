@@ -16,7 +16,11 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditClientBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.getFloat
+import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

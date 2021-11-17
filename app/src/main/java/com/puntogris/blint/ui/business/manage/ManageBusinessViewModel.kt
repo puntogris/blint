@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ManageBusinessViewModel @Inject constructor(
-): ViewModel() {
+) : ViewModel() {
 
 
 }

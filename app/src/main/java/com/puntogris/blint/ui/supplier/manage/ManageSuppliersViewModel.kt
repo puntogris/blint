@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ManageSuppliersViewModel @Inject constructor(
     private val supplierRepository: SupplierRepository
-):ViewModel() {
+) : ViewModel() {
 
     private val query = MutableLiveData("")
 
@@ -18,7 +18,7 @@ class ManageSuppliersViewModel @Inject constructor(
         else supplierRepository.getSuppliersWithNamePaged(it).asLiveData()
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String){
+    fun setQuery(query: String) {
         this.query.value = query
     }
 }

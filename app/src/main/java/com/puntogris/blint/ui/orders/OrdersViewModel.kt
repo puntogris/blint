@@ -8,7 +8,7 @@ import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.model.ProductWithSuppliersCategories
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject

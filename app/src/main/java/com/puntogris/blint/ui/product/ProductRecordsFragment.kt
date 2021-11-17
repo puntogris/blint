@@ -16,9 +16,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductRecordsFragment :BaseFragment<FragmentProductRecordsBinding>(R.layout.fragment_product_records) {
+class ProductRecordsFragment :
+    BaseFragment<FragmentProductRecordsBinding>(R.layout.fragment_product_records) {
 
-    private val viewModel: ProductViewModel by viewModels(ownerProducer = {requireParentFragment()} )
+    private val viewModel: ProductViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
         val recordsAdapter = RecordsAdapter { onRecordClickListener(it) }
@@ -28,7 +29,7 @@ class ProductRecordsFragment :BaseFragment<FragmentProductRecordsBinding>(R.layo
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        takeArgsIfNotNull<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY){
+        takeArgsIfNotNull<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY) {
             lifecycleScope.launch {
                 viewModel.getProductRecords(it.product.productId).collect {
                     recordsAdapter.submitData(it)
@@ -37,7 +38,7 @@ class ProductRecordsFragment :BaseFragment<FragmentProductRecordsBinding>(R.layo
         }
     }
 
-    private fun onRecordClickListener(record: Record){
+    private fun onRecordClickListener(record: Record) {
         (requireParentFragment() as ProductFragment).navigateToInfoRecord(record)
     }
 }

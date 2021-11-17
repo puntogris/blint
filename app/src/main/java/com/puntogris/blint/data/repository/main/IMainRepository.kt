@@ -2,9 +2,9 @@ package com.puntogris.blint.data.repository.main
 
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.BusinessCounters
-import com.puntogris.blint.utils.AccountStatus
-import com.puntogris.blint.utils.EventsDashboard
-import com.puntogris.blint.utils.RepoResult
+import com.puntogris.blint.utils.types.AccountStatus
+import com.puntogris.blint.utils.types.EventsDashboard
+import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.flow.Flow
 
 interface IMainRepository {
@@ -12,7 +12,7 @@ interface IMainRepository {
 
     suspend fun getBusinessCounterFlow(): Flow<BusinessCounters>
 
-    fun checkIfUserIsLogged():Boolean
+    fun checkIfUserIsLogged(): Boolean
 
     suspend fun updateCurrentBusiness(id: String)
 
@@ -20,7 +20,7 @@ interface IMainRepository {
 
     fun getBusinessesStatus(): Flow<RepoResult<List<Business>>>
 
-    suspend fun checkIfAccountIsSynced(business: List<Business>):AccountStatus
+    suspend fun checkIfAccountIsSynced(business: List<Business>): AccountStatus
 
     fun getCurrentUserFlow(): Flow<Business>
 }

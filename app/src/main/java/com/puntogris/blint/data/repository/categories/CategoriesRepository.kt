@@ -3,8 +3,8 @@ package com.puntogris.blint.data.repository.categories
 import com.puntogris.blint.data.data_source.local.dao.CategoriesDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

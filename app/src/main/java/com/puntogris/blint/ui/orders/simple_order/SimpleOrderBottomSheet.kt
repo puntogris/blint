@@ -16,6 +16,7 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

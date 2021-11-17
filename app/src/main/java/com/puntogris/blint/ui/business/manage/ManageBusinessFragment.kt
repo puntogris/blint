@@ -9,11 +9,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
+class ManageBusinessFragment :
+    BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
 
     private val viewModel: ManageBusinessViewModel by viewModels()
 
@@ -27,9 +31,9 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
         }
     }
 
-    private fun onBusinessFoundUi(businesses: List<Business>){
+    private fun onBusinessFoundUi(businesses: List<Business>) {
         binding.progressBar.gone()
-        val businessAdapter = ManageBusinessAdapter{ onBusinessClicked(it) }
+        val businessAdapter = ManageBusinessAdapter { onBusinessClicked(it) }
         binding.recyclerView.apply {
             adapter = businessAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -49,7 +53,7 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
                 true
             }
             R.id.joinBusiness -> {
-               // findNavController().navigate(R.id.joinBusinessFragment)
+                // findNavController().navigate(R.id.joinBusinessFragment)
                 true
             }
             R.id.syncBusiness -> {
@@ -60,23 +64,24 @@ class ManageBusinessFragment : BaseFragmentOptions<FragmentManageBusinessBinding
         }
     }
 
-    private fun onBusinessEmptyUi(){
+    private fun onBusinessEmptyUi() {
         binding.apply {
             progressBar.gone()
             businessEmptyUi.visible()
         }
     }
 
-    fun onCreateNewBusinessClicked(){
+    fun onCreateNewBusinessClicked() {
         findNavController().navigate(R.id.registerBusinessFragment)
     }
 
-    fun onJoinBusinessClicked(){
-       // findNavController().navigate(R.id.joinBusinessFragment)
+    fun onJoinBusinessClicked() {
+        // findNavController().navigate(R.id.joinBusinessFragment)
     }
 
-    private fun onBusinessClicked(business: Business){
-        val action = ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
+    private fun onBusinessClicked(business: Business) {
+        val action =
+            ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
         findNavController().navigate(action)
     }
 

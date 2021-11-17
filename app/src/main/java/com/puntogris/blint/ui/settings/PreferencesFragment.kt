@@ -16,7 +16,7 @@ import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PreferencesFragment: BasePreferences(R.xml.preferences) {
+class PreferencesFragment : BasePreferences(R.xml.preferences) {
 
     override fun initializeViews() {
         UiInterface.registerUi()

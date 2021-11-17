@@ -8,10 +8,14 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDebtStatusBinding
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.SUPPLIER
 import com.puntogris.blint.utils.Constants.UPDATE_DEBT_KEY
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.onBackStackLiveData
+import com.puntogris.blint.utils.setDebtColor
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

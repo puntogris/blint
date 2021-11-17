@@ -11,7 +11,7 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.SUPPLIER
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

@@ -12,17 +12,22 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Category
+import com.puntogris.blint.model.FirestoreSupplier
+import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
 import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
+class EditProductFragment :
+    BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
 
     private val viewModel: ProductViewModel by viewModels()
     private val args: EditProductFragmentArgs by navArgs()
@@ -39,17 +44,17 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 binding.descriptionLayout.productImage.visible()
             }
         }
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             viewModel.updateProductData(getProductDataFromViews())
-            when(val validator = StringValidator.from(
+            when (val validator = StringValidator.from(
                 viewModel.currentProduct.value!!.product.name,
                 allowSpecialChars = true,
                 isName = true,
                 maxLength = 50
-            )){
+            )) {
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
-                        when(viewModel.saveProductDatabase()){
+                        when (viewModel.saveProductDatabase()) {
                             SimpleResult.Failure ->
                                 UiInterface.showSnackBar(getString(R.string.snack_create_product_success))
                             SimpleResult.Success -> {
@@ -64,7 +69,7 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
         }
 
         if (!viewModel.viewsLoaded) {
-            args.productWithSuppCate?.let{
+            args.productWithSuppCate?.let {
                 viewModel.setProductData(it)
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
@@ -79,14 +84,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
                 productPricesTitle.text = getString(R.string.prices_and_initial_stock)
             }
         }
-        onBackStackLiveData<List<Category>>(PRODUCT_CATEGORY_KEY){
+        onBackStackLiveData<List<Category>>(PRODUCT_CATEGORY_KEY) {
             viewModel.updateCategories(it)
-            binding.scopeLayout.categoriesChipGroup.let { group->
-                group.removeViews(1,group.size - 1)
+            binding.scopeLayout.categoriesChipGroup.let { group ->
+                group.removeViews(1, group.size - 1)
             }
             it.forEach { category ->
-                if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()){
-                    if (viewModel.currentProduct.value?.categories!!.contains(category)){
+                if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()) {
+                    if (viewModel.currentProduct.value?.categories!!.contains(category)) {
                         val chip = Chip(requireContext())
                         chip.text = category.categoryName.capitalizeFirstChar()
                         binding.scopeLayout.categoriesChipGroup.addView(chip)
@@ -99,14 +104,14 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
-        onBackStackLiveData<List<FirestoreSupplier>>(PRODUCT_SUPPLIER_KEY){
+        onBackStackLiveData<List<FirestoreSupplier>>(PRODUCT_SUPPLIER_KEY) {
             viewModel.updateSuppliers(it)
-            binding.scopeLayout.supplierChipGroup.let { group->
-                group.removeViews(1,group.size - 1)
+            binding.scopeLayout.supplierChipGroup.let { group ->
+                group.removeViews(1, group.size - 1)
             }
             it.forEach { supplier ->
-                if (!viewModel.currentProduct.value?.suppliers.isNullOrEmpty()){
-                    if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)){
+                if (!viewModel.currentProduct.value?.suppliers.isNullOrEmpty()) {
+                    if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)) {
                         val chip = Chip(requireContext())
                         chip.text = supplier.companyName
                         binding.scopeLayout.supplierChipGroup.addView(chip)
@@ -119,10 +124,10 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val action = EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
+                    val action =
+                        EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
                     findNavController().navigate(action)
-                }
-                else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
             }
     }
 
@@ -138,42 +143,44 @@ class EditProductFragment : BaseFragment<FragmentEditProductBinding>(R.layout.fr
             image = viewModel.productImage.value!!,
             sku = binding.productExtrasLayout.productInternalCodeText.getString(),
             brand = binding.productExtrasLayout.productBrandText.getString(),
-            size = binding.productExtrasLayout.productSizeText.getString())
+            size = binding.productExtrasLayout.productSizeText.getString()
+        )
     }
 
-    fun onScanButtonClicked(){
+    fun onScanButtonClicked() {
         viewModel.updateProductData(getProductDataFromViews())
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    fun onAddImageButtonClicked(){
+    fun onAddImageButtonClicked() {
         viewModel.updateProductData(getProductDataFromViews())
         getContent.launch("image/*")
     }
 
-    fun onRemoveImageButtonClicked(){
+    fun onRemoveImageButtonClicked() {
         viewModel.removeCurrentImage()
     }
 
-    fun onIncreaseAmountButtonClicked(){
+    fun onIncreaseAmountButtonClicked() {
         binding.pricesLayout.productAmountText.apply {
             setText(getInt().inc().toString())
         }
     }
-    fun onDecreaseAmountButtonClicked(){
+
+    fun onDecreaseAmountButtonClicked() {
         binding.pricesLayout.productAmountText.apply {
             setText(getInt().dec().toString())
         }
     }
 
-    fun navigateToProductSuppliers(){
+    fun navigateToProductSuppliers() {
         viewModel.updateProductData(getProductDataFromViews())
         val action = EditProductFragmentDirections
             .actionEditProductFragmentToProductSupplierFragment(viewModel.currentProduct.value?.suppliers?.toTypedArray())
         findNavController().navigate(action)
     }
 
-    fun navigateToProductCategories(){
+    fun navigateToProductCategories() {
         viewModel.updateProductData(getProductDataFromViews())
         val action = EditProductFragmentDirections
             .actionEditProductFragmentToProductCategoryFragment(viewModel.currentProduct.value?.categories?.toTypedArray())

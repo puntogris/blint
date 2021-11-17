@@ -37,7 +37,7 @@ class ManageClientsFragment :
     }
 
     private fun subscribeUi(adapter: ManageClientsAdapter) {
-        viewModel.clientsLiveData.observe(viewLifecycleOwner){
+        viewModel.clientsLiveData.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }

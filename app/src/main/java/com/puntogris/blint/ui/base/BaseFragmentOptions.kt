@@ -6,7 +6,8 @@ import android.view.MenuInflater
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseFragmentOptions<T : ViewDataBinding>(@LayoutRes layout: Int) : BaseFragment<T>(layout) {
+abstract class BaseFragmentOptions<T : ViewDataBinding>(@LayoutRes layout: Int) :
+    BaseFragment<T>(layout) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)

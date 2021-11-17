@@ -43,10 +43,10 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.model.Product
 import com.puntogris.blint.ui.main.SetupUiListener
+import com.puntogris.blint.utils.types.EventUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

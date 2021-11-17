@@ -5,9 +5,10 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageSuppliersDiffCallBack
 import com.puntogris.blint.model.Supplier
 
-class ManageSuppliersAdapter(private val clickListener: (Supplier) -> Unit): PagingDataAdapter<Supplier, ManageSupplierViewHolder>(
-    ManageSuppliersDiffCallBack()
-) {
+class ManageSuppliersAdapter(private val clickListener: (Supplier) -> Unit) :
+    PagingDataAdapter<Supplier, ManageSupplierViewHolder>(
+        ManageSuppliersDiffCallBack()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageSupplierViewHolder {
         return ManageSupplierViewHolder.from(parent)

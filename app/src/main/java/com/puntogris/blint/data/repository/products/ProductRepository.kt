@@ -12,9 +12,9 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.INITIAL
-import com.puntogris.blint.utils.RepoResult
-import com.puntogris.blint.utils.SearchText
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SearchText
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

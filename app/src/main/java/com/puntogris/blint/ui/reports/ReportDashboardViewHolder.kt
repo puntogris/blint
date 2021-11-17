@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.DashboardReportVhBinding
 import com.puntogris.blint.model.DashboardItem
 
-class ReportDashboardViewHolder private constructor(val binding: DashboardReportVhBinding) : RecyclerView.ViewHolder(binding.root){
+class ReportDashboardViewHolder private constructor(val binding: DashboardReportVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(dashboardItem: DashboardItem) {
         binding.dashboardItem = dashboardItem
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): ReportDashboardViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = DashboardReportVhBinding.inflate(layoutInflater,parent, false)
+            val binding = DashboardReportVhBinding.inflate(layoutInflater, parent, false)
             return ReportDashboardViewHolder(binding)
         }
     }

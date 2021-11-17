@@ -5,13 +5,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRegisterOnlineBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 
-class RegisterOnlineBusinessFragment : BaseFragment<FragmentRegisterOnlineBusinessBinding>(R.layout.fragment_register_online_business),PurchasesUpdatedListener {
+class RegisterOnlineBusinessFragment :
+    BaseFragment<FragmentRegisterOnlineBusinessBinding>(R.layout.fragment_register_online_business),
+    PurchasesUpdatedListener {
 
     private lateinit var billingClient: BillingClient
 
     override fun initializeViews() {
 
-       // val billingClientLifecycle = (requireActivity().application as App).billingClientLifecycle
+        // val billingClientLifecycle = (requireActivity().application as App).billingClientLifecycle
 
         val purchasesUpdateListener =
             PurchasesUpdatedListener { billingResult, purchases ->
@@ -25,13 +27,14 @@ class RegisterOnlineBusinessFragment : BaseFragment<FragmentRegisterOnlineBusine
 
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
-                // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    // Retrieve a value for "skuDetails" by calling querySkuDetailsAsync().
                     val params = SkuDetailsParams.newBuilder()
                     params.setSkusList(listOf("online_business_tier_1"))
                     params.setType(BillingClient.SkuType.SUBS)
                     val test = params.build()
-                    billingClient.querySkuDetailsAsync(test
+                    billingClient.querySkuDetailsAsync(
+                        test
                     ) { p0, p1 ->
                         val flowParams = p1?.get(0)?.let {
                             BillingFlowParams.newBuilder()
@@ -48,20 +51,21 @@ class RegisterOnlineBusinessFragment : BaseFragment<FragmentRegisterOnlineBusine
 
                 }
             }
+
             override fun onBillingServiceDisconnected() {
                 // Try to restart the connection on the next request to
                 // Google Play by calling the startConnection() method.
             }
         })
 
-     //   billingClient.queryPurchasesAsync()
+        //   billingClient.queryPurchasesAsync()
 
     }
 
     override fun onPurchasesUpdated(billingResult: BillingResult, purchases: List<Purchase>?) {
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
             for (purchase in purchases) {
-              //  handlePurchase(purchase)
+                //  handlePurchase(purchase)
                 println("yay")
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {

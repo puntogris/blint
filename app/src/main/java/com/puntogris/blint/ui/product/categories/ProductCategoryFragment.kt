@@ -10,9 +10,13 @@ import com.puntogris.blint.databinding.FragmentProductCategoryBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.categories.FilterCategoriesViewModel
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
 import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

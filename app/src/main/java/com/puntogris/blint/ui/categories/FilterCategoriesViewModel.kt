@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FilterCategoriesViewModel @Inject constructor(
     private val categoriesRepository: CategoriesRepository
-): ViewModel() {
+) : ViewModel() {
 
     suspend fun getAllCategories() = categoriesRepository.getAllCategoriesDatabase()
 }

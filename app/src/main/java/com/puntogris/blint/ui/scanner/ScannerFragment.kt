@@ -1,7 +1,8 @@
 package com.puntogris.blint.ui.scanner
 
 import android.util.Size
-import android.view.*
+import android.view.OrientationEventListener
+import android.view.Surface
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -11,8 +12,9 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.BarcodeAnalyzer
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -21,7 +23,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_scanner) {
 
-    @Inject lateinit var barcodeAnalyzer: BarcodeAnalyzer
+    @Inject
+    lateinit var barcodeAnalyzer: BarcodeAnalyzer
     private var preview: Preview? = null
     private var camera: Camera? = null
     private lateinit var orientationEventListener: OrientationEventListener
@@ -31,7 +34,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showAppBar = false, showFab = true, fabIcon = R.drawable.ic_baseline_flash_off_24)
+        UiInterface.registerUi(
+            showAppBar = false,
+            showFab = true,
+            fabIcon = R.drawable.ic_baseline_flash_off_24
+        )
         cameraExecutor = Executors.newSingleThreadExecutor()
         binding.overlay.post {
             binding.overlay.setViewFinder()
@@ -50,27 +57,27 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             val rotation = binding.viewFinder.display.rotation
 
             preview = Preview.Builder()
-                    .build()
+                .build()
 
             val imageAnalysis = ImageAnalysis.Builder()
-                    .setTargetRotation(rotation)
-                    .setTargetResolution(Size(1280, 720))
-                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .build()
-                    .also { it.setAnalyzer(cameraExecutor, barcodeAnalyzer) }
+                .setTargetRotation(rotation)
+                .setTargetResolution(Size(1280, 720))
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build()
+                .also { it.setAnalyzer(cameraExecutor, barcodeAnalyzer) }
 
             val cameraSelector: CameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                    .build()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build()
 
             orientationEventListener = object : OrientationEventListener(requireContext()) {
-                override fun onOrientationChanged(orientation : Int) {
-                     when (orientation) {
+                override fun onOrientationChanged(orientation: Int) {
+                    when (orientation) {
                         in 45..134 -> Surface.ROTATION_270
                         in 135..224 -> Surface.ROTATION_180
                         in 225..314 -> Surface.ROTATION_90
                         else -> Surface.ROTATION_0
-                    }.also { imageAnalysis.targetRotation = it}
+                    }.also { imageAnalysis.targetRotation = it }
                 }
             }
             orientationEventListener.enable()
@@ -79,16 +86,19 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 requireActivity().runOnUiThread {
                     imageAnalysis.clearAnalyzer()
                     cameraProvider?.unbindAll()
-                    if (args.originDestination == 0){
-                            ScannerResultBottomSheet.newInstance(
-                                it,
-                                object : ScannerResultBottomSheet.DialogDismissListener {
-                                    override fun onDismiss() {
-                                        bindPreview(cameraProvider)
-                                    }
-                                })
-                                .show(parentFragmentManager, ScannerResultBottomSheet::class.java.simpleName)
-                    }else{
+                    if (args.originDestination == 0) {
+                        ScannerResultBottomSheet.newInstance(
+                            it,
+                            object : ScannerResultBottomSheet.DialogDismissListener {
+                                override fun onDismiss() {
+                                    bindPreview(cameraProvider)
+                                }
+                            })
+                            .show(
+                                parentFragmentManager,
+                                ScannerResultBottomSheet::class.java.simpleName
+                            )
+                    } else {
                         findNavController().apply {
                             previousBackStackEntry!!.savedStateHandle.set(PRODUCT_BARCODE_KEY, it)
                             popBackStack()
@@ -101,10 +111,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 cameraProvider?.unbindAll()
                 preview!!.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 camera = cameraProvider?.bindToLifecycle(
-                        this, cameraSelector, imageAnalysis, preview)
+                    this, cameraSelector, imageAnalysis, preview
+                )
                 if (camera!!.cameraInfo.hasFlashUnit()) {
                     UiInterface
-                        .setFabImageAndClickListener(R.drawable.ic_baseline_flash_off_24){
+                        .setFabImageAndClickListener(R.drawable.ic_baseline_flash_off_24) {
                             camera?.cameraControl?.enableTorch(!flashEnabled)
                         }
 
@@ -121,7 +132,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     }
                 }
 
-            } catch(exc: Exception) {
+            } catch (exc: Exception) {
                 //error
             }
 

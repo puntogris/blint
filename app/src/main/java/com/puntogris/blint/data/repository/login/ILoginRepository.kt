@@ -3,11 +3,9 @@ package com.puntogris.blint.data.repository.login
 import androidx.activity.result.ActivityResult
 import com.puntogris.blint.data.data_source.remote.LoginResult
 import com.puntogris.blint.model.FirestoreUser
-import com.puntogris.blint.utils.AuthResult
-import com.puntogris.blint.utils.RegistrationData
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RegistrationData
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 
 interface ILoginRepository {
     suspend fun signOutUser()

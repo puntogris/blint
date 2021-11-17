@@ -6,18 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.BusinessItemVhBinding
 import com.puntogris.blint.model.Business
 
-class ManageBusinessViewHolder private constructor(val binding: BusinessItemVhBinding) : RecyclerView.ViewHolder(binding.root){
+class ManageBusinessViewHolder private constructor(val binding: BusinessItemVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(business: Business, clickListener: (Business)-> (Unit)) {
+    fun bind(business: Business, clickListener: (Business) -> (Unit)) {
         binding.business = business
         binding.root.setOnClickListener { clickListener(business) }
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): ManageBusinessViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = BusinessItemVhBinding.inflate(layoutInflater,parent, false)
+            val binding = BusinessItemVhBinding.inflate(layoutInflater, parent, false)
             return ManageBusinessViewHolder(binding)
         }
     }

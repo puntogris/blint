@@ -15,8 +15,8 @@ import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
-import com.puntogris.blint.utils.RegistrationData
-import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.types.RegistrationData
+import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

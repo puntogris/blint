@@ -8,8 +8,12 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentModifyDebtBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.UPDATE_DEBT_KEY
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.getFloat
+import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.hideKeyboard
+import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

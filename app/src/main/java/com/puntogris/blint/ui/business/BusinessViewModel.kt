@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BusinessViewModel @Inject constructor(
     private val businessRepository: BusinessRepository
-): ViewModel() {
+) : ViewModel() {
 
     suspend fun deleteBusiness(businessId: String) =
         businessRepository.deleteBusinessDatabase(businessId)

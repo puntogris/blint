@@ -10,13 +10,13 @@ import javax.inject.Inject
 class OperationsViewModel @Inject constructor(
     private val suppliersDao: SuppliersDao,
     private val productsDao: ProductsDao
-): ViewModel() {
+) : ViewModel() {
 
     private var supplierId: Int = 0
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
-    fun updateSupplierId(supplierId: Int){
+    fun updateSupplierId(supplierId: Int) {
         this.supplierId = supplierId
     }
 
@@ -24,10 +24,10 @@ class OperationsViewModel @Inject constructor(
         valueType: String,
         changeAmount: Float,
         isValueUp: Boolean,
-        affectsBuyPrice : Boolean,
+        affectsBuyPrice: Boolean,
         affectsSellPrice: Boolean,
-        affectsSuggestedPrice: Boolean):Int
-    {
+        affectsSuggestedPrice: Boolean
+    ): Int {
         return productsDao.updateSupplierProductsPrices(
             newPrice = changeAmount,
             supplierId = supplierId,
@@ -35,7 +35,8 @@ class OperationsViewModel @Inject constructor(
             isValueUp = isValueUp,
             affectsBuyPrice = affectsBuyPrice,
             affectsSellPrice = affectsSellPrice,
-            affectsSuggestedPrice = affectsSuggestedPrice)
+            affectsSuggestedPrice = affectsSuggestedPrice
+        )
     }
 
 }

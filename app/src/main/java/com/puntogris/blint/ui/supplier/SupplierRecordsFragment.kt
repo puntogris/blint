@@ -13,10 +13,10 @@ import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.layout.fragment_supplier_records) {
+class SupplierRecordsFragment :
+    BaseFragment<FragmentSupplierRecordsBinding>(R.layout.fragment_supplier_records) {
 
     private val viewModel: SupplierViewModel by viewModels()
 
@@ -28,7 +28,7 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY){
+        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY) {
             lifecycleScope.launchWhenStarted {
                 viewModel.getSupplierRecords(it.supplierId).collect {
                     recordsAdapter.submitData(it)
@@ -37,7 +37,7 @@ class SupplierRecordsFragment : BaseFragment<FragmentSupplierRecordsBinding>(R.l
         }
     }
 
-    private fun onRecordClickListener(record: Record){
+    private fun onRecordClickListener(record: Record) {
         (requireParentFragment() as SupplierFragment).navigateToInfoRecord(record)
     }
 }

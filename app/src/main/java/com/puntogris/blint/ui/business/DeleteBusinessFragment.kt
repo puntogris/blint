@@ -9,9 +9,9 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDeleteBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.LOCAL
-import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.types.DeleteBusiness
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -5,7 +5,8 @@ import com.puntogris.blint.databinding.FragmentOnlineBusinessBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 
-class OnlineBusinessFragment : BaseFragment<FragmentOnlineBusinessBinding>(R.layout.fragment_online_business) {
+class OnlineBusinessFragment :
+    BaseFragment<FragmentOnlineBusinessBinding>(R.layout.fragment_online_business) {
 
     override fun initializeViews() {
         UiInterface.registerUi(showAppBar = false)

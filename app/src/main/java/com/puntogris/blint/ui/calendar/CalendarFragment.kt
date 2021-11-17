@@ -23,10 +23,10 @@ import kotlinx.coroutines.flow.collectLatest
 class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.fragment_calendar) {
 
     private val viewModel: CalendarViewModel by viewModels()
-    private lateinit var calendarEventsAdapter:CalendarEventsAdapter
+    private lateinit var calendarEventsAdapter: CalendarEventsAdapter
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true){
+        UiInterface.registerUi(showFab = true) {
             findNavController().navigate(R.id.createEventFragment)
         }
 
@@ -45,20 +45,23 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         (binding.calendarFilter.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.calendarFilterText.setOnItemClickListener { _, _, i, _ ->
-            when(i){
+            when (i) {
                 0 -> viewModel.setAllFilter()
                 1 -> viewModel.setPendingFilter()
                 2 -> viewModel.setFinishedFilter()
             }
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(DISMISS_EVENT_KEY)?.observe(
-            viewLifecycleOwner) {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+            DISMISS_EVENT_KEY
+        )?.observe(
+            viewLifecycleOwner
+        ) {
             if (it) calendarEventsAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun onEventClicked(event: Event){
+    private fun onEventClicked(event: Event) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(event)
         findNavController().navigate(action)
     }
@@ -67,8 +70,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         return if (item.itemId == R.id.newEvent) {
             findNavController().navigate(R.id.createEventFragment)
             true
-        }
-        else super.onOptionsItemSelected(item)
+        } else super.onOptionsItemSelected(item)
     }
 
     override fun setUpMenuOptions(menu: Menu) {

@@ -1,4 +1,4 @@
-package com.puntogris.blint.di
+package com.puntogris.blint
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -7,7 +7,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class App : Application(){
+class BlintApplication : Application(){
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences

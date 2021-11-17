@@ -7,15 +7,18 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Statistic
+import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.SharedPreferences
-import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
+import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.Constants.USER_ID_FIELD
+import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.SyncAccount
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -26,7 +29,7 @@ class UserRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao,
     private val sharedPreferences: SharedPreferences
-    ) : IUserRepository {
+) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore
@@ -37,52 +40,53 @@ class UserRepository @Inject constructor(
 
     override fun getCurrentUser() = auth.currentUser
 
-    override suspend fun syncAccountFromDatabase(userData: UserData?): SyncAccount = withContext(Dispatchers.IO){
-        try {
-            val userBusinesses =
-                firestore.collectionGroup("employees")
-                    .whereEqualTo("employeeId", getCurrentUID())
-                    .whereNotEqualTo("businessStatus", "DELETED")
-                    .get().await()
+    override suspend fun syncAccountFromDatabase(userData: UserData?): SyncAccount =
+        withContext(Dispatchers.IO) {
+            try {
+                val userBusinesses =
+                    firestore.collectionGroup("employees")
+                        .whereEqualTo("employeeId", getCurrentUID())
+                        .whereNotEqualTo("businessStatus", "DELETED")
+                        .get().await()
 
-            if(userData != null){
-                firestore
-                    .collection(USERS_COLLECTION)
-                    .document(getCurrentUID())
-                    .update(
-                        "name", userData.name,
-                        "country", userData.country
-                    ).await()
+                if (userData != null) {
+                    firestore
+                        .collection(USERS_COLLECTION)
+                        .document(getCurrentUID())
+                        .update(
+                            "name", userData.name,
+                            "country", userData.country
+                        ).await()
+                }
+                if (userBusinesses.isEmpty) {
+                    businessDao.deleteAll()
+                    sharedPreferences.apply {
+                        setShowNewUserScreenPref(true)
+                        setShowLoginScreen(true)
+                    }
+                    SyncAccount.Success.BusinessNotFound
+                } else {
+                    val businesses = userBusinesses.toObjects(Business::class.java)
+                    businessDao.syncEmployees(businesses)
+
+                    businesses.filter { it.type == LOCAL }
+                        .map { Statistic(businessId = it.businessId) }
+                        .let { if (it.isNotEmpty()) statisticsDao.insertAccountStatistic(it) }
+
+                    businesses.first().let {
+                        usersDao.updateUserCurrentBusiness(it.businessId)
+                    }
+
+                    sharedPreferences.apply {
+                        setShowNewUserScreenPref(false)
+                        setShowLoginScreen(true)
+                    }
+                    SyncAccount.Success.HasBusiness
+                }
+            } catch (e: Exception) {
+                SyncAccount.Error(e)
             }
-            if(userBusinesses.isEmpty){
-                businessDao.deleteAll()
-                sharedPreferences.apply {
-                    setShowNewUserScreenPref(true)
-                    setShowLoginScreen(true)
-                }
-                SyncAccount.Success.BusinessNotFound
-            }else{
-                val businesses = userBusinesses.toObjects(Business::class.java)
-                businessDao.syncEmployees(businesses)
-
-                businesses.filter { it.type == LOCAL }
-                    .map { Statistic(businessId = it.businessId) }
-                    .let { if(it.isNotEmpty()) statisticsDao.insertAccountStatistic(it) }
-
-                businesses.first().let {
-                    usersDao.updateUserCurrentBusiness(it.businessId)
-                }
-
-                sharedPreferences.apply {
-                    setShowNewUserScreenPref(false)
-                    setShowLoginScreen(true)
-                }
-                SyncAccount.Success.HasBusiness
-            }
-        }catch (e:Exception){
-            SyncAccount.Error(e)
         }
-    }
 
     override suspend fun getUserBusiness() = businessDao.getBusiness()
 
@@ -95,7 +99,7 @@ class UserRepository @Inject constructor(
         return try {
             firestore.collection(SUGGESTION_COLLECTION_NAME).document().set(report).await()
             SimpleResult.Success
-        }catch (e: Exception){
+        } catch (e: Exception) {
             SimpleResult.Failure
         }
     }

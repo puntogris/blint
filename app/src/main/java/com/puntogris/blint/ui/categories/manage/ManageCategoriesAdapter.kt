@@ -10,18 +10,21 @@ import com.puntogris.blint.model.Category
 import com.puntogris.blint.ui.categories.CategoryViewHolder
 import com.puntogris.blint.utils.SwipeToDeleteCallback
 
-class ManageCategoriesAdapter(private val context: Context, private val deleteListener:(String) -> Unit): ListAdapter<Category, CategoryViewHolder>(
+class ManageCategoriesAdapter(
+    private val context: Context,
+    private val deleteListener: (String) -> Unit
+) : ListAdapter<Category, CategoryViewHolder>(
     CategoryDiffCallBack()
 ) {
 
     private var list = mutableListOf<Category>()
 
-    fun updateList(list:List<Category>){
+    fun updateList(list: List<Category>) {
         this.list = list.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun addCategory(category: Category){
+    fun addCategory(category: Category) {
         list.add(category)
         notifyDataSetChanged()
     }
@@ -29,6 +32,7 @@ class ManageCategoriesAdapter(private val context: Context, private val deleteLi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder.from(parent)
     }
+
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(list[position])
     }

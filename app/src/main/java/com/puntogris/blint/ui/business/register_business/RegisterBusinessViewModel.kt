@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterBusinessViewModel @Inject constructor(
     private val businessRepository: BusinessRepository
-) :ViewModel(){
+) : ViewModel() {
 
     suspend fun registerNewBusiness(name: String) = businessRepository.registerLocalBusiness(name)
 }

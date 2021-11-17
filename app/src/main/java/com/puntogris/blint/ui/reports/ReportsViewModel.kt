@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.reports
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repository.statistics.StatisticRepository
-import com.puntogris.blint.utils.ExportResult
+import com.puntogris.blint.utils.types.ExportResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,26 +12,26 @@ import javax.inject.Inject
 @HiltViewModel
 class ReportsViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
-):ViewModel() {
+) : ViewModel() {
 
     suspend fun getStatistics() = statisticRepository.getBusinessCounters()
 
-    private var saveDownloadFileUri:Uri? = null
+    private var saveDownloadFileUri: Uri? = null
 
-    fun saveDownloadUri(uri: Uri){
+    fun saveDownloadUri(uri: Uri) {
         saveDownloadFileUri = uri
     }
 
     fun getDownloadUri() = saveDownloadFileUri
 
     private val _exportingState = MutableStateFlow<ExportResult>(ExportResult.InProgress)
-    val exportingState:StateFlow<ExportResult> = _exportingState
+    val exportingState: StateFlow<ExportResult> = _exportingState
 
-    fun updateExportState(result: ExportResult){
+    fun updateExportState(result: ExportResult) {
         _exportingState.value = result
     }
 
-    suspend fun getProductRecords(timeCode:String) =
+    suspend fun getProductRecords(timeCode: String) =
         statisticRepository.getProductsReports(timeCode)
 
     suspend fun getAllClientsData() = statisticRepository.getAllClients()

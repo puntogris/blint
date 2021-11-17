@@ -12,7 +12,8 @@ import com.puntogris.blint.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
+class RegisterBusinessFragment :
+    BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
 
     private var mediator: TabLayoutMediator? = null
 
@@ -20,7 +21,7 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
         val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when(position){
+            tab.text = when (position) {
                 0 -> getString(R.string.local)
                 else -> getString(R.string.online)
             }
@@ -28,9 +29,10 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
         mediator?.attach()
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(
-        parentFragment, viewLifecycleOwner.lifecycle
-    ) {
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+        FragmentStateAdapter(
+            parentFragment, viewLifecycleOwner.lifecycle
+        ) {
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
@@ -46,11 +48,11 @@ class RegisterBusinessFragment : BaseFragment<FragmentRegisterBusinessBinding>(R
         super.onDestroyView()
     }
 
-    fun registerLocalBusiness(){
+    fun registerLocalBusiness() {
         findNavController().navigate(R.id.action_registerBusinessFragment_to_registerLocalBusinessFragment)
     }
 
-    fun registerOnlineBusiness(){
+    fun registerOnlineBusiness() {
         findNavController().navigate(R.id.action_registerBusinessFragment_to_registerOnlineBusinessFragment)
     }
 }
