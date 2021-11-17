@@ -14,18 +14,19 @@ import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.fragment_manage_orders) {
+class ManageOrdersFragment :
+    BaseFragment<FragmentManageOrdersBinding>(R.layout.fragment_manage_orders) {
 
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_add_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_add_24) {
             findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
         }
 
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when(position){
+            tab.text = when (position) {
                 0 -> getString(R.string.tab_orders)
                 else -> getString(R.string.tab_records)
             }
@@ -34,7 +35,8 @@ class ManageOrdersFragment : BaseFragment<FragmentManageOrdersBinding>(R.layout.
     }
 
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager): FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+        FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
         override fun getItemCount(): Int = 2
         override fun createFragment(position: Int): Fragment =
             if (position == 0) OrdersTabFragment() else RecordsTabFragment()

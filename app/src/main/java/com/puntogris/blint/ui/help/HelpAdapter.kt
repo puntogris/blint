@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Question
 
-class HelpAdapter: RecyclerView.Adapter<HelpViewHolder>(){
+class HelpAdapter : RecyclerView.Adapter<HelpViewHolder>() {
 
     private val questions = listOf(
         Question(R.string.question1, R.string.answer1),
@@ -14,7 +14,7 @@ class HelpAdapter: RecyclerView.Adapter<HelpViewHolder>(){
         Question(R.string.question4, R.string.answer4),
         Question(R.string.question5, R.string.answer5),
         Question(R.string.question6, R.string.answer6),
-        )
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpViewHolder {
         return HelpViewHolder.from(parent)

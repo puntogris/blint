@@ -5,9 +5,10 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ProductDiffCallBack
 import com.puntogris.blint.model.Product
 
-class SearchProductAdapter(private val clickListener: (Product) -> Unit): PagingDataAdapter<Product, SearchProductViewHolder>(
-    ProductDiffCallBack()
-) {
+class SearchProductAdapter(private val clickListener: (Product) -> Unit) :
+    PagingDataAdapter<Product, SearchProductViewHolder>(
+        ProductDiffCallBack()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchProductViewHolder {
         return SearchProductViewHolder.from(parent)

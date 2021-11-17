@@ -13,23 +13,27 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductSupplierViewModel @Inject constructor(
     private val supplierRepository: SupplierRepository
-): ViewModel() {
+) : ViewModel() {
 
     suspend fun getSuppliersPaging() =
         supplierRepository.getSupplierPagingDataFlow()
-            .map { it.map { supp->
-                FirestoreSupplier(
-                    companyName = supp.companyName,
-                    supplierId = supp.supplierId
-                )
-            } }.cachedIn(viewModelScope)
+            .map {
+                it.map { supp ->
+                    FirestoreSupplier(
+                        companyName = supp.companyName,
+                        supplierId = supp.supplierId
+                    )
+                }
+            }.cachedIn(viewModelScope)
 
-    suspend fun getSuppliersWithName(supplierName: String)
-            = supplierRepository.getSupplierWithNamePagingDataFlow(supplierName)
-        .map { it.map { supp->
-            FirestoreSupplier(
-                companyName = supp.companyName,
-                supplierId = supp.supplierId
-            )
-        } }.cachedIn(viewModelScope)
+    suspend fun getSuppliersWithName(supplierName: String) =
+        supplierRepository.getSupplierWithNamePagingDataFlow(supplierName)
+            .map {
+                it.map { supp ->
+                    FirestoreSupplier(
+                        companyName = supp.companyName,
+                        supplierId = supp.supplierId
+                    )
+                }
+            }.cachedIn(viewModelScope)
 }

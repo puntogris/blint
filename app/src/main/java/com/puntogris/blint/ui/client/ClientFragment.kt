@@ -27,15 +27,15 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     private val args: ClientFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
-    private val viewModel:ClientViewModel by viewModels()
+    private val viewModel: ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24) {
             navigateToEditClientFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when(position){
+            tab.text = when (position) {
                 0 -> getString(R.string.tab_data)
                 else -> getString(R.string.tab_records)
             }
@@ -44,17 +44,18 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     }
 
-    private fun navigateToEditClientFragment(){
+    private fun navigateToEditClientFragment() {
         val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
         findNavController().navigate(action)
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+        FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0 ) ClientDataFragment() else ClientRecordsFragment()).apply {
+            (if (position == 0) ClientDataFragment() else ClientRecordsFragment()).apply {
                 arguments = Bundle().apply {
                     putParcelable(CLIENT_DATA_KEY, args.client)
                 }
@@ -77,7 +78,8 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                 true
             }
             R.id.debtStatus -> {
-                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(client = args.client)
+                val action =
+                    ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(client = args.client)
                 findNavController().navigate(action)
                 true
             }
@@ -85,20 +87,20 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         }
     }
 
-    private fun onDeleteClientConfirmed(){
+    private fun onDeleteClientConfirmed() {
         lifecycleScope.launch {
-            when(viewModel.deleteClientDatabase(args.client.clientId)){
+            when (viewModel.deleteClientDatabase(args.client.clientId)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_client_error))
                 SimpleResult.Success -> {
-                        UiInterface.showSnackBar(getString(R.string.snack_delete_client_success))
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_client_success))
                     findNavController().navigateUp()
                 }
             }
         }
     }
 
-    fun navigateToInfoRecord(record: Record){
+    fun navigateToInfoRecord(record: Record) {
         val action = ClientFragmentDirections.actionClientFragmentToRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }

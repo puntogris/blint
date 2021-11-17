@@ -11,14 +11,17 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.hideKeyboard
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
+class ManageClientsFragment :
+    BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
 
     private val viewModel: ManageClientsViewModel by viewModels()
     private lateinit var manageProductsAdapter: ManageClientsAdapter
@@ -26,7 +29,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editClientFragment)
 
         }
@@ -50,21 +53,22 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         }
     }
 
-    private suspend fun getAllClientsWithNameAndFillAdapter(text:String){
+    private suspend fun getAllClientsWithNameAndFillAdapter(text: String) {
         viewModel.getClientsWithName(text).collect {
             manageProductsAdapter.submitData(it)
         }
     }
 
-    private suspend fun getAllClientsAndFillAdapter(){
+    private suspend fun getAllClientsAndFillAdapter() {
         viewModel.getClientPaging().collect {
             manageProductsAdapter.submitData(it)
         }
     }
 
-    private fun onClientClickListener(client: Client){
+    private fun onClientClickListener(client: Client) {
         hideKeyboard()
-        val action = ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
+        val action =
+            ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
         findNavController().navigate(action)
     }
 
@@ -81,8 +85,7 @@ class ManageClientsFragment : BaseFragmentOptions<FragmentManageClientsBinding>(
         return if (item.itemId == R.id.newClient) {
             findNavController().navigate(R.id.editClientFragment)
             true
-        }
-        else super.onOptionsItemSelected(item)
+        } else super.onOptionsItemSelected(item)
     }
 
 }

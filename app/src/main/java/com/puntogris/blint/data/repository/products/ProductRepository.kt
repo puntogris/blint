@@ -1,21 +1,20 @@
 package com.puntogris.blint.data.repository.products
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.puntogris.blint.data.data_source.local.dao.*
+import com.puntogris.blint.data.data_source.local.dao.OrdersDao
+import com.puntogris.blint.data.data_source.local.dao.ProductsDao
+import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
+import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.FirestoreQueries
-import com.puntogris.blint.data.data_source.remote.deserializers.ProductDeserializer
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.RepoResult
 import com.puntogris.blint.utils.SearchText
@@ -23,9 +22,7 @@ import com.puntogris.blint.utils.SimpleResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -35,7 +32,7 @@ class ProductRepository @Inject constructor(
     private val ordersDao: OrdersDao,
     private val firestoreQueries: FirestoreQueries,
     @ApplicationContext private val context: Context
-): IProductRepository {
+) : IProductRepository {
 
     private val firestore = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
@@ -43,16 +40,18 @@ class ProductRepository @Inject constructor(
     private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
     private fun getCurrentUid() = auth.currentUser
 
-    override suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean): SimpleResult = withContext(Dispatchers.IO){
+    override suspend fun saveProductDatabase(
+        product: ProductWithSuppliersCategories,
+        imageChanged: Boolean
+    ): SimpleResult = withContext(Dispatchers.IO) {
         try {
-            val isNewProduct = product.product.productId.isEmpty()
+            val isNewProduct = product.product.productId == 0
             val user = currentBusiness()
             val productRef = firestoreQueries.getProductsCollectionQuery(user)
             val recordRef = firestoreQueries.getRecordsCollectionQuery(user)
 
-            if (isNewProduct){
+            if (isNewProduct) {
                 product.product.apply {
-                    productId = productRef.document().id
                     businessId = user.businessId
                     totalInStock = amount
                 }
@@ -72,93 +71,18 @@ class ProductRepository @Inject constructor(
                 recordId = recordRef.document().id
             )
 
-            if (user.isOnlineBusiness()){
-                if (imageChanged){
-                    product.product.image =
-                    if (product.product.image.isNotEmpty()){
-                        val imageCompressedName = "${user.businessId}_${product.product.productId}"
-//                        val compressedImageFile = Compressor.compress(context, File(imagePath)) {
-//                            resolution(544, 306)
-//                            quality(50)
-//                            format(Bitmap.CompressFormat.JPEG)
-//                            size(80_000)
-//                        }
-                        val uri: Uri = Uri.parse(product.product.image)
-                        val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
-                        val baos = ByteArrayOutputStream()
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
-                        val data = baos.toByteArray()
-                        bitmap.recycle()
+            productsDao.insertProduct(product)
+            if (isNewProduct) statisticsDao.incrementTotalProducts()
+            if (product.product.amount != 0) ordersDao.insert(record)
 
-                        val storageRef = firestoreQueries.getUserBusinessProductImagesQuery(user, imageCompressedName)
-                        val task = storageRef.putBytes(data).await().task
-                        task.continueWithTask { uriTask ->
-                            if (!uriTask.isSuccessful){
-                                uriTask.exception?.let {
-                                    throw it
-                                }
-                            }
-                            storageRef.downloadUrl
-                        }.await().toString()
-                    }else ""
-                }
-
-                val productCounterRef = firestoreQueries.getBusinessCountersQuery(user)
-
-                firestore.runBatch {
-                    it.set(productRef.document(product.product.productId), FirestoreProduct.from(product))
-                    if (isNewProduct){
-                        it.set(productCounterRef, hashMapOf("totalProducts" to FieldValue.increment(1)), SetOptions.merge())
-                        if (product.product.amount != 0) it.set(recordRef.document(record.recordId), record)
-                    }
-                }.await()
-            }else{
-
-                productsDao.insertProduct(product)
-                if (isNewProduct) statisticsDao.incrementTotalProducts()
-                if (product.product.amount != 0) ordersDao.insert(record)
-            }
             SimpleResult.Success
-        }catch (e:Exception){
+        } catch (e: Exception) {
             SimpleResult.Failure
         }
     }
 
-    override suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>> = withContext(Dispatchers.IO) {
-        Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200                )
-        ) {
-            productsDao.getAllPaged()
-        }.flow
-    }
-
-    override suspend fun deleteProductDatabase(productId: String): SimpleResult = withContext(Dispatchers.IO){
-        try {
-
-                productsDao.delete(productId)
-                statisticsDao.decrementTotalProducts()
-
-            SimpleResult.Success
-        }catch (e:Exception){
-            SimpleResult.Failure
-        }
-    }
-
-    override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) = withContext(Dispatchers.IO){
-        val user = currentBusiness()
-        if(!user.isOnlineBusiness() && search is SearchText.Category){
-            val ids = productsDao.getProductIdWithCategory(search.text)
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ){ productsDao.getPagedProductsWithCategory(ids) }.flow
-        }else {
+    override suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>> =
+        withContext(Dispatchers.IO) {
             Pager(
                 PagingConfig(
                     pageSize = 30,
@@ -166,30 +90,71 @@ class ProductRepository @Inject constructor(
                     maxSize = 200
                 )
             ) {
-               productsDao.getPagedSearch("%${search.getData()}%")
+                productsDao.getAllPaged()
             }.flow
         }
-    }
 
-    override suspend fun getProductRecordsPagingDataFlow(productId: String) = withContext(Dispatchers.IO){
-        Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200                )
-        ) {
-            ordersDao.getProductRecordsPaged(productId)
-        }.flow
-    }
+    override suspend fun deleteProductDatabase(productId: Int): SimpleResult =
+        withContext(Dispatchers.IO) {
+            try {
 
-    override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> = withContext(Dispatchers.IO){
-        try {
-            val product:ProductWithSuppliersCategories? = productsDao.getProductWithBarcode(barcode)
+                productsDao.delete(productId)
+                statisticsDao.decrementTotalProducts()
 
-            if (product != null) RepoResult.Success(product)
-            else RepoResult.Error(Exception())
-        }catch (e:Exception){
-            RepoResult.Error(e)
+                SimpleResult.Success
+            } catch (e: Exception) {
+                SimpleResult.Failure
+            }
         }
-    }
+
+    override suspend fun getProductsWithNamePagingDataFlow(search: SearchText) =
+        withContext(Dispatchers.IO) {
+            val user = currentBusiness()
+            if (!user.isOnlineBusiness() && search is SearchText.Category) {
+                val ids = productsDao.getProductIdWithCategory(search.text)
+                Pager(
+                    PagingConfig(
+                        pageSize = 30,
+                        enablePlaceholders = true,
+                        maxSize = 200
+                    )
+                ) { productsDao.getPagedProductsWithCategory(ids) }.flow
+            } else {
+                Pager(
+                    PagingConfig(
+                        pageSize = 30,
+                        enablePlaceholders = true,
+                        maxSize = 200
+                    )
+                ) {
+                    productsDao.getPagedSearch("%${search.getData()}%")
+                }.flow
+            }
+        }
+
+    override suspend fun getProductRecordsPagingDataFlow(productId: Int) =
+        withContext(Dispatchers.IO) {
+            Pager(
+                PagingConfig(
+                    pageSize = 30,
+                    enablePlaceholders = true,
+                    maxSize = 200
+                )
+            ) {
+                ordersDao.getProductRecordsPaged(productId)
+            }.flow
+        }
+
+    override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> =
+        withContext(Dispatchers.IO) {
+            try {
+                val product: ProductWithSuppliersCategories? =
+                    productsDao.getProductWithBarcode(barcode)
+
+                if (product != null) RepoResult.Success(product)
+                else RepoResult.Error(Exception())
+            } catch (e: Exception) {
+                RepoResult.Error(e)
+            }
+        }
 }

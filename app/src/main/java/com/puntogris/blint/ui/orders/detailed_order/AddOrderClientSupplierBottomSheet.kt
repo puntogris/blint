@@ -20,18 +20,21 @@ import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.client.manage.ManageClientsAdapter
 import com.puntogris.blint.ui.supplier.manage.ManageSuppliersAdapter
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.hideKeyboard
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientSupplierBottomSheetBinding>(R.layout.add_order_client_supplier_bottom_sheet) {
+class AddOrderClientSupplierBottomSheet :
+    BaseBottomSheetFragment<AddOrderClientSupplierBottomSheetBinding>(R.layout.add_order_client_supplier_bottom_sheet) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
-    private val args:AddOrderClientSupplierBottomSheetArgs by navArgs()
+    private val args: AddOrderClientSupplierBottomSheetArgs by navArgs()
     private lateinit var manageSuppliersAdapter: ManageSuppliersAdapter
     private lateinit var manageClientsAdapter: ManageClientsAdapter
     private var searchJob: Job? = null
@@ -53,24 +56,24 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
         return bottomSheetDialog
     }
 
-    private suspend fun getAllWithNameAndFillAdapter(text:String){
-        if (args.orderType == IN){
+    private suspend fun getAllWithNameAndFillAdapter(text: String) {
+        if (args.orderType == IN) {
             viewModel.getSuppliersWithName(text).collect {
                 manageSuppliersAdapter.submitData(it)
             }
-        }else{
+        } else {
             viewModel.getClientsWithName(text).collect {
                 manageClientsAdapter.submitData(it)
             }
         }
     }
 
-    private suspend fun getAllAndFillAdapter(){
-        if (args.orderType == IN){
+    private suspend fun getAllAndFillAdapter() {
+        if (args.orderType == IN) {
             viewModel.getSuppliersPaging().collect {
                 manageSuppliersAdapter.submitData(it)
             }
-        }else{
+        } else {
             viewModel.getClientPaging().collect {
                 manageClientsAdapter.submitData(it)
             }
@@ -94,11 +97,11 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter =
-                if (args.orderType == IN){
-                    manageSuppliersAdapter = ManageSuppliersAdapter{ onSupplierClicked(it) }
+                if (args.orderType == IN) {
+                    manageSuppliersAdapter = ManageSuppliersAdapter { onSupplierClicked(it) }
                     manageSuppliersAdapter
-                }else{
-                    manageClientsAdapter = ManageClientsAdapter{ onClientClicked(it)}
+                } else {
+                    manageClientsAdapter = ManageClientsAdapter { onClientClicked(it) }
                     manageClientsAdapter
                 }
         }
@@ -122,15 +125,20 @@ class AddOrderClientSupplierBottomSheet: BaseBottomSheetFragment<AddOrderClientS
         }
     }
 
-    private fun onClientClicked(client: Client){
+    private fun onClientClicked(client: Client) {
         viewModel.updateOrderExternalInfo(client.name, client.clientId)
         findNavController().navigate(R.id.createOrderFragment)
         UiInterface.showSnackBar(getString(R.string.snack_client_added_order, client.name))
     }
 
-    private fun onSupplierClicked(supplier: Supplier){
+    private fun onSupplierClicked(supplier: Supplier) {
         viewModel.updateOrderExternalInfo(supplier.companyName, supplier.supplierId)
         findNavController().navigate(R.id.createOrderFragment)
-        UiInterface.showSnackBar(getString(R.string.snack_suppliers_added_order, supplier.companyName))
+        UiInterface.showSnackBar(
+            getString(
+                R.string.snack_suppliers_added_order,
+                supplier.companyName
+            )
+        )
     }
 }

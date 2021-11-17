@@ -12,11 +12,11 @@ class OperationsViewModel @Inject constructor(
     private val productsDao: ProductsDao
 ): ViewModel() {
 
-    private var supplierId: String = ""
+    private var supplierId: Int = 0
 
     suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
 
-    fun updateSupplierId(supplierId: String){
+    fun updateSupplierId(supplierId: Int){
         this.supplierId = supplierId
     }
 

@@ -22,7 +22,7 @@ data class Record(
      var type: String = "",
 
     @ColumnInfo
-     var traderId: String = "",
+     var traderId: Int = 0,
 
     @ColumnInfo
     var traderName :String = "",
@@ -34,7 +34,7 @@ data class Record(
     var amount: Int = 0,
 
     @ColumnInfo
-    val productId: String = "",
+    val productId: Int = 0,
 
     @ColumnInfo
     val productName:String = "",

@@ -20,7 +20,7 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
     private var counter = 0
     private var isEnabled = true
 
-    private fun loginCanceled(){
+    private fun loginCanceled() {
         counter += 1
         if (counter >= 3) isEnabled = false
     }
@@ -43,16 +43,19 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
             )
             .build()
 
-    fun getSingInCredentials(data: Intent?): SignInCredential = oneTapClient.getSignInCredentialFromIntent(data)
+    fun getSingInCredentials(data: Intent?): SignInCredential =
+        oneTapClient.getSignInCredentialFromIntent(data)
 
     suspend fun beginSignInResult(): BeginSignInResult =
         oneTapClient.beginSignIn(createSignInRequest()).await()
 
 
-    fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>){
+    fun showSingInUI(activityResultLauncher: ActivityResultLauncher<IntentSenderRequest>) {
         oneTapClient.beginSignIn(createSignInRequest())
             .addOnSuccessListener {
-                activityResultLauncher.launch(IntentSenderRequest.Builder(it.pendingIntent.intentSender).build())
+                activityResultLauncher.launch(
+                    IntentSenderRequest.Builder(it.pendingIntent.intentSender).build()
+                )
             }
             .addOnFailureListener {
                 //integrar esto con las de abajo dealguna forma
@@ -60,7 +63,7 @@ class OneTapLogin @Inject constructor(@ActivityContext private val context: Cont
             }
     }
 
-    fun onOneTapException(exception: ApiException){
+    fun onOneTapException(exception: ApiException) {
         when (exception.statusCode) {
             CommonStatusCodes.CANCELED -> loginCanceled()
             CommonStatusCodes.NETWORK_ERROR ->

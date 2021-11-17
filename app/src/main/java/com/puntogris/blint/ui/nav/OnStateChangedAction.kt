@@ -58,12 +58,12 @@ class ChangeSettingsMenuStateAction(
 class ShowHideFabStateAction(
     private val fab: FloatingActionButton,
     private val isFabShowing: Boolean
-    ) : OnStateChangedAction {
+) : OnStateChangedAction {
     //If is the FAB was visible before this we show it after else we don't.
     override fun onStateChanged(sheet: View, newState: Int) {
         if (newState == BottomSheetBehavior.STATE_HIDDEN && isFabShowing) {
             if (isFabShowing) fab.show()
-        }else{
+        } else {
             fab.hide()
         }
     }

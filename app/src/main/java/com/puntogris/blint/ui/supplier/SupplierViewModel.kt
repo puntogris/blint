@@ -20,14 +20,13 @@ class SupplierViewModel @Inject constructor(
     private val _currentSupplier = MutableStateFlow(Supplier())
     val currentSupplier : LiveData<Supplier> = _currentSupplier.asLiveData()
 
-    suspend fun deleteSupplierDatabase(supplierId: String) = supplierRepository.deleteSupplierDatabase(supplierId)
+    suspend fun deleteSupplierDatabase(supplierId: Int) = supplierRepository.deleteSupplierDatabase(supplierId)
 
     suspend fun saveSupplierDatabase(): SimpleResult{
-        _currentSupplier.value.companyName = _currentSupplier.value.companyName.lowercase()
-        return supplierRepository.saveSupplierDatabase(_currentSupplier.value)
+        return supplierRepository.saveSupplierDatabase(_currentSupplier.value.apply { companyName = companyName.lowercase() })
     }
 
-    suspend fun getSupplierRecords(supplierId: String) =
+    suspend fun getSupplierRecords(supplierId: Int) =
         supplierRepository.getSupplierRecordsPagingDataFlow(supplierId).cachedIn(viewModelScope)
 
     fun updateSupplierData(supplier: Supplier){

@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.BackupVhBinding
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.Employee
 
-class BackupViewHolder private constructor(val binding: BackupVhBinding) : RecyclerView.ViewHolder(binding.root){
+class BackupViewHolder private constructor(val binding: BackupVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(business: Business) {
         binding.business = business
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): BackupViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = BackupVhBinding.inflate(layoutInflater,parent, false)
+            val binding = BackupVhBinding.inflate(layoutInflater, parent, false)
             return BackupViewHolder(binding)
         }
     }

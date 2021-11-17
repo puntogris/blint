@@ -9,8 +9,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SyncViewModel @Inject constructor(
     private val userRepository: UserRepository
-):ViewModel() {
+) : ViewModel() {
 
-    suspend fun syncAccount(userData: UserData? = null) = userRepository.syncAccountFromDatabase(userData)
+    suspend fun syncAccount(userData: UserData? = null) =
+        userRepository.syncAccountFromDatabase(userData)
 
 }

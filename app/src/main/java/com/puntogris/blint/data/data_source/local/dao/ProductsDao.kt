@@ -2,7 +2,10 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.ProductCategoryCrossRef
+import com.puntogris.blint.model.ProductSupplierCrossRef
+import com.puntogris.blint.model.ProductWithSuppliersCategories
 
 @Dao
 interface ProductsDao {
@@ -11,7 +14,7 @@ interface ProductsDao {
     suspend fun insert(product: Product): Long
 
     @Transaction
-    suspend fun insertProduct(product: ProductWithSuppliersCategories){
+    suspend fun insertProduct(product: ProductWithSuppliersCategories) {
         insert(product.product)
         val productId = product.product.productId
         //if (isNewProduct) statisticsDao.incrementTotalProducts()
@@ -25,14 +28,14 @@ interface ProductsDao {
             ProductCategoryCrossRef(productId, it.categoryName)
         }?.let {
             renewProductCategories(it, productId)
-         //   insertProductCategoriesCrossRef(it)
+            //   insertProductCategoriesCrossRef(it)
         }
-       // if (product.product.amount != 0) ordersDao.insert(record)
+        // if (product.product.amount != 0) ordersDao.insert(record)
 
     }
 
     @Query("DELETE FROM product WHERE productId = :productId")
-    suspend fun delete(productId: String)
+    suspend fun delete(productId: Int)
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
@@ -50,12 +53,12 @@ interface ProductsDao {
     fun getPagedSearch(text: String): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Query("select productId From productcategorycrossref where categoryName like :text")
-    suspend fun getProductIdWithCategory(text: String):List<String>
+    suspend fun getProductIdWithCategory(text: String): List<Int>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' and productId in (:list)")
-    fun getPagedProductsWithCategory(list: List<String>): PagingSource<Int, ProductWithSuppliersCategories>
+    fun getPagedProductsWithCategory(list: List<Int>): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
@@ -67,10 +70,10 @@ interface ProductsDao {
     suspend fun insertProductCategoriesCrossRef(items: List<ProductCategoryCrossRef>)
 
     @Query("SELECT * FROM productcategorycrossref WHERE productId = :productId")
-    suspend fun getProductCategoriesCrossRefs(productId:String): List<ProductCategoryCrossRef>
+    suspend fun getProductCategoriesCrossRefs(productId: Int): List<ProductCategoryCrossRef>
 
     @Query("SELECT * FROM productsuppliercrossref WHERE productId = :productId")
-    suspend fun getProductSupplierCrossRefs(productId:String): List<ProductSupplierCrossRef>
+    suspend fun getProductSupplierCrossRefs(productId: Int): List<ProductSupplierCrossRef>
 
     @Delete
     suspend fun deleteProductCategoriesCrossRef(productCategoryCrossRef: ProductCategoryCrossRef)
@@ -85,10 +88,10 @@ interface ProductsDao {
     suspend fun insertProductSupplierCrossRef(items: ProductSupplierCrossRef)
 
     @Transaction
-    suspend fun renewProductCategories(items: List<ProductCategoryCrossRef> ,productId: String){
+    suspend fun renewProductCategories(items: List<ProductCategoryCrossRef>, productId: Int) {
         val oldRefs = getProductCategoriesCrossRefs(productId)
         if (oldRefs.isNullOrEmpty()) insertProductCategoriesCrossRef(items)
-        else{
+        else {
             oldRefs.forEach {
                 if (!items.contains(it)) deleteProductCategoriesCrossRef(it)
                 else insertProductCategoriesCrossRef(it)
@@ -97,10 +100,10 @@ interface ProductsDao {
     }
 
     @Transaction
-    suspend fun renewProductSuppliers(items: List<ProductSupplierCrossRef>, productId: String){
+    suspend fun renewProductSuppliers(items: List<ProductSupplierCrossRef>, productId: Int) {
         val oldRefs = getProductSupplierCrossRefs(productId)
         if (oldRefs.isNullOrEmpty()) insertProductSupplierCrossRef(items)
-        else{
+        else {
             oldRefs.forEach {
                 if (!items.contains(it)) deleteProductSupplierCrossRef(it)
                 else insertProductSupplierCrossRef(it)
@@ -170,11 +173,11 @@ interface ProductsDao {
     )
     suspend fun updateSupplierProductsPrices(
         newPrice: Float,
-        supplierId: String,
+        supplierId: Int,
         valueType: String,
         isValueUp: Boolean,
-        affectsBuyPrice : Boolean,
-        affectsSellPrice:Boolean,
-        affectsSuggestedPrice:Boolean
-    ):Int
+        affectsBuyPrice: Boolean,
+        affectsSellPrice: Boolean,
+        affectsSuggestedPrice: Boolean
+    ): Int
 }

@@ -11,7 +11,7 @@ interface ClientsDao {
     suspend fun insert(client: Client)
 
     @Query("DELETE FROM client WHERE clientId = :clientId")
-    suspend fun delete(clientId: String)
+    suspend fun delete(clientId: Int)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")

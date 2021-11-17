@@ -7,7 +7,8 @@ import com.puntogris.blint.databinding.AddCategoryProductVhBinding
 import com.puntogris.blint.databinding.ManageCategoryVhBinding
 import com.puntogris.blint.model.Category
 
-class AddProductCategoryViewHolder private constructor(val binding: AddCategoryProductVhBinding) : RecyclerView.ViewHolder(binding.root){
+class AddProductCategoryViewHolder private constructor(val binding: AddCategoryProductVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category, clickListener: (Category) -> Unit) {
         binding.category = category
@@ -17,10 +18,10 @@ class AddProductCategoryViewHolder private constructor(val binding: AddCategoryP
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): AddProductCategoryViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = AddCategoryProductVhBinding.inflate(layoutInflater,parent, false)
+            val binding = AddCategoryProductVhBinding.inflate(layoutInflater, parent, false)
             return AddProductCategoryViewHolder(binding)
         }
     }

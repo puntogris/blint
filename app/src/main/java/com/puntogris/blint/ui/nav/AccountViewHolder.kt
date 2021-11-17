@@ -19,7 +19,6 @@ package com.puntogris.blint.ui.nav
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.AccountItemLayoutBinding
 import com.puntogris.blint.model.BusinessItem
-import com.puntogris.blint.model.Employee
 
 /**
  * ViewHolder for [AccountAdapter]. Holds a single account which can be selected.

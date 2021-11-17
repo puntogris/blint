@@ -16,7 +16,7 @@ import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductCategoryFragment:
+class ProductCategoryFragment :
     BaseFragment<FragmentProductCategoryBinding>(R.layout.fragment_product_category) {
 
     private val viewModel: FilterCategoriesViewModel by viewModels()
@@ -92,7 +92,12 @@ class ProductCategoryFragment:
 
     private fun onCategoryClicked(category: Category) {
         if (removeCategoryAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
-            UiInterface.showSnackBar(getString(R.string.snack_product_categories_limit, CATEGORIES_SUPPLIERS_LIMIT))
+            UiInterface.showSnackBar(
+                getString(
+                    R.string.snack_product_categories_limit,
+                    CATEGORIES_SUPPLIERS_LIMIT
+                )
+            )
         else {
             removeCategoryAdapter.addCategory(category)
             if (removeCategoryAdapter.itemCount != 0) binding.textView195.gone()

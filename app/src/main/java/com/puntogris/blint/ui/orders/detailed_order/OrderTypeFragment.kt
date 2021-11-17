@@ -25,21 +25,29 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             showFab = true,
             showAppBar = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24,
-            showFabCenter = false)
+            showFabCenter = false
+        )
         {
             val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToCreateRecordFragment()
             findNavController().navigate(action)
         }
 
-        if (args.product != null && !viewModel.productWithRecords.any { it.product.productId == args.product?.productId }){
+        if (args.product != null && !viewModel.productWithRecords.any { it.product.productId == args.product?.productId }) {
             args.product?.let {
                 viewModel.productWithRecords.add(
-                    ProductWithRecord(it, Record(productName = it.name, productId = it.productId)))
+                    ProductWithRecord(it, Record(productName = it.name, productId = it.productId))
+                )
             }
         }
 
         binding.recordTypeText.apply {
-            setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, resources.getStringArray(R.array.order_type)))
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item_list,
+                    resources.getStringArray(R.array.order_type)
+                )
+            )
             setOnItemClickListener { _, _, i, _ ->
                 binding.button22.text =
                     if (i == 0) getString(R.string.select_supplier)
@@ -49,8 +57,11 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
         }
     }
 
-    fun onAddTraderClicked(){
-        val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToAddOrderClientSupplierBottomSheet(viewModel.getOrderType())
+    fun onAddTraderClicked() {
+        val action =
+            OrderTypeFragmentDirections.actionOrderTypeFragmentToAddOrderClientSupplierBottomSheet(
+                viewModel.getOrderType()
+            )
         findNavController().navigate(action)
     }
 }

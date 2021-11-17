@@ -13,7 +13,7 @@ data class FirestoreOrder(
     var value: Float = 0F,
     var type:String =  "IN",
     var author:String = "",
-    var traderId: String = "",
+    var traderId: Int = 0,
     var traderName: String = "",
     var businessId:String = "",
     var number: Int = 1,

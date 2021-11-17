@@ -12,8 +12,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Client(
 
-    @PrimaryKey
-    var clientId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var clientId: Int = 0,
 
     @ColumnInfo
     var name:String = "",

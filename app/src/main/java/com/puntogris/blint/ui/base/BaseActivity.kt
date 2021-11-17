@@ -13,14 +13,14 @@ import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.ui.nav.NavigationAdapter
 import com.puntogris.blint.utils.getNavHostFragment
 
-abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
+abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes val layout: Int) :
     AppCompatActivity(),
     NavController.OnDestinationChangedListener,
     Toolbar.OnMenuItemClickListener,
     NavigationAdapter.NavigationAdapterListener,
     SetupUiListener {
 
-    private var _binding : T? = null
+    private var _binding: T? = null
     val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
     }
 
     open fun initializeViews() {}
-    open fun preInitViews(){}
+    open fun preInitViews() {}
 
     override fun onDestroy() {
         super.onDestroy()
@@ -41,7 +41,8 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layout: Int):
     override fun onBackPressed() {
         if (isTaskRoot
             && getNavHostFragment().childFragmentManager.backStackEntryCount == 0
-            && supportFragmentManager.backStackEntryCount == 0) {
+            && supportFragmentManager.backStackEntryCount == 0
+        ) {
             finishAfterTransition()
         } else super.onBackPressed()
     }

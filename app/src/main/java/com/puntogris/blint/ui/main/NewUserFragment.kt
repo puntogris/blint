@@ -8,8 +8,9 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNewUserBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.login.LoginViewModel
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchWebBrowserIntent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         }
     }
 
-    fun onLogOutClicked(){
+    fun onLogOutClicked() {
         lifecycleScope.launch {
             //viewModel.singOut()
             val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
@@ -34,13 +35,15 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         }
     }
 
-    fun onLearnMoreClicked(){
+    fun onLearnMoreClicked() {
         launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
     }
-    fun onJoinBusinessClicked(){
+
+    fun onJoinBusinessClicked() {
         findNavController().navigate(R.id.joinBusinessFragment)
     }
-    fun onCreateBusinessClicked(){
+
+    fun onCreateBusinessClicked() {
         findNavController().navigate(R.id.registerBusinessFragment)
     }
 }

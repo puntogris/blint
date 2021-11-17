@@ -5,13 +5,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentIntroBinding
 import com.puntogris.blint.model.UserData
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.TERMS_AND_CONDITIONS_URI
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.getString
+import com.puntogris.blint.utils.launchWebBrowserIntent
 import com.ybs.countrypicker.CountryPicker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro) {
+class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro) {
 
     private var country = ""
 
@@ -22,29 +24,34 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         }
     }
 
-    fun onReadMoreAboutPolicesClicked(){
+    fun onReadMoreAboutPolicesClicked() {
         launchWebBrowserIntent(TERMS_AND_CONDITIONS_URI)
     }
 
-    fun onExitButtonClicked(){
+    fun onExitButtonClicked() {
         findNavController().navigate(R.id.loginFragment)
     }
 
-    fun onGoToSyncUserBusiness(){
+    fun onGoToSyncUserBusiness() {
         val username = binding.usernameText.getString()
-        if (!isCheckBoxChecked()){
+        if (!isCheckBoxChecked()) {
             UiInterface.showSnackBar(getString(R.string.snack_terms_and_conditions_are_necessary))
-        }else if (country.isEmpty()){
+        } else if (country.isEmpty()) {
             UiInterface.showSnackBar(getString(R.string.snack_country_can_not_be_empty))
-        }else if(username.isBlank() || username.length < 3){
+        } else if (username.isBlank() || username.length < 3) {
             UiInterface.showSnackBar(getString(R.string.snack_name_can_not_be_empty))
-        }else{
-            val action = IntroFragmentDirections.actionIntroFragmentToSyncAccountFragment(UserData(username, country))
+        } else {
+            val action = IntroFragmentDirections.actionIntroFragmentToSyncAccountFragment(
+                UserData(
+                    username,
+                    country
+                )
+            )
             findNavController().navigate(action)
         }
     }
 
-    fun onSelectCountryClicked(){
+    fun onSelectCountryClicked() {
         val picker = CountryPicker.newInstance(getString(R.string.select_country))
         picker.setListener { name, code, _, _ ->
             country = code
@@ -54,9 +61,9 @@ class IntroFragment: BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro)
         picker.show(parentFragmentManager, "COUNTRY_PICKER")
     }
 
-    private fun isCheckBoxChecked(): Boolean{
-        return if(binding.termsAndConditionsCheckBox.isChecked) true
-        else{
+    private fun isCheckBoxChecked(): Boolean {
+        return if (binding.termsAndConditionsCheckBox.isChecked) true
+        else {
             UiInterface.showSnackBar(getString(R.string.snack_accept_our_conditions_to_continue))
             false
         }

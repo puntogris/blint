@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.DebtDiffCallBack
 import com.puntogris.blint.model.Debt
 
-class DebtsAdapter(private val clickListener: (Debt)->(Unit)): ListAdapter<Debt, DebtViewHolder>(
+class DebtsAdapter(private val clickListener: (Debt) -> (Unit)) : ListAdapter<Debt, DebtViewHolder>(
     DebtDiffCallBack()
 ) {
 

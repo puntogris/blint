@@ -6,14 +6,10 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.puntogris.blint.R
-import com.puntogris.blint.ui.product.ProductFragment
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
-abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: Int): Fragment() {
+abstract class BaseFragmentOptions<T : ViewDataBinding>(@LayoutRes val layout: Int) : Fragment() {
 
-    private var _binding : T? = null
+    private var _binding: T? = null
     val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +18,11 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
         preInitializeViews()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = DataBindingUtil.inflate(inflater, layout, container, false)
         initializeViews()
         return binding.root
@@ -32,7 +32,7 @@ abstract class BaseFragmentOptions<T: ViewDataBinding>(@LayoutRes val layout: In
 
     open fun preInitializeViews() {}
 
-    open fun setUpMenuOptions(menu: Menu){}
+    open fun setUpMenuOptions(menu: Menu) {}
 
 
     override fun onDestroyView() {

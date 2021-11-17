@@ -27,15 +27,11 @@ class SupplierRepository @Inject constructor(
     override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult =
         withContext(Dispatchers.IO) {
             try {
-                val isNewSupplier = supplier.supplierId.isEmpty()
+                val isNewSupplier = supplier.supplierId == 0
                 val user = currentBusiness()
 
-
                 if (isNewSupplier) {
-                    supplier.apply {
-                        businessId = user.businessId
-                        supplierId = "" //todo generate id automatically
-                    }
+                    supplier.businessId = user.businessId
                 }
 
                 suppliersDao.insert(supplier)
@@ -60,7 +56,7 @@ class SupplierRepository @Inject constructor(
             }.flow
         }
 
-    override suspend fun deleteSupplierDatabase(supplierId: String): SimpleResult =
+    override suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
             try {
                 suppliersDao.delete(supplierId)
@@ -72,7 +68,7 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override suspend fun getSupplierRecordsPagingDataFlow(supplierId: String): Flow<PagingData<Record>> =
+    override suspend fun getSupplierRecordsPagingDataFlow(supplierId: Int): Flow<PagingData<Record>> =
         withContext(Dispatchers.IO) {
             Pager(
                 PagingConfig(

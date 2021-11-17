@@ -11,12 +11,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.puntogris.blint.R
 import com.puntogris.blint.diffcallback.ProductWithRecordItemDiffCallBack
 import com.puntogris.blint.model.ProductWithRecord
-import com.puntogris.blint.utils.SwipeToDeleteCallback
 import com.puntogris.blint.ui.orders.OrderItemViewHolder
-import com.puntogris.blint.utils.bindDimen
+import com.puntogris.blint.utils.SwipeToDeleteCallback
 import com.puntogris.blint.utils.dp
 import com.puntogris.blint.utils.getValueAnimator
 import com.puntogris.blint.utils.screenWidth
@@ -24,7 +22,8 @@ import com.puntogris.blint.utils.screenWidth
 class CreateRecordsAdapter(
     private val context: Context,
     private val amountListener: () -> (Unit),
-    private val deleteListener: (ProductWithRecord) -> Unit):
+    private val deleteListener: (ProductWithRecord) -> Unit
+) :
     ListAdapter<ProductWithRecord, OrderItemViewHolder>(ProductWithRecordItemDiffCallBack()) {
 
     var recordsList = mutableListOf<ProductWithRecord>()
@@ -40,6 +39,7 @@ class CreateRecordsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
         return OrderItemViewHolder.from(parent)
     }
+
     private var expandedModel: ProductWithRecord? = null
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -81,7 +81,11 @@ class CreateRecordsAdapter(
                     val expandedModelPosition = recordsList.indexOf(expandedModel!!)
                     val oldViewHolder =
                         recyclerView.findViewHolderForAdapterPosition(expandedModelPosition) as? OrderItemViewHolder
-                    if (oldViewHolder != null) expandItem(oldViewHolder, expand = false, animate = true)
+                    if (oldViewHolder != null) expandItem(
+                        oldViewHolder,
+                        expand = false,
+                        animate = true
+                    )
 
                     // expand clicked view
                     expandItem(holder, expand = true, animate = true)
@@ -125,7 +129,7 @@ class CreateRecordsAdapter(
 
             animator.start()
         } else {
-             //show expandView only if we have expandedHeight (onViewAttached)
+            //show expandView only if we have expandedHeight (onViewAttached)
             holder.binding.expandView.isVisible = expand && expandedHeight >= 0
             setExpandProgress(holder, if (expand) 1f else 0f)
         }
@@ -148,7 +152,7 @@ class CreateRecordsAdapter(
 
     override fun getItemCount() = recordsList.size
 
-    fun addProductWithRecord(productWithRecord: ProductWithRecord){
+    fun addProductWithRecord(productWithRecord: ProductWithRecord) {
         recordsList.add(productWithRecord)
         notifyDataSetChanged()
     }

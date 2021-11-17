@@ -4,6 +4,6 @@ import androidx.room.Entity
 
 @Entity(primaryKeys = ["productId", "categoryName"])
 data class ProductCategoryCrossRef(
-    val productId: String,
+    val productId: Int,
     val categoryName: String
 )

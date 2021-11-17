@@ -23,22 +23,24 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
+class ManageProductsFragment :
+    BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
 
     private val viewModel: ManageProductsViewModel by viewModels()
-    private lateinit var manageProductsAdapter : ManageProductsAdapter
+    private lateinit var manageProductsAdapter: ManageProductsAdapter
     lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private var searchJob: Job? = null
 
     override fun initializeViews() {
-        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true){
+        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editProductFragment)
         }
         binding.productSearch.clearFocus()
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.fragment = this
 
-        manageProductsAdapter = ManageProductsAdapter({onProductShortClickListener(it)},{onProductLongClickListener(it)})
+        manageProductsAdapter = ManageProductsAdapter({ onProductShortClickListener(it) },
+            { onProductLongClickListener(it) })
 
         binding.recyclerView.apply {
             adapter = manageProductsAdapter
@@ -59,7 +61,7 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                     it.toString().let { text ->
                         if (text.isBlank()) searchProductAndFillAdapter()
                         else {
-                            val data = when(binding.searchTypeRadioGroup.checkedRadioButtonId){
+                            val data = when (binding.searchTypeRadioGroup.checkedRadioButtonId) {
                                 R.id.qrSearchType -> SearchText.QrCode(text)
                                 R.id.internalCodeSearchType -> SearchText.InternalCode(text)
                                 R.id.categorySearchType -> SearchText.Category(text)
@@ -73,18 +75,19 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         }
 
         binding.searchTypeRadioGroup.let {
-            it.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener{
+            it.setOnCheckedChangeListener(object : ConstraintRadioGroup.OnCheckedChangeListener {
                 override fun onCheckedChanged(group: ConstraintRadioGroup?, checkedId: Int) {
                     val text = binding.productSearch.getString()
-                    if (text.isNotEmpty()){
+                    if (text.isNotEmpty()) {
                         searchJob?.cancel()
                         searchJob = lifecycleScope.launch {
                             searchProductWithNameAndFillAdapter(
-                                when(it.checkedRadioButtonId){
-                                R.id.qrSearchType -> SearchText.QrCode(text)
-                                R.id.internalCodeSearchType -> SearchText.InternalCode(text)
-                                else -> SearchText.Name(text)
-                            })
+                                when (it.checkedRadioButtonId) {
+                                    R.id.qrSearchType -> SearchText.QrCode(text)
+                                    R.id.internalCodeSearchType -> SearchText.InternalCode(text)
+                                    else -> SearchText.Name(text)
+                                }
+                            )
                         }
                     }
                 }
@@ -95,15 +98,18 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val action = ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(1)
+                    val action =
+                        ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(
+                            1
+                        )
                     findNavController().navigate(action)
-                }
-                else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
             }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.apply {
             getLiveData<String>(PRODUCT_BARCODE_KEY).observe(
-                viewLifecycleOwner) {
+                viewLifecycleOwner
+            ) {
                 it?.let { code ->
                     binding.searchTypeRadioGroup.check(R.id.qrSearchType)
                     binding.productSearch.setText(code)
@@ -111,10 +117,10 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
                 }
             }
 
-            getLiveData<Boolean>(SIMPLE_ORDER_KEY).observe(viewLifecycleOwner){
+            getLiveData<Boolean>(SIMPLE_ORDER_KEY).observe(viewLifecycleOwner) {
                 if (it) manageProductsAdapter.refresh()
             }
-            getLiveData<String>(CATEGORY_FILTER_KEY).observe(viewLifecycleOwner){
+            getLiveData<String>(CATEGORY_FILTER_KEY).observe(viewLifecycleOwner) {
                 binding.searchTypeRadioGroup.visible()
                 binding.searchTypeRadioGroup.check(R.id.categorySearchType)
                 binding.productSearch.setText(it)
@@ -122,34 +128,35 @@ class ManageProductsFragment : BaseFragmentOptions<FragmentManageProductsBinding
         }
     }
 
-    fun onCategoryClicked(){
+    fun onCategoryClicked() {
         findNavController().navigate(R.id.filterCategoriesBottomSheet)
     }
 
-    fun onScanBarcodeClicked(){
+    fun onScanBarcodeClicked() {
         hideKeyboard()
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    private suspend fun searchProductAndFillAdapter(){
+    private suspend fun searchProductAndFillAdapter() {
         viewModel.getProductsPaging().collect {
             manageProductsAdapter.submitData(it)
         }
     }
 
-    private suspend fun searchProductWithNameAndFillAdapter(search: SearchText){
+    private suspend fun searchProductWithNameAndFillAdapter(search: SearchText) {
         viewModel.getProductWithName(search).collect { data ->
             manageProductsAdapter.submitData(data)
         }
     }
 
-    private fun onProductShortClickListener(product: ProductWithSuppliersCategories){
+    private fun onProductShortClickListener(product: ProductWithSuppliersCategories) {
         hideKeyboard()
-        val action = ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
+        val action =
+            ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
         findNavController().navigate(action)
     }
 
-    private fun onProductLongClickListener(product: ProductWithSuppliersCategories){
+    private fun onProductLongClickListener(product: ProductWithSuppliersCategories) {
         showOrderPickerAndNavigate(product.product)
     }
 

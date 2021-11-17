@@ -30,7 +30,7 @@ data class Order(
     var author:String = "",
 
     @ColumnInfo
-    var traderId: String = "",
+    var traderId: Int = 0,
 
     @ColumnInfo
     var traderName: String = "",

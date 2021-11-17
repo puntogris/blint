@@ -23,7 +23,7 @@ class DebtsRepository @Inject constructor(
 
     private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
-    override suspend fun getLastTraderDebts(traderId: String): RepoResult<List<Debt>> {
+    override suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>> {
         return try {
             val data = debtsDao.getDebtsWithId(traderId)
 

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -35,53 +34,74 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
             it.lifecycleOwner = viewLifecycleOwner
         }
 
-        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY){
+        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY) {
             viewModel.setClientData(it)
         }
 
         setupContactPermissions()
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            val resultMessage =
-                if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
-                else R.string.snack_an_error_occurred
-            UiInterface.showSnackBar(getString(resultMessage))
-        }
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                val resultMessage =
+                    if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
+                    else R.string.snack_an_error_occurred
+                UiInterface.showSnackBar(getString(resultMessage))
+            }
     }
 
-    private fun setupContactPermissions(){
+    private fun setupContactPermissions() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
                     val intent = Intent(Intent.ACTION_INSERT).apply {
                         type = ContactsContract.Contacts.CONTENT_TYPE
-                        putExtra(ContactsContract.Intents.Insert.NAME, viewModel.currentClient.value!!.name)
-                        putExtra(ContactsContract.Intents.Insert.PHONE, viewModel.currentClient.value!!.phone)
-                        putExtra(ContactsContract.Intents.Insert.EMAIL, viewModel.currentClient.value!!.email)
-                        putExtra(ContactsContract.Intents.Insert.POSTAL, viewModel.currentClient.value!!.address)
+                        putExtra(
+                            ContactsContract.Intents.Insert.NAME,
+                            viewModel.currentClient.value!!.name
+                        )
+                        putExtra(
+                            ContactsContract.Intents.Insert.PHONE,
+                            viewModel.currentClient.value!!.phone
+                        )
+                        putExtra(
+                            ContactsContract.Intents.Insert.EMAIL,
+                            viewModel.currentClient.value!!.email
+                        )
+                        putExtra(
+                            ContactsContract.Intents.Insert.POSTAL,
+                            viewModel.currentClient.value!!.address
+                        )
                     }
                     activityResultLauncher.launch(intent)
-                }
-                else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
 
-    fun onAddContactButtonClicked(){
+    fun onAddContactButtonClicked() {
         requestPermissionLauncher.launch(android.Manifest.permission.WRITE_CONTACTS)
     }
 
-    fun onPhoneButtonClicked(){
+    fun onPhoneButtonClicked() {
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_baseline_call_24, this@ClientDataFragment.getString(R.string.action_call)),
-                Option(R.drawable.ic_baseline_message_24, this@ClientDataFragment.getString(R.string.action_message)),
-                Option(R.drawable.ic_whatsapp, this@ClientDataFragment.getString(R.string.action_whats_app))
+                Option(
+                    R.drawable.ic_baseline_call_24,
+                    this@ClientDataFragment.getString(R.string.action_call)
+                ),
+                Option(
+                    R.drawable.ic_baseline_message_24,
+                    this@ClientDataFragment.getString(R.string.action_message)
+                ),
+                Option(
+                    R.drawable.ic_whatsapp,
+                    this@ClientDataFragment.getString(R.string.action_whats_app)
+                )
             )
             onPositive { index: Int, _: Option ->
                 val phone = viewModel.currentClient.value!!.phone
-                when(index){
+                when (index) {
                     0 -> {
                         val uri = Uri.fromParts("tel", phone, null)
                         val intent = Intent(Intent.ACTION_DIAL, uri)
@@ -103,7 +123,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
         }.show(parentFragmentManager, "")
     }
 
-    fun onEmailButtonClicked(){
+    fun onEmailButtonClicked() {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:${viewModel.currentClient.value!!.email}")
         }

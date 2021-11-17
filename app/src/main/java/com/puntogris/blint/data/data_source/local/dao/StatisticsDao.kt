@@ -58,7 +58,7 @@ interface StatisticsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")
-    suspend fun getRecordsWithDays(productId:String, days:String): Record
+    suspend fun getRecordsWithDays(productId:Int, days:String): Record
 
     @RewriteQueriesToDropUnusedColumns
     @Transaction

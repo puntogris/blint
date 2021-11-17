@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.fragment_create_back_up) {
+class CreateBackupFragment :
+    BaseFragment<FragmentCreateBackUpBinding>(R.layout.fragment_create_back_up) {
 
     private val viewModel: PreferencesViewModel by viewModels()
     private lateinit var backupAdapter: BackupAdapter
@@ -32,7 +33,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
 
         launchAndRepeatWithViewLifecycle {
             viewModel.getBackUpRequirements().collect {
-                when(it){
+                when (it) {
                     is RepoResult.Success -> showBusinessUI(it.data)
                     is RepoResult.Error -> showNoBusinessFoundUI()
                     RepoResult.InProgress -> binding.loadingBusinessProgressBar.visible()
@@ -41,24 +42,25 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun getUserBusiness(){
+    private fun getUserBusiness() {
 
     }
 
-    fun onReadMoreAboutBackupsClicked(){
+    fun onReadMoreAboutBackupsClicked() {
         launchWebBrowserIntent(BACKUP_WEBSITE_LEARN_MORE)
     }
 
-    fun onBackupButtonClicked(){
+    fun onBackupButtonClicked() {
         showConfirmationDialogForBackUp()
     }
 
-    private fun showNoBusinessFoundUI(){
+    private fun showNoBusinessFoundUI() {
         binding.loadingBusinessProgressBar.gone()
-        binding.loadingBusinessSummary.text = getString(R.string.local_business_not_found_in_account)
+        binding.loadingBusinessSummary.text =
+            getString(R.string.local_business_not_found_in_account)
     }
 
-    private fun showBusinessUI(data: List<Business>){
+    private fun showBusinessUI(data: List<Business>) {
         getLastBackUpDate()
         backupAdapter.submitList(data)
         binding.apply {
@@ -73,10 +75,10 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun getLastBackUpDate(){
+    private fun getLastBackUpDate() {
         lifecycleScope.launchWhenStarted {
             viewModel.getLastBackUpDate().collect {
-                when(it){
+                when (it) {
                     is RepoResult.Error -> {
                         binding.textView71.text = getString(R.string.not_found)
                     }
@@ -89,7 +91,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun showBackupInProgressUI(){
+    private fun showBackupInProgressUI() {
         binding.apply {
             animationView.repeatCount = LottieDrawable.INFINITE
             animationView.visible()
@@ -106,7 +108,7 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         binding.recyclerView.apply {
             backupAdapter = BackupAdapter()
             adapter = backupAdapter
@@ -114,8 +116,8 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun showConfirmationDialogForBackUp(){
-        InfoSheet().show(requireParentFragment().requireContext()){
+    private fun showConfirmationDialogForBackUp() {
+        InfoSheet().show(requireParentFragment().requireContext()) {
             title(this@CreateBackupFragment.getString(R.string.ask_user_action_confirmation))
             content(this@CreateBackupFragment.getString(R.string.create_backup_warning))
             onNegative(this@CreateBackupFragment.getString(R.string.action_cancel))
@@ -124,10 +126,10 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun startBusinessBackup(){
+    private fun startBusinessBackup() {
         lifecycleScope.launch {
             viewModel.backupBusiness(getDatabasePath()).collectLatest {
-                when(it){
+                when (it) {
                     is BackupState.Error -> showFailureBackupUI()
                     is BackupState.InProgress -> showBackupInProgressUI()
                     BackupState.Success -> showSuccessfulBackupUI()
@@ -136,13 +138,13 @@ class CreateBackupFragment : BaseFragment<FragmentCreateBackUpBinding>(R.layout.
         }
     }
 
-    private fun showSuccessfulBackupUI(){
+    private fun showSuccessfulBackupUI() {
         binding.backupSummary.text = getString(R.string.create_backup_success_message)
         binding.businessTitle.text = getString(R.string.create_backup_success_title)
         binding.animationView.playAnimationOnce(R.raw.done)
     }
 
-    private fun showFailureBackupUI(){
+    private fun showFailureBackupUI() {
         binding.businessTitle.text = getString(R.string.create_backup_error_title)
         binding.backupSummary.text = getString(R.string.create_backup_error_message)
         binding.animationView.playAnimationOnce(R.raw.error)

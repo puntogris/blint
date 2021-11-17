@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository
-): ViewModel() {
+) : ViewModel() {
 
     suspend fun getProductsPaging() =
         productRepository.getProductsPagingDataFlow().cachedIn(viewModelScope)

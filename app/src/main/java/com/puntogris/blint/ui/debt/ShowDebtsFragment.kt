@@ -22,22 +22,22 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
     override fun initializeViews() {
         UiInterface.registerUi()
 
-        val simpleDebtAdapter = SimpleDebtAdapter{ onDebtClicked(it) }
+        val simpleDebtAdapter = SimpleDebtAdapter { onDebtClicked(it) }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = simpleDebtAdapter
         }
 
         lifecycleScope.launchWhenCreated {
-            if (args.debtType == CLIENT_DEBT){
+            if (args.debtType == CLIENT_DEBT) {
                 viewModel.getAllClients().collect { simpleDebtAdapter.submitData(it) }
-            }else {
+            } else {
                 viewModel.getAllSuppliers().collect { simpleDebtAdapter.submitData(it) }
             }
         }
     }
 
-    private fun onDebtClicked(simpleDebt: SimpleDebt){
+    private fun onDebtClicked(simpleDebt: SimpleDebt) {
 
     }
 

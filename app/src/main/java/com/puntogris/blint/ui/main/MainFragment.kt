@@ -5,20 +5,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
-import com.puntogris.blint.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.databinding.FragmentMainBinding
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Event
+import com.puntogris.blint.model.MenuCard
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
 import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
-import com.puntogris.blint.utils.Constants.ENABLED
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -40,8 +35,8 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         setupCalendarRecyclerView()
     }
 
-    fun onSideMenuClicked(item: Int){
-        val nav = when(item){
+    fun onSideMenuClicked(item: Int) {
+        val nav = when (item) {
             0 -> R.id.calendarFragment
             1 -> R.id.manageCategoriesFragment
             else -> R.id.accountPreferences
@@ -49,11 +44,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         findNavController().navigate(nav)
     }
 
-    private fun setupCalendarRecyclerView(){
+    private fun setupCalendarRecyclerView() {
         mainCalendarAdapter = MainCalendarAdapter { onCalendarEventClicked(it) }
 
         launchAndRepeatWithViewLifecycle {
-            when(val data = viewModel.getBusinessLastEvents()){
+            when (val data = viewModel.getBusinessLastEvents()) {
                 EventsDashboard.DataNotFound -> {
                     binding.button17.visible()
                     binding.textView151.visible()
@@ -75,45 +70,45 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
             adapter = mainCalendarAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        onBackStackLiveData<Boolean>(DISMISS_EVENT_KEY){
+        onBackStackLiveData<Boolean>(DISMISS_EVENT_KEY) {
             if (it) mainCalendarAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun onCalendarEventClicked(event: Event){
+    private fun onCalendarEventClicked(event: Event) {
         val action = MainFragmentDirections.actionMainFragmentToEventInfoBottomSheet(event)
         findNavController().navigate(action)
     }
 
-    private fun setupMenuRecyclerView(){
-        mainMenuAdapter = MainMenuAdapter{ onMenuCardClicked(it) }
+    private fun setupMenuRecyclerView() {
+        mainMenuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
         binding.recyclerView.apply {
             adapter = mainMenuAdapter
             setHasFixedSize(true)
             val manager = GridLayoutManager(requireContext(), 3)
                 .also {
-                it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return if (mainMenuAdapter.isHeader(position)) it.spanCount else 1
+                    it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return if (mainMenuAdapter.isHeader(position)) it.spanCount else 1
+                        }
                     }
                 }
-            }
 
             layoutManager = manager
             addItemDecoration(
                 GridSpanMarginDecoration(
-                    30,10,
+                    30, 10,
                     gridLayoutManager = manager
                 )
             )
         }
     }
 
-    private fun onMenuCardClicked(menuCard: MenuCard){
+    private fun onMenuCardClicked(menuCard: MenuCard) {
         findNavController().navigate(menuCard.navigationId)
     }
 
-    fun onAddEventClicked(){
+    fun onAddEventClicked() {
         findNavController().navigate(R.id.createEventFragment)
     }
 

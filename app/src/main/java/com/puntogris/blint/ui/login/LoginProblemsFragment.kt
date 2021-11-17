@@ -8,10 +8,11 @@ import com.puntogris.blint.databinding.FragmentLoginProblemsBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.FIX_GOOGLE_PLAY_SERVICES_URL
 import com.puntogris.blint.utils.Constants.SUPPORT_EMAIL
-import com.puntogris.blint.utils.launchWebBrowserIntent
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchWebBrowserIntent
 
-class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layout.fragment_login_problems) {
+class LoginProblemsFragment :
+    BaseFragment<FragmentLoginProblemsBinding>(R.layout.fragment_login_problems) {
 
     override fun initializeViews() {
         binding.fragment = this
@@ -21,18 +22,18 @@ class LoginProblemsFragment : BaseFragment<FragmentLoginProblemsBinding>(R.layou
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }
 
-    fun onGoBackButtonClicked(){
+    fun onGoBackButtonClicked() {
         findNavController().navigateUp()
     }
 
-    fun onSendEmailClicked(){
+    fun onSendEmailClicked() {
         val email = Intent(Intent.ACTION_SENDTO)
         email.data = Uri.parse("mailto:$SUPPORT_EMAIL")
         email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.problem_with_blint_account))
         startActivity(email)
     }
 
-    fun onEnableAccountClicked(){
+    fun onEnableAccountClicked() {
         launchWebBrowserIntent(FIX_GOOGLE_PLAY_SERVICES_URL)
     }
 }

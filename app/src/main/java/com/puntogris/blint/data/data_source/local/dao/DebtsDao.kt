@@ -14,7 +14,7 @@ interface DebtsDao {
     suspend fun insert(debt: Debt)
 
     @Query("SELECT * FROM debt WHERE traderId = :traderId ORDER BY timestamp DESC LIMIT 5")
-    suspend fun getDebtsWithId(traderId: String): List<Debt>
+    suspend fun getDebtsWithId(traderId: Int): List<Debt>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
@@ -31,10 +31,10 @@ interface DebtsDao {
     fun getPagedDebts(): PagingSource<Int, Debt>
 
     @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
-    suspend fun updateClientDebt(clientId: String, amount: Float)
+    suspend fun updateClientDebt(clientId: Int, amount: Float)
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
+    suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND debt != 0")

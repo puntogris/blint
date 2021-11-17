@@ -20,15 +20,16 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(R.layout.fragment_w
         }
     }
 
-    fun onExitButtonClicked(){
+    fun onExitButtonClicked() {
         findNavController().navigate(R.id.loginFragment)
     }
 
-    fun onContinueButtonClicked(){
-        if (args.showIntro){
+    fun onContinueButtonClicked() {
+        if (args.showIntro) {
             findNavController().navigate(R.id.introFragment)
-        }else{
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToFirstSyncFragment(args.userData)
+        } else {
+            val action =
+                WelcomeFragmentDirections.actionWelcomeFragmentToFirstSyncFragment(args.userData)
             findNavController().navigate(action)
         }
     }

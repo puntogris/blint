@@ -7,7 +7,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -15,10 +14,10 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.fragment_records_tab) {
 
-    private val viewModel: ManageOrdersViewModel by viewModels(ownerProducer = {requireParentFragment()} )
+    private val viewModel: ManageOrdersViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
-        val recordsAdapter = RecordsAdapter{onRecordClickedListener(it)}
+        val recordsAdapter = RecordsAdapter { onRecordClickedListener(it) }
         binding.recyclerView.apply {
             adapter = recordsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -31,8 +30,9 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
         }
     }
 
-    private fun onRecordClickedListener(record:Record){
-        val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToRecordInfoBottomSheet(record)
+    private fun onRecordClickedListener(record: Record) {
+        val action =
+            ManageOrdersFragmentDirections.actionManageOrdersFragmentToRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }
 

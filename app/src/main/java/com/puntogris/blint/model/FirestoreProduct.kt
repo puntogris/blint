@@ -6,7 +6,7 @@ import java.util.*
 
 @Keep
 data class FirestoreProduct(
-    val productId: String = "",
+    val productId: Int = 0,
     val name: String = "",
     val barcode: String = "",
     val description: String = "",

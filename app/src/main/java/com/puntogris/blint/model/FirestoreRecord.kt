@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FirestoreRecord(
     var amount: Int = 0,
-    val productId: String = "",
+    val productId: Int = 0,
     val productName:String = "",
     var recordId: String = "",
     val value: Float = 0F,

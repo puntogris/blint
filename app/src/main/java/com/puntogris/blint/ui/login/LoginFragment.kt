@@ -36,10 +36,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun registerActivityResultLauncher() {
         loginActivityResultLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                   // onLoginFinished()
-                    authGoogleUserIntoServer(it)
-                }
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                // onLoginFinished()
+                authGoogleUserIntoServer(it)
+            }
     }
 
     private fun authGoogleUserIntoServer(result: ActivityResult) {
@@ -52,12 +52,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         when (result) {
             is LoginResult.Error -> {
                 UiInterface.showSnackBar(
-                        getString(R.string.snack_error_connection_server_try_later)
+                    getString(R.string.snack_error_connection_server_try_later)
                 )
-               // onLoginError()
+                // onLoginError()
             }
             LoginResult.InProgress -> {
-              //  onLoginStarted()
+                //  onLoginStarted()
             }
             is LoginResult.Success -> {
                 findNavController().navigate(R.id.mainFragment)
@@ -67,7 +67,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     fun startLoginWithGoogle() {
-     //   onLoginStarted()
+        //   onLoginStarted()
         val intent = viewModel.getGoogleSignInIntent()
         loginActivityResultLauncher.launch(intent)
     }
@@ -77,7 +77,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             when (viewModel.registerAnonymousUser()) {
                 SimpleResult.Failure -> {
                     UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                 //   onLoginError()
+                    //   onLoginError()
                 }
                 SimpleResult.Success -> {
                     findNavController().navigate(R.id.welcomeFragment)
@@ -86,7 +86,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         }
     }
 
-    fun onLoginProblemsClicked(){
+    fun onLoginProblemsClicked() {
         findNavController().navigate(R.id.action_loginFragment_to_loginProblemsFragment)
     }
 }

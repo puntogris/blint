@@ -11,7 +11,7 @@ interface SuppliersDao {
     suspend fun insert(supplier: Supplier)
 
     @Query("DELETE FROM supplier WHERE supplierId = :supplierId")
-    suspend fun delete(supplierId: String)
+    suspend fun delete(supplierId: Int)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")

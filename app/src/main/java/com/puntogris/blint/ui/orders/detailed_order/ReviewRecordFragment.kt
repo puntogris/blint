@@ -11,7 +11,8 @@ import com.puntogris.blint.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.fragment_review_record) {
+class ReviewRecordFragment :
+    BaseFragment<FragmentReviewRecordBinding>(R.layout.fragment_review_record) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
@@ -20,7 +21,12 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
     override fun initializeViews() {
         binding.viewModel = viewModel
-        UiInterface.registerUi(showFab = true, showAppBar = false, showFabCenter = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24){
+        UiInterface.registerUi(
+            showFab = true,
+            showAppBar = false,
+            showFabCenter = false,
+            fabIcon = R.drawable.ic_baseline_arrow_forward_24
+        ) {
             val orderValue = viewModel.order.value?.value!!
             when {
                 discount > orderValue -> UiInterface.showSnackBar(getString(R.string.snack_discount_limit))
@@ -38,18 +44,18 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         binding.debtText.apply {
             setOnFocusChangeListener { _, _ -> hideKeyboard() }
             val items = resources.getStringArray(R.array.debt_type)
-            setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
+            setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items))
             setOnItemClickListener { _, _, i, _ ->
-                when(i){
+                when (i) {
                     0 -> {
                         binding.debtAmount.gone()
                         binding.debtAmountText.setText("")
                         viewModel.updateOrderDebt(0F)
                     }
                     1 -> {
-                        if (viewModel.order.value?.traderId!!.isNotEmpty()){
+                        if (viewModel.order.value?.traderId!! != 0) {
                             binding.debtAmount.visible()
-                        }else{
+                        } else {
                             UiInterface.showSnackBar(getString(R.string.snack_order_debt_trader_alert))
                             binding.debtText.setText(items[0])
                         }
@@ -59,7 +65,7 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
             }
         }
 
-        binding.debtAmountText.addTextChangedListener{
+        binding.debtAmountText.addTextChangedListener {
             debt = if (it.toString().isBlank()) 0F else it.toString().toFloat()
             updateSummary()
         }
@@ -67,10 +73,10 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         binding.discountText.addTextChangedListener {
             val value = it.toString()
             val orderValue = viewModel.order.value?.value!!
-            discount = if (value.isNotEmpty()){
+            discount = if (value.isNotEmpty()) {
                 when {
                     binding.changeValueTypeText.getString() == "%" -> {
-                         (orderValue * value.toFloat() / 100)
+                        (orderValue * value.toFloat() / 100)
                     }
                     binding.changeValueTypeText.getString() == "$" -> {
                         value.toFloat()
@@ -84,18 +90,24 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
 
         binding.changeValueTypeText.apply {
             setOnFocusChangeListener { _, _ -> hideKeyboard() }
-            setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item_list, listOf("%", "$")))
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item_list,
+                    listOf("%", "$")
+                )
+            )
             setOnItemClickListener { _, _, i, _ ->
                 val value = binding.discountText.getString()
                 val orderValue = viewModel.order.value?.value!!
 
-                discount = if (value.isNotEmpty()){
-                    when(i){
+                discount = if (value.isNotEmpty()) {
+                    when (i) {
                         0 -> (orderValue * value.toFloat() / 100)
                         1 -> value.toFloat()
                         else -> 0F
                     }
-                }else 0F
+                } else 0F
 
                 binding.totalText.text = (orderValue - discount).toMoneyFormatted()
                 updateSummary()
@@ -103,10 +115,11 @@ class ReviewRecordFragment: BaseFragment<FragmentReviewRecordBinding>(R.layout.f
         }
     }
 
-    private fun updateSummary(){
+    private fun updateSummary() {
         val orderValue = viewModel.order.value?.value!!
         binding.debtSummary.text =
-            getString(R.string.order_debt_amount_summary,
+            getString(
+                R.string.order_debt_amount_summary,
                 (orderValue - discount - debt).toMoneyFormatted(),
                 (orderValue - discount).toMoneyFormatted()
             )

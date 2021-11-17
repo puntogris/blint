@@ -23,18 +23,18 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = true){
+        UiInterface.registerUi(showFab = true) {
             onModifyDebtButtonClicked()
         }
 
         launchAndRepeatWithViewLifecycle {
-            if (args.client != null){
+            if (args.client != null) {
                 args.client?.let {
                     it.debt.let {
 
                     }
                     binding.textView184.setDebtColor(it.debt)
-                    when(val debts = viewModel.getLastDebts(it.clientId)){
+                    when (val debts = viewModel.getLastDebts(it.clientId)) {
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
                         is RepoResult.Success -> {
@@ -42,10 +42,10 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
                         }
                     }
                 }
-            }else {
+            } else {
                 args.supplier?.let {
                     binding.textView184.setDebtColor(it.debt)
-                    when(val debts = viewModel.getLastDebts(it.supplierId)){
+                    when (val debts = viewModel.getLastDebts(it.supplierId)) {
                         is RepoResult.Error -> {}
                         RepoResult.InProgress -> {}
                         is RepoResult.Success -> {
@@ -56,13 +56,13 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
             }
         }
 
-        onBackStackLiveData<Float>(UPDATE_DEBT_KEY){ deb->
-            if (args.client != null){
+        onBackStackLiveData<Float>(UPDATE_DEBT_KEY) { deb ->
+            if (args.client != null) {
                 args.client?.let { client ->
                     binding.textView184.setDebtColor(client.debt + deb)
                     client.debt += deb
                 }
-            }else{
+            } else {
                 args.supplier?.let { sup ->
                     binding.textView184.setDebtColor(sup.debt + deb)
                     sup.debt += deb
@@ -72,29 +72,30 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
 
     }
 
-    private fun setUpDebtsRecyclerView(debts: List<Debt>){
+    private fun setUpDebtsRecyclerView(debts: List<Debt>) {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         debtsAdapter = DebtsAdapter { onDebtClicked(it) }
         binding.recyclerView.adapter = debtsAdapter
         debtsAdapter.submitList(debts)
     }
 
-    private fun onDebtClicked(debt: Debt){
+    private fun onDebtClicked(debt: Debt) {
 
     }
 
-    fun onModifyDebtButtonClicked(){
+    fun onModifyDebtButtonClicked() {
         val debt = Debt()
         if (args.client != null) {
             debt.type = CLIENT
             debt.traderName = args.client?.name.toString()
-            debt.traderId = args.client?.clientId.toString()
-        }else{
+            debt.traderId = args.client?.clientId ?: 0
+        } else {
             debt.type = SUPPLIER
             debt.traderName = args.supplier?.companyName.toString()
-            debt.traderId = args.supplier?.supplierId.toString()
+            debt.traderId = args.supplier?.supplierId ?: 0
         }
-        val action = DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(debt = debt)
+        val action =
+            DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(debt = debt)
         findNavController().navigate(action)
     }
 

@@ -18,7 +18,7 @@ class HelpFragment : BaseFragment<FragmentHelpBinding>(R.layout.fragment_help) {
         }
     }
 
-    fun onCreateTicketClicked(){
+    fun onCreateTicketClicked() {
         findNavController().navigate(R.id.sendTicketFragment)
     }
 }

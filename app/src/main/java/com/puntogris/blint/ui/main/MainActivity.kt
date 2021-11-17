@@ -37,14 +37,16 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    override fun registerUi(showFab: Boolean,
-                            showAppBar: Boolean,
-                            showToolbar: Boolean,
-                            showFabCenter: Boolean,
-                            @DrawableRes fabIcon: Int,
-                            fabListener: View.OnClickListener?) {
+    override fun registerUi(
+        showFab: Boolean,
+        showAppBar: Boolean,
+        showToolbar: Boolean,
+        showFabCenter: Boolean,
+        @DrawableRes fabIcon: Int,
+        fabListener: View.OnClickListener?
+    ) {
         if (showToolbar) binding.toolbar.visible() else binding.toolbar.gone()
         if (showFab) {
             binding.fab.apply {
@@ -85,8 +87,12 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.fab.changeIconFromDrawable(fabIcon)
     }
 
-
-    override fun showSnackBar(message: String, duration: Int, actionText: Int, action: View.OnClickListener?){
+    override fun showSnackBar(
+        message: String,
+        duration: Int,
+        actionText: Int,
+        action: View.OnClickListener?
+    ) {
         Snackbar.make(binding.root, message, duration).apply {
             anchorView = when {
                 binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
@@ -123,19 +129,20 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.accountStatus.collect {
-                    when(it){
+                    when (it) {
                         AccountStatus.Error -> {}
                         is AccountStatus.OutOfSync -> {
-                            if(sharedPref.loginCompletedPref()){
-                                val nav = NavOptions.Builder().setPopUpTo(navController.graph.startDestination, true).build()
+                            if (sharedPref.loginCompletedPref()) {
+                                val nav = NavOptions.Builder()
+                                    .setPopUpTo(navController.graph.startDestination, true).build()
                                 navController.navigate(R.id.outOfSyncFragment, null, nav)
                             }
                         }
                         is AccountStatus.Synced -> {
-                            if(it.hasBusiness) {
-                                if (sharedPref.showNewUserScreenPref()){
+                            if (it.hasBusiness) {
+                                if (sharedPref.showNewUserScreenPref()) {
                                     sharedPref.setShowNewUserScreenPref(false)
                                     if (navController.currentDestination?.id == R.id.newUserFragment)
                                         navController.navigate(R.id.mainFragment)
@@ -163,12 +170,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
                 startDestination =
-                    if (viewModel.isUserLoggedIn() && sharedPref.loginCompletedPref()) {
-                        when {
-                            sharedPref.showNewUserScreenPref() -> R.id.newUserFragment
-                            else -> R.id.mainFragment
-                        }
-                    } else R.id.loginFragment
+                    if (sharedPref.loginCompletedPref()) R.id.loginFragment
+                    else R.id.mainFragment
             }
         binding.run {
             navController.addOnDestinationChangedListener(this@MainActivity)
@@ -203,12 +206,13 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (navMenu != NavMenu.HOME &&
             navMenu != NavMenu.SETTINGS &&
             navMenu != NavMenu.NOTIFICATIONS &&
-            viewModel.currentUser.value.businessStatus != ENABLED) {
-                showSnackBar(getString(R.string.action_require_permissions)){
-                    launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-                }
-        }else{
-            when(navMenu){
+            viewModel.currentUser.value.businessStatus != ENABLED
+        ) {
+            showSnackBar(getString(R.string.action_require_permissions)) {
+                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
+            }
+        } else {
+            when (navMenu) {
                 NavMenu.HOME -> R.id.mainFragment
                 NavMenu.PRODUCTS -> R.id.manageProductsFragment
                 NavMenu.CLIENTS -> R.id.manageClientsFragment
@@ -221,7 +225,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         bottomNavDrawer.close()
     }
 
-    private fun setUpBottomDrawer(){
+    private fun setUpBottomDrawer() {
         bottomNavDrawer.apply {
             addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
                 this@MainActivity.binding.bottomAppBar.replaceMenu(
@@ -270,5 +274,4 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
         navigateToMenuDestinations(item.navMenu)
     }
-
 }

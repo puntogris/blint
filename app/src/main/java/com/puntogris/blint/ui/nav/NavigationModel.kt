@@ -71,7 +71,7 @@ object NavigationModel {
         )
     )
 
-    private val secondaryItems= listOf(
+    private val secondaryItems = listOf(
         NavigationModelItem.NavMenuItem(
             id = NOTIFICATIONS_ID,
             icon = R.drawable.ic_twotone_notifications_24,
@@ -85,7 +85,8 @@ object NavigationModel {
             titleRes = R.string.settings_label,
             checked = false,
             navMenu = NavMenu.SETTINGS
-        ))
+        )
+    )
 
     private val _navigationList: MutableLiveData<List<NavigationModelItem>> = MutableLiveData()
     val navigationList: LiveData<List<NavigationModelItem>>
@@ -115,7 +116,7 @@ object NavigationModel {
 
     private fun postListUpdate() {
         val newList = navigationMenuItems +
-                    (NavigationModelItem.NavDivider("Configuracion")) + secondaryItems
+                (NavigationModelItem.NavDivider("Configuracion")) + secondaryItems
 
         _navigationList.value = newList
     }

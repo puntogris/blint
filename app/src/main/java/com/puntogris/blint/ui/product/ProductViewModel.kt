@@ -56,7 +56,7 @@ class ProductViewModel @Inject constructor(
         _currentProduct.value.product.image = image
     }
 
-    suspend fun getProductRecords(productId: String) =
+    suspend fun getProductRecords(productId: Int) =
         productRepository.getProductRecordsPagingDataFlow(productId).cachedIn(viewModelScope)
 
     suspend fun saveProductDatabase(): SimpleResult {
@@ -67,6 +67,6 @@ class ProductViewModel @Inject constructor(
        return productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
     }
 
-    suspend fun deleteProductDatabase(productId: String) = productRepository.deleteProductDatabase(productId)
+    suspend fun deleteProductDatabase(productId: Int) = productRepository.deleteProductDatabase(productId)
 
 }

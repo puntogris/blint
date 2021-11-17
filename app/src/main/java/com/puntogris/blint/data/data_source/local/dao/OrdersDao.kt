@@ -22,10 +22,10 @@ interface OrdersDao {
     suspend fun insert(debt: Debt)
 
     @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
-    suspend fun updateClientDebt(clientId: String, amount: Float)
+    suspend fun updateClientDebt(clientId: Int, amount: Float)
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: String, amount: Float)
+    suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
 
     @Transaction
     suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>){
@@ -62,10 +62,10 @@ interface OrdersDao {
     }
 
     @Query("UPDATE product SET totalInStock = :amount + totalInStock WHERE productId = :id")
-    suspend fun updateProductTotalInStock(id: String, amount: Int)
+    suspend fun updateProductTotalInStock(id: Int, amount: Int)
 
     @Query("UPDATE product SET totalOutStock = :amount + totalOutStock WHERE productId = :id")
-    suspend fun updateProductTotalOutStock(id: String, amount: Int)
+    suspend fun updateProductTotalOutStock(id: Int, amount: Int)
 
     @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)
@@ -84,7 +84,7 @@ interface OrdersDao {
     suspend fun incrementTotalOrders()
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
-    suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
+    suspend fun updateProductAmountWithType(id: Int, amount: Int, type: String)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp DESC")
@@ -92,7 +92,7 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record WHERE :productID = productId ORDER BY timestamp DESC")
-    fun getProductRecordsPaged(productID: String): PagingSource<Int, Record>
+    fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
@@ -100,11 +100,11 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'IN'")
-    fun getSupplierRecords(externalID: String): PagingSource<Int, Record>
+    fun getSupplierRecords(externalID: Int): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND traderId = :externalID AND type = 'OUT'")
-    fun getClientsRecords(externalID: String): PagingSource<Int, Record>
+    fun getClientsRecords(externalID: Int): PagingSource<Int, Record>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns

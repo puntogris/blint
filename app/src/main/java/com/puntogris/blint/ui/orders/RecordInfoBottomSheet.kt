@@ -9,14 +9,15 @@ import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.visible
 
-class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBinding>(R.layout.record_info_bottom_sheet) {
+class RecordInfoBottomSheet :
+    BaseBottomSheetFragment<RecordInfoBottomSheetBinding>(R.layout.record_info_bottom_sheet) {
 
-    private val args:RecordInfoBottomSheetArgs by navArgs()
+    private val args: RecordInfoBottomSheetArgs by navArgs()
 
     override fun initializeViews() {
         binding.record = args.record
         binding.bottomSheet = this
-        if (args.record.type == INITIAL){
+        if (args.record.type == INITIAL) {
             binding.button23.gone()
             binding.chipGroup.gone()
             binding.externalNameTitle.gone()
@@ -24,7 +25,7 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
         }
     }
 
-    fun onExternalChipClicked(){
+    fun onExternalChipClicked() {
 //        if(args.record.traderId.isNotEmpty()){
 //            when(args.record.type){
 //                "IN"-> {
@@ -39,8 +40,9 @@ class RecordInfoBottomSheet: BaseBottomSheetFragment<RecordInfoBottomSheetBindin
 //        }
     }
 
-    fun onNavigateToFullOrder(){
-        val action = RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToOrderFragment(args.record.orderId)
+    fun onNavigateToFullOrder() {
+        val action =
+            RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToOrderFragment(args.record.orderId)
         findNavController().navigate(action)
     }
 }

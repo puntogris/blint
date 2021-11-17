@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ManageProductsVhBinding
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 
-class ManageProductsViewHolder private constructor(val binding: ManageProductsVhBinding) : RecyclerView.ViewHolder(binding.root){
+class ManageProductsViewHolder private constructor(val binding: ManageProductsVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(
         product: ProductWithSuppliersCategories,
-        shortClickListener: (ProductWithSuppliersCategories)-> Unit,
-        longClickListener: (ProductWithSuppliersCategories)-> Unit) {
+        shortClickListener: (ProductWithSuppliersCategories) -> Unit,
+        longClickListener: (ProductWithSuppliersCategories) -> Unit
+    ) {
         binding.product = product
         binding.root.setOnClickListener { shortClickListener(product) }
         binding.root.setOnLongClickListener {
@@ -20,10 +22,10 @@ class ManageProductsViewHolder private constructor(val binding: ManageProductsVh
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): ManageProductsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ManageProductsVhBinding.inflate(layoutInflater,parent, false)
+            val binding = ManageProductsVhBinding.inflate(layoutInflater, parent, false)
             return ManageProductsViewHolder(binding)
         }
     }

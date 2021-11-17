@@ -17,7 +17,7 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    fun providesEmployeesDao(appDatabase: AppDatabase) =  appDatabase.employeesDao()
+    fun providesEmployeesDao(appDatabase: AppDatabase) = appDatabase.employeesDao()
 
     @Provides
     fun providesClientsDao(appDatabase: AppDatabase) = appDatabase.clientsDao()

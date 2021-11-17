@@ -18,23 +18,24 @@ class ClientViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _currentClient = MutableStateFlow(Client())
-    val currentClient : LiveData<Client> = _currentClient.asLiveData()
+    val currentClient: LiveData<Client> = _currentClient.asLiveData()
 
-    suspend fun getClientsRecords(clientId: String) =
+    suspend fun getClientsRecords(clientId: Int) =
         clientRepository.getClientRecordsPagingDataFlow(clientId).cachedIn(viewModelScope)
 
-    suspend fun saveClientDatabase():SimpleResult {
+    suspend fun saveClientDatabase(): SimpleResult {
         _currentClient.value.name = _currentClient.value.name.lowercase()
         return clientRepository.saveClientDatabase(_currentClient.value)
     }
 
-    suspend fun deleteClientDatabase(clientId:String) = clientRepository.deleteClientDatabase(clientId)
+    suspend fun deleteClientDatabase(clientId: Int) =
+        clientRepository.deleteClientDatabase(clientId)
 
-    fun setClientData(client: Client){
+    fun setClientData(client: Client) {
         _currentClient.value = client
     }
 
-    fun updateClientData(client: Client){
+    fun updateClientData(client: Client) {
         client.clientId = _currentClient.value.clientId
         _currentClient.value = client
     }

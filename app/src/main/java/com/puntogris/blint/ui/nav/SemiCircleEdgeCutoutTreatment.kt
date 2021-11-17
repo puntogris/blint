@@ -40,11 +40,11 @@ private const val ANGLE_LEFT = 180
  *      cutout should be drawn.
  */
 class SemiCircleEdgeCutoutTreatment(
-        private var cutoutMargin: Float = 0F,
-        private var cutoutRoundedCornerRadius: Float = 0F,
-        private var cutoutVerticalOffset: Float = 0F,
-        private var cutoutDiameter: Float = 0F,
-        private var cutoutHorizontalOffset: Float = 0F
+    private var cutoutMargin: Float = 0F,
+    private var cutoutRoundedCornerRadius: Float = 0F,
+    private var cutoutVerticalOffset: Float = 0F,
+    private var cutoutDiameter: Float = 0F,
+    private var cutoutHorizontalOffset: Float = 0F
 ) : EdgeTreatment() {
 
     private var cradleDiameter = 0F
@@ -69,10 +69,10 @@ class SemiCircleEdgeCutoutTreatment(
     }
 
     override fun getEdgePath(
-            length: Float,
-            center: Float,
-            interpolation: Float,
-            shapePath: ShapePath
+        length: Float,
+        center: Float,
+        interpolation: Float,
+        shapePath: ShapePath
     ) {
         if (cutoutDiameter == 0f) {
             // There is no cutout to draw.
@@ -106,7 +106,7 @@ class SemiCircleEdgeCutoutTreatment(
         distanceBetweenCentersSquared = distanceBetweenCenters * distanceBetweenCenters
         distanceY = verticalOffset + roundedCornerOffset
         distanceX = sqrt(
-                (distanceBetweenCentersSquared - distanceY * distanceY).toDouble()
+            (distanceBetweenCentersSquared - distanceY * distanceY).toDouble()
         ).toFloat()
 
         // Calculate the x position of the rounded corner circles.
@@ -115,7 +115,7 @@ class SemiCircleEdgeCutoutTreatment(
 
         // Calculate the arc between the center of the two circles.
         cornerRadiusArcLength = Math.toDegrees(
-                atan((distanceX / distanceY).toDouble())
+            atan((distanceX / distanceY).toDouble())
         ).toFloat()
         cutoutArcOffset = ARC_QUARTER - cornerRadiusArcLength
 
@@ -125,31 +125,34 @@ class SemiCircleEdgeCutoutTreatment(
         // Draw the arc for the left rounded corner circle. The bounding box is the area around the
         // circle's center which is at (leftRoundedCornerCircleX, roundedCornerOffset).
         shapePath.addArc(
-                leftRoundedCornerCircleX - roundedCornerOffset,
-                0f,
-                leftRoundedCornerCircleX + roundedCornerOffset,
-                roundedCornerOffset * 2,
-                ANGLE_UP.toFloat(),
-                cornerRadiusArcLength)
+            leftRoundedCornerCircleX - roundedCornerOffset,
+            0f,
+            leftRoundedCornerCircleX + roundedCornerOffset,
+            roundedCornerOffset * 2,
+            ANGLE_UP.toFloat(),
+            cornerRadiusArcLength
+        )
 
         // Draw the cutout circle.
         shapePath.addArc(
-                middle - cradleRadius,
-                -cradleRadius - verticalOffset,
-                middle + cradleRadius,
-                cradleRadius - verticalOffset,
-                ANGLE_LEFT - cutoutArcOffset,
-                cutoutArcOffset * 2 - ARC_HALF)
+            middle - cradleRadius,
+            -cradleRadius - verticalOffset,
+            middle + cradleRadius,
+            cradleRadius - verticalOffset,
+            ANGLE_LEFT - cutoutArcOffset,
+            cutoutArcOffset * 2 - ARC_HALF
+        )
 
         // Draw an arc for the right rounded corner circle. The bounding box is the area around the
         // circle's center which is at (rightRoundedCornerCircleX, roundedCornerOffset).
         shapePath.addArc(
-                rightRoundedCornerCircleX - roundedCornerOffset,
-                0f,
-                rightRoundedCornerCircleX + roundedCornerOffset,
-                roundedCornerOffset * 2,
-                ANGLE_UP - cornerRadiusArcLength,
-                cornerRadiusArcLength)
+            rightRoundedCornerCircleX - roundedCornerOffset,
+            0f,
+            rightRoundedCornerCircleX + roundedCornerOffset,
+            roundedCornerOffset * 2,
+            ANGLE_UP - cornerRadiusArcLength,
+            cornerRadiusArcLength
+        )
 
         // Draw the ending line after the right rounded corner.
         shapePath.lineTo(length, 0f)

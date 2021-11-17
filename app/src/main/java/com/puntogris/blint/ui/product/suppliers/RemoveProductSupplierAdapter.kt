@@ -5,9 +5,10 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.FirestoreSupplierDiffCallBack
 import com.puntogris.blint.model.FirestoreSupplier
 
-class RemoveProductSupplierAdapter(private val clickListener: (FirestoreSupplier)-> Unit): ListAdapter<FirestoreSupplier, RemoveProductSupplierViewHolder>(
-    FirestoreSupplierDiffCallBack()
-) {
+class RemoveProductSupplierAdapter(private val clickListener: (FirestoreSupplier) -> Unit) :
+    ListAdapter<FirestoreSupplier, RemoveProductSupplierViewHolder>(
+        FirestoreSupplierDiffCallBack()
+    ) {
 
     private var suppliers = mutableListOf<FirestoreSupplier>()
 
@@ -15,7 +16,7 @@ class RemoveProductSupplierAdapter(private val clickListener: (FirestoreSupplier
         submitList(suppliers)
     }
 
-    fun initialSuppliers(list:MutableList<FirestoreSupplier>){
+    fun initialSuppliers(list: MutableList<FirestoreSupplier>) {
         suppliers = list
     }
 
@@ -23,18 +24,23 @@ class RemoveProductSupplierAdapter(private val clickListener: (FirestoreSupplier
 
     override fun getItemCount() = suppliers.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemoveProductSupplierViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): RemoveProductSupplierViewHolder {
         return RemoveProductSupplierViewHolder.from(parent)
     }
+
     override fun onBindViewHolder(holder: RemoveProductSupplierViewHolder, position: Int) {
         holder.bind(suppliers[position], clickListener)
     }
 
-    fun addSupplier(supplier: FirestoreSupplier){
+    fun addSupplier(supplier: FirestoreSupplier) {
         if (!suppliers.contains(supplier)) suppliers.add(supplier)
         notifyDataSetChanged()
     }
-    fun removeSupplier(supplier: FirestoreSupplier){
+
+    fun removeSupplier(supplier: FirestoreSupplier) {
         suppliers.remove(supplier)
         notifyDataSetChanged()
     }

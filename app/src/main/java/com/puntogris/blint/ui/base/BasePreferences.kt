@@ -8,7 +8,7 @@ import androidx.annotation.XmlRes
 import androidx.preference.PreferenceFragmentCompat
 import com.puntogris.blint.utils.UiInterface
 
-abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompat() {
+abstract class BasePreferences(@XmlRes val layout: Int) : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(layout, rootKey)
@@ -24,6 +24,6 @@ abstract class BasePreferences(@XmlRes val layout: Int): PreferenceFragmentCompa
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    open fun initializeViews(){}
+    open fun initializeViews() {}
 
 }

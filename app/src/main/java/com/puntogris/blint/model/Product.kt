@@ -12,8 +12,9 @@ import kotlinx.parcelize.Parcelize
 @IgnoreExtraProperties
 @Keep
 data class Product(
-    @PrimaryKey
-    var productId: String = "",
+
+    @PrimaryKey(autoGenerate = true)
+    var productId: Int = 0,
 
     @ColumnInfo
     var name: String = "",

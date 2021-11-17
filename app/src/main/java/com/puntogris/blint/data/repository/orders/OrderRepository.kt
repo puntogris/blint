@@ -12,7 +12,6 @@ import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.FirestoreQueries
-import com.puntogris.blint.data.data_source.remote.deserializers.OrderDeserializer
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.IN

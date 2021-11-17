@@ -28,13 +28,12 @@ class ClientRepository @Inject constructor(
     override suspend fun saveClientDatabase(client: Client): SimpleResult =
         withContext(Dispatchers.IO) {
             try {
-                val isNewClient = client.clientId.isEmpty()
+                val isNewClient = client.clientId == 0
                 val user = currentBusiness()
 
                 if (isNewClient) {
                     client.apply {
                         businessId = user.businessId
-                        clientId = "" //todo room id
                     }
                 }
 
@@ -60,7 +59,7 @@ class ClientRepository @Inject constructor(
             }.flow
         }
 
-    override suspend fun deleteClientDatabase(clientId: String): SimpleResult =
+    override suspend fun deleteClientDatabase(clientId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
             try {
                 clientsDao.delete(clientId)
@@ -72,7 +71,7 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override suspend fun getClientRecordsPagingDataFlow(clientId: String): Flow<PagingData<Record>> =
+    override suspend fun getClientRecordsPagingDataFlow(clientId: Int): Flow<PagingData<Record>> =
         withContext(Dispatchers.IO) {
             Pager(
                 PagingConfig(

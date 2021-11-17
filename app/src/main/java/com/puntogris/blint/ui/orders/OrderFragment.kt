@@ -49,11 +49,17 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             adapter = ordersAdapter
         }
 
-        if (!args.orderId.isNullOrEmpty()){
+        if (!args.orderId.isNullOrEmpty()) {
             lifecycleScope.launch {
                 val order = viewModel.fetchOrderRecords(args.orderId.toString())
-                if (!order.records.isNullOrEmpty()){
-                    ordersAdapter.submitList(order.records.map { OrdersTableItem(it.productName, it.amount, it.value) })
+                if (!order.records.isNullOrEmpty()) {
+                    ordersAdapter.submitList(order.records.map {
+                        OrdersTableItem(
+                            it.productName,
+                            it.amount,
+                            it.value
+                        )
+                    })
                     viewModel.updateOrder(order)
                     viewModel.order.value?.records?.let { orderItems ->
                         val tableItems = orderItems.map {
@@ -63,7 +69,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                     }
                 }
             }
-        }else {
+        } else {
             args.order?.let {
                 viewModel.updateOrder(it)
             }
@@ -75,28 +81,38 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             }
         }
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()){ uri->
-            try {
-                requireActivity().contentResolver.openOutputStream(uri)?.let {
-                    createPdf(it)
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
+                try {
+                    requireActivity().contentResolver.openOutputStream(uri)?.let {
+                        createPdf(it)
+                    }
+                    UiInterface.showSnackBar(getString(R.string.snack_invoice_saved_success))
+                } catch (e: Exception) {
+                    UiInterface.showSnackBar(getString(R.string.snack_invoice_save_error))
                 }
-                UiInterface.showSnackBar(getString(R.string.snack_invoice_saved_success))
-            }catch (e:Exception){
-                UiInterface.showSnackBar(getString(R.string.snack_invoice_save_error))
             }
-        }
     }
 
-    fun onGenerateOrderReceiptClicked(){
-        OptionsSheet().build(requireContext()){
+    fun onGenerateOrderReceiptClicked() {
+        OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.GRID_HORIZONTAL)
             with(
-                Option(R.drawable.ic_baseline_article_24, this@OrderFragment.getString(R.string.see)),
-                Option(R.drawable.ic_baseline_share_24, this@OrderFragment.getString(R.string.share)),
-                Option(R.drawable.ic_baseline_archive_24,this@OrderFragment.getString(R.string.action_save))
+                Option(
+                    R.drawable.ic_baseline_article_24,
+                    this@OrderFragment.getString(R.string.see)
+                ),
+                Option(
+                    R.drawable.ic_baseline_share_24,
+                    this@OrderFragment.getString(R.string.share)
+                ),
+                Option(
+                    R.drawable.ic_baseline_archive_24,
+                    this@OrderFragment.getString(R.string.action_save)
+                )
             )
             onPositive { index: Int, _: Option ->
-                when(index){
+                when (index) {
                     0 -> onSeeReceipt()
                     1 -> onShareReceipt()
                     2 -> onSaveReceipt()
@@ -141,7 +157,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
     val width = 595
 
-    private fun createPdf(file:OutputStream){
+    private fun createPdf(file: OutputStream) {
         val doc = PdfDocument()
 
         val height = 842
@@ -153,32 +169,56 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
         var canvas = pageCanvas.canvas
         val horizontalMargin = 40F
-        canvas.drawText(getString(R.string.order_number_invoice, viewModel.order.value?.order?.number), horizontalMargin,40f, paintLeft)
-        canvas.drawText("${getString(R.string.business)}: ${viewModel.order.value?.order?.businessName} ", horizontalMargin,70f, paintLeft)
-        canvas.drawText("${getString(R.string.date)}: ${Date().getDateWithTimeFormattedString()}", horizontalMargin,100f, paintLeft)
-        val trader = if (viewModel.order.value?.order?.type == IN) getString(R.string.supplier_label) else getString(R.string.client_label)
-        val traderName = if(viewModel.order.value?.order?.traderName.isNullOrBlank()) getString(R.string.not_specified) else viewModel.order.value?.order?.traderName.toString()
-        canvas.drawText("$trader: $traderName", horizontalMargin,130f, paintLeft)
+        canvas.drawText(
+            getString(
+                R.string.order_number_invoice,
+                viewModel.order.value?.order?.number
+            ), horizontalMargin, 40f, paintLeft
+        )
+        canvas.drawText(
+            "${getString(R.string.business)}: ${viewModel.order.value?.order?.businessName} ",
+            horizontalMargin,
+            70f,
+            paintLeft
+        )
+        canvas.drawText(
+            "${getString(R.string.date)}: ${Date().getDateWithTimeFormattedString()}",
+            horizontalMargin,
+            100f,
+            paintLeft
+        )
+        val trader =
+            if (viewModel.order.value?.order?.type == IN) getString(R.string.supplier_label) else getString(
+                R.string.client_label
+            )
+        val traderName =
+            if (viewModel.order.value?.order?.traderName.isNullOrBlank()) getString(R.string.not_specified) else viewModel.order.value?.order?.traderName.toString()
+        canvas.drawText("$trader: $traderName", horizontalMargin, 130f, paintLeft)
 
-        val bitmap:Bitmap = generateQRImage("ORDER:${viewModel.order.value?.order?.orderId.toString()}", 75, 75, true)
+        val bitmap: Bitmap = generateQRImage(
+            "ORDER:${viewModel.order.value?.order?.orderId.toString()}",
+            75,
+            75,
+            true
+        )
         canvas.drawBitmap(bitmap, width.toFloat() - 100, 25f, paintRight)
 
-        canvas.drawLine(horizontalMargin,150f,width - horizontalMargin, 150f, paintCenter)
+        canvas.drawLine(horizontalMargin, 150f, width - horizontalMargin, 150f, paintCenter)
 
         val xRow2 = ((width - 100) / 3f) + horizontalMargin
-        val xRow3 = ((width - 100) / 3f *2) + horizontalMargin
+        val xRow3 = ((width - 100) / 3f * 2) + horizontalMargin
         val xRow4 = width - horizontalMargin
 
         canvas.drawText(getString(R.string.product), horizontalMargin, 190F, paintLeft)
-        canvas.drawText(getString(R.string.sku_caps), xRow2,190f, paintCenter)
-        canvas.drawText(getString(R.string.amount), xRow3 ,190f, paintCenter)
-        canvas.drawText(getString(R.string.value), xRow4, 190f , paintRight)
+        canvas.drawText(getString(R.string.sku_caps), xRow2, 190f, paintCenter)
+        canvas.drawText(getString(R.string.amount), xRow3, 190f, paintCenter)
+        canvas.drawText(getString(R.string.value), xRow4, 190f, paintRight)
 
         var initY = 230F
 
-       viewModel.order.value?.records?.forEachIndexed { i, firestoreRecord ->
-           if (initY >= 730) {
-                if (i == viewModel.order.value?.records!!.size - 1){
+        viewModel.order.value?.records?.forEachIndexed { i, firestoreRecord ->
+            if (initY >= 730) {
+                if (i == viewModel.order.value?.records!!.size - 1) {
                     canvas.drawFooter(width, height, pageNumber, false)
                     pageNumber += 1
                     doc.finishPage(pageCanvas)
@@ -186,10 +226,16 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                     pageCanvas = doc.startPage(page)
                     canvas = pageCanvas.canvas
                     initY = 40f
-                    canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
+                    canvas.drawLine(
+                        horizontalMargin,
+                        initY,
+                        width - horizontalMargin,
+                        initY,
+                        paintCenter
+                    )
                     initY += 50f
                     canvas.drawFooter(width, height, pageNumber, true)
-                }else{
+                } else {
                     canvas.drawFooter(width, height, pageNumber, false)
                     pageNumber += 1
                     doc.finishPage(pageCanvas)
@@ -197,18 +243,34 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                     pageCanvas = doc.startPage(page)
                     canvas = pageCanvas.canvas
                     initY = 40f
-                    canvas.drawLine(horizontalMargin,initY,width - horizontalMargin, initY, paintCenter)
+                    canvas.drawLine(
+                        horizontalMargin,
+                        initY,
+                        width - horizontalMargin,
+                        initY,
+                        paintCenter
+                    )
                     initY += 50f
                 }
-            }else{
-                if (i == viewModel.order.value?.records?.size!! - 1) canvas.drawFooter(width, height, pageNumber, true)
+            } else {
+                if (i == viewModel.order.value?.records?.size!! - 1) canvas.drawFooter(
+                    width,
+                    height,
+                    pageNumber,
+                    true
+                )
             }
             canvas.drawText(firestoreRecord.productName, horizontalMargin, initY, paintLeft)
-            canvas.drawText("Cod.:${firestoreRecord.barcode}", horizontalMargin, initY + 13, paintBarcode)
-            canvas.drawText(firestoreRecord.sku, xRow2,initY, paintLeft)
-            canvas.drawText(firestoreRecord.amount.toString() ,xRow3,initY, paintCenter)
-            canvas.drawText("${firestoreRecord.value}$", xRow4,initY ,paintRight)
-           initY += 50
+            canvas.drawText(
+                "Cod.:${firestoreRecord.barcode}",
+                horizontalMargin,
+                initY + 13,
+                paintBarcode
+            )
+            canvas.drawText(firestoreRecord.sku, xRow2, initY, paintLeft)
+            canvas.drawText(firestoreRecord.amount.toString(), xRow3, initY, paintCenter)
+            canvas.drawText("${firestoreRecord.value}$", xRow4, initY, paintRight)
+            initY += 50
 
         }
         doc.finishPage(pageCanvas)
@@ -217,31 +279,51 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         file.close()
     }
 
-    private fun Canvas.drawFooter(width: Int, height: Int, pageNumber: Int, isLastPage: Boolean){
-        if (isLastPage){
-            drawText("${getString(R.string.total_caps)}:" ,40f, height - 75f, paintLeft)
-            drawText("${viewModel.order.value?.order?.value}$" ,width - 40f, height - 75f ,paintRight)
+    private fun Canvas.drawFooter(width: Int, height: Int, pageNumber: Int, isLastPage: Boolean) {
+        if (isLastPage) {
+            drawText("${getString(R.string.total_caps)}:", 40f, height - 75f, paintLeft)
+            drawText(
+                "${viewModel.order.value?.order?.value}$",
+                width - 40f,
+                height - 75f,
+                paintRight
+            )
         }
-        drawLine(40f, height - 50f,width - 40f, height - 50f, paintCenter)
-        drawText(pageNumber.toString() ,width / 2f, height - 20f ,paintCenter)
-        drawText(getString(R.string.invoice_by_blint) ,width - 40f, height - 25f , blintPaint)
+        drawLine(40f, height - 50f, width - 40f, height - 50f, paintCenter)
+        drawText(pageNumber.toString(), width / 2f, height - 20f, paintCenter)
+        drawText(getString(R.string.invoice_by_blint), width - 40f, height - 25f, blintPaint)
     }
 
-    private fun onSeeReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/${getString(R.string.invoice_file_name, viewModel.order.value?.order?.number)}")
+    private fun onSeeReceipt() {
+        val file = File(
+            requireContext().filesDir.absolutePath + "/${
+                getString(
+                    R.string.invoice_file_name,
+                    viewModel.order.value?.order?.number
+                )
+            }"
+        )
         createPdf(file.outputStream())
         startActivity(
             PdfViewerActivity.launchPdfFromPath(
-            context,
+                context,
                 file.path,
                 getString(R.string.order_number_invoice, viewModel.order.value?.order?.number),
-            "pdf",
-            enableDownload = false
-        ))
+                "pdf",
+                enableDownload = false
+            )
+        )
     }
 
-    private fun onShareReceipt(){
-        val file = File(requireContext().filesDir.absolutePath + "/${getString(R.string.invoice_file_name, viewModel.order.value?.order?.number)}")
+    private fun onShareReceipt() {
+        val file = File(
+            requireContext().filesDir.absolutePath + "/${
+                getString(
+                    R.string.invoice_file_name,
+                    viewModel.order.value?.order?.number
+                )
+            }"
+        )
         createPdf(file.outputStream())
         val uri = FileProvider.getUriForFile(requireContext(), "com.puntogris.blint", file)
         val intent = Intent(Intent.ACTION_SEND)
@@ -250,11 +332,16 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         startActivity(intent)
     }
 
-    private fun onSaveReceipt(){
-        activityResultLauncher.launch(getString(R.string.invoice_file_name, viewModel.order.value?.order?.number))
+    private fun onSaveReceipt() {
+        activityResultLauncher.launch(
+            getString(
+                R.string.invoice_file_name,
+                viewModel.order.value?.order?.number
+            )
+        )
     }
 
-    fun onExternalChipClicked(){
+    fun onExternalChipClicked() {
 //        if(args.order.traderId != 0){
 //            when(args.order.type){
 //                "IN"-> {

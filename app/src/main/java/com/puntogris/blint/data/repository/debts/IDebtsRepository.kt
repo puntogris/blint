@@ -10,7 +10,7 @@ import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IDebtsRepository {
-    suspend fun getLastTraderDebts(traderId: String): RepoResult<List<Debt>>
+    suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>>
     suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult
     suspend fun getBusinessDebtData(): BusinessDebtsData
     suspend fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>>

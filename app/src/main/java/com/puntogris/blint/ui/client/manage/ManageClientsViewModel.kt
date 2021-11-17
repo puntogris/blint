@@ -10,9 +10,10 @@ import javax.inject.Inject
 @HiltViewModel
 class ManageClientsViewModel @Inject constructor(
     private val clientRepository: ClientRepository
-):ViewModel() {
+) : ViewModel() {
 
-    suspend fun getClientPaging() = clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
+    suspend fun getClientPaging() =
+        clientRepository.getClientPagingDataFlow().cachedIn(viewModelScope)
 
     suspend fun getClientsWithName(name: String) =
         clientRepository.getClientWithNamePagingDataFlow(name).cachedIn(viewModelScope)

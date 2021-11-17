@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.client
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
@@ -17,7 +16,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ClientRecordsFragment :BaseFragment<FragmentClientRecordsBinding>(R.layout.fragment_client_records) {
+class ClientRecordsFragment :
+    BaseFragment<FragmentClientRecordsBinding>(R.layout.fragment_client_records) {
 
     private val viewModel: ClientViewModel by viewModels()
 
@@ -29,7 +29,7 @@ class ClientRecordsFragment :BaseFragment<FragmentClientRecordsBinding>(R.layout
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY){
+        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY) {
             lifecycleScope.launch {
                 viewModel.getClientsRecords(it.clientId).collect {
                     recordsAdapter.submitData(it)
@@ -38,7 +38,7 @@ class ClientRecordsFragment :BaseFragment<FragmentClientRecordsBinding>(R.layout
         }
     }
 
-    private fun onRecordClickListener(record: Record){
+    private fun onRecordClickListener(record: Record) {
         (requireParentFragment() as ClientFragment).navigateToInfoRecord(record)
     }
 }

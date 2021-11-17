@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.HelpVhBinding
 import com.puntogris.blint.model.Question
 
-class HelpViewHolder private constructor(private val binding: HelpVhBinding) : RecyclerView.ViewHolder(binding.root) {
+class HelpViewHolder private constructor(private val binding: HelpVhBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(question: Question) {
         binding.question = question
@@ -14,10 +15,10 @@ class HelpViewHolder private constructor(private val binding: HelpVhBinding) : R
         binding.executePendingBindings()
     }
 
-    companion object{
+    companion object {
         fun from(parent: ViewGroup): HelpViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = HelpVhBinding.inflate(layoutInflater,parent, false)
+            val binding = HelpVhBinding.inflate(layoutInflater, parent, false)
             return HelpViewHolder(binding)
         }
     }

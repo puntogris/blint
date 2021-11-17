@@ -5,8 +5,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.OrderTableItemDiffCallBack
 import com.puntogris.blint.model.OrdersTableItem
 
-class OrdersTableAdapter: ListAdapter<OrdersTableItem, OrdersTableItemViewHolder>(
-    OrderTableItemDiffCallBack()) {
+class OrdersTableAdapter : ListAdapter<OrdersTableItem, OrdersTableItemViewHolder>(
+    OrderTableItemDiffCallBack()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdersTableItemViewHolder {
         return OrdersTableItemViewHolder.from(parent)

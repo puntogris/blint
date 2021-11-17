@@ -6,7 +6,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.OrderInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 
-class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>(R.layout.order_info_bottom_sheet) {
+class OrderInfoBottomSheet :
+    BaseBottomSheetFragment<OrderInfoBottomSheetBinding>(R.layout.order_info_bottom_sheet) {
 
     private val args: OrderInfoBottomSheetArgs by navArgs()
 
@@ -15,7 +16,7 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
         binding.bottomSheet = this
     }
 
-    fun onExternalChipClicked(){
+    fun onExternalChipClicked() {
 //        if(args.order.traderId.isNotEmpty()){
 //            when(args.order.type){
 //                "IN"-> {
@@ -30,8 +31,9 @@ class OrderInfoBottomSheet: BaseBottomSheetFragment<OrderInfoBottomSheetBinding>
 //        }
     }
 
-    fun onNavigateToFullOrder(){
-        val action = OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToOrderFragment(order = args.order)
+    fun onNavigateToFullOrder() {
+        val action =
+            OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToOrderFragment(order = args.order)
         findNavController().navigate(action)
     }
 }

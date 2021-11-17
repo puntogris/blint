@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface IProductRepository {
     suspend fun saveProductDatabase(product: ProductWithSuppliersCategories, imageChanged: Boolean = false): SimpleResult
     suspend fun getProductsPagingDataFlow(): Flow<PagingData<ProductWithSuppliersCategories>>
-    suspend fun deleteProductDatabase(productId:String): SimpleResult
+    suspend fun deleteProductDatabase(productId:Int): SimpleResult
     suspend fun getProductsWithNamePagingDataFlow(search: SearchText): Flow<PagingData<ProductWithSuppliersCategories>>
-    suspend fun getProductRecordsPagingDataFlow(productId: String): Flow<PagingData<Record>>
+    suspend fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>>
     suspend fun getProductWithBarcode(barcode:String): RepoResult<ProductWithSuppliersCategories>
 }

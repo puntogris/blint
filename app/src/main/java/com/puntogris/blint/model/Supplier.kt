@@ -13,8 +13,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Supplier(
 
-    @PrimaryKey
-    var supplierId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var supplierId: Int = 0,
 
     @ColumnInfo
     var companyName: String = "",

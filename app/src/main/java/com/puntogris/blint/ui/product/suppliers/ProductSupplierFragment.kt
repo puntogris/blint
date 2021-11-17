@@ -10,16 +10,20 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
 import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CATEGORIES_SUPPLIERS_LIMIT
 import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.gone
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.layout.fragment_product_supplier) {
+class ProductSupplierFragment :
+    BaseFragment<FragmentProductSupplierBinding>(R.layout.fragment_product_supplier) {
 
     private val viewModel: ProductSupplierViewModel by viewModels()
     private val args: ProductSupplierFragmentArgs by navArgs()
@@ -29,14 +33,23 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.registerUi(showFab = true, showAppBar = false, fabIcon = R.drawable.ic_baseline_arrow_forward_24, showToolbar = false, showFabCenter = false){
+        UiInterface.registerUi(
+            showFab = true,
+            showAppBar = false,
+            fabIcon = R.drawable.ic_baseline_arrow_forward_24,
+            showToolbar = false,
+            showFabCenter = false
+        ) {
             findNavController().apply {
-                previousBackStackEntry!!.savedStateHandle.set(PRODUCT_SUPPLIER_KEY, removeSupplierAdapter.getFinalSuppliers())
+                previousBackStackEntry!!.savedStateHandle.set(
+                    PRODUCT_SUPPLIER_KEY,
+                    removeSupplierAdapter.getFinalSuppliers()
+                )
                 popBackStack()
             }
         }
 
-        searchAdapter = ProductSupplierAdapter{ onAddSupplier(it)}
+        searchAdapter = ProductSupplierAdapter { onAddSupplier(it) }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = searchAdapter
@@ -66,28 +79,33 @@ class ProductSupplierFragment : BaseFragment<FragmentProductSupplierBinding>(R.l
         }
     }
 
-    private suspend fun getAllSuppliersWithNameAndFillAdapter(text:String){
+    private suspend fun getAllSuppliersWithNameAndFillAdapter(text: String) {
         viewModel.getSuppliersWithName(text).collect {
             searchAdapter.submitData(it)
         }
     }
 
-    private suspend fun getAllSuppliersAndFillAdapter(){
+    private suspend fun getAllSuppliersAndFillAdapter() {
         viewModel.getSuppliersPaging().collect {
             searchAdapter.submitData(it)
         }
     }
 
-    private fun onAddSupplier(supplier: FirestoreSupplier){
+    private fun onAddSupplier(supplier: FirestoreSupplier) {
         if (removeSupplierAdapter.itemCount >= CATEGORIES_SUPPLIERS_LIMIT)
-            UiInterface.showSnackBar(getString(R.string.snack_product_suppliers_limit, CATEGORIES_SUPPLIERS_LIMIT))
+            UiInterface.showSnackBar(
+                getString(
+                    R.string.snack_product_suppliers_limit,
+                    CATEGORIES_SUPPLIERS_LIMIT
+                )
+            )
         else {
             removeSupplierAdapter.addSupplier(supplier)
             if (removeSupplierAdapter.itemCount != 0) binding.textView195.gone()
         }
     }
 
-    private fun onRemoveSupplier(supplier: FirestoreSupplier){
+    private fun onRemoveSupplier(supplier: FirestoreSupplier) {
         removeSupplierAdapter.removeSupplier(supplier)
         if (removeSupplierAdapter.itemCount == 0) binding.textView195.visible()
     }

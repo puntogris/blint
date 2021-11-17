@@ -14,36 +14,46 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ModifyDebtFragment :BaseFragment<FragmentModifyDebtBinding>(R.layout.fragment_modify_debt) {
+class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.fragment_modify_debt) {
 
     private val viewModel: DebtViewModel by viewModels()
     private val args: ModifyDebtFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             if (binding.debtAmountText.getString().toFloatOrNull() != null &&
-                binding.debtAmountText.getFloat() > 0){
-                    onSaveDebtClicked()
+                binding.debtAmountText.getFloat() > 0
+            ) {
+                onSaveDebtClicked()
             } else UiInterface.showSnackBar(getString(R.string.snack_amount_cant_be_empty))
         }
         binding.debtTypeText.apply {
-            setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, listOf("+", "-")))
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item_list,
+                    listOf("+", "-")
+                )
+            )
             setOnFocusChangeListener { _, _ -> hideKeyboard() }
         }
     }
 
-    private fun onSaveDebtClicked(){
+    private fun onSaveDebtClicked() {
         lifecycleScope.launch {
             args.debt.amount =
                 if (binding.debtTypeText.getString() == "-") -binding.debtAmountText.getFloat()
                 else binding.debtAmountText.getFloat()
 
-            when(viewModel.registerNewDebt(args.debt)){
-                SimpleResult.Failure ->  UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
+            when (viewModel.registerNewDebt(args.debt)) {
+                SimpleResult.Failure -> UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
                 SimpleResult.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_debt_success))
                     findNavController().apply {
-                        previousBackStackEntry!!.savedStateHandle.set(UPDATE_DEBT_KEY, args.debt.amount)
+                        previousBackStackEntry!!.savedStateHandle.set(
+                            UPDATE_DEBT_KEY,
+                            args.debt.amount
+                        )
                         popBackStack()
                     }
                 }

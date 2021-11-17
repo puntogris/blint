@@ -5,9 +5,10 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.SimpleDebtDiffCallBack
 import com.puntogris.blint.model.SimpleDebt
 
-class SimpleDebtAdapter(private val clickListener: (SimpleDebt) -> Unit): PagingDataAdapter<SimpleDebt, SimpleDebtViewHolder>(
-    SimpleDebtDiffCallBack()
-) {
+class SimpleDebtAdapter(private val clickListener: (SimpleDebt) -> Unit) :
+    PagingDataAdapter<SimpleDebt, SimpleDebtViewHolder>(
+        SimpleDebtDiffCallBack()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleDebtViewHolder {
         return SimpleDebtViewHolder.from(parent)
