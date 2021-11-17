@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textView108"
+                        android:id="@+id/productsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -46,27 +46,27 @@
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView109"
-                        app:layout_constraintStart_toStartOf="@+id/textView109"
+                        app:layout_constraintEnd_toEndOf="@+id/productsTitle"
+                        app:layout_constraintStart_toStartOf="@+id/productsTitle"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView109"
+                        android:id="@+id/productsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="@string/products_label"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView113"
+                        app:layout_constraintEnd_toStartOf="@+id/suppliersTitle"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView108"
+                        app:layout_constraintTop_toBottomOf="@+id/productsCount"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/textView110"
+                        android:id="@+id/clientsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -74,26 +74,26 @@
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView112"
-                        app:layout_constraintEnd_toEndOf="@+id/textView111"
-                        app:layout_constraintStart_toStartOf="@+id/textView111"
-                        app:layout_constraintTop_toTopOf="@+id/textView112"
+                        app:layout_constraintBottom_toBottomOf="@+id/suppliersCount"
+                        app:layout_constraintEnd_toEndOf="@+id/clientsTitle"
+                        app:layout_constraintStart_toStartOf="@+id/clientsTitle"
+                        app:layout_constraintTop_toTopOf="@+id/suppliersCount"
                         tools:text="102" />
 
                     <TextView
-                        android:id="@+id/textView111"
+                        android:id="@+id/clientsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/clients_label"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView113"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/suppliersTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView113"
-                        app:layout_constraintTop_toTopOf="@+id/textView113" />
+                        app:layout_constraintStart_toEndOf="@+id/suppliersTitle"
+                        app:layout_constraintTop_toTopOf="@+id/suppliersTitle" />
 
                     <TextView
-                        android:id="@+id/textView112"
+                        android:id="@+id/suppliersCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -101,40 +101,39 @@
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView108"
-                        app:layout_constraintEnd_toEndOf="@+id/textView113"
-                        app:layout_constraintStart_toStartOf="@+id/textView113"
-                        app:layout_constraintTop_toTopOf="@+id/textView108" />
+                        app:layout_constraintBottom_toBottomOf="@+id/productsCount"
+                        app:layout_constraintEnd_toEndOf="@+id/suppliersTitle"
+                        app:layout_constraintStart_toStartOf="@+id/suppliersTitle"
+                        app:layout_constraintTop_toTopOf="@+id/productsCount" />
 
                     <TextView
-                        android:id="@+id/textView113"
+                        android:id="@+id/suppliersTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/suppliers_label"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView109"
-                        app:layout_constraintEnd_toStartOf="@+id/textView111"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/productsTitle"
+                        app:layout_constraintEnd_toStartOf="@+id/clientsTitle"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView109"
-                        app:layout_constraintTop_toTopOf="@+id/textView109" />
+                        app:layout_constraintStart_toEndOf="@+id/productsTitle"
+                        app:layout_constraintTop_toTopOf="@+id/productsTitle" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_marginHorizontal="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="18dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -143,7 +142,6 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView17"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -155,7 +153,6 @@
                         app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                     <ImageView
-                        android:id="@+id/imageView11"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -167,7 +164,6 @@
                         app:srcCompat="@drawable/ic_baseline_label_24" />
 
                     <ImageView
-                        android:id="@+id/imageView18"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -182,21 +178,19 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/textView116"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/last_calendar_events"
-                android:textSize="19sp"/>
+                android:textSize="19sp" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView2"
+                android:id="@+id/calendarEvents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="?actionBarSize"
                 android:visibility="gone">
 
@@ -210,7 +204,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/textView151"
+                android:id="@+id/addEventTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -222,11 +216,11 @@
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button17"
+                android:id="@+id/addEventButton"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="?actionBarSize"
                 android:onClick="@{()->fragment.onAddEventClicked()}"

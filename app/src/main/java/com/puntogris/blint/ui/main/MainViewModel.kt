@@ -54,7 +54,7 @@ class MainViewModel @Inject constructor(
 
     fun isUserLoggedIn() = mainRepository.checkIfUserIsLogged()
 
-    suspend fun getBusinessLastEvents() = mainRepository.getBusinessLastEventsDatabase()
+    val lastEventsFlow = mainRepository.getBusinessLastEventsDatabase()
 
     suspend fun getBusinessList() = mainRepository.getBusinessListRoom()
 

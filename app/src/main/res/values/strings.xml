@@ -594,22 +594,6 @@
     <string name="local_business_point_3">Create invoices in pdf and reports in excel.</string>
     <string name="local_business_point_4">Access product, clients, suppliers and more..</string>
 
-    <!-- Questions -->
-    <string name="question1">How do i select another business?</string>
-    <string name="answer1">Open de main menu (icon with 3 lines) and you will see an image with a business, click on it, there select the business you want to operate with.</string>
-    <string name="question2">Can i add another employee to my business?</string>
-    <string name="answer2">Yes, but remember this is only available for online business, in your business tab you will find a code, share it so people can join, for your safety this code will be renewed every 10 minutes.</string>
-    <string name="question3">How do I do a quick stock change?</string>
-    <string name="answer3">Perform a long click on a product, you will get a popup to change the stock and create a simple order.</string>
-    <string name="question4">Are backups only for local businesses?</string>
-    <string name="answer4">Yes, backups are only for local businesses, in the online ones, your data is already in the cloud. Have in mind that backups are general across all local businesses in your device.</string>
-    <string name="question5">How many businesses can I have?</string>
-    <string name="answer5">At the moment you can only create up to 10 businesses, but this can change in the future so do not worry.</string>
-    <string name="question6">Is my information public?</string>
-    <string name="answer6">No! We make sure to only share your information with the members of your business and no one else.</string>
-    <string name="faq" translatable="false">F.A.Q.</string>
-    <string name="help_ticket_message">If your question is not solved, we invite you to send us a ticket and we will contact you shortly by e-mail.</string>
-
     <!-- Arrays -->
     <string-array name="debt_type">
         <item>Full</item>

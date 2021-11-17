@@ -38,7 +38,7 @@ class PreferencesFragment : BasePreferences(R.xml.preferences) {
         }
 
         findPreference<Preference>(HELP_PREF)?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.helpFragment)
+            //todo navigate to website faq
             true
         }
         findPreference<Preference>(ABOUT_PREF)?.setOnPreferenceClickListener {

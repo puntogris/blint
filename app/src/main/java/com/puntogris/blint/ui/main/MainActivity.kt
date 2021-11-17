@@ -8,31 +8,24 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
-import androidx.annotation.MenuRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.base.BaseActivity
-import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.BLINT_WEBSITE_LEARN_MORE
-import com.puntogris.blint.utils.Constants.ENABLED
 import com.puntogris.blint.utils.types.AccountStatus
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -55,7 +48,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else BottomAppBar.FAB_ALIGNMENT_MODE_END
         } else binding.fab.hide()
 
-        changeFabStateBottomSheet(showFab)
         if (showAppBar) {
             binding.bottomAppBar.visible()
             binding.bottomAppBar.performShow()
@@ -107,9 +99,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-    private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
-        supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
-    }
 
     override fun preInitViews() {
         setTheme(R.style.Blint_Theme_DayNight)
@@ -118,7 +107,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initializeViews() {
         setUpNavigation()
         setUpScanner()
-        setUpBottomDrawer()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
         lifecycleScope.launch {
@@ -166,9 +154,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     if (viewModel.showLogin()) R.id.loginFragment
                     else R.id.mainFragment
             }
-        binding.run {
-            navController.addOnDestinationChangedListener(this@MainActivity)
-        }
+        navController.addOnDestinationChangedListener(this@MainActivity)
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.mainFragment,
@@ -185,60 +172,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
-                bottomNavDrawer.toggle()
+                showBottomDrawer()
             }
             setOnMenuItemClickListener(this@MainActivity)
         }
     }
 
-    private fun changeFabStateBottomSheet(value: Boolean) {
-        bottomNavDrawer.addOnStateChangedAction(ShowHideFabStateAction(binding.fab, value))
-    }
-
-    private fun navigateToMenuDestinations(navMenu: NavMenu) {
-        if (navMenu != NavMenu.HOME &&
-            navMenu != NavMenu.SETTINGS &&
-            viewModel.currentUser.value.status != ENABLED
-        ) {
-            showSnackBar(getString(R.string.action_require_permissions)) {
-                launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
-            }
-        } else {
-            when (navMenu) {
-                NavMenu.HOME -> R.id.mainFragment
-                NavMenu.PRODUCTS -> R.id.manageProductsFragment
-                NavMenu.CLIENTS -> R.id.manageClientsFragment
-                NavMenu.SUPPLIERS -> R.id.manageSuppliersFragment
-                NavMenu.ORDERS -> R.id.manageOrdersFragment
-                NavMenu.SETTINGS -> R.id.preferencesFragment
-            }.apply { navController.navigate(this) }
-        }
-        bottomNavDrawer.close()
-    }
-
-    private fun setUpBottomDrawer() {
-        bottomNavDrawer.apply {
-            addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
-                this@MainActivity.binding.bottomAppBar.replaceMenu(
-                    if (showSettings) R.menu.bottom_app_bar_settings_menu
-                    else getBottomAppBarMenuForDestination()
-                )
-            })
-            addNavigationListener(this@MainActivity)
-        }
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    @MenuRes
-    private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
-        val dest = destination ?: findNavController(R.id.nav_host_fragment).currentDestination
-        return when (dest?.id) {
-            R.id.mainFragment -> R.menu.bottom_app_bar_home_menu
-            else -> R.menu.bottom_app_bar_home_menu
-        }
     }
 
     override fun onDestinationChanged(
@@ -249,19 +190,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         hideKeyboard()
     }
 
+    private fun showBottomDrawer() {
+        MainBottomNavDrawer
+            .newInstance()
+            .show(supportFragmentManager, MainBottomNavDrawer.TAG)
+    }
+
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
             R.id.menu_settings -> {
-                bottomNavDrawer.close()
                 navController.navigate(R.id.preferencesFragment)
             }
             R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
         }
         return true
-    }
-
-    override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
-        navigateToMenuDestinations(item.navMenu)
     }
 }

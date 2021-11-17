@@ -39,24 +39,17 @@
 
         </LinearLayout>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/bottom_nav_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.puntogris.blint.ui.nav.BottomNavDrawerFragment"/>
-
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:fabAlignmentMode="center"
+            app:menu="@menu/bottom_navigation"
             app:navigationIcon="@drawable/ic_baseline_menu_24"
             app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
             app:fabCradleMargin="@dimen/bottom_app_bar_fab_cradle_margin"
-            app:hideOnScroll="true">
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            app:hideOnScroll="true"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"

@@ -70,16 +70,8 @@ class MainRepository @Inject constructor(
             }
         }
 
-    override suspend fun getBusinessLastEventsDatabase(): EventsDashboard =
-        withContext(Dispatchers.IO) {
-            try {
-                val events = eventsDao.getLastThreeEvents()
-                if (events.isNotEmpty()) EventsDashboard.Success(events)
-                else EventsDashboard.DataNotFound
-            } catch (e: Exception) {
-                EventsDashboard.Error(e)
-            }
-        }
+    override fun getBusinessLastEventsDatabase() = eventsDao.getLastThreeEventsFlow()
+
 
     override suspend fun getBusinessCounterFlow(): Flow<BusinessCounters> =
         withContext(Dispatchers.IO) {

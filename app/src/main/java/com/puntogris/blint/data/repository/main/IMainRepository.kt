@@ -2,13 +2,14 @@ package com.puntogris.blint.data.repository.main
 
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.types.AccountStatus
 import com.puntogris.blint.utils.types.EventsDashboard
 import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.flow.Flow
 
 interface IMainRepository {
-    suspend fun getBusinessLastEventsDatabase(): EventsDashboard
+    fun getBusinessLastEventsDatabase(): Flow<List<Event>>
 
     suspend fun getBusinessCounterFlow(): Flow<BusinessCounters>
 

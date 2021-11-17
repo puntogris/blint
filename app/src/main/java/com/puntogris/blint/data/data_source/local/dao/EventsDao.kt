@@ -1,8 +1,10 @@
 package com.puntogris.blint.data.data_source.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Event
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventsDao {
@@ -26,5 +28,5 @@ interface EventsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY timestamp ASC LIMIT 3")
-    fun getLastThreeEvents():List<Event>
+    fun getLastThreeEventsFlow(): Flow<List<Event>>
 }

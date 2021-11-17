@@ -30,5 +30,4 @@ interface SetupUiListener {
         @StringRes actionText: Int = R.string.read_more,
         action: View.OnClickListener? = null
     )
-
 }
