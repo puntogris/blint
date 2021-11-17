@@ -3,6 +3,7 @@ package com.puntogris.blint.data.repository.categories
 import com.puntogris.blint.data.data_source.local.dao.CategoriesDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Category
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -11,15 +12,14 @@ import javax.inject.Inject
 
 class CategoriesRepository @Inject constructor(
     private val usersDao: UsersDao,
-    private val categoriesDao: CategoriesDao
+    private val categoriesDao: CategoriesDao,
+    private val dispatcher: DispatcherProvider
 ) : ICategoriesRepository {
 
     private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
 
     override suspend fun deleteProductCategoryDatabase(categoryName: String): SimpleResult =
-        withContext(
-            Dispatchers.IO
-        ) {
+        withContext(dispatcher.io) {
             try {
                 categoriesDao.deleteCategory(categoryName)
                 SimpleResult.Success
@@ -29,9 +29,7 @@ class CategoriesRepository @Inject constructor(
         }
 
     override suspend fun saveProductCategoryDatabase(category: Category): SimpleResult =
-        withContext(
-            Dispatchers.IO
-        ) {
+        withContext(dispatcher.io) {
             try {
                 val user = currentBusiness()
                 category.businessId = user.businessId
@@ -43,7 +41,7 @@ class CategoriesRepository @Inject constructor(
         }
 
     override suspend fun getAllCategoriesDatabase(): RepoResult<List<Category>> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val data = categoriesDao.getAllCategories()
                 RepoResult.Success(data)

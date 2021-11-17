@@ -18,4 +18,4 @@ data class Category(
     @ColumnInfo
     var businessId: String = "",
 
-    ):Parcelable
+    ) : Parcelable

@@ -1,6 +1,5 @@
 package com.puntogris.blint.data.data_source.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.Event

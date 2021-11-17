@@ -5,11 +5,13 @@ object Constants {
     //Schema change will trigger Minor update
     const val APP_VERSION_BACKUP = "1.0"
     const val ARG_SCANNING_RESULT = "scanning_result"
-    const val WEB_CLIENT_ID = "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
+    const val WEB_CLIENT_ID =
+        "284997358263-0gsjvjo373578qmch4sgbu8r6408vtjl.apps.googleusercontent.com"
     const val FIX_GOOGLE_PLAY_SERVICES_URL = "https://support.google.com/googleplay/answer/9037938"
     const val SUPPORT_EMAIL = "ayuda@blint.app"
-    const val APP_PLAY_STORE_URI= "https://play.google.com/store/apps/details?id=com.puntogris.blint"
-    const val PLAY_STORE_PACKAGE= "com.android.vending"
+    const val APP_PLAY_STORE_URI =
+        "https://play.google.com/store/apps/details?id=com.puntogris.blint"
+    const val PLAY_STORE_PACKAGE = "com.android.vending"
     const val PRIVACY_POLICY_URI = "https://blint.app/privacy-policy.html"
     const val TERMS_AND_CONDITIONS_URI = "https://blint.app/terms-and-conditions.html"
     const val BLINT_WEBSITE_LEARN_MORE = "https://blint.app"

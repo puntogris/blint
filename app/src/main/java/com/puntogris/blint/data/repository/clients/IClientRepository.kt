@@ -10,6 +10,6 @@ interface IClientRepository {
     suspend fun saveClientDatabase(client: Client): SimpleResult
     fun getAllClientsPaged(): Flow<PagingData<Client>>
     suspend fun deleteClientDatabase(clientId: Int): SimpleResult
-    suspend fun getClientRecordsPagingDataFlow(clientId: Int): Flow<PagingData<Record>>
+    fun getClientRecordsPagingDataFlow(clientId: Int): Flow<PagingData<Record>>
     fun getClientsWithNamePaged(name: String): Flow<PagingData<Client>>
 }

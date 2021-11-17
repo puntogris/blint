@@ -19,7 +19,7 @@ interface StatisticsDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAccountStatistic(statistics: List<Statistic>){
+    suspend fun insertAccountStatistic(statistics: List<Statistic>) {
         val db = getBusinessIdsFromStatisticOnDb()
         statistics.forEach { stat ->
             if (!db.contains(stat.businessId)) insert(stat)
@@ -58,7 +58,7 @@ interface StatisticsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")
-    suspend fun getRecordsWithDays(productId:Int, days:String): Record
+    suspend fun getRecordsWithDays(productId: Int, days: String): Record
 
     @RewriteQueriesToDropUnusedColumns
     @Transaction
@@ -66,17 +66,17 @@ interface StatisticsDao {
     suspend fun getProductRecordExcelList(): List<ProductRecordExcel>
 
     @Transaction
-    suspend fun getProductRecordDaysExcelList(days: String): List<ProductRecordExcel>{
+    suspend fun getProductRecordDaysExcelList(days: String): List<ProductRecordExcel> {
         val list = mutableListOf<ProductRecordExcel>()
         getAllProducts().forEach {
             val data = getRecordsWithDays(it.productId, days)
-                list.add(
-                    ProductRecordExcel(
+            list.add(
+                ProductRecordExcel(
                     it.name,
-                        if (data.type == "IN") it.totalInStock - (data.totalInStock - data.amount).absoluteValue
-                        else it.totalInStock - data.totalInStock,
-                        if (data.type == "OUT") it.totalOutStock - (data.totalOutStock - data.amount).absoluteValue
-                        else it.totalOutStock - data.totalOutStock
+                    if (data.type == "IN") it.totalInStock - (data.totalInStock - data.amount).absoluteValue
+                    else it.totalInStock - data.totalInStock,
+                    if (data.type == "OUT") it.totalOutStock - (data.totalOutStock - data.amount).absoluteValue
+                    else it.totalOutStock - data.totalOutStock
                 )
             )
         }

@@ -19,7 +19,7 @@ interface SuppliersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name")
-    fun getPagedSearch(name :String): PagingSource<Int, Supplier>
+    fun getPagedSearch(name: String): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")

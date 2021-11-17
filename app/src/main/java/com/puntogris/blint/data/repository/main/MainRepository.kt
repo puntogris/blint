@@ -9,8 +9,8 @@ import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.AccountStatus
-import com.puntogris.blint.utils.types.EventsDashboard
 import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -23,7 +23,9 @@ class MainRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val eventsDao: EventsDao,
     private val statisticsDao: StatisticsDao,
-    private val businessDao: BusinessDao
+    private val businessDao: BusinessDao,
+    private val dispatcher: DispatcherProvider
+
 ) : IMainRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -58,7 +60,7 @@ class MainRepository @Inject constructor(
     }
 
     override suspend fun checkIfAccountIsSynced(business: List<Business>): AccountStatus =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val roomEmployees = getBusinessListRoom()
                 if (roomEmployees.toSet() == business.toSet()) {

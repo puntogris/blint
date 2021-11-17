@@ -16,7 +16,7 @@ interface BusinessDao {
     suspend fun deleteAll()
 
     @Transaction
-    suspend fun syncEmployees(businesses: List<Business>){
+    suspend fun syncEmployees(businesses: List<Business>) {
         deleteAll()
         insert(businesses)
     }

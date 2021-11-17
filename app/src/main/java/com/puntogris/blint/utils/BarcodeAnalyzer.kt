@@ -7,7 +7,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import javax.inject.Inject
 
-typealias ResultListener = (result : String) -> Unit
+typealias ResultListener = (result: String) -> Unit
 
 class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
 
@@ -40,7 +40,8 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
                 }
         }
     }
-    fun onResult(resultListener: ResultListener){
+
+    fun onResult(resultListener: ResultListener) {
         this.resultListener = resultListener
     }
 }

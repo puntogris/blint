@@ -7,29 +7,31 @@ import com.puntogris.blint.data.data_source.local.dao.*
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Converters
 
-@Database(entities = [
-    Business::class,
-    Client::class,
-    Product::class,
-    Record::class,
-    Supplier::class,
-    User::class,
-    ProductSupplierCrossRef::class,
-    Event::class,
-    Statistic::class,
-    Category::class,
-    ProductCategoryCrossRef::class,
-    Order::class,
-    Debt::class,
-    OrderRecordCrossRef::class
-                     ], version = 2, exportSchema = false)
+@Database(
+    entities = [
+        Business::class,
+        Client::class,
+        Product::class,
+        Record::class,
+        Supplier::class,
+        User::class,
+        ProductSupplierCrossRef::class,
+        Event::class,
+        Statistic::class,
+        Category::class,
+        ProductCategoryCrossRef::class,
+        Order::class,
+        Debt::class,
+        OrderRecordCrossRef::class
+    ], version = 2, exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun businessDao(): BusinessDao
     abstract fun clientsDao(): ClientsDao
     abstract fun productsDao(): ProductsDao
     abstract fun ordersDao(): OrdersDao
-    abstract fun suppliersDao():SuppliersDao
+    abstract fun suppliersDao(): SuppliersDao
     abstract fun userDao(): UsersDao
     abstract fun eventsDao(): EventsDao
     abstract fun statisticsDao(): StatisticsDao

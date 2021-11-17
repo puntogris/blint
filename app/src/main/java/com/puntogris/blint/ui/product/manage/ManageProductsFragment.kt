@@ -51,17 +51,17 @@ class ManageProductsFragment :
         }
     }
 
-    private fun setupScannerLauncher(){
+    private fun setupScannerLauncher() {
         scannerLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
-                if (isGranted) {
-                    val action =
-                        ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(
-                            1
-                        )
-                    findNavController().navigate(action)
-                } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
-            }
+        { isGranted: Boolean ->
+            if (isGranted) {
+                val action =
+                    ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(
+                        1
+                    )
+                findNavController().navigate(action)
+            } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+        }
     }
 
     private fun setupProductsAdapter() {

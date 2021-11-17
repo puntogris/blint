@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
@@ -16,19 +15,19 @@ import kotlinx.parcelize.Parcelize
 data class Record(
 
     @PrimaryKey(autoGenerate = true)
-     var recordId: Int = 0,
+    var recordId: Int = 0,
 
     @ColumnInfo
-     var type: String = "",
+    var type: String = "",
 
     @ColumnInfo
-     var traderId: Int = 0,
+    var traderId: Int = 0,
 
     @ColumnInfo
-    var traderName :String = "",
+    var traderName: String = "",
 
     @ColumnInfo
-     val timestamp: Timestamp = Timestamp.now(),
+    val timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
     var amount: Int = 0,
@@ -37,13 +36,13 @@ data class Record(
     val productId: Int = 0,
 
     @ColumnInfo
-    val productName:String = "",
+    val productName: String = "",
 
     @ColumnInfo
     var author: String = "",
 
     @ColumnInfo
-    var businessId:String = "",
+    var businessId: String = "",
 
     @ColumnInfo
     var productUnitPrice: Float = 0F,
@@ -61,8 +60,8 @@ data class Record(
     var totalOutStock: Int = 0,
 
     @ColumnInfo
-    var sku:String = "",
+    var sku: String = "",
 
     @ColumnInfo
-    @get:Exclude var barcode:String = ""
-):Parcelable
+    @get:Exclude var barcode: String = ""
+) : Parcelable

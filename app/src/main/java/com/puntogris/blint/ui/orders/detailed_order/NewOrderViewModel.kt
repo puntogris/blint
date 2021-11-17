@@ -26,7 +26,7 @@ class NewOrderViewModel @Inject constructor(
     private val clientRepository: ClientRepository
 ) : ViewModel() {
 
-    private var job : Job? = null
+    private var job: Job? = null
 
     private val _order = MutableStateFlow(Order())
     val order: LiveData<Order> = _order.asLiveData()
@@ -79,8 +79,7 @@ class NewOrderViewModel @Inject constructor(
         job?.cancel()
         if (query.isEmpty()) {
             _productsLiveData.value = emptyList()
-        }
-        else {
+        } else {
             job = viewModelScope.launch {
                 val products = productRepository.getProductsWithQuery(query)
                 _productsLiveData.value = products

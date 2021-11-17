@@ -7,6 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Keep
 data class FirestoreSupplier(
-    val companyName:String = "",
+    val companyName: String = "",
     val supplierId: Int = 0
-    ):Parcelable
+) : Parcelable

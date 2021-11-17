@@ -3,7 +3,6 @@ package com.puntogris.blint.model
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.Embedded
-import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.Relation
 import kotlinx.parcelize.Parcelize
@@ -27,4 +26,4 @@ data class OrderWithRecords(
         entityColumn = "orderId"
     )
     var debt: FirestoreDebt? = null
-):Parcelable
+) : Parcelable

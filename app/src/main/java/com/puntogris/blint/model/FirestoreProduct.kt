@@ -2,7 +2,6 @@ package com.puntogris.blint.model
 
 import androidx.annotation.Keep
 import com.google.firebase.Timestamp
-import java.util.*
 
 @Keep
 data class FirestoreProduct(
@@ -12,24 +11,24 @@ data class FirestoreProduct(
     val description: String = "",
     val amount: Int = 0,
     val image: String = "",
-    val sellPrice:Float = 0F,
-    val buyPrice:Float = 0F,
+    val sellPrice: Float = 0F,
+    val buyPrice: Float = 0F,
     val suggestedSellPrice: Float = 0F,
     val sku: String = "",
-    val brand:String = "",
-    val size:String = "",
+    val brand: String = "",
+    val size: String = "",
     val lastRecordTimestamp: Timestamp = Timestamp.now(),
     val totalInStock: Int = 0,
     val totalOutStock: Int = 0,
-    val businessId:String = "",
+    val businessId: String = "",
     val minStock: Int = 0,
-    val suppliers:List<FirestoreSupplier>? = null,
-    val categories:List<String>? = null,
-    val search_name:List<String> = listOf()
-){
+    val suppliers: List<FirestoreSupplier>? = null,
+    val categories: List<String>? = null,
+    val search_name: List<String> = listOf()
+) {
 
-    companion object{
-        fun from(product: ProductWithSuppliersCategories): FirestoreProduct{
+    companion object {
+        fun from(product: ProductWithSuppliersCategories): FirestoreProduct {
             return FirestoreProduct(
                 product.product.productId,
                 product.product.name,
@@ -61,11 +60,11 @@ data class FirestoreProduct(
             )
         }
 
-        private fun createSearchName(text:String): List<String>{
+        private fun createSearchName(text: String): List<String> {
             val searchList = mutableListOf<String>()
             text.forEachIndexed { index, c ->
-                if(!c.isWhitespace()){
-                    for (i in 1..text.length - index){
+                if (!c.isWhitespace()) {
+                    for (i in 1..text.length - index) {
                         searchList.add(text.substring(index, index + i))
                     }
                 }

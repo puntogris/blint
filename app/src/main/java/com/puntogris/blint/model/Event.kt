@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity
 @Keep
-data class Event (
+data class Event(
 
     @PrimaryKey
     var eventId: String = "",
@@ -30,4 +30,4 @@ data class Event (
 
     @ColumnInfo
     var businessId: String = ""
-):Parcelable
+) : Parcelable

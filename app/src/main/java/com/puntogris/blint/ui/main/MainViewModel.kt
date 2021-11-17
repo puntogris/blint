@@ -1,10 +1,10 @@
 package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.*
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.repository.main.MainRepository
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.BusinessCounters
-import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.types.AccountStatus
 import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel

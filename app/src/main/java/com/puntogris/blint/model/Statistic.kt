@@ -15,13 +15,13 @@ data class Statistic(
     val statisticId: Int = 0,
 
     @ColumnInfo
-    val totalProducts :Int = 0,
+    val totalProducts: Int = 0,
 
     @ColumnInfo
-    val totalClients : Int = 0,
+    val totalClients: Int = 0,
 
     @ColumnInfo
-    val totalSuppliers : Int = 0,
+    val totalSuppliers: Int = 0,
 
     @ColumnInfo
     val totalOrders: Int = 0,

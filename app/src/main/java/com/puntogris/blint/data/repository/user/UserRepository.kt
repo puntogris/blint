@@ -4,19 +4,20 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.UserData
-import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.REPORT_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.TIMESTAMP_FIELD_FIRESTORE
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.Constants.USER_ID_FIELD
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.SyncAccount
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,8 @@ class UserRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val dispatcher: DispatcherProvider
 ) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -41,7 +43,7 @@ class UserRepository @Inject constructor(
     override fun getCurrentUser() = auth.currentUser
 
     override suspend fun syncAccountFromDatabase(userData: UserData?): SyncAccount =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val userBusinesses =
                     firestore.collectionGroup("employees")
@@ -90,17 +92,15 @@ class UserRepository @Inject constructor(
 
     override suspend fun getUserBusiness() = businessDao.getBusiness()
 
-    override suspend fun sendReportToFirestore(message: String): SimpleResult {
-        val report = hashMapOf(
-            USER_ID_FIELD to getCurrentUID(),
-            REPORT_FIELD_FIRESTORE to message,
-            TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
-        )
-        return try {
+    override suspend fun sendReportToFirestore(message: String): SimpleResult = withContext(dispatcher.io){
+        SimpleResult.build {
+            val report = hashMapOf(
+                USER_ID_FIELD to getCurrentUID(),
+                REPORT_FIELD_FIRESTORE to message,
+                TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
+            )
+
             firestore.collection(SUGGESTION_COLLECTION_NAME).document().set(report).await()
-            SimpleResult.Success
-        } catch (e: Exception) {
-            SimpleResult.Failure
         }
     }
 }

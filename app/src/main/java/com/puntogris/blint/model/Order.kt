@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.CollectionReference
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
@@ -24,10 +23,10 @@ data class Order(
     var value: Float = 0F,
 
     @ColumnInfo
-    var type:String =  "IN",
+    var type: String = "IN",
 
     @ColumnInfo
-    var author:String = "",
+    var author: String = "",
 
     @ColumnInfo
     var traderId: Int = 0,
@@ -36,7 +35,7 @@ data class Order(
     var traderName: String = "",
 
     @ColumnInfo
-    var businessId:String = "",
+    var businessId: String = "",
 
     @ColumnInfo
     var number: Int = 1,
@@ -50,8 +49,8 @@ data class Order(
     @ColumnInfo
     var discount: Float = 0F
 
-):Parcelable{
+) : Parcelable {
     @Ignore
     @IgnoredOnParcel
-    var items:List<Record> = listOf()
+    var items: List<Record> = listOf()
 }

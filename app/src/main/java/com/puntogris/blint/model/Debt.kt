@@ -26,7 +26,7 @@ data class Debt(
     var traderId: Int = 0,
 
     @ColumnInfo
-    var traderName :String = "",
+    var traderName: String = "",
 
     @ColumnInfo
     var timestamp: Timestamp = Timestamp.now(),
@@ -39,4 +39,4 @@ data class Debt(
 
     @ColumnInfo
     var type: String = ""
-):Parcelable
+) : Parcelable

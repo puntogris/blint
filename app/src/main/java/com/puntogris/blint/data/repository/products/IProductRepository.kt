@@ -5,7 +5,6 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.types.RepoResult
-import com.puntogris.blint.utils.types.SearchText
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
@@ -23,7 +22,7 @@ interface IProductRepository {
 
     suspend fun getProductsWithQuery(query: String): List<Product>
 
-    suspend fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>>
+    fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>>
 
     suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories>
 }

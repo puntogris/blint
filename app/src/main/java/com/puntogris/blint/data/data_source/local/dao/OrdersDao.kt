@@ -28,8 +28,8 @@ interface OrdersDao {
     suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
 
     @Transaction
-    suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>){
-        if (order.debt != null){
+    suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>) {
+        if (order.debt != null) {
             val debt = Debt(
                 orderId = order.order.orderId,
                 debtId = order.debt!!.debtId,
@@ -40,10 +40,10 @@ interface OrdersDao {
                 businessId = order.order.businessId,
                 type = order.debt!!.type
             )
-            if (debt.type == CLIENT){
+            if (debt.type == CLIENT) {
                 updateClientsDebt(debt.amount)
                 updateClientDebt(debt.traderId, debt.amount)
-            }else {
+            } else {
                 updateSupplierDebt(debt.amount)
                 updateSupplierDebt(debt.traderId, debt.amount)
             }
@@ -57,7 +57,12 @@ interface OrdersDao {
             if (it.type == "IN") updateProductTotalInStock(it.productId, it.amount.absoluteValue)
             else updateProductTotalOutStock(it.productId, it.amount.absoluteValue)
         }
-        insertOrderRecordsCrossRef(recordsFinal.map { OrderRecordCrossRef(order.order.orderId, it.recordId) })
+        insertOrderRecordsCrossRef(recordsFinal.map {
+            OrderRecordCrossRef(
+                order.order.orderId,
+                it.recordId
+            )
+        })
         incrementTotalOrders()
     }
 
@@ -114,5 +119,5 @@ interface OrdersDao {
     @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM orders WHERE orderId = :orderId LIMIT 1")
-    suspend fun getAllOrderRecords(orderId:String): OrderWithRecords
+    suspend fun getAllOrderRecords(orderId: String): OrderWithRecords
 }

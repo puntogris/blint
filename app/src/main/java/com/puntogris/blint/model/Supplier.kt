@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.firestore.Exclude
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,33 +19,33 @@ data class Supplier(
     var companyName: String = "",
 
     @ColumnInfo
-    val companyPhone:String = "",
+    val companyPhone: String = "",
 
     @ColumnInfo
     val address: String = "",
 
     @ColumnInfo
-    val companyEmail:String = "",
+    val companyEmail: String = "",
 
     @ColumnInfo
-    val sellerName:String = "",
+    val sellerName: String = "",
 
     @ColumnInfo
-    val sellerEmail:String = "",
+    val sellerEmail: String = "",
 
     @ColumnInfo
-    val sellerPhone:String = "",
+    val sellerPhone: String = "",
 
     @ColumnInfo
     val companyPaymentInfo: String = "",
 
     @ColumnInfo
-    val notes:String = "",
+    val notes: String = "",
 
     @ColumnInfo
-    var businessId:String = "",
+    var businessId: String = "",
 
     @ColumnInfo
     var debt: Float = 0F
 
-):Parcelable
+) : Parcelable

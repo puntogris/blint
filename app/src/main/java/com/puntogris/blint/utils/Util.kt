@@ -1,6 +1,7 @@
 package com.puntogris.blint.utils
 
-import java.io.*
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.nio.channels.FileChannel
 
 object Util {

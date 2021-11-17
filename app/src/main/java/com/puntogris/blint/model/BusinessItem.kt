@@ -1,8 +1,6 @@
 package com.puntogris.blint.model
 
 import androidx.annotation.DrawableRes
-import com.google.firebase.Timestamp
-import com.puntogris.blint.R
 
 data class BusinessItem(
     var businessId: String = "",

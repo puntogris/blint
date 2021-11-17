@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.AuthServerApi
@@ -13,8 +14,8 @@ import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
-import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RegistrationData
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,8 @@ class LoginRepository @Inject constructor(
     private val usersDao: UsersDao,
     private val sharedPreferences: SharedPreferences,
     private val authServerApi: AuthServerApi,
-    private val googleSingInApi: GoogleSingInApi
+    private val googleSingInApi: GoogleSingInApi,
+    private val dispatcher: DispatcherProvider
 ) : ILoginRepository {
 
     val auth = FirebaseAuth.getInstance()
@@ -60,7 +62,7 @@ class LoginRepository @Inject constructor(
         }
     }
 
-    override suspend fun signOutUser() = withContext(Dispatchers.IO) {
+    override suspend fun signOutUser() = withContext(dispatcher.io) {
         try {
             googleSingInApi.signOut()
             authServerApi.signOut()
@@ -75,7 +77,7 @@ class LoginRepository @Inject constructor(
     }
 
     override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val document =
                     firestore.collection(USERS_COLLECTION).document(user.uid).get().await()

@@ -7,6 +7,7 @@ import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,13 +17,14 @@ class StatisticRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
     private val clientsDao: ClientsDao,
     private val suppliersDao: SuppliersDao,
-    private val usersDao: UsersDao
+    private val usersDao: UsersDao,
+    private val dispatcher: DispatcherProvider
 ) : IStatisticRepository {
 
     val firestore = Firebase.firestore
     suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
 
-    override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(Dispatchers.IO) {
+    override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(dispatcher.io) {
         try {
             val data = clientsDao.getAllClients()
             RepoResult.Success(data)
@@ -31,7 +33,7 @@ class StatisticRepository @Inject constructor(
         }
     }
 
-    override suspend fun getAllProducts(): RepoResult<List<Product>> = withContext(Dispatchers.IO) {
+    override suspend fun getAllProducts(): RepoResult<List<Product>> = withContext(dispatcher.io) {
         try {
             val data = statisticsDao.getAllProducts()
             RepoResult.Success(data)
@@ -41,7 +43,7 @@ class StatisticRepository @Inject constructor(
     }
 
     override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val data = suppliersDao.getAllSuppliers()
                 RepoResult.Success(data)
@@ -51,7 +53,7 @@ class StatisticRepository @Inject constructor(
         }
 
     override suspend fun getBusinessCounters(): RepoResult<BusinessCounters> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val data = statisticsDao.getStatistics()
                 RepoResult.Success(data)
@@ -61,7 +63,7 @@ class StatisticRepository @Inject constructor(
         }
 
     override suspend fun getProductsReports(timeCode: String): RepoResult<List<ProductRecordExcel>> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val data = when (timeCode) {
                     "WEEKLY" -> statisticsDao.getProductRecordDaysExcelList("-7 days")

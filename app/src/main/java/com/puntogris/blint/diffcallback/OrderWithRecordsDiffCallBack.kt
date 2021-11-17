@@ -2,7 +2,6 @@ package com.puntogris.blint.diffcallback
 
 
 import androidx.recyclerview.widget.DiffUtil
-import com.puntogris.blint.model.Order
 import com.puntogris.blint.model.OrderWithRecords
 
 class OrderWithRecordsDiffCallBack : DiffUtil.ItemCallback<OrderWithRecords>() {

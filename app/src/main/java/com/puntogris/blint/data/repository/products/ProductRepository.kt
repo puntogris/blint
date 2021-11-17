@@ -13,9 +13,9 @@ import com.puntogris.blint.model.Product
 import com.puntogris.blint.model.ProductWithSuppliersCategories
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.INITIAL
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,13 +25,14 @@ class ProductRepository @Inject constructor(
     private val productsDao: ProductsDao,
     private val statisticsDao: StatisticsDao,
     private val ordersDao: OrdersDao,
-    private val firebase: FirebaseClients
+    private val firebase: FirebaseClients,
+    private val dispatcher: DispatcherProvider
 ) : IProductRepository {
 
     override suspend fun saveProductDatabase(
         product: ProductWithSuppliersCategories,
         imageChanged: Boolean
-    ): SimpleResult = withContext(Dispatchers.IO) {
+    ): SimpleResult = withContext(dispatcher.io) {
         try {
             val isNewProduct = product.product.productId == 0
             val currentBusinessId = usersDao.getCurrentBusinessId()
@@ -77,7 +78,7 @@ class ProductRepository @Inject constructor(
     }
 
     override suspend fun deleteProductDatabase(productId: Int): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             SimpleResult.build {
                 productsDao.delete(productId)
                 statisticsDao.decrementTotalProducts()
@@ -96,24 +97,24 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun getProductsWithQuery(query: String): List<Product> = withContext(Dispatchers.IO){
-        productsDao.getProductsSimpleWithQuery("%$query%")
-    }
-
-    override suspend fun getProductRecordsPagingDataFlow(productId: Int) =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) { ordersDao.getProductRecordsPaged(productId) }.flow
+    override suspend fun getProductsWithQuery(query: String): List<Product> =
+        withContext(dispatcher.io) {
+            productsDao.getProductsSimpleWithQuery("%$query%")
         }
+
+    override fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) { ordersDao.getProductRecordsPaged(productId) }.flow
+    }
 
 
     override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithSuppliersCategories> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val product = productsDao.getProductWithBarcode(barcode)
                 RepoResult.Success(requireNotNull(product))

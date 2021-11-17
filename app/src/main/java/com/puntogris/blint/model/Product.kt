@@ -2,7 +2,9 @@ package com.puntogris.blint.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
@@ -32,10 +34,10 @@ data class Product(
     var image: String = "",
 
     @ColumnInfo
-    val sellPrice:Float = 0F,
+    val sellPrice: Float = 0F,
 
     @ColumnInfo
-    val buyPrice:Float = 0F,
+    val buyPrice: Float = 0F,
 
     @ColumnInfo
     val suggestedSellPrice: Float = 0F,
@@ -44,10 +46,10 @@ data class Product(
     var sku: String = "",
 
     @ColumnInfo
-    val brand:String = "",
+    val brand: String = "",
 
     @ColumnInfo
-    val size:String = "",
+    val size: String = "",
 
     @ColumnInfo
     var lastRecordTimestamp: Timestamp = Timestamp.now(),
@@ -59,9 +61,9 @@ data class Product(
     var totalOutStock: Int = 0,
 
     @ColumnInfo
-    var businessId:String = "",
+    var businessId: String = "",
 
     @ColumnInfo
     val minStock: Int = 0
 
-    ):Parcelable
+) : Parcelable

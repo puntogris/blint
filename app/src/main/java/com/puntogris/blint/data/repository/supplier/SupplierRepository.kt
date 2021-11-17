@@ -9,6 +9,7 @@ import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -19,11 +20,12 @@ class SupplierRepository @Inject constructor(
     private val suppliersDao: SuppliersDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao
+    private val ordersDao: OrdersDao,
+    private val dispatcher: DispatcherProvider
 ) : ISupplierRepository {
 
     override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             SimpleResult.build {
                 if (supplier.supplierId == 0) {
                     supplier.businessId = usersDao.getCurrentBusinessId()
@@ -47,7 +49,7 @@ class SupplierRepository @Inject constructor(
     }
 
     override suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             SimpleResult.build {
                 suppliersDao.delete(supplierId)
                 statisticsDao.decrementTotalSuppliers()

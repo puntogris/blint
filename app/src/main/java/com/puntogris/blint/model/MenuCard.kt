@@ -8,4 +8,4 @@ data class MenuCard(
     @StringRes val title: Int,
     @IdRes val navigationId: Int,
     @DrawableRes val icon: Int
-    )
+)

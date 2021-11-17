@@ -9,16 +9,17 @@ import com.puntogris.blint.model.BusinessDebtsData
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DebtsRepository @Inject constructor(
     private val debtsDao: DebtsDao,
-    private val usersDao: UsersDao
+    private val usersDao: UsersDao,
+    private val dispatcher: DispatcherProvider
 ) : IDebtsRepository {
 
     private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
@@ -33,7 +34,7 @@ class DebtsRepository @Inject constructor(
     }
 
     override suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             val user = currentUser()
             try {
                 debt.author = ""
@@ -54,46 +55,43 @@ class DebtsRepository @Inject constructor(
             }
         }
 
-    override suspend fun getBusinessDebtData(): BusinessDebtsData = withContext(Dispatchers.IO) {
+    override suspend fun getBusinessDebtData(): BusinessDebtsData = withContext(dispatcher.io) {
         debtsDao.getDebtsForBusiness()
     }
 
-    override suspend fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                debtsDao.getPagedDebts()
-            }.flow
-        }
+    override fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            debtsDao.getPagedDebts()
+        }.flow
+    }
 
-    override suspend fun getClientPagingDataFlow(): Flow<PagingData<Client>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                debtsDao.getClientDebtsPaged()
-            }.flow
-        }
+    override fun getClientPagingDataFlow(): Flow<PagingData<Client>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            debtsDao.getClientDebtsPaged()
+        }.flow
+    }
 
-    override suspend fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                debtsDao.getSupplierDebtsPaged()
-            }.flow
-        }
+    override fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            debtsDao.getSupplierDebtsPaged()
+        }.flow
+    }
 }

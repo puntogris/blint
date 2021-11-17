@@ -6,10 +6,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.IgnoreExtraProperties
-import com.puntogris.blint.utils.Constants.ADMINISTRATOR
-import com.puntogris.blint.utils.Constants.LOCAL
-import com.puntogris.blint.utils.Constants.ONLINE
 import com.puntogris.blint.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
 

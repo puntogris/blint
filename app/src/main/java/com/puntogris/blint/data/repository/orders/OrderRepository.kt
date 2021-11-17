@@ -11,8 +11,8 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.utils.Constants.CLIENT
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.SUPPLIER
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,16 +20,15 @@ import kotlin.math.absoluteValue
 
 class OrderRepository @Inject constructor(
     private val usersDao: UsersDao,
-    private val ordersDao: OrdersDao
+    private val ordersDao: OrdersDao,
+    private val dispatcher: DispatcherProvider
 ) : IOrdersRepository {
 
     private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
     private val auth = FirebaseAuth.getInstance()
 
     override suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>> =
-        withContext(
-            Dispatchers.IO
-        ) {
+        withContext(dispatcher.io) {
             Pager(
                 PagingConfig(
                     pageSize = 30,
@@ -42,7 +41,7 @@ class OrderRepository @Inject constructor(
         }
 
     override suspend fun getBusinessRecordsPagingDataFlow(): Flow<PagingData<Record>> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             Pager(
                 PagingConfig(
                     pageSize = 30,
@@ -55,7 +54,7 @@ class OrderRepository @Inject constructor(
         }
 
     override suspend fun saveOrderIntoDatabase(order: OrderWithRecords): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             val user = currentBusiness()
             try {
                 order.order.author = auth.currentUser?.email.toString()
@@ -99,7 +98,7 @@ class OrderRepository @Inject constructor(
         }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             ordersDao.getAllOrderRecords(orderId)
         }
 

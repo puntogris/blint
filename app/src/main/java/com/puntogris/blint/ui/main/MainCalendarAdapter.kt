@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.model.Event
 
 class MainCalendarAdapter(private val clickListener: (Event) -> Unit) :
-   RecyclerView.Adapter<MainCalendarViewHolder>() {
+    RecyclerView.Adapter<MainCalendarViewHolder>() {
 
     private var list = listOf<Event>()
 
@@ -21,7 +21,7 @@ class MainCalendarAdapter(private val clickListener: (Event) -> Unit) :
     override fun getItemCount(): Int = list.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(list: List<Event>){
+    fun updateList(list: List<Event>) {
         this.list = list
         notifyDataSetChanged()
     }

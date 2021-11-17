@@ -10,4 +10,4 @@ data class FirestoreDebt(
     var debtId: Int = 0,
     var type: String = "",
     var amount: Float = 0f
-):Parcelable
+) : Parcelable

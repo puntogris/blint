@@ -1,15 +1,14 @@
 package com.puntogris.blint.utils
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
 import android.text.TextPaint
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-abstract class SwipeToDeleteCallback(context: Context):
+abstract class SwipeToDeleteCallback(context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
     private val textPaint: TextPaint = TextPaint()

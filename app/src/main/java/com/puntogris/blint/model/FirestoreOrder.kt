@@ -11,20 +11,20 @@ data class FirestoreOrder(
     var orderId: Int = 0,
     val timestamp: Timestamp = Timestamp.now(),
     var value: Float = 0F,
-    var type:String =  "IN",
-    var author:String = "",
+    var type: String = "IN",
+    var author: String = "",
     var traderId: Int = 0,
     var traderName: String = "",
-    var businessId:String = "",
+    var businessId: String = "",
     var number: Int = 1,
     val records: List<FirestoreRecord> = listOf(),
     val debt: FirestoreDebt? = null,
     val businessName: String = "",
     val discount: Float = 0F
 
-):Parcelable{
-    companion object{
-        fun from(orderWithRecords: OrderWithRecords): FirestoreOrder{
+) : Parcelable {
+    companion object {
+        fun from(orderWithRecords: OrderWithRecords): FirestoreOrder {
             return FirestoreOrder(
                 orderId = orderWithRecords.order.orderId,
                 timestamp = orderWithRecords.order.timestamp,

@@ -1,10 +1,11 @@
 package com.puntogris.blint.data.repository.business
 
 import com.google.firebase.auth.FirebaseAuth
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.data.data_source.local.SharedPreferences
+import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.DeleteBusiness
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,8 @@ class BusinessRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
     private val sharedPreferences: SharedPreferences,
-    private val statisticsDao: StatisticsDao
+    private val statisticsDao: StatisticsDao,
+    private val dispatcher: DispatcherProvider
 ) : IBusinessRepository {
 
     val auth = FirebaseAuth.getInstance()
@@ -25,7 +27,7 @@ class BusinessRepository @Inject constructor(
     private fun getCurrentUser() = auth.currentUser
 
     override suspend fun registerLocalBusiness(businessName: String): SimpleResult =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
                 val employeeId = getCurrentUser()?.uid.toString()
 
@@ -60,7 +62,7 @@ class BusinessRepository @Inject constructor(
         }
 
     override suspend fun deleteBusinessDatabase(businessId: String): DeleteBusiness =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher.io) {
             try {
 //                val user = currentBusiness()
 //                val businessRemaining = businessDao.getEmployeesList()

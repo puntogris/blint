@@ -9,7 +9,10 @@ class ProductWithRecordItemDiffCallBack : DiffUtil.ItemCallback<ProductWithRecor
         return oldItem.product == newItem.product
     }
 
-    override fun areContentsTheSame(oldItem: ProductWithRecord, newItem: ProductWithRecord): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ProductWithRecord,
+        newItem: ProductWithRecord
+    ): Boolean {
         return oldItem == newItem
     }
 }

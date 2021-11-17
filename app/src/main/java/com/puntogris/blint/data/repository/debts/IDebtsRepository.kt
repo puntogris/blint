@@ -13,7 +13,7 @@ interface IDebtsRepository {
     suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>>
     suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult
     suspend fun getBusinessDebtData(): BusinessDebtsData
-    suspend fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>>
-    suspend fun getClientPagingDataFlow(): Flow<PagingData<Client>>
-    suspend fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>>
+    fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>>
+    fun getClientPagingDataFlow(): Flow<PagingData<Client>>
+    fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>>
 }

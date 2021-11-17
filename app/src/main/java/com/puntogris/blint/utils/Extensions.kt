@@ -56,30 +56,31 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun View.gone(){
+fun View.gone() {
     visibility = View.GONE
 }
 
-fun View.visible(){
+fun View.visible() {
     visibility = View.VISIBLE
 }
-fun View.invisible(){
+
+fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
 fun EditText.getString() = text.toString()
 
-fun EditText.getInt(): Int{
+fun EditText.getInt(): Int {
     val text = text.toString()
-    return if(text.isEmpty()) 0 else text.toInt()
+    return if (text.isEmpty()) 0 else text.toInt()
 }
 
-fun EditText.getFloat(): Float{
+fun EditText.getFloat(): Float {
     val text = text.toString()
     return if (text.isNotBlank()) text.toFloat() else 0F
 }
 
-fun FloatingActionButton.changeIconFromDrawable(icon: Int){
+fun FloatingActionButton.changeIconFromDrawable(icon: Int) {
     setImageDrawable(ContextCompat.getDrawable(context, icon))
 }
 
@@ -89,7 +90,7 @@ fun AppCompatActivity.getNavController() =
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
 
-fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message: String){
+fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message: String) {
     Snackbar.make(
         dialog?.window!!.decorView,
         message,
@@ -103,7 +104,7 @@ fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMo
 
 fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
 
-fun String.containsInvalidCharacters() = !all { it.isLetter() || it.isWhitespace()}
+fun String.containsInvalidCharacters() = !all { it.isLetter() || it.isWhitespace() }
 
 fun Activity.hideKeyboard() {
     hideKeyboard(currentFocus ?: View(this))
@@ -118,9 +119,9 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun Float.toMoneyFormatted(removeSuffix : Boolean = false) : String {
+fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
     return DecimalFormat("###,###,##0.00").format(this).apply {
-        if(removeSuffix){
+        if (removeSuffix) {
             return this.removeSuffix(".00")
         }
     }
@@ -135,7 +136,7 @@ fun Date.getDateFormattedStringUnderLine() =
 fun Date.getDateWithTimeFormattedString() =
     SimpleDateFormat("dd/MM/yyyy - h:mm a", Locale.getDefault()).format(this).toString()
 
-fun Fragment.getDatabasePath():String =
+fun Fragment.getDatabasePath(): String =
     requireActivity().getDatabasePath("blint_database").absolutePath
 
 fun Timestamp.getMonthAndYeah() =
@@ -144,9 +145,9 @@ fun Timestamp.getMonthAndYeah() =
 fun Timestamp.getMonth() =
     SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
 
-fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
+fun Flow<PagingData<Event>>.toEventUiFlow(): Flow<PagingData<EventUi>> {
     return map { pagingData -> pagingData.map { EventUi.EventItem(it) } }
-        .map{
+        .map {
             it.insertSeparators { before, after ->
 
                 if (after == null) {
@@ -157,9 +158,9 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
                     EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
                 }
 
-                if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()){
+                if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()) {
                     EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
-                }else{
+                } else {
                     null
                 }
             }
@@ -167,7 +168,8 @@ fun Flow<PagingData<Event>>.toEventUiFlow():Flow<PagingData<EventUi>>{
 }
 
 fun String.getDateWithFileName() =
-    SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date()).toString() + "_$this.xls"
+    SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date())
+        .toString() + "_$this.xls"
 
 fun Fragment.isDarkThemeOn() =
     (resources.configuration.uiMode and
@@ -177,7 +179,7 @@ fun Activity.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
 
-fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null){
+fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
     try {
         Intent(Intent.ACTION_VIEW).let {
             it.data = Uri.parse(uri)
@@ -185,17 +187,17 @@ fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null){
             startActivity(it)
         }
 
-    }catch (e:Exception){
+    } catch (e: Exception) {
         UiInterface.showSnackBar(getString(R.string.snack_ups_visit_blint))
     }
 }
 
-fun Activity.launchWebBrowserIntent(uri: String){
+fun Activity.launchWebBrowserIntent(uri: String) {
     try {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(uri)
         startActivity(intent)
-    }catch (e:Exception){
+    } catch (e: Exception) {
         (this as SetupUiListener).showSnackBar(getString(R.string.snack_ups_visit_blint))
     }
 }
@@ -206,7 +208,11 @@ inline val Context.screenWidth: Int
             Point().also { display?.getRealSize(it) }.x
         } else {
             @Suppress("DEPRECATION")
-            Point().also { (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(it) }.x
+            Point().also {
+                (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(
+                    it
+                )
+            }.x
         }
 
 inline val View.screenWidth: Int
@@ -214,11 +220,13 @@ inline val View.screenWidth: Int
 
 inline val Int.dp: Int
     get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics).toInt()
+        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics
+    ).toInt()
 
 inline val Float.dp: Float
     get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
+        TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics
+    )
 
 inline fun getValueAnimator(
     forward: Boolean = true,
@@ -235,30 +243,36 @@ inline fun getValueAnimator(
     return a
 }
 
-fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int){
+fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int) {
     setAnimation(animation)
     repeatCount = 0
     playAnimation()
 }
 
-fun Fragment.showOrderPickerAndNavigate(product: Product? = null){
-    OptionsSheet().build(requireContext()){
+fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
+    OptionsSheet().build(requireContext()) {
         displayMode(DisplayMode.GRID_HORIZONTAL)
         style(SheetStyle.BOTTOM_SHEET)
         with(
-            Option(R.drawable.ic_baseline_speed_24, this@showOrderPickerAndNavigate.getString(R.string.create_simple_order)),
-            Option(R.drawable.ic_baseline_timer_24, this@showOrderPickerAndNavigate.getString(R.string.create_detailed_order)),
+            Option(
+                R.drawable.ic_baseline_speed_24,
+                this@showOrderPickerAndNavigate.getString(R.string.create_simple_order)
+            ),
+            Option(
+                R.drawable.ic_baseline_timer_24,
+                this@showOrderPickerAndNavigate.getString(R.string.create_detailed_order)
+            ),
         )
         onPositive { index: Int, _ ->
-            if (index == 0){
+            if (index == 0) {
                 val action = NavigationDirections.actionGlobalSimpleOrderBottomSheet(product!!)
                 findNavController().navigate(action)
-            }else{
+            } else {
                 val action = NavigationDirections.actionGlobalNewOrderGraphNav(product)
                 findNavController().navigate(action)
             }
         }
-    }.show(parentFragmentManager,"")
+    }.show(parentFragmentManager, "")
 }
 
 inline fun Fragment.launchAndRepeatWithViewLifecycle(
@@ -272,7 +286,12 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
     }
 }
 
-fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolean = false): Bitmap{
+fun Fragment.generateQRImage(
+    code: String,
+    width: Int,
+    height: Int,
+    isPdf: Boolean = false
+): Bitmap {
     val writer = QRCodeWriter()
     val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, width, height)
     val widthB = bitMatrix.width
@@ -280,7 +299,8 @@ fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolea
     val bitmap = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.RGB_565)
 
     val darkThemeOn = isDarkThemeOn()
-    val background = if (isPdf) getQrCodeWithTheme(false, isPdf = true) else getQrCodeWithTheme(darkThemeOn)
+    val background =
+        if (isPdf) getQrCodeWithTheme(false, isPdf = true) else getQrCodeWithTheme(darkThemeOn)
     val qrCode = if (isPdf) getQrCodeWithTheme(true) else getQrCodeWithTheme(!darkThemeOn)
 
     for (x in 0 until widthB) {
@@ -291,9 +311,9 @@ fun Fragment.generateQRImage(code: String, width:Int, height: Int, isPdf: Boolea
     return bitmap
 }
 
-fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): Int{
+fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): Int {
     val color = if (darkThemeOn) R.color.nightBackground
-    else{
+    else {
         if (isPdf) R.color.white
         else R.color.dayBackground
     }
@@ -303,8 +323,9 @@ fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): I
 fun String.capitalizeFirstChar() =
     replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
-fun <T>Fragment.onBackStackLiveData(key:String, observer: Observer<T>){
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)?.observe(viewLifecycleOwner, observer)
+fun <T> Fragment.onBackStackLiveData(key: String, observer: Observer<T>) {
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+        ?.observe(viewLifecycleOwner, observer)
 }
 
 inline val Fragment.UiInterface: SetupUiListener
@@ -312,7 +333,7 @@ inline val Fragment.UiInterface: SetupUiListener
 
 fun Timestamp.is10MinutesOld() = Timestamp.now().seconds - seconds >= 600 //10 minutes
 
-inline fun <T: Parcelable>Fragment.takeArgsIfNotNull(key: String, action:(T)->(Unit)){
+inline fun <T : Parcelable> Fragment.takeArgsIfNotNull(key: String, action: (T) -> (Unit)) {
     arguments?.takeIf { it.containsKey(key) }?.apply {
         getParcelable<T>(key)?.let {
             action(it)

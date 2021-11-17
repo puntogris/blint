@@ -16,27 +16,27 @@ data class Client(
     var clientId: Int = 0,
 
     @ColumnInfo
-    var name:String = "",
+    var name: String = "",
 
     @ColumnInfo
-    val address:String ="",
+    val address: String = "",
 
     @ColumnInfo
-    val email:String = "",
+    val email: String = "",
 
     @ColumnInfo
-    val phone:String = "",
+    val phone: String = "",
 
     @ColumnInfo
-    val paymentInfo:String = "",
+    val paymentInfo: String = "",
 
     @ColumnInfo
     val discount: Float = 0F,
 
     @ColumnInfo
-    var businessId:String = "",
+    var businessId: String = "",
 
     @ColumnInfo
     var debt: Float = 0F
 
-):Parcelable
+) : Parcelable
