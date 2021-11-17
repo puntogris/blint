@@ -10,6 +10,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 import com.puntogris.blint.utils.Constants.ADMINISTRATOR
 import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.ONLINE
+import com.puntogris.blint.utils.IDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,22 +19,19 @@ import kotlinx.parcelize.Parcelize
 data class Business(
 
     @PrimaryKey(autoGenerate = false)
-    var businessId: String = "",
+    var businessId: String = IDGenerator.randomID(),
 
     @ColumnInfo
-    val businessName: String = "",
+    val name: String = "",
 
     @ColumnInfo
-    val businessType: String = "",
+    val type: String = "",
 
     @ColumnInfo
-    val businessOwner: String = "",
+    val ownerUid: String = "",
 
     @ColumnInfo
     val role: String = "",
-
-    @ColumnInfo
-    val employeeCreatedAt: Timestamp = Timestamp.now(),
 
     @ColumnInfo
     val businessCreatedAt: Timestamp = Timestamp.now(),
@@ -42,12 +40,12 @@ data class Business(
     val email: String = "",
 
     @ColumnInfo
-    val businessStatus: String = "",
+    val status: String = "",
 
     @ColumnInfo
     val lastStatusTimestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    val businessLogoUri: String = ""
+    val logoUri: String = ""
 
 ) : Parcelable

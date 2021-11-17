@@ -9,10 +9,11 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.AuthServerApi
 import com.puntogris.blint.data.data_source.remote.GoogleSingInApi
 import com.puntogris.blint.data.data_source.remote.LoginResult
+import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.User
 import com.puntogris.blint.model.UserData
-import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.RegistrationData
 import com.puntogris.blint.utils.SimpleResult
@@ -26,10 +27,10 @@ import javax.inject.Inject
 class LoginRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
-    private val sharedPref: SharedPref,
+    private val sharedPreferences: SharedPreferences,
     private val authServerApi: AuthServerApi,
     private val googleSingInApi: GoogleSingInApi
-    ):ILoginRepository {
+) : ILoginRepository {
 
     val auth = FirebaseAuth.getInstance()
     val firestore = Firebase.firestore
@@ -48,45 +49,48 @@ class LoginRepository @Inject constructor(
     }
 
     override suspend fun singInAnonymously() = withContext(Dispatchers.IO) {
-        try{
-         //   userDao.insert(UserPrivateData())
-         //   dataStore.setShowLoginPref(false)
-
+        try {
+            val business = Business()
+            businessDao.insert(business)
+            usersDao.insert(User(currentBusinessId = business.businessId))
+            sharedPreferences.setShowLoginScreen(false)
             SimpleResult.Success
-        }catch(e: Exception){
+        } catch (e: Exception) {
             SimpleResult.Failure
         }
     }
 
-    override suspend fun signOutUser() = withContext(Dispatchers.IO){
+    override suspend fun signOutUser() = withContext(Dispatchers.IO) {
         try {
             googleSingInApi.signOut()
             authServerApi.signOut()
 
             businessDao.deleteAll()
-            sharedPref.setShowNewUserScreenPref(true)
-            sharedPref.setLoginCompletedPref(false)
+            sharedPreferences.setShowNewUserScreenPref(true)
+            sharedPreferences.setShowLoginScreen(false)
             auth.signOut()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             //handle
         }
     }
 
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData = withContext(Dispatchers.IO){
-        try {
-            val document = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
-            val userdata = document.toObject(UserData::class.java) ?: UserData()
-            val roomUser = User(currentUid = user.uid)
-            usersDao.insert(roomUser)
+    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData =
+        withContext(Dispatchers.IO) {
+            try {
+                val document =
+                    firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+                val userdata = document.toObject(UserData::class.java) ?: UserData()
+                val roomUser = User(currentUid = user.uid)
+                usersDao.insert(roomUser)
 
-            if (!document.exists()) {
-                firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
-                RegistrationData.NotFound
+                if (!document.exists()) {
+                    firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
+                    RegistrationData.NotFound
+                } else if (userdata.dataMissing()) RegistrationData.Incomplete
+                else RegistrationData.Complete(userdata)
+
+            } catch (e: Exception) {
+                RegistrationData.Error
             }
-            else if (userdata.dataMissing()) RegistrationData.Incomplete
-            else RegistrationData.Complete(userdata)
-
         }
-        catch (e:Exception){ RegistrationData.Error }
-    }
 }

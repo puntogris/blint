@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.utils.DeleteBusiness
 import com.puntogris.blint.utils.SimpleResult
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class BusinessRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
-    private val sharedPref: SharedPref,
+    private val sharedPreferences: SharedPreferences,
     private val statisticsDao: StatisticsDao
 ) : IBusinessRepository {
 

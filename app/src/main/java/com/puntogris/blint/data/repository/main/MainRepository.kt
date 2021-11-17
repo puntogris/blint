@@ -47,7 +47,7 @@ class MainRepository @Inject constructor(
                 .addSnapshotListener { value, error ->
                     if (value != null){
                         val businesses = value.toObjects(Business::class.java)
-                        businesses.removeIf { it.businessStatus == "DELETED" }
+                        businesses.removeIf { it.status == "DELETED" }
                         trySend(RepoResult.Success(businesses))
                     }else{
                         if (error != null) trySend(RepoResult.Error(error))

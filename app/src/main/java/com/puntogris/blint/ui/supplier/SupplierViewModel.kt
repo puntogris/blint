@@ -27,7 +27,7 @@ class SupplierViewModel @Inject constructor(
     }
 
     suspend fun getSupplierRecords(supplierId: Int) =
-        supplierRepository.getSupplierRecordsPagingDataFlow(supplierId).cachedIn(viewModelScope)
+        supplierRepository.getAllSuppliersRecordsPaged(supplierId).cachedIn(viewModelScope)
 
     fun updateSupplierData(supplier: Supplier){
         supplier.supplierId = _currentSupplier.value.supplierId

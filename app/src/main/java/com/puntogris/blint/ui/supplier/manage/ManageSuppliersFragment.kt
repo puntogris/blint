@@ -4,73 +4,51 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
+class ManageSuppliersFragment :
+    BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
 
     private val viewModel: ManageSuppliersViewModel by viewModels()
-    private lateinit var manageProductsAdapter: ManageSuppliersAdapter
-    private var searchJob: Job? = null
 
     override fun initializeViews() {
         binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true){
+
+        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editSupplierFragment)
         }
 
-        manageProductsAdapter = ManageSuppliersAdapter{ onSupplierClickListener(it)}
-        binding.recyclerView.adapter = manageProductsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        launchAndRepeatWithViewLifecycle {
-            getAllSuppliersAndFillAdapter()
+        ManageSuppliersAdapter { onSupplierClickListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
 
         binding.supplierSearch.addTextChangedListener {
-            searchJob?.cancel()
-            searchJob = lifecycleScope.launch {
-                it.toString().let {
-                    if (it.isBlank()) getAllSuppliersAndFillAdapter()
-                    else getAllSuppliersWithNameAndFillAdapter(it.lowercase())
-                }
-            }
+            viewModel.setQuery(it.toString())
         }
     }
 
-    private suspend fun getAllSuppliersWithNameAndFillAdapter(text:String){
-        viewModel.getSuppliersWithName(text).collect {
-            manageProductsAdapter.submitData(it)
+    private fun subscribeUi(adapter: ManageSuppliersAdapter) {
+        viewModel.suppliersLiveData.observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
-    private suspend fun getAllSuppliersAndFillAdapter(){
-        viewModel.getSuppliersPaging().collect {
-            manageProductsAdapter.submitData(it)
-        }
-    }
-
-    private fun onSupplierClickListener(supplier: Supplier){
+    private fun onSupplierClickListener(supplier: Supplier) {
         hideKeyboard()
-        val action = ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(supplier)
+        val action =
+            ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(
+                supplier
+            )
         findNavController().navigate(action)
-    }
-
-
-    override fun onDestroyView() {
-        binding.recyclerView.adapter = null
-        super.onDestroyView()
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -81,7 +59,11 @@ class ManageSuppliersFragment : BaseFragmentOptions<FragmentManageSuppliersBindi
         return if (item.itemId == R.id.newSupplier) {
             findNavController().navigate(R.id.editSupplierFragment)
             true
-        }
-        else super.onOptionsItemSelected(item)
+        } else super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        binding.recyclerView.adapter = null
+        super.onDestroyView()
     }
 }

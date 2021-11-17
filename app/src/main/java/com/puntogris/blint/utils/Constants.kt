@@ -77,29 +77,12 @@ object Constants {
     const val OUT = "OUT"
     const val INITIAL = "INITIAL"
 
-    //Notification type
-    const val NEW_USER = "NEW_USER"
-    const val NEW_BUSINESS = "NEW_BUSINESS"
-    const val NEW_EMPLOYEE = "NEW_EMPLOYEE"
-    const val ADVERTISEMENT = "ADVERTISEMENT"
-
     //Firestore paths
-    const val WAS_READ_FIELD = "wasRead"
     const val REPORT_FIELD_FIRESTORE = "report"
     const val TIMESTAMP_FIELD_FIRESTORE = "timestamp"
     const val SUGGESTION_COLLECTION_NAME = "suggestions"
     const val TIMESTAMP_FIELD = "timestamp"
     const val USERS_COLLECTION = "users"
-    const val NOTIFICATIONS_SUB_COLLECTION = "notifications"
-    const val BUSINESS_COLLECTION = "business"
-    const val EVENTS_COLLECTION = "events"
-    const val PRODUCTS_COLLECTION = "products"
-    const val RECORDS_COLLECTION = "records"
-    const val CLIENTS_COLLECTION = "clients"
-    const val SUPPLIERS_COLLECTION = "suppliers"
-    const val CATEGORIES_COLLECTION = "categories"
-    const val ORDERS_COLLECTION = "orders"
-    const val TYPE_FIELD = "type"
     const val OWNER_FIELD = "owner"
     const val USER_ID_FIELD = "userId"
 

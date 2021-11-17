@@ -8,7 +8,7 @@ import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
-import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.SUGGESTION_COLLECTION_NAME
 import com.puntogris.blint.utils.Constants.LOCAL
@@ -25,7 +25,7 @@ class UserRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
     private val statisticsDao: StatisticsDao,
-    private val sharedPref: SharedPref
+    private val sharedPreferences: SharedPreferences
     ) : IUserRepository {
 
     private val auth = FirebaseAuth.getInstance()
@@ -56,16 +56,16 @@ class UserRepository @Inject constructor(
             }
             if(userBusinesses.isEmpty){
                 businessDao.deleteAll()
-                sharedPref.apply {
+                sharedPreferences.apply {
                     setShowNewUserScreenPref(true)
-                    setLoginCompletedPref(true)
+                    setShowLoginScreen(true)
                 }
                 SyncAccount.Success.BusinessNotFound
             }else{
                 val businesses = userBusinesses.toObjects(Business::class.java)
                 businessDao.syncEmployees(businesses)
 
-                businesses.filter { it.businessType == LOCAL }
+                businesses.filter { it.type == LOCAL }
                     .map { Statistic(businessId = it.businessId) }
                     .let { if(it.isNotEmpty()) statisticsDao.insertAccountStatistic(it) }
 
@@ -73,9 +73,9 @@ class UserRepository @Inject constructor(
                     usersDao.updateUserCurrentBusiness(it.businessId)
                 }
 
-                sharedPref.apply {
+                sharedPreferences.apply {
                     setShowNewUserScreenPref(false)
-                    setLoginCompletedPref(true)
+                    setShowLoginScreen(true)
                 }
                 SyncAccount.Success.HasBusiness
             }

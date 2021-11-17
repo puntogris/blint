@@ -22,7 +22,7 @@ interface BusinessDao {
     }
 
     @Query("SELECT * FROM business")
-    fun getBusiness(): List<Business>
+    suspend fun getBusiness(): List<Business>
 
     @Query("DELETE FROM business where businessId = :businessId")
     suspend fun deleteEmployeeWithBusinessId(businessId: Int)

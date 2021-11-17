@@ -4,20 +4,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.hideKeyboard
-import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageClientsFragment :
@@ -43,7 +37,7 @@ class ManageClientsFragment :
     }
 
     private fun subscribeUi(adapter: ManageClientsAdapter) {
-        viewModel.clientsPaged.observe(viewLifecycleOwner){
+        viewModel.clientsLiveData.observe(viewLifecycleOwner){
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }

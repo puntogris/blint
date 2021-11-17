@@ -118,10 +118,10 @@ class CreateBackupFragment :
 
     private fun showConfirmationDialogForBackUp() {
         InfoSheet().show(requireParentFragment().requireContext()) {
-            title(this@CreateBackupFragment.getString(R.string.ask_user_action_confirmation))
-            content(this@CreateBackupFragment.getString(R.string.create_backup_warning))
-            onNegative(this@CreateBackupFragment.getString(R.string.action_cancel))
-            onPositive(this@CreateBackupFragment.getString(R.string.action_create_backup))
+            title(R.string.ask_user_action_confirmation)
+            content(R.string.create_backup_warning)
+            onNegative(R.string.action_cancel)
+            onPositive(R.string.action_create_backup)
             { startBusinessBackup() }
         }
     }

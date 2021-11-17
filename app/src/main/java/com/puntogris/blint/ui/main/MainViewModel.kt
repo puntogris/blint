@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.puntogris.blint.data.repository.main.MainRepository
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.model.Business
+import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.utils.AccountStatus
 import com.puntogris.blint.utils.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
     val businessCounter: LiveData<BusinessCounters> = liveData {
@@ -48,6 +50,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun showLogin() = sharedPreferences.showLoginScreen()
 
     fun isUserLoggedIn() = mainRepository.checkIfUserIsLogged()
 

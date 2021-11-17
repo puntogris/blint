@@ -8,13 +8,13 @@ import com.puntogris.blint.utils.Constants.USER_HAS_BUSINESS_PREF
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class SharedPref @Inject constructor(@ApplicationContext private val context: Context) {
+class SharedPreferences @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun loginCompletedPref() = sharedPref.getBoolean(SHOW_WELCOME_PREF, false)
+    fun showLoginScreen() = sharedPref.getBoolean(SHOW_WELCOME_PREF, true)
 
-    fun setLoginCompletedPref(value: Boolean){
+    fun setShowLoginScreen(value: Boolean){
         sharedPref.edit().putBoolean(SHOW_WELCOME_PREF, value).apply()
     }
 

@@ -99,14 +99,14 @@ class GeneralPriceChangeFragment : BaseFragment<FragmentGeneralPriceChangeBindin
     }
 
     private fun onSaveChangesClicked(){
-        InfoSheet().build(requireContext()) {
+        InfoSheet().show(requireParentFragment().requireContext()) {
             title("Queres llevar a cabo esta accion?")
             content("Estas por cambiarle la informacion a varios productos. Tene en cuenta que esta accion es irreversible.")
-            onNegative("Cancelar")
-            onPositive("Si") {
+            onNegative(R.string.action_cancel)
+            onPositive(R.string.action_yes) {
                 savesChanges()
             }
-        }.show(parentFragmentManager, "")
+        }
     }
 
     private fun savesChanges(){

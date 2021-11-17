@@ -216,12 +216,12 @@ class BottomNavDrawerFragment :
                     val dataForAdapter = viewModel.getBusinessList().map { employee ->
                         val tempBusiness = BusinessItem(
                             employee.businessId,
-                            employee.businessName,
-                            employee.businessType,
-                            employee.businessOwner,
+                            employee.name,
+                            employee.type,
+                            employee.ownerUid,
                             R.drawable.ic_baseline_storefront_24,
                             false,
-                            businessStatus = employee.businessStatus
+                            businessStatus = employee.status
                         )
 
                         if (tempBusiness.businessId == it.businessId) {

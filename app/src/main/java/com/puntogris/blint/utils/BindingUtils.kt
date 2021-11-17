@@ -21,9 +21,6 @@ import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.INITIAL
 import com.puntogris.blint.utils.Constants.LOCAL
-import com.puntogris.blint.utils.Constants.NEW_BUSINESS
-import com.puntogris.blint.utils.Constants.NEW_EMPLOYEE
-import com.puntogris.blint.utils.Constants.NEW_USER
 import com.puntogris.blint.utils.Constants.PENDING
 import com.puntogris.blint.utils.Constants.TO_DELETE
 import java.util.*
@@ -288,32 +285,6 @@ fun TextView.setTimeSinceCreated(timestamp: Timestamp){
             minutes in 1440..2880 -> context.getString(R.string.day_notif)
             else -> context.getString(R.string.days_notif, (minutes / 60 / 24))
         }
-}
-
-@BindingAdapter("notificationTypeTitle")
-fun TextView.setNotificationTypeTitle(notification: Notification){
-    text = when(notification.type){
-        NEW_USER -> context.getString(R.string.new_user_notif_title)
-        NEW_BUSINESS -> context.getString(R.string.new_business_notif_title)
-        NEW_EMPLOYEE -> context.getString(R.string.new_employee_notif_title)
-        else -> {
-            if (notification.title.isBlank()) gone()
-            notification.title
-        }
-    }
-}
-
-@BindingAdapter("notificationTypeMessage")
-fun TextView.setNotificationTypeMessage(notification: Notification){
-    text = when(notification.type){
-        NEW_USER -> context.getString(R.string.new_user_notif_message)
-        NEW_BUSINESS -> context.getString(R.string.new_business_notif_message)
-        NEW_EMPLOYEE -> context.getString(R.string.new_employee_notif_message, notification.message)
-        else -> {
-            if (notification.message.isBlank()) gone()
-            notification.message
-        }
-    }
 }
 
 @BindingAdapter("productCategoriesChipGroup")

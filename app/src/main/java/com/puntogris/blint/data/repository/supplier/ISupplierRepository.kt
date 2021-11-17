@@ -8,8 +8,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISupplierRepository {
     suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult
-    suspend fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>>
+
+    fun getAllSuppliersPaged(): Flow<PagingData<Supplier>>
+
     suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult
-    suspend fun getSupplierRecordsPagingDataFlow(supplierId: Int): Flow<PagingData<Record>>
-    suspend fun getSupplierWithNamePagingDataFlow(name:String): Flow<PagingData<Supplier>>
+
+    fun getAllSuppliersRecordsPaged(supplierId: Int): Flow<PagingData<Record>>
+
+    fun getSuppliersWithNamePaged(name: String): Flow<PagingData<Supplier>>
 }

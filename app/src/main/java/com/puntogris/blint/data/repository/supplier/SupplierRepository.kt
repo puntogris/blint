@@ -43,18 +43,17 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override suspend fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                suppliersDao.getAllPaged()
-            }.flow
-        }
+    override fun getAllSuppliersPaged(): Flow<PagingData<Supplier>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            suppliersDao.getAllPaged()
+        }.flow
+    }
 
     override suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult =
         withContext(Dispatchers.IO) {
@@ -68,29 +67,27 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override suspend fun getSupplierRecordsPagingDataFlow(supplierId: Int): Flow<PagingData<Record>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                ordersDao.getSupplierRecords(supplierId)
-            }.flow
-        }
+    override fun getAllSuppliersRecordsPaged(supplierId: Int): Flow<PagingData<Record>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            ordersDao.getSupplierRecords(supplierId)
+        }.flow
+    }
 
-    override suspend fun getSupplierWithNamePagingDataFlow(name: String): Flow<PagingData<Supplier>> =
-        withContext(Dispatchers.IO) {
-            Pager(
-                PagingConfig(
-                    pageSize = 30,
-                    enablePlaceholders = true,
-                    maxSize = 200
-                )
-            ) {
-                suppliersDao.getPagedSearch("%${name}%")
-            }.flow
-        }
+    override fun getSuppliersWithNamePaged(name: String): Flow<PagingData<Supplier>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) {
+            suppliersDao.getPagedSearch("%${name}%")
+        }.flow
+    }
 }

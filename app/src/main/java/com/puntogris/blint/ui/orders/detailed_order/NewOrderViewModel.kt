@@ -70,10 +70,10 @@ class NewOrderViewModel @Inject constructor(
     }
 
     suspend fun getSuppliersWithName(name: String) =
-        supplierRepository.getSupplierWithNamePagingDataFlow(name).cachedIn(viewModelScope)
+        supplierRepository.getSuppliersWithNamePaged(name).cachedIn(viewModelScope)
 
     suspend fun getSuppliersPaging() =
-        supplierRepository.getSupplierPagingDataFlow().cachedIn(viewModelScope)
+        supplierRepository.getAllSuppliersPaged().cachedIn(viewModelScope)
 
     suspend fun getProductWithName(searchText: SearchText) =
         productRepository.getProductsWithNamePagingDataFlow(searchText)

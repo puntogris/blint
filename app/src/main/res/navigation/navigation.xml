@@ -81,8 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"
-        android:name="com.puntogris.blint.ui.product.manage.ManageProductsFragment"
-        android:label="@string/products_label" >
+        android:name="com.puntogris.blint.ui.product.manage.ManageProductsFragment">
         <action
             android:id="@+id/action_manageProductsFragment_to_productFragment"
             app:destination="@id/productFragment" />
@@ -92,16 +91,14 @@
     </fragment>
     <fragment
         android:id="@+id/manageSuppliersFragment"
-        android:name="com.puntogris.blint.ui.supplier.manage.ManageSuppliersFragment"
-        android:label="@string/suppliers_label" >
+        android:name="com.puntogris.blint.ui.supplier.manage.ManageSuppliersFragment">
         <action
             android:id="@+id/action_manageSuppliersFragment_to_supplierFragment"
             app:destination="@id/supplierFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageClientsFragment"
-        android:name="com.puntogris.blint.ui.client.manage.ManageClientsFragment"
-        android:label="@string/clients_label" >
+        android:name="com.puntogris.blint.ui.client.manage.ManageClientsFragment" >
         <action
             android:id="@+id/action_manageClientsFragment_to_clientFragment"
             app:destination="@id/clientFragment" />

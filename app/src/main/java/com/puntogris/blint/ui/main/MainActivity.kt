@@ -9,21 +9,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
-import com.puntogris.blint.ui.SharedPref
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.ui.nav.*
 import com.puntogris.blint.utils.*
@@ -33,7 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -108,18 +104,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
         supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
     }
 
-    @Inject
-    lateinit var sharedPref: SharedPref
-
     override fun preInitViews() {
         setTheme(R.style.Theme_Blint)
-        AppCompatDelegate.setDefaultNightMode(sharedPref.getThemePref())
     }
 
     override fun initializeViews() {
@@ -134,20 +126,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     when (it) {
                         AccountStatus.Error -> {}
                         is AccountStatus.OutOfSync -> {
-                            if (sharedPref.loginCompletedPref()) {
-                                val nav = NavOptions.Builder()
-                                    .setPopUpTo(navController.graph.startDestination, true).build()
-                                navController.navigate(R.id.outOfSyncFragment, null, nav)
-                            }
+//                            if (sharedPref.loginCompletedPref()) {
+//                                val nav = NavOptions.Builder()
+//                                    .setPopUpTo(navController.graph.startDestination, true).build()
+//                                navController.navigate(R.id.outOfSyncFragment, null, nav)
+//                            }
                         }
                         is AccountStatus.Synced -> {
-                            if (it.hasBusiness) {
-                                if (sharedPref.showNewUserScreenPref()) {
-                                    sharedPref.setShowNewUserScreenPref(false)
-                                    if (navController.currentDestination?.id == R.id.newUserFragment)
-                                        navController.navigate(R.id.mainFragment)
-                                }
-                            }
+//                            if (it.hasBusiness) {
+//                                if (sharedPref.showNewUserScreenPref()) {
+//                                    sharedPref.setShowNewUserScreenPref(false)
+//                                    if (navController.currentDestination?.id == R.id.newUserFragment)
+//                                        navController.navigate(R.id.mainFragment)
+//                                }
+//                            }
                         }
                     }
                 }
@@ -170,7 +162,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
                 startDestination =
-                    if (sharedPref.loginCompletedPref()) R.id.loginFragment
+                    if (viewModel.showLogin()) R.id.loginFragment
                     else R.id.mainFragment
             }
         binding.run {
@@ -205,7 +197,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun navigateToMenuDestinations(navMenu: NavMenu) {
         if (navMenu != NavMenu.HOME &&
             navMenu != NavMenu.SETTINGS &&
-            viewModel.currentUser.value.businessStatus != ENABLED
+            viewModel.currentUser.value.status != ENABLED
         ) {
             showSnackBar(getString(R.string.action_require_permissions)) {
                 launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
@@ -255,7 +247,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     ) {
         hideKeyboard()
     }
-
 
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {

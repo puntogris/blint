@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSyncAccountBinding
-import com.puntogris.blint.ui.SharedPref
+import com.puntogris.blint.ui.SharedPreferences
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.SyncAccount
 import com.puntogris.blint.utils.UiInterface
@@ -23,7 +23,7 @@ class SyncAccountFragment :
     private val viewModel: SyncViewModel by viewModels()
     private val args: SyncAccountFragmentArgs by navArgs()
     @Inject
-    lateinit var sharedPref: SharedPref
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun initializeViews() {
         binding.fragment = this
@@ -52,7 +52,7 @@ class SyncAccountFragment :
 
     fun onContinueButtonClicked() {
         val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-        if (sharedPref.showNewUserScreenPref()) findNavController().navigate(
+        if (sharedPreferences.showNewUserScreenPref()) findNavController().navigate(
             R.id.newUserFragment,
             null,
             nav

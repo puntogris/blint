@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.supplier.manage
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +11,14 @@ class ManageSuppliersViewModel @Inject constructor(
     private val supplierRepository: SupplierRepository
 ):ViewModel() {
 
-    suspend fun getSuppliersPaging() =
-        supplierRepository.getSupplierPagingDataFlow().cachedIn(viewModelScope)
+    private val query = MutableLiveData("")
 
-    suspend fun getSuppliersWithName(supplierName: String)
-            = supplierRepository.getSupplierWithNamePagingDataFlow(supplierName).cachedIn(viewModelScope)
+    val suppliersLiveData = query.switchMap {
+        if (it.isNullOrBlank()) supplierRepository.getAllSuppliersPaged().asLiveData()
+        else supplierRepository.getSuppliersWithNamePaged(it).asLiveData()
+    }.cachedIn(viewModelScope)
+
+    fun setQuery(query: String){
+        this.query.value = query
+    }
 }

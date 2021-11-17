@@ -59,7 +59,7 @@ class OrderRepository @Inject constructor(
             val user = currentBusiness()
             try {
                 order.order.author = auth.currentUser?.email.toString()
-                order.order.businessName = user.businessName
+                order.order.businessName = user.name
 
                 if (order.debt != null) {
                     order.debt?.debtId = order.order.debtId

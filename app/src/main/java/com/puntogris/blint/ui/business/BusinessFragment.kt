@@ -14,7 +14,6 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.TO_DELETE
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.fragment_business) {
@@ -42,12 +41,12 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
             binding.cardView2.gone()
 
 
-        if(args.business.businessStatus == TO_DELETE){
+        if(args.business.status == TO_DELETE){
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deleting_alert_view
                 inflate()
             }
-        }else if(args.business.businessStatus == DISABLED){
+        }else if(args.business.status == DISABLED){
             binding.statusAlertStub.viewStub?.apply {
                 layoutResource = R.layout.business_deactivated_alert_view
                 inflate()
@@ -75,7 +74,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.businessFragmentMenu).isVisible = true
-        if(args.business.businessStatus == TO_DELETE) {
+        if(args.business.status == TO_DELETE) {
             menu.findItem(R.id.newEmployee).isVisible = false
             menu.findItem(R.id.cancelDeletionBusiness).isVisible = true
             menu.findItem(R.id.deleteBusiness).isVisible = false

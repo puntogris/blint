@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -18,8 +19,10 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
+import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,54 +34,55 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24){
+        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24) {
             navigateToEditProductFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when(position){
+            tab.text = when (position) {
                 0 -> getString(R.string.tab_data)
                 else -> getString(R.string.tab_records)
             }
         }
 
         mediator?.attach()
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab?.position){
+                when (tab?.position) {
                     0 -> {
                         UiInterface
-                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24){
+                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
                                 navigateToEditProductFragment()
                             }
                     }
                     else -> {
                         UiInterface
-                            .setFabImageAndClickListener{ showOrderPickerAndNavigate(args.product?.product) }
+                            .setFabImageAndClickListener { showOrderPickerAndNavigate(args.product?.product) }
                     }
                 }
             }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
         })
     }
 
-    private fun navigateToEditProductFragment(){
-        val action = ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
+    private fun navigateToEditProductFragment() {
+        val action =
+            ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
         findNavController().navigate(action)
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) : FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+        FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0 ) ProductDataFragment()
-             else ProductRecordsFragment()).apply {
-                arguments = Bundle().apply {
-                    putParcelable(PRODUCT_DATA_KEY, args.product)
+            (if (position == 0) ProductDataFragment() else ProductRecordsFragment())
+                .apply {
+                    arguments = bundleOf(PRODUCT_DATA_KEY to args.product)
                 }
-            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -88,12 +92,12 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 true
             }
             R.id.deleteOption -> {
-                InfoSheet().build(requireContext()) {
-                    title(this@ProductFragment.getString(R.string.ask_delete_product_title))
-                    content(this@ProductFragment.getString(R.string.delete_product_warning))
-                    onNegative(this@ProductFragment.getString(R.string.action_cancel))
-                    onPositive(this@ProductFragment.getString(R.string.action_yes)) { onDeleteProductConfirmed() }
-                }.show(parentFragmentManager, "")
+                InfoSheet().show(requireParentFragment().requireContext()) {
+                    title(R.string.ask_delete_product_title)
+                    content(R.string.delete_product_warning)
+                    onNegative(R.string.action_cancel)
+                    onPositive(R.string.action_yes) { onDeleteProductConfirmed() }
+                }
                 true
             }
             R.id.createOrder -> {
@@ -103,7 +107,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
             else -> super.onOptionsItemSelected(item)
         }
     }
-    private fun onDeleteProductConfirmed(){
+
+    private fun onDeleteProductConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteProductDatabase(args.product?.product!!.productId)) {
                 SimpleResult.Failure ->
@@ -116,12 +121,12 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         }
     }
 
-    fun navigateToInfoRecord(record: Record){
+    fun navigateToInfoRecord(record: Record) {
         val action = ProductFragmentDirections.actionProductFragmentToRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }
 
-    fun navigateToSupplier(supplierId:String){
+    fun navigateToSupplier(supplierId: String) {
 //        val action = ProductFragmentDirections.actionProductFragmentToSupplierFragment(s)
 //        findNavController().navigate(action)
     }

@@ -1,9 +1,9 @@
 package com.puntogris.blint.ui.client
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -17,8 +17,9 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
+import com.puntogris.blint.utils.SimpleResult
+import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,7 +42,6 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
         }
         mediator?.attach()
-
     }
 
     private fun navigateToEditClientFragment() {
@@ -55,11 +55,10 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment =
-            (if (position == 0) ClientDataFragment() else ClientRecordsFragment()).apply {
-                arguments = Bundle().apply {
-                    putParcelable(CLIENT_DATA_KEY, args.client)
+            (if (position == 0) ClientDataFragment() else ClientRecordsFragment())
+                .apply {
+                    arguments = bundleOf(CLIENT_DATA_KEY to args.client)
                 }
-            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,12 +68,12 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                 true
             }
             R.id.deleteOption -> {
-                InfoSheet().build(requireContext()) {
-                    title(this@ClientFragment.getString(R.string.ask_delete_client_title))
-                    content(this@ClientFragment.getString(R.string.delete_client_warning))
-                    onNegative(this@ClientFragment.getString(R.string.action_cancel))
-                    onPositive(this@ClientFragment.getString(R.string.action_yes)) { onDeleteClientConfirmed() }
-                }.show(parentFragmentManager, "")
+                InfoSheet().show(requireParentFragment().requireContext()) {
+                    title(R.string.ask_delete_client_title)
+                    content(R.string.delete_client_warning)
+                    onNegative(R.string.action_cancel)
+                    onPositive(R.string.action_yes) { onDeleteClientConfirmed() }
+                }
                 true
             }
             R.id.debtStatus -> {
@@ -105,15 +104,15 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         findNavController().navigate(action)
     }
 
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.moreOptions).isVisible = true
+        menu.findItem(R.id.debtStatus).isVisible = true
+    }
+
     override fun onDestroyView() {
         mediator?.detach()
         mediator = null
         binding.viewPager.adapter = null
         super.onDestroyView()
-    }
-
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.moreOptions).isVisible = true
-        menu.findItem(R.id.debtStatus).isVisible = true
     }
 }

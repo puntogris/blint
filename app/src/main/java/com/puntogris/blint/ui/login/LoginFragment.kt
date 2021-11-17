@@ -80,7 +80,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     //   onLoginError()
                 }
                 SimpleResult.Success -> {
-                    findNavController().navigate(R.id.welcomeFragment)
+                    findNavController().navigate(R.id.mainFragment)
                 }
             }
         }
