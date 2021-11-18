@@ -71,29 +71,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rateAppButton"
-            android:layout_width="0dp"
             style="@style/Theme.Blint.Button"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="8dp"
             android:onClick="@{()-> fragment.onRateAppClicked()}"
             android:text="@string/action_rate_us_on_google_play"
-            app:layout_constraintBottom_toTopOf="@+id/sendSuggestion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/sendSuggestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="@string/suggestions"
-            android:onClick="@{()-> fragment.onSendSuggestionClicked()}"
-            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
 
         <TextView
             android:id="@+id/privacyPolicy"

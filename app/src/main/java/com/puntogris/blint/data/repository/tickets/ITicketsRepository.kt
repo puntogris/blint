@@ -4,5 +4,5 @@ import com.puntogris.blint.model.Ticket
 import com.puntogris.blint.utils.types.SimpleResult
 
 interface ITicketsRepository {
-    suspend fun sendTicketDatabase(ticket: Ticket): SimpleResult
+    suspend fun sendTicket(ticket: Ticket): SimpleResult
 }

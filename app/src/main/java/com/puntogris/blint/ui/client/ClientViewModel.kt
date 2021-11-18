@@ -21,15 +21,15 @@ class ClientViewModel @Inject constructor(
     val currentClient: LiveData<Client> = _currentClient.asLiveData()
 
     suspend fun getClientsRecords(clientId: Int) =
-        clientRepository.getClientRecordsPagingDataFlow(clientId).cachedIn(viewModelScope)
+        clientRepository.getClientRecordsPaged(clientId).cachedIn(viewModelScope)
 
     suspend fun saveClientDatabase(): SimpleResult {
         _currentClient.value.name = _currentClient.value.name.lowercase()
-        return clientRepository.saveClientDatabase(_currentClient.value)
+        return clientRepository.saveClient(_currentClient.value)
     }
 
     suspend fun deleteClientDatabase(clientId: Int) =
-        clientRepository.deleteClientDatabase(clientId)
+        clientRepository.deleteClient(clientId)
 
     fun setClientData(client: Client) {
         _currentClient.value = client

@@ -6,11 +6,12 @@ import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IEventRepository {
-    suspend fun createEventDatabase(event: Event): SimpleResult
 
-    fun getEventPagingDataFlow(filter: String): Flow<PagingData<Event>>
+    fun getEventsPaged(filter: String): Flow<PagingData<Event>>
 
-    suspend fun deleteEventDatabase(eventId: String): SimpleResult
+    suspend fun saveEvent(event: Event): SimpleResult
 
-    suspend fun updateEventStatusDatabase(event: Event): SimpleResult
+    suspend fun deleteEvent(eventId: String): SimpleResult
+
+    suspend fun updateEventStatus(event: Event): SimpleResult
 }

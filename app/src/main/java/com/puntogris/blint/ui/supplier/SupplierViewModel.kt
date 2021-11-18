@@ -21,16 +21,16 @@ class SupplierViewModel @Inject constructor(
     val currentSupplier: LiveData<Supplier> = _currentSupplier.asLiveData()
 
     suspend fun deleteSupplierDatabase(supplierId: Int) =
-        supplierRepository.deleteSupplierDatabase(supplierId)
+        supplierRepository.deleteSupplier(supplierId)
 
     suspend fun saveSupplierDatabase(): SimpleResult {
-        return supplierRepository.saveSupplierDatabase(_currentSupplier.value.apply {
+        return supplierRepository.saveSupplier(_currentSupplier.value.apply {
             companyName = companyName.lowercase()
         })
     }
 
     suspend fun getSupplierRecords(supplierId: Int) =
-        supplierRepository.getAllSuppliersRecordsPaged(supplierId).cachedIn(viewModelScope)
+        supplierRepository.getSupplierRecordsPaged(supplierId).cachedIn(viewModelScope)
 
     fun updateSupplierData(supplier: Supplier) {
         supplier.supplierId = _currentSupplier.value.supplierId

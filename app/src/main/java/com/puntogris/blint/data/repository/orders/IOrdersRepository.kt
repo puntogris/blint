@@ -7,8 +7,12 @@ import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IOrdersRepository {
-    suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>>
-    suspend fun getBusinessRecordsPagingDataFlow(): Flow<PagingData<Record>>
-    suspend fun saveOrderIntoDatabase(order: OrderWithRecords): SimpleResult
+
+    suspend fun getBusinessOrdersPaged(): Flow<PagingData<OrderWithRecords>>
+
+    suspend fun getBusinessRecordsPaged(): Flow<PagingData<Record>>
+
+    suspend fun saveOrder(order: OrderWithRecords): SimpleResult
+
     suspend fun getOrderRecords(orderId: String): OrderWithRecords
 }

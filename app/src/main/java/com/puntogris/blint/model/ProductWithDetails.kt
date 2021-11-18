@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class ProductWithDetails(
 
-    @Embedded var product: Product,
+    @Embedded var product: Product = Product(),
 
     @Relation(
         entity = Supplier::class,
@@ -19,7 +19,7 @@ data class ProductWithDetails(
         entityColumn = "supplierId",
         associateBy = Junction(ProductSupplierCrossRef::class)
     )
-    var suppliers: List<FirestoreSupplier>,
+    var suppliers: List<FirestoreSupplier> = emptyList(),
 
     @Relation(
         entity = Category::class,
@@ -27,5 +27,6 @@ data class ProductWithDetails(
         entityColumn = "categoryName",
         associateBy = Junction(ProductCategoryCrossRef::class)
     )
-    var categories: List<Category>
+    var categories: List<Category> = emptyList()
+
 ) : Parcelable

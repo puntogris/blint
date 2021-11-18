@@ -19,7 +19,7 @@ class BusinessRepository @Inject constructor(
     private val firebaseClients: FirebaseClients
 ) : IBusinessRepository {
 
-    override suspend fun registerLocalBusiness(businessName: String): SimpleResult =
+    override suspend fun registerBusiness(businessName: String): SimpleResult =
         withContext(dispatcher.io) {
             try {
                 val business = Business(ownerUid = firebaseClients.currentUser?.uid ?: "")
@@ -33,7 +33,7 @@ class BusinessRepository @Inject constructor(
             }
         }
 
-    override suspend fun deleteBusinessDatabase(businessId: Int): DeleteBusiness =
+    override suspend fun deleteBusiness(businessId: Int): DeleteBusiness =
         withContext(dispatcher.io) {
             try {
                 businessDao.deleteBusiness(businessId)

@@ -23,7 +23,7 @@ class SupplierRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : ISupplierRepository {
 
-    override suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult =
+    override suspend fun saveSupplier(supplier: Supplier): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 if (supplier.supplierId == 0) {
@@ -35,7 +35,7 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override fun getAllSuppliersPaged(): Flow<PagingData<Supplier>> {
+    override fun getSuppliersPaged(): Flow<PagingData<Supplier>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -47,7 +47,7 @@ class SupplierRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult =
+    override suspend fun deleteSupplier(supplierId: Int): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 suppliersDao.delete(supplierId)
@@ -55,7 +55,7 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override fun getAllSuppliersRecordsPaged(supplierId: Int): Flow<PagingData<Record>> {
+    override fun getSupplierRecordsPaged(supplierId: Int): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -67,7 +67,7 @@ class SupplierRepository @Inject constructor(
         }.flow
     }
 
-    override fun getSuppliersWithNamePaged(name: String): Flow<PagingData<Supplier>> {
+    override fun getSuppliersWithQueryPaged(query: String): Flow<PagingData<Supplier>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -75,7 +75,7 @@ class SupplierRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            suppliersDao.getSuppliersSearchPaged("%${name}%")
+            suppliersDao.getSuppliersSearchPaged("%${query}%")
         }.flow
     }
 }

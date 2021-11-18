@@ -13,12 +13,12 @@ class ManageCategoriesViewModel @Inject constructor(
 ) : ViewModel() {
 
     @ExperimentalCoroutinesApi
-    suspend fun getProductCategories() = categoriesRepository.getAllCategoriesDatabase()
+    suspend fun getProductCategories() = categoriesRepository.getCategories()
 
     suspend fun deleteCategory(name: String) =
-        categoriesRepository.deleteProductCategoryDatabase(name)
+        categoriesRepository.deleteCategory(name)
 
     suspend fun saveCategoryDatabase(name: String) =
-        categoriesRepository.saveProductCategoryDatabase(Category(categoryName = name.lowercase()))
+        categoriesRepository.saveCategory(Category(categoryName = name.lowercase()))
 
 }

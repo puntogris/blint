@@ -39,6 +39,7 @@ class UserRepository @Inject constructor(
                 }.also {
                     sharedPreferences.setShowLoginScreen(false)
                 }
+
             } catch (e: Exception) {
                 SyncAccount.Error(e)
             }
@@ -46,17 +47,4 @@ class UserRepository @Inject constructor(
 
     override suspend fun getCurrentUser() = usersDao.getUser()
 
-
-    override suspend fun sendReportToFirestore(message: String): SimpleResult =
-        withContext(dispatcher.io) {
-            SimpleResult.build {
-//                val report = hashMapOf(
-//                    USER_ID_FIELD to getCurrentUID(),
-//                    REPORT_FIELD_FIRESTORE to message,
-//                    TIMESTAMP_FIELD_FIRESTORE to Timestamp.now()
-//                )
-//
-//                firestore.collection(SUGGESTION_COLLECTION_NAME).document().set(report).await()
-            }
-        }
 }

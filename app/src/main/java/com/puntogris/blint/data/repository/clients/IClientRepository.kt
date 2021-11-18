@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface IClientRepository {
 
-    suspend fun saveClientDatabase(client: Client): SimpleResult
+    suspend fun saveClient(client: Client): SimpleResult
 
-    fun getAllClientsPaged(): Flow<PagingData<Client>>
+    suspend fun deleteClient(clientId: Int): SimpleResult
 
-    suspend fun deleteClientDatabase(clientId: Int): SimpleResult
+    fun getClientsPaged(): Flow<PagingData<Client>>
 
-    fun getClientRecordsPagingDataFlow(clientId: Int): Flow<PagingData<Record>>
+    fun getClientRecordsPaged(clientId: Int): Flow<PagingData<Record>>
 
-    fun getClientsWithNamePaged(name: String): Flow<PagingData<Client>>
+    fun getClientsWithQueryPaged(query: String): Flow<PagingData<Client>>
 }

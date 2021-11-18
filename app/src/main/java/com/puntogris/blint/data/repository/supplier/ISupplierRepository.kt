@@ -7,13 +7,14 @@ import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface ISupplierRepository {
-    suspend fun saveSupplierDatabase(supplier: Supplier): SimpleResult
 
-    fun getAllSuppliersPaged(): Flow<PagingData<Supplier>>
+    suspend fun saveSupplier(supplier: Supplier): SimpleResult
 
-    suspend fun deleteSupplierDatabase(supplierId: Int): SimpleResult
+    suspend fun deleteSupplier(supplierId: Int): SimpleResult
 
-    fun getAllSuppliersRecordsPaged(supplierId: Int): Flow<PagingData<Record>>
+    fun getSuppliersPaged(): Flow<PagingData<Supplier>>
 
-    fun getSuppliersWithNamePaged(name: String): Flow<PagingData<Supplier>>
+    fun getSupplierRecordsPaged(supplierId: Int): Flow<PagingData<Record>>
+
+    fun getSuppliersWithQueryPaged(query: String): Flow<PagingData<Supplier>>
 }

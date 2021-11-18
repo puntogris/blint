@@ -15,9 +15,9 @@ class ManageProductsViewModel @Inject constructor(
 
     val productsLiveData = query.switchMap {
         if (it.isNullOrBlank()) {
-            productRepository.getProductsWithSuppliersCategoriesPaged().asLiveData()
+            productRepository.getProductsPaged().asLiveData()
         } else {
-            productRepository.getProductsSupplierCategoryWithQueryFlow(it).asLiveData()
+            productRepository.getProductsWithQueryPaged(it).asLiveData()
         }
     }.cachedIn(viewModelScope)
 

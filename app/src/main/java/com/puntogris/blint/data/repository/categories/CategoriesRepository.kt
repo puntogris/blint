@@ -15,7 +15,7 @@ class CategoriesRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : ICategoriesRepository {
 
-    override suspend fun deleteProductCategoryDatabase(categoryName: String): SimpleResult =
+    override suspend fun deleteCategory(categoryName: String): SimpleResult =
         withContext(dispatcher.io) {
             try {
                 categoriesDao.deleteCategory(categoryName)
@@ -25,7 +25,7 @@ class CategoriesRepository @Inject constructor(
             }
         }
 
-    override suspend fun saveProductCategoryDatabase(category: Category): SimpleResult =
+    override suspend fun saveCategory(category: Category): SimpleResult =
         withContext(dispatcher.io) {
             try {
 //                val user = currentBusiness()
@@ -37,7 +37,7 @@ class CategoriesRepository @Inject constructor(
             }
         }
 
-    override suspend fun getAllCategoriesDatabase(): RepoResult<List<Category>> =
+    override suspend fun getCategories(): RepoResult<List<Category>> =
         withContext(dispatcher.io) {
             try {
                 val data = categoriesDao.getAllCategories()

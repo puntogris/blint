@@ -51,7 +51,7 @@ class OrdersViewModel @Inject constructor(
 
     suspend fun createSimpleOrder(orderWithRecords: OrderWithRecords): SimpleResult {
         orderWithRecords.order.value = orderWithRecords.records.first().value
-        return orderRepository.saveOrderIntoDatabase(orderWithRecords)
+        return orderRepository.saveOrder(orderWithRecords)
     }
 
 }

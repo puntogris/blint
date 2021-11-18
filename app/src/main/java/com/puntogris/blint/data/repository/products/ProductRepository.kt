@@ -27,7 +27,7 @@ class ProductRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IProductRepository {
 
-    override suspend fun saveProductDatabase(productWithDetails: ProductWithDetails): SimpleResult =
+    override suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult =
         withContext(dispatcher.io) {
             try {
                 val isNewProduct = productWithDetails.product.productId == 0
@@ -55,7 +55,7 @@ class ProductRepository @Inject constructor(
             }
         }
 
-    override fun getProductsWithSuppliersCategoriesPaged(): Flow<PagingData<ProductWithDetails>> {
+    override fun getProductsPaged(): Flow<PagingData<ProductWithDetails>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -65,7 +65,7 @@ class ProductRepository @Inject constructor(
         ) { productsDao.getProductsPaged() }.flow
     }
 
-    override suspend fun deleteProductDatabase(productId: Int): SimpleResult =
+    override suspend fun deleteProduct(productId: Int): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 productsDao.delete(productId)
@@ -73,7 +73,7 @@ class ProductRepository @Inject constructor(
             }
         }
 
-    override fun getProductsSupplierCategoryWithQueryFlow(query: String): Flow<PagingData<ProductWithDetails>> {
+    override fun getProductsWithQueryPaged(query: String): Flow<PagingData<ProductWithDetails>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -88,7 +88,7 @@ class ProductRepository @Inject constructor(
             productsDao.getProductsWithQuery("%$query%")
         }
 
-    override fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>> {
+    override fun getProductRecordsPaged(productId: Int): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

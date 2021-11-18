@@ -5,7 +5,7 @@ import com.puntogris.blint.utils.types.SimpleResult
 
 interface IBusinessRepository {
 
-    suspend fun registerLocalBusiness(businessName: String): SimpleResult
+    suspend fun registerBusiness(businessName: String): SimpleResult
 
-    suspend fun deleteBusinessDatabase(businessId: Int): DeleteBusiness
+    suspend fun deleteBusiness(businessId: Int): DeleteBusiness
 }

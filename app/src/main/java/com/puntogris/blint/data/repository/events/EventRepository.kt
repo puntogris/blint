@@ -18,7 +18,7 @@ class EventRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IEventRepository {
 
-    override suspend fun createEventDatabase(event: Event): SimpleResult =
+    override suspend fun saveEvent(event: Event): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 event.businessId = usersDao.getCurrentBusinessId()
@@ -26,7 +26,7 @@ class EventRepository @Inject constructor(
             }
         }
 
-    override fun getEventPagingDataFlow(filter: String): Flow<PagingData<Event>> {
+    override fun getEventsPaged(filter: String): Flow<PagingData<Event>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -39,14 +39,14 @@ class EventRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteEventDatabase(eventId: String): SimpleResult =
+    override suspend fun deleteEvent(eventId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 eventsDao.delete(eventId)
             }
         }
 
-    override suspend fun updateEventStatusDatabase(event: Event): SimpleResult =
+    override suspend fun updateEventStatus(event: Event): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 eventsDao.updateEvent(event)

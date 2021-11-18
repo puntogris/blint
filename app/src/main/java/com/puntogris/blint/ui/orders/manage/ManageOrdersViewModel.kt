@@ -13,8 +13,8 @@ class ManageOrdersViewModel @Inject constructor(
 ) : ViewModel() {
 
     suspend fun getBusinessOrders() =
-        orderRepository.getBusinessOrdersPagingDataFlow().cachedIn(viewModelScope)
+        orderRepository.getBusinessOrdersPaged().cachedIn(viewModelScope)
 
     suspend fun getBusinessRecords() =
-        orderRepository.getBusinessRecordsPagingDataFlow().cachedIn(viewModelScope)
+        orderRepository.getBusinessRecordsPaged().cachedIn(viewModelScope)
 }

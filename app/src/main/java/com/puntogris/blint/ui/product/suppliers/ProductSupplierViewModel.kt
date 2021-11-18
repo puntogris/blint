@@ -16,7 +16,7 @@ class ProductSupplierViewModel @Inject constructor(
 ) : ViewModel() {
 
     suspend fun getSuppliersPaging() =
-        supplierRepository.getAllSuppliersPaged()
+        supplierRepository.getSuppliersPaged()
             .map {
                 it.map { supp ->
                     FirestoreSupplier(
@@ -27,7 +27,7 @@ class ProductSupplierViewModel @Inject constructor(
             }.cachedIn(viewModelScope)
 
     suspend fun getSuppliersWithName(supplierName: String) =
-        supplierRepository.getSuppliersWithNamePaged(supplierName)
+        supplierRepository.getSuppliersWithQueryPaged(supplierName)
             .map {
                 it.map { supp ->
                     FirestoreSupplier(

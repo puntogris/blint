@@ -11,6 +11,6 @@ class BusinessViewModel @Inject constructor(
 ) : ViewModel() {
 
     suspend fun deleteBusiness(businessId: Int) =
-        businessRepository.deleteBusinessDatabase(businessId)
+        businessRepository.deleteBusiness(businessId)
 
 }

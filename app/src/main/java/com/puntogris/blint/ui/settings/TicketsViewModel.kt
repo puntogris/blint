@@ -17,7 +17,7 @@ class TicketsViewModel @Inject constructor(
 
     suspend fun sendTicket(message: String): SimpleResult {
         ticket.message = message
-        return ticketsRepository.sendTicketDatabase(ticket)
+        return ticketsRepository.sendTicket(ticket)
     }
 
     fun updateTicketBusiness(business: Business) {

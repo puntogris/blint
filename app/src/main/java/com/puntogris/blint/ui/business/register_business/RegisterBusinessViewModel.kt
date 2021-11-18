@@ -10,5 +10,5 @@ class RegisterBusinessViewModel @Inject constructor(
     private val businessRepository: BusinessRepository
 ) : ViewModel() {
 
-    suspend fun registerNewBusiness(name: String) = businessRepository.registerLocalBusiness(name)
+    suspend fun registerNewBusiness(name: String) = businessRepository.registerBusiness(name)
 }

@@ -60,17 +60,17 @@ class ProductViewModel @Inject constructor(
     }
 
     suspend fun getProductRecords(productId: Int) =
-        productRepository.getProductRecordsPagingDataFlow(productId).cachedIn(viewModelScope)
+        productRepository.getProductRecordsPaged(productId).cachedIn(viewModelScope)
 
     suspend fun saveProductDatabase(): SimpleResult {
         _currentProduct.value.apply {
             product.name = product.name.lowercase()
             product.sku = product.sku.uppercase()
         }
-        return productRepository.saveProductDatabase(_currentProduct.value)
+        return productRepository.saveProduct(_currentProduct.value)
     }
 
     suspend fun deleteProductDatabase(productId: Int) =
-        productRepository.deleteProductDatabase(productId)
+        productRepository.deleteProduct(productId)
 
 }

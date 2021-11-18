@@ -9,17 +9,18 @@ import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IProductRepository {
-    suspend fun saveProductDatabase(productWithDetails: ProductWithDetails): SimpleResult
 
-    fun getProductsWithSuppliersCategoriesPaged(): Flow<PagingData<ProductWithDetails>>
+    fun getProductsPaged(): Flow<PagingData<ProductWithDetails>>
 
-    suspend fun deleteProductDatabase(productId: Int): SimpleResult
+    fun getProductsWithQueryPaged(query: String): Flow<PagingData<ProductWithDetails>>
 
-    fun getProductsSupplierCategoryWithQueryFlow(query: String): Flow<PagingData<ProductWithDetails>>
+    fun getProductRecordsPaged(productId: Int): Flow<PagingData<Record>>
 
     suspend fun getProductsWithQuery(query: String): List<Product>
 
-    fun getProductRecordsPagingDataFlow(productId: Int): Flow<PagingData<Record>>
+    suspend fun deleteProduct(productId: Int): SimpleResult
+
+    suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult
 
     suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithDetails>
 }

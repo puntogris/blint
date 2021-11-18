@@ -14,8 +14,8 @@ class ManageSuppliersViewModel @Inject constructor(
     private val query = MutableLiveData("")
 
     val suppliersLiveData = query.switchMap {
-        if (it.isNullOrBlank()) supplierRepository.getAllSuppliersPaged().asLiveData()
-        else supplierRepository.getSuppliersWithNamePaged(it).asLiveData()
+        if (it.isNullOrBlank()) supplierRepository.getSuppliersPaged().asLiveData()
+        else supplierRepository.getSuppliersWithQueryPaged(it).asLiveData()
     }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {

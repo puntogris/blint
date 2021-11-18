@@ -23,7 +23,7 @@ class ClientRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IClientRepository {
 
-    override suspend fun saveClientDatabase(client: Client): SimpleResult =
+    override suspend fun saveClient(client: Client): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
 
@@ -36,7 +36,7 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override fun getAllClientsPaged(): Flow<PagingData<Client>> {
+    override fun getClientsPaged(): Flow<PagingData<Client>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -48,7 +48,7 @@ class ClientRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteClientDatabase(clientId: Int): SimpleResult =
+    override suspend fun deleteClient(clientId: Int): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 clientsDao.delete(clientId)
@@ -56,7 +56,7 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override fun getClientRecordsPagingDataFlow(clientId: Int): Flow<PagingData<Record>> {
+    override fun getClientRecordsPaged(clientId: Int): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -68,7 +68,7 @@ class ClientRepository @Inject constructor(
         }.flow
     }
 
-    override fun getClientsWithNamePaged(name: String): Flow<PagingData<Client>> {
+    override fun getClientsWithQueryPaged(query: String): Flow<PagingData<Client>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -76,7 +76,7 @@ class ClientRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            clientsDao.getClientsSearchPaged("%$name%")
+            clientsDao.getClientsSearchPaged("%$query%")
         }.flow
     }
 

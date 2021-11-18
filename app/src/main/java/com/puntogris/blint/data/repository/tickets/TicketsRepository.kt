@@ -14,7 +14,7 @@ class TicketsRepository @Inject constructor(
 ) : ITicketsRepository {
 
 
-    override suspend fun sendTicketDatabase(ticket: Ticket): SimpleResult =
+    override suspend fun sendTicket(ticket: Ticket): SimpleResult =
         withContext(dispatcher.io) {
             try {
                 val ref = firebase.firestore.collection("tickets").document()

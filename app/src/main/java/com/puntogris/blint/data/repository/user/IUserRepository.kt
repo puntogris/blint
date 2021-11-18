@@ -7,8 +7,6 @@ import com.puntogris.blint.utils.types.SyncAccount
 
 interface IUserRepository {
 
-    suspend fun sendReportToFirestore(message: String): SimpleResult
-
     suspend fun syncUserAccount(authUser: AuthUser? = null): SyncAccount
 
     suspend fun getCurrentUser(): User

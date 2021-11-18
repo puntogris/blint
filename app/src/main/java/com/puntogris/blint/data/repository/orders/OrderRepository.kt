@@ -22,7 +22,7 @@ class OrderRepository @Inject constructor(
 
     private val auth = FirebaseAuth.getInstance()
 
-    override suspend fun getBusinessOrdersPagingDataFlow(): Flow<PagingData<OrderWithRecords>> =
+    override suspend fun getBusinessOrdersPaged(): Flow<PagingData<OrderWithRecords>> =
         withContext(dispatcher.io) {
             Pager(
                 PagingConfig(
@@ -35,7 +35,7 @@ class OrderRepository @Inject constructor(
             }.flow
         }
 
-    override suspend fun getBusinessRecordsPagingDataFlow(): Flow<PagingData<Record>> =
+    override suspend fun getBusinessRecordsPaged(): Flow<PagingData<Record>> =
         withContext(dispatcher.io) {
             Pager(
                 PagingConfig(
@@ -48,7 +48,7 @@ class OrderRepository @Inject constructor(
             }.flow
         }
 
-    override suspend fun saveOrderIntoDatabase(order: OrderWithRecords): SimpleResult =
+    override suspend fun saveOrder(order: OrderWithRecords): SimpleResult =
         withContext(dispatcher.io) {
 //            val user = currentBusiness()
             try {

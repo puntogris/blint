@@ -44,7 +44,7 @@ class CalendarViewModel @Inject constructor(
 
     @ExperimentalCoroutinesApi
     val events = eventsFilter.flatMapLatest {
-        eventRepository.getEventPagingDataFlow(it).toEventUiFlow()
+        eventRepository.getEventsPaged(it).toEventUiFlow()
     }
 
     suspend fun createEvent(title: String, message: String): SimpleResult {
@@ -53,12 +53,12 @@ class CalendarViewModel @Inject constructor(
             message = message,
             timestamp = timestamp
         )
-        return eventRepository.createEventDatabase(event)
+        return eventRepository.saveEvent(event)
     }
 
-    suspend fun deleteEvent(eventId: String) = eventRepository.deleteEventDatabase(eventId)
+    suspend fun deleteEvent(eventId: String) = eventRepository.deleteEvent(eventId)
 
-    suspend fun updateEvent() = eventRepository.updateEventStatusDatabase(_event.value)
+    suspend fun updateEvent() = eventRepository.updateEventStatus(_event.value)
 
     fun updateEventDate(timeInMillis: Long) {
         timestamp = Timestamp(timeInMillis / 1000, 0)

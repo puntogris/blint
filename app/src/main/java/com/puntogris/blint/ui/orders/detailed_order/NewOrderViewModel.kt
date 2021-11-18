@@ -68,9 +68,9 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun getSuppliersWithName(name: String) =
-        supplierRepository.getSuppliersWithNamePaged(name).cachedIn(viewModelScope)
+        supplierRepository.getSuppliersWithQueryPaged(name).cachedIn(viewModelScope)
 
-    fun getSuppliersPaging() = supplierRepository.getAllSuppliersPaged().cachedIn(viewModelScope)
+    fun getSuppliersPaging() = supplierRepository.getSuppliersPaged().cachedIn(viewModelScope)
 
     private val _productsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
@@ -107,13 +107,13 @@ class NewOrderViewModel @Inject constructor(
             },
             debt
         )
-        return orderRepository.saveOrderIntoDatabase(newOrder)
+        return orderRepository.saveOrder(newOrder)
     }
 
-    fun getClientPaging() = clientRepository.getAllClientsPaged().cachedIn(viewModelScope)
+    fun getClientPaging() = clientRepository.getClientsPaged().cachedIn(viewModelScope)
 
     fun getClientsWithName(name: String) =
-        clientRepository.getClientsWithNamePaged(name).cachedIn(viewModelScope)
+        clientRepository.getClientsWithQueryPaged(name).cachedIn(viewModelScope)
 
     override fun onCleared() {
         job?.cancel()
