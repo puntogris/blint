@@ -35,7 +35,7 @@ data class Debt(
     var author: String = "",
 
     @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0,
 
     @ColumnInfo
     var type: String = ""

@@ -5,6 +5,7 @@ import com.puntogris.blint.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlin.math.absoluteValue
 
+
 @Dao
 interface StatisticsDao {
 
@@ -13,18 +14,6 @@ interface StatisticsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(statistics: List<Statistic>)
-
-    @Query("SELECT businessId FROM statistic")
-    suspend fun getBusinessIdsFromStatisticOnDb(): List<String>
-
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAccountStatistic(statistics: List<Statistic>) {
-        val db = getBusinessIdsFromStatisticOnDb()
-        statistics.forEach { stat ->
-            if (!db.contains(stat.businessId)) insert(stat)
-        }
-    }
 
     @Query("UPDATE statistic SET totalProducts = totalProducts + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
     suspend fun incrementTotalProducts()
@@ -84,22 +73,22 @@ interface StatisticsDao {
     }
 
 //    @RewriteQueriesToDropUnusedColumns
-//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
+//    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
 //    suspend fun getAllClientsRecords(): List<ClientRecordExcel>
 //
 //    @RewriteQueriesToDropUnusedColumns
-//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
+//    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
 //    suspend fun getAllSuppliersRecords(): List<SupplierRecordExcel>
-
+//
 //    @RewriteQueriesToDropUnusedColumns
-//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
+//    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
 //    suspend fun getRecordsClientsWithDays(days:String): List<ClientRecordExcel>
 //
 //    @RewriteQueriesToDropUnusedColumns
 //    @Query(
 //        """
-//        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId
-//        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
+//        SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId
+//        WHERE localReferenceId = '1' and date(timestamp, 'unixepoch','localtime')
 //        AND type = "OUT" AND traderId != 0
 //        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime')
 //        ORDER BY traderName
@@ -108,14 +97,14 @@ interface StatisticsDao {
 //    suspend fun getRecordsClientsWithDaysFrame(startTime:Long, endTime: Long): List<ClientRecordExcel>
 //
 //    @RewriteQueriesToDropUnusedColumns
-//    @Query("SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId WHERE userId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
+//    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
 //    suspend fun getRecordsSuppliersWithDays(days:String): List<SupplierRecordExcel>
-
+//
 //    @RewriteQueriesToDropUnusedColumns
 //    @Query(
 //        """
-//        SELECT * FROM record INNER JOIN roomuser ON businessId = currentBusinessId
-//        WHERE userId = '1' and date(timestamp, 'unixepoch','localtime')
+//        SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId
+//        WHERE localReferenceId = '1' and date(timestamp, 'unixepoch','localtime')
 //        AND type = 'IN' AND traderId != 0
 //        BETWEEN date(:startTime, 'unixepoch','localtime') AND  date(:endTime, 'unixepoch','localtime')
 //        ORDER BY traderName

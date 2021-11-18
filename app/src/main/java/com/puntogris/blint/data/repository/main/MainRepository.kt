@@ -1,12 +1,10 @@
 package com.puntogris.blint.data.repository.main
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.data.data_source.local.dao.EventsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
+import com.puntogris.blint.data.data_source.remote.FirebaseClients
 import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.BusinessCounters
 import com.puntogris.blint.utils.DispatcherProvider
@@ -24,29 +22,19 @@ class MainRepository @Inject constructor(
     private val eventsDao: EventsDao,
     private val statisticsDao: StatisticsDao,
     private val businessDao: BusinessDao,
-    private val dispatcher: DispatcherProvider
-
+    private val dispatcher: DispatcherProvider,
+    private val firebase: FirebaseClients
 ) : IMainRepository {
 
-    private val auth = FirebaseAuth.getInstance()
-
-    private val firestore = Firebase.firestore
-
-    private suspend fun currentBusiness() = usersDao.getCurrentBusinessFromUser()
-
-    override fun checkIfUserIsLogged() = auth.currentUser != null
-
-    override suspend fun updateCurrentBusiness(id: String) {
-        usersDao.updateUserCurrentBusiness(id)
-    }
+    override fun checkIfUserIsLogged() = firebase.auth.currentUser != null
 
     override fun getCurrentUserFlow() = usersDao.getUserFlow()
 
     override suspend fun getBusinessListRoom() = businessDao.getBusiness()
 
     override fun getBusinessesStatus(): Flow<RepoResult<List<Business>>> = callbackFlow {
-        val ref = firestore.collectionGroup("employees")
-            .whereEqualTo("employeeId", auth.currentUser?.uid.toString())
+        val ref = firebase.firestore.collectionGroup("employees")
+            .whereEqualTo("employeeId", firebase.auth.currentUser?.uid.toString())
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     val businesses = value.toObjects(Business::class.java)

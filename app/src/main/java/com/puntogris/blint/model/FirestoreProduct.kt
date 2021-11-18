@@ -20,7 +20,7 @@ data class FirestoreProduct(
     val lastRecordTimestamp: Timestamp = Timestamp.now(),
     val totalInStock: Int = 0,
     val totalOutStock: Int = 0,
-    val businessId: String = "",
+    val businessId: Int = 0,
     val minStock: Int = 0,
     val suppliers: List<FirestoreSupplier>? = null,
     val categories: List<String>? = null,

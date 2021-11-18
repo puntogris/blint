@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
 
 /*
@@ -16,7 +17,7 @@ import com.google.firebase.firestore.Exclude
 data class User(
 
     @PrimaryKey(autoGenerate = false)
-    @get:Exclude val localReferenceId: String = "local_reference_id",
+    @get:Exclude val localReferenceId: String = "1",
 
     @ColumnInfo
     val uid: String = "",
@@ -31,8 +32,11 @@ data class User(
     val email: String = "",
 
     @ColumnInfo
-    val currentBusinessId: String = "",
+    val currentBusinessId: Int = 0,
 
     @ColumnInfo
-    val appTier: String = "BASIC"
+    val appTier: String = "BASIC",
+
+    @ColumnInfo
+    val createdAt: Timestamp = Timestamp.now()
 )

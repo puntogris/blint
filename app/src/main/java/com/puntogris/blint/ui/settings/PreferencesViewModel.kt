@@ -1,9 +1,7 @@
 package com.puntogris.blint.ui.settings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseUser
+import androidx.lifecycle.liveData
 import com.puntogris.blint.data.repository.backup.BackupRepository
 import com.puntogris.blint.data.repository.login.LoginRepository
 import com.puntogris.blint.data.repository.user.UserRepository
@@ -17,8 +15,9 @@ class PreferencesViewModel @Inject constructor(
     private val loginRepository: LoginRepository
 ) : ViewModel() {
 
-    private val _userData = MutableLiveData<FirebaseUser>(userRepository.getCurrentUser())
-    val userData: LiveData<FirebaseUser> = _userData
+    val userData = liveData {
+        emit(userRepository.getCurrentUser())
+    }
 
     suspend fun logOut() = loginRepository.signOutUser()
 

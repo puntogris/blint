@@ -61,7 +61,7 @@ data class Product(
     var totalOutStock: Int = 0,
 
     @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0,
 
     @ColumnInfo
     val minStock: Int = 0

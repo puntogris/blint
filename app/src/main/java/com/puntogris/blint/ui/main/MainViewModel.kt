@@ -57,7 +57,5 @@ class MainViewModel @Inject constructor(
 
     suspend fun getBusinessList() = mainRepository.getBusinessListRoom()
 
-    suspend fun updateCurrentBusiness(id: String) = mainRepository.updateCurrentBusiness(id)
-
     private fun getBusinessStatus() = mainRepository.getBusinessesStatus()
 }

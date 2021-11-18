@@ -34,7 +34,7 @@ data class Client(
     val discount: Float = 0F,
 
     @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0,
 
     @ColumnInfo
     var debt: Float = 0F

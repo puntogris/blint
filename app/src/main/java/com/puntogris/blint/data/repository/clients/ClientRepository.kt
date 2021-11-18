@@ -44,7 +44,7 @@ class ClientRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            clientsDao.getAllPaged()
+            clientsDao.getClientsPaged()
         }.flow
     }
 
@@ -76,7 +76,7 @@ class ClientRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            clientsDao.getPagedSearch("%$name%")
+            clientsDao.getClientsSearchPaged("%$name%")
         }.flow
     }
 

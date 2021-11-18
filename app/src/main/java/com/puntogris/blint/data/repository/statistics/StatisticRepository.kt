@@ -1,7 +1,5 @@
 package com.puntogris.blint.data.repository.statistics
 
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.puntogris.blint.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
@@ -9,7 +7,6 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -21,12 +18,9 @@ class StatisticRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IStatisticRepository {
 
-    val firestore = Firebase.firestore
-    suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
-
     override suspend fun getAllClients(): RepoResult<List<Client>> = withContext(dispatcher.io) {
         try {
-            val data = clientsDao.getAllClients()
+            val data = clientsDao.getClients()
             RepoResult.Success(data)
         } catch (e: Exception) {
             RepoResult.Error(e)
@@ -45,7 +39,7 @@ class StatisticRepository @Inject constructor(
     override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> =
         withContext(dispatcher.io) {
             try {
-                val data = suppliersDao.getAllSuppliers()
+                val data = suppliersDao.getSuppliers()
                 RepoResult.Success(data)
             } catch (e: Exception) {
                 RepoResult.Error(e)

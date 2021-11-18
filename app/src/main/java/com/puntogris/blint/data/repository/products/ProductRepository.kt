@@ -50,7 +50,6 @@ class ProductRepository @Inject constructor(
                 productId = product.product.productId,
                 productName = product.product.name,
                 timestamp = Timestamp.now(),
-                author = requireNotNull(firebase.currentUser?.email),
                 businessId = currentBusinessId,
                 barcode = product.product.barcode,
                 totalInStock = product.product.amount,

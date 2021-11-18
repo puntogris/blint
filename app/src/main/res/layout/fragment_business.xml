@@ -133,7 +133,7 @@
             android:id="@+id/textView127"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            dateFromTimestamp="@{employee.businessCreatedAt}"
+            dateFromTimestamp="@{employee.createdAt}"
             style="@style/Theme.Blint.DataTextView"
             app:layout_constraintStart_toStartOf="@+id/textView126"
             app:layout_constraintTop_toBottomOf="@+id/textView126" />

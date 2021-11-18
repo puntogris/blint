@@ -48,10 +48,6 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
     }
 
-    fun onJoinBusinessClicked() {
-
-    }
-
     fun onCreateBusinessClicked() {
         findNavController().navigate(R.id.registerBusinessFragment)
     }

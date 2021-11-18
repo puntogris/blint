@@ -14,7 +14,6 @@ interface IMainRepository {
 
     fun checkIfUserIsLogged(): Boolean
 
-    suspend fun updateCurrentBusiness(id: String)
 
     suspend fun getBusinessListRoom(): List<Business>
 

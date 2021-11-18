@@ -39,10 +39,7 @@ data class Record(
     val productName: String = "",
 
     @ColumnInfo
-    var author: String = "",
-
-    @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0,
 
     @ColumnInfo
     var productUnitPrice: Float = 0F,
@@ -63,5 +60,5 @@ data class Record(
     var sku: String = "",
 
     @ColumnInfo
-    @get:Exclude var barcode: String = ""
+    var barcode: String = ""
 ) : Parcelable

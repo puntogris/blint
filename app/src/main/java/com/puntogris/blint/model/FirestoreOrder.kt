@@ -15,7 +15,7 @@ data class FirestoreOrder(
     var author: String = "",
     var traderId: Int = 0,
     var traderName: String = "",
-    var businessId: String = "",
+    var businessId: Int = 0,
     var number: Int = 1,
     val records: List<FirestoreRecord> = listOf(),
     val debt: FirestoreDebt? = null,
@@ -42,6 +42,4 @@ data class FirestoreOrder(
             )
         }
     }
-
-
 }

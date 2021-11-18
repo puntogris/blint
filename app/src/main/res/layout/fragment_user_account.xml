@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Theme.Blint.DataTextView"
-            android:text="@{viewModel.userData.displayName}"
+            android:text="@{viewModel.userData.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView17"

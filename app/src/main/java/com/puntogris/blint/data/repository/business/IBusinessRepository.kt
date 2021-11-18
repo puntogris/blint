@@ -7,5 +7,5 @@ interface IBusinessRepository {
 
     suspend fun registerLocalBusiness(businessName: String): SimpleResult
 
-    suspend fun deleteBusinessDatabase(businessId: String): DeleteBusiness
+    suspend fun deleteBusinessDatabase(businessId: Int): DeleteBusiness
 }

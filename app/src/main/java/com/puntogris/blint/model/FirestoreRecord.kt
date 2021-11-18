@@ -15,6 +15,6 @@ data class FirestoreRecord(
     val value: Float = 0F,
     val sku: String = "",
     val barcode: String = "",
-    @get:Exclude var totalInStock: Int = 0,
-    @get:Exclude var totalOutStock: Int = 0
+    var totalInStock: Int = 0,
+    var totalOutStock: Int = 0
 ) : Parcelable

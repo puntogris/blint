@@ -16,6 +16,6 @@ data class Category(
     var categoryName: String = "",
 
     @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0
 
-    ) : Parcelable
+) : Parcelable

@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    userRepository: UserRepository,
+    private val userRepository: UserRepository,
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
     private val supplierRepository: SupplierRepository,
@@ -87,7 +87,7 @@ class NewOrderViewModel @Inject constructor(
         }
     }
 
-    val currentUserEmail = userRepository.getCurrentUser()?.email.toString()
+    suspend fun currentUserEmail() = userRepository.getCurrentUser().email
 
     suspend fun publishOrderDatabase(): SimpleResult {
         val newOrder = OrderWithRecords(

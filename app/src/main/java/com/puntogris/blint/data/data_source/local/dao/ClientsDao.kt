@@ -15,14 +15,14 @@ interface ClientsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    fun getAllPaged(): PagingSource<Int, Client>
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM client c INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND c.name LIKE :name")
-    fun getPagedSearch(name: String): PagingSource<Int, Client>
+    suspend fun getClients(): List<Client>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    suspend fun getAllClients(): List<Client>
+    fun getClientsPaged(): PagingSource<Int, Client>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM client c INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND c.name LIKE :name")
+    fun getClientsSearchPaged(name: String): PagingSource<Int, Client>
 
 }

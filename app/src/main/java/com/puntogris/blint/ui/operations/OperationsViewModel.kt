@@ -14,7 +14,7 @@ class OperationsViewModel @Inject constructor(
 
     private var supplierId: Int = 0
 
-    suspend fun getAllSuppliers() = suppliersDao.getAllSuppliers()
+    suspend fun getAllSuppliers() = suppliersDao.getSuppliers()
 
     fun updateSupplierId(supplierId: Int) {
         this.supplierId = supplierId

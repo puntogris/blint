@@ -72,7 +72,6 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.currentUserEmail}"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView174"
             app:layout_constraintStart_toEndOf="@+id/textView174"

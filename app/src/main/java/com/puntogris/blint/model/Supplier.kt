@@ -43,7 +43,7 @@ data class Supplier(
     val notes: String = "",
 
     @ColumnInfo
-    var businessId: String = "",
+    var businessId: Int = 0,
 
     @ColumnInfo
     var debt: Float = 0F

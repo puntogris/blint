@@ -9,32 +9,16 @@ interface BusinessDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(business: Business)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(businesses: List<Business>)
-
-    @Query("DELETE FROM business")
-    suspend fun deleteAll()
-
-    @Transaction
-    suspend fun syncEmployees(businesses: List<Business>) {
-        deleteAll()
-        insert(businesses)
-    }
-
     @Query("SELECT * FROM business")
     suspend fun getBusiness(): List<Business>
 
-    @Query("UPDATE business SET ownerUid = :uid")
-    suspend fun updateBusinessOwnerUid(uid: String)
-
     @Query("DELETE FROM business where businessId = :businessId")
-    suspend fun deleteEmployeeWithBusinessId(businessId: Int)
+    suspend fun deleteBusiness(businessId: Int)
+
+    @Query("UPDATE business SET ownerUid = :uid")
+    suspend fun updateBusinessesOwnerUid(uid: String)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT businessId FROM business")
-    suspend fun getBusinessIdsList(): List<String>
-
-    @Query("SELECT * FROM business WHERE businessId = :businessId LIMIT 1")
-    suspend fun getEmployeeWithBusinessId(businessId: String): Business
-
+    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND localReferenceId = '1'LIMIT 1")
+    suspend fun getCurrentBusiness(): Business
 }

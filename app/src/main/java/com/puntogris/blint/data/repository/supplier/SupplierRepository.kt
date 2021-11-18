@@ -11,7 +11,6 @@ import com.puntogris.blint.model.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -44,7 +43,7 @@ class SupplierRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            suppliersDao.getAllPaged()
+            suppliersDao.getSuppliersPaged()
         }.flow
     }
 
@@ -76,7 +75,7 @@ class SupplierRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            suppliersDao.getPagedSearch("%${name}%")
+            suppliersDao.getSuppliersSearchPaged("%${name}%")
         }.flow
     }
 }

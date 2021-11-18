@@ -22,8 +22,6 @@ class DebtsRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IDebtsRepository {
 
-    private suspend fun currentUser() = usersDao.getCurrentBusinessFromUser()
-
     override suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>> {
         return try {
             val data = debtsDao.getDebtsWithId(traderId)
@@ -35,19 +33,19 @@ class DebtsRepository @Inject constructor(
 
     override suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult =
         withContext(dispatcher.io) {
-            val user = currentUser()
-            try {
-                debt.author = ""
-                debt.businessId = user.businessId
 
-                if (debt.type == "CLIENT") {
-                    debtsDao.updateClientDebt(debt.traderId, debt.amount)
-                    debtsDao.updateClientsDebt(debt.amount)
-                } else {
-                    debtsDao.updateSupplierDebt(debt.traderId, debt.amount)
-                    debtsDao.updateSupplierDebt(debt.amount)
-                }
-                debtsDao.insert(debt)
+            try {
+//                debt.author = ""
+//                debt.businessId = user.businessId
+//
+//                if (debt.type == "CLIENT") {
+//                    debtsDao.updateClientDebt(debt.traderId, debt.amount)
+//                    debtsDao.updateClientsDebt(debt.amount)
+//                } else {
+//                    debtsDao.updateSupplierDebt(debt.traderId, debt.amount)
+//                    debtsDao.updateSupplierDebt(debt.amount)
+//                }
+//                debtsDao.insert(debt)
 
                 SimpleResult.Success
             } catch (e: Exception) {

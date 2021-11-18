@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
 import com.puntogris.blint.utils.Constants.DISABLED
@@ -101,11 +100,9 @@ fun ImageView.setUserDataImage(image: String?) {
 }
 
 @BindingAdapter("userCreationTimestamp")
-fun TextView.setDateFromFirebaseUser(user: FirebaseUser?) {
+fun TextView.setDateFromFirebaseUser(user: User?) {
     if (user != null) {
-        user.metadata?.creationTimestamp?.let {
-            text = Date(it).getDateFormattedString()
-        }
+        text = Date(user.createdAt.seconds).getDateFormattedString()
     }
 }
 
