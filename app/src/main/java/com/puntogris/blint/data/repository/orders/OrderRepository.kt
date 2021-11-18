@@ -8,15 +8,11 @@ import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.OrderWithRecords
 import com.puntogris.blint.model.Record
-import com.puntogris.blint.utils.Constants.CLIENT
-import com.puntogris.blint.utils.Constants.IN
-import com.puntogris.blint.utils.Constants.SUPPLIER
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.math.absoluteValue
 
 class OrderRepository @Inject constructor(
     private val usersDao: UsersDao,

@@ -15,7 +15,6 @@ import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

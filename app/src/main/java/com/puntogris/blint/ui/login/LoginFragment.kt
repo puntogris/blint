@@ -12,7 +12,6 @@ import com.puntogris.blint.data.data_source.remote.LoginResult
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -57,7 +56,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 //  onLoginStarted()
             }
             is LoginResult.Success -> {
-                val action = LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(result.authUser)
+                val action =
+                    LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(result.authUser)
                 findNavController().navigate(action)
             }
         }

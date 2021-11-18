@@ -29,7 +29,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onLogOutClicked() {
-        InfoSheet().show(requireParentFragment().requireContext()){
+        InfoSheet().show(requireParentFragment().requireContext()) {
             title("logout")
             content("sure you wnat to logout?")
             onNegative(R.string.action_cancel)
