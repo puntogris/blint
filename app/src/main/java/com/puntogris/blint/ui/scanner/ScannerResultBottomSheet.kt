@@ -12,18 +12,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.FirestoreRecord
 import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
-import com.puntogris.blint.utils.getInt
-import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.showSackBarAboveBottomSheet
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
-import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -61,7 +58,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
         }
     }
 
-    private fun showProductUI(product: ProductWithSuppliersCategories) {
+    private fun showProductUI(product: ProductWithDetails) {
         viewModel.setProductData(product)
         binding.productFoundGroup.visible()
     }

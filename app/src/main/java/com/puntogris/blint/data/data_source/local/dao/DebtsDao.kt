@@ -2,7 +2,7 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.BusinessDebtsData
+import com.puntogris.blint.model.BusinessDebts
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Supplier
@@ -18,13 +18,13 @@ interface DebtsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    suspend fun getDebtsForBusiness(): BusinessDebtsData
+    suspend fun getDebtsForBusiness(): BusinessDebts
 
     @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)
 
     @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
-    suspend fun updateSupplierDebt(suppliersDebt: Float)
+    suspend fun updateSuppliersDebt(suppliersDebt: Float)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM debt INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp DESC")
@@ -34,7 +34,7 @@ interface DebtsDao {
     suspend fun updateClientDebt(clientId: Int, amount: Float)
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
+    suspend fun updateSuppliersDebt(supplierId: Int, amount: Float)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND debt != 0")

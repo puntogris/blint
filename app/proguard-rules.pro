@@ -22,7 +22,7 @@
 #-keepnames class androidx.navigation.fragment.NavHostFragment
 -keep class com.puntogris.blint.model.Client
 -keep class com.puntogris.blint.model.Supplier
--keep class com.puntogris.blint.model.ProductWithSuppliersCategories
+-keep class com.puntogris.blint.model.ProductWithDetails
 -keep class com.puntogris.blint.model.Record
 -keep class com.puntogris.blint.model.Event
 -keep class com.puntogris.blint.model.AuthUser

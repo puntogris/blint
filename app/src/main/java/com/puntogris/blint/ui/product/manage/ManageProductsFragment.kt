@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY
@@ -85,14 +85,14 @@ class ManageProductsFragment :
         scannerLauncher.launch(Manifest.permission.CAMERA)
     }
 
-    private fun onProductShortClickListener(product: ProductWithSuppliersCategories) {
+    private fun onProductShortClickListener(product: ProductWithDetails) {
         hideKeyboard()
         val action =
             ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
         findNavController().navigate(action)
     }
 
-    private fun onProductLongClickListener(product: ProductWithSuppliersCategories) {
+    private fun onProductLongClickListener(product: ProductWithDetails) {
         showOrderPickerAndNavigate(product.product)
     }
 

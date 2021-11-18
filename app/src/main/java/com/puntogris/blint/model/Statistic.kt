@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.IgnoreExtraProperties
 
-@IgnoreExtraProperties
 @Entity
 @Keep
 data class Statistic(

@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ManageProductsVhBinding
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 
 class ManageProductsViewHolder private constructor(val binding: ManageProductsVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
-        product: ProductWithSuppliersCategories,
-        shortClickListener: (ProductWithSuppliersCategories) -> Unit,
-        longClickListener: (ProductWithSuppliersCategories) -> Unit
+        product: ProductWithDetails,
+        shortClickListener: (ProductWithDetails) -> Unit,
+        longClickListener: (ProductWithDetails) -> Unit
     ) {
         binding.product = product
         binding.root.setOnClickListener { shortClickListener(product) }

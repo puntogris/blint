@@ -68,7 +68,7 @@ fun TextView.setRemoveListVisibility(list: List<Any>?) {
 }
 
 @BindingAdapter("removeListVisibility")
-fun CardView.setRemoveListVisibility(product: ProductWithSuppliersCategories) {
+fun CardView.setRemoveListVisibility(product: ProductWithDetails) {
     if (product.categories.isNullOrEmpty() && product.suppliers.isNullOrEmpty()) gone() else visible()
 }
 

@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.product
 import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDataProductBinding
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import com.puntogris.blint.utils.takeArgsIfNotNull
@@ -20,7 +20,7 @@ class ProductDataFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        takeArgsIfNotNull<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY) {
+        takeArgsIfNotNull<ProductWithDetails>(PRODUCT_DATA_KEY) {
             viewModel.setProductData(it)
         }
     }

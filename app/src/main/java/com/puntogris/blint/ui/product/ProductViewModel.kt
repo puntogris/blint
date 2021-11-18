@@ -6,7 +6,7 @@ import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.FirestoreSupplier
 import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +22,8 @@ class ProductViewModel @Inject constructor(
     private var imageChanged = false
     private val _productImage = MutableLiveData("")
     val productImage: LiveData<String> = _productImage
-    private val _currentProduct = MutableStateFlow(ProductWithSuppliersCategories())
-    val currentProduct: LiveData<ProductWithSuppliersCategories> = _currentProduct.asLiveData()
+    private val _currentProduct = MutableStateFlow(ProductWithDetails())
+    val currentProduct: LiveData<ProductWithDetails> = _currentProduct.asLiveData()
 
     fun updateSuppliers(suppliers: List<FirestoreSupplier>) {
         _currentProduct.value.suppliers = suppliers
@@ -49,7 +49,7 @@ class ProductViewModel @Inject constructor(
         _currentProduct.value.product = product
     }
 
-    fun setProductData(product: ProductWithSuppliersCategories) {
+    fun setProductData(product: ProductWithDetails) {
         _currentProduct.value = product
     }
 
@@ -67,7 +67,7 @@ class ProductViewModel @Inject constructor(
             product.name = product.name.lowercase()
             product.sku = product.sku.uppercase()
         }
-        return productRepository.saveProductDatabase(_currentProduct.value, imageChanged)
+        return productRepository.saveProductDatabase(_currentProduct.value)
     }
 
     suspend fun deleteProductDatabase(productId: Int) =

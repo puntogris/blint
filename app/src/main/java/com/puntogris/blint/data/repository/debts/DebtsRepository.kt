@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.data_source.local.dao.DebtsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.BusinessDebtsData
+import com.puntogris.blint.model.BusinessDebts
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Supplier
@@ -53,7 +53,7 @@ class DebtsRepository @Inject constructor(
             }
         }
 
-    override suspend fun getBusinessDebtData(): BusinessDebtsData = withContext(dispatcher.io) {
+    override suspend fun getBusinessDebtData(): BusinessDebts = withContext(dispatcher.io) {
         debtsDao.getDebtsForBusiness()
     }
 

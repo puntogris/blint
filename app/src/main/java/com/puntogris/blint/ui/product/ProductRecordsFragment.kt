@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 import com.puntogris.blint.model.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
@@ -29,7 +29,7 @@ class ProductRecordsFragment :
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        takeArgsIfNotNull<ProductWithSuppliersCategories>(PRODUCT_DATA_KEY) {
+        takeArgsIfNotNull<ProductWithDetails>(PRODUCT_DATA_KEY) {
             lifecycleScope.launch {
                 viewModel.getProductRecords(it.product.productId).collect {
                     recordsAdapter.submitData(it)

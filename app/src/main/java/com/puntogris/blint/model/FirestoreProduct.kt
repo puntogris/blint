@@ -28,7 +28,7 @@ data class FirestoreProduct(
 ) {
 
     companion object {
-        fun from(product: ProductWithSuppliersCategories): FirestoreProduct {
+        fun from(product: ProductWithDetails): FirestoreProduct {
             return FirestoreProduct(
                 product.product.productId,
                 product.product.name,

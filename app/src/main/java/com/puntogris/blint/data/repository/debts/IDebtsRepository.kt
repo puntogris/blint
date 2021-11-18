@@ -1,7 +1,7 @@
 package com.puntogris.blint.data.repository.debts
 
 import androidx.paging.PagingData
-import com.puntogris.blint.model.BusinessDebtsData
+import com.puntogris.blint.model.BusinessDebts
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
 import com.puntogris.blint.model.Supplier
@@ -15,7 +15,7 @@ interface IDebtsRepository {
 
     suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult
 
-    suspend fun getBusinessDebtData(): BusinessDebtsData
+    suspend fun getBusinessDebtData(): BusinessDebts
 
     fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>>
 

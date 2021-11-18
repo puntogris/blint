@@ -3,12 +3,12 @@ package com.puntogris.blint.ui.product.manage
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageProductsDiffCallback
-import com.puntogris.blint.model.ProductWithSuppliersCategories
+import com.puntogris.blint.model.ProductWithDetails
 
 class ManageProductsAdapter(
-    private val shortClickListener: (ProductWithSuppliersCategories) -> Unit,
-    private val longClickListener: (ProductWithSuppliersCategories) -> Unit
-) : PagingDataAdapter<ProductWithSuppliersCategories, ManageProductsViewHolder>(
+    private val shortClickListener: (ProductWithDetails) -> Unit,
+    private val longClickListener: (ProductWithDetails) -> Unit
+) : PagingDataAdapter<ProductWithDetails, ManageProductsViewHolder>(
     ManageProductsDiffCallback()
 ) {
 
