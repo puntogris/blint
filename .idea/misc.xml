@@ -41,7 +41,7 @@
         <entry key="app/src/main/res/layout/fragment_employee.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_generate_join_code.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.23368055555555556" />
-        <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_join_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_local_business.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.23368055555555556" />
@@ -52,6 +52,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_out_of_sync.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product_category.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
@@ -63,6 +64,9 @@
         <entry key="app/src/main/res/layout/fragment_supplier.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier_data.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_sync_account.xml" value="0.2429553264604811" />
+        <entry key="app/src/main/res/layout/fragment_sync_account2.xml" value="0.23402777777777778" />
+        <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/help_vh.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/join_business_vh.xml" value="0.11006944444444444" />
         <entry key="app/src/main/res/layout/main_bottom_nav_drawer.xml" value="0.234375" />

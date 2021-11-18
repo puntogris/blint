@@ -62,6 +62,7 @@
     <string name="action_close">Cerrar</string>
     <string name="action_save">Guardar</string>
     <string name="action_undo">Deshacer</string>
+    <string name="action_continue">Continuar</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Sugerencia o mensaje</string>

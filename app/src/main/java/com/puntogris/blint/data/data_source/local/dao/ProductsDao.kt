@@ -39,35 +39,35 @@ interface ProductsDao {
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND barcode = :barcode")
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): ProductWithSuppliersCategories?
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' ORDER BY name ASC")
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY name ASC")
     fun getAllPaged(): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :text OR barcode LIKE :text OR sku LIKE :text")
-    fun getPagedSearch(text: String): PagingSource<Int, ProductWithSuppliersCategories>
+    @Query("SELECT * FROM product p INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND p.name LIKE :query OR barcode LIKE :query OR sku LIKE :query")
+    fun getPagedSearch(query: String): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Query("select productId From productcategorycrossref where categoryName like :text")
     suspend fun getProductIdWithCategory(text: String): List<Int>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' and productId in (:list)")
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' and productId in (:list)")
     fun getPagedProductsWithCategory(list: List<Int>): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :query OR barcode LIKE :query OR sku LIKE :query")
+    @Query("SELECT * FROM product p INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND p.name LIKE :query OR barcode LIKE :query OR sku LIKE :query")
     fun getProductsWithQuery(query: String): PagingSource<Int, ProductWithSuppliersCategories>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND name LIKE :query OR barcode LIKE :query OR sku LIKE :query LIMIT 5")
+    @Query("SELECT * FROM product p INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND p.name LIKE :query OR barcode LIKE :query OR sku LIKE :query LIMIT 5")
     suspend fun getProductsSimpleWithQuery(query: String): List<Product>
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
@@ -178,7 +178,7 @@ interface ProductsDao {
                     FROM product p 
                     JOIN user u ON p.businessId = u.currentBusinessId 
                     JOIN productsuppliercrossref r ON r.productId = p.productId
-                    WHERE u.userId = '1' and r.supplierId = :supplierId)
+                    WHERE u.localReferenceId = '1' and r.supplierId = :supplierId)
             """
     )
     suspend fun updateSupplierProductsPrices(

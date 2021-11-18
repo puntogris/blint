@@ -22,8 +22,7 @@ class PreferencesViewModel @Inject constructor(
 
     suspend fun logOut() = loginRepository.signOutUser()
 
-    suspend fun sendReport(message: String) =
-        userRepository.sendReportToFirestore(message)
+    suspend fun sendReport(message: String) = userRepository.sendReportToFirestore(message)
 
     fun backupBusiness(path: String) = backupRepository.createBackupForBusiness(path)
 

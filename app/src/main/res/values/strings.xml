@@ -67,6 +67,7 @@
     <string name="action_close">Close</string>
     <string name="action_save">Save</string>
     <string name="action_undo">Undo</string>
+    <string name="action_continue">Continue</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Suggestions or message</string>
@@ -627,5 +628,7 @@
         <item>2</item>
         <item>-1</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

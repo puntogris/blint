@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ILoginRepository {
     suspend fun signOutUser()
-    suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData
+
     fun serverAuthWithGoogle(result: ActivityResult): Flow<LoginResult>
-    suspend fun singInAnonymously(): SimpleResult
 }

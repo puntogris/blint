@@ -7,7 +7,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface IEventRepository {
     suspend fun createEventDatabase(event: Event): SimpleResult
+
     fun getEventPagingDataFlow(filter: String): Flow<PagingData<Event>>
+
     suspend fun deleteEventDatabase(eventId: String): SimpleResult
+
     suspend fun updateEventStatusDatabase(event: Event): SimpleResult
 }

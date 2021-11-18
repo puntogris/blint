@@ -2,9 +2,10 @@ package com.puntogris.blint.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.puntogris.blint.data.data_source.local.AppDatabase
+import com.puntogris.blint.data.data_source.remote.FirebaseClients
+import com.puntogris.blint.data.data_source.remote.FirebaseUserApi
+import com.puntogris.blint.data.data_source.remote.UserServerApi
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.StandardDispatchers
 import dagger.Module
@@ -51,19 +52,12 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideUserDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE product ADD minStock INTEGER default 0 NOT NULL")
-            }
-        }
-
         return Room
             .databaseBuilder(
                 appContext,
                 AppDatabase::class.java,
                 "blint_database"
             )
-            .addMigrations(MIGRATION_1_2)
             .build()
     }
 
@@ -73,4 +67,9 @@ class DatabaseModule {
         return StandardDispatchers()
     }
 
+    @Singleton
+    @Provides
+    fun provideUserServerApi(firebaseClients: FirebaseClients): UserServerApi {
+        return FirebaseUserApi(firebaseClients)
+    }
 }

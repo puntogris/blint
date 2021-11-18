@@ -24,6 +24,9 @@ interface BusinessDao {
     @Query("SELECT * FROM business")
     suspend fun getBusiness(): List<Business>
 
+    @Query("UPDATE business SET ownerUid = :uid")
+    suspend fun updateBusinessOwnerUid(uid: String)
+
     @Query("DELETE FROM business where businessId = :businessId")
     suspend fun deleteEmployeeWithBusinessId(businessId: Int)
 

@@ -63,7 +63,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
-                        app:layout_constraintTop_toTopOf="@+id/textView35"
+                        app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
                         app:srcCompat="@drawable/ic_baseline_more_vert_24"
                         android:contentDescription="@string/more_image" />
 
@@ -87,7 +87,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
                     <TextView
-                        android:id="@+id/textView35"
+                        android:id="@+id/loginProblemButton"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.currentClient.phone}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                        app:layout_constraintTop_toBottomOf="@+id/loginProblemButton" />
 
                     <TextView
                         android:id="@+id/textView44"

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            app:constraint_referenced_ids="textView196,textView197,textView198,textView200,textView201,textView202,button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordType,textView61,textView60,textView58,textView15,button6"
+            app:constraint_referenced_ids="textView196,textView197,textView198,textView200,textView201,textView202,button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordType,textView61,textView60,loginAnonymouslyButton,textView15,button6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
         <TextView
-            android:id="@+id/textView58"
+            android:id="@+id/loginAnonymouslyButton"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             app:layout_constraintEnd_toStartOf="@+id/productAmountTextInput"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView58">
+            app:layout_constraintTop_toBottomOf="@+id/loginAnonymouslyButton">
 
             <AutoCompleteTextView
                 android:id="@+id/recordTypeText"

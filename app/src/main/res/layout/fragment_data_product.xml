@@ -107,7 +107,7 @@
                         android:text="@string/image" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/divider"
                         imageFullSize="@{viewModel.currentProduct.product.image}"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"

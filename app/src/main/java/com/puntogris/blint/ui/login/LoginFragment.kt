@@ -16,13 +16,10 @@ import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    @Inject
-    lateinit var oneTapLogin: OneTapLogin
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var loginActivityResultLauncher: ActivityResultLauncher<Intent>
 
@@ -60,8 +57,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 //  onLoginStarted()
             }
             is LoginResult.Success -> {
-                findNavController().navigate(R.id.mainFragment)
-
+                val action = LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(result.authUser)
+                findNavController().navigate(action)
             }
         }
     }
@@ -73,17 +70,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     fun continueAnonymously() {
-        lifecycleScope.launch {
-            when (viewModel.registerAnonymousUser()) {
-                SimpleResult.Failure -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                    //   onLoginError()
-                }
-                SimpleResult.Success -> {
-                    findNavController().navigate(R.id.mainFragment)
-                }
-            }
-        }
+        findNavController().navigate(R.id.action_loginFragment_to_syncAccountFragment)
     }
 
     fun onLoginProblemsClicked() {

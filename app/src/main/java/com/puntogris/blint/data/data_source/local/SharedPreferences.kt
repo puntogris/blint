@@ -20,7 +20,7 @@ class SharedPreferences @Inject constructor(@ApplicationContext private val cont
 
     fun getThemePref() = sharedPref.getString(THEME_PREF, "1")?.toInt() ?: 1
 
-    fun showNewUserScreenPref() = sharedPref.getBoolean(USER_HAS_BUSINESS_PREF, true)
+    fun showWelcomeScreen() = sharedPref.getBoolean(USER_HAS_BUSINESS_PREF, true)
 
     fun setShowNewUserScreenPref(value: Boolean) {
         sharedPref.edit().putBoolean(USER_HAS_BUSINESS_PREF, value).apply()

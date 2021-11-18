@@ -4,13 +4,13 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.tasks.await
 
-class FirebaseAuthApi(private val firebaseClients: FirebaseClients) : AuthServerApi {
+class FirebaseAuthApi(private val firebase: FirebaseClients) : AuthServerApi {
 
     override suspend fun signInWithCredential(credential: AuthCredential): AuthResult {
-        return firebaseClients.auth.signInWithCredential(credential).await()
+        return firebase.auth.signInWithCredential(credential).await()
     }
 
     override fun signOut() {
-        firebaseClients.auth.signOut()
+        firebase.auth.signOut()
     }
 }

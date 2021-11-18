@@ -10,15 +10,13 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.AuthServerApi
 import com.puntogris.blint.data.data_source.remote.GoogleSingInApi
 import com.puntogris.blint.data.data_source.remote.LoginResult
-import com.puntogris.blint.model.Business
+import com.puntogris.blint.data.data_source.toAuthUser
 import com.puntogris.blint.model.FirestoreUser
 import com.puntogris.blint.model.User
-import com.puntogris.blint.model.UserData
+import com.puntogris.blint.model.AuthUser
 import com.puntogris.blint.utils.Constants.USERS_COLLECTION
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RegistrationData
-import com.puntogris.blint.utils.types.SimpleResult
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -27,7 +25,6 @@ import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
     private val businessDao: BusinessDao,
-    private val usersDao: UsersDao,
     private val sharedPreferences: SharedPreferences,
     private val authServerApi: AuthServerApi,
     private val googleSingInApi: GoogleSingInApi,
@@ -42,23 +39,11 @@ class LoginRepository @Inject constructor(
             emit(LoginResult.InProgress)
             val credential = googleSingInApi.getCredentialWithIntent(requireNotNull(result.data))
             val authResult = authServerApi.signInWithCredential(credential)
-            //todo return user to sync maybe
-            emit(LoginResult.Success())
+            val authUser = requireNotNull(authResult.user).toAuthUser()
+            emit(LoginResult.Success(authUser))
         } catch (e: Exception) {
             googleSingInApi.signOut()
             emit(LoginResult.Error)
-        }
-    }
-
-    override suspend fun singInAnonymously() = withContext(Dispatchers.IO) {
-        try {
-            val business = Business()
-            businessDao.insert(business)
-            usersDao.insert(User(currentBusinessId = business.businessId))
-            sharedPreferences.setShowLoginScreen(false)
-            SimpleResult.Success
-        } catch (e: Exception) {
-            SimpleResult.Failure
         }
     }
 
@@ -67,32 +52,11 @@ class LoginRepository @Inject constructor(
             googleSingInApi.signOut()
             authServerApi.signOut()
 
-            businessDao.deleteAll()
             sharedPreferences.setShowNewUserScreenPref(true)
-            sharedPreferences.setShowLoginScreen(false)
+            sharedPreferences.setShowLoginScreen(true)
             auth.signOut()
         } catch (e: Exception) {
             //handle
         }
     }
-
-    override suspend fun checkUserDataInFirestore(user: FirestoreUser): RegistrationData =
-        withContext(dispatcher.io) {
-            try {
-                val document =
-                    firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
-                val userdata = document.toObject(UserData::class.java) ?: UserData()
-                val roomUser = User(currentUid = user.uid)
-                usersDao.insert(roomUser)
-
-                if (!document.exists()) {
-                    firestore.collection(USERS_COLLECTION).document(user.uid).set(user).await()
-                    RegistrationData.NotFound
-                } else if (userdata.dataMissing()) RegistrationData.Incomplete
-                else RegistrationData.Complete(userdata)
-
-            } catch (e: Exception) {
-                RegistrationData.Error
-            }
-        }
 }

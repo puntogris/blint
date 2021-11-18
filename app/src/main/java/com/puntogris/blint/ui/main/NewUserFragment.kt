@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentNewUserBinding
 import com.puntogris.blint.ui.base.BaseFragment
@@ -28,11 +29,19 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onLogOutClicked() {
-        lifecycleScope.launch {
-            //viewModel.singOut()
-            val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-            findNavController().navigate(R.id.loginFragment, null, nav)
+        InfoSheet().show(requireParentFragment().requireContext()){
+            title("logout")
+            content("sure you wnat to logout?")
+            onNegative(R.string.action_cancel)
+            onPositive(R.string.action_yes) {
+                lifecycleScope.launch {
+                    // viewModel.singOut()
+                    val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                    findNavController().navigate(R.id.loginFragment, null, nav)
+                }
+            }
         }
+
     }
 
     fun onLearnMoreClicked() {

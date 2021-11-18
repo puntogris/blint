@@ -160,8 +160,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             setOf(
                 R.id.mainFragment,
                 R.id.loginFragment,
-                R.id.welcomeFragment,
-                R.id.introFragment,
                 R.id.syncAccountFragment,
                 R.id.newUserFragment,
                 R.id.outOfSyncFragment,

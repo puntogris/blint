@@ -11,7 +11,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/colorSecondary"
         android:layout_height="match_parent"
         tools:context=".ui.main.NewUserFragment">
 
@@ -53,7 +52,6 @@
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/new_user_title"
-            android:textColor="@color/grey_5"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -62,33 +60,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/joinBusinessButton"
+            style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
             android:onClick="@{()-> fragment.onCreateBusinessClicked()}"
             android:text="@string/create"
-            style="@style/Theme.Blint.Button"
-            app:layout_constraintBottom_toBottomOf="@+id/learnMoreButton"
-            app:layout_constraintEnd_toStartOf="@+id/learnMoreButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/learnMoreButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/learnMoreButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/join"
-            style="@style/Theme.Blint.Button"
-            android:onClick="@{()-> fragment.onJoinBusinessClicked()}"
+            android:layout_marginHorizontal="8dp"
             app:layout_constraintBottom_toTopOf="@+id/textView147"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/joinBusinessButton" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView147"
@@ -120,7 +102,6 @@
         <ImageView
             android:id="@+id/imageView19"
             android:padding="8dp"
-            app:tint="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

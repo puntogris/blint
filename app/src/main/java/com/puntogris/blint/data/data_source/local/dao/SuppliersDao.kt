@@ -14,14 +14,14 @@ interface SuppliersDao {
     suspend fun delete(supplierId: Int)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     fun getAllPaged(): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1' AND companyName LIKE :name")
-    fun getPagedSearch(name: String): PagingSource<Int, Supplier>
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND companyName LIKE :query")
+    fun getPagedSearch(query: String): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE userId = '1'")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     suspend fun getAllSuppliers(): List<Supplier>
 }

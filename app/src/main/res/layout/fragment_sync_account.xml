@@ -12,7 +12,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecondary"
         tools:context=".ui.sync.SyncAccountFragment">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -38,7 +37,6 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/account_creation_in_progress_message"
             android:textAlignment="center"
-            android:textColor="@color/grey_5"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/continueButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +53,6 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/account_syncing_in_progress_title"
             android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,16 +60,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/action_finish"
             style="@style/Theme.Blint.Button"
-            android:onClick="@{()-> fragment.onContinueButtonClicked()}"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/action_continue"
             android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

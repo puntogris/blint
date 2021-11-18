@@ -25,7 +25,7 @@
 -keep class com.puntogris.blint.model.ProductWithSuppliersCategories
 -keep class com.puntogris.blint.model.Record
 -keep class com.puntogris.blint.model.Event
--keep class com.puntogris.blint.model.UserData
+-keep class com.puntogris.blint.model.AuthUser
 -keep class com.puntogris.blint.model.Business
 -keep class com.puntogris.blint.model.Product
 -keep class com.puntogris.blint.model.OrderWithRecords

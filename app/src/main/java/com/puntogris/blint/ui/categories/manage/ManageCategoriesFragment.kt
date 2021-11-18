@@ -25,7 +25,6 @@ class ManageCategoriesFragment :
     private val viewModel: ManageCategoriesViewModel by viewModels()
     private lateinit var categoriesAdapter: ManageCategoriesAdapter
 
-    @ExperimentalCoroutinesApi
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.registerUi(showFab = true) { showCreateCategoryDialog() }

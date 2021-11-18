@@ -130,8 +130,8 @@
             android:id="@+id/action_loginFragment_to_loginProblemsFragment"
             app:destination="@id/loginProblemsFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            android:id="@+id/action_loginFragment_to_syncAccountFragment"
+            app:destination="@id/syncAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginProblemsFragment"
@@ -314,41 +314,12 @@
         android:name="com.puntogris.blint.ui.categories.manage.ManageCategoriesFragment"
         android:label="@string/categories_label" />
     <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.puntogris.blint.ui.login.WelcomeFragment"
-        android:label="" >
-        <action
-            android:id="@+id/action_welcomeFragment_to_firstSyncFragment"
-            app:destination="@id/syncAccountFragment"
-            app:popUpTo="@id/navigation"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_welcomeFragment_to_introFragment"
-            app:destination="@id/introFragment" />
-        <argument
-            android:name="showIntro"
-            app:argType="boolean" />
-        <argument
-            android:name="userData"
-            app:argType="com.puntogris.blint.model.UserData"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/introFragment"
-        android:name="com.puntogris.blint.ui.login.IntroFragment"
-        android:label="" >
-        <action
-            android:id="@+id/action_introFragment_to_syncAccountFragment"
-            app:destination="@id/syncAccountFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/syncAccountFragment"
         android:name="com.puntogris.blint.ui.sync.SyncAccountFragment"
         android:label="" >
         <argument
-            android:name="userData"
-            app:argType="com.puntogris.blint.model.UserData"
+            android:name="authUser"
+            app:argType="com.puntogris.blint.model.AuthUser"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
