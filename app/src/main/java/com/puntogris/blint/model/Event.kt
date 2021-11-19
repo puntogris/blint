@@ -13,8 +13,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Event(
 
-    @PrimaryKey
-    var eventId: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var eventId: Int = 0,
 
     @ColumnInfo
     var timestamp: Timestamp = Timestamp.now(),

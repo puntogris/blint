@@ -3,66 +3,69 @@ package com.puntogris.blint.ui.calendar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.EventStatus
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.fragment_calendar) {
 
     private val viewModel: CalendarViewModel by viewModels()
-    private lateinit var calendarEventsAdapter: CalendarEventsAdapter
 
     override fun initializeViews() {
         UiInterface.registerUi(showFab = true) {
             findNavController().navigate(R.id.createEventFragment)
         }
+        setupEventsFilter()
+        setupEventsAdapter()
+    }
 
-        calendarEventsAdapter = CalendarEventsAdapter { onEventClicked(it) }
-        binding.recyclerView.adapter = calendarEventsAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.events.collectLatest {
-                calendarEventsAdapter.submitData(it)
-            }
-        }
-
+    private fun setupEventsFilter() {
         val items = resources.getStringArray(R.array.event_type_with_all)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
-        (binding.calendarFilter.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.calendarFilterText.setOnItemClickListener { _, _, i, _ ->
-            when (i) {
-                0 -> viewModel.setAllFilter()
-                1 -> viewModel.setPendingFilter()
-                2 -> viewModel.setFinishedFilter()
+        binding.calendarFilter.apply {
+            setAdapter(adapter)
+            setOnItemClickListener { _, _, i, _ ->
+                enumValues<EventStatus>().getOrNull(i)?.let {
+                    viewModel.updateEventStatusFilter(it)
+                }
             }
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
-            DISMISS_EVENT_KEY
-        )?.observe(
-            viewLifecycleOwner
-        ) {
-            if (it) calendarEventsAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun onEventClicked(event: Event) {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(event)
+    private fun setupEventsAdapter() {
+        CalendarEventsAdapter(::onEventClicked).let {
+            binding.recyclerView.adapter = it
+            registerEventUpdatedListener(it)
+            subscribeUi(it)
+        }
+    }
+
+    private fun subscribeUi(adapter: CalendarEventsAdapter) {
+        viewModel.eventsLiveData.observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+    }
+
+    private fun registerEventUpdatedListener(adapter: CalendarEventsAdapter) {
+        setFragmentResultListener(Constants.EVENT_FILTER_KEY) { _, bundle ->
+            val position = bundle.getInt(Constants.EVENT_POSITION_KEY)
+            adapter.notifyItemChanged(position)
+        }
+    }
+
+    private fun onEventClicked(event: Event, position: Int) {
+        val action =
+            CalendarFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(event, position)
         findNavController().navigate(action)
     }
 

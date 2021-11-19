@@ -8,10 +8,8 @@ import com.puntogris.blint.diffcallback.EventDiffCallBack
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.types.EventUi
 
-class CalendarEventsAdapter(private val clickListener: (Event) -> Unit) :
-    PagingDataAdapter<EventUi, RecyclerView.ViewHolder>(
-        EventDiffCallBack()
-    ) {
+class CalendarEventsAdapter(private val clickListener: (Event, Int) -> Unit) :
+    PagingDataAdapter<EventUi, RecyclerView.ViewHolder>(EventDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -29,16 +27,13 @@ class CalendarEventsAdapter(private val clickListener: (Event) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val eventUi = getItem(position)!!
-        eventUi.let {
-            when (eventUi) {
+        getItem(position)?.let {
+            when (it) {
                 is EventUi.EventItem -> {
-                    (holder as CalendarEventsViewHolder)
-                    holder.bind(eventUi.event, clickListener)
+                    (holder as CalendarEventsViewHolder).bind(it.event, clickListener, position)
                 }
                 is EventUi.SeparatorItem -> {
-                    (holder as CalendarSeparatorViewHolder)
-                    holder.bind(eventUi.date)
+                    (holder as CalendarSeparatorViewHolder).bind(it.date)
                 }
             }
         }

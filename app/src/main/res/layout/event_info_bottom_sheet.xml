@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.calendar.CalendarViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.calendar.EventInfoBottomSheet" />
@@ -14,10 +16,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/color_tinted_surface">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button10"
+            android:id="@+id/saveEventButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,31 +31,31 @@
             android:text="@string/action_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toBottomOf="@+id/eventStatus" />
+            app:layout_constraintStart_toEndOf="@+id/deleteEventButton"
+            app:layout_constraintTop_toBottomOf="@+id/eventStatusInputLayout" />
 
         <TextView
-            android:id="@+id/textView95"
+            android:id="@+id/eventDate"
+            style="@style/Theme.Blint.DataTextView"
+            dateFromTimestamp="@{viewModel.event.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            dateFromTimestamp="@{viewModel.event.timestamp}"
-            style="@style/Theme.Blint.DataTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView94"
-            app:layout_constraintTop_toBottomOf="@+id/textView94" />
+            app:layout_constraintStart_toStartOf="@+id/eventDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/eventDateLabel" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/divider"
             android:layout_width="30dp"
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/top_window_bar_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal"
-            android:contentDescription="@string/top_window_bar_image" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <TextView
-            android:id="@+id/textView90"
+            android:id="@+id/eventTitleLabel"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,49 +63,49 @@
             android:layout_marginTop="24dp"
             android:text="@string/title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView96" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
-            android:id="@+id/textView91"
+            android:id="@+id/eventTitle"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.event.title}"
-            style="@style/Theme.Blint.DataTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView90"
-            app:layout_constraintTop_toBottomOf="@+id/textView90" />
+            app:layout_constraintStart_toStartOf="@+id/eventTitleLabel"
+            app:layout_constraintTop_toBottomOf="@+id/eventTitleLabel" />
 
         <TextView
-            android:id="@+id/textView92"
+            android:id="@+id/eventMessageLabel"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/message_hint"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView90"
-            app:layout_constraintTop_toBottomOf="@+id/textView91" />
+            app:layout_constraintStart_toStartOf="@+id/eventTitleLabel"
+            app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
 
         <TextView
-            android:id="@+id/textView93"
+            android:id="@+id/eventMessage"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.event.message}"
-            style="@style/Theme.Blint.DataTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView92"
-            app:layout_constraintTop_toBottomOf="@+id/textView92" />
+            app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
+            app:layout_constraintTop_toBottomOf="@+id/eventMessageLabel" />
 
         <TextView
-            android:id="@+id/textView94"
+            android:id="@+id/eventDateLabel"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/date"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView92"
-            app:layout_constraintTop_toBottomOf="@+id/textView93" />
+            app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
+            app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventStatus"
+            android:id="@+id/eventStatusInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -110,39 +113,40 @@
             android:hint="@string/status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView95">
+            app:layout_constraintTop_toBottomOf="@+id/eventDate">
 
             <AutoCompleteTextView
-                android:id="@+id/eventStatusText"
+                android:id="@+id/eventStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:inputType="none"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/deleteEventButton"
             style="@style/Theme.Blint.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            app:tint="@color/almostBlack"
+            android:contentDescription="@string/delete_image"
             android:onClick="@{()-> fragment.onDeleteEventButtonClicked()}"
             android:src="@drawable/ic_baseline_delete_24"
-            app:layout_constraintBottom_toBottomOf="@+id/button10"
+            app:layout_constraintBottom_toBottomOf="@+id/saveEventButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button10"
-            android:contentDescription="@string/delete_image" />
+            app:layout_constraintTop_toTopOf="@+id/saveEventButton"
+            app:tint="@color/almostBlack" />
 
         <TextView
-            android:id="@+id/textView96"
+            android:id="@+id/title"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:text="@string/events_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

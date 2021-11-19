@@ -7,6 +7,7 @@ import com.puntogris.blint.data.data_source.local.dao.EventsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.DispatcherProvider
+import com.puntogris.blint.utils.types.EventStatus
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -26,7 +27,7 @@ class EventRepository @Inject constructor(
             }
         }
 
-    override fun getEventsPaged(filter: String): Flow<PagingData<Event>> {
+    override fun getEventsPaged(eventStatus: EventStatus): Flow<PagingData<Event>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -34,12 +35,12 @@ class EventRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            if (filter == "ALL") eventsDao.getAllPaged()
-            else eventsDao.getPagedEventsWithFilter(filter)
+            if (eventStatus == EventStatus.All) eventsDao.getEventsPaged()
+            else eventsDao.getEventsWithStatusPaged(eventStatus.value)
         }.flow
     }
 
-    override suspend fun deleteEvent(eventId: String): SimpleResult =
+    override suspend fun deleteEvent(eventId: Int): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 eventsDao.delete(eventId)

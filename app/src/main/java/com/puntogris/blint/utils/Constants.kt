@@ -26,6 +26,8 @@ object Constants {
     const val PRODUCT_CATEGORY_KEY = "product_category_key"
     const val PRODUCT_SUPPLIER_KEY = "product_supplier_key"
     const val CATEGORY_FILTER_KEY = "category_filter_key"
+    const val EVENT_FILTER_KEY = "event_filter_key"
+    const val EVENT_POSITION_KEY = "event_position_key"
     const val SIMPLE_ORDER_KEY = "simple_order_key"
     const val DISMISS_EVENT_KEY = "dismiss_event_key"
     const val CLIENT_DATA_KEY = "client_data_key"

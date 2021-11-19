@@ -8,9 +8,9 @@ import com.puntogris.blint.model.Event
 
 class CalendarEventsViewHolder private constructor(val binding: CalendarEventVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(event: Event, clickListener: (Event) -> Unit) {
+    fun bind(event: Event, clickListener: (Event, Int) -> Unit, position: Int) {
         binding.event = event
-        binding.root.setOnClickListener { clickListener(event) }
+        binding.root.setOnClickListener { clickListener(event, position) }
         binding.executePendingBindings()
     }
 

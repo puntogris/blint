@@ -12,15 +12,15 @@ interface EventsDao {
     suspend fun insert(event: Event)
 
     @Query("DELETE FROM event WHERE eventId = :eventId")
-    suspend fun delete(eventId: String)
+    suspend fun delete(eventId: Int)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp ASC")
-    fun getAllPaged(): PagingSource<Int, Event>
+    fun getEventsPaged(): PagingSource<Int, Event>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND status = :status ORDER BY timestamp ASC")
-    fun getPagedEventsWithFilter(status: String): PagingSource<Int, Event>
+    fun getEventsWithStatusPaged(status: String): PagingSource<Int, Event>
 
     @Update
     suspend fun updateEvent(event: Event)

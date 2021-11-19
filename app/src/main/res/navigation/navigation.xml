@@ -274,6 +274,10 @@
         <argument
             android:name="event"
             app:argType="com.puntogris.blint.model.Event" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </dialog>
     <fragment
         android:id="@+id/generateReportFragment"

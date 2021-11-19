@@ -1,22 +1,20 @@
 package com.puntogris.blint.ui.calendar
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import com.google.firebase.Timestamp
 import com.puntogris.blint.data.repository.events.EventRepository
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.toEventUiFlow
+import com.puntogris.blint.utils.types.EventStatus
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    private val eventRepository: EventRepository
+    private val repository: EventRepository
 ) : ViewModel() {
 
     private val _event = MutableStateFlow(Event())
@@ -25,26 +23,16 @@ class CalendarViewModel @Inject constructor(
     fun setEvent(event: Event) {
         _event.value = event
     }
-
     private var timestamp = Timestamp.now()
 
-    private val eventsFilter = MutableStateFlow("ALL")
+    private val eventFilter = MutableLiveData(EventStatus.All)
 
-    fun setPendingFilter() {
-        eventsFilter.value = "PENDING"
-    }
+    val eventsLiveData = eventFilter.switchMap {
+        repository.getEventsPaged(it).toEventUiFlow().asLiveData()
+    }.cachedIn(viewModelScope)
 
-    fun setFinishedFilter() {
-        eventsFilter.value = "FINISHED"
-    }
-
-    fun setAllFilter() {
-        eventsFilter.value = "ALL"
-    }
-
-    @ExperimentalCoroutinesApi
-    val events = eventsFilter.flatMapLatest {
-        eventRepository.getEventsPaged(it).toEventUiFlow()
+    fun updateEventStatusFilter(eventStatus: EventStatus){
+        this.eventFilter.value = eventStatus
     }
 
     suspend fun createEvent(title: String, message: String): SimpleResult {
@@ -53,35 +41,18 @@ class CalendarViewModel @Inject constructor(
             message = message,
             timestamp = timestamp
         )
-        return eventRepository.saveEvent(event)
+        return repository.saveEvent(event)
     }
 
-    suspend fun deleteEvent(eventId: String) = eventRepository.deleteEvent(eventId)
+    suspend fun deleteEvent(eventId: Int) = repository.deleteEvent(eventId)
 
-    suspend fun updateEvent() = eventRepository.updateEventStatus(_event.value)
+    suspend fun updateEvent() = repository.updateEventStatus(_event.value)
 
     fun updateEventDate(timeInMillis: Long) {
         timestamp = Timestamp(timeInMillis / 1000, 0)
     }
 
     fun updateEventStatus(position: Int) {
-        _event.value.status = if (position == 0) "PENDING" else "FINISHED"
+        _event.value.status = if (position == 0) EventStatus.Pending.value else EventStatus.Finished.value
     }
-
-//    fun getDayEvents(date:Date){
-//        val flow = Pager(
-//            PagingConfig(
-//                pageSize = 30,
-//                enablePlaceholders = true,
-//                maxSize = 200
-//            )
-//        ){
-//            eventsDao.getDayEvents(Timestamp(1613691993,0))
-//        }.flow.toEventUiFlow()
-//        viewModelScope.launch {
-//            _events.emitAll(flow)
-//
-//        }
-//    }
-
 }

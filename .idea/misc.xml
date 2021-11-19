@@ -25,11 +25,12 @@
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/client_information_expandable.xml" value="0.10173611111111111" />
-        <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_bottom_nav_drawer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_business.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.175" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.21388888888888888" />
         <entry key="app/src/main/res/layout/fragment_client_data.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.1" />

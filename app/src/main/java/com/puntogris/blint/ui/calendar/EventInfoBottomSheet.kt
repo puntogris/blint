@@ -1,7 +1,8 @@
 package com.puntogris.blint.ui.calendar
 
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -10,9 +11,9 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
-import com.puntogris.blint.utils.Constants.DISMISS_EVENT_KEY
-import com.puntogris.blint.utils.Constants.PENDING
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.types.EventStatus
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,15 +29,18 @@ class EventInfoBottomSheet :
         binding.fragment = this
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
         viewModel.setEvent(args.event)
 
         val items = resources.getStringArray(R.array.event_type)
-        binding.eventStatusText.setText(if (args.event.status == PENDING) items[0] else items[1])
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
-        (binding.eventStatus.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.eventStatusText.setOnItemClickListener { _, _, i, _ ->
-            viewModel.updateEventStatus(i)
+        binding.eventStatus.apply {
+            setText(if (args.event.status == EventStatus.Pending.value) items[0] else items[1])
+            setAdapter(adapter)
+            setOnItemClickListener { _, _, i, _ ->
+                viewModel.updateEventStatus(i)
+            }
         }
     }
 
@@ -49,7 +53,7 @@ class EventInfoBottomSheet :
         }
     }
 
-    fun onDeleteEventConfirmed() {
+    private fun onDeleteEventConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteEvent(args.event.eventId)) {
                 SimpleResult.Failure ->
@@ -68,11 +72,11 @@ class EventInfoBottomSheet :
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {
-                    findNavController().apply {
-                        previousBackStackEntry!!.savedStateHandle.set(DISMISS_EVENT_KEY, true)
-                        popBackStack()
-                        UiInterface.showSnackBar(getString(R.string.snack_update_event_success))
-                    }
+                    setFragmentResult(
+                        Constants.EVENT_FILTER_KEY,
+                        bundleOf(Constants.EVENT_POSITION_KEY to args.position)
+                    )
+                    findNavController().navigateUp()
                 }
             }
         }

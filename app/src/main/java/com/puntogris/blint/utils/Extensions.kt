@@ -146,7 +146,8 @@ fun Timestamp.getMonth() =
     SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
 
 fun Flow<PagingData<Event>>.toEventUiFlow(): Flow<PagingData<EventUi>> {
-    return map { pagingData -> pagingData.map { EventUi.EventItem(it) } }
+    return map { pagingData -> pagingData.map {
+        EventUi.EventItem(it) } }
         .map {
             it.insertSeparators { before, after ->
 
