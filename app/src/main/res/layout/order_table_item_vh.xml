@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.puntogris.blint.model.OrdersTableItem" />
+            type="com.puntogris.blint.model.order.OrdersTableItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

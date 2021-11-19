@@ -6,7 +6,7 @@
 
         <variable
             name="supplier"
-            type="com.puntogris.blint.model.FirestoreSupplier" />
+            type="com.puntogris.blint.model.CheckableSupplier" />
     </data>
 
     <LinearLayout
@@ -14,14 +14,15 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView72"
-            capitalizeFirstChar="@{supplier.companyName}"
+        <CheckedTextView
+            android:id="@+id/supplierView"
+            capitalizeFirstChar="@{supplier.supplier.companyName}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="20dp"
             android:foreground="?selectableItemBackground"
             android:padding="12dp"
+            android:background="@drawable/list_item_checkable_selector"
             android:textSize="17sp"
             app:drawableStartCompat="@drawable/ic_outline_local_shipping_24"
             app:layout_constraintBottom_toBottomOf="parent"

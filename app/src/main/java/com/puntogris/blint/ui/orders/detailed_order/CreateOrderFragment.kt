@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.DetailedOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentCreateOrderBinding
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductWithRecord
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductWithRecord
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN

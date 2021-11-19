@@ -102,7 +102,7 @@
         android:label="@string/product_label" >
         <argument
             android:name="productWithDetails"
-            app:argType="com.puntogris.blint.model.ProductWithDetails"
+            app:argType="com.puntogris.blint.model.product.ProductWithDetails"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -148,7 +148,7 @@
         android:label="@string/product_label" >
         <argument
             android:name="productWithDetails"
-            app:argType="com.puntogris.blint.model.ProductWithDetails"
+            app:argType="com.puntogris.blint.model.product.ProductWithDetails"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -231,7 +231,7 @@
         android:label="RecordInfoBottomSheet" >
         <argument
             android:name="record"
-            app:argType="com.puntogris.blint.model.Record" />
+            app:argType="com.puntogris.blint.model.order.Record" />
         <action
             android:id="@+id/action_recordInfoBottomSheet_to_supplierFragment"
             app:destination="@id/supplierFragment" />
@@ -349,7 +349,7 @@
         app:startDestination="@id/orderTypeFragment">
         <argument
             android:name="product"
-            app:argType="com.puntogris.blint.model.Product"
+            app:argType="com.puntogris.blint.model.product.Product"
             app:nullable="true" />
         <fragment
             android:id="@+id/orderTypeFragment"
@@ -409,7 +409,7 @@
         android:label="OrderInfoBottomSheet" >
         <argument
             android:name="order"
-            app:argType="com.puntogris.blint.model.OrderWithRecords" />
+            app:argType="com.puntogris.blint.model.order.OrderWithRecords" />
         <action
             android:id="@+id/action_orderInfoBottomSheet_to_supplierFragment"
             app:destination="@id/supplierFragment" />
@@ -427,7 +427,7 @@
             android:defaultValue="0" />
         <argument
             android:name="order"
-            app:argType="com.puntogris.blint.model.OrderWithRecords"
+            app:argType="com.puntogris.blint.model.order.OrderWithRecords"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
@@ -478,7 +478,7 @@
         android:id="@+id/action_global_newOrderGraphNav"
         app:destination="@id/detailedOrderGraphNav">
         <argument
-            app:argType="com.puntogris.blint.model.Product"
+            app:argType="com.puntogris.blint.model.product.Product"
             android:name="product"
             app:nullable="true"
             android:defaultValue="@null" />
@@ -489,7 +489,7 @@
         android:label="" >
         <argument
             android:name="product"
-            app:argType="com.puntogris.blint.model.Product" />
+            app:argType="com.puntogris.blint.model.product.Product" />
     </dialog>
     <action
         android:id="@+id/action_global_simpleOrderBottomSheet"
@@ -510,7 +510,7 @@
         android:label="ProductSupplierFragment" >
         <argument
             android:name="suppliers"
-            app:argType="com.puntogris.blint.model.FirestoreSupplier[]"
+            app:argType="com.puntogris.blint.model.Supplier[]"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

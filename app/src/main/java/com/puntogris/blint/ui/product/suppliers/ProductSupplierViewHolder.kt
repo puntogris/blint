@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ProductSupplierVhBinding
-import com.puntogris.blint.model.FirestoreSupplier
+import com.puntogris.blint.model.CheckableSupplier
 
 class ProductSupplierViewHolder private constructor(val binding: ProductSupplierVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(supplier: FirestoreSupplier, clickListener: (FirestoreSupplier) -> Unit) {
+    fun bind(supplier: CheckableSupplier, clickListener: (CheckableSupplier) -> Unit) {
         binding.supplier = supplier
         binding.root.setOnClickListener {
             clickListener(supplier)
+            binding.supplierView.toggle()
         }
+
         binding.executePendingBindings()
     }
 

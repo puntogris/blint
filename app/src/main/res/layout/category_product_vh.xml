@@ -6,7 +6,7 @@
 
         <variable
             name="category"
-            type="com.puntogris.blint.model.Category" />
+            type="com.puntogris.blint.model.CheckableCategory" />
     </data>
 
     <LinearLayout
@@ -14,13 +14,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            capitalizeFirstChar="@{category.categoryName}"
+        <CheckedTextView
+            android:id="@+id/categoryView"
+            capitalizeFirstChar="@{category.category.categoryName}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="20dp"
             android:foreground="?selectableItemBackground"
             android:padding="16dp"
+            android:background="@drawable/list_item_checkable_selector"
             android:textSize="17sp"
             app:drawableStartCompat="@drawable/ic_outline_label_24"
             app:layout_constraintBottom_toBottomOf="parent"

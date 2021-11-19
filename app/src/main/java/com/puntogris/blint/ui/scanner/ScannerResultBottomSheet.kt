@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
-import com.puntogris.blint.model.FirestoreRecord
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
@@ -92,7 +92,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
                     val order = OrderWithRecords()
                     order.order.type = orderType
                     order.records = listOf(
-                        FirestoreRecord(
+                        Record(
                             productId = viewModel.currentProduct.value!!.product.productId,
                             productName = viewModel.currentProduct.value!!.product.name,
                             amount = amount,

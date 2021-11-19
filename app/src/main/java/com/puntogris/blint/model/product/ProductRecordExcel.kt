@@ -1,4 +1,4 @@
-package com.puntogris.blint.model
+package com.puntogris.blint.model.product
 
 data class ProductRecordExcel(
     val name: String = "",

@@ -1,6 +1,8 @@
 package com.puntogris.blint.data.repository.statistics
 
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductRecordExcel
 import com.puntogris.blint.utils.types.RepoResult
 
 interface IStatisticRepository {

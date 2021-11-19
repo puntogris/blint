@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ProductRecordsVhBinding
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.Record
 
 class RecordsViewHolder private constructor(val binding: ProductRecordsVhBinding) :
     RecyclerView.ViewHolder(binding.root) {

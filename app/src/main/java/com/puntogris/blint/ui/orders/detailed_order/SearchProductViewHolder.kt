@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.ProductSearchVhBinding
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.product.Product
 
 class SearchProductViewHolder private constructor(val binding: ProductSearchVhBinding) :
     RecyclerView.ViewHolder(binding.root) {

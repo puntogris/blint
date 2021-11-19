@@ -1,10 +1,12 @@
-package com.puntogris.blint.model
+package com.puntogris.blint.model.product
 
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.puntogris.blint.model.Category
+import com.puntogris.blint.model.Supplier
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -19,7 +21,7 @@ data class ProductWithDetails(
         entityColumn = "supplierId",
         associateBy = Junction(ProductSupplierCrossRef::class)
     )
-    var suppliers: List<FirestoreSupplier> = emptyList(),
+    var suppliers: List<Supplier> = emptyList(),
 
     @Relation(
         entity = Category::class,

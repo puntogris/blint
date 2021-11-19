@@ -19,6 +19,11 @@ import com.google.android.material.chip.ChipGroup
 import com.google.firebase.Timestamp
 import com.puntogris.blint.R
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductWithDetails
+import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.INITIAL
@@ -315,7 +320,7 @@ fun ChipGroup.setProductCategoriesChip(categories: List<Category>?) {
 }
 
 @BindingAdapter("productSuppliersChipGroup")
-fun ChipGroup.setProductSuppliersChips(suppliers: List<FirestoreSupplier>?) {
+fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>?) {
     val data = this.children.map { (it as Chip).text }
     suppliers?.forEach {
         if (!data.contains(it.companyName)) {

@@ -63,6 +63,7 @@
     <string name="action_save">Guardar</string>
     <string name="action_undo">Deshacer</string>
     <string name="action_continue">Continuar</string>
+    <string name="action_done">Listo</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Sugerencia o mensaje</string>
@@ -586,12 +587,12 @@
         <item>Deuda</item>
     </string-array>
 
-    <string-array name="event_type">
+    <string-array name="event_status">
         <item>Pendiente</item>
         <item>Finalizado</item>
     </string-array>
 
-    <string-array name="event_type_with_all">
+    <string-array name="filter_event_status">
         <item>Todos</item>
         <item>Pendientes</item>
         <item>Finalizado</item>

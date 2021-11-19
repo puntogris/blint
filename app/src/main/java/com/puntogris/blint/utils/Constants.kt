@@ -19,24 +19,20 @@ object Constants {
     const val SYNC_INFO_WEBSITE_LEARN_MORE = "https://blint.app"
     const val WHATS_APP_PACKAGE = "com.whatsapp"
 
-    const val ADMINISTRATOR = "ADMINISTRATOR"
-
     //Navigation
     const val PRODUCT_BARCODE_KEY = "product_barcode_key"
-    const val PRODUCT_CATEGORY_KEY = "product_category_key"
-    const val PRODUCT_SUPPLIER_KEY = "product_supplier_key"
-    const val CATEGORY_FILTER_KEY = "category_filter_key"
     const val EVENT_FILTER_KEY = "event_filter_key"
     const val EVENT_POSITION_KEY = "event_position_key"
     const val SIMPLE_ORDER_KEY = "simple_order_key"
-    const val DISMISS_EVENT_KEY = "dismiss_event_key"
     const val CLIENT_DATA_KEY = "client_data_key"
     const val SUPPLIER_DATA_KEY = "supplier_data_key"
     const val PRODUCT_DATA_KEY = " product_data_key"
     const val UPDATE_DEBT_KEY = "update_debt_key"
 
-    //Product categories/ suppliers limit
-    const val CATEGORIES_SUPPLIERS_LIMIT = 4
+    const val PRODUCT_CATEGORIES_KEY = "product_categories_key"
+    const val PRODUCT_SUPPLIERS_KEY = "product_suppliers_key"
+    const val EDIT_FRAGMENT_RESULTS_KEY = "edit_fragment_results_key"
+
 
     //Report types
     const val SUPPLIERS_LIST = 101

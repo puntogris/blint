@@ -7,8 +7,8 @@ import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.DetailedOrderGraphNavArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
-import com.puntogris.blint.model.ProductWithRecord
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.product.ProductWithRecord
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint

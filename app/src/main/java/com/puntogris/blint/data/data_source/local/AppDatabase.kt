@@ -5,6 +5,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.puntogris.blint.data.data_source.local.dao.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Order
+import com.puntogris.blint.model.order.OrderRecordCrossRef
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductCategoryCrossRef
+import com.puntogris.blint.model.product.ProductSupplierCrossRef
 import com.puntogris.blint.utils.Converters
 
 @Database(

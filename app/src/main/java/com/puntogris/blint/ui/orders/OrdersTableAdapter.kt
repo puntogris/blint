@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.orders
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.OrderTableItemDiffCallBack
-import com.puntogris.blint.model.OrdersTableItem
+import com.puntogris.blint.model.order.OrdersTableItem
 
 class OrdersTableAdapter : ListAdapter<OrdersTableItem, OrdersTableItemViewHolder>(
     OrderTableItemDiffCallBack()

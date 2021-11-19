@@ -3,6 +3,11 @@ package com.puntogris.blint.data.data_source
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductCategoryCrossRef
+import com.puntogris.blint.model.product.ProductSupplierCrossRef
+import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.Constants
 
 fun FirebaseUser.toAuthUser(): AuthUser {
@@ -23,7 +28,7 @@ fun AuthUser.toUserEntity(): User {
     )
 }
 
-fun Product.toRecord(currentBusinessId: Int): Record{
+fun Product.toRecord(currentBusinessId: Int): Record {
     return Record(
         type = Constants.INITIAL,
         amount = amount,

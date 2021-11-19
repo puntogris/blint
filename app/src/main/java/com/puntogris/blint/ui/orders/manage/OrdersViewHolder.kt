@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.OrderVhBinding
-import com.puntogris.blint.model.OrderWithRecords
+import com.puntogris.blint.model.order.OrderWithRecords
 
 class OrdersViewHolder private constructor(val binding: OrderVhBinding) :
     RecyclerView.ViewHolder(binding.root) {

@@ -18,7 +18,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderBinding
-import com.puntogris.blint.model.OrdersTableItem
+import com.puntogris.blint.model.order.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.IN

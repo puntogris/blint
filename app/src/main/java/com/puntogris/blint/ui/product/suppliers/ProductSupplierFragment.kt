@@ -1,14 +1,17 @@
 package com.puntogris.blint.ui.product.suppliers
 
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
-import com.puntogris.blint.model.FirestoreSupplier
+import com.puntogris.blint.model.CheckableSupplier
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.registerToolbarBackButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,27 +19,13 @@ class ProductSupplierFragment :
     BaseFragment<FragmentProductSupplierBinding>(R.layout.fragment_product_supplier) {
 
     private val viewModel: ProductSupplierViewModel by viewModels()
-    private val args: ProductSupplierFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        UiInterface.registerUi(
-            showFab = true,
-            showAppBar = false,
-            fabIcon = R.drawable.ic_baseline_arrow_forward_24,
-            showToolbar = false,
-            showFabCenter = false
-        ) {
-//            findNavController().apply {
-//                previousBackStackEntry!!.savedStateHandle.set(
-//                    PRODUCT_SUPPLIER_KEY,
-//                    removeSupplierAdapter.getFinalSuppliers()
-//                )
-//                popBackStack()
-//            }
-        }
+        binding.fragment = this
+        UiInterface.registerUi(showAppBar = false, showToolbar = false)
 
         setupCategoriesAdapter()
+        registerToolbarBackButton(binding.searchToolbar)
 
         binding.categoriesSearch.addTextChangedListener {
             viewModel.setQuery(it.toString())
@@ -56,12 +45,16 @@ class ProductSupplierFragment :
         }
     }
 
-    private fun onRemoveSupplier(category: FirestoreSupplier) {
-
+    private fun onSupplierClicked(supplier: CheckableSupplier) {
+        viewModel.toggleSupplier(supplier.supplier)
     }
 
-    private fun onSupplierClicked(category: FirestoreSupplier) {
-
+    fun onDoneButtonClicked() {
+        setFragmentResult(
+            Constants.EDIT_FRAGMENT_RESULTS_KEY,
+            bundleOf(Constants.PRODUCT_SUPPLIERS_KEY to viewModel.getFinalSuppliers())
+        )
+        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {

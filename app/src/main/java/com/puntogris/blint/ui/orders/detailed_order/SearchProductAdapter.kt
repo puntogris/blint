@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.orders.detailed_order
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.ProductDiffCallBack
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.product.Product
 
 class SearchProductAdapter(private val clickListener: (Product) -> Unit) :
     ListAdapter<Product, SearchProductViewHolder>(

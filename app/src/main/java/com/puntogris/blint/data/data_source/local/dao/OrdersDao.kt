@@ -3,6 +3,10 @@ package com.puntogris.blint.data.data_source.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Order
+import com.puntogris.blint.model.order.OrderRecordCrossRef
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.Constants.CLIENT
 import kotlin.math.absoluteValue
 

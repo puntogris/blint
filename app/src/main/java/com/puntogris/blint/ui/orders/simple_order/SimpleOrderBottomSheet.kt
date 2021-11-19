@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.SimpleOrderBinding
-import com.puntogris.blint.model.FirestoreRecord
-import com.puntogris.blint.model.OrderWithRecords
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.*
@@ -54,7 +54,7 @@ class SimpleOrderBottomSheet : BaseBottomSheetFragment<SimpleOrderBinding>(R.lay
             val order = OrderWithRecords()
             order.order.type = orderType
             order.records = listOf(
-                FirestoreRecord(
+                Record(
                     productId = args.product.productId,
                     productName = args.product.name,
                     amount = amount,

@@ -5,8 +5,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
-import com.puntogris.blint.model.ProductWithDetails
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.product.ProductWithDetails
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
 import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY

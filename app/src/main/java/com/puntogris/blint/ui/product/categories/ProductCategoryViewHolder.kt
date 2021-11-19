@@ -5,14 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.CategoryProductVhBinding
 import com.puntogris.blint.model.Category
+import com.puntogris.blint.model.CheckableCategory
 
 class ProductCategoryViewHolder private constructor(val binding: CategoryProductVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(category: Category, clickListener: (Category) -> Unit) {
+    fun bind(category: CheckableCategory, clickListener: (CheckableCategory) -> Unit) {
         binding.category = category
+        binding.categoryView.isChecked = category.isChecked
         binding.root.setOnClickListener {
             clickListener(category)
+            binding.categoryView.toggle()
         }
         binding.executePendingBindings()
     }
@@ -25,3 +28,4 @@ class ProductCategoryViewHolder private constructor(val binding: CategoryProduct
         }
     }
 }
+

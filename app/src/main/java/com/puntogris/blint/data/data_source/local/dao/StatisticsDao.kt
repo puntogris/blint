@@ -2,6 +2,9 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.room.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductRecordExcel
 import kotlinx.coroutines.flow.Flow
 import kotlin.math.absoluteValue
 
@@ -35,11 +38,11 @@ interface StatisticsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    suspend fun getStatistics(): BusinessCounters
+    suspend fun getStatistics(): Statistic
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    fun getBusinessStatisticsFlow(): Flow<BusinessCounters>
+    fun getBusinessStatisticsFlow(): Flow<Statistic>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")

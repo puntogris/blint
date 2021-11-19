@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.diffcallback.ProductWithRecordItemDiffCallBack
-import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.ui.orders.OrderItemViewHolder
 import com.puntogris.blint.utils.SwipeToDeleteCallback
 import com.puntogris.blint.utils.dp

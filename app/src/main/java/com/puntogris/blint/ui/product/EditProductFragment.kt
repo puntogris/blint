@@ -1,10 +1,10 @@
 package com.puntogris.blint.ui.product
 
 import android.Manifest
-import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.size
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,13 +13,11 @@ import com.google.android.material.chip.Chip
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.FirestoreSupplier
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
-import com.puntogris.blint.utils.Constants.PRODUCT_CATEGORY_KEY
-import com.puntogris.blint.utils.Constants.PRODUCT_SUPPLIER_KEY
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,19 +29,14 @@ class EditProductFragment :
 
     private val viewModel: ProductViewModel by viewModels()
     private val args: EditProductFragmentArgs by navArgs()
-    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    lateinit var scannerLauncher: ActivityResultLauncher<String>
     private lateinit var getContent: ActivityResultLauncher<String>
 
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                viewModel.updateProductImage(uri.toString())
-                binding.descriptionLayout.productImage.visible()
-            }
-        }
+
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             viewModel.updateProductData(getProductDataFromViews())
             when (val validator = StringValidator.from(
@@ -84,51 +77,73 @@ class EditProductFragment :
                 productPricesTitle.text = getString(R.string.prices_and_initial_stock)
             }
         }
-        onBackStackLiveData<List<Category>>(PRODUCT_CATEGORY_KEY) {
-            viewModel.updateCategories(it)
-            binding.scopeLayout.categoriesChipGroup.let { group ->
-                group.removeViews(1, group.size - 1)
-            }
-            it.forEach { category ->
-                if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()) {
-                    if (viewModel.currentProduct.value?.categories!!.contains(category)) {
-                        val chip = Chip(requireContext())
-                        chip.text = category.categoryName.capitalizeFirstChar()
-                        binding.scopeLayout.categoriesChipGroup.addView(chip)
-                    }
-                }
-            }
-        }
 
         onBackStackLiveData<String>(PRODUCT_BARCODE_KEY) {
             binding.descriptionLayout.productBarcodeText.setText(it)
         }
 
-        onBackStackLiveData<List<FirestoreSupplier>>(PRODUCT_SUPPLIER_KEY) {
-            viewModel.updateSuppliers(it)
-            binding.scopeLayout.supplierChipGroup.let { group ->
-                group.removeViews(1, group.size - 1)
+        setupResultListeners()
+        setupGalleryLauncher()
+        setupScannerLauncher()
+    }
+
+    private fun setupResultListeners() {
+        setFragmentResultListener(Constants.EDIT_FRAGMENT_RESULTS_KEY) { _, bundle ->
+            bundle.getParcelableArrayList<Category>(Constants.PRODUCT_CATEGORIES_KEY)?.let {
+                viewModel.updateCategories(it.toList())
+                binding.scopeLayout.categoriesChipGroup.let { group ->
+                    group.removeViews(1, group.size - 1)
+                }
+                it.forEach { category ->
+                    if (!viewModel.currentProduct.value?.categories.isNullOrEmpty()) {
+                        if (viewModel.currentProduct.value?.categories!!.contains(category)) {
+                            val chip = Chip(requireContext())
+                            chip.text = category.categoryName.capitalizeFirstChar()
+                            binding.scopeLayout.categoriesChipGroup.addView(chip)
+                        }
+                    }
+                }
             }
-            it.forEach { supplier ->
-                if (!viewModel.currentProduct.value?.suppliers.isNullOrEmpty()) {
-                    if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)) {
-                        val chip = Chip(requireContext())
-                        chip.text = supplier.companyName
-                        binding.scopeLayout.supplierChipGroup.addView(chip)
+
+            bundle.getParcelableArrayList<Supplier>(Constants.PRODUCT_SUPPLIERS_KEY)?.let {
+                viewModel.updateSuppliers(it)
+                binding.scopeLayout.supplierChipGroup.let { group ->
+                    group.removeViews(1, group.size - 1)
+                }
+                it.forEach { supplier ->
+                    if (!viewModel.currentProduct.value?.suppliers.isNullOrEmpty()) {
+                        if (viewModel.currentProduct.value?.suppliers!!.contains(supplier)) {
+                            val chip = Chip(requireContext())
+                            chip.text = supplier.companyName
+                            binding.scopeLayout.supplierChipGroup.addView(chip)
+                        }
                     }
                 }
             }
         }
+    }
 
-        requestPermissionLauncher =
+    private fun setupScannerLauncher() {
+        scannerLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
                     val action =
                         EditProductFragmentDirections.actionEditProductFragmentToScannerFragment(1)
                     findNavController().navigate(action)
-                } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+                } else {
+                    UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+                }
             }
+    }
+
+    private fun setupGalleryLauncher() {
+        getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                viewModel.updateProductImage(it.toString())
+                binding.descriptionLayout.productImage.visible()
+            }
+        }
     }
 
     private fun getProductDataFromViews(): Product {
@@ -149,7 +164,7 @@ class EditProductFragment :
 
     fun onScanButtonClicked() {
         viewModel.updateProductData(getProductDataFromViews())
-        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        scannerLauncher.launch(Manifest.permission.CAMERA)
     }
 
     fun onAddImageButtonClicked() {

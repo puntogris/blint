@@ -6,7 +6,7 @@ import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.FirebaseClients
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.AccountStatus
 import com.puntogris.blint.utils.types.RepoResult
@@ -63,7 +63,7 @@ class MainRepository @Inject constructor(
     override fun getBusinessLastEventsDatabase() = eventsDao.getLastThreeEventsFlow()
 
 
-    override suspend fun getBusinessCounterFlow(): Flow<BusinessCounters> =
+    override suspend fun getBusinessCounterFlow(): Flow<Statistic> =
         withContext(Dispatchers.IO) {
             statisticsDao.getBusinessStatisticsFlow()
         }

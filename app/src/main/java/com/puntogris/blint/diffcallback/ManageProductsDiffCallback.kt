@@ -1,7 +1,7 @@
 package com.puntogris.blint.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.product.ProductWithDetails
 
 class ManageProductsDiffCallback : DiffUtil.ItemCallback<ProductWithDetails>() {
     override fun areItemsTheSame(

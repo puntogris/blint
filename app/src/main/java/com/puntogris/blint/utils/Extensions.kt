@@ -31,6 +31,7 @@ import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -44,7 +45,7 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.model.Event
-import com.puntogris.blint.model.Product
+import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.ui.main.SetupUiListener
 import com.puntogris.blint.utils.types.EventUi
 import kotlinx.coroutines.CoroutineScope
@@ -332,12 +333,16 @@ fun <T> Fragment.onBackStackLiveData(key: String, observer: Observer<T>) {
 inline val Fragment.UiInterface: SetupUiListener
     get() = (requireActivity() as SetupUiListener)
 
-fun Timestamp.is10MinutesOld() = Timestamp.now().seconds - seconds >= 600 //10 minutes
-
 inline fun <T : Parcelable> Fragment.takeArgsIfNotNull(key: String, action: (T) -> (Unit)) {
     arguments?.takeIf { it.containsKey(key) }?.apply {
         getParcelable<T>(key)?.let {
             action(it)
         }
+    }
+}
+
+fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
+    toolbar.setNavigationOnClickListener {
+        findNavController().navigateUp()
     }
 }

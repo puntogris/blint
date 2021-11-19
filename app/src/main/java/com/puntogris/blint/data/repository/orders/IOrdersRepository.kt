@@ -1,8 +1,8 @@
 package com.puntogris.blint.data.repository.orders
 
 import androidx.paging.PagingData
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 

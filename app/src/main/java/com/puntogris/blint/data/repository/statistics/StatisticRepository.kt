@@ -5,6 +5,8 @@ import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductRecordExcel
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.withContext

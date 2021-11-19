@@ -2,12 +2,12 @@ package com.puntogris.blint.ui.product.suppliers
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.puntogris.blint.diffcallback.FirestoreSupplierDiffCallBack
-import com.puntogris.blint.model.FirestoreSupplier
+import com.puntogris.blint.diffcallback.CheckableSupplierDiffCallBack
+import com.puntogris.blint.model.CheckableSupplier
 
-class ProductSupplierAdapter(private val clickListener: (FirestoreSupplier) -> Unit) :
-    PagingDataAdapter<FirestoreSupplier, ProductSupplierViewHolder>(
-        FirestoreSupplierDiffCallBack()
+class ProductSupplierAdapter(private val clickListener: (CheckableSupplier) -> Unit) :
+    PagingDataAdapter<CheckableSupplier, ProductSupplierViewHolder>(
+        CheckableSupplierDiffCallBack()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductSupplierViewHolder {

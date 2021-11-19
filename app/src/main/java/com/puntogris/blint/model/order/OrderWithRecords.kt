@@ -1,10 +1,11 @@
-package com.puntogris.blint.model
+package com.puntogris.blint.model.order
 
 import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import com.puntogris.blint.model.Debt
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,12 +19,12 @@ data class OrderWithRecords(
         entityColumn = "recordId",
         associateBy = Junction(OrderRecordCrossRef::class)
     )
-    var records: List<FirestoreRecord> = listOf(),
+    var records: List<Record> = listOf(),
 
     @Relation(
         entity = Debt::class,
         parentColumn = "orderId",
         entityColumn = "orderId"
     )
-    var debt: FirestoreDebt? = null
+    var debt: Debt? = null
 ) : Parcelable

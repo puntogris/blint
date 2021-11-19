@@ -29,7 +29,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     }
 
     private fun setupEventsFilter() {
-        val items = resources.getStringArray(R.array.event_type_with_all)
+        val items = resources.getStringArray(R.array.filter_event_status)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
 
         binding.calendarFilter.apply {

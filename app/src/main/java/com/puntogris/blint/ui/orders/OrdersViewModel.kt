@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

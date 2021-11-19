@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.CreateRecordItemVhBinding
-import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.toMoneyFormatted
 
 class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBinding) :

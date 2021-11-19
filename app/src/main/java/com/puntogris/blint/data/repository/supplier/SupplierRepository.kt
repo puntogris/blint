@@ -7,7 +7,7 @@ import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult

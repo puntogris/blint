@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.repository.main.MainRepository
 import com.puntogris.blint.model.Business
-import com.puntogris.blint.model.BusinessCounters
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.types.AccountStatus
 import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    val businessCounter: LiveData<BusinessCounters> = liveData {
+    val businessCounter: LiveData<Statistic> = liveData {
         emitSource(mainRepository.getBusinessCounterFlow().asLiveData())
     }
 

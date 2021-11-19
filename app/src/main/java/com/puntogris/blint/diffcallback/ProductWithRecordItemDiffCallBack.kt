@@ -1,7 +1,7 @@
 package com.puntogris.blint.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.puntogris.blint.model.ProductWithRecord
+import com.puntogris.blint.model.product.ProductWithRecord
 
 
 class ProductWithRecordItemDiffCallBack : DiffUtil.ItemCallback<ProductWithRecord>() {

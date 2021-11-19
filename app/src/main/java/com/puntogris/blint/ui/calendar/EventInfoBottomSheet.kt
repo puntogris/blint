@@ -32,11 +32,11 @@ class EventInfoBottomSheet :
 
         viewModel.setEvent(args.event)
 
-        val items = resources.getStringArray(R.array.event_type)
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
+        val eventStatus = resources.getStringArray(R.array.event_status)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, eventStatus)
 
         binding.eventStatus.apply {
-            setText(if (args.event.status == EventStatus.Pending.value) items[0] else items[1])
+            setText(if (args.event.status == EventStatus.Pending.value) eventStatus[0] else eventStatus[1])
             setAdapter(adapter)
             setOnItemClickListener { _, _, i, _ ->
                 viewModel.updateEventStatus(i)

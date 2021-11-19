@@ -4,9 +4,9 @@ import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.FirestoreSupplier
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +25,7 @@ class ProductViewModel @Inject constructor(
     private val _currentProduct = MutableStateFlow(ProductWithDetails())
     val currentProduct: LiveData<ProductWithDetails> = _currentProduct.asLiveData()
 
-    fun updateSuppliers(suppliers: List<FirestoreSupplier>) {
+    fun updateSuppliers(suppliers: List<Supplier>) {
         _currentProduct.value.suppliers = suppliers
     }
 

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import com.puntogris.blint.utils.Constants.SIMPLE_ORDER_KEY

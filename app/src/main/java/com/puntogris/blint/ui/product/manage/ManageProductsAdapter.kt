@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.product.manage
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ManageProductsDiffCallback
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.product.ProductWithDetails
 
 class ManageProductsAdapter(
     private val shortClickListener: (ProductWithDetails) -> Unit,

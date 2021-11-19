@@ -6,7 +6,7 @@
     <data>
         <variable
             name="product"
-            type="com.puntogris.blint.model.Product" />
+            type="com.puntogris.blint.model.product.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

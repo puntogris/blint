@@ -1,4 +1,4 @@
-package com.puntogris.blint.model
+package com.puntogris.blint.model.product
 
 import android.os.Parcelable
 import androidx.annotation.Keep

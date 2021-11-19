@@ -22,13 +22,13 @@
 #-keepnames class androidx.navigation.fragment.NavHostFragment
 -keep class com.puntogris.blint.model.Client
 -keep class com.puntogris.blint.model.Supplier
--keep class com.puntogris.blint.model.ProductWithDetails
--keep class com.puntogris.blint.model.Record
+-keep class com.puntogris.blint.model.product.ProductWithDetails
+-keep class com.puntogris.blint.model.order.Record
 -keep class com.puntogris.blint.model.Event
 -keep class com.puntogris.blint.model.AuthUser
 -keep class com.puntogris.blint.model.Business
--keep class com.puntogris.blint.model.Product
--keep class com.puntogris.blint.model.OrderWithRecords
+-keep class com.puntogris.blint.model.product.Product
+-keep class com.puntogris.blint.model.order.OrderWithRecords
 -keep class com.puntogris.blint.model.Debt
 -keep class com.puntogris.blint.model.Category
 -keep class com.puntogris.blint.model.FirestoreSupplier

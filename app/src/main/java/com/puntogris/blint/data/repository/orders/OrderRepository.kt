@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.google.firebase.auth.FirebaseAuth
 import com.puntogris.blint.data.data_source.local.dao.OrdersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.OrderWithRecords
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow

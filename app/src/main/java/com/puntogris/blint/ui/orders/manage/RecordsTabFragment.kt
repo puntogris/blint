@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint

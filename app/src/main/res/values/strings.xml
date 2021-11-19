@@ -68,6 +68,7 @@
     <string name="action_save">Save</string>
     <string name="action_undo">Undo</string>
     <string name="action_continue">Continue</string>
+    <string name="action_done">Done</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Suggestions or message</string>
@@ -601,12 +602,12 @@
         <item>Debt</item>
     </string-array>
 
-    <string-array name="event_type">
+    <string-array name="event_status">
         <item>Pending</item>
         <item>Finished</item>
     </string-array>
 
-    <string-array name="event_type_with_all">
+    <string-array name="filter_event_status">
         <item>All</item>
         <item>Pending</item>
         <item>Finished</item>
@@ -628,7 +629,5 @@
         <item>2</item>
         <item>-1</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

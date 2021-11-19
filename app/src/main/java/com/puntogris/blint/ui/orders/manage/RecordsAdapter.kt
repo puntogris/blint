@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.orders.manage
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.ProductRecordsDiffCallBack
-import com.puntogris.blint.model.Record
+import com.puntogris.blint.model.order.Record
 
 class RecordsAdapter(private val clickListener: (Record) -> Unit) :
     PagingDataAdapter<Record, RecordsViewHolder>(

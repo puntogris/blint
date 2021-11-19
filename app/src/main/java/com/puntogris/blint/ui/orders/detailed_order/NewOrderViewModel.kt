@@ -8,6 +8,11 @@ import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
 import com.puntogris.blint.data.repository.user.UserRepository
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Order
+import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
 import com.puntogris.blint.utils.types.SimpleResult
@@ -32,10 +37,10 @@ class NewOrderViewModel @Inject constructor(
     val order: LiveData<Order> = _order.asLiveData()
     var productWithRecords = mutableListOf<ProductWithRecord>()
 
-    private var debt: FirestoreDebt? = null
+    private var debt: Debt? = null
 
     fun updateOrderDebt(amount: Float) {
-        debt = FirestoreDebt(amount = -amount)
+        debt = Debt(amount = -amount)
     }
 
     fun updateOrderDiscount(amount: Float) {
@@ -93,7 +98,7 @@ class NewOrderViewModel @Inject constructor(
         val newOrder = OrderWithRecords(
             _order.value,
             _order.value.items.map {
-                FirestoreRecord(
+                Record(
                     amount = it.amount,
                     productId = it.productId,
                     productName = it.productName,

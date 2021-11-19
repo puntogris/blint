@@ -2,9 +2,9 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.BusinessDebts
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.Supplier
 
 @Dao
@@ -18,7 +18,7 @@ interface DebtsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
-    suspend fun getDebtsForBusiness(): BusinessDebts
+    suspend fun getDebtsForBusiness(): Statistic
 
     @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
     suspend fun updateClientsDebt(clientsDebt: Float)

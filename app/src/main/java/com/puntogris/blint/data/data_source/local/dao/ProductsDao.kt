@@ -4,10 +4,10 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.data.data_source.toProductCategoryCrossRef
 import com.puntogris.blint.data.data_source.toProductSupplierCrossRef
-import com.puntogris.blint.model.Product
-import com.puntogris.blint.model.ProductCategoryCrossRef
-import com.puntogris.blint.model.ProductSupplierCrossRef
-import com.puntogris.blint.model.ProductWithDetails
+import com.puntogris.blint.model.product.Product
+import com.puntogris.blint.model.product.ProductCategoryCrossRef
+import com.puntogris.blint.model.product.ProductSupplierCrossRef
+import com.puntogris.blint.model.product.ProductWithDetails
 
 @Dao
 interface ProductsDao {
