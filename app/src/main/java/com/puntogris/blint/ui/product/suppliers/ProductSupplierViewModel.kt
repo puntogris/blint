@@ -1,39 +1,32 @@
 package com.puntogris.blint.ui.product.suppliers
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
 import com.puntogris.blint.model.FirestoreSupplier
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductSupplierViewModel @Inject constructor(
-    private val supplierRepository: SupplierRepository
+    private val repository: SupplierRepository
 ) : ViewModel() {
 
-    suspend fun getSuppliersPaging() =
-        supplierRepository.getSuppliersPaged()
-            .map {
-                it.map { supp ->
-                    FirestoreSupplier(
-                        companyName = supp.companyName,
-                        supplierId = supp.supplierId
-                    )
-                }
-            }.cachedIn(viewModelScope)
+    private val query = MutableLiveData("")
 
-    suspend fun getSuppliersWithName(supplierName: String) =
-        supplierRepository.getSuppliersWithQueryPaged(supplierName)
-            .map {
-                it.map { supp ->
-                    FirestoreSupplier(
-                        companyName = supp.companyName,
-                        supplierId = supp.supplierId
-                    )
-                }
-            }.cachedIn(viewModelScope)
+    val suppliersLiveData = query.switchMap {
+        repository.getSuppliersPaged(it).asLiveData()
+    }.map {
+        it.map { supp ->
+            FirestoreSupplier(
+                companyName = supp.companyName,
+                supplierId = supp.supplierId
+            )
+        }
+    }.cachedIn(viewModelScope)
+
+    fun setQuery(query: String) {
+        this.query.value = query
+    }
 }

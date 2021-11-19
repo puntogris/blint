@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.categories.manage.ManageCategoriesFragment" />
+            type="com.puntogris.blint.ui.categories.ManageCategoriesFragment" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

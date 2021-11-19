@@ -296,7 +296,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageCategoriesFragment"
-        android:name="com.puntogris.blint.ui.categories.manage.ManageCategoriesFragment"
+        android:name="com.puntogris.blint.ui.categories.ManageCategoriesFragment"
         android:label="@string/categories_label" />
     <fragment
         android:id="@+id/syncAccountFragment"

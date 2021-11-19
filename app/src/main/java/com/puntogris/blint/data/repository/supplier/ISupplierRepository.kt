@@ -12,9 +12,7 @@ interface ISupplierRepository {
 
     suspend fun deleteSupplier(supplierId: Int): SimpleResult
 
-    fun getSuppliersPaged(): Flow<PagingData<Supplier>>
+    fun getSuppliersPaged(query: String? = null): Flow<PagingData<Supplier>>
 
     fun getSupplierRecordsPaged(supplierId: Int): Flow<PagingData<Record>>
-
-    fun getSuppliersWithQueryPaged(query: String): Flow<PagingData<Supplier>>
 }

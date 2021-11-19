@@ -36,7 +36,7 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override fun getClientsPaged(): Flow<PagingData<Client>> {
+    override fun getClientsPaged(query: String?): Flow<PagingData<Client>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -44,7 +44,8 @@ class ClientRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            clientsDao.getClientsPaged()
+            if (query.isNullOrBlank()) clientsDao.getClientsPaged()
+            else clientsDao.getClientsSearchPaged("%$query%")
         }.flow
     }
 
@@ -67,17 +68,4 @@ class ClientRepository @Inject constructor(
             ordersDao.getClientsRecords(clientId)
         }.flow
     }
-
-    override fun getClientsWithQueryPaged(query: String): Flow<PagingData<Client>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            clientsDao.getClientsSearchPaged("%$query%")
-        }.flow
-    }
-
 }

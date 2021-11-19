@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.categories.manage
+package com.puntogris.blint.ui.categories
 
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repository.categories.CategoriesRepository

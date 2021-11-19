@@ -35,7 +35,7 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override fun getSuppliersPaged(): Flow<PagingData<Supplier>> {
+    override fun getSuppliersPaged(query: String?): Flow<PagingData<Supplier>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -43,7 +43,8 @@ class SupplierRepository @Inject constructor(
                 maxSize = 200
             )
         ) {
-            suppliersDao.getSuppliersPaged()
+            if (query.isNullOrBlank()) suppliersDao.getSuppliersPaged()
+            else suppliersDao.getSuppliersSearchPaged("%${query}%")
         }.flow
     }
 
@@ -64,18 +65,6 @@ class SupplierRepository @Inject constructor(
             )
         ) {
             ordersDao.getSupplierRecords(supplierId)
-        }.flow
-    }
-
-    override fun getSuppliersWithQueryPaged(query: String): Flow<PagingData<Supplier>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            suppliersDao.getSuppliersSearchPaged("%${query}%")
         }.flow
     }
 }

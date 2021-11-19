@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.categories.manage
+package com.puntogris.blint.ui.categories
 
 import android.text.InputType
 import androidx.fragment.app.viewModels

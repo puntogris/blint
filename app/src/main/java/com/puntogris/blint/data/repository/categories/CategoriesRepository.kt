@@ -39,13 +39,16 @@ class CategoriesRepository @Inject constructor(
             }
         }
 
-    override fun getCategoriesPaged(): Flow<PagingData<Category>> {
+    override fun getCategoriesPaged(query: String?): Flow<PagingData<Category>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) { categoriesDao.getCategoriesPaged() }.flow
+        ) {
+            if (query.isNullOrBlank()) categoriesDao.getCategoriesPaged()
+            else categoriesDao.getCategoriesWithQueryPaged("%$query%")
+        }.flow
     }
 }

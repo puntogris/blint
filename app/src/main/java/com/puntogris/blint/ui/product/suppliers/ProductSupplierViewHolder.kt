@@ -11,7 +11,9 @@ class ProductSupplierViewHolder private constructor(val binding: ProductSupplier
 
     fun bind(supplier: FirestoreSupplier, clickListener: (FirestoreSupplier) -> Unit) {
         binding.supplier = supplier
-        binding.categoryButton.setOnClickListener { clickListener(supplier) }
+        binding.root.setOnClickListener {
+            clickListener(supplier)
+        }
         binding.executePendingBindings()
     }
 

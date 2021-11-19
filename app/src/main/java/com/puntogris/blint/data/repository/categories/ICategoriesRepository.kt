@@ -12,5 +12,5 @@ interface ICategoriesRepository {
 
     suspend fun saveCategory(category: Category): SimpleResult
 
-    fun getCategoriesPaged(): Flow<PagingData<Category>>
+    fun getCategoriesPaged(query: String? = null): Flow<PagingData<Category>>
 }

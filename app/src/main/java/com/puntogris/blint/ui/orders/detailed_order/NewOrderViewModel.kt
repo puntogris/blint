@@ -68,7 +68,7 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun getSuppliersWithName(name: String) =
-        supplierRepository.getSuppliersWithQueryPaged(name).cachedIn(viewModelScope)
+        supplierRepository.getSuppliersPaged(name).cachedIn(viewModelScope)
 
     fun getSuppliersPaging() = supplierRepository.getSuppliersPaged().cachedIn(viewModelScope)
 
@@ -113,7 +113,7 @@ class NewOrderViewModel @Inject constructor(
     fun getClientPaging() = clientRepository.getClientsPaged().cachedIn(viewModelScope)
 
     fun getClientsWithName(name: String) =
-        clientRepository.getClientsWithQueryPaged(name).cachedIn(viewModelScope)
+        clientRepository.getClientsPaged(name).cachedIn(viewModelScope)
 
     override fun onCleared() {
         job?.cancel()

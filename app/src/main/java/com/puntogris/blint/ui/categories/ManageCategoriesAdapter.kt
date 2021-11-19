@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.categories.manage
+package com.puntogris.blint.ui.categories
 
 import android.content.Context
 import android.view.ViewGroup
@@ -7,19 +7,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.diffcallback.CategoryDiffCallBack
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.ui.categories.CategoryViewHolder
 import com.puntogris.blint.utils.SwipeToDeleteCallback
 
 class ManageCategoriesAdapter(
     private val context: Context,
     private val deleteListener: (String) -> Unit
-) : PagingDataAdapter<Category, CategoryViewHolder>(CategoryDiffCallBack()) {
+) : PagingDataAdapter<Category, ManageCategoriesViewHolder>(CategoryDiffCallBack()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageCategoriesViewHolder {
+        return ManageCategoriesViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ManageCategoriesViewHolder, position: Int) {
         holder.bind(getItem(position) ?: return)
     }
 
