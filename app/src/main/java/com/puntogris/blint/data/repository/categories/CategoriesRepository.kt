@@ -1,11 +1,14 @@
 package com.puntogris.blint.data.repository.categories
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.puntogris.blint.data.data_source.local.dao.CategoriesDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.utils.DispatcherProvider
-import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -28,22 +31,21 @@ class CategoriesRepository @Inject constructor(
     override suspend fun saveCategory(category: Category): SimpleResult =
         withContext(dispatcher.io) {
             try {
-//                val user = currentBusiness()
-//                category.businessId = user.businessId
-//                categoriesDao.insert(category)
+                category.businessId = usersDao.getCurrentBusinessId()
+                categoriesDao.insert(category)
                 SimpleResult.Success
             } catch (e: Exception) {
                 SimpleResult.Failure
             }
         }
 
-    override suspend fun getCategories(): RepoResult<List<Category>> =
-        withContext(dispatcher.io) {
-            try {
-                val data = categoriesDao.getAllCategories()
-                RepoResult.Success(data)
-            } catch (e: Exception) {
-                RepoResult.Error(e)
-            }
-        }
+    override fun getCategoriesPaged(): Flow<PagingData<Category>> {
+        return Pager(
+            PagingConfig(
+                pageSize = 30,
+                enablePlaceholders = true,
+                maxSize = 200
+            )
+        ) { categoriesDao.getCategoriesPaged() }.flow
+    }
 }

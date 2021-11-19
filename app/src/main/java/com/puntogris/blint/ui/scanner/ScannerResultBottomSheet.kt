@@ -18,9 +18,12 @@ import com.puntogris.blint.ui.orders.OrdersViewModel
 import com.puntogris.blint.utils.Constants.ARG_SCANNING_RESULT
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
+import com.puntogris.blint.utils.getInt
+import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.showSackBarAboveBottomSheet
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

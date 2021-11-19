@@ -69,14 +69,14 @@ class EditProductFragment :
         }
 
         if (!viewModel.viewsLoaded) {
-            args.productWithSuppCate?.let {
+            args.productWithDetails?.let {
                 viewModel.setProductData(it)
             }
             args.barcodeScanned.let { if (it.isNotBlank()) viewModel.updateCurrentProductBarcode(it) }
             viewModel.viewsLoaded = true
         }
 
-        if (args.productWithSuppCate == null) {
+        if (args.productWithDetails == null) {
             binding.pricesLayout.apply {
                 productAmount.visible()
                 increaseAmountButton.visible()

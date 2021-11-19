@@ -10,5 +10,5 @@ class FilterCategoriesViewModel @Inject constructor(
     private val categoriesRepository: CategoriesRepository
 ) : ViewModel() {
 
-    suspend fun getAllCategories() = categoriesRepository.getCategories()
+    suspend fun getAllCategories() = categoriesRepository.getCategoriesPaged()
 }

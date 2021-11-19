@@ -56,7 +56,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                     }
                     else -> {
                         UiInterface
-                            .setFabImageAndClickListener { showOrderPickerAndNavigate(args.product?.product) }
+                            .setFabImageAndClickListener { showOrderPickerAndNavigate(args.productWithDetails?.product) }
                     }
                 }
             }
@@ -68,7 +68,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private fun navigateToEditProductFragment() {
         val action =
-            ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.product)
+            ProductFragmentDirections.actionProductFragmentToEditProductFragment(args.productWithDetails)
         findNavController().navigate(action)
     }
 
@@ -80,7 +80,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         override fun createFragment(position: Int): Fragment =
             (if (position == 0) ProductDataFragment() else ProductRecordsFragment())
                 .apply {
-                    arguments = bundleOf(PRODUCT_DATA_KEY to args.product)
+                    arguments = bundleOf(PRODUCT_DATA_KEY to args.productWithDetails)
                 }
     }
 
@@ -100,7 +100,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 true
             }
             R.id.createOrder -> {
-                showOrderPickerAndNavigate(args.product?.product)
+                showOrderPickerAndNavigate(args.productWithDetails?.product)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -109,7 +109,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private fun onDeleteProductConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteProductDatabase(args.product?.product!!.productId)) {
+            when (viewModel.deleteProductDatabase(args.productWithDetails?.product!!.productId)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
                 SimpleResult.Success -> {

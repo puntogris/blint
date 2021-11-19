@@ -76,16 +76,16 @@ class ProductCategoryFragment :
         }
 
         launchAndRepeatWithViewLifecycle {
-            when (val result = viewModel.getAllCategories()) {
-                is RepoResult.Error -> {
-                }
-                RepoResult.InProgress -> {
-                }
-                is RepoResult.Success -> {
-                    items = result.data.toMutableList()
-                    addCategoryAdapter.submitList(result.data)
-                }
-            }
+//            when (val result = viewModel.getAllCategories()) {
+//                is RepoResult.Error -> {
+//                }
+//                RepoResult.InProgress -> {
+//                }
+//                is RepoResult.Success -> {
+//                    items = result.data.toMutableList()
+//                    addCategoryAdapter.submitList(result.data)
+//                }
+//            }
         }
     }
 

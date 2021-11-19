@@ -4,21 +4,17 @@ import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repository.categories.CategoriesRepository
 import com.puntogris.blint.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @HiltViewModel
 class ManageCategoriesViewModel @Inject constructor(
-    private val categoriesRepository: CategoriesRepository
+    private val repository: CategoriesRepository
 ) : ViewModel() {
 
-    @ExperimentalCoroutinesApi
-    suspend fun getProductCategories() = categoriesRepository.getCategories()
+    fun getProductCategories() = repository.getCategoriesPaged()
 
-    suspend fun deleteCategory(name: String) =
-        categoriesRepository.deleteCategory(name)
+    suspend fun deleteCategory(name: String) = repository.deleteCategory(name)
 
-    suspend fun saveCategoryDatabase(name: String) =
-        categoriesRepository.saveCategory(Category(categoryName = name.lowercase()))
-
+    suspend fun saveCategory(name: String) =
+        repository.saveCategory(Category(categoryName = name.lowercase()))
 }

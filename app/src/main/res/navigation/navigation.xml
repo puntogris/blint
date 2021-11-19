@@ -101,8 +101,8 @@
         android:name="com.puntogris.blint.ui.product.ProductFragment"
         android:label="@string/product_label" >
         <argument
-            android:name="product"
-            app:argType="com.puntogris.blint.model.ProductWithSuppliersCategories"
+            android:name="productWithDetails"
+            app:argType="com.puntogris.blint.model.ProductWithDetails"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -147,8 +147,8 @@
         android:name="com.puntogris.blint.ui.product.EditProductFragment"
         android:label="@string/product_label" >
         <argument
-            android:name="productWithSuppCate"
-            app:argType="com.puntogris.blint.model.ProductWithSuppliersCategories"
+            android:name="productWithDetails"
+            app:argType="com.puntogris.blint.model.ProductWithDetails"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
