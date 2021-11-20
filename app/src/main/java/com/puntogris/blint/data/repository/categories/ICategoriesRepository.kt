@@ -2,7 +2,6 @@ package com.puntogris.blint.data.repository.categories
 
 import androidx.paging.PagingData
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 

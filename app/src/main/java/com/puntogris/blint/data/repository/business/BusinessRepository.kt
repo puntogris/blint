@@ -2,9 +2,11 @@ package com.puntogris.blint.data.repository.business
 
 import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.data_source.local.dao.BusinessDao
+import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.remote.FirebaseClients
 import com.puntogris.blint.model.Business
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.DeleteBusiness
 import com.puntogris.blint.utils.types.SimpleResult
@@ -14,6 +16,7 @@ import javax.inject.Inject
 class BusinessRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
+    private val statisticsDao: StatisticsDao,
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: DispatcherProvider,
     private val firebaseClients: FirebaseClients
@@ -23,8 +26,11 @@ class BusinessRepository @Inject constructor(
         withContext(dispatcher.io) {
             try {
                 val business = Business(ownerUid = firebaseClients.currentUser?.uid ?: "")
-                businessDao.insert(business)
-                usersDao.updateCurrentBusiness(business.businessId)
+                val businessId = businessDao.insert(business).toInt()
+
+                statisticsDao.insert(Statistic(businessId = businessId))
+                usersDao.updateCurrentBusiness(businessId)
+
                 sharedPreferences.setShowNewUserScreenPref(false)
 
                 SimpleResult.Success

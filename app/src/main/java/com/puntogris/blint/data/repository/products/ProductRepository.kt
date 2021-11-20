@@ -8,9 +8,9 @@ import com.puntogris.blint.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.data.data_source.toRecord
+import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
-import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult

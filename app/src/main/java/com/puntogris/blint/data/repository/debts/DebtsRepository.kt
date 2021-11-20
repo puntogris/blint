@@ -5,12 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.data_source.local.dao.DebtsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
-import com.puntogris.blint.model.Statistic
-import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.DispatcherProvider
-import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -22,30 +19,19 @@ class DebtsRepository @Inject constructor(
     private val dispatcher: DispatcherProvider
 ) : IDebtsRepository {
 
-    override suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>> {
-        return try {
-            val data = debtsDao.getDebtsWithId(traderId)
-            RepoResult.Success(data)
-        } catch (e: Exception) {
-            RepoResult.Error(e)
-        }
-    }
-
-    override suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult =
+    override suspend fun saveDebt(debt: Debt): SimpleResult =
         withContext(dispatcher.io) {
-
             try {
-//                debt.author = ""
-//                debt.businessId = user.businessId
-//
-//                if (debt.type == "CLIENT") {
-//                    debtsDao.updateClientDebt(debt.traderId, debt.amount)
-//                    debtsDao.updateClientsDebt(debt.amount)
-//                } else {
-//                    debtsDao.updateSupplierDebt(debt.traderId, debt.amount)
-//                    debtsDao.updateSupplierDebt(debt.amount)
-//                }
-//                debtsDao.insert(debt)
+                debt.businessId = usersDao.getCurrentBusinessId()
+
+                if (debt.traderType == Constants.CLIENT) {
+                    debtsDao.updateClientDebt(debt.traderId, debt.amount)
+                    debtsDao.updateTotalClientsDebt(debt.amount)
+                } else {
+                    debtsDao.updateTotalSupplierDebt(debt.traderId, debt.amount)
+                    debtsDao.updateTotalSupplierDebt(debt.amount)
+                }
+                debtsDao.insert(debt)
 
                 SimpleResult.Success
             } catch (e: Exception) {
@@ -53,43 +39,23 @@ class DebtsRepository @Inject constructor(
             }
         }
 
-    override suspend fun getBusinessDebtData(): Statistic = withContext(dispatcher.io) {
-        debtsDao.getDebtsForBusiness()
-    }
-
-    override fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>> {
+    override fun getLastTraderDebts(traderId: Int): Flow<PagingData<Debt>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            debtsDao.getPagedDebts()
-        }.flow
+        ) { debtsDao.getTraderDebtsPaged(traderId) }.flow
     }
 
-    override fun getClientPagingDataFlow(): Flow<PagingData<Client>> {
+    override fun getDebtsPaged(): Flow<PagingData<Debt>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            debtsDao.getClientDebtsPaged()
-        }.flow
-    }
-
-    override fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) {
-            debtsDao.getSupplierDebtsPaged()
-        }.flow
+        ) { debtsDao.getDebtsPaged() }.flow
     }
 }

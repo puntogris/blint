@@ -7,7 +7,6 @@ import com.puntogris.blint.data.data_source.remote.UserServerApi
 import com.puntogris.blint.model.AuthUser
 import com.puntogris.blint.model.User
 import com.puntogris.blint.utils.DispatcherProvider
-import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.SyncAccount
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

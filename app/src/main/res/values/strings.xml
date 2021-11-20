@@ -630,4 +630,9 @@
         <item>-1</item>
     </string-array>
 
+    <string-array name="debt_signs">
+        <item>-</item>
+        <item>+</item>
+    </string-array>
+
 </resources>

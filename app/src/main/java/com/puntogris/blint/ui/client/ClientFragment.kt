@@ -16,7 +16,9 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.toTrader
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.types.SimpleResult
@@ -77,8 +79,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
                 true
             }
             R.id.debtStatus -> {
-                val action =
-                    ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(client = args.client)
+                val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(
+                    trader = args.client.toTrader()
+                )
                 findNavController().navigate(action)
                 true
             }

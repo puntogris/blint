@@ -1,25 +1,15 @@
 package com.puntogris.blint.data.repository.debts
 
 import androidx.paging.PagingData
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.Debt
-import com.puntogris.blint.model.Statistic
-import com.puntogris.blint.model.Supplier
-import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 
 interface IDebtsRepository {
 
-    suspend fun getLastTraderDebts(traderId: Int): RepoResult<List<Debt>>
+    suspend fun saveDebt(debt: Debt): SimpleResult
 
-    suspend fun registerNewDebtDatabase(debt: Debt): SimpleResult
+    fun getDebtsPaged(): Flow<PagingData<Debt>>
 
-    suspend fun getBusinessDebtData(): Statistic
-
-    fun getBusinessDebtsPagingDataFlow(): Flow<PagingData<Debt>>
-
-    fun getClientPagingDataFlow(): Flow<PagingData<Client>>
-
-    fun getSupplierPagingDataFlow(): Flow<PagingData<Supplier>>
+    fun getLastTraderDebts(traderId: Int): Flow<PagingData<Debt>>
 }

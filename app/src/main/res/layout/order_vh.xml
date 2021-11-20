@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="order"
             type="com.puntogris.blint.model.order.OrderWithRecords" />
@@ -15,109 +16,109 @@
         android:layout_marginHorizontal="8dp"
         android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground">
-
-        <View
-            android:id="@+id/shareView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <View
-            android:id="@+id/bar"
-            android:layout_width="4dp"
-            android:layout_height="0dp"
-            recordType="@{order.order.type}"
-            app:layout_constraintTop_toTopOf="@id/tvName"
-            app:layout_constraintBottom_toBottomOf="@id/tvUsed"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="@dimen/spacing_medium"/>
-
-        <TextView
-            android:id="@+id/tvName"
-            style="?attr/textAppearanceSubtitle1"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            orderNumberTitle="@{order.order.number}"
-            app:layout_constraintEnd_toStartOf="@+id/textView85"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/bar"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="?attr/selectableItemBackground">
 
-        <TextView
-            android:id="@+id/tvUsed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Entrada"
-            dateFromTimestamp="@{order.order.timestamp}"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/bar"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:textSize="14sp"/>
+            <View
+                android:id="@+id/shareView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <View
+                android:id="@+id/bar"
+                android:layout_width="4dp"
+                android:layout_height="0dp"
+                recordType="@{order.order.type}"
+                app:layout_constraintTop_toTopOf="@id/tvName"
+                app:layout_constraintBottom_toBottomOf="@id/tvUsed"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="@dimen/spacing_medium" />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="?attr/textAppearanceSubtitle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                orderNumberTitle="@{order.order.number}"
+                app:layout_constraintEnd_toStartOf="@+id/textView85"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/bar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvUsed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Entrada"
+                dateFromTimestamp="@{order.order.timestamp}"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/bar"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:textSize="14sp" />
 
 
-        <TextView
-            android:id="@+id/text_view_dollar"
-            android:text="@string/dollar_symbol"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias=".55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_view_dollar"
+                android:text="@string/dollar_symbol"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias=".55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="1200.00"
-            android:letterSpacing="0.2"
-            style="?attr/textAppearanceSubtitle1"
-            android:text="@{String.valueOf(order.order.value)}"
-            app:layout_constraintTop_toTopOf="@id/tvName"
-            app:layout_constraintBottom_toBottomOf="@id/tvUsed"
-            app:layout_constraintEnd_toStartOf="@id/ivArrow"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/tvLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1200.00"
+                android:letterSpacing="0.2"
+                style="?attr/textAppearanceSubtitle1"
+                android:text="@{String.valueOf(order.order.value)}"
+                app:layout_constraintTop_toTopOf="@id/tvName"
+                app:layout_constraintBottom_toBottomOf="@id/tvUsed"
+                app:layout_constraintEnd_toStartOf="@id/ivArrow"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp" />
 
-        <TextView
-            android:id="@+id/ivArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/tvLeft"
-            app:layout_constraintBottom_toBottomOf="@id/tvLeft"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            android:text="@string/dollar_symbol"
-            style="@style/TextAppearance.MaterialComponents.Caption" />
+            <TextView
+                android:id="@+id/ivArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvLeft"
+                app:layout_constraintBottom_toBottomOf="@id/tvLeft"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:text="@string/dollar_symbol"
+                style="@style/TextAppearance.MaterialComponents.Caption" />
 
-        <TextView
-            android:id="@+id/textView85"
-            style="@style/TextAppearance.MaterialComponents.Subtitle2"
-            amountSymbolWithRecordType="@{order.order.type}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/plus_symbol"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView85"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                amountSymbolWithRecordType="@{order.order.type}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus_symbol"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

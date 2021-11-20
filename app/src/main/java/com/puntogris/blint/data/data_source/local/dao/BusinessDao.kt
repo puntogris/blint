@@ -7,7 +7,7 @@ import com.puntogris.blint.model.Business
 interface BusinessDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(business: Business)
+    suspend fun insert(business: Business): Long
 
     @Query("SELECT * FROM business")
     suspend fun getBusiness(): List<Business>

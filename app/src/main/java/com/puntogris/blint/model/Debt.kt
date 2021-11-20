@@ -32,11 +32,8 @@ data class Debt(
     var timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    var author: String = "",
-
-    @ColumnInfo
     var businessId: Int = 0,
 
     @ColumnInfo
-    var type: String = ""
+    var traderType: String = ""
 ) : Parcelable

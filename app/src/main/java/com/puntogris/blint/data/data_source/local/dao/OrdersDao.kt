@@ -2,7 +2,8 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.order.Order
 import com.puntogris.blint.model.order.OrderRecordCrossRef
 import com.puntogris.blint.model.order.OrderWithRecords
@@ -40,11 +41,10 @@ interface OrdersDao {
                 amount = order.debt!!.amount,
                 traderId = order.order.traderId,
                 traderName = order.order.traderName,
-                author = order.order.author,
                 businessId = order.order.businessId,
-                type = order.debt!!.type
+                traderType = order.debt!!.traderType
             )
-            if (debt.type == CLIENT) {
+            if (debt.traderType == CLIENT) {
                 updateClientsDebt(debt.amount)
                 updateClientDebt(debt.traderId, debt.amount)
             } else {

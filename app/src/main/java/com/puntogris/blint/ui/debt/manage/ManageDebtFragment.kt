@@ -1,10 +1,10 @@
-package com.puntogris.blint.ui.debt
+package com.puntogris.blint.ui.debt.manage
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
+import com.puntogris.blint.model.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT
@@ -16,26 +16,33 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.fragment_manage_debt) {
 
-    private val viewModel: DebtViewModel by viewModels()
+    private val viewModel: ManageDebtsViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         UiInterface.registerUi()
+        setupDebtsAdapter()
+    }
 
-        val debtPagingAdapter = DebtPagingAdapter {}
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = debtPagingAdapter
+    private fun setupDebtsAdapter(){
+        ManageDebtsAdapter { onDebtClicked(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
+    }
 
+    private fun subscribeUi(adapter: ManageDebtsAdapter){
         launchAndRepeatWithViewLifecycle {
-            viewModel.getAllDebts().collect {
-                debtPagingAdapter.submitData(it)
+            viewModel.debtsFlow.collect {
+                adapter.submitData(it)
             }
         }
+    }
+
+    private fun onDebtClicked(debt: Debt){
+
     }
 
     fun showClientsDebts() {

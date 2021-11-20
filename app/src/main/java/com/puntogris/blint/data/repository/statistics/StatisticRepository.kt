@@ -1,16 +1,20 @@
 package com.puntogris.blint.data.repository.statistics
 
+import androidx.lifecycle.LiveData
 import com.puntogris.blint.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.data.data_source.local.dao.SuppliersDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Client
+import com.puntogris.blint.model.Statistic
+import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductRecordExcel
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.RepoResult
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 class StatisticRepository @Inject constructor(
     private val statisticsDao: StatisticsDao,
@@ -38,6 +42,11 @@ class StatisticRepository @Inject constructor(
         }
     }
 
+    override fun getCurrentBusinessStatistics(): LiveData<Statistic> {
+        return statisticsDao.getCurrentBusinessStatistics()
+    }
+
+
     override suspend fun getAllSuppliers(): RepoResult<List<Supplier>> =
         withContext(dispatcher.io) {
             try {
@@ -48,7 +57,7 @@ class StatisticRepository @Inject constructor(
             }
         }
 
-    override suspend fun getBusinessCounters(): RepoResult<BusinessCounters> =
+    override suspend fun getBusinessCounters(): RepoResult<Statistic> =
         withContext(dispatcher.io) {
             try {
                 val data = statisticsDao.getStatistics()

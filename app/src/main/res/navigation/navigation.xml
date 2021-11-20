@@ -433,7 +433,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageDebtFragment"
-        android:name="com.puntogris.blint.ui.debt.ManageDebtFragment"
+        android:name="com.puntogris.blint.ui.debt.manage.ManageDebtFragment"
         android:label="@string/debts_label" >
         <action
             android:id="@+id/action_manageDebtFragment_to_showDebtsFragment"
@@ -441,33 +441,26 @@
     </fragment>
     <fragment
         android:id="@+id/debtStatusFragment"
-        android:name="com.puntogris.blint.ui.debt.DebtStatusFragment"
+        android:name="com.puntogris.blint.ui.debt.debt_status.DebtStatusFragment"
         android:label="@string/debt_label" >
         <action
             android:id="@+id/action_debtStatusFragment_to_modifyDebtFragment"
             app:destination="@id/modifyDebtFragment" />
         <argument
-            android:name="client"
-            app:argType="com.puntogris.blint.model.Client"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="supplier"
-            app:argType="com.puntogris.blint.model.Supplier"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="trader"
+            app:argType="com.puntogris.blint.model.Trader" />
     </fragment>
     <fragment
         android:id="@+id/modifyDebtFragment"
         android:name="com.puntogris.blint.ui.debt.ModifyDebtFragment"
         android:label="@string/update_debt_label" >
         <argument
-            android:name="debt"
-            app:argType="com.puntogris.blint.model.Debt" />
+            android:name="trader"
+            app:argType="com.puntogris.blint.model.Trader" />
     </fragment>
     <fragment
         android:id="@+id/showDebtsFragment"
-        android:name="com.puntogris.blint.ui.debt.ShowDebtsFragment"
+        android:name="com.puntogris.blint.ui.debt.trader_debts.ShowDebtsFragment"
         android:label="@string/debts_label" >
         <argument
             android:name="debtType"

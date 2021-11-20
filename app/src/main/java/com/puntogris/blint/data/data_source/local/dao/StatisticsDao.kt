@@ -1,7 +1,8 @@
 package com.puntogris.blint.data.data_source.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductRecordExcel
@@ -15,8 +16,9 @@ interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(statistic: Statistic)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(statistics: List<Statistic>)
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
+    fun getCurrentBusinessStatistics(): LiveData<Statistic>
 
     @Query("UPDATE statistic SET totalProducts = totalProducts + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
     suspend fun incrementTotalProducts()

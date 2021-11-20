@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_create_order.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
@@ -56,6 +57,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_modify_debt.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_out_of_sync.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product.xml" value="0.234375" />
@@ -68,6 +70,7 @@
         <entry key="app/src/main/res/layout/fragment_review_record.xml" value="0.16180555555555556" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />
+        <entry key="app/src/main/res/layout/fragment_show_debts.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier_data.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_sync_account.xml" value="0.2429553264604811" />

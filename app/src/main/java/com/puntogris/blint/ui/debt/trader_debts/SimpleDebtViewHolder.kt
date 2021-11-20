@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.debt
+package com.puntogris.blint.ui.debt.trader_debts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

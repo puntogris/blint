@@ -16,7 +16,9 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.toTrader
 import com.puntogris.blint.ui.base.BaseFragmentOptions
+import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.types.SimpleResult
@@ -80,7 +82,9 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             }
             R.id.debtStatus -> {
                 val action =
-                    SupplierFragmentDirections.actionSupplierFragmentToDebtStatusFragment(supplier = args.supplier)
+                    SupplierFragmentDirections.actionSupplierFragmentToDebtStatusFragment(
+                        trader = args.supplier.toTrader()
+                    )
                 findNavController().navigate(action)
                 true
             }

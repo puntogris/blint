@@ -2,7 +2,8 @@ package com.puntogris.blint.data.data_source
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.AuthUser
+import com.puntogris.blint.model.User
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductCategoryCrossRef
@@ -42,10 +43,10 @@ fun Product.toRecord(currentBusinessId: Int): Record {
     )
 }
 
-fun ProductWithDetails.toProductSupplierCrossRef(): List<ProductSupplierCrossRef>{
+fun ProductWithDetails.toProductSupplierCrossRef(): List<ProductSupplierCrossRef> {
     return suppliers.map { ProductSupplierCrossRef(product.productId, it.supplierId) }
 }
 
-fun ProductWithDetails.toProductCategoryCrossRef(): List<ProductCategoryCrossRef>{
+fun ProductWithDetails.toProductCategoryCrossRef(): List<ProductCategoryCrossRef> {
     return categories.map { ProductCategoryCrossRef(product.productId, it.categoryName) }
 }
