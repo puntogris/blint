@@ -23,7 +23,7 @@ interface ProductsDao {
     }
 
     @Query("DELETE FROM product WHERE productId = :productId")
-    suspend fun delete(productId: Int)
+    suspend fun delete(productId: String)
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
@@ -61,10 +61,10 @@ interface ProductsDao {
     suspend fun deleteProductSupplierCrossRef(refs: List<ProductSupplierCrossRef>)
 
     @Query("SELECT * FROM productcategorycrossref WHERE productId = :productId")
-    suspend fun getProductCategoriesCrossRefs(productId: Int): List<ProductCategoryCrossRef>
+    suspend fun getProductCategoriesCrossRefs(productId: String): List<ProductCategoryCrossRef>
 
     @Query("SELECT * FROM productsuppliercrossref WHERE productId = :productId")
-    suspend fun getProductSupplierCrossRefs(productId: Int): List<ProductSupplierCrossRef>
+    suspend fun getProductSupplierCrossRefs(productId: String): List<ProductSupplierCrossRef>
 
     @Transaction
     suspend fun renewProductCategories(productWithDetails: ProductWithDetails) {
@@ -148,7 +148,7 @@ interface ProductsDao {
     )
     suspend fun updateSupplierProductsPrices(
         newPrice: Float,
-        supplierId: Int,
+        supplierId: String,
         valueType: String,
         isValueUp: Boolean,
         affectsBuyPrice: Boolean,

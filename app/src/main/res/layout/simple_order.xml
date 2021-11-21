@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -17,18 +17,7 @@
             android:id="@+id/simpleOrderGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="loginAnonymouslyButton,button25,recordType,productAmountTextInput" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="30dp"
-            android:layout_height="5dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal"
-            android:contentDescription="@string/top_window_bar_image" />
+            app:constraint_referenced_ids="loginAnonymouslyButton,button25,recordTypeInput,productAmountTextInput" />
 
         <TextView
             android:id="@+id/loginAnonymouslyButton"
@@ -39,11 +28,11 @@
             android:text="@string/create_simple_order"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/recordType"
+            android:id="@+id/recordTypeInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,14 +45,14 @@
             app:layout_constraintTop_toBottomOf="@+id/loginAnonymouslyButton">
 
             <AutoCompleteTextView
-                android:id="@+id/recordTypeText"
+                android:id="@+id/recordType"
                 android:text="@string/in_entry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:inputType="none"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productAmountTextInput"
@@ -73,11 +62,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/amount"
-            app:layout_constraintBottom_toBottomOf="@+id/recordType"
+            app:layout_constraintBottom_toBottomOf="@+id/recordTypeInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/recordType"
-            app:layout_constraintTop_toTopOf="@+id/recordType">
+            app:layout_constraintStart_toEndOf="@+id/recordTypeInput"
+            app:layout_constraintTop_toTopOf="@+id/recordTypeInput">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productAmountText"
@@ -94,29 +83,26 @@
             android:onClick="@{()-> fragment.onSaveButtonClicked()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             android:visibility="visible"
             android:text="@string/action_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordType" />
+            app:layout_constraintTop_toBottomOf="@+id/recordTypeInput" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:indeterminate="true"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

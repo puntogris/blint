@@ -20,7 +20,7 @@ class SupplierViewModel @Inject constructor(
     private val _currentSupplier = MutableStateFlow(Supplier())
     val currentSupplier: LiveData<Supplier> = _currentSupplier.asLiveData()
 
-    suspend fun deleteSupplierDatabase(supplierId: Int) =
+    suspend fun deleteSupplierDatabase(supplierId: String) =
         supplierRepository.deleteSupplier(supplierId)
 
     suspend fun saveSupplierDatabase(): SimpleResult {
@@ -29,7 +29,7 @@ class SupplierViewModel @Inject constructor(
         })
     }
 
-    suspend fun getSupplierRecords(supplierId: Int) =
+    fun getSupplierRecords(supplierId: String) =
         supplierRepository.getSupplierRecordsPaged(supplierId).cachedIn(viewModelScope)
 
     fun updateSupplierData(supplier: Supplier) {

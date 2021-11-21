@@ -2,9 +2,8 @@ package com.puntogris.blint.ui.debt.debt_status
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ListAdapter
 import com.puntogris.blint.diffcallback.DebtDiffCallBack
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 
 class DebtStatusAdapter(private val clickListener: (Debt) -> (Unit)) :
     PagingDataAdapter<Debt, DebtStatusViewHolder>(

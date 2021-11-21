@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.data.data_source.local.dao.DebtsDao
 import com.puntogris.blint.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.SimpleResult
@@ -39,7 +39,7 @@ class DebtsRepository @Inject constructor(
             }
         }
 
-    override fun getLastTraderDebts(traderId: Int): Flow<PagingData<Debt>> {
+    override fun getLastTraderDebts(traderId: String): Flow<PagingData<Debt>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

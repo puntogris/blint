@@ -12,7 +12,7 @@ interface EventsDao {
     suspend fun insert(event: Event)
 
     @Query("DELETE FROM event WHERE eventId = :eventId")
-    suspend fun delete(eventId: Int)
+    suspend fun delete(eventId: String)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp ASC")

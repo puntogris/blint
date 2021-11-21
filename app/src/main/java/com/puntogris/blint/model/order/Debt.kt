@@ -1,4 +1,4 @@
-package com.puntogris.blint.model
+package com.puntogris.blint.model.order
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,17 +14,17 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Debt(
 
-    @PrimaryKey(autoGenerate = true)
-    var debtId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var debtId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     var amount: Float = 0F,
 
     @ColumnInfo
-    var orderId: Int = 0,
+    var orderId: String = "",
 
     @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName: String = "",
@@ -32,7 +33,7 @@ data class Debt(
     var timestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    var businessId: Int = 0,
+    var businessId: String = "",
 
     @ColumnInfo
     var traderType: String = ""

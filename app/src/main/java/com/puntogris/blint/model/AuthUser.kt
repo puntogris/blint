@@ -10,13 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class AuthUser(
-
     val name: String = "",
-
     val uid: String = "",
-
     val photoUrl: String = "",
-
     val email: String = ""
-
 ) : Parcelable

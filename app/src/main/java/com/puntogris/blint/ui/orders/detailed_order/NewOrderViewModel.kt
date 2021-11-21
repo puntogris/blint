@@ -7,17 +7,15 @@ import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
 import com.puntogris.blint.data.repository.user.UserRepository
-import com.puntogris.blint.model.*
-import com.puntogris.blint.model.order.Order
-import com.puntogris.blint.model.order.OrderWithRecords
-import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.order.*
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
-import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -61,7 +59,7 @@ class NewOrderViewModel @Inject constructor(
         _order.value.value = newValue
     }
 
-    fun updateOrderExternalInfo(name: String, id: Int) {
+    fun updateOrderExternalInfo(name: String, id: String) {
         _order.value.traderId = id
         _order.value.traderName = name
     }
@@ -92,9 +90,7 @@ class NewOrderViewModel @Inject constructor(
         }
     }
 
-    suspend fun currentUserEmail() = userRepository.getCurrentUser().email
-
-    suspend fun publishOrderDatabase(): SimpleResult {
+    fun publishOrderDatabase(): Flow<RepoResult<Unit>> {
         val newOrder = OrderWithRecords(
             _order.value,
             _order.value.items.map {
@@ -112,7 +108,7 @@ class NewOrderViewModel @Inject constructor(
             },
             debt
         )
-        return orderRepository.saveOrder(newOrder)
+        return orderRepository.saveOrder(NewOrder())
     }
 
     fun getClientPaging() = clientRepository.getClientsPaged().cachedIn(viewModelScope)

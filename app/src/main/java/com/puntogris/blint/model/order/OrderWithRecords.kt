@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.puntogris.blint.model.Debt
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

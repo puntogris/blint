@@ -9,8 +9,10 @@ import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.playAnimationOnce
+import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class PublishOrderFragment :
@@ -34,9 +36,12 @@ class PublishOrderFragment :
             }
         }
         lifecycleScope.launchWhenStarted {
-            when (viewModel.publishOrderDatabase()) {
-                SimpleResult.Failure -> onPublishOrderFailureUi()
-                SimpleResult.Success -> onPublishOrderSuccessUi()
+            viewModel.publishOrderDatabase().collect {
+                when(it){
+                    is RepoResult.Error -> onPublishOrderFailureUi()
+                    is RepoResult.InProgress -> {}
+                    is RepoResult.Success -> onPublishOrderSuccessUi()
+                }
             }
         }
     }

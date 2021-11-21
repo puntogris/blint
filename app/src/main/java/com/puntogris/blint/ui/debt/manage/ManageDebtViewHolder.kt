@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.DebtPagingVhBinding
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 
 class ManageDebtViewHolder private constructor(val binding: DebtPagingVhBinding) :
     RecyclerView.ViewHolder(binding.root) {

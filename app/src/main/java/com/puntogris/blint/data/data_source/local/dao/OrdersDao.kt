@@ -2,7 +2,7 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.model.order.Order
 import com.puntogris.blint.model.order.OrderRecordCrossRef
@@ -26,61 +26,18 @@ interface OrdersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(debt: Debt)
 
-    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
-    suspend fun updateClientDebt(clientId: Int, amount: Float)
-
-    @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateSupplierDebt(supplierId: Int, amount: Float)
-
     @Transaction
-    suspend fun insertOrderWithRecords(order: OrderWithRecords, recordsFinal: List<Record>) {
-        if (order.debt != null) {
-            val debt = Debt(
-                orderId = order.order.orderId,
-                debtId = order.debt!!.debtId,
-                amount = order.debt!!.amount,
-                traderId = order.order.traderId,
-                traderName = order.order.traderName,
-                businessId = order.order.businessId,
-                traderType = order.debt!!.traderType
-            )
-            if (debt.traderType == CLIENT) {
-                updateClientsDebt(debt.amount)
-                updateClientDebt(debt.traderId, debt.amount)
-            } else {
-                updateSupplierDebt(debt.amount)
-                updateSupplierDebt(debt.traderId, debt.amount)
-            }
-            insert(debt)
-        }
-        order.order.number = getStatistics().totalOrders + 1
+    suspend fun insertOrder(order: OrderWithRecords) {
         insert(order.order)
-        insert(recordsFinal)
-        recordsFinal.forEach {
-            updateProductAmountWithType(it.productId, it.amount.absoluteValue, order.order.type)
-            if (it.type == "IN") updateProductTotalInStock(it.productId, it.amount.absoluteValue)
-            else updateProductTotalOutStock(it.productId, it.amount.absoluteValue)
-        }
-        insertOrderRecordsCrossRef(recordsFinal.map {
+        insert(order.records)
+
+        insertOrderRecordsCrossRef(order.records.map {
             OrderRecordCrossRef(
                 order.order.orderId,
                 it.recordId
             )
         })
-        incrementTotalOrders()
     }
-
-    @Query("UPDATE product SET totalInStock = :amount + totalInStock WHERE productId = :id")
-    suspend fun updateProductTotalInStock(id: Int, amount: Int)
-
-    @Query("UPDATE product SET totalOutStock = :amount + totalOutStock WHERE productId = :id")
-    suspend fun updateProductTotalOutStock(id: Int, amount: Int)
-
-    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
-    suspend fun updateClientsDebt(clientsDebt: Float)
-
-    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
-    suspend fun updateSupplierDebt(suppliersDebt: Float)
 
     @Insert
     suspend fun insertOrderRecordsCrossRef(items: List<OrderRecordCrossRef>)
@@ -89,11 +46,6 @@ interface OrdersDao {
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     suspend fun getStatistics(): Statistic
 
-    @Query("UPDATE statistic SET totalOrders = totalOrders + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
-    suspend fun incrementTotalOrders()
-
-    @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
-    suspend fun updateProductAmountWithType(id: Int, amount: Int, type: String)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp DESC")
@@ -101,7 +53,7 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record WHERE :productID = productId ORDER BY timestamp DESC")
-    fun getProductRecordsPaged(productID: Int): PagingSource<Int, Record>
+    fun getProductRecordsPaged(productID: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
@@ -109,11 +61,11 @@ interface OrdersDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND traderId = :externalID AND type = 'IN'")
-    fun getSupplierRecords(externalID: Int): PagingSource<Int, Record>
+    fun getSupplierRecords(externalID: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND traderId = :externalID AND type = 'OUT'")
-    fun getClientsRecords(externalID: Int): PagingSource<Int, Record>
+    fun getClientsRecords(externalID: String): PagingSource<Int, Record>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns

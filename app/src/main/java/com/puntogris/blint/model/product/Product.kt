@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -15,8 +16,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Product(
 
-    @PrimaryKey(autoGenerate = true)
-    var productId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var productId: String = "",
 
     @ColumnInfo
     var name: String = "",
@@ -55,13 +56,13 @@ data class Product(
     var lastRecordTimestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    var totalInStock: Int = 0,
+    var historicInStock: Int = 0,
 
     @ColumnInfo
-    var totalOutStock: Int = 0,
+    var historicOutStock: Int = 0,
 
     @ColumnInfo
-    var businessId: Int = 0,
+    var businessId: String = "",
 
     @ColumnInfo
     val minStock: Int = 0

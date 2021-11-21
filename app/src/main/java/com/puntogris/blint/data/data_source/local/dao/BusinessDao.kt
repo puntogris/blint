@@ -7,13 +7,13 @@ import com.puntogris.blint.model.Business
 interface BusinessDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(business: Business): Long
+    suspend fun insert(business: Business)
 
     @Query("SELECT * FROM business")
     suspend fun getBusiness(): List<Business>
 
     @Query("DELETE FROM business where businessId = :businessId")
-    suspend fun deleteBusiness(businessId: Int)
+    suspend fun deleteBusiness(businessId: String)
 
     @Query("UPDATE business SET ownerUid = :uid")
     suspend fun updateBusinessesOwnerUid(uid: String)

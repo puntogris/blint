@@ -10,6 +10,7 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.DispatcherProvider
+import com.puntogris.blint.utils.UUIDGenerator
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -27,7 +28,8 @@ class ClientRepository @Inject constructor(
         withContext(dispatcher.io) {
             SimpleResult.build {
 
-                if (client.clientId == 0) {
+                if (client.clientId.isBlank()) {
+                    client.clientId = UUIDGenerator.randomUUID()
                     client.businessId = usersDao.getCurrentBusinessId()
                     statisticsDao.incrementTotalClients()
                 }
@@ -49,7 +51,7 @@ class ClientRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteClient(clientId: Int): SimpleResult =
+    override suspend fun deleteClient(clientId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 clientsDao.delete(clientId)
@@ -57,7 +59,7 @@ class ClientRepository @Inject constructor(
             }
         }
 
-    override fun getClientRecordsPaged(clientId: Int): Flow<PagingData<Record>> {
+    override fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

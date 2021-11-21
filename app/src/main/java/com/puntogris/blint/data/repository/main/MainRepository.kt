@@ -41,7 +41,7 @@ class MainRepository @Inject constructor(
                     businesses.removeIf { it.status == "DELETED" }
                     trySend(RepoResult.Success(businesses))
                 } else {
-                    if (error != null) trySend(RepoResult.Error(error))
+                    if (error != null) trySend(RepoResult.Error())
                 }
             }
         awaitClose { ref.remove() }

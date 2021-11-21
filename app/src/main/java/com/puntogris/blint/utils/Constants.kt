@@ -31,7 +31,7 @@ object Constants {
 
     const val PRODUCT_CATEGORIES_KEY = "product_categories_key"
     const val PRODUCT_SUPPLIERS_KEY = "product_suppliers_key"
-    const val EDIT_FRAGMENT_RESULTS_KEY = "edit_fragment_results_key"
+    const val EDIT_PRODUCT_KEY = "edit_fragment_results_key"
 
 
     //Report types

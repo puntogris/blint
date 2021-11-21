@@ -14,11 +14,11 @@ interface IProductRepository {
 
     fun getProductsWithQueryPaged(query: String): Flow<PagingData<ProductWithDetails>>
 
-    fun getProductRecordsPaged(productId: Int): Flow<PagingData<Record>>
+    fun getProductRecordsPaged(productId: String): Flow<PagingData<Record>>
 
     suspend fun getProductsWithQuery(query: String): List<Product>
 
-    suspend fun deleteProduct(productId: Int): SimpleResult
+    suspend fun deleteProduct(productId: String): SimpleResult
 
     suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult
 

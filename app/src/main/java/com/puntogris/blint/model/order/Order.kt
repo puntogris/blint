@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
@@ -13,8 +14,8 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "Orders")
 data class Order(
 
-    @PrimaryKey(autoGenerate = true)
-    var orderId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var orderId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     val timestamp: Timestamp = Timestamp.now(),
@@ -26,22 +27,19 @@ data class Order(
     var type: String = "IN",
 
     @ColumnInfo
-    var author: String = "",
-
-    @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName: String = "",
 
     @ColumnInfo
-    var businessId: Int = 0,
+    var businessId: String = "",
 
     @ColumnInfo
     var number: Int = 1,
 
     @ColumnInfo
-    var debtId: Int = 0,
+    var debtId: String = "",
 
     @ColumnInfo
     var businessName: String = "",

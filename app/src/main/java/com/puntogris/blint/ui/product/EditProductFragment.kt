@@ -13,11 +13,10 @@ import com.google.android.material.chip.Chip
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.model.Category
-import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.Constants.PRODUCT_BARCODE_KEY
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,26 +38,7 @@ class EditProductFragment :
 
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             viewModel.updateProductData(getProductDataFromViews())
-            when (val validator = StringValidator.from(
-                viewModel.currentProduct.value!!.product.name,
-                allowSpecialChars = true,
-                isName = true,
-                maxLength = 50
-            )) {
-                is StringValidator.Valid -> {
-                    lifecycleScope.launch {
-                        when (viewModel.saveProductDatabase()) {
-                            SimpleResult.Failure ->
-                                UiInterface.showSnackBar(getString(R.string.snack_create_product_success))
-                            SimpleResult.Success -> {
-                                UiInterface.showSnackBar(getString(R.string.snack_create_product_error))
-                                findNavController().navigateUp()
-                            }
-                        }
-                    }
-                }
-                is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
-            }
+            saveProduct()
         }
 
         if (!viewModel.viewsLoaded) {
@@ -78,17 +58,37 @@ class EditProductFragment :
             }
         }
 
-        onBackStackLiveData<String>(PRODUCT_BARCODE_KEY) {
-            binding.descriptionLayout.productBarcodeText.setText(it)
-        }
-
         setupResultListeners()
         setupGalleryLauncher()
         setupScannerLauncher()
     }
 
+    private fun saveProduct() {
+        val validator = StringValidator.from(
+            viewModel.currentProduct.value!!.product.name,
+            allowSpecialChars = true,
+            isName = true,
+            maxLength = 50
+        )
+        when (validator) {
+            is StringValidator.Valid -> {
+                lifecycleScope.launch {
+                    val result = when (viewModel.saveProduct()) {
+                        SimpleResult.Failure -> R.string.snack_create_product_success
+                        SimpleResult.Success -> {
+                            findNavController().navigateUp()
+                            R.string.snack_create_product_error
+                        }
+                    }
+                    UiInterface.showSnackBar(getString(result))
+                }
+            }
+            is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
+        }
+    }
+
     private fun setupResultListeners() {
-        setFragmentResultListener(Constants.EDIT_FRAGMENT_RESULTS_KEY) { _, bundle ->
+        setFragmentResultListener(Constants.EDIT_PRODUCT_KEY) { _, bundle ->
             bundle.getParcelableArrayList<Category>(Constants.PRODUCT_CATEGORIES_KEY)?.let {
                 viewModel.updateCategories(it.toList())
                 binding.scopeLayout.categoriesChipGroup.let { group ->
@@ -119,6 +119,12 @@ class EditProductFragment :
                         }
                     }
                 }
+            }
+        }
+
+        setFragmentResultListener(Constants.PRODUCT_BARCODE_KEY){ _, bundle ->
+            bundle.getString(Constants.PRODUCT_BARCODE_KEY)?.let {
+                binding.descriptionLayout.productBarcodeText.setText(it)
             }
         }
     }

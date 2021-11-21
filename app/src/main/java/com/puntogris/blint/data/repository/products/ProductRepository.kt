@@ -12,6 +12,7 @@ import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.DispatcherProvider
+import com.puntogris.blint.utils.UUIDGenerator
 import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
@@ -29,13 +30,13 @@ class ProductRepository @Inject constructor(
     override suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult =
         withContext(dispatcher.io) {
             try {
-                val isNewProduct = productWithDetails.product.productId == 0
+                val isNewProduct = productWithDetails.product.productId.isBlank()
                 val currentBusinessId = usersDao.getCurrentBusinessId()
 
                 if (isNewProduct) {
                     productWithDetails.product.apply {
+                        productId = UUIDGenerator.randomUUID()
                         businessId = currentBusinessId
-                        totalInStock = amount
                     }
                 }
 
@@ -64,7 +65,7 @@ class ProductRepository @Inject constructor(
         ) { productsDao.getProductsPaged() }.flow
     }
 
-    override suspend fun deleteProduct(productId: Int): SimpleResult =
+    override suspend fun deleteProduct(productId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 productsDao.delete(productId)
@@ -87,7 +88,7 @@ class ProductRepository @Inject constructor(
             productsDao.getProductsWithQuery("%$query%")
         }
 
-    override fun getProductRecordsPaged(productId: Int): Flow<PagingData<Record>> {
+    override fun getProductRecordsPaged(productId: String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -104,7 +105,7 @@ class ProductRepository @Inject constructor(
                 val product = productsDao.getProductWithBarcode(barcode)
                 RepoResult.Success(requireNotNull(product))
             } catch (e: Exception) {
-                RepoResult.Error(e)
+                RepoResult.Error()
             }
         }
 }

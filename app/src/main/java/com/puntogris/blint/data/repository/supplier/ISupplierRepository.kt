@@ -10,9 +10,9 @@ interface ISupplierRepository {
 
     suspend fun saveSupplier(supplier: Supplier): SimpleResult
 
-    suspend fun deleteSupplier(supplierId: Int): SimpleResult
+    suspend fun deleteSupplier(supplierId: String): SimpleResult
 
     fun getSuppliersPaged(query: String? = null): Flow<PagingData<Supplier>>
 
-    fun getSupplierRecordsPaged(supplierId: Int): Flow<PagingData<Record>>
+    fun getSupplierRecordsPaged(supplierId: String): Flow<PagingData<Record>>
 }

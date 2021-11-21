@@ -29,7 +29,7 @@
 -keep class com.puntogris.blint.model.Business
 -keep class com.puntogris.blint.model.product.Product
 -keep class com.puntogris.blint.model.order.OrderWithRecords
--keep class com.puntogris.blint.model.Debt
+-keep class com.puntogris.blint.model.order.Debt
 -keep class com.puntogris.blint.model.Category
 -keep class com.puntogris.blint.model.FirestoreSupplier
 

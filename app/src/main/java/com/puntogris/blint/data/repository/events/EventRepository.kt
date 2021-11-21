@@ -40,7 +40,7 @@ class EventRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteEvent(eventId: Int): SimpleResult =
+    override suspend fun deleteEvent(eventId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 eventsDao.delete(eventId)

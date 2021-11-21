@@ -53,7 +53,7 @@ class ReviewRecordFragment :
                         viewModel.updateOrderDebt(0F)
                     }
                     1 -> {
-                        if (viewModel.order.value?.traderId!! != 0) {
+                        if (viewModel.order.value?.traderId!!.isBlank()) {
                             binding.debtAmount.visible()
                         } else {
                             UiInterface.showSnackBar(getString(R.string.snack_order_debt_trader_alert))

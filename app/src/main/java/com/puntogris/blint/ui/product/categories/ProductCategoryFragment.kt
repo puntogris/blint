@@ -55,7 +55,7 @@ class ProductCategoryFragment :
 
     fun onDoneButtonClicked() {
         setFragmentResult(
-            Constants.EDIT_FRAGMENT_RESULTS_KEY,
+            Constants.EDIT_PRODUCT_KEY,
             bundleOf(Constants.PRODUCT_CATEGORIES_KEY to viewModel.getFinalCategories())
         )
         findNavController().navigateUp()

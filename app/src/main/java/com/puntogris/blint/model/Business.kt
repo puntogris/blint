@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,8 +14,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Business(
 
-    @PrimaryKey(autoGenerate = true)
-    val businessId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    val businessId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     val name: String = "",

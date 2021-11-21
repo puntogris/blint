@@ -5,10 +5,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDebtStatusBinding
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

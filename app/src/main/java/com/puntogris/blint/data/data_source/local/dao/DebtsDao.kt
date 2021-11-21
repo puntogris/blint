@@ -2,7 +2,7 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 
 @Dao
 interface DebtsDao {
@@ -11,7 +11,7 @@ interface DebtsDao {
     suspend fun insert(debt: Debt)
 
     @Query("SELECT * FROM debt WHERE traderId = :traderId ORDER BY timestamp DESC")
-    fun getTraderDebtsPaged(traderId: Int): PagingSource<Int, Debt>
+    fun getTraderDebtsPaged(traderId: String): PagingSource<Int, Debt>
 
     @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
     suspend fun updateTotalClientsDebt(clientsDebt: Float)
@@ -24,9 +24,9 @@ interface DebtsDao {
     fun getDebtsPaged(): PagingSource<Int, Debt>
 
     @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
-    suspend fun updateClientDebt(clientId: Int, amount: Float)
+    suspend fun updateClientDebt(clientId: String, amount: Float)
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateTotalSupplierDebt(supplierId: Int, amount: Float)
+    suspend fun updateTotalSupplierDebt(supplierId: String, amount: Float)
 
 }

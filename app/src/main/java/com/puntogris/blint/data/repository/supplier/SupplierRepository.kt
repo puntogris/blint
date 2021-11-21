@@ -10,6 +10,7 @@ import com.puntogris.blint.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.DispatcherProvider
+import com.puntogris.blint.utils.UUIDGenerator
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -26,7 +27,9 @@ class SupplierRepository @Inject constructor(
     override suspend fun saveSupplier(supplier: Supplier): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
-                if (supplier.supplierId == 0) {
+
+                if (supplier.supplierId.isEmpty()) {
+                    supplier.supplierId = UUIDGenerator.randomUUID()
                     supplier.businessId = usersDao.getCurrentBusinessId()
                     statisticsDao.incrementTotalSuppliers()
                 }
@@ -48,7 +51,7 @@ class SupplierRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun deleteSupplier(supplierId: Int): SimpleResult =
+    override suspend fun deleteSupplier(supplierId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 suppliersDao.delete(supplierId)
@@ -56,7 +59,7 @@ class SupplierRepository @Inject constructor(
             }
         }
 
-    override fun getSupplierRecordsPaged(supplierId: Int): Flow<PagingData<Record>> {
+    override fun getSupplierRecordsPaged(supplierId: String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

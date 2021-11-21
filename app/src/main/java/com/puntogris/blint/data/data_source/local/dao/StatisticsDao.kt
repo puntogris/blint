@@ -20,6 +20,9 @@ interface StatisticsDao {
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     fun getCurrentBusinessStatistics(): LiveData<Statistic>
 
+    @Query("UPDATE statistic SET totalOrders = totalOrders + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun incrementTotalOrders()
+
     @Query("UPDATE statistic SET totalProducts = totalProducts + 1 WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
     suspend fun incrementTotalProducts()
 
@@ -46,13 +49,19 @@ interface StatisticsDao {
     @Query("SELECT * FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     fun getBusinessStatisticsFlow(): Flow<Statistic>
 
+    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    suspend fun updateClientsDebt(clientsDebt: Float)
+
+    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE statisticId IN (SELECT statisticId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    suspend fun updateSupplierDebt(suppliersDebt: Float)
+
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     suspend fun getAllProducts(): List<Product>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")
-    suspend fun getRecordsWithDays(productId: Int, days: String): Record
+    suspend fun getRecordsWithDays(productId: String, days: String): Record
 
     @RewriteQueriesToDropUnusedColumns
     @Transaction
@@ -67,10 +76,10 @@ interface StatisticsDao {
             list.add(
                 ProductRecordExcel(
                     it.name,
-                    if (data.type == "IN") it.totalInStock - (data.totalInStock - data.amount).absoluteValue
-                    else it.totalInStock - data.totalInStock,
-                    if (data.type == "OUT") it.totalOutStock - (data.totalOutStock - data.amount).absoluteValue
-                    else it.totalOutStock - data.totalOutStock
+                    if (data.type == "IN") it.historicInStock - (data.totalInStock - data.amount).absoluteValue
+                    else it.historicInStock - data.totalInStock,
+                    if (data.type == "OUT") it.historicOutStock - (data.totalOutStock - data.amount).absoluteValue
+                    else it.historicOutStock - data.totalOutStock
                 )
             )
         }

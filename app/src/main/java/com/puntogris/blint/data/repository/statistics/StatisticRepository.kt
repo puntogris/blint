@@ -29,7 +29,7 @@ class StatisticRepository @Inject constructor(
             val data = clientsDao.getClients()
             RepoResult.Success(data)
         } catch (e: Exception) {
-            RepoResult.Error(e)
+            RepoResult.Error()
         }
     }
 
@@ -38,7 +38,7 @@ class StatisticRepository @Inject constructor(
             val data = statisticsDao.getAllProducts()
             RepoResult.Success(data)
         } catch (e: Exception) {
-            RepoResult.Error(e)
+            RepoResult.Error()
         }
     }
 
@@ -53,7 +53,7 @@ class StatisticRepository @Inject constructor(
                 val data = suppliersDao.getSuppliers()
                 RepoResult.Success(data)
             } catch (e: Exception) {
-                RepoResult.Error(e)
+                RepoResult.Error()
             }
         }
 
@@ -63,7 +63,7 @@ class StatisticRepository @Inject constructor(
                 val data = statisticsDao.getStatistics()
                 RepoResult.Success(data)
             } catch (e: Exception) {
-                RepoResult.Error(e)
+                RepoResult.Error()
             }
         }
 
@@ -80,7 +80,7 @@ class StatisticRepository @Inject constructor(
                 }
                 RepoResult.Success(data)
             } catch (e: Exception) {
-                RepoResult.Error(e)
+                RepoResult.Error()
             }
         }
 

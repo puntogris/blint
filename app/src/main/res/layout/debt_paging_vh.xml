@@ -6,7 +6,7 @@
     <data>
         <variable
             name="debt"
-            type="com.puntogris.blint.model.Debt" />
+            type="com.puntogris.blint.model.order.Debt" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

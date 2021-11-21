@@ -11,7 +11,7 @@ interface ClientsDao {
     suspend fun insert(client: Client)
 
     @Query("DELETE FROM client WHERE clientId = :clientId")
-    suspend fun delete(clientId: Int)
+    suspend fun delete(clientId: String)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
@@ -25,4 +25,6 @@ interface ClientsDao {
     @Query("SELECT * FROM client c INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND c.name LIKE :name")
     fun getClientsSearchPaged(name: String): PagingSource<Int, Client>
 
+    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
+    suspend fun updateClientDebt(clientId: String, amount: Float)
 }

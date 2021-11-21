@@ -49,9 +49,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             adapter = ordersAdapter
         }
 
-        if (args.orderId != 0) {
+        if (args.orderId.isBlank()) {
             lifecycleScope.launch {
-                val order = viewModel.fetchOrderRecords(args.orderId.toString())
+                val order = viewModel.fetchOrderRecords(args.orderId)
                 if (!order.records.isNullOrEmpty()) {
                     ordersAdapter.submitList(order.records.map {
                         OrdersTableItem(

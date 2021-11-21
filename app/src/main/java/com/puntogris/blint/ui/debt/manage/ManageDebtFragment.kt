@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.CLIENT_DEBT
 import com.puntogris.blint.utils.Constants.SUPPLIER_DEBT

@@ -7,6 +7,8 @@ import androidx.lifecycle.asLiveData
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.order.OrderWithRecords
+import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,9 +51,5 @@ class OrdersViewModel @Inject constructor(
 
     fun getCodeScanned() = _barcodeScanned.value.toString()
 
-    suspend fun createSimpleOrder(orderWithRecords: OrderWithRecords): SimpleResult {
-        orderWithRecords.order.value = orderWithRecords.records.first().value
-        return orderRepository.saveOrder(orderWithRecords)
-    }
 
 }

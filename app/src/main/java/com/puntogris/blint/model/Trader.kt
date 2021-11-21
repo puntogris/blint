@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 */
 @Parcelize
 class Trader(
-    val traderId: Int,
+    val traderId: String,
     val traderType: String,
     val traderName: String
 ): Parcelable

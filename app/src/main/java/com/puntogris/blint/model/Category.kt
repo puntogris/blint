@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -13,9 +14,9 @@ import kotlinx.parcelize.Parcelize
 data class Category(
 
     @PrimaryKey(autoGenerate = false)
-    var categoryName: String = "",
+    var categoryName: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
-    var businessId: Int = 0
+    var businessId: String = ""
 
 ) : Parcelable

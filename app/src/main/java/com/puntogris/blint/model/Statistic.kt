@@ -4,14 +4,14 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.firestore.IgnoreExtraProperties
+import com.puntogris.blint.utils.UUIDGenerator
 
 @Entity
 @Keep
 data class Statistic(
 
-    @PrimaryKey(autoGenerate = true)
-    val statisticId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    val statisticId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     val totalProducts: Int = 0,
@@ -26,7 +26,7 @@ data class Statistic(
     val totalOrders: Int = 0,
 
     @ColumnInfo
-    val businessId: Int = 0,
+    val businessId: String = "",
 
     @ColumnInfo
     val clientsDebt: Float = 0F,

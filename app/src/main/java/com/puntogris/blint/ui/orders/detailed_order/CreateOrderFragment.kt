@@ -156,8 +156,8 @@ class CreateOrderFragment :
                         productName = product.name,
                         type = viewModel.order.value?.type!!,
                         productId = product.productId,
-                        totalInStock = product.totalInStock,
-                        totalOutStock = product.totalOutStock
+                        totalInStock = product.historicInStock,
+                        totalOutStock = product.historicOutStock
                     )
                 )
             recordsAdapter.addProductWithRecord(productWithRecord)

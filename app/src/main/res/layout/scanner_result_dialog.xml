@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            app:constraint_referenced_ids="textView196,textView197,textView198,textView200,textView201,textView202,button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordType,textView61,textView60,loginAnonymouslyButton,textView15,button6"
+            app:constraint_referenced_ids="textView196,textView197,textView198,textView200,textView201,textView202,button5,productAmountTextInput,textView64,productAmount,textView62,productLastEdited,recordTypeInput,textView61,textView60,loginAnonymouslyButton,textView15,button6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordType"/>
+            app:layout_constraintTop_toBottomOf="@+id/recordTypeInput"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button5"
@@ -157,7 +157,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView200" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/recordType"
+            android:id="@+id/recordTypeInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginAnonymouslyButton">
 
             <AutoCompleteTextView
-                android:id="@+id/recordTypeText"
+                android:id="@+id/recordType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -189,11 +189,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/amount"
-            app:layout_constraintBottom_toBottomOf="@+id/recordType"
+            app:layout_constraintBottom_toBottomOf="@+id/recordTypeInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/recordType"
-            app:layout_constraintTop_toTopOf="@+id/recordType">
+            app:layout_constraintStart_toEndOf="@+id/recordTypeInput"
+            app:layout_constraintTop_toTopOf="@+id/recordTypeInput">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productAmountText"

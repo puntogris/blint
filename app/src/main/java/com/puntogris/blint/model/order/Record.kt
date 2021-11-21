@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,14 +14,14 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Record(
 
-    @PrimaryKey(autoGenerate = true)
-    var recordId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var recordId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     var type: String = "",
 
     @ColumnInfo
-    var traderId: Int = 0,
+    var traderId: String = "",
 
     @ColumnInfo
     var traderName: String = "",
@@ -32,19 +33,19 @@ data class Record(
     var amount: Int = 0,
 
     @ColumnInfo
-    val productId: Int = 0,
+    var productId: String = "",
 
     @ColumnInfo
-    val productName: String = "",
+    var productName: String = "",
 
     @ColumnInfo
-    var businessId: Int = 0,
+    var businessId: String = "",
 
     @ColumnInfo
     var productUnitPrice: Float = 0F,
 
     @ColumnInfo
-    var orderId: Int = 0,
+    var orderId: String = "",
 
     @ColumnInfo
     var value: Float = 0F,

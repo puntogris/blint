@@ -19,10 +19,10 @@ interface UsersDao {
     fun getUserFlow(): Flow<Business>
 
     @Query("SELECT currentBusinessId FROM user WHERE localReferenceId = '1'")
-    suspend fun getCurrentBusinessId(): Int
+    suspend fun getCurrentBusinessId(): String
 
     @Query("UPDATE user SET currentBusinessId = :businessId WHERE localReferenceId = '1'")
-    suspend fun updateCurrentBusiness(businessId: Int)
+    suspend fun updateCurrentBusiness(businessId: String)
 }
 
 

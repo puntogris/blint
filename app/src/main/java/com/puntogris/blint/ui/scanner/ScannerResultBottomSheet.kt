@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,7 +21,6 @@ import com.puntogris.blint.utils.getInt
 import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.showSackBarAboveBottomSheet
 import com.puntogris.blint.utils.types.RepoResult
-import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,9 +40,9 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
 
         val items = resources.getStringArray(R.array.order_type)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
-        (binding.recordType.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.recordTypeText.setOnItemClickListener { _, _, i, _ ->
+        binding.recordType.setAdapter(adapter)
+        binding.recordType.setOnItemClickListener { _, _, i, _ ->
             orderType = if (i == 0) IN else OUT
         }
     }
@@ -80,7 +78,7 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
 
     fun onSaveProductClicked() {
         when {
-            binding.recordTypeText.text.isNullOrBlank() -> {
+            binding.recordType.text.isNullOrBlank() -> {
                 showSackBarAboveBottomSheet(getString(R.string.snack_pick_record_type))
             }
             binding.productAmountText.getInt() == 0 || binding.productAmountText.text.isNullOrBlank() -> {
@@ -96,23 +94,23 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
                             productId = viewModel.currentProduct.value!!.product.productId,
                             productName = viewModel.currentProduct.value!!.product.name,
                             amount = amount,
-                            totalOutStock = viewModel.currentProduct.value!!.product.totalOutStock,
-                            totalInStock = viewModel.currentProduct.value!!.product.totalInStock
+                            totalOutStock = viewModel.currentProduct.value!!.product.historicOutStock,
+                            totalInStock = viewModel.currentProduct.value!!.product.historicInStock
                         )
                     )
 
-                    lifecycleScope.launch {
-                        when (viewModel.createSimpleOrder(order)) {
-                            SimpleResult.Failure -> {
-                                dismiss()
-                                showSackBarAboveBottomSheet(getString(R.string.snack_order_created_error))
-                            }
-                            SimpleResult.Success -> {
-                                dismiss()
-                                showSackBarAboveBottomSheet(getString(R.string.snack_created_order_success))
-                            }
-                        }
-                    }
+//                    lifecycleScope.launch {
+//                        when (viewModel.createSimpleOrder(order)) {
+//                            SimpleResult.Failure -> {
+//                                dismiss()
+//                                showSackBarAboveBottomSheet(getString(R.string.snack_order_created_error))
+//                            }
+//                            SimpleResult.Success -> {
+//                                dismiss()
+//                                showSackBarAboveBottomSheet(getString(R.string.snack_created_order_success))
+//                            }
+//                        }
+//                    }
                 } else {
                     showSackBarAboveBottomSheet(getString(R.string.snack_amount_cant_be_empty))
                 }

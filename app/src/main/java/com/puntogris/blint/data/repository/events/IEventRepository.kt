@@ -12,7 +12,7 @@ interface IEventRepository {
 
     suspend fun saveEvent(event: Event): SimpleResult
 
-    suspend fun deleteEvent(eventId: Int): SimpleResult
+    suspend fun deleteEvent(eventId: String): SimpleResult
 
     suspend fun updateEventStatus(event: Event): SimpleResult
 }

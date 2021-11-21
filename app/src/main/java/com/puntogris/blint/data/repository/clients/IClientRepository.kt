@@ -10,9 +10,9 @@ interface IClientRepository {
 
     suspend fun saveClient(client: Client): SimpleResult
 
-    suspend fun deleteClient(clientId: Int): SimpleResult
+    suspend fun deleteClient(clientId: String): SimpleResult
 
     fun getClientsPaged(query: String? = null): Flow<PagingData<Client>>
 
-    fun getClientRecordsPaged(clientId: Int): Flow<PagingData<Record>>
+    fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>>
 }

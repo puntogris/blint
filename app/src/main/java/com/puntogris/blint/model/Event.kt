@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,8 +14,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Event(
 
-    @PrimaryKey(autoGenerate = true)
-    var eventId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var eventId:  String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     var timestamp: Timestamp = Timestamp.now(),
@@ -29,5 +30,5 @@ data class Event(
     var message: String = "",
 
     @ColumnInfo
-    var businessId: Int = 0
+    var businessId: String = ""
 ) : Parcelable

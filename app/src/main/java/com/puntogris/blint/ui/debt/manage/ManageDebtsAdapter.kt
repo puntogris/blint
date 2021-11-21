@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.debt.manage
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.diffcallback.DebtDiffCallBack
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 
 class ManageDebtsAdapter(private val clickListener: (Debt) -> Unit) :
     PagingDataAdapter<Debt, ManageDebtViewHolder>(

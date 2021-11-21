@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.puntogris.blint.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,8 +13,8 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Client(
 
-    @PrimaryKey(autoGenerate = true)
-    var clientId: Int = 0,
+    @PrimaryKey(autoGenerate = false)
+    var clientId: String = "",
 
     @ColumnInfo
     var name: String = "",
@@ -34,7 +35,7 @@ data class Client(
     val discount: Float = 0F,
 
     @ColumnInfo
-    var businessId: Int = 0,
+    var businessId: String = "",
 
     @ColumnInfo
     var debt: Float = 0F

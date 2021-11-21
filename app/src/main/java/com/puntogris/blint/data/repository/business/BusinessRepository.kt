@@ -26,10 +26,11 @@ class BusinessRepository @Inject constructor(
         withContext(dispatcher.io) {
             try {
                 val business = Business(ownerUid = firebaseClients.currentUser?.uid ?: "")
-                val businessId = businessDao.insert(business).toInt()
 
-                statisticsDao.insert(Statistic(businessId = businessId))
-                usersDao.updateCurrentBusiness(businessId)
+                businessDao.insert(business)
+
+                statisticsDao.insert(Statistic(businessId = business.businessId))
+                usersDao.updateCurrentBusiness(business.businessId)
 
                 sharedPreferences.setShowNewUserScreenPref(false)
 
@@ -39,7 +40,7 @@ class BusinessRepository @Inject constructor(
             }
         }
 
-    override suspend fun deleteBusiness(businessId: Int): DeleteBusiness =
+    override suspend fun deleteBusiness(businessId: String): DeleteBusiness =
         withContext(dispatcher.io) {
             try {
                 businessDao.deleteBusiness(businessId)
@@ -51,5 +52,4 @@ class BusinessRepository @Inject constructor(
                 DeleteBusiness.Failure
             }
         }
-
 }

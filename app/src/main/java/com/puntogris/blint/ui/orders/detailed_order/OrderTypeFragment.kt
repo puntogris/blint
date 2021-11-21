@@ -40,21 +40,21 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             }
         }
 
-        binding.recordTypeText.apply {
-            setAdapter(
-                ArrayAdapter(
-                    requireContext(),
-                    R.layout.dropdown_item_list,
-                    resources.getStringArray(R.array.order_type)
-                )
-            )
-            setOnItemClickListener { _, _, i, _ ->
-                binding.button22.text =
-                    if (i == 0) getString(R.string.select_supplier)
-                    else getString(R.string.select_client)
-                viewModel.updateRecordType(i)
-            }
-        }
+//        binding.recordTypeText.apply {
+//            setAdapter(
+//                ArrayAdapter(
+//                    requireContext(),
+//                    R.layout.dropdown_item_list,
+//                    resources.getStringArray(R.array.order_type)
+//                )
+//            )
+//            setOnItemClickListener { _, _, i, _ ->
+//                binding.button22.text =
+//                    if (i == 0) getString(R.string.select_supplier)
+//                    else getString(R.string.select_client)
+//                viewModel.updateRecordType(i)
+//            }
+//        }
     }
 
     fun onAddTraderClicked() {

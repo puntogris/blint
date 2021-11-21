@@ -44,7 +44,7 @@ class CalendarViewModel @Inject constructor(
         return repository.saveEvent(event)
     }
 
-    suspend fun deleteEvent(eventId: Int) = repository.deleteEvent(eventId)
+    suspend fun deleteEvent(eventId: String) = repository.deleteEvent(eventId)
 
     suspend fun updateEvent() = repository.updateEventStatus(_event.value)
 

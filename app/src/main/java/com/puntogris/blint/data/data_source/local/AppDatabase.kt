@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.puntogris.blint.data.data_source.local.dao.*
 import com.puntogris.blint.model.*
+import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.model.order.Order
 import com.puntogris.blint.model.order.OrderRecordCrossRef
 import com.puntogris.blint.model.order.Record

@@ -1,7 +1,7 @@
 package com.puntogris.blint.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.puntogris.blint.model.Debt
+import com.puntogris.blint.model.order.Debt
 
 class DebtDiffCallBack : DiffUtil.ItemCallback<Debt>() {
     override fun areItemsTheSame(oldItem: Debt, newItem: Debt): Boolean {
