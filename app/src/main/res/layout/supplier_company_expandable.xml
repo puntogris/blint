@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/supplierCompanyName"
+                    android:id="@+id/supplierCompanyNameInput"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/supplierCompanyButton">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/supplierCompanyNameText"
+                        android:id="@+id/supplierCompanyName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -63,16 +63,16 @@
                     style="@style/Theme.Blint.ImageButton"
                     android:layout_marginStart="16dp"
                     android:onClick="@{()-> fragment.onAddContactInfoClicked(1)}"
-                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyName"
+                    app:layout_constraintBottom_toBottomOf="@+id/supplierCompanyNameInput"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyName"
-                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyName"
+                    app:layout_constraintStart_toEndOf="@+id/supplierCompanyNameInput"
+                    app:layout_constraintTop_toTopOf="@+id/supplierCompanyNameInput"
                     app:srcCompat="@drawable/ic_baseline_person_add_24"
                     android:contentDescription="@string/open_contact_image" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/supplierCompanyPhone"
+                    android:id="@+id/supplierCompanyPhoneInput"
                     style="@style/Theme.Blint.TextInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -81,10 +81,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyName">
+                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyNameInput">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/supplierCompanyPhoneText"
+                        android:id="@+id/supplierCompanyPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
@@ -105,7 +105,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyPhone">
+                    app:layout_constraintTop_toBottomOf="@+id/supplierCompanyPhoneInput">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/supplierCompanyEmailText"
