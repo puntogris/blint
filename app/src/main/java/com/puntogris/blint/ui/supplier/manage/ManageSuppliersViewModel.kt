@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.supplier.manage
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
@@ -17,7 +18,7 @@ class ManageSuppliersViewModel @Inject constructor(
         supplierRepository.getSuppliersPaged().asLiveData()
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String) {
-        this.query.value = query
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
     }
 }

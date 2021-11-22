@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.client.manage
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.clients.ClientRepository
@@ -17,7 +18,7 @@ class ManageClientsViewModel @Inject constructor(
         clientRepository.getClientsPaged().asLiveData()
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String) {
-        this.query.value = query
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
     }
 }

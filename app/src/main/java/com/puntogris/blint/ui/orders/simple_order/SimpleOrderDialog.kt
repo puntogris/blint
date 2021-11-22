@@ -1,9 +1,12 @@
 package com.puntogris.blint.ui.orders.simple_order
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -75,5 +78,14 @@ class SimpleOrderDialog : DialogFragment() {
                 }
             }
         }
+    }
+
+
+    override fun onDismiss(dialog: DialogInterface) {
+        setFragmentResult(
+            Constants.SCANNER_FRAGMENT_KEY,
+            bundleOf(Constants.RESUME_CAMERA_KEY to true)
+        )
+        super.onDismiss(dialog)
     }
 }

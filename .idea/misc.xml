@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/divider_round_corners_horizontal.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/bottom_sheet_handle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_analytics.xml" value="0.24513888888888888" />
@@ -106,7 +107,7 @@
         <entry key="app/src/main/res/layout/product_supplier_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/record_info_bottom_sheet.xml" value="0.15590277777777778" />
         <entry key="app/src/main/res/layout/remove_category_product_vh.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/simple_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />

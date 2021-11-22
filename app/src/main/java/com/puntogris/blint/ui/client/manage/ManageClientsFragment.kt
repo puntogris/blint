@@ -11,6 +11,7 @@ import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.hideKeyboard
+import com.puntogris.blint.utils.registerToolbarBackButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +21,8 @@ class ManageClientsFragment :
     private val viewModel: ManageClientsViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        binding.viewModel = viewModel
+        registerToolbarBackButton(binding.searchToolbar)
 
         UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editClientFragment)
@@ -29,10 +31,6 @@ class ManageClientsFragment :
         ManageClientsAdapter { onClientClickListener(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
-        }
-
-        binding.clientSearch.addTextChangedListener {
-            viewModel.setQuery(it.toString())
         }
     }
 

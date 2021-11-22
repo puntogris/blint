@@ -11,6 +11,7 @@ import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragmentOptions
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.hideKeyboard
+import com.puntogris.blint.utils.registerToolbarBackButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +21,8 @@ class ManageSuppliersFragment :
     private val viewModel: ManageSuppliersViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.searchToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        binding.viewModel = viewModel
+        registerToolbarBackButton(binding.searchToolbar)
 
         UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editSupplierFragment)
@@ -29,10 +31,6 @@ class ManageSuppliersFragment :
         ManageSuppliersAdapter { onSupplierClickListener(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
-        }
-
-        binding.supplierSearch.addTextChangedListener {
-            viewModel.setQuery(it.toString())
         }
     }
 

@@ -1,5 +1,6 @@
 package com.puntogris.blint.ui.product.manage
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.repository.products.ProductRepository
@@ -23,5 +24,8 @@ class ManageProductsViewModel @Inject constructor(
 
     fun setQuery(query: String) {
         this.query.value = query
+    }
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
     }
 }

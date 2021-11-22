@@ -1,8 +1,10 @@
 package com.puntogris.blint.ui.orders
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
+import com.puntogris.blint.model.order.NewOrder
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.product.ProductWithDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +15,12 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+
+    private val barcode = savedStateHandle.get<String>("barcode") ?: ""
 
     private val _currentProduct = MutableStateFlow(ProductWithDetails())
     val currentProduct = _currentProduct.asStateFlow()
@@ -29,18 +35,6 @@ class OrdersViewModel @Inject constructor(
         _order.value = orderWithRecords
     }
 
-    fun setProductData(product: ProductWithDetails) {
-        _currentProduct.value = product
-    }
-
     suspend fun fetchOrderRecords(orderId: String) = orderRepository.getOrderRecords(orderId)
 
-    suspend fun getProductWithBarCode(barcode: String) =
-        productRepository.getProductWithBarcode(barcode)
-
-    fun updateBarcodeScanned(barcode: String) {
-        _barcodeScanned.value = barcode
-    }
-
-    fun getCodeScanned() = _barcodeScanned.value
 }

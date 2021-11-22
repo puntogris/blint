@@ -5,6 +5,7 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 typealias ResultListener = (result: String) -> Unit
@@ -16,7 +17,7 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
 
     private var resultListener: ResultListener? = null
 
-    @SuppressLint("UnsafeExperimentalUsageError", "UnsafeOptInUsageError")
+    @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
         if (mediaImage != null && !isScanning) {
@@ -24,11 +25,8 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
             isScanning = true
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    barcodes.firstOrNull()?.let { barcode ->
-                        val rawValue = barcode.rawValue
-                        rawValue?.let {
-                            resultListener?.invoke(it)
-                        }
+                    barcodes.firstOrNull()?.rawValue?.let { barcode ->
+                        resultListener?.invoke(barcode)
                     }
                     isScanning = false
                     imageProxy.close()

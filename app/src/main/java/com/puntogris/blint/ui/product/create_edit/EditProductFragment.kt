@@ -85,7 +85,7 @@ class EditProductFragment :
                 viewModel.updateProductSuppliers(it)
             }
         }
-        setFragmentResultListener(Constants.PRODUCT_BARCODE_KEY) { _, bundle ->
+        setFragmentResultListener(Constants.SCANNER_RESULT_KEY) { _, bundle ->
             bundle.getString(Constants.PRODUCT_BARCODE_KEY)?.let {
                 viewModel.updateProductBarcode(it)
             }

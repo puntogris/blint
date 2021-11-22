@@ -21,8 +21,6 @@ class TicketsViewModel @Inject constructor(
     }
 
     fun updateTicketBusiness(business: Business) {
-        ticket.apply {
-            businessStatus = business.status
-        }
+        ticket.businessStatus = business.status
     }
 }

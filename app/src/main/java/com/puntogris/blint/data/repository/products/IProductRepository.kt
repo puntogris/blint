@@ -22,5 +22,5 @@ interface IProductRepository {
 
     suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult
 
-    suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithDetails>
+    suspend fun getProductWithBarcode(barcode: String): ProductWithDetails?
 }

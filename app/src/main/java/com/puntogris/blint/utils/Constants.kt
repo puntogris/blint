@@ -32,6 +32,9 @@ object Constants {
     const val PRODUCT_CATEGORIES_KEY = "product_categories_key"
     const val PRODUCT_SUPPLIERS_KEY = "product_suppliers_key"
     const val EDIT_PRODUCT_KEY = "edit_fragment_results_key"
+    const val SCANNER_FRAGMENT_KEY = "scanner_fragment_key"
+    const val SCANNER_RESULT_KEY = "scanner_results_key"
+    const val RESUME_CAMERA_KEY = "resume_camera_key"
 
 
     //Report types

@@ -64,6 +64,7 @@
     <string name="action_undo">Deshacer</string>
     <string name="action_continue">Continuar</string>
     <string name="action_done">Listo</string>
+    <string name="action_edit_stock">Editar stock</string>
 
     <!-- Problems and advice -->
     <string name="problems_and_advice">Sugerencia o mensaje</string>

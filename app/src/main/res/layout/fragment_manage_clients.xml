@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.client.manage.ManageClientsViewModel" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.client.manage.ManageClientsFragment">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,12 +37,13 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="@string/name"
+                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="textNoSuggestions"
                     android:autofillHints="@string/auto_fill_hint_client_search" />
 
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

@@ -99,13 +99,8 @@ class ProductRepository @Inject constructor(
     }
 
 
-    override suspend fun getProductWithBarcode(barcode: String): RepoResult<ProductWithDetails> =
+    override suspend fun getProductWithBarcode(barcode: String): ProductWithDetails? =
         withContext(dispatcher.io) {
-            try {
-                val product = productsDao.getProductWithBarcode(barcode)
-                RepoResult.Success(requireNotNull(product))
-            } catch (e: Exception) {
-                RepoResult.Error()
-            }
+            productsDao.getProductWithBarcode(barcode)
         }
 }

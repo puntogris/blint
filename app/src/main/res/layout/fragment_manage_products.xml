@@ -8,6 +8,9 @@
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.manage.ManageProductsFragment" />
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.product.manage.ManageProductsViewModel" />
     </data>
 
     <LinearLayout
@@ -19,7 +22,7 @@
         android:orientation="vertical"
         tools:context=".ui.product.manage.ManageProductsFragment">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,10 +46,22 @@
                     android:autofillHints="@string/auto_fill_hint_search_product"
                     android:background="@null"
                     android:hint="@string/search"
+                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions" />
+                    android:inputType="textNoSuggestions"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="?actionBarItemBackground"
+                    android:onClickListener="@{()->fragment.onScanBarcodeClicked()}"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_barcode"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

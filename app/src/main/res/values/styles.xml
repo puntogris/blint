@@ -21,8 +21,9 @@
         <item name="boxCornerRadiusTopStart">2dp</item>
     </style>
 
-    <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAllCaps">false</item>
+        <item name="android:layout_height">60dp</item>
     </style>
 
     <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
