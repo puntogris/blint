@@ -37,6 +37,10 @@ object Constants {
     const val RESUME_CAMERA_KEY = "resume_camera_key"
 
 
+    //Ticket types
+    const val PROBLEM = "PROBLEM"
+    const val SUGGESTION = "SUGGESTION"
+
     //Report types
     const val SUPPLIERS_LIST = 101
     const val CLIENTS_LIST = 102
@@ -83,7 +87,7 @@ object Constants {
     //Firestore paths
     const val REPORT_FIELD_FIRESTORE = "report"
     const val TIMESTAMP_FIELD_FIRESTORE = "timestamp"
-    const val SUGGESTION_COLLECTION_NAME = "suggestions"
+    const val TICKETS_COLLECTION = "tickets"
     const val TIMESTAMP_FIELD = "timestamp"
     const val USERS_COLLECTION = "users"
     const val OWNER_FIELD = "owner"

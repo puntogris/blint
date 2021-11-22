@@ -552,7 +552,7 @@
     <string name="action_close_keyboard">Cerrar teclado</string>
     <string name="select_business_hint">Seleccionar negocio</string>
     <string name="select_business_alert">*Nos contactaremos a la brevedad.\nTambién puedes contactarnos en:\ncontact@blint.app</string>
-    <string name="snack_fill_all_data_ticket">Selecciona un negocio y dejanos tu mensaje.</string>
+    <string name="snack_ticket_missing_required_data">Selecciona una razon y dejanos tu mensaje.</string>
     <string name="snack_ticket_sent_success">Ticket enviado correctamente, nos contactaremos vía e-mail próximamente.</string>
 
     <!-- Notifications -->
@@ -614,5 +614,10 @@
         <item>1</item>
         <item>2</item>
         <item>-1</item>
+    </string-array>
+
+    <string-array name="ticket_reasons">
+        <item>Problema</item>
+        <item>Sugerencia</item>
     </string-array>
 </resources>

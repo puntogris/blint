@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.ui.settings.TicketsViewModel" />
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.settings.SendTicketFragment" />
@@ -16,7 +18,7 @@
         tools:context=".ui.settings.SendTicketFragment">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/business"
+            android:id="@+id/ticket_reason_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,15 +31,16 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
-                android:id="@+id/businessText"
+                android:id="@+id/ticket_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:inputType="none"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/message"
+            android:id="@+id/ticket_message_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,21 +50,22 @@
             android:hint="@string/message_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/business">
+            app:layout_constraintTop_toBottomOf="@+id/ticket_reason_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/messageText"
+                android:id="@+id/ticket_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="8"
                 android:gravity="top"
+                android:afterTextChanged="@{viewModel::updateTicketMessage}"
                 android:maxLength="400"
                 android:lines="8" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textView172"
+            android:id="@+id/send_ticket_alert"
             android:layout_width="match_parent"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
@@ -71,10 +75,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/message" />
+            app:layout_constraintTop_toBottomOf="@+id/ticket_message_input_layout" />
 
         <TextView
-            android:id="@+id/textView186"
+            android:id="@+id/close_button_keyboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -83,8 +87,19 @@
             android:text="@string/action_close_keyboard"
             android:foreground="?selectableItemBackground"
             android:textColor="@color/primaryColor"
-            app:layout_constraintEnd_toEndOf="@+id/message"
-            app:layout_constraintTop_toBottomOf="@+id/message" />
+            app:layout_constraintEnd_toEndOf="@+id/ticket_message_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_message_input_layout" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/send_ticket_alert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -561,7 +561,7 @@
     <string name="action_close_keyboard">Close keyboard</string>
     <string name="select_business_hint">Select business</string>
     <string name="select_business_alert">*We will be in touch shortly.\nYou can also reach us at :\ncontact@blint.app</string>
-    <string name="snack_fill_all_data_ticket">Choose a business and type a message.</string>
+    <string name="snack_ticket_missing_required_data">Choose a ticket reason and type a message.</string>
     <string name="snack_ticket_sent_success">Ticket sent successfully, we will be in touch via e-mail soon.</string>
 
     <!-- Notifications -->
@@ -634,6 +634,11 @@
     <string-array name="debt_signs">
         <item>-</item>
         <item>+</item>
+    </string-array>
+
+    <string-array name="ticket_reasons">
+        <item>Problem</item>
+        <item>Suggestion</item>
     </string-array>
 
 </resources>

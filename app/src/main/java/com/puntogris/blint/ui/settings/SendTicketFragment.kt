@@ -1,18 +1,16 @@
 package com.puntogris.blint.ui.settings
 
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSendTicketBinding
-import com.puntogris.blint.model.Business
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.getString
-import com.puntogris.blint.utils.hideKeyboard
-import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -27,31 +25,39 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
             fabIcon = R.drawable.ic_baseline_send_24,
             showAppBar = false
         ) {
-            if (
-                binding.messageText.getString().isNotBlank() &&
-                !binding.businessText.text.isNullOrBlank()
-            ) {
-                lifecycleScope.launch {
-                    when (viewModel.sendTicket(binding.messageText.getString())) {
-                        SimpleResult.Failure ->
-                            UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                        SimpleResult.Success -> {
+            lifecycleScope.launch {
+                viewModel.sendTicket().collect {
+                    when (it) {
+                        is RepoResult.Error -> {
+                            binding.progressBar.gone()
+                            UiInterface.showSnackBar(getString(it.error))
+                        }
+                        is RepoResult.InProgress -> {
+                            binding.progressBar.visible()
+                        }
+                        is RepoResult.Success -> {
                             findNavController().navigateUp()
                             UiInterface.showSnackBar(getString(R.string.snack_ticket_sent_success))
                         }
                     }
                 }
-            } else UiInterface.showSnackBar(getString(R.string.snack_fill_all_data_ticket))
-        }
-        var businesses = listOf<Business>()
-        launchAndRepeatWithViewLifecycle {
-//            businesses = viewModel.()
-//            val items = businesses.map { it.businessName }
-//            binding.businessText.setAdapter(ArrayAdapter(requireContext(),R.layout.dropdown_item_list, items))
-        }
 
-        binding.businessText.setOnItemClickListener { _, _, i, _ ->
-            viewModel.updateTicketBusiness(businesses[i])
+            }
+        }
+        setupTicketReasonAdapter()
+    }
+
+    private fun setupTicketReasonAdapter() {
+        binding.ticketReason.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                R.layout.dropdown_item_list,
+                resources.getStringArray(R.array.ticket_reasons)
+            )
+        )
+
+        binding.ticketReason.setOnItemClickListener { _, _, i, _ ->
+            viewModel.updateTicketReason(if (i == 0) Constants.PROBLEM else Constants.SUGGESTION)
         }
     }
 
