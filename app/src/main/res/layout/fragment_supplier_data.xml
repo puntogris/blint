@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
@@ -68,6 +69,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView29"
                         app:srcCompat="@drawable/ic_baseline_person_add_24"
                         android:contentDescription="@string/open_contact_image" />
+
                     <TextView
                         android:id="@+id/supplierCompanyName"
                         style="@style/Theme.Blint.DataTextView"
@@ -261,6 +263,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView440"
                         app:srcCompat="@drawable/ic_baseline_email_24"
                         android:contentDescription="@string/email_image" />
+
                     <TextView
                         android:id="@+id/supplierSellerEmail"
                         style="@style/Theme.Blint.DataTextView"

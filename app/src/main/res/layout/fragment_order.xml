@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.orders.OrdersViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.orders.OrderFragment" />

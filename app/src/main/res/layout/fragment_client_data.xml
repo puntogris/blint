@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.client.ClientDataFragment" />
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.client.ClientViewModel" />
@@ -180,7 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="@string/extras"/>
+                        android:text="@string/extras" />
 
                     <TextView
                         android:id="@+id/textView51"

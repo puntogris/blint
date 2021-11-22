@@ -1,19 +1,14 @@
-package com.puntogris.blint.ui.product
+package com.puntogris.blint.ui.product.details
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
-import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
-import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
-import com.puntogris.blint.utils.takeArgsIfNotNull
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductRecordsFragment :
@@ -22,18 +17,20 @@ class ProductRecordsFragment :
     private val viewModel: ProductViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
-        val recordsAdapter = RecordsAdapter { onRecordClickListener(it) }
+        setupRecordsAdapter()
+    }
 
-        binding.recyclerView.apply {
-            adapter = recordsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+    private fun setupRecordsAdapter() {
+        RecordsAdapter { onRecordClickListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
+    }
 
-        takeArgsIfNotNull<ProductWithDetails>(PRODUCT_DATA_KEY) {
-            lifecycleScope.launch {
-                viewModel.getProductRecords(it.product.productId).collect {
-                    recordsAdapter.submitData(it)
-                }
+    private fun subscribeUi(adapter: RecordsAdapter) {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.productRecords.collect {
+                adapter.submitData(it)
             }
         }
     }

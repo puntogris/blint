@@ -24,7 +24,6 @@ class SimpleOrderViewModel @Inject constructor(
     private var newOrder = NewOrder()
 
     fun createSimpleOrder(amount: Int): Flow<RepoResult<Unit>> {
-        if (!isAmountValid(amount)) return flow { RepoResult.Error(R.string.product_amount_empty) }
 
         newOrder.newRecords = listOf(
             NewRecord(
@@ -45,9 +44,11 @@ class SimpleOrderViewModel @Inject constructor(
         newOrder.type = orderType
     }
 
-    private fun isAmountValid(amount: Int): Boolean {
+    // todo think a better way to do this, maybe move it to the repository
+    fun amountIsValid(amount: Int): Boolean {
         return amount > 0 &&
                 if (newOrder.type == Constants.IN) true
                 else amount <= product.amount
     }
+
 }

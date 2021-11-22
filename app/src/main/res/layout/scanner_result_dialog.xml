@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.scanner.ScannerResultBottomSheet" />
@@ -139,7 +140,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordTypeInput"/>
+            app:layout_constraintTop_toBottomOf="@+id/recordTypeInput" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button5"

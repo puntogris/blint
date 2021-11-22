@@ -8,6 +8,7 @@
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.debt.debt_status.DebtStatusFragment" />
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.debt.debt_status.DebtStatusViewModel" />

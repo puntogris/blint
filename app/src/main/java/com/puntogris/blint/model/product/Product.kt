@@ -26,7 +26,7 @@ data class Product(
     var barcode: String = "",
 
     @ColumnInfo
-    val description: String = "",
+    var description: String = "",
 
     @ColumnInfo
     var amount: Int = 0,
@@ -35,22 +35,22 @@ data class Product(
     var image: String = "",
 
     @ColumnInfo
-    val sellPrice: Float = 0F,
+    var sellPrice: Float = 0F,
 
     @ColumnInfo
-    val buyPrice: Float = 0F,
+    var buyPrice: Float = 0F,
 
     @ColumnInfo
-    val suggestedSellPrice: Float = 0F,
+    var suggestedSellPrice: Float = 0F,
 
     @ColumnInfo
     var sku: String = "",
 
     @ColumnInfo
-    val brand: String = "",
+    var brand: String = "",
 
     @ColumnInfo
-    val size: String = "",
+    var size: String = "",
 
     @ColumnInfo
     var lastRecordTimestamp: Timestamp = Timestamp.now(),

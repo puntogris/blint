@@ -11,6 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.order.Record
+import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.ui.base.BaseBottomSheetFragment
 import com.puntogris.blint.ui.orders.OrdersViewModel
@@ -91,11 +92,11 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
                     order.order.type = orderType
                     order.records = listOf(
                         Record(
-                            productId = viewModel.currentProduct.value!!.product.productId,
-                            productName = viewModel.currentProduct.value!!.product.name,
+                            productId = viewModel.currentProduct.value.product.productId,
+                            productName = viewModel.currentProduct.value.product.name,
                             amount = amount,
-                            totalOutStock = viewModel.currentProduct.value!!.product.historicOutStock,
-                            totalInStock = viewModel.currentProduct.value!!.product.historicInStock
+                            totalOutStock = viewModel.currentProduct.value.product.historicOutStock,
+                            totalInStock = viewModel.currentProduct.value.product.historicInStock
                         )
                     )
 
@@ -121,7 +122,11 @@ class ScannerResultBottomSheet(private val listener: DialogDismissListener) :
     fun onCreateNewProductClicked() {
         dismiss()
         val action =
-            ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(barcodeScanned = viewModel.getCodeScanned())
+            ScannerFragmentDirections.actionScannerFragmentToEditProductFragment(
+                ProductWithDetails(
+                    Product(barcode = viewModel.getCodeScanned())
+                )
+            )
         findNavController().navigate(action)
     }
 

@@ -98,13 +98,11 @@
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.puntogris.blint.ui.product.ProductFragment"
+        android:name="com.puntogris.blint.ui.product.details.ProductFragment"
         android:label="@string/product_label" >
         <argument
             android:name="productWithDetails"
-            app:argType="com.puntogris.blint.model.product.ProductWithDetails"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.puntogris.blint.model.product.ProductWithDetails"/>
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
@@ -144,20 +142,14 @@
         android:label="@string/about_us_label" />
     <fragment
         android:id="@+id/editProductFragment"
-        android:name="com.puntogris.blint.ui.product.EditProductFragment"
+        android:name="com.puntogris.blint.ui.product.create_edit.EditProductFragment"
         android:label="@string/product_label" >
         <argument
             android:name="productWithDetails"
-            app:argType="com.puntogris.blint.model.product.ProductWithDetails"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.puntogris.blint.model.product.ProductWithDetails" />
         <action
             android:id="@+id/action_editProductFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
-        <argument
-            android:name="barcodeScanned"
-            app:argType="string"
-            android:defaultValue=" " />
         <action
             android:id="@+id/action_editProductFragment_to_productCategoryFragment"
             app:destination="@id/productCategoryFragment" />
@@ -478,7 +470,7 @@
     </action>
     <dialog
         android:id="@+id/simpleOrderBottomSheet"
-        android:name="com.puntogris.blint.ui.orders.simple_order.SimpleOrderBottomSheet"
+        android:name="com.puntogris.blint.ui.orders.simple_order.SimpleOrderDialog"
         android:label="" >
         <argument
             android:name="product"

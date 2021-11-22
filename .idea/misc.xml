@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_create_order.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_data_product.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
@@ -59,10 +60,11 @@
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_modify_debt.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.21319444444444444" />
-        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_out_of_sync.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product_category.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_product_records.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product_supplier.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_register_local_business.xml" value="0.1" />
@@ -93,6 +95,10 @@
         <entry key="app/src/main/res/layout/notification_vh.xml" value="0.17152777777777778" />
         <entry key="app/src/main/res/layout/order_info_bottom_sheet.xml" value="0.10104166666666667" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/product_extras_expandable.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_prices_expandable.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_records_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_scope_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_search_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/product_supplier_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/record_info_bottom_sheet.xml" value="0.15590277777777778" />

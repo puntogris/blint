@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.settings.SendTicketFragment" />
@@ -31,7 +32,7 @@
                 android:id="@+id/businessText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"/>
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +56,7 @@
                 android:maxLines="8"
                 android:gravity="top"
                 android:maxLength="400"
-                android:lines="8"/>
+                android:lines="8" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

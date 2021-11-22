@@ -5,11 +5,11 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.product.ProductViewModel" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.EditProductFragment" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -55,6 +55,7 @@
                     android:id="@+id/productBuyPriceText"
                     emptyEditTextWithNumber="@{viewModel.currentProduct.product.buyPrice}"
                     android:layout_width="match_parent"
+                    android:afterTextChanged="@{viewModel::updateProductBuyPrice}"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
@@ -78,6 +79,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSellPriceText"
+                    android:afterTextChanged="@{viewModel::updateProductSellPrice}"
                     emptyEditTextWithNumber="@{viewModel.currentProduct.product.sellPrice}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,6 +107,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productSuggestedSellPriceText"
+                    android:afterTextChanged="@{viewModel::updateProductSuggestedPrice}"
                     emptyEditTextWithNumber="@{viewModel.currentProduct.product.suggestedSellPrice}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,6 +136,7 @@
                     android:id="@+id/productAmountText"
                     emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
                     android:layout_width="match_parent"
+                    android:afterTextChanged="@{viewModel::updateProductAmount}"
                     android:layout_height="61dp"
                     android:imeOptions="actionDone"
                     android:inputType="number"

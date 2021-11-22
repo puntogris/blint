@@ -122,8 +122,8 @@ class GenerateReportFragment :
                             numberOfRows += 1
                             val newRow = sheet.createRow(numberOfRows)
                             newRow.createCell(0).setCellValue(it.name)
-                            newRow.createCell(1).setCellValue(it.totalInStock.toString())
-                            newRow.createCell(2).setCellValue(it.totalOutStock.toString())
+                            newRow.createCell(1).setCellValue(it.historicInStock.toString())
+                            newRow.createCell(2).setCellValue(it.historicOutStock.toString())
                         }
                         workbook.writeToFile(downloadFileUri)
                         viewModel.updateExportState(ExportResult.Success)

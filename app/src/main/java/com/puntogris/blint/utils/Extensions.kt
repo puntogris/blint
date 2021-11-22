@@ -20,6 +20,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -35,6 +36,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.Timestamp
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
@@ -345,4 +347,15 @@ fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
     toolbar.setNavigationOnClickListener {
         findNavController().navigateUp()
     }
+}
+
+inline fun TabLayout.addOnTabSelectedListener(crossinline block : (Int) -> Unit){
+
+    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            block(tab?.position ?: return)
+        }
+        override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+        override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+    })
 }

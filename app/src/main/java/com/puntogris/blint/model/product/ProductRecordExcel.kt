@@ -2,6 +2,6 @@ package com.puntogris.blint.model.product
 
 data class ProductRecordExcel(
     val name: String = "",
-    var totalInStock: Int = 0,
-    var totalOutStock: Int = 0
+    var historicInStock: Int = 0,
+    var historicOutStock: Int = 0
 )

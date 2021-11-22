@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
@@ -53,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}"/>
+                app:viewModel="@{viewModel}" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

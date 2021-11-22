@@ -4,10 +4,10 @@
     <data>
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.EditProductFragment" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductFragment" />
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.product.ProductViewModel" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -44,6 +44,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productInternalCodeText"
                     android:layout_width="match_parent"
+                    android:afterTextChanged="@{viewModel::updateProductSku}"
                     android:text="@{viewModel.currentProduct.product.sku}"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -66,6 +67,7 @@
                     android:id="@+id/productBrandText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{viewModel::updateProductBrand}"
                     android:text="@{viewModel.currentProduct.product.brand}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
@@ -88,6 +90,7 @@
                     android:id="@+id/productSizeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{viewModel::updateProductSize}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true"

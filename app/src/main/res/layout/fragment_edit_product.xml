@@ -3,35 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.product.ProductViewModel" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductViewModel" />
+
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.EditProductFragment" />
+            type="com.puntogris.blint.ui.product.create_edit.EditProductFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:scrollbars="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="?actionBarSize">
+            android:layout_marginBottom="?actionBarSize"
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/descriptionLayout"
                 layout="@layout/product_description_expandable"
-                app:viewModel="@{viewModel}"
-                app:fragment="@{fragment}"
-                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
+                android:layout_marginTop="16dp"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
 
             <include
                 android:id="@+id/pricesLayout"
@@ -45,21 +47,21 @@
             <include
                 android:id="@+id/scopeLayout"
                 layout="@layout/product_scope_expandable"
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}"/>
+                app:viewModel="@{viewModel}" />
 
             <include
                 android:id="@+id/productExtrasLayout"
-                app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="20dp"
                 layout="@layout/product_extras_expandable"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                app:fragment="@{fragment}"
+                app:viewModel="@{viewModel}" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

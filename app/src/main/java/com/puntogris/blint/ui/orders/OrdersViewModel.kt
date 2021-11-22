@@ -13,6 +13,7 @@ import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,13 +23,13 @@ class OrdersViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _currentProduct = MutableStateFlow(ProductWithDetails())
-    val currentProduct: LiveData<ProductWithDetails> = _currentProduct.asLiveData()
+    val currentProduct = _currentProduct.asStateFlow()
 
-    private val _barcodeScanned = MutableLiveData<String>()
-    val barcodeScanned: LiveData<String> = _barcodeScanned
+    private val _barcodeScanned = MutableStateFlow("")
+    val barcodeScanned = _barcodeScanned.asStateFlow()
 
-    private val _order = MutableLiveData(OrderWithRecords())
-    val order: LiveData<OrderWithRecords> = _order
+    private val _order = MutableStateFlow(OrderWithRecords())
+    val order = _order.asStateFlow()
 
     fun updateOrder(orderWithRecords: OrderWithRecords) {
         _order.value = orderWithRecords
@@ -49,7 +50,7 @@ class OrdersViewModel @Inject constructor(
         _barcodeScanned.value = barcode
     }
 
-    fun getCodeScanned() = _barcodeScanned.value.toString()
+    fun getCodeScanned() = _barcodeScanned.value
 
 
 }

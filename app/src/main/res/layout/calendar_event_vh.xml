@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="event"
             type="com.puntogris.blint.model.Event" />
@@ -33,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:layout_marginStart="@dimen/spacing_medium"/>
+            android:layout_marginStart="@dimen/spacing_medium" />
 
         <TextView
             android:id="@+id/tvName"

@@ -1,9 +1,8 @@
-package com.puntogris.blint.ui.product
+package com.puntogris.blint.ui.product.details
 
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -11,15 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.Constants.PRODUCT_DATA_KEY
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.addOnTabSelectedListener
 import com.puntogris.blint.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +34,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24) {
             navigateToEditProductFragment()
         }
+
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
+
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.tab_data)
@@ -45,25 +45,17 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         }
 
         mediator?.attach()
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        UiInterface
-                            .setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
-                                navigateToEditProductFragment()
-                            }
-                    }
-                    else -> {
-                        UiInterface
-                            .setFabImageAndClickListener { showOrderPickerAndNavigate(args.productWithDetails?.product) }
-                    }
+
+        binding.tabLayout.addOnTabSelectedListener {
+            when (it) {
+                0 -> UiInterface.setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
+                    navigateToEditProductFragment()
+                }
+                else -> UiInterface.setFabImageAndClickListener {
+                    showOrderPickerAndNavigate(args.productWithDetails.product)
                 }
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
-            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
-        })
+        }
     }
 
     private fun navigateToEditProductFragment() {
@@ -80,7 +72,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         override fun createFragment(position: Int): Fragment =
             (if (position == 0) ProductDataFragment() else ProductRecordsFragment())
                 .apply {
-                    arguments = bundleOf(PRODUCT_DATA_KEY to args.productWithDetails)
+                    arguments = args.toBundle()
                 }
     }
 
@@ -100,7 +92,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 true
             }
             R.id.createOrder -> {
-                showOrderPickerAndNavigate(args.productWithDetails?.product)
+                showOrderPickerAndNavigate(args.productWithDetails.product)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -109,7 +101,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private fun onDeleteProductConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteProductDatabase(args.productWithDetails?.product!!.productId)) {
+            when (viewModel.deleteProductDatabase(args.productWithDetails.product.productId)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
                 SimpleResult.Success -> {

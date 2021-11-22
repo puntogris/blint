@@ -40,6 +40,7 @@ class ManageProductsFragment :
             viewModel.setQuery(it.toString())
         }
 
+
         findNavController().currentBackStackEntry?.savedStateHandle?.apply {
             getLiveData<String>(PRODUCT_BARCODE_KEY).observe(viewLifecycleOwner) {
                 it?.let { code -> binding.productSearch.setText(code) }

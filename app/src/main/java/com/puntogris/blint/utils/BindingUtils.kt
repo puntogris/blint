@@ -9,7 +9,6 @@ import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.children
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -18,7 +17,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.Timestamp
 import com.puntogris.blint.R
-import com.puntogris.blint.model.*
+import com.puntogris.blint.model.Category
+import com.puntogris.blint.model.Supplier
+import com.puntogris.blint.model.User
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
@@ -222,6 +223,17 @@ fun Chip.setExternalChipName(name: String) {
     }
 }
 
+@BindingAdapter("categoriesChips")
+fun ChipGroup.setCategoriesChips(categories: List<Category>) {
+    removeViews(1, categories.size - 1)
+    categories.forEach { category ->
+        val chip = Chip(context).apply {
+            text = category.categoryName.capitalizeFirstChar()
+        }
+        addView(chip)
+    }
+}
+
 @BindingAdapter("externalName")
 fun TextView.setExternalName(name: String) {
     text = if (name.isNotEmpty()) name.capitalizeFirstChar()
@@ -284,7 +296,6 @@ fun TextView.setDebtColorWithLimit(amount: Float) {
     }
 }
 
-
 @BindingAdapter("notificationImage")
 fun ImageView.setNotificationImage(uri: String) {
     Glide.with(context)
@@ -308,26 +319,22 @@ fun TextView.setTimeSinceCreated(timestamp: Timestamp) {
 }
 
 @BindingAdapter("productCategoriesChipGroup")
-fun ChipGroup.setProductCategoriesChip(categories: List<Category>?) {
-    val data = this.children.map { (it as Chip).text }
-    categories?.forEach {
-        if (!data.contains(it.categoryName)) {
-            val chip = Chip(context)
-            chip.text = it.categoryName.capitalizeFirstChar()
-            addView(chip)
+fun ChipGroup.setProductCategoriesChip(categories: List<Category>) {
+    categories.forEach {
+        val chip = Chip(context).apply {
+            text = it.categoryName.capitalizeFirstChar()
         }
+        addView(chip)
     }
 }
 
 @BindingAdapter("productSuppliersChipGroup")
-fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>?) {
-    val data = this.children.map { (it as Chip).text }
-    suppliers?.forEach {
-        if (!data.contains(it.companyName)) {
-            val chip = Chip(context)
-            chip.text = it.companyName.capitalizeFirstChar()
-            addView(chip)
+fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>) {
+    suppliers.forEach {
+        val chip = Chip(context).apply {
+            text = it.companyName.capitalizeFirstChar()
         }
+        addView(chip)
     }
 }
 

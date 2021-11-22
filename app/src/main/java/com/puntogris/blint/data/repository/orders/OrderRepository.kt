@@ -3,10 +3,13 @@ package com.puntogris.blint.data.repository.orders
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.room.withTransaction
 import com.puntogris.blint.R
+import com.puntogris.blint.data.data_source.local.AppDatabase
 import com.puntogris.blint.data.data_source.local.dao.*
 import com.puntogris.blint.data.data_source.toOrderWithRecords
 import com.puntogris.blint.model.order.NewOrder
+import com.puntogris.blint.model.order.OrderRecordCrossRef
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.utils.Constants
@@ -27,11 +30,14 @@ class OrderRepository @Inject constructor(
     private val businessDao: BusinessDao,
     private val ordersDao: OrdersDao,
     private val productsDao: ProductsDao,
-    private val dispatcher: DispatcherProvider
+    private val dispatcher: DispatcherProvider,
+    private val appDatabase: AppDatabase
 ) : IOrdersRepository {
 
     override fun saveOrder(newOrder: NewOrder): Flow<RepoResult<Unit>> = flow {
         try {
+            emit(RepoResult.InProgress)
+
             val business = businessDao.getCurrentBusiness()
             val statistics = statisticsDao.getStatistics()
 
@@ -55,8 +61,18 @@ class OrderRepository @Inject constructor(
                 )
             }
 
-            statisticsDao.incrementTotalOrders()
-            ordersDao.insertOrder(orderWithRecords)
+            val recordRefs = orderWithRecords.records.map {
+                OrderRecordCrossRef(
+                    orderWithRecords.order.orderId,
+                    it.recordId
+                )
+            }
+
+            appDatabase.withTransaction {
+                statisticsDao.incrementTotalOrders()
+                ordersDao.insertOrder(orderWithRecords)
+                ordersDao.insertOrderRecordsCrossRef(recordRefs)
+            }
 
             emit(RepoResult.Success(Unit))
         } catch (e: Exception) {

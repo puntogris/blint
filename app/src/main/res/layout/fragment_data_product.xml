@@ -7,11 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.product.ProductDataFragment" />
+            type="com.puntogris.blint.ui.product.details.ProductDataFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.product.ProductViewModel" />
+            type="com.puntogris.blint.ui.product.details.ProductViewModel" />
     </data>
 
 
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_gravity="center"
-                        android:text="@string/description"/>
+                        android:text="@string/description" />
 
                     <TextView
                         android:id="@+id/textView19"
@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@string/name"/>
+                        android:text="@string/name" />
 
                     <TextView
                         android:id="@+id/productName"
@@ -70,14 +70,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@string/barcode"/>
+                        android:text="@string/barcode" />
 
                     <TextView
                         android:id="@+id/productBarcode"
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentProduct.product.barcode}"/>
+                        android:text="@{viewModel.currentProduct.product.barcode}" />
 
                     <TextView
                         android:id="@+id/textView218"
@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@string/description"/>
+                        android:text="@string/description" />
 
                     <TextView
                         android:id="@+id/productDescription"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="@{viewModel.currentProduct.product.description}"/>
+                        android:text="@{viewModel.currentProduct.product.description}" />
 
                     <TextView
                         android:id="@+id/textView39"
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="24dp"
-                        android:text="@string/suppliers_and_categories"/>
+                        android:text="@string/suppliers_and_categories" />
 
                     <TextView
                         android:id="@+id/textView362"
@@ -265,7 +265,7 @@
                         android:layout_gravity="start"
                         removeListVisibility="@{viewModel.currentProduct.suppliers}"
                         android:layout_marginTop="24dp"
-                        android:text="@string/suppliers_label"/>
+                        android:text="@string/suppliers_label" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/supplierChipGroup"
@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         removeListVisibility="@{viewModel.currentProduct.categories}"
-                        android:text="@string/categories_label"/>
+                        android:text="@string/categories_label" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/categoriesChipGroup"
