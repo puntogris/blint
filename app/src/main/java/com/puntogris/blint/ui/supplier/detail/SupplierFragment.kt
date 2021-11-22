@@ -1,9 +1,8 @@
-package com.puntogris.blint.ui.supplier
+package com.puntogris.blint.ui.supplier.detail
 
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -18,8 +17,6 @@ import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.toTrader
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.Constants
-import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,7 +58,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
         override fun createFragment(position: Int): Fragment =
             (if (position == 0) SupplierDataFragment() else SupplierRecordsFragment())
                 .apply {
-                    arguments = bundleOf(SUPPLIER_DATA_KEY to args.supplier)
+                    arguments = args.toBundle()
                 }
     }
 
@@ -94,7 +91,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
 
     private fun onDeleteSupplierConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteSupplierDatabase(args.supplier.supplierId)) {
+            when (viewModel.deleteSupplier(args.supplier.supplierId)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_supplier_error))
                 SimpleResult.Success -> {

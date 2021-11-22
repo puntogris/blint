@@ -1,5 +1,6 @@
-package com.puntogris.blint.ui.supplier
+package com.puntogris.blint.ui.supplier.detail
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
@@ -11,12 +12,9 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierDataBinding
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
 import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +22,8 @@ class SupplierDataFragment :
     BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
 
     private val viewModel: SupplierViewModel by viewModels()
-    lateinit var requestPermissionContact: ActivityResultLauncher<String>
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
     private var permissionCode = 0
 
     override fun initializeViews() {
@@ -33,14 +31,12 @@ class SupplierDataFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY) {
-            viewModel.setSupplierData(it)
-        }
+        setupContactPickerLauncher()
+        setupContactPermissionLauncher()
+    }
 
-        activityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
-
-        requestPermissionContact =
+    private fun setupContactPermissionLauncher() {
+        contactPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
@@ -49,44 +45,55 @@ class SupplierDataFragment :
                         if (permissionCode == 1) {
                             putExtra(
                                 ContactsContract.Intents.Insert.NAME,
-                                viewModel.currentSupplier.value!!.companyName
+                                viewModel.currentSupplier.value.companyName
                             )
                             putExtra(
                                 ContactsContract.Intents.Insert.PHONE,
-                                viewModel.currentSupplier.value!!.companyPhone
+                                viewModel.currentSupplier.value.companyPhone
                             )
                             putExtra(
                                 ContactsContract.Intents.Insert.EMAIL,
-                                viewModel.currentSupplier.value!!.companyEmail
+                                viewModel.currentSupplier.value.companyEmail
                             )
                         } else {
                             putExtra(
                                 ContactsContract.Intents.Insert.NAME,
-                                viewModel.currentSupplier.value!!.sellerName
+                                viewModel.currentSupplier.value.sellerName
                             )
                             putExtra(
                                 ContactsContract.Intents.Insert.PHONE,
-                                viewModel.currentSupplier.value!!.sellerPhone
+                                viewModel.currentSupplier.value.sellerPhone
                             )
                             putExtra(
                                 ContactsContract.Intents.Insert.EMAIL,
-                                viewModel.currentSupplier.value!!.sellerEmail
+                                viewModel.currentSupplier.value.sellerEmail
                             )
                         }
-                    }.also { activityResultLauncher.launch(it) }
+                    }.also { contactPickerLauncher.launch(it) }
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
 
+    private fun setupContactPickerLauncher() {
+        contactPickerLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                val resultMessage =
+                    if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
+                    else R.string.snack_an_error_occurred
+                UiInterface.showSnackBar(getString(resultMessage))
+            }
+
+    }
+
     fun onCreateContactClicked(code: Int) {
         permissionCode = code
-        requestPermissionContact.launch(android.Manifest.permission.WRITE_CONTACTS)
+        contactPermissionLauncher.launch(android.Manifest.permission.WRITE_CONTACTS)
     }
 
     fun onEmailButtonClicked(code: Int) {
         val email =
-            if (code == 0) viewModel.currentSupplier.value!!.companyEmail
-            else viewModel.currentSupplier.value!!.sellerEmail
+            if (code == 0) viewModel.currentSupplier.value.companyEmail
+            else viewModel.currentSupplier.value.sellerEmail
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:$email")
         }
@@ -97,8 +104,8 @@ class SupplierDataFragment :
 
     fun onPhoneButtonClicked(code: Int) {
         val phone =
-            if (code == 0) viewModel.currentSupplier.value!!.companyPhone
-            else viewModel.currentSupplier.value!!.sellerPhone
+            if (code == 0) viewModel.currentSupplier.value.companyPhone
+            else viewModel.currentSupplier.value.sellerPhone
         OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(

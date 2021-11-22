@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.client
+package com.puntogris.blint.ui.client.create_edit
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,14 +11,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditClientBinding
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
+import com.puntogris.blint.ui.client.detail.ClientViewModel
 import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.getFloat
-import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +25,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.fragment_edit_client) {
 
-    private val viewModel: ClientViewModel by viewModels()
-    private val args: EditClientFragmentArgs by navArgs()
-    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private val viewModel: EditClientViewModel by viewModels()
+    private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -39,16 +35,15 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
         binding.lifecycleOwner = viewLifecycleOwner
 
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
-            viewModel.updateClientData(getClientFromViews())
             when (val validator = StringValidator.from(
-                viewModel.currentClient.value!!.name,
+                viewModel.currentClient.value.name,
                 allowSpecialChars = true,
                 isName = true,
                 maxLength = 20
             )) {
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
-                        when (viewModel.saveClientDatabase()) {
+                        when (viewModel.saveClient()) {
                             SimpleResult.Failure ->
                                 UiInterface.showSnackBar(getString(R.string.snack_save_client_error))
                             SimpleResult.Success -> {
@@ -59,11 +54,15 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                     }
                 }
                 is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
-
             }
         }
 
-        activityResultLauncher =
+        setupContactPickerLauncher()
+        setupContactPermissions()
+    }
+
+    private fun setupContactPickerLauncher() {
+        contactPickerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     result.data?.let {
@@ -92,25 +91,17 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
                     }
                 }
             }
-
-        setupContactPermissions()
-
-        lifecycleScope.launch {
-            args.client?.let {
-                viewModel.setClientData(it)
-            }
-        }
     }
 
     private fun setupContactPermissions() {
-        requestPermissionLauncher =
+        contactPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
                     val intent = Intent(Intent.ACTION_PICK).apply {
                         type = ContactsContract.Contacts.CONTENT_TYPE
                     }
-                    activityResultLauncher.launch(intent)
+                    contactPickerLauncher.launch(intent)
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
 
             }
@@ -202,17 +193,6 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
     }
 
     fun onAddClientFromContactsClicked() {
-        requestPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-    }
-
-    private fun getClientFromViews(): Client {
-        return Client(
-            name = binding.clientInformationLayout.clientNameText.getString(),
-            address = binding.clientInformationLayout.clientAddressText.getString(),
-            email = binding.clientInformationLayout.clientEmailText.getString(),
-            phone = binding.clientInformationLayout.clientPhoneNumberText.getString(),
-            paymentInfo = binding.clientExtrasLayout.clientPaymentInfoText.getString(),
-            discount = binding.clientExtrasLayout.clientDiscountText.getFloat()
-        )
+        contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
     }
 }

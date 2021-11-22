@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/category_product_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/client_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_information_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
@@ -35,6 +36,7 @@
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.175" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.21388888888888888" />
         <entry key="app/src/main/res/layout/fragment_client_data.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_client_records.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_create_order.xml" value="0.1" />
@@ -76,6 +78,7 @@
         <entry key="app/src/main/res/layout/fragment_show_debts.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier_data.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_supplier_records.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_sync_account.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_sync_account2.xml" value="0.23402777777777778" />
         <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.234375" />
@@ -106,6 +109,8 @@
         <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/layout/simple_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
+        <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/supplier_seller_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_app_bar_home_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_app_bar_settings_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_nav_drawer_menu.xml" value="0.234375" />

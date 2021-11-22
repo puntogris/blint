@@ -1,16 +1,12 @@
-package com.puntogris.blint.ui.supplier
+package com.puntogris.blint.ui.supplier.detail
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentSupplierRecordsBinding
 import com.puntogris.blint.model.order.Record
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
-import com.puntogris.blint.utils.Constants.SUPPLIER_DATA_KEY
-import com.puntogris.blint.utils.takeArgsIfNotNull
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -21,18 +17,20 @@ class SupplierRecordsFragment :
     private val viewModel: SupplierViewModel by viewModels()
 
     override fun initializeViews() {
-        val recordsAdapter = RecordsAdapter { onRecordClickListener(it) }
+        setupRecordsAdapter()
+    }
 
-        binding.recyclerView.apply {
-            adapter = recordsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+    private fun setupRecordsAdapter() {
+        RecordsAdapter { onRecordClickListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
+    }
 
-        takeArgsIfNotNull<Supplier>(SUPPLIER_DATA_KEY) {
-            lifecycleScope.launchWhenStarted {
-                viewModel.getSupplierRecords(it.supplierId).collect {
-                    recordsAdapter.submitData(it)
-                }
+    private fun subscribeUi(adapter: RecordsAdapter) {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.supplierRecords.collect {
+                adapter.submitData(it)
             }
         }
     }

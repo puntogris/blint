@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.client
+package com.puntogris.blint.ui.client.detail
 
 import android.app.Activity
 import android.content.Intent
@@ -12,20 +12,17 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientDataBinding
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import com.puntogris.blint.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.takeArgsIfNotNull
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.fragment_client_data) {
 
     private val viewModel: ClientViewModel by viewModels()
-    lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.let {
@@ -34,13 +31,12 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
             it.lifecycleOwner = viewLifecycleOwner
         }
 
-        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY) {
-            viewModel.setClientData(it)
-        }
-
+        setupContactPickerLauncher()
         setupContactPermissions()
+    }
 
-        activityResultLauncher =
+    private fun setupContactPickerLauncher() {
+        contactPickerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 val resultMessage =
                     if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
@@ -50,7 +46,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
     }
 
     private fun setupContactPermissions() {
-        requestPermissionLauncher =
+        contactPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
@@ -58,75 +54,56 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                         type = ContactsContract.Contacts.CONTENT_TYPE
                         putExtra(
                             ContactsContract.Intents.Insert.NAME,
-                            viewModel.currentClient.value!!.name
+                            viewModel.currentClient.value.name
                         )
                         putExtra(
                             ContactsContract.Intents.Insert.PHONE,
-                            viewModel.currentClient.value!!.phone
+                            viewModel.currentClient.value.phone
                         )
                         putExtra(
                             ContactsContract.Intents.Insert.EMAIL,
-                            viewModel.currentClient.value!!.email
+                            viewModel.currentClient.value.email
                         )
                         putExtra(
                             ContactsContract.Intents.Insert.POSTAL,
-                            viewModel.currentClient.value!!.address
+                            viewModel.currentClient.value.address
                         )
                     }
-                    activityResultLauncher.launch(intent)
+                    contactPickerLauncher.launch(intent)
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
 
     fun onAddContactButtonClicked() {
-        requestPermissionLauncher.launch(android.Manifest.permission.WRITE_CONTACTS)
+        contactPermissionLauncher.launch(android.Manifest.permission.WRITE_CONTACTS)
     }
 
     fun onPhoneButtonClicked() {
-        OptionsSheet().build(requireContext()) {
+        OptionsSheet().show(requireParentFragment().requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
-                Option(
-                    R.drawable.ic_baseline_call_24,
-                    this@ClientDataFragment.getString(R.string.action_call)
-                ),
-                Option(
-                    R.drawable.ic_baseline_message_24,
-                    this@ClientDataFragment.getString(R.string.action_message)
-                ),
-                Option(
-                    R.drawable.ic_whatsapp,
-                    this@ClientDataFragment.getString(R.string.action_whats_app)
-                )
+                Option(R.drawable.ic_baseline_call_24, R.string.action_call),
+                Option(R.drawable.ic_baseline_message_24, R.string.action_message),
+                Option(R.drawable.ic_whatsapp, R.string.action_whats_app)
             )
             onPositive { index: Int, _: Option ->
-                val phone = viewModel.currentClient.value!!.phone
-                when (index) {
-                    0 -> {
-                        val uri = Uri.fromParts("tel", phone, null)
-                        val intent = Intent(Intent.ACTION_DIAL, uri)
-                        activityResultLauncher.launch(intent)
-                    }
-                    1 -> {
-                        val uri = Uri.parse("smsto:$phone")
-                        val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        activityResultLauncher.launch(intent)
-                    }
-                    2 -> {
-                        val uri = Uri.parse("smsto:$phone")
-                        val intent = Intent(Intent.ACTION_SENDTO, uri)
-                        intent.setPackage(WHATS_APP_PACKAGE)
-                        activityResultLauncher.launch(intent)
-                    }
+                val phone = viewModel.currentClient.value.phone
+                if (index == 0) {
+                    Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
+                } else {
+                    Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$phone"))
+                }.also {
+                    if (index == 2) it.setPackage(WHATS_APP_PACKAGE)
+                    contactPickerLauncher.launch(it)
                 }
             }
-        }.show(parentFragmentManager, "")
+        }
     }
 
     fun onEmailButtonClicked() {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:${viewModel.currentClient.value!!.email}")
+            data = Uri.parse("mailto:${viewModel.currentClient.value.email}")
         }
-        activityResultLauncher.launch(intent)
+        contactPickerLauncher.launch(intent)
     }
 }

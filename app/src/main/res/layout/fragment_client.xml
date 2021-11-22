@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.client.ClientFragment">
+        tools:context=".ui.client.detail.ClientFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"

@@ -36,6 +36,7 @@ class EditProductFragment :
             saveProduct()
         }
 
+        //todo use databinding for this or remove it
         if (viewModel.currentProduct.value.product.productId.isEmpty()) {
             binding.pricesLayout.apply {
                 productAmount.visible()

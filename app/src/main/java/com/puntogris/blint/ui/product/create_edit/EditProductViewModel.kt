@@ -25,7 +25,7 @@ class EditProductViewModel @Inject constructor(
     private val _currentProduct = MutableStateFlow(productWithDetails)
     val currentProduct = _currentProduct.asStateFlow()
 
-    suspend fun saveProduct(): SimpleResult = productRepository.saveProduct(_currentProduct.value)
+    suspend fun saveProduct(): SimpleResult = productRepository.saveProduct(currentProduct.value)
 
     fun updateProductImage(image: String) {
         _currentProduct.value.product.image = image

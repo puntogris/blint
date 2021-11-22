@@ -145,5 +145,4 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
         preview = null
         super.onDestroyView()
     }
-
 }

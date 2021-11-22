@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.supplier
+package com.puntogris.blint.ui.supplier.create_edit
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,29 +11,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditSupplierBinding
-import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
-import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 
 @SuppressLint("Range")
 @AndroidEntryPoint
 class EditSupplierFragment :
     BaseFragment<FragmentEditSupplierBinding>(R.layout.fragment_edit_supplier) {
 
-    private val viewModel: SupplierViewModel by viewModels()
-    private val args: EditSupplierFragmentArgs by navArgs()
-    lateinit var requestPermissionContact: ActivityResultLauncher<String>
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
-    private var activityResultCode = 0
+    private val viewModel: EditSupplierViewModel by viewModels()
+    lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
+    private var contactPickerResultCode = 0
 
     override fun initializeViews() {
         binding.fragment = this
@@ -41,16 +36,15 @@ class EditSupplierFragment :
         binding.lifecycleOwner = viewLifecycleOwner
 
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
-            viewModel.updateSupplierData(getSupplierFromViews())
             when (val validator = StringValidator.from(
-                viewModel.currentSupplier.value!!.companyName,
+                viewModel.currentSupplier.value.companyName,
                 allowSpecialChars = true,
                 isName = true,
                 maxLength = 20
             )) {
                 is StringValidator.Valid -> {
                     lifecycleScope.launch {
-                        when (viewModel.saveSupplierDatabase()) {
+                        when (viewModel.saveSupplier()) {
                             SimpleResult.Failure ->
                                 UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
                             SimpleResult.Success -> {
@@ -64,15 +58,12 @@ class EditSupplierFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            args.supplier?.let {
-                viewModel.setSupplierData(it)
-            }
-        }
+        setupContactPickerLauncher()
+        setupContactPermissions()
+    }
 
-        requestPermissionContact = getPermissionLauncher()
-
-        activityResultLauncher =
+    private fun setupContactPickerLauncher() {
+        contactPickerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     result.data?.let {
@@ -91,9 +82,11 @@ class EditSupplierFragment :
                                 val lookUpKey =
                                     cursor.getString(cursor.getColumnIndex(ContactsContract.Data.LOOKUP_KEY))
                                 if (lookUpKey != null) {
-                                    getEmailWithLookUpKey(lookUpKey, activityResultCode)
-                                    getPhoneAndNameWithLookUpKey(lookUpKey, activityResultCode)
-                                    if (activityResultCode == 1) loadAddressWithLookUpKey(lookUpKey)
+                                    getEmailWithLookUpKey(lookUpKey, contactPickerResultCode)
+                                    getPhoneAndNameWithLookUpKey(lookUpKey, contactPickerResultCode)
+                                    if (contactPickerResultCode == 1) loadAddressWithLookUpKey(
+                                        lookUpKey
+                                    )
                                 }
                             }
                         }
@@ -101,24 +94,25 @@ class EditSupplierFragment :
                     }
                 }
             }
+    }
 
+    private fun setupContactPermissions() {
+        contactPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission())
+            { isGranted: Boolean ->
+                if (isGranted) {
+                    val intent = Intent(Intent.ACTION_PICK).apply {
+                        type = ContactsContract.Contacts.CONTENT_TYPE
+                    }
+                    contactPickerLauncher.launch(intent)
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+            }
     }
 
     fun onAddContactInfoClicked(code: Int) {
-        activityResultCode = code
-        requestPermissionContact.launch(Manifest.permission.READ_CONTACTS)
+        contactPickerResultCode = code
+        contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
     }
-
-    private fun getPermissionLauncher() =
-        registerForActivityResult(ActivityResultContracts.RequestPermission())
-        { isGranted: Boolean ->
-            if (isGranted) {
-                val intent = Intent(Intent.ACTION_PICK).apply {
-                    type = ContactsContract.Contacts.CONTENT_TYPE
-                }
-                activityResultLauncher.launch(intent)
-            } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
-        }
 
     private fun getEmailWithLookUpKey(key: String, requestCode: Int) {
         val emailWhere =
@@ -219,19 +213,5 @@ class EditSupplierFragment :
         }
 
         cursorPhone?.close()
-    }
-
-    private fun getSupplierFromViews(): Supplier {
-        return Supplier(
-            companyName = binding.companyLayout.supplierCompanyNameText.getString(),
-            companyPhone = binding.companyLayout.supplierCompanyPhoneText.getString(),
-            address = binding.companyLayout.supplierCompanyAddressText.getString(),
-            companyEmail = binding.companyLayout.supplierCompanyEmailText.getString(),
-            companyPaymentInfo = binding.supplierExtrasLayout.supplierPaymentInfoText.getString(),
-            sellerEmail = binding.sellerLayout.supplierSellerEmailText.getString(),
-            sellerName = binding.sellerLayout.supplierSellerNameText.getString(),
-            sellerPhone = binding.sellerLayout.supplierSellerPhoneText.getString(),
-            notes = binding.supplierExtrasLayout.supplierNotesText.getString()
-        )
     }
 }

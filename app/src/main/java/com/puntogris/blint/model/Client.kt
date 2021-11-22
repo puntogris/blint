@@ -20,19 +20,19 @@ data class Client(
     var name: String = "",
 
     @ColumnInfo
-    val address: String = "",
+    var address: String = "",
 
     @ColumnInfo
-    val email: String = "",
+    var email: String = "",
 
     @ColumnInfo
-    val phone: String = "",
+    var phone: String = "",
 
     @ColumnInfo
-    val paymentInfo: String = "",
+    var paymentInfo: String = "",
 
     @ColumnInfo
-    val discount: Float = 0F,
+    var discount: Float = 0F,
 
     @ColumnInfo
     var businessId: String = "",

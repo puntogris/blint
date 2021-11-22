@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
+            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.EditSupplierFragment" />
+            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -53,6 +53,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateSupplierSellerName}"
                         capitalizeWord="@{viewModel.currentSupplier.sellerName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +90,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateSupplierSellerPhone}"
                         android:text="@{viewModel.currentSupplier.sellerPhone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +116,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateSupplierSellerEmail}"
                         android:text="@{viewModel.currentSupplier.sellerEmail}" />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.SupplierViewModel" />
+            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.EditSupplierFragment" />
+            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -53,6 +53,7 @@
                         android:imeOptions="actionDone"
                         android:singleLine="true"
                         android:maxLength="20"
+                        android:afterTextChanged="@{viewModel::updateSupplierCompanyName}"
                         capitalizeWord="@{viewModel.currentSupplier.companyName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +90,7 @@
                         android:inputType="textCapWords"
                         android:imeOptions="actionDone"
                         android:singleLine="true"
+                        android:afterTextChanged="@{viewModel::updateSupplierCompanyPhone}"
                         android:text="@{viewModel.currentSupplier.companyPhone}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +114,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateSupplierCompanyEmail}"
                         android:text="@{viewModel.currentSupplier.companyEmail}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +140,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateSupplierAddress}"
                         android:text="@{viewModel.currentSupplier.address}" />
 
                 </com.google.android.material.textfield.TextInputLayout>

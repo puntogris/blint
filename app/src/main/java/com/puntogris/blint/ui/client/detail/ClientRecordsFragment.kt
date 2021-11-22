@@ -1,19 +1,14 @@
-package com.puntogris.blint.ui.client
+package com.puntogris.blint.ui.client.detail
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentClientRecordsBinding
-import com.puntogris.blint.model.Client
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.ui.orders.manage.RecordsAdapter
-import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
-import com.puntogris.blint.utils.takeArgsIfNotNull
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ClientRecordsFragment :
@@ -22,18 +17,20 @@ class ClientRecordsFragment :
     private val viewModel: ClientViewModel by viewModels()
 
     override fun initializeViews() {
-        val recordsAdapter = RecordsAdapter { onRecordClickListener(it) }
+        setupRecordsAdapter()
+    }
 
-        binding.recyclerView.apply {
-            adapter = recordsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+    private fun setupRecordsAdapter() {
+        RecordsAdapter { onRecordClickListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
+    }
 
-        takeArgsIfNotNull<Client>(CLIENT_DATA_KEY) {
-            lifecycleScope.launch {
-                viewModel.getClientsRecords(it.clientId).collect {
-                    recordsAdapter.submitData(it)
-                }
+    private fun subscribeUi(adapter: RecordsAdapter) {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.clientsRecords.collect {
+                adapter.submitData(it)
             }
         }
     }

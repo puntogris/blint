@@ -1,16 +1,10 @@
 package com.puntogris.blint.ui.orders
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.model.order.OrderWithRecords
-import com.puntogris.blint.model.order.Record
-import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
-import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,13 +38,9 @@ class OrdersViewModel @Inject constructor(
     suspend fun getProductWithBarCode(barcode: String) =
         productRepository.getProductWithBarcode(barcode)
 
-    fun getProductID() = _currentProduct.value.product.productId
-
     fun updateBarcodeScanned(barcode: String) {
         _barcodeScanned.value = barcode
     }
 
     fun getCodeScanned() = _barcodeScanned.value
-
-
 }

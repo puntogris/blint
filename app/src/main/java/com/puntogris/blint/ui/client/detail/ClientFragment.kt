@@ -1,9 +1,8 @@
-package com.puntogris.blint.ui.client
+package com.puntogris.blint.ui.client.detail
 
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.NonNull
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -18,8 +17,6 @@ import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.toTrader
 import com.puntogris.blint.ui.base.BaseFragmentOptions
-import com.puntogris.blint.utils.Constants
-import com.puntogris.blint.utils.Constants.CLIENT_DATA_KEY
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +56,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
         override fun createFragment(position: Int): Fragment =
             (if (position == 0) ClientDataFragment() else ClientRecordsFragment())
                 .apply {
-                    arguments = bundleOf(CLIENT_DATA_KEY to args.client)
+                    arguments = args.toBundle()
                 }
     }
 
@@ -91,7 +88,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     private fun onDeleteClientConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteClientDatabase(args.client.clientId)) {
+            when (viewModel.deleteClient(args.client.clientId)) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_client_error))
                 SimpleResult.Success -> {

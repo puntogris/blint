@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.client.ClientViewModel" />
+            type="com.puntogris.blint.ui.client.create_edit.EditClientViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.client.EditClientFragment" />
+            type="com.puntogris.blint.ui.client.create_edit.EditClientFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -53,6 +53,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:singleLine="true"
+                        android:afterTextChanged="@{viewModel::updateClientPaymentInfo}"
                         android:text="@{viewModel.currentClient.paymentInfo}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -77,6 +78,7 @@
                         android:id="@+id/clientDiscountText"
                         emptyEditTextWithNumber="@{viewModel.currentClient.discount}"
                         android:layout_width="match_parent"
+                        android:afterTextChanged="@{viewModel::updateClientDiscount}"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="numberDecimal"

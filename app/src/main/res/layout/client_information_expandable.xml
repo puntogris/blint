@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.client.ClientViewModel" />
+            type="com.puntogris.blint.ui.client.create_edit.EditClientViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.client.EditClientFragment" />
+            type="com.puntogris.blint.ui.client.create_edit.EditClientFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -51,6 +51,7 @@
                         android:imeOptions="actionDone"
                         android:maxLength="20"
                         android:singleLine="true"
+                        android:afterTextChanged="@{viewModel::updateClientName}"
                         capitalizeWord="@{viewModel.currentClient.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +90,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateClientPhone}"
                         android:text="@{viewModel.currentClient.phone}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +115,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateClientEmail}"
                         android:text="@{viewModel.currentClient.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +142,7 @@
                         android:inputType="textCapWords"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:afterTextChanged="@{viewModel::updateClientAddress}"
                         android:text="@{viewModel.currentClient.address}"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

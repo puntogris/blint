@@ -11,11 +11,14 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
 import android.os.Parcelable
+import android.provider.ContactsContract
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DimenRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
@@ -350,7 +353,6 @@ fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
 }
 
 inline fun TabLayout.addOnTabSelectedListener(crossinline block : (Int) -> Unit){
-
     addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             block(tab?.position ?: return)

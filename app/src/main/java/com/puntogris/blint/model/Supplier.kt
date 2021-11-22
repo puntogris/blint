@@ -20,28 +20,28 @@ data class Supplier(
     var companyName: String = "",
 
     @ColumnInfo
-    val companyPhone: String = "",
+    var companyPhone: String = "",
 
     @ColumnInfo
-    val address: String = "",
+    var address: String = "",
 
     @ColumnInfo
-    val companyEmail: String = "",
+    var companyEmail: String = "",
 
     @ColumnInfo
-    val sellerName: String = "",
+    var sellerName: String = "",
 
     @ColumnInfo
-    val sellerEmail: String = "",
+    var sellerEmail: String = "",
 
     @ColumnInfo
-    val sellerPhone: String = "",
+    var sellerPhone: String = "",
 
     @ColumnInfo
-    val companyPaymentInfo: String = "",
+    var companyPaymentInfo: String = "",
 
     @ColumnInfo
-    val notes: String = "",
+    var notes: String = "",
 
     @ColumnInfo
     var businessId: String = "",
