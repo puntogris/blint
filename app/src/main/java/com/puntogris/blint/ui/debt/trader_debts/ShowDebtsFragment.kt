@@ -5,7 +5,6 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentShowDebtsBinding
 import com.puntogris.blint.model.SimpleDebt
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.debt.manage.ManageDebtsViewModel
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint

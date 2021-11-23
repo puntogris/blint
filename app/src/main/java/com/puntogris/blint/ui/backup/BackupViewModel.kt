@@ -13,17 +13,17 @@ import javax.inject.Inject
 @HiltViewModel
 class BackupViewModel @Inject constructor(
     private val repository: BackupRepository
-):ViewModel() {
+) : ViewModel() {
 
     val backupState = MutableSharedFlow<BackupState>()
 
-    fun backupBusiness(path: String){
+    fun backupBusiness(path: String) {
         viewModelScope.launch {
             backupState.emitAll(repository.createBackup(path))
         }
     }
 
-    fun restoreBackup(path: String){
+    fun restoreBackup(path: String) {
         viewModelScope.launch {
             backupState.emitAll(repository.restoreBackup(path))
         }

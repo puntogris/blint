@@ -2,9 +2,7 @@ package com.puntogris.blint.ui.product.categories
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.puntogris.blint.diffcallback.CategoryDiffCallBack
 import com.puntogris.blint.diffcallback.CheckableCategoryDiffCallBack
-import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.CheckableCategory
 
 class ProductCategoryAdapter(private val clickListener: (CheckableCategory) -> Unit) :

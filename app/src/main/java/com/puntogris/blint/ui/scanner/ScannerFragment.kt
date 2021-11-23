@@ -100,7 +100,10 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                         ScannerFragmentDirections.actionScannerFragmentToScannerResultDialog(it)
                     findNavController().navigate(action)
                 } else {
-                    setFragmentResult(Constants.SCANNER_RESULT_KEY, bundleOf(PRODUCT_BARCODE_KEY to it))
+                    setFragmentResult(
+                        Constants.SCANNER_RESULT_KEY,
+                        bundleOf(PRODUCT_BARCODE_KEY to it)
+                    )
                     findNavController().navigateUp()
                 }
             }

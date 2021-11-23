@@ -22,7 +22,7 @@ class TicketsViewModel @Inject constructor(
         ticket.reason = reason
     }
 
-    fun updateTicketMessage(editable: Editable){
+    fun updateTicketMessage(editable: Editable) {
         ticket.message = editable.toString()
     }
 }

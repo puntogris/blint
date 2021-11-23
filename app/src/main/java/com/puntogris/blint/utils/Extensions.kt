@@ -5,25 +5,18 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
 import android.os.Parcelable
-import android.provider.ContactsContract
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DimenRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -42,8 +35,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.Timestamp
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
@@ -149,8 +140,11 @@ fun Timestamp.getMonth() =
     SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
 
 fun Flow<PagingData<Event>>.toEventUiFlow(): Flow<PagingData<EventUi>> {
-    return map { pagingData -> pagingData.map {
-        EventUi.EventItem(it) } }
+    return map { pagingData ->
+        pagingData.map {
+            EventUi.EventItem(it)
+        }
+    }
         .map {
             it.insertSeparators { before, after ->
 
@@ -232,6 +226,7 @@ fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int) {
     repeatCount = 0
     playAnimation()
 }
+
 fun LottieAnimationView.playAnimationInfinite(@RawRes animation: Int) {
     visible()
     setAnimation(animation)
@@ -301,11 +296,12 @@ fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
     }
 }
 
-inline fun TabLayout.addOnTabSelectedListener(crossinline block : (Int) -> Unit){
+inline fun TabLayout.addOnTabSelectedListener(crossinline block: (Int) -> Unit) {
     addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             block(tab?.position ?: return)
         }
+
         override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
         override fun onTabReselected(tab: TabLayout.Tab?) = Unit
     })

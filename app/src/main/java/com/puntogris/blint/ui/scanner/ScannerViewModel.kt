@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,7 +12,7 @@ import javax.inject.Inject
 class ScannerViewModel @Inject constructor(
     private val repository: ProductRepository,
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
     private val barcode = savedStateHandle.get<String>("barcode") ?: ""
 

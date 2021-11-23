@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
 import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.repository.main.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

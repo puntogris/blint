@@ -17,7 +17,8 @@ class ProductViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val productWithDetails = savedStateHandle.get<ProductWithDetails>("productWithDetails")!!
+    private val productWithDetails =
+        savedStateHandle.get<ProductWithDetails>("productWithDetails")!!
 
     private val _currentProduct = MutableStateFlow(productWithDetails)
     val currentProduct = _currentProduct.asStateFlow()

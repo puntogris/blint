@@ -10,6 +10,6 @@ class Ticket(
     var message: String = "",
     var timestamp: Timestamp = Timestamp.now(),
     var reason: String = ""
-){
+) {
     fun isValid() = message.isNotBlank() && reason.isNotBlank()
 }

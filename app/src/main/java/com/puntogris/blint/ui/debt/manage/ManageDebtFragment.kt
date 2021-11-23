@@ -26,14 +26,14 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         setupDebtsAdapter()
     }
 
-    private fun setupDebtsAdapter(){
+    private fun setupDebtsAdapter() {
         ManageDebtsAdapter { onDebtClicked(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }
     }
 
-    private fun subscribeUi(adapter: ManageDebtsAdapter){
+    private fun subscribeUi(adapter: ManageDebtsAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.debtsFlow.collect {
                 adapter.submitData(it)
@@ -41,7 +41,7 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         }
     }
 
-    private fun onDebtClicked(debt: Debt){
+    private fun onDebtClicked(debt: Debt) {
 
     }
 

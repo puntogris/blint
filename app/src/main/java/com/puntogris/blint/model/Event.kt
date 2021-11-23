@@ -15,7 +15,7 @@ import kotlinx.parcelize.Parcelize
 data class Event(
 
     @PrimaryKey(autoGenerate = false)
-    var eventId:  String = UUIDGenerator.randomUUID(),
+    var eventId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     var timestamp: Timestamp = Timestamp.now(),

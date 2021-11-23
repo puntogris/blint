@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentEditClientBinding
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.ui.client.detail.ClientViewModel
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator

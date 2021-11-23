@@ -11,8 +11,6 @@ import com.puntogris.blint.utils.Constants.USERS_PATH
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.Util.copyFile
 import com.puntogris.blint.utils.types.BackupState
-import com.puntogris.blint.utils.types.RepoResult
-import com.puntogris.blint.utils.types.SimpleRepoResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -54,7 +52,7 @@ class BackupRepository @Inject constructor(
         }
     }.flowOn(dispatcher.io)
 
-    override fun createBackup(path: String):  Flow<BackupState> = flow {
+    override fun createBackup(path: String): Flow<BackupState> = flow {
         try {
             emit(BackupState.Loading)
             appDatabase.close()

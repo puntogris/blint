@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.databinding.CategoryProductVhBinding
-import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.CheckableCategory
 
 class ProductCategoryViewHolder private constructor(val binding: CategoryProductVhBinding) :

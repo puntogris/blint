@@ -1,7 +1,6 @@
 package com.puntogris.blint.data.repository.backup
 
 import com.puntogris.blint.utils.types.BackupState
-import com.puntogris.blint.utils.types.SimpleRepoResult
 import kotlinx.coroutines.flow.Flow
 
 interface IBackupRepository {

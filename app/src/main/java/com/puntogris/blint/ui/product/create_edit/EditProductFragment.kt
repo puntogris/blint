@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.product.create_edit
 
 import android.Manifest
-import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResultListener
@@ -13,9 +12,12 @@ import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.Constants
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.getInt
 import com.puntogris.blint.utils.types.SimpleResult
 import com.puntogris.blint.utils.types.StringValidator
+import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -324,8 +324,7 @@ fun TextView.setProductRecordPriceEntry(product: ProductWithRecord) {
 fun TextView.setDateOrError(timeInMillis: Long) {
     text = if (timeInMillis == 0L) {
         context.getString(R.string.no_backup_found)
-    }
-    else {
+    } else {
         Date(timeInMillis).getDateWithTimeFormattedString()
     }
 }

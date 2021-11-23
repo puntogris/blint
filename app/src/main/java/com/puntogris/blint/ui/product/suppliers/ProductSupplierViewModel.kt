@@ -17,7 +17,8 @@ class ProductSupplierViewModel @Inject constructor(
 
     private val query = MutableLiveData("")
 
-    private val initialSuppliers = savedStateHandle.get<Array<Supplier>>("suppliers") ?: emptyArray()
+    private val initialSuppliers =
+        savedStateHandle.get<Array<Supplier>>("suppliers") ?: emptyArray()
 
     private val initialSuppliersIds = initialSuppliers.map { it.supplierId }
 
@@ -38,7 +39,7 @@ class ProductSupplierViewModel @Inject constructor(
         this.query.value = query
     }
 
-    fun toggleSupplier(supplier: Supplier){
+    fun toggleSupplier(supplier: Supplier) {
         if (supplier in finalSuppliers) finalSuppliers.remove(supplier)
         else finalSuppliers.add(supplier)
     }

@@ -25,6 +25,7 @@ class ManageProductsViewModel @Inject constructor(
     fun setQuery(query: String) {
         this.query.value = query
     }
+
     fun setQuery(editable: Editable) {
         query.value = editable.toString()
     }

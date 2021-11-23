@@ -17,7 +17,8 @@ class ProductCategoriesViewModel @Inject constructor(
 
     private val query = MutableLiveData("")
 
-    private val initialCategories = savedStateHandle.get<Array<Category>>("categories") ?: emptyArray()
+    private val initialCategories =
+        savedStateHandle.get<Array<Category>>("categories") ?: emptyArray()
 
     private val initialCategoriesIds = initialCategories.map { it.categoryName }
 
@@ -38,7 +39,7 @@ class ProductCategoriesViewModel @Inject constructor(
         this.query.value = query
     }
 
-    fun toggleCategory(category: Category){
+    fun toggleCategory(category: Category) {
         if (category in finalCategories) finalCategories.remove(category)
         else finalCategories.add(category)
     }

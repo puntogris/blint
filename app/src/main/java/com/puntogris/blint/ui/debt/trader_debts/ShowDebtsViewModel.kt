@@ -20,7 +20,7 @@ class ShowDebtsViewModel @Inject constructor(
     private val clientRepository: ClientRepository,
     private val supplierRepository: SupplierRepository,
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
     private val debtType = savedStateHandle.get<String>("debtType") ?: ""
 

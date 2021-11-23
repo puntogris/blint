@@ -23,6 +23,7 @@ class CalendarViewModel @Inject constructor(
     fun setEvent(event: Event) {
         _event.value = event
     }
+
     private var timestamp = Timestamp.now()
 
     private val eventFilter = MutableLiveData(EventStatus.All)
@@ -31,7 +32,7 @@ class CalendarViewModel @Inject constructor(
         repository.getEventsPaged(it).toEventUiFlow().asLiveData()
     }.cachedIn(viewModelScope)
 
-    fun updateEventStatusFilter(eventStatus: EventStatus){
+    fun updateEventStatusFilter(eventStatus: EventStatus) {
         this.eventFilter.value = eventStatus
     }
 
@@ -53,6 +54,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun updateEventStatus(position: Int) {
-        _event.value.status = if (position == 0) EventStatus.Pending.value else EventStatus.Finished.value
+        _event.value.status =
+            if (position == 0) EventStatus.Pending.value else EventStatus.Finished.value
     }
 }

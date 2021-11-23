@@ -12,9 +12,9 @@ class Trader(
     val traderId: String,
     val traderType: String,
     val traderName: String
-): Parcelable
+) : Parcelable
 
-fun Client.toTrader(): Trader{
+fun Client.toTrader(): Trader {
     return Trader(
         traderType = Constants.CLIENT,
         traderId = clientId,
@@ -22,7 +22,7 @@ fun Client.toTrader(): Trader{
     )
 }
 
-fun Supplier.toTrader(): Trader{
+fun Supplier.toTrader(): Trader {
     return Trader(
         traderType = Constants.SUPPLIER,
         traderId = supplierId,

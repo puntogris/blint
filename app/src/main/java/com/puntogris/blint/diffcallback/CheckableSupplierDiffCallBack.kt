@@ -9,7 +9,10 @@ class CheckableSupplierDiffCallBack : DiffUtil.ItemCallback<CheckableSupplier>()
         return oldItem.supplier.supplierId == newItem.supplier.supplierId
     }
 
-    override fun areContentsTheSame(oldItem: CheckableSupplier, newItem: CheckableSupplier): Boolean {
+    override fun areContentsTheSame(
+        oldItem: CheckableSupplier,
+        newItem: CheckableSupplier
+    ): Boolean {
         return oldItem == newItem
     }
 }

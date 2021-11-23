@@ -7,7 +7,8 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentDebtStatusBinding
 import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.ui.base.BaseFragment
-import com.puntogris.blint.utils.*
+import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -49,7 +50,8 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
     }
 
     private fun onModifyDebtButtonClicked() {
-        val action = DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(args.trader)
+        val action =
+            DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(args.trader)
         findNavController().navigate(action)
     }
 

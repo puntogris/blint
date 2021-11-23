@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.model.order.NewOrder
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.product.ProductWithDetails
 import dagger.hilt.android.lifecycle.HiltViewModel

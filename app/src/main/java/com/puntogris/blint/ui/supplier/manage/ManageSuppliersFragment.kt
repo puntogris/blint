@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.supplier.manage
 
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R

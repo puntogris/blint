@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.orders.simple_order
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.R
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.model.order.NewOrder
 import com.puntogris.blint.model.order.NewRecord
@@ -11,7 +10,6 @@ import com.puntogris.blint.utils.Constants
 import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @HiltViewModel

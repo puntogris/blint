@@ -8,7 +8,10 @@ class CheckableCategoryDiffCallBack : DiffUtil.ItemCallback<CheckableCategory>()
         return oldItem.category.categoryName == newItem.category.categoryName
     }
 
-    override fun areContentsTheSame(oldItem: CheckableCategory, newItem: CheckableCategory): Boolean {
+    override fun areContentsTheSame(
+        oldItem: CheckableCategory,
+        newItem: CheckableCategory
+    ): Boolean {
         return oldItem == newItem
     }
 }
