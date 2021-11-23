@@ -13,7 +13,6 @@ import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.UUIDGenerator
-import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.SimpleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

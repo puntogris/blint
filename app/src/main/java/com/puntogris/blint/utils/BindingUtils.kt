@@ -53,9 +53,9 @@ fun ImageView.setMenuCardIcon(@DrawableRes icon: Int) {
 
 @BindingAdapter("loadImageButtonText")
 fun Button.setLoadImageButtonText(image: String) {
-    text =
-        if (image.isNotEmpty()) context.getString(R.string.action_change)
-        else context.getString(R.string.action_add_image)
+    setText(
+        if (image.isNotEmpty()) R.string.action_change else R.string.action_add_image
+    )
 }
 
 @BindingAdapter("removeImageVisibility")
@@ -85,24 +85,15 @@ fun EditText.setEmptyEditTextWithNumber(value: Number) {
 
 @BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product) {
-    "${product.buyPrice.toUSDFormatted()} / ${product.sellPrice.toUSDFormatted()}".also {
-        text = it
-    }
+    text = "${product.buyPrice.toUSDFormatted()} / ${product.sellPrice.toUSDFormatted()}"
 }
 
 @BindingAdapter("userDataImage")
 fun ImageView.setUserDataImage(image: String?) {
-    if (!image.isNullOrBlank()) {
-        Glide.with(context)
-            .load(image)
-            .transform(RoundedCorners(20))
-            .into(this)
-    } else {
-        Glide.with(context)
-            .load(R.drawable.ic_baseline_account_circle_24)
-            .transform(RoundedCorners(20))
-            .into(this)
-    }
+    Glide.with(context)
+        .load(image ?: R.drawable.ic_baseline_account_circle_24)
+        .circleCrop()
+        .into(this)
 }
 
 @BindingAdapter("userCreationTimestamp")
@@ -134,11 +125,8 @@ fun TextView.setNumberToMoneyString(number: Float) {
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type: String) {
-    text =
-        if (type == IN) context.getString(R.string.supplier_label)
-        else context.getString(R.string.client_label)
+    setText(if (type == IN) R.string.supplier_label else R.string.client_label)
 }
-
 
 @BindingAdapter("totalOrderWithDetails")
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
@@ -185,9 +173,10 @@ fun TextView.setAmountSymbolWithRecordType(type: String) {
 
 @BindingAdapter("recordTypeString")
 fun TextView.setRecordTypeString(type: String) {
-    text =
-        if (type == IN || type == INITIAL) context.getString(R.string.in_entry)
-        else context.getString(R.string.out_entry)
+    setText(
+        if (type == IN || type == INITIAL) R.string.in_entry
+        else R.string.out_entry
+    )
 }
 
 @BindingAdapter("dateFromTimestamp")
@@ -218,19 +207,8 @@ fun Chip.setExternalChipName(name: String) {
     if (name.isNotEmpty()) {
         text = name.capitalizeFirstChar()
     } else {
-        text = context.getString(R.string.not_specified)
+        setText(R.string.not_specified)
         isEnabled = false
-    }
-}
-
-@BindingAdapter("categoriesChips")
-fun ChipGroup.setCategoriesChips(categories: List<Category>) {
-    removeViews(1, categories.size - 1)
-    categories.forEach { category ->
-        val chip = Chip(context).apply {
-            text = category.categoryName.capitalizeFirstChar()
-        }
-        addView(chip)
     }
 }
 
@@ -242,24 +220,18 @@ fun TextView.setExternalName(name: String) {
 
 @BindingAdapter("eventStatus")
 fun TextView.setEventStatus(status: String) {
-    text =
-        if (status == PENDING) context.getString(R.string.pending)
-        else context.getString(R.string.finished)
+    setText(if (status == PENDING) R.string.pending else R.string.finished)
 }
 
 @BindingAdapter("eventStatusColor")
 fun View.setEventStatusColor(status: String) {
-    if (status == PENDING) {
-        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card7, null))
-    } else {
-        setBackgroundColor(ResourcesCompat.getColor(resources, R.color.card6, null))
-    }
+    val color = if (status == PENDING) R.color.card7 else R.color.card6
+    setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
 }
 
 @BindingAdapter("businessType")
 fun TextView.setBusinessType(type: String) {
-    text =
-        if (type == LOCAL) context.getString(R.string.local) else context.getString(R.string.online)
+    setText(if (type == LOCAL) R.string.local else R.string.online)
 }
 
 @BindingAdapter("timerFromSeconds")
@@ -274,13 +246,13 @@ fun TextView.setOrderNumberTitle(number: Int) {
 
 @BindingAdapter("debtColor")
 fun TextView.setDebtColor(amount: Float) {
-    if (amount >= 0) {
-        text = context.getString(R.string.amount_debt_positive, amount.toMoneyFormatted())
-        setTextColor(ContextCompat.getColor(context, R.color.card6))
+    val (res, color) = if (amount >= 0) {
+        R.string.amount_debt_positive to R.color.card6
     } else {
-        text = context.getString(R.string.amount_normal, amount.toMoneyFormatted())
-        setTextColor(ContextCompat.getColor(context, R.color.card1))
+        R.string.amount_normal to R.color.card1
     }
+    text = context.getString(res, amount.toMoneyFormatted())
+    setTextColor(ContextCompat.getColor(context, color))
 }
 
 @BindingAdapter("debtColorWithLimit")
@@ -294,28 +266,6 @@ fun TextView.setDebtColorWithLimit(amount: Float) {
         text = context.getString(R.string.amount_normal, newAmount)
         setTextColor(ContextCompat.getColor(context, R.color.card1))
     }
-}
-
-@BindingAdapter("notificationImage")
-fun ImageView.setNotificationImage(uri: String) {
-    Glide.with(context)
-        .load(uri)
-        .transform(CenterCrop(), RoundedCorners(4))
-        .into(this)
-}
-
-@BindingAdapter("timeSinceCreated")
-fun TextView.setTimeSinceCreated(timestamp: Timestamp) {
-    val minutes = ((Timestamp.now().seconds - timestamp.seconds) / 60).toInt()
-    text =
-        when {
-            minutes in 0..1 -> context.getString(R.string.minute_notif, minutes)
-            minutes < 60 -> context.getString(R.string.minutes_notif, minutes)
-            minutes == 60 -> context.getString(R.string.hour_notif, (minutes / 60))
-            minutes in 61..1440 -> context.getString(R.string.hours_notif, (minutes / 60))
-            minutes in 1440..2880 -> context.getString(R.string.day_notif)
-            else -> context.getString(R.string.days_notif, (minutes / 60 / 24))
-        }
 }
 
 @BindingAdapter("productCategoriesChipGroup")
@@ -340,11 +290,12 @@ fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>) {
 
 @BindingAdapter("businessStatus")
 fun TextView.setBusinessStatus(status: String) {
-    text = when (status) {
-        TO_DELETE -> context.getString(R.string.on_delete)
-        DISABLED -> context.getString(R.string.disabled)
-        else -> context.getString(R.string.enabled)
+    val res = when (status) {
+        TO_DELETE -> R.string.on_delete
+        DISABLED -> R.string.disabled
+        else -> R.string.enabled
     }
+    setText(res)
 }
 
 @BindingAdapter("productOrderPrices")
@@ -358,8 +309,7 @@ fun TextView.setProductOrderPrices(product: ProductWithRecord) {
 
 @BindingAdapter("productOrderPricesTitle")
 fun TextView.setProductOrderPricesTitle(record: Record) {
-    text = context.getString(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
-
+    setText(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
 }
 
 @BindingAdapter("productRecordPriceEntry")
@@ -368,5 +318,14 @@ fun TextView.setProductRecordPriceEntry(product: ProductWithRecord) {
         product.product.buyPrice.toString()
     } else {
         product.product.sellPrice.toString()
+    }
+}
+
+fun TextView.setDateOrError(timeInMillis: Long) {
+    text = if (timeInMillis == 0L) {
+        context.getString(R.string.no_backup_found)
+    }
+    else {
+        Date(timeInMillis).getDateWithTimeFormattedString()
     }
 }

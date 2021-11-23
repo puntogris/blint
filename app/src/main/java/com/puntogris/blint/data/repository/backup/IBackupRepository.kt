@@ -1,16 +1,13 @@
 package com.puntogris.blint.data.repository.backup
 
-import com.puntogris.blint.model.Business
 import com.puntogris.blint.utils.types.BackupState
-import com.puntogris.blint.utils.types.RepoResult
-import kotlinx.coroutines.flow.StateFlow
+import com.puntogris.blint.utils.types.SimpleRepoResult
+import kotlinx.coroutines.flow.Flow
 
 interface IBackupRepository {
-    fun createBackupForBusiness(path: String): StateFlow<BackupState>
+    fun createBackup(path: String): Flow<BackupState>
 
-    fun restoreBackupForBusiness(path: String): StateFlow<BackupState>
+    fun restoreBackup(path: String): Flow<BackupState>
 
-    fun checkBackUpRequirements(): StateFlow<RepoResult<List<Business>>>
-
-    fun checkLastBackUpDate(): StateFlow<RepoResult<Long>>
+    fun checkLastBackUpDate(): Flow<BackupState>
 }

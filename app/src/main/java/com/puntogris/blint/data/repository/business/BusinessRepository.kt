@@ -9,7 +9,11 @@ import com.puntogris.blint.model.Business
 import com.puntogris.blint.model.Statistic
 import com.puntogris.blint.utils.DispatcherProvider
 import com.puntogris.blint.utils.types.DeleteBusiness
-import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
+import com.puntogris.blint.utils.types.SimpleRepoResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -22,23 +26,23 @@ class BusinessRepository @Inject constructor(
     private val firebaseClients: FirebaseClients
 ) : IBusinessRepository {
 
-    override suspend fun registerBusiness(businessName: String): SimpleResult =
-        withContext(dispatcher.io) {
-            try {
-                val business = Business(ownerUid = firebaseClients.currentUser?.uid ?: "")
+    override fun registerBusiness(businessName: String): Flow<SimpleRepoResult> = flow {
+        try {
+            emit(RepoResult.InProgress)
+            val business = Business(ownerUid = firebaseClients.currentUser?.uid ?: "")
 
-                businessDao.insert(business)
+            businessDao.insert(business)
 
-                statisticsDao.insert(Statistic(businessId = business.businessId))
-                usersDao.updateCurrentBusiness(business.businessId)
+            statisticsDao.insert(Statistic(businessId = business.businessId))
+            usersDao.updateCurrentBusiness(business.businessId)
 
-                sharedPreferences.setShowNewUserScreenPref(false)
+            sharedPreferences.setShowNewUserScreenPref(false)
 
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
-            }
+            emit(RepoResult.Success(Unit))
+        } catch (e: Exception) {
+            emit(RepoResult.Error())
         }
+    }.flowOn(dispatcher.io)
 
     override suspend fun deleteBusiness(businessId: String): DeleteBusiness =
         withContext(dispatcher.io) {

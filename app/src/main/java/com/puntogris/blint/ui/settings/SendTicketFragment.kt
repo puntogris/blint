@@ -25,24 +25,7 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
             fabIcon = R.drawable.ic_baseline_send_24,
             showAppBar = false
         ) {
-            lifecycleScope.launch {
-                viewModel.sendTicket().collect {
-                    when (it) {
-                        is RepoResult.Error -> {
-                            binding.progressBar.gone()
-                            UiInterface.showSnackBar(getString(it.error))
-                        }
-                        is RepoResult.InProgress -> {
-                            binding.progressBar.visible()
-                        }
-                        is RepoResult.Success -> {
-                            findNavController().navigateUp()
-                            UiInterface.showSnackBar(getString(R.string.snack_ticket_sent_success))
-                        }
-                    }
-                }
-
-            }
+            sendTicket()
         }
         setupTicketReasonAdapter()
     }
@@ -58,6 +41,27 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
 
         binding.ticketReason.setOnItemClickListener { _, _, i, _ ->
             viewModel.updateTicketReason(if (i == 0) Constants.PROBLEM else Constants.SUGGESTION)
+        }
+    }
+
+    private fun sendTicket() {
+        lifecycleScope.launch {
+            viewModel.sendTicket().collect {
+                when (it) {
+                    is RepoResult.Error -> {
+                        binding.progressBar.gone()
+                        UiInterface.showSnackBar(getString(it.error))
+                    }
+                    is RepoResult.InProgress -> {
+                        binding.progressBar.visible()
+                    }
+                    is RepoResult.Success -> {
+                        findNavController().navigateUp()
+                        UiInterface.showSnackBar(getString(R.string.snack_ticket_sent_success))
+                    }
+                }
+            }
+
         }
     }
 

@@ -44,6 +44,6 @@ class UserRepository @Inject constructor(
             }
         }
 
-    override suspend fun getCurrentUser() = usersDao.getUser()
+    override fun getUserFlow() = usersDao.getUserFlow()
 
 }

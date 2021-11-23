@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_analytics.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_barcode.xml" value="0.16215277777777778" />
+        <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_sr_incognito.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_loan.xml" value="0.24513888888888888" />
@@ -38,7 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.21388888888888888" />
         <entry key="app/src/main/res/layout/fragment_client_data.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_client_records.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_create_back_up.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.13923611111111112" />
         <entry key="app/src/main/res/layout/fragment_create_order.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_data_product.xml" value="0.234375" />
@@ -117,6 +118,7 @@
         <entry key="app/src/main/res/menu/bottom_nav_drawer_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/top_app_bar_menu.xml" value="0.234375" />
+        <entry key="app/src/main/res/xml/notifications_preferences.xml" value="0.234375" />
         <entry key="app/src/main/res/xml/preferences.xml" value="0.5" />
       </map>
     </option>

@@ -101,6 +101,10 @@
     <string name="restore_backup_affects_this_businesses_alert">The restoration will affect these businesses, the backup is not from a single location, it supports everything.</string>
     <string name="action_create_backup">Backup</string>
     <string name="action_restore_backup">Restore backup</string>
+    <string name="connecting_in_progress">Connecting to servers, please do not close the app.</string>
+    <string name="your_account_backups">Your account backups</string>
+    <string name="data_from_servers">This is what we found on our servers.</string>
+    <string name="no_backup_found">No backup found.</string>
 
     <!-- Codes -->
     <string name="code_generated">Code generated.</string>
@@ -596,6 +600,7 @@
     <string name="local_business_point_2">One employee only.</string>
     <string name="local_business_point_3">Create invoices in pdf and reports in excel.</string>
     <string name="local_business_point_4">Access product, clients, suppliers and more..</string>
+
 
     <!-- Arrays -->
     <string-array name="debt_type">

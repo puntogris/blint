@@ -29,16 +29,16 @@ class DeleteBusinessFragment :
             fabIcon = R.drawable.ic_baseline_delete_24
         ) {
             if (binding.businessNameText.getString() == args.business.name) {
-                showDeleteBusinessUi()
+                showDeleteBusinessDialog()
             } else {
                 UiInterface.showSnackBar(getString(R.string.snack_business_name_does_not_match))
             }
         }
 
-        binding.textView120.text = getString(R.string.delete_local_business_warning)
+        binding.textView120.setText(R.string.delete_local_business_warning)
     }
 
-    private fun showDeleteBusinessUi() {
+    private fun showDeleteBusinessDialog() {
         InfoSheet().show(requireParentFragment().requireContext()) {
             title(R.string.do_you_want_to_delete_business)
             content(

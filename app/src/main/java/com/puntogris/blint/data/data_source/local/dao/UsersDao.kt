@@ -1,7 +1,9 @@
 package com.puntogris.blint.data.data_source.local.dao
 
-import androidx.room.*
-import com.puntogris.blint.model.Business
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.puntogris.blint.model.User
 import kotlinx.coroutines.flow.Flow
 
@@ -12,11 +14,7 @@ interface UsersDao {
     suspend fun insert(user: User)
 
     @Query("SELECT * FROM user WHERE localReferenceId = '1'")
-    suspend fun getUser(): User
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId WHERE localReferenceId = '1'")
-    fun getUserFlow(): Flow<Business>
+    fun getUserFlow(): Flow<User>
 
     @Query("SELECT currentBusinessId FROM user WHERE localReferenceId = '1'")
     suspend fun getCurrentBusinessId(): String

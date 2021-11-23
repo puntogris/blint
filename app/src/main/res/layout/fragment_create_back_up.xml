@@ -15,71 +15,55 @@
         android:layout_height="match_parent"
         tools:context=".ui.backup.CreateBackupFragment">
 
-        <ProgressBar
-            android:id="@+id/loadingBusinessProgressBar"
-            style="?android:attr/progressBarStyleLarge"
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/lastBackupGroup"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/primaryColor"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/backupSummary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loadingBusinessSummary" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_max="210dp"
-            app:layout_constraintHeight_default="wrap"
-            android:layout_marginTop="32dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView69" />
+            app:constraint_referenced_ids="button19,textView71,textView70" />
 
         <TextView
-            android:id="@+id/businessTitle"
+            android:id="@+id/backup_title"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/your_local_business"
-            android:visibility="gone"
+            android:text="Cargando.."
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
-            android:id="@+id/backupSummary"
+            android:id="@+id/backup_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="24dp"
+            android:textAlignment="center"
+            android:text="Buscando tu informacion en los servidores, no cierres la app."
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backup_title" />
+
+        <TextView
+            android:id="@+id/backup_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="64dp"
             android:lineSpacingExtra="4dp"
-            android:text="@string/backup_only_for_local_business_alert"
+            android:text="@string/create_backup_affects_this_businesses_alert"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/textView73"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/loadingBusinessSummary"
-            android:layout_width="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="116dp"
-            android:text="@string/searching_your_info_server"
-            android:textSize="17sp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
 
         <TextView
             android:id="@+id/textView73"
@@ -101,50 +85,40 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="32dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/backupSummary"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessTitle"
-            app:lottie_autoPlay="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/loading" />
 
-        <TextView
-            android:id="@+id/textView69"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/create_backup_affects_this_businesses_alert"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="40dp"
             android:onClick="@{()-> fragment.onBackupButtonClicked()}"
             android:text="@string/action_create_businesses_backup"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/backupSummary"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/backup_alert"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView70" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView70"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:visibility="gone"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_marginTop="64dp"
             android:text="@string/last_backup"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/backup_summary" />
 
         <TextView
             android:id="@+id/textView71"
@@ -153,7 +127,7 @@
             android:layout_marginStart="8dp"
             style="@style/Theme.Blint.DataTextView"
             android:text="@string/loading_with_dots"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/textView70"
             app:layout_constraintStart_toEndOf="@+id/textView70"
             app:layout_constraintTop_toTopOf="@+id/textView70" />

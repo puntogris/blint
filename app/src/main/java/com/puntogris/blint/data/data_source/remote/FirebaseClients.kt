@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +13,7 @@ class FirebaseClients @Inject constructor() {
 
     val firestore = Firebase.firestore
     val auth = Firebase.auth
+    val storage = Firebase.storage.reference
 
     val currentUid: String?
         get() = auth.uid

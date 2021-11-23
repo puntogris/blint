@@ -35,6 +35,7 @@ import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -102,10 +103,6 @@ fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message: String) {
         message,
         Snackbar.LENGTH_SHORT
     ).show()
-}
-
-fun Any.bindDimen(context: Context, @DimenRes id: Int) = lazy(LazyThreadSafetyMode.NONE) {
-    context.resources.getDimension(id)
 }
 
 fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
@@ -178,14 +175,6 @@ fun String.getDateWithFileName() =
     SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date())
         .toString() + "_$this.xls"
 
-fun Fragment.isDarkThemeOn() =
-    (resources.configuration.uiMode and
-            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
-
-fun Activity.isDarkThemeOn() =
-    (resources.configuration.uiMode and
-            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
-
 fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
     try {
         Intent(Intent.ACTION_VIEW).let {
@@ -196,16 +185,6 @@ fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
 
     } catch (e: Exception) {
         UiInterface.showSnackBar(getString(R.string.snack_ups_visit_blint))
-    }
-}
-
-fun Activity.launchWebBrowserIntent(uri: String) {
-    try {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(uri)
-        startActivity(intent)
-    } catch (e: Exception) {
-        (this as SetupUiListener).showSnackBar(getString(R.string.snack_ups_visit_blint))
     }
 }
 
@@ -221,9 +200,6 @@ inline val Context.screenWidth: Int
                 )
             }.x
         }
-
-inline val View.screenWidth: Int
-    get() = context!!.screenWidth
 
 inline val Int.dp: Int
     get() = TypedValue.applyDimension(
@@ -251,8 +227,15 @@ inline fun getValueAnimator(
 }
 
 fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int) {
+    visible()
     setAnimation(animation)
     repeatCount = 0
+    playAnimation()
+}
+fun LottieAnimationView.playAnimationInfinite(@RawRes animation: Int) {
+    visible()
+    setAnimation(animation)
+    repeatCount = LottieDrawable.INFINITE
     playAnimation()
 }
 
@@ -291,40 +274,6 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
             block()
         }
     }
-}
-
-fun Fragment.generateQRImage(
-    code: String,
-    width: Int,
-    height: Int,
-    isPdf: Boolean = false
-): Bitmap {
-    val writer = QRCodeWriter()
-    val bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, width, height)
-    val widthB = bitMatrix.width
-    val heightB = bitMatrix.height
-    val bitmap = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.RGB_565)
-
-    val darkThemeOn = isDarkThemeOn()
-    val background =
-        if (isPdf) getQrCodeWithTheme(false, isPdf = true) else getQrCodeWithTheme(darkThemeOn)
-    val qrCode = if (isPdf) getQrCodeWithTheme(true) else getQrCodeWithTheme(!darkThemeOn)
-
-    for (x in 0 until widthB) {
-        for (y in 0 until heightB) {
-            bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) qrCode else background)
-        }
-    }
-    return bitmap
-}
-
-fun Fragment.getQrCodeWithTheme(darkThemeOn: Boolean, isPdf: Boolean = false): Int {
-    val color = if (darkThemeOn) R.color.nightBackground
-    else {
-        if (isPdf) R.color.white
-        else R.color.dayBackground
-    }
-    return ContextCompat.getColor(requireContext(), color)
 }
 
 fun String.capitalizeFirstChar() =

@@ -96,7 +96,10 @@
     <string name="restore_backup_affects_this_businesses_alert">La restauración afectará a estos negocios, el respaldo no es de un local individual, respalda todo.</string>
     <string name="action_create_backup">Respaldar</string>
     <string name="action_restore_backup">Restaurar</string>
-
+    <string name="connecting_in_progress">Conectandose a los servidores, porfavor no cierre la aplicación.</string>
+    <string name="your_account_backups">Los backups de tu cuenta</string>
+    <string name="data_from_servers">Esto es lo que encontramos en los servidores sobre tu cuenta.</string>
+    <string name="no_backup_found">No se encontro un backup.</string>
     <!-- Codes -->
     <string name="code_generated">Código generado.</string>
     <string name="generating_code">Generando código…</string>

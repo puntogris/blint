@@ -10,9 +10,10 @@ import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.getString
 import com.puntogris.blint.utils.playAnimationOnce
-import com.puntogris.blint.utils.types.SimpleResult
+import com.puntogris.blint.utils.types.RepoResult
 import com.puntogris.blint.utils.types.StringValidator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -25,31 +26,37 @@ class RegisterBusinessFragment :
         binding.fragment = this
     }
 
-    fun onEndRegistrationButtonClicked() {
+    fun onStartBusinessRegistration() {
         when (val validator = StringValidator.from(
             binding.businessNameText.getString(),
             isName = true,
             maxLength = 25
         )) {
-            is StringValidator.Valid -> {
-                binding.continueButton.isEnabled = false
-                binding.animationView.playAnimationOnce(R.raw.loading)
-                lifecycleScope.launch {
-                    when (viewModel.registerNewBusiness(validator.value)) {
-                        SimpleResult.Failure -> {
-                            UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                            binding.continueButton.isEnabled = true
-                            binding.animationView.playAnimationOnce(R.raw.error)
-                        }
-                        SimpleResult.Success -> {
-                            UiInterface.showSnackBar(getString(R.string.snack_created_business_success))
-                            val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-                            findNavController().navigate(R.id.mainFragment, null, nav)
-                        }
+            is StringValidator.Valid -> registerBusiness(validator.value)
+            is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
+        }
+    }
+
+    private fun registerBusiness(name: String) {
+        lifecycleScope.launch {
+            viewModel.registerNewBusiness(name).collect {
+                when (it) {
+                    is RepoResult.Error -> {
+                        UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                        binding.continueButton.isEnabled = true
+                        binding.animationView.playAnimationOnce(R.raw.error)
+                    }
+                    is RepoResult.Success -> {
+                        UiInterface.showSnackBar(getString(R.string.snack_created_business_success))
+                        val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                        findNavController().navigate(R.id.mainFragment, null, nav)
+                    }
+                    RepoResult.InProgress -> {
+                        binding.continueButton.isEnabled = false
+                        binding.animationView.playAnimationOnce(R.raw.loading)
                     }
                 }
             }
-            is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
         }
     }
 }

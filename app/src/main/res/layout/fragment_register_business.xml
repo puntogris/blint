@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{()-> fragment.onEndRegistrationButtonClicked()}"
+            android:onClick="@{()-> fragment.onStartBusinessRegistration()}"
             android:text="@string/action_finish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -5,36 +5,47 @@
     <Preference
         android:title="@string/my_account_pref"
         android:key="account_pref"
-        android:icon="@drawable/ic_baseline_account_circle_24"/>
-
-    <Preference
-        android:title="@string/notifications_label"
-        app:icon="@drawable/ic_baseline_notifications_24"
-        android:key="notifications_pref"
-        android:fragment="com.puntogris.blint.ui.settings.NotificationsPreferences"/>
+        app:iconSpaceReserved="true" />
 
     <Preference
         android:title="@string/backup_pref"
         android:key="backup_pref"
-        android:icon="@drawable/ic_baseline_backup_24"
+        app:iconSpaceReserved="true"
         android:fragment="com.puntogris.blint.ui.settings.BackupPreferences"/>
 
     <ListPreference
         android:title="@string/themes_pref"
-        app:icon="@drawable/ic_baseline_style_24"
+        app:iconSpaceReserved="true"
         android:defaultValue="1"
         android:key="theme_pref"
         android:entries="@array/theme_names"
         android:entryValues="@array/theme_values"/>
 
-    <Preference
-        android:title="@string/help_pref"
-        android:key="help_pref"
-        android:icon="@drawable/ic_baseline_help_24" />
+    <PreferenceCategory
+        android:title="@string/help_pref">
 
-    <Preference
-        android:title="@string/about_us_pref"
-        app:iconSpaceReserved="false"
-        android:key="about_pref"/>
+        <Preference
+            android:title="See the F.A.Q"
+            app:summary="Check out the frequently asked questions."
+            android:key="help_pref"
+            app:iconSpaceReserved="true" />
+
+        <Preference
+            android:title="Create a ticket"
+            app:summary="Report a bug or give us feedback."
+            android:key="help_pref"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="App">
+
+        <Preference
+            android:title="@string/about_us_pref"
+            app:iconSpaceReserved="true"
+            android:key="about_pref" />
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

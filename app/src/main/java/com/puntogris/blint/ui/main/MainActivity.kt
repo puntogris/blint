@@ -9,9 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
@@ -21,10 +18,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.ui.base.BaseActivity
 import com.puntogris.blint.utils.*
-import com.puntogris.blint.utils.types.AccountStatus
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -109,32 +103,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setUpNavigation()
         setUpScanner()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.accountStatus.collect {
-                    when (it) {
-                        AccountStatus.Error -> {}
-                        is AccountStatus.OutOfSync -> {
-//                            if (sharedPref.loginCompletedPref()) {
-//                                val nav = NavOptions.Builder()
-//                                    .setPopUpTo(navController.graph.startDestination, true).build()
-//                                navController.navigate(R.id.outOfSyncFragment, null, nav)
-//                            }
-                        }
-                        is AccountStatus.Synced -> {
-//                            if (it.hasBusiness) {
-//                                if (sharedPref.showNewUserScreenPref()) {
-//                                    sharedPref.setShowNewUserScreenPref(false)
-//                                    if (navController.currentDestination?.id == R.id.newUserFragment)
-//                                        navController.navigate(R.id.mainFragment)
-//                                }
-//                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun setUpScanner() {
