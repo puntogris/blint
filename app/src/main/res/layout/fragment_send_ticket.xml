@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.settings.TicketsViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.settings.SendTicketFragment" />

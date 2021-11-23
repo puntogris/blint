@@ -11,7 +11,6 @@
     <string name="reports_label">Informes</string>
     <string name="calendar_label">Agenda</string>
     <string name="suppliers_label">Proveedores</string>
-    <string name="notifications_label">Notificaciones</string>
     <string name="settings_label">Configuración</string>
     <string name="account_label">Cuenta</string>
     <string name="tools_label">Herramientas</string>
@@ -23,8 +22,6 @@
     <string name="supplier_label">Proveedor</string>
     <string name="product_label">Producto</string>
     <string name="help_label">Ayuda</string>
-    <string name="register_local_business_label">Registrar negocio local</string>
-    <string name="register_online_business_label">Registrar negocio online</string>
     <string name="about_us_label">Sobre blint</string>
     <string name="backup_label">Respaldar negocio</string>
     <string name="restore_backup_label">Restaurar negocio</string>
@@ -33,8 +30,6 @@
     <string name="new_event_label">Nuevo evento</string>
     <string name="generate_report_label">Generar informe</string>
     <string name="my_business_label">Mi negocio</string>
-    <string name="employee">Empleado</string>
-    <string name="new_employee_label">Nuevo empleado</string>
     <string name="review_order_label">Revisar orden</string>
     <string name="publish_order_label">Publicar order</string>
     <string name="new_order_label">Nueva orden</string>
@@ -72,49 +67,24 @@
     <string name="message_hint">Mensaje</string>
 
     <!-- Backup -->
-    <string name="create_backup_in_progress">Respaldo en progreso…</string>
-    <string name="do_not_close_window_until_backup_is_done">*No cierres la ventana hasta que finalicé el backup.</string>
     <string name="create_backup_success_title">Respaldo realizado.</string>
-    <string name="create_backup_error_title">Respaldo erróneo.</string>
     <string name="create_backup_success_message">*Respaldo realizado satisfactoriamente. Que tengas un muy buen día.</string>
-    <string name="create_backup_error_message">*Ocurrió un problema respaldando tu negocio. Intentá nuevamente más tarde.</string>
     <string name="create_backup_warning">Esto reemplazara al último respaldo de tus negocios ya existente o creará uno nuevo. Ten en cuenta que no podemos guardar tus imágenes así que no están cubiertas por el respaldo.</string>
     <string name="ask_user_action_confirmation">¿Estas seguro de esta acción?</string>
-    <string name="searching_your_info_server">Buscando tu información en los servidores…</string>
     <string name="action_read_more_about_backups">Leer más sobre copias de seguridad.</string>
     <string name="last_backup">Último respaldo:</string>
-    <string name="your_local_business">Tus negocios locales</string>
     <string name="action_create_businesses_backup">Respaldar negocios</string>
-    <string name="backup_only_for_local_business_alert">*Ten en cuenta que solo los negocios locales se pueden respaldar/restaurar ya que en los online tu negocio ya esta en la nube.</string>
     <string name="create_backup_affects_this_businesses_alert">El respaldo afectará a estos negocios, el respaldo no es de un local individual, respalda todo.</string>
     <string name="restore_backup_warning">Se restaurará tu negocio desde la última copia que se guardo, toda la información no guardada se borrará y reemplazará por la copia de seguridad. Ten en cuenta que las imágenes no se restablecerán.</string>
     <string name="restore_backup_success_message">*Restauración realizada satisfactoriamente. Que tengas un muy buen día.</string>
     <string name="restore_backup_success_title">Restauración realizada.</string>
-    <string name="restore_backup_error_title">Restauración errónea.</string>
-    <string name="restore_backup_error_message">"*Ocurrió un problema restaurando tu negocio. Esto se puede deber a que no se encontró un respaldo previamente o problemas del servidor.\nIntenta nuevamente más tarde."</string>
     <string name="action_restore_businesses_backup">Restaurar negocios</string>
-    <string name="restore_backup_affects_this_businesses_alert">La restauración afectará a estos negocios, el respaldo no es de un local individual, respalda todo.</string>
     <string name="action_create_backup">Respaldar</string>
     <string name="action_restore_backup">Restaurar</string>
     <string name="connecting_in_progress">Conectandose a los servidores, porfavor no cierre la aplicación.</string>
     <string name="your_account_backups">Los backups de tu cuenta</string>
     <string name="data_from_servers">Esto es lo que encontramos en los servidores sobre tu cuenta.</string>
     <string name="no_backup_found">No se encontro un backup.</string>
-    <!-- Codes -->
-    <string name="code_generated">Código generado.</string>
-    <string name="generating_code">Generando código…</string>
-    <string name="code">Código</string>
-    <string name="valid_for">Valido por:</string>
-    <string name="join_business_with_code_alert">Debes compartir el código en formato QR o de texto y la persona a unirse solo debe escanearlo o introducirlo manualmente para unirse a tu negocio.\n\nPor su seguridad y la de su negocio los códigos duran 10 minutos, luego se generará otro automáticamente.</string>
-    <string name="generating_code_alert">Estamos generando un código para que tus empleados se puedan unir a tu negocio.</string>
-    <string name="join_my_business_with_code">¡Únete a mi negocio en Blint con este código!</string>
-    <string name="copied_to_clipboard">Código copiado al portapapeles.</string>
-    <string name="action_scan_code">Escanear código</string>
-    <string name="with_qr_code">Con código QR</string>
-    <string name="snack_type_or_scan_code_to_continue">Ingresa un código o escanea el mismo para continuar.</string>
-    <string name="incorrect_code">Código incorrecto</string>
-    <string name="incorrect_or_expired_code">El código es incorrecto o expiró, pídele al administrador/a que verifique la validez del mismo.</string>
-    <string name="qr">QR</string>
 
     <!-- Snack -->
     <string name="snack_an_error_occurred">Se produjo un error.</string>
@@ -122,7 +92,6 @@
     <string name="snack_error_connection_server_try_later">Hubo un problema conectándose con los servidores. Intentá nuevamente.</string>
     <string name="snack_ups_visit_blint">Ups, algo se rompió. Visita Blint.app para más info.</string>
     <string name="snack_require_camera_permission">Necesitamos acceso a la cámara para poder abrir el escaner.</string>
-    <string name="snack_send_suggestion_report_success">¡Se envió satisfactioriamente el reporte. Gracias por tu ayuda!</string>
     <string name="snack_wait_for_operation">Por favor espera que se termine la operación para continuar.</string>
     <string name="snack_amount_cant_be_empty">La cantidad no puede estar vacia ni ser 0.</string>
     <string name="snack_text_empty">El campo de texto no puede estar vacio.</string>
@@ -131,7 +100,6 @@
     <string name="snack_name_empty">El nombre no puede estar vacio</string>
     <string name="snack_name_cant_contain_special_chars">El nombre no puede contener caracteres especiales.</string>
     <string name="snack_name_min_max_length">El nombre debe tener entre 3 y 50 caracteres.</string>
-    <string name="action_require_permissions">Sin permisos para realizar esta acción.</string>
     <string name="snack_action_success">La tarea se llevó a cabo satisfactoriamente.</string>
 
     <!-- Delete-->
@@ -144,35 +112,19 @@
     <string name="safety_ask_data">Por seguridad le pediremos unos datos.</string>
 
     <!-- Business -->
-    <string name="joining_business_progress">Uniéndote al negocio…</string>
-    <string name="employee_conflict">Conflicto de empleado</string>
-    <string name="account_already_joined_business">Esta cuenta ya se encuentra enlazada en este negocio.</string>
-    <string name="joining_business_do_not_close_app_alert">Estamos enlazando tus datos al negocio, no cierres ni minimices la aplicación.</string>
-    <string name="join_a_business">Únete a un negocio.</string>
     <string name="ask_business_name">¿Cómo se llamará?</string>
     <string name="new_business_title">¡Estas a un paso de abrir tu negocio en Blint!</string>
-    <string name="the_essential">LO ESENCIAL</string>
-    <string name="register_local_business">Registrar negocio local</string>
     <string name="create_business">crear negocio</string>
     <string name="action_join_business">unirme a un negocio</string>
-    <string name="create">crear</string>
-    <string name="join">unirme</string>
     <string name="action_learn_about_blint">Aprende más sobre blint</string>
     <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.</string>
     <string name="new_user_title">¡Hola!\nNo te había visto antes por aquí.</string>
-    <string name="coming_soon">Próximamente</string>
     <string name="snack_delete_business_error">Ocurrió un error al eliminar el negocio.</string>
     <string name="snack_delete_business_success">Se elimino el negocio correctamente</string>
     <string name="account_sync_success">Cuenta sincronizada correctamente.</string>
     <string name="account_adventure_message">¡Tu cuenta esta lista para arrancar esta nueva aventura!</string>
     <string name="snack_created_business_success">Negocio creado satisfactoriamente.</string>
     <string name="cancel_business_deletion">Cancelar eliminación</string>
-    <string name="delete_employee_title">Eliminar empleado</string>
-    <string name="delete_employee_warning">¡Zona de peligro! ¡Estas a punto de eliminar un empleado, esta acción es irreversible!</string>
-    <string name="snack_delete_employee_success">Empleado eliminado correctamente</string>
-    <string name="snack_delete_employee_error">Ocurrió un error al eliminar el empleado</string>
-    <string name="joined_business_success_title">Te uniste al negocio</string>
-    <string name="joined_business_success_message">Ya eres parte de una nueva familia, te deseamos buena suerte en tu aventura.</string>
     <string name="business_on_delete_alert">Este negocio fue desactivado por el administrador y será eliminado próximamente.</string>
     <string name="business_disabled_alert">Este negocio fue desactivado por el administrador. Comunícate con él para más información.</string>
     <string name="on_delete">Por eliminar</string>
@@ -181,16 +133,11 @@
     <string name="empty_businesses_message">No se encontro nada por aquí, te invitamos a crear un nuevo negocio o unirte a uno ya existente.</string>
 
     <!-- Category-->
-    <string name="rename_category">Renombrar categoría</string>
     <string name="add_category">Agregar categoría</string>
-    <string name="delete_category">Eliminar categorías</string>
     <string name="snack_categories_delete_success">Categoría eliminada satisfactoriamente.</string>
     <string name="snack_categories_delete_error">Ocurrió un error al eliminar la categoría.</string>
     <string name="snack_category_create_success">Categoría guardada correctamente.</string>
     <string name="snack_category_create_error">Ocurrió un error al crear la categoría.</string>
-    <string name="delete_categories_warning">Estas por eliminar las categorías, esta acción es irreversible.</string>
-    <string name="snack_category_modify_error">Ocurrió un error al modificar la categoría.</string>
-    <string name="snack_category_modify_success">Categoría modificada correctamente.</string>
     <string name="add_categories">Agregar categorías</string>
 
     <!-- Login -->
@@ -314,7 +261,6 @@
     <string name="helper_text_obligatory">*Obligatorio</string>
     <string name="business_name_hint">Nombre del negocio</string>
     <string name="role">Rol</string>
-    <string name="joined_date">Fecha de ingreso</string>
     <string name="details">Detalles</string>
     <string name="manually">Manualmente</string>
     <string name="name">Nombre</string>
@@ -330,8 +276,6 @@
     <string name="tab_data">DATOS</string>
     <string name="tab_records">MOVIMIENTOS</string>
     <string name="tab_orders">ORDENES</string>
-    <string name="retrieve_information_error">Error al retirar la información.</string>
-    <string name="no_notifications_found">¡Ops, nada por aquí!</string>
     <string name="image_picker_folder_title">Imágenes</string>
     <string name="action_change">Cambiar</string>
     <string name="action_add_image">Agregar imagen</string>
@@ -439,13 +383,9 @@
     <string name="sign_out_pref">Cerrar sesión</string>
 
     <!-- Menus -->
-    <string name="change_role">Cambiar rol</string>
-    <string name="delete_employee">Eliminar empleado</string>
     <string name="options">Opciones</string>
     <string name="delete_business">Eliminar negocio</string>
-    <string name="add_employee">Agregar empleado/a</string>
     <string name="new_business">Nuevo negocio</string>
-    <string name="join_business">Unirme a un negocio</string>
     <string name="new_event">Nuevo evento</string>
     <string name="new_supplier">Nuevo proveedor</string>
     <string name="new_client">Nuevo cliente</string>
@@ -540,15 +480,6 @@
     <!-- Sync account -->
     <string name="sync_businesses">Sincronizar negocios</string>
     <string name="snack_sync_account_error">Ocurrió un error al sincronizar la cuenta.</string>
-    <string name="snack_sync_account_success">Cuenta sincronizada.</string>
-    <string name="snack_no_businesses_found">No se encontraron negocios en esta cuenta.</string>
-    <string name="syncing_businesses">Sincronizando negocios</string>
-    <string name="sync_cancel_warning">Cerrar esta ventana cancelará la sincronizacion.</string>
-    <string name="snack_sync_account_cancelled">Sincronización cancelada</string>
-    <string name="out_of_sync_label">Sincronización</string>
-    <string name="read_more_sync">Leer más sobre sincronizaciones.</string>
-    <string name="out_of_sync_message">Notamos que tu cuenta no esta sincronizada con nuestras bases de datos.</string>
-    <string name="out_of_sync_title">Cuenta no sincronizada</string>
 
     <!-- Tickets -->
     <string name="send_ticket_label">Enviar ticket</string>
@@ -557,16 +488,6 @@
     <string name="select_business_alert">*Nos contactaremos a la brevedad.\nTambién puedes contactarnos en:\ncontact@blint.app</string>
     <string name="snack_ticket_missing_required_data">Selecciona una razon y dejanos tu mensaje.</string>
     <string name="snack_ticket_sent_success">Ticket enviado correctamente, nos contactaremos vía e-mail próximamente.</string>
-
-    <!-- Notifications -->
-    <string name="new_user_notif_title">¡Bienvenido a Blint!</string>
-    <string name="new_business_notif_title">¡Felicitaciones!</string>
-    <string name="new_employee_notif_title">¡Novedad!</string>
-    <string name="new_user_notif_message">Te recomendamos que veas esta guía para poder aprovechar al máximo la app.</string>
-    <string name="new_business_notif_message">Hoy inicias una nueva aventura y estamos felices de poder acompañarte en ella.</string>
-    <string name="new_employee_notif_message">El negocio se agranda, le damos la bienvenida a %1$s.</string>
-    <string name="days_notif">%1$d días</string>
-    <string name="day_notif">1 día</string>
 
     <!-- Invoice -->
     <string name="share">Compartir</string>
@@ -577,13 +498,6 @@
     <string name="business">Negocio</string>
     <string name="order_number_invoice">Orden numero: %1$d</string>
     <string name="invoice_file_name">factura_orden_%1$d.pdf</string>
-
-    <!-- Business Tiers -->
-    <string name="local_business_price">$ 0.00 / mes - Gratis</string>
-    <string name="local_business_point_1">El negocio vive localemente en tu dispositivo.</string>
-    <string name="local_business_point_2">Un solo integrante.</string>
-    <string name="local_business_point_3">Crea facturas en pdf y informes en excel.</string>
-    <string name="local_business_point_4">Acceso a productos, clientes, proveedores y mucho más…</string>
 
     <!-- Arrays-->
     <string-array name="debt_type">
