@@ -28,8 +28,8 @@ class SimpleOrderViewModel @Inject constructor(
                 amount = amount,
                 productId = product.productId,
                 productName = product.name,
-                totalInStock = product.historicInStock,
-                totalOutStock = product.historicOutStock,
+                historicalInStock = product.historicInStock,
+                historicalOutStock = product.historicOutStock,
                 sku = product.sku,
                 barcode = product.barcode
             )

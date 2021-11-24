@@ -16,7 +16,7 @@
         tools:context=".ui.orders.detailed_order.OrderTypeFragment">
 
         <TextView
-            android:id="@+id/textView160"
+            android:id="@+id/order_type_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
@@ -29,42 +29,42 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/recordTypeInput"
+            android:id="@+id/record_type_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
             android:hint="@string/type"
-            app:layout_constraintBottom_toTopOf="@+id/textView169"
+            app:layout_constraintBottom_toTopOf="@+id/record_type_summary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView160"
+            app:layout_constraintTop_toBottomOf="@+id/order_type_title"
             app:layout_constraintVertical_bias="0.40">
 
             <AutoCompleteTextView
-                android:id="@+id/recordType"
+                android:id="@+id/record_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="@string/in_entry" />
+                android:text="@string/in_entry"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button22"
+            android:id="@+id/add_trader_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/select_supplier"
             style="@style/Theme.Blint.Button"
             android:onClick="@{()-> fragment.onAddTraderClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordTypeInput" />
+            app:layout_constraintTop_toBottomOf="@+id/record_type_input_layout" />
 
         <TextView
-            android:id="@+id/textView169"
+            android:id="@+id/record_type_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

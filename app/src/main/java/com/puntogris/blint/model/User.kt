@@ -21,7 +21,7 @@ data class User(
     @ColumnInfo
     val uid: String = "",
 
-    @ColumnInfo
+    @ColumnInfo(name = "user_name")
     val name: String = "",
 
     @ColumnInfo

@@ -59,13 +59,12 @@ fun NewOrder.toOrderWithRecords(business: Business, statistic: Statistic): Order
         order = Order(
             orderId = orderId,
             number = statistic.totalOrders + 1,
-            value = newRecords.sumOf { it.amount }.toFloat(),
+            value = value,
             type = type,
             traderName = traderName,
             traderId = traderId,
             businessId = business.businessId,
             businessName = business.name,
-            discount = discount,
             debtId = newDebt?.debtId ?: ""
         ),
         records = newRecords.map {
@@ -78,10 +77,11 @@ fun NewOrder.toOrderWithRecords(business: Business, statistic: Statistic): Order
                 amount = it.amount,
                 productName = it.productName,
                 productId = it.productId,
-                totalOutStock = it.totalOutStock,
-                totalInStock = it.totalInStock,
+                totalOutStock = it.historicalOutStock,
+                totalInStock = it.historicalInStock,
                 businessId = business.businessId,
                 barcode = it.barcode,
+                productUnitPrice = it.productUnitPrice,
                 sku = it.sku,
             ).also { record ->
                 if (record.type == Constants.IN) record.totalInStock += record.amount.absoluteValue
@@ -98,5 +98,19 @@ fun NewOrder.toOrderWithRecords(business: Business, statistic: Statistic): Order
                 businessId = business.businessId
             )
         }
+    )
+}
+
+fun Product.toNewRecord(): NewRecord {
+    return NewRecord(
+        productName = name,
+        productId = productId,
+        barcode = barcode,
+        sku = sku,
+        historicalInStock = historicInStock,
+        historicalOutStock = historicOutStock,
+        amount = 0,
+        productUnitPrice = buyPrice,
+        currentStock = amount
     )
 }

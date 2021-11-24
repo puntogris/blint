@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.details
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

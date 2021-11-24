@@ -1,123 +1,106 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
+import com.puntogris.blint.data.data_source.toNewRecord
 import com.puntogris.blint.data.repository.clients.ClientRepository
 import com.puntogris.blint.data.repository.orders.OrderRepository
 import com.puntogris.blint.data.repository.products.ProductRepository
 import com.puntogris.blint.data.repository.supplier.SupplierRepository
-import com.puntogris.blint.data.repository.user.UserRepository
-import com.puntogris.blint.model.order.*
+import com.puntogris.blint.model.order.NewDebt
+import com.puntogris.blint.model.order.NewOrder
+import com.puntogris.blint.model.order.NewRecord
+import com.puntogris.blint.model.order.updateOrderTotalValue
 import com.puntogris.blint.model.product.Product
-import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.OUT
+import com.puntogris.blint.utils.copyAndAdd
+import com.puntogris.blint.utils.copyAndRemove
 import com.puntogris.blint.utils.types.RepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val userRepository: UserRepository,
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
     private val supplierRepository: SupplierRepository,
     private val clientRepository: ClientRepository
 ) : ViewModel() {
 
-    private var job: Job? = null
+    private val query = MutableLiveData("")
 
-    private val _order = MutableStateFlow(Order())
-    val order: LiveData<Order> = _order.asLiveData()
-    var productWithRecords = mutableListOf<ProductWithRecord>()
+    private val _newOrder = MutableStateFlow(NewOrder())
+    val newOrder = _newOrder.asStateFlow()
 
-    private var debt: Debt? = null
+    val productsLiveData = query.switchMap {
+        liveData {
+            if (it.isNotBlank()) emit(productRepository.getProductsWithQuery(it))
+            else emit(emptyList())
+        }
+    }
+
+    val clientsLiveData = Transformations.switchMap(query) {
+        clientRepository.getClientsPaged(it).asLiveData()
+    }.cachedIn(viewModelScope)
+
+    val suppliersLiveData = Transformations.switchMap(query) {
+        supplierRepository.getSuppliersPaged(query.value).asLiveData()
+    }.cachedIn(viewModelScope)
+
+    fun addProduct(product: Product) {
+        if (!newOrder.value.newRecords.any { it.productId == product.productId }) {
+            _newOrder.value = newOrder.value.copy(
+                newRecords = newOrder.value.newRecords.copyAndAdd(product.toNewRecord())
+            )
+        }
+    }
+
+    fun addProduct(newRecord: NewRecord) {
+        if (!newOrder.value.newRecords.any { it.productId == newRecord.productId }) {
+            _newOrder.value = newOrder.value.copy(
+                newRecords = newOrder.value.newRecords.copyAndAdd(newRecord)
+            )
+        }
+    }
+
+    fun removeProduct(newRecord: NewRecord) {
+        _newOrder.value = newOrder.value.copy(
+            newRecords = newOrder.value.newRecords.copyAndRemove(newRecord)
+        )
+    }
+
+    fun publishOrder(): Flow<RepoResult<Unit>> {
+        _newOrder.value.updateOrderTotalValue()
+        return orderRepository.saveOrder(_newOrder.value)
+    }
+
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
+    }
 
     fun updateOrderDebt(amount: Float) {
-        debt = Debt(amount = -amount)
+        _newOrder.value.newDebt = if (amount != 0F) NewDebt(amount = amount) else null
+    }
+    fun updateOrderDebt(editable: Editable) {
+        updateOrderDebt(editable.toString().toFloat())
     }
 
-    fun updateOrderDiscount(amount: Float) {
-        _order.value.value = _order.value.value - amount
-        _order.value.discount = amount
+    fun updateOrderType(code: Int) {
+        _newOrder.value.type = if (code == 0) IN else OUT
     }
 
-    fun updateRecordType(code: Int) {
-        _order.value.type = when (code) {
-            0 -> IN
-            else -> OUT
-        }
+    fun updateOrderTrader(traderName: String, traderId: String) {
+        _newOrder.value.traderId = traderId
+        _newOrder.value.traderName = traderName
+        query.value = ""
     }
 
-    fun getOrderType() = _order.value.type
+    fun areProductsValid() = _newOrder.value.newRecords.isNotEmpty()
 
-    fun updateOrderValue(newValue: Float) {
-        _order.value.value = newValue
-    }
-
-    fun updateOrderExternalInfo(name: String, id: String) {
-        _order.value.traderId = id
-        _order.value.traderName = name
-    }
-
-    fun updateOrdersItems(items: List<ProductWithRecord>) {
-        _order.value.items = items.map {
-            it.record
-        }
-    }
-
-    fun getSuppliersWithName(name: String) =
-        supplierRepository.getSuppliersPaged(name).cachedIn(viewModelScope)
-
-    fun getSuppliersPaging() = supplierRepository.getSuppliersPaged().cachedIn(viewModelScope)
-
-    private val _productsLiveData = MutableLiveData<List<Product>>()
-    val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
-
-    fun setQuery(query: String) {
-        job?.cancel()
-        if (query.isEmpty()) {
-            _productsLiveData.value = emptyList()
-        } else {
-            job = viewModelScope.launch {
-                val products = productRepository.getProductsWithQuery(query)
-                _productsLiveData.value = products
-            }
-        }
-    }
-
-    fun publishOrderDatabase(): Flow<RepoResult<Unit>> {
-        val newOrder = OrderWithRecords(
-            _order.value,
-            _order.value.items.map {
-                Record(
-                    amount = it.amount,
-                    productId = it.productId,
-                    productName = it.productName,
-                    recordId = it.recordId,
-                    value = it.value,
-                    sku = it.sku,
-                    barcode = it.barcode,
-                    totalInStock = it.totalInStock,
-                    totalOutStock = it.totalOutStock
-                )
-            },
-            debt
-        )
-        return orderRepository.saveOrder(NewOrder())
-    }
-
-    fun getClientPaging() = clientRepository.getClientsPaged().cachedIn(viewModelScope)
-
-    fun getClientsWithName(name: String) =
-        clientRepository.getClientsPaged(name).cachedIn(viewModelScope)
-
-    override fun onCleared() {
-        job?.cancel()
-        super.onCleared()
-    }
+    fun isDebtValid() = if (_newOrder.value.newDebt != null) _newOrder.value.newDebt?.amount != 0F else true
 }

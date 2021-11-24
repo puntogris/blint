@@ -38,7 +38,7 @@ class ManageOrdersFragment :
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
         override fun getItemCount(): Int = 2
-        override fun createFragment(position: Int): Fragment =
+        override fun createFragment(position: Int) =
             if (position == 0) OrdersTabFragment() else RecordsTabFragment()
     }
 

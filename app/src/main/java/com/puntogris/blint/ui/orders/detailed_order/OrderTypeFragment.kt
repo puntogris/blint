@@ -1,13 +1,12 @@
 package com.puntogris.blint.ui.orders.detailed_order
 
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.DetailedOrderGraphNavArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderTypeBinding
-import com.puntogris.blint.model.order.Record
-import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,35 +30,34 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
             findNavController().navigate(action)
         }
 
-        if (args.product != null && !viewModel.productWithRecords.any { it.product.productId == args.product?.productId }) {
-            args.product?.let {
-                viewModel.productWithRecords.add(
-                    ProductWithRecord(it, Record(productName = it.name, productId = it.productId))
+        args.product?.let {
+            viewModel.addProduct(it)
+        }
+        setupOrderTypeAdapter()
+    }
+
+    private fun setupOrderTypeAdapter() {
+        binding.recordType.apply {
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item_list,
+                    resources.getStringArray(R.array.order_type)
                 )
+            )
+            setOnItemClickListener { _, _, i, _ ->
+                binding.addTraderButton.setText(
+                    if (i == 0) R.string.select_supplier else R.string.select_client
+                )
+                viewModel.updateOrderType(i)
             }
         }
-
-//        binding.recordTypeText.apply {
-//            setAdapter(
-//                ArrayAdapter(
-//                    requireContext(),
-//                    R.layout.dropdown_item_list,
-//                    resources.getStringArray(R.array.order_type)
-//                )
-//            )
-//            setOnItemClickListener { _, _, i, _ ->
-//                binding.button22.text =
-//                    if (i == 0) getString(R.string.select_supplier)
-//                    else getString(R.string.select_client)
-//                viewModel.updateRecordType(i)
-//            }
-//        }
     }
 
     fun onAddTraderClicked() {
         val action =
             OrderTypeFragmentDirections.actionOrderTypeFragmentToAddOrderClientSupplierBottomSheet(
-                viewModel.getOrderType()
+                viewModel.newOrder.value.type
             )
         findNavController().navigate(action)
     }

@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.orders.manage
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.model.order.Record
@@ -17,15 +16,20 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     private val viewModel: ManageOrdersViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
-        val recordsAdapter = RecordsAdapter { onRecordClickedListener(it) }
-        binding.recyclerView.apply {
-            adapter = recordsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+        setupRecordsAdapter()
+    }
 
+    private fun setupRecordsAdapter(){
+        RecordsAdapter { onRecordClickedListener(it) }.let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
+        }
+    }
+
+    private fun subscribeUi(adapter: RecordsAdapter){
         launchAndRepeatWithViewLifecycle {
-            viewModel.getBusinessRecords().collect {
-                recordsAdapter.submitData(it)
+            viewModel.getRecords().collect {
+                adapter.submitData(it)
             }
         }
     }

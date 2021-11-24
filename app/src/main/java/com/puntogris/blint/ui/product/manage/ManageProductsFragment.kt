@@ -25,6 +25,7 @@ class ManageProductsFragment :
             findNavController().navigate(R.id.editProductFragment)
         }
         binding.fragment = this
+        binding.viewModel = viewModel
         binding.productSearch.clearFocus()
         registerToolbarBackButton(binding.searchToolbar)
 

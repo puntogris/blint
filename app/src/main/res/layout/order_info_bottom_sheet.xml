@@ -10,7 +10,7 @@
 
         <variable
             name="bottomSheet"
-            type="com.puntogris.blint.ui.orders.OrderInfoBottomSheet" />
+            type="com.puntogris.blint.ui.orders.details.OrderInfoBottomSheet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

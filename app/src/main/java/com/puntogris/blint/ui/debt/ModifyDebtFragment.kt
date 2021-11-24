@@ -24,8 +24,8 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     override fun initializeViews() {
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             if (
-                binding.debtAmountText.getString().toFloatOrNull() != null &&
-                binding.debtAmountText.getFloat() > 0
+                binding.debtAmount.getString().toFloatOrNull() != null &&
+                binding.debtAmount.getFloat() > 0
             ) {
                 onSaveDebtClicked()
             } else {
@@ -36,7 +36,7 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     }
 
     private fun setupAmountSignAdapter() {
-        binding.debtTypeText.apply {
+        binding.debtTypeSelector.apply {
             setAdapter(
                 ArrayAdapter(
                     requireContext(),
@@ -50,8 +50,8 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
 
     private fun onSaveDebtClicked() {
         lifecycleScope.launch {
-            val sign = binding.debtTypeText.getString()
-            val amount = binding.debtAmountText.getFloat()
+            val sign = binding.debtTypeSelector.getString()
+            val amount = binding.debtAmount.getFloat()
 
             val result = when (viewModel.saveDebt(amountSign = sign, debtAmount = amount)) {
                 SimpleResult.Failure -> R.string.snack_update_debt_error

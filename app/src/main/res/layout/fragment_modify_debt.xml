@@ -13,7 +13,7 @@
         tools:context=".ui.debt.ModifyDebtFragment">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/debtType"
+            android:id="@+id/debt_type_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
-                android:id="@+id/debtTypeText"
+                android:id="@+id/debt_type_selector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -34,20 +34,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/debtAmount"
+            android:id="@+id/debt_amount_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/debtType"
+            app:layout_constraintBottom_toBottomOf="@+id/debt_type_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/debtType"
-            app:layout_constraintTop_toTopOf="@+id/debtType"
+            app:layout_constraintStart_toEndOf="@+id/debt_type_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/debt_type_input_layout"
             app:startIconDrawable="@drawable/ic_baseline_attach_money_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/debtAmountText"
+                android:id="@+id/debt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
@@ -57,7 +57,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textView188"
+            android:id="@+id/debt_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -68,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/debtType" />
+            app:layout_constraintTop_toBottomOf="@+id/debt_type_input_layout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

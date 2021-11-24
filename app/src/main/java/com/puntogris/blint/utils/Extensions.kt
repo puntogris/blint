@@ -274,21 +274,8 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
 fun String.capitalizeFirstChar() =
     replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
-fun <T> Fragment.onBackStackLiveData(key: String, observer: Observer<T>) {
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
-        ?.observe(viewLifecycleOwner, observer)
-}
-
 inline val Fragment.UiInterface: SetupUiListener
     get() = (requireActivity() as SetupUiListener)
-
-inline fun <T : Parcelable> Fragment.takeArgsIfNotNull(key: String, action: (T) -> (Unit)) {
-    arguments?.takeIf { it.containsKey(key) }?.apply {
-        getParcelable<T>(key)?.let {
-            action(it)
-        }
-    }
-}
 
 fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
     toolbar.setNavigationOnClickListener {
@@ -305,4 +292,12 @@ inline fun TabLayout.addOnTabSelectedListener(crossinline block: (Int) -> Unit) 
         override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
         override fun onTabReselected(tab: TabLayout.Tab?) = Unit
     })
+}
+
+fun <T>List<T>.copyAndAdd(item: T): List<T>{
+    return this.toMutableList().apply { add(item) }
+}
+
+fun <T>List<T>.copyAndRemove(item: T): List<T>{
+    return this.toMutableList().apply { remove(item) }
 }

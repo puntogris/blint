@@ -80,7 +80,7 @@ class OrderRepository @Inject constructor(
         }
     }.flowOn(dispatcher.io)
 
-    override fun getBusinessOrdersPaged(): Flow<PagingData<OrderWithRecords>> {
+    override fun getOrdersPaged(): Flow<PagingData<OrderWithRecords>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -92,7 +92,7 @@ class OrderRepository @Inject constructor(
         }.flow
     }
 
-    override fun getBusinessRecordsPaged(): Flow<PagingData<Record>> {
+    override fun getRecordsPaged(): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,

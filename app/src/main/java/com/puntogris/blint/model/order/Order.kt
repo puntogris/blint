@@ -3,11 +3,9 @@ package com.puntogris.blint.model.order
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.puntogris.blint.utils.UUIDGenerator
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -42,13 +40,6 @@ data class Order(
     var debtId: String = "",
 
     @ColumnInfo
-    var businessName: String = "",
+    var businessName: String = ""
 
-    @ColumnInfo
-    var discount: Float = 0F
-
-) : Parcelable {
-    @Ignore
-    @IgnoredOnParcel
-    var items: List<Record> = listOf()
-}
+) : Parcelable

@@ -16,7 +16,7 @@
         tools:context=".ui.orders.detailed_order.ReviewRecordFragment">
 
         <TextView
-            android:id="@+id/textView167"
+            android:id="@+id/amounts_of_products_label"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,59 +27,38 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView168"
+            android:id="@+id/amount_of_products"
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(viewModel.order.items.size())}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView167"
-            app:layout_constraintStart_toEndOf="@+id/textView167"
-            app:layout_constraintTop_toTopOf="@+id/textView167" />
+            android:text="@{String.valueOf(viewModel.newOrder.newRecords.size())}"
+            app:layout_constraintBottom_toBottomOf="@+id/amounts_of_products_label"
+            app:layout_constraintStart_toEndOf="@+id/amounts_of_products_label"
+            app:layout_constraintTop_toTopOf="@+id/amounts_of_products_label" />
 
         <TextView
-            android:id="@+id/textView170"
+            android:id="@+id/order_date_label"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/date_with_dots"
-            app:layout_constraintStart_toStartOf="@+id/textView177"
-            app:layout_constraintTop_toBottomOf="@+id/textView177" />
+            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
 
         <TextView
-            android:id="@+id/textView171"
+            android:id="@+id/order_date"
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            dateFromTimestamp="@{viewModel.order.timestamp}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView170"
-            app:layout_constraintStart_toEndOf="@+id/textView170"
-            app:layout_constraintTop_toTopOf="@+id/textView170" />
+            app:layout_constraintBottom_toBottomOf="@+id/order_date_label"
+            app:layout_constraintStart_toEndOf="@+id/order_date_label"
+            app:layout_constraintTop_toTopOf="@+id/order_date_label" />
 
         <TextView
-            android:id="@+id/textView174"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/author_with_dots"
-            app:layout_constraintStart_toStartOf="@+id/textView170"
-            app:layout_constraintTop_toBottomOf="@+id/textView170" />
-
-        <TextView
-            android:id="@+id/textView175"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView174"
-            app:layout_constraintStart_toEndOf="@+id/textView174"
-            app:layout_constraintTop_toTopOf="@+id/textView174" />
-
-        <TextView
-            android:id="@+id/textView176"
+            android:id="@+id/review_order_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -93,131 +72,85 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView177"
+            android:id="@+id/order_trader_label"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/supplier_or_client"
-            app:layout_constraintStart_toStartOf="@+id/textView167"
-            app:layout_constraintTop_toBottomOf="@+id/textView167" />
+            app:layout_constraintStart_toStartOf="@+id/amounts_of_products_label"
+            app:layout_constraintTop_toBottomOf="@+id/amounts_of_products_label" />
 
         <TextView
-            android:id="@+id/textView178"
+            android:id="@+id/order_trader"
             style="@style/Theme.Blint.DataTextView"
+            externalName="@{viewModel.newOrder.traderName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            externalName="@{viewModel.order.traderName}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView177"
-            app:layout_constraintStart_toEndOf="@+id/textView177"
-            app:layout_constraintTop_toTopOf="@+id/textView177" />
+            app:layout_constraintBottom_toBottomOf="@+id/order_trader_label"
+            app:layout_constraintStart_toEndOf="@+id/order_trader_label"
+            app:layout_constraintTop_toTopOf="@+id/order_trader_label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/debt"
+            android:id="@+id/order_debt_selector_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/order_payment_status"
-            app:layout_constraintEnd_toStartOf="@+id/debtAmount"
+            app:layout_constraintEnd_toStartOf="@+id/order_debt_amount_input_layout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discountTextInput">
+            app:layout_constraintTop_toBottomOf="@+id/order_date_label">
 
             <AutoCompleteTextView
-                android:id="@+id/debtText"
+                android:id="@+id/order_debt_selector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="@string/order_payment_status_completed" />
+                android:text="@string/order_payment_status_completed"
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/discountTextInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/discount"
-            app:layout_constraintEnd_toStartOf="@+id/discountType"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView174"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/discountText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="number" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/discountType"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/type"
-            app:expandedHintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="@+id/discountTextInput"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/discountTextInput"
-            app:layout_constraintTop_toTopOf="@+id/discountTextInput">
-
-            <AutoCompleteTextView
-                android:id="@+id/changeValueTypeText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:text="@string/percentage_symbol" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/debtAmount"
+            android:id="@+id/order_debt_amount_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:hint="@string/debt_value"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/debt"
+            app:layout_constraintBottom_toBottomOf="@+id/order_debt_selector_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/debt"
-            app:layout_constraintTop_toTopOf="@+id/debt">
+            app:layout_constraintStart_toEndOf="@+id/order_debt_selector_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/order_debt_selector_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/debtAmountText"
+                android:id="@+id/order_debt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::updateOrderDebt}"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/debtSummary"
+            android:id="@+id/order_debt_summary"
             style="?textAppearanceSubtitle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/debt"
-            app:layout_constraintTop_toBottomOf="@+id/debt" />
+            app:layout_constraintStart_toStartOf="@+id/order_debt_selector_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/order_debt_selector_input_layout" />
 
         <TextView
-            android:id="@+id/textView154"
+            android:id="@+id/order_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -226,20 +159,7 @@
             android:text="@string/total_with_dots"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/totalText"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/totalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="19sp"
-            numberToMoneyString="@{viewModel.order.value}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView154"
-            app:layout_constraintStart_toEndOf="@+id/textView154"
-            app:layout_constraintTop_toTopOf="@+id/textView154" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

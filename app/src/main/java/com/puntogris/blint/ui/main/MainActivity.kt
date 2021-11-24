@@ -131,7 +131,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 R.id.loginFragment,
                 R.id.syncAccountFragment,
                 R.id.newUserFragment,
-                R.id.outOfSyncFragment,
                 R.id.publishOrderFragment
             )
         )

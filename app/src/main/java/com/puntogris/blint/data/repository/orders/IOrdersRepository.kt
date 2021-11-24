@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface IOrdersRepository {
 
-    fun getBusinessOrdersPaged(): Flow<PagingData<OrderWithRecords>>
+    fun getOrdersPaged(): Flow<PagingData<OrderWithRecords>>
 
-    fun getBusinessRecordsPaged(): Flow<PagingData<Record>>
+    fun getRecordsPaged(): Flow<PagingData<Record>>
 
     fun saveOrder(newOrder: NewOrder): Flow<RepoResult<Unit>>
 

@@ -20,11 +20,11 @@ import com.puntogris.blint.R
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.model.User
+import com.puntogris.blint.model.order.NewRecord
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.order.Record
 import com.puntogris.blint.model.product.Product
 import com.puntogris.blint.model.product.ProductWithDetails
-import com.puntogris.blint.model.product.ProductWithRecord
 import com.puntogris.blint.utils.Constants.DISABLED
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.Constants.INITIAL
@@ -132,31 +132,31 @@ fun TextView.setClientOrSupplierTitleWithRecordType(type: String) {
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
     var data = ""
 
-    if (order.order.discount != 0F) {
-        data += context.getString(
-            R.string.order_value_discount_summary,
-            order.order.discount.toMoneyFormatted()
-        )
-    }
-
-    if (order.debt != null) {
-        val debt = order.debt?.amount?.absoluteValue?.toMoneyFormatted()
-        if (data.isBlank()) {
-            data = if (order.order.type == IN) context.getString(
-                R.string.order_value_debt_supplier_summary,
-                debt
-            )
-            else context.getString(R.string.order_value_debt_client_summary, debt)
-        } else {
-            data += if (order.order.type == IN) " " + context.getString(
-                R.string.order_value_debt_supplier_summary2,
-                debt
-            )
-            else " " + context.getString(R.string.order_value_debt_client_summary2, debt)
-        }
-    } else {
-        if (order.order.discount != 0F) data += "."
-    }
+//    if (order.order.discount != 0F) {
+//        data += context.getString(
+//            R.string.order_value_discount_summary,
+//            order.order.discount.toMoneyFormatted()
+//        )
+//    }
+//
+//    if (order.debt != null) {
+//        val debt = order.debt?.amount?.absoluteValue?.toMoneyFormatted()
+//        if (data.isBlank()) {
+//            data = if (order.order.type == IN) context.getString(
+//                R.string.order_value_debt_supplier_summary,
+//                debt
+//            )
+//            else context.getString(R.string.order_value_debt_client_summary, debt)
+//        } else {
+//            data += if (order.order.type == IN) " " + context.getString(
+//                R.string.order_value_debt_supplier_summary2,
+//                debt
+//            )
+//            else " " + context.getString(R.string.order_value_debt_client_summary2, debt)
+//        }
+//    } else {
+//        if (order.order.discount != 0F) data += "."
+//    }
 
     if (data.isEmpty()) gone() else text = data
 }
@@ -297,29 +297,29 @@ fun TextView.setBusinessStatus(status: String) {
     }
     setText(res)
 }
-
-@BindingAdapter("productOrderPrices")
-fun TextView.setProductOrderPrices(product: ProductWithRecord) {
-    text = if (product.record.type == IN) {
-        product.product.buyPrice.toMoneyFormatted()
-    } else {
-        "${product.product.sellPrice.toMoneyFormatted()} /${product.product.suggestedSellPrice.toMoneyFormatted()}"
-    }
-}
+//
+//@BindingAdapter("productOrderPrices")
+//fun TextView.setProductOrderPrices(product: ProductWithRecord) {
+//    text = if (product.record.type == IN) {
+//        product.product.buyPrice.toMoneyFormatted()
+//    } else {
+//        "${product.product.sellPrice.toMoneyFormatted()} /${product.product.suggestedSellPrice.toMoneyFormatted()}"
+//    }
+//}
 
 @BindingAdapter("productOrderPricesTitle")
 fun TextView.setProductOrderPricesTitle(record: Record) {
     setText(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
 }
 
-@BindingAdapter("productRecordPriceEntry")
-fun TextView.setProductRecordPriceEntry(product: ProductWithRecord) {
-    text = if (product.record.type == IN) {
-        product.product.buyPrice.toString()
-    } else {
-        product.product.sellPrice.toString()
-    }
-}
+//@BindingAdapter("productRecordPriceEntry")
+//fun TextView.setProductRecordPriceEntry(product: ProductWithRecord) {
+//    text = if (product.record.type == IN) {
+//        product.product.buyPrice.toString()
+//    } else {
+//        product.product.sellPrice.toString()
+//    }
+//}
 
 fun TextView.setDateOrError(timeInMillis: Long) {
     text = if (timeInMillis == 0L) {
@@ -327,4 +327,12 @@ fun TextView.setDateOrError(timeInMillis: Long) {
     } else {
         Date(timeInMillis).getDateWithTimeFormattedString()
     }
+}
+
+@BindingAdapter("orderTotal")
+fun TextView.setOrderTotal(newRecord: List<NewRecord>) {
+    text = context.getString(
+        R.string.order_total_template,
+        newRecord.sumOf { (it.amount * it.productUnitPrice).toInt() }.toString()
+    )
 }

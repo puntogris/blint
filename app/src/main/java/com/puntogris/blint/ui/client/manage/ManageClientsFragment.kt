@@ -26,7 +26,10 @@ class ManageClientsFragment :
         UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
             findNavController().navigate(R.id.editClientFragment)
         }
+        setupClientsAdapter()
+    }
 
+    private fun setupClientsAdapter() {
         ManageClientsAdapter { onClientClickListener(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)

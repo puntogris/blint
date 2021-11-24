@@ -2,7 +2,7 @@ package com.puntogris.blint.model.order
 
 import com.puntogris.blint.utils.UUIDGenerator
 
-class NewOrder(
+data class NewOrder(
 
     val orderId: String = UUIDGenerator.randomUUID(),
 
@@ -12,14 +12,14 @@ class NewOrder(
 
     var traderName: String = "",
 
-    var discount: Float = 0F,
-
     var newRecords: List<NewRecord> = emptyList(),
 
-    var newDebt: NewDebt? = null
+    var newDebt: NewDebt? = null,
+
+    var value: Float = 0F
 )
 
-class NewRecord(
+data class NewRecord(
 
     val recordId: String = UUIDGenerator.randomUUID(),
 
@@ -29,16 +29,20 @@ class NewRecord(
 
     var productName: String = "",
 
-    var totalInStock: Int = 0,
+    var productUnitPrice: Float = 0F,
 
-    var totalOutStock: Int = 0,
+    var historicalInStock: Int = 0,
+
+    var historicalOutStock: Int = 0,
 
     var sku: String = "",
 
-    var barcode: String = ""
+    var barcode: String = "",
+
+    var currentStock: Int = 0
 )
 
-class NewDebt(
+data class NewDebt(
 
     val debtId: String = UUIDGenerator.randomUUID(),
 
@@ -46,3 +50,7 @@ class NewDebt(
 
     var traderType: String = ""
 )
+
+fun NewOrder.updateOrderTotalValue(){
+    value = newRecords.sumOf { (it.productUnitPrice * it.amount).toInt() }.toFloat()
+}

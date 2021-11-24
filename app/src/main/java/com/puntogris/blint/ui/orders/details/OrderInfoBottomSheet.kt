@@ -1,4 +1,4 @@
-package com.puntogris.blint.ui.orders
+package com.puntogris.blint.ui.orders.details
 
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs

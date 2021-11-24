@@ -7,17 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.orders.OrdersViewModel" />
+            type="com.puntogris.blint.ui.orders.details.OrdersViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.orders.OrderFragment" />
+            type="com.puntogris.blint.ui.orders.details.OrderFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.orders.OrderFragment">
+        tools:context=".ui.orders.details.OrderFragment">
 
         <TextView
             android:id="@+id/textView75"

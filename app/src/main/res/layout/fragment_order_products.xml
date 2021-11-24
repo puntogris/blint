@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.orders.detailed_order.CreateOrderFragment" />
+            type="com.puntogris.blint.ui.orders.detailed_order.OrderProductsFragment" />
 
         <variable
             name="viewModel"
@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        tools:context=".ui.orders.detailed_order.CreateOrderFragment">
+        tools:context=".ui.orders.detailed_order.OrderProductsFragment">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,30 +35,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="55dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/productSearchText"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:autofillHints="@string/auto_fill_hint_search_product"
-                    android:background="@null"
-                    android:hint="@string/search"
-                    android:imeOptions="flagNoExtractUi|actionDone"
-                    android:inputType="textNoSuggestions" />
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:endIconMode="clear_text"
+                    app:expandedHintEnabled="false"
+                    app:hintEnabled="false">
 
-                <ImageButton
-                    android:id="@+id/clearTextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/actionBarItemBackground"
-                    android:contentDescription="@string/close_icon"
-                    android:padding="@dimen/grid_2"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_baseline_close_24" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/product_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:afterTextChanged="@{viewModel::setQuery}"
+                        android:autofillHints="@string/auto_fill_hint_search_product"
+                        android:hint="@string/search"
+                        android:imeOptions="flagNoExtractUi|actionDone"
+                        android:inputType="textNoSuggestions" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -69,10 +70,10 @@
                     android:padding="@dimen/grid_2"
                     app:srcCompat="@drawable/ic_barcode" />
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <TextView
-            android:id="@+id/textView68"
+            android:id="@+id/product_name"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,28 +82,28 @@
             android:layout_weight="1"
             android:text="@string/product"
             android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@+id/textView157"
+            app:layout_constraintEnd_toStartOf="@+id/product_amount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
         <TextView
-            android:id="@+id/textView157"
+            android:id="@+id/product_amount"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/amount"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/textView68"
-            app:layout_constraintEnd_toStartOf="@+id/textView158"
+            app:layout_constraintBottom_toBottomOf="@+id/product_name"
+            app:layout_constraintEnd_toStartOf="@+id/product_value"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView68"
-            app:layout_constraintTop_toTopOf="@+id/textView68" />
+            app:layout_constraintStart_toEndOf="@+id/product_name"
+            app:layout_constraintTop_toTopOf="@+id/product_name" />
 
         <TextView
-            android:id="@+id/textView158"
+            android:id="@+id/product_value"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,11 +111,11 @@
             android:layout_weight="1"
             android:text="@string/price"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/textView157"
+            app:layout_constraintBottom_toBottomOf="@+id/product_amount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView157"
-            app:layout_constraintTop_toTopOf="@+id/textView157" />
+            app:layout_constraintStart_toEndOf="@+id/product_amount"
+            app:layout_constraintTop_toTopOf="@+id/product_amount" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -122,27 +123,27 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView154"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/order_total"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView68" />
+            app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
         <TextView
-            android:id="@+id/textView154"
+            android:id="@+id/order_total"
+            orderTotal="@{viewModel.newOrder.newRecords}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/total_with_dots"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView155"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productSearchRecyclerView"
+            android:id="@+id/product_search_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -150,7 +151,6 @@
             android:background="?colorSurface"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,16 +159,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
-        <TextView
-            android:id="@+id/textView155"
-            numberToMoneyString="@{viewModel.order.value}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="19sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView154"
-            app:layout_constraintStart_toEndOf="@+id/textView154"
-            app:layout_constraintTop_toTopOf="@+id/textView154" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

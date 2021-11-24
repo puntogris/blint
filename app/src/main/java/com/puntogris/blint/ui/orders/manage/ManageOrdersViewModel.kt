@@ -9,12 +9,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ManageOrdersViewModel @Inject constructor(
-    private val orderRepository: OrderRepository
+    private val repository: OrderRepository
 ) : ViewModel() {
 
-    suspend fun getBusinessOrders() =
-        orderRepository.getBusinessOrdersPaged().cachedIn(viewModelScope)
+    fun getOrders() = repository.getOrdersPaged().cachedIn(viewModelScope)
 
-    suspend fun getBusinessRecords() =
-        orderRepository.getBusinessRecordsPaged().cachedIn(viewModelScope)
+    fun getRecords() = repository.getRecordsPaged().cachedIn(viewModelScope)
 }

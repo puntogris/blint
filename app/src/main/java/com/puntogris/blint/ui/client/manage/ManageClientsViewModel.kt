@@ -15,7 +15,7 @@ class ManageClientsViewModel @Inject constructor(
     private val query = MutableLiveData("")
 
     val clientsLiveData = query.switchMap {
-        clientRepository.getClientsPaged().asLiveData()
+        clientRepository.getClientsPaged(it).asLiveData()
     }.cachedIn(viewModelScope)
 
     fun setQuery(editable: Editable) {
