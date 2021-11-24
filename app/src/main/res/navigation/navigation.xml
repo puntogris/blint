@@ -115,16 +115,9 @@
         android:name="com.puntogris.blint.ui.login.LoginFragment"
         android:label="" >
         <action
-            android:id="@+id/action_loginFragment_to_loginProblemsFragment"
-            app:destination="@id/loginProblemsFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_syncAccountFragment"
             app:destination="@id/syncAccountFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/loginProblemsFragment"
-        android:name="com.puntogris.blint.ui.login.LoginProblemsFragment"
-        android:label="@string/help_label" />
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.puntogris.blint.ui.calendar.CalendarFragment"

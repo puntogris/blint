@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:keepScreenOn="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:keepScreenOn="true"
         tools:context=".ui.FragmentScanner">
 
         <androidx.camera.view.PreviewView
@@ -15,9 +15,9 @@
 
         <com.puntogris.blint.utils.ViewFinderOverlay
             android:id="@+id/overlay"
-            android:layerType="software"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layerType="software" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

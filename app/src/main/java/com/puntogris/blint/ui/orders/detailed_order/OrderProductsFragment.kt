@@ -119,7 +119,7 @@ class OrderProductsFragment :
         hideKeyboard()
     }
 
-    private fun navigateToReviewOrder(){
+    private fun navigateToReviewOrder() {
         println(viewModel.newOrder.value.newRecords)
         if (viewModel.areProductsValid()) {
             findNavController().navigate(R.id.reviewRecordFragment)

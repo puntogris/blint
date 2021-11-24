@@ -147,34 +147,12 @@
 
     <!-- Login -->
     <string name="action_solve_login_problems">Solve login issues</string>
-    <string name="action_tap_login">tap to enter</string>
     <string name="problem_with_blint_account">Problem with my Blint account</string>
-    <string name="if_account_disabled">If your account was disabled:</string>
-    <string name="account_disabled_message">This probably happened because you had many canceled login attempts or with incorrect data, Google automatically disables the accounts for 24 hours in case of noticing irregularities.\n\nIf you do not want to wait 24 hours you can clean the storage of Google Play Services, follow step 2 of this official Google page.</string>
-    <string name="if_account_blocked">If your account was blocked:</string>
-    <string name="account_blocked_message">This happen because you were reported inside our app or if we found suspicious activity from your account and this is permanent. \n\nIf you believe that your account was unfairly blocked or you have another problem that needs to be solved, contact us at:</string>
-    <string name="action_solve_account_disabled">Solve: Disabled account</string>
-    <string name="action_solve_account_blocked">E-mail: contacto@blint.app</string>
-    <string name="action_go_back_to_start">Go back to the start</string>
     <string name="welcome_you">Hey you!</string>
-    <string name="start_your_business_in_blint">Start your business\nin Blint</string>
-    <string name="take_your_business_with_you">Keep your business always with you\nso you do not miss any opportunities</string>
     <string name="read_more">Read more</string>
     <string name="action_accept_terms_and_conditions">I accept the terms and conditions.</string>
-    <string name="select_country">Select a country</string>
-    <string name="selected_country">Country selected</string>
-    <string name="tell_us_about_you">Tell us about you</string>
-    <string name="set_name_alert">*Keep in mind that your name will be visible for other people in your same business. You can not change it later.</string>
-    <string name="snack_accept_our_conditions_to_continue">Accept our conditions to continue</string>
-    <string name="snack_terms_and_conditions_are_necessary">You need to accept the terms and conditions.</string>
-    <string name="snack_name_can_not_be_empty">The name can not be empty or have less that 3 characters</string>
-    <string name="snack_country_can_not_be_empty">You need to select your country of residence.</string>
     <string name="account_syncing_in_progress_title">Syncing account..</string>
     <string name="account_creation_in_progress_message">We are preparing your account</string>
-    <string name="snack_login_warning">Due to multiple consecutive login attempts, login to the app was temporarily disabled.</string>
-    <string name="snack_network_problems">Found a problem with the connection. Check your network and try again.</string>
-    <string name="snack_technical_problems">We are having technical difficulties. Please try again in a bit.</string>
-    <string name="snack_no_google_account_found">We did not found a google account in your phone.</string>
     <string name="fast_login">Quick login</string>
     <string name="action_continue_anonymously">Continue anonymously</string>
 

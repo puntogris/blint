@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.business.manage.ManageBusinessFragment" />
@@ -30,35 +31,35 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="152dp"
             android:layout_marginEnd="24dp"
-            android:textSize="17sp"
             android:fontFamily="sans-serif-black"
             android:text="@string/empty_businesses_message"
             android:textAlignment="center"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Theme.Blint.Button"
             android:id="@+id/button13"
+            style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="104dp"
-            android:text="@string/create_business"
             android:onClick="@{()-> fragment.onCreateNewBusinessClicked()}"
+            android:text="@string/create_business"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Theme.Blint.Button"
             android:id="@+id/button14"
+            style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> fragment.onJoinBusinessClicked()}"
             android:layout_marginTop="44dp"
+            android:onClick="@{()-> fragment.onJoinBusinessClicked()}"
             android:text="@string/action_join_business"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,9 +69,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_anim_slide_up"
             android:paddingBottom="?actionBarSize"
-            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,10 +79,10 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:visibility="gone"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

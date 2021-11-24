@@ -41,12 +41,12 @@
             android:layout_width="95dp"
             android:layout_height="151dp"
             android:layout_marginTop="60dp"
+            android:contentDescription="@string/app_logo_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_app_logo"
-            android:contentDescription="@string/app_logo_image" />
+            app:srcCompat="@drawable/ic_app_logo" />
 
         <TextView
             android:id="@+id/textView21"
@@ -89,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="@{()-> fragment.onPrivacyPolicyClicked()}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()-> fragment.onPrivacyPolicyClicked()}"
             android:text="@string/privacy_policy"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="@+id/termsConditions"
             app:layout_constraintTop_toBottomOf="@+id/termsConditions" />
 
@@ -101,9 +101,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{()-> fragment.onTermsAndConditionsClicked()}"
             android:text="@string/terms_and_conditions"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="@+id/appVersionNumber"
             app:layout_constraintTop_toBottomOf="@+id/appVersionNumber" />

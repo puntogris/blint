@@ -53,9 +53,9 @@
 
                 <TextView
                     android:id="@+id/textView184"
+                    debtColor="@{viewModel.totalDebtLiveData}"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    debtColor="@{viewModel.totalDebtLiveData}"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-black"

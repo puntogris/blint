@@ -19,14 +19,14 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
         setupRecordsAdapter()
     }
 
-    private fun setupRecordsAdapter(){
+    private fun setupRecordsAdapter() {
         RecordsAdapter { onRecordClickedListener(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }
     }
 
-    private fun subscribeUi(adapter: RecordsAdapter){
+    private fun subscribeUi(adapter: RecordsAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.getRecords().collect {
                 adapter.submitData(it)

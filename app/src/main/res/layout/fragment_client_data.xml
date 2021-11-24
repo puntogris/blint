@@ -18,24 +18,24 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="?actionBarSize"
-            android:layout_marginStart="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
                 style="@style/Theme.Blint.CardView"
-                android:layout_marginTop="24dp"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_marginEnd="24dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginEnd="24dp">
 
                     <TextView
                         android:id="@+id/textView27"
@@ -62,29 +62,29 @@
                     <ImageButton
                         android:id="@+id/phoneButton"
                         style="@style/Theme.Blint.ImageButton"
+                        android:contentDescription="@string/more_image"
+                        android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
                         app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
                         app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
-                        app:srcCompat="@drawable/ic_baseline_more_vert_24"
-                        android:contentDescription="@string/more_image" />
+                        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
                     <ImageButton
                         android:id="@+id/contactButton"
                         style="@style/Theme.Blint.ImageButton"
+                        android:contentDescription="@string/open_contact_image"
                         android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
                         app:layout_constraintBottom_toBottomOf="@+id/clientName"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView29"
-                        app:srcCompat="@drawable/ic_baseline_person_add_24"
-                        android:contentDescription="@string/open_contact_image" />
+                        app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
                     <TextView
                         android:id="@+id/clientName"
                         style="@style/Theme.Blint.DataTextView"
+                        capitalizeWord="@{viewModel.currentClient.name}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        capitalizeWord="@{viewModel.currentClient.name}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -120,12 +120,12 @@
                     <ImageButton
                         android:id="@+id/emailButton"
                         style="@style/Theme.Blint.ImageButton"
+                        android:contentDescription="@string/email_image"
                         android:onClick="@{()-> fragment.onEmailButtonClicked()}"
                         app:layout_constraintBottom_toBottomOf="@+id/clientEmail"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView44"
-                        app:srcCompat="@drawable/ic_baseline_email_24"
-                        android:contentDescription="@string/email_image" />
+                        app:srcCompat="@drawable/ic_baseline_email_24" />
 
                     <TextView
                         android:id="@+id/clientEmail"
@@ -162,25 +162,25 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="20dp"
                 style="@style/Theme.Blint.CardView"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="20dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView50"
                         style="@style/Theme.Blint.TextButton"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="24dp"
                         android:text="@string/extras" />
 
@@ -211,8 +211,8 @@
                         android:id="@+id/clientDiscount"
                         style="@style/Theme.Blint.DataTextView"
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="24dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
                         android:text="@{String.valueOf(viewModel.currentClient.discount)}" />
 
                 </LinearLayout>

@@ -19,13 +19,14 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
         setupOrdersAdapter()
     }
 
-    private fun setupOrdersAdapter(){
+    private fun setupOrdersAdapter() {
         OrdersAdapter { onOrderClickListener(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }
     }
-    private fun subscribeUi(adapter: OrdersAdapter){
+
+    private fun subscribeUi(adapter: OrdersAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.getOrders().collect {
                 adapter.submitData(it)

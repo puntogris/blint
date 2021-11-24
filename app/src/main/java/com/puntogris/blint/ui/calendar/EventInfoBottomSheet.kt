@@ -31,10 +31,10 @@ class EventInfoBottomSheet :
         binding.viewModel = viewModel
 
         viewModel.setEvent(args.event)
-       setupEventStatusAdapter()
+        setupEventStatusAdapter()
     }
 
-    private fun setupEventStatusAdapter(){
+    private fun setupEventStatusAdapter() {
         val eventStatus = resources.getStringArray(R.array.event_status)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, eventStatus)
 

@@ -51,6 +51,6 @@ data class NewDebt(
     var traderType: String = ""
 )
 
-fun NewOrder.updateOrderTotalValue(){
+fun NewOrder.updateOrderTotalValue() {
     value = newRecords.sumOf { (it.productUnitPrice * it.amount).toInt() }.toFloat()
 }

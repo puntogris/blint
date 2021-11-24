@@ -10,7 +10,6 @@ import com.puntogris.blint.utils.Constants.ABOUT_PREF
 import com.puntogris.blint.utils.Constants.ACCOUNT_PREF
 import com.puntogris.blint.utils.Constants.BACKUP_PREF
 import com.puntogris.blint.utils.Constants.HELP_PREF
-import com.puntogris.blint.utils.Constants.NOTIFICATIONS_PREF
 import com.puntogris.blint.utils.Constants.THEME_PREF
 import com.puntogris.blint.utils.UiInterface
 import dagger.hilt.android.AndroidEntryPoint

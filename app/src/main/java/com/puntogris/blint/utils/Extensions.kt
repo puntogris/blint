@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Point
 import android.net.Uri
-import android.os.Parcelable
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
@@ -294,10 +292,10 @@ inline fun TabLayout.addOnTabSelectedListener(crossinline block: (Int) -> Unit) 
     })
 }
 
-fun <T>List<T>.copyAndAdd(item: T): List<T>{
+fun <T> List<T>.copyAndAdd(item: T): List<T> {
     return this.toMutableList().apply { add(item) }
 }
 
-fun <T>List<T>.copyAndRemove(item: T): List<T>{
+fun <T> List<T>.copyAndRemove(item: T): List<T> {
     return this.toMutableList().apply { remove(item) }
 }

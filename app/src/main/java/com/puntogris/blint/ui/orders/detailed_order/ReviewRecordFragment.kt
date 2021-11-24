@@ -2,7 +2,6 @@ package com.puntogris.blint.ui.orders.detailed_order
 
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R

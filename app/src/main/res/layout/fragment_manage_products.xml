@@ -8,6 +8,7 @@
         <variable
             name="fragment"
             type="com.puntogris.blint.ui.product.manage.ManageProductsFragment" />
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.ui.product.manage.ManageProductsViewModel" />
@@ -43,10 +44,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:autofillHints="@string/auto_fill_hint_search_product"
                     android:background="@null"
                     android:hint="@string/search"
-                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="textNoSuggestions"
                     android:textSize="15sp" />

@@ -12,6 +12,7 @@ import com.puntogris.blint.data.data_source.remote.LoginResult
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.UiInterface
+import com.puntogris.blint.utils.launchWebBrowserIntent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -74,6 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     fun onLoginProblemsClicked() {
-        findNavController().navigate(R.id.action_loginFragment_to_loginProblemsFragment)
+        //todo add faq link for login issues
+        launchWebBrowserIntent("")
     }
 }

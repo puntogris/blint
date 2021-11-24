@@ -17,9 +17,9 @@
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/lastBackupGroup"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="button19,textView71,textView70" />
 
         <TextView
@@ -42,8 +42,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="24dp"
-            android:textAlignment="center"
             android:text="Buscando tu informacion en los servidores, no cierres la app."
+            android:textAlignment="center"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -70,12 +70,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:textSize="16sp"
-            android:padding="8dp"
             android:foreground="?selectableItemBackground"
             android:onClick="@{()->fragment.onReadMoreAboutBackupsClicked()}"
-            android:textColor="@color/primaryColor"
+            android:padding="8dp"
             android:text="@string/action_read_more_about_backups"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -122,10 +122,10 @@
 
         <TextView
             android:id="@+id/textView71"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/Theme.Blint.DataTextView"
             android:text="@string/loading_with_dots"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/textView70"

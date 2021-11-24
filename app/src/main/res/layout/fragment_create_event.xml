@@ -42,9 +42,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eventTitleText"
                 android:layout_width="match_parent"
-                android:maxLength="30"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
+                android:maxLength="30"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,8 +79,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:foreground="?selectableItemBackground"
-            android:padding="8dp"
             android:onClick="@{()-> fragment.onHideKeyboardClicked()}"
+            android:padding="8dp"
             android:text="@string/action_close_keyboard"
             android:textColor="@color/primaryColor"
             app:layout_constraintEnd_toEndOf="@+id/eventMessage"
@@ -92,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            android:text="@string/add_date"
             android:onClick="@{()-> fragment.onSelectDateClicked()}"
+            android:text="@string/add_date"
             app:layout_constraintBottom_toBottomOf="@+id/eventDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -116,10 +116,10 @@
 
         <TextView
             android:id="@+id/eventDate"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/not_specified"
-            style="@style/Theme.Blint.DataTextView"
             app:layout_constraintStart_toStartOf="@+id/appName"
             app:layout_constraintTop_toBottomOf="@+id/appName" />
     </androidx.constraintlayout.widget.ConstraintLayout>

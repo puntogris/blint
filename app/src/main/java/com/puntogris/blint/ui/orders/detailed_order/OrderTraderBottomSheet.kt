@@ -19,10 +19,8 @@ import com.puntogris.blint.ui.supplier.manage.ManageSuppliersAdapter
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.hideKeyboard
-import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.registerToolbarBackButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class OrderTraderBottomSheet :
@@ -60,7 +58,7 @@ class OrderTraderBottomSheet :
     private fun subscribeClientsUi() {
         ManageClientsAdapter { onTraderClicked(it) }.let { adapter ->
             binding.recyclerView.adapter = adapter
-            viewModel.clientsLiveData.observe(viewLifecycleOwner){
+            viewModel.clientsLiveData.observe(viewLifecycleOwner) {
                 adapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
@@ -69,7 +67,7 @@ class OrderTraderBottomSheet :
     private fun subscribeSuppliersUi() {
         ManageSuppliersAdapter { onTraderClicked(it) }.let { adapter ->
             binding.recyclerView.adapter = adapter
-            viewModel.suppliersLiveData.observe(viewLifecycleOwner){
+            viewModel.suppliersLiveData.observe(viewLifecycleOwner) {
                 adapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }

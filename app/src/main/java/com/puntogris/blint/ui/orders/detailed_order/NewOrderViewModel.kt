@@ -86,6 +86,7 @@ class NewOrderViewModel @Inject constructor(
     fun updateOrderDebt(amount: Float) {
         _newOrder.value.newDebt = if (amount != 0F) NewDebt(amount = amount) else null
     }
+
     fun updateOrderDebt(editable: Editable) {
         updateOrderDebt(editable.toString().toFloat())
     }
@@ -102,5 +103,6 @@ class NewOrderViewModel @Inject constructor(
 
     fun areProductsValid() = _newOrder.value.newRecords.isNotEmpty()
 
-    fun isDebtValid() = if (_newOrder.value.newDebt != null) _newOrder.value.newDebt?.amount != 0F else true
+    fun isDebtValid() =
+        if (_newOrder.value.newDebt != null) _newOrder.value.newDebt?.amount != 0F else true
 }

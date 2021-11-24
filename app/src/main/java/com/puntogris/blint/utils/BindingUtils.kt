@@ -32,7 +32,6 @@ import com.puntogris.blint.utils.Constants.LOCAL
 import com.puntogris.blint.utils.Constants.PENDING
 import com.puntogris.blint.utils.Constants.TO_DELETE
 import java.util.*
-import kotlin.math.absoluteValue
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String) {

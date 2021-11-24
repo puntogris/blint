@@ -22,10 +22,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dashboardRv"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -34,12 +34,12 @@
                 android:id="@+id/textView101"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:fontFamily="sans-serif-black"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/generate_reports" />
+                android:fontFamily="sans-serif-black"
+                android:text="@string/generate_reports"
+                android:textSize="19sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/recordsReport"
@@ -119,12 +119,12 @@
                 android:id="@+id/textView1021"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:fontFamily="sans-serif-black"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/generate_lists" />
+                android:fontFamily="sans-serif-black"
+                android:text="@string/generate_lists"
+                android:textSize="19sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/productsReport"
@@ -177,13 +177,13 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/suppliersReport"
-                android:layout_marginBottom="?actionBarSize"
                 style="@style/Theme.Blint.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="?actionBarSize"
                 android:foreground="?selectableItemBackground"
                 android:onClick="@{()->fragment.onSuppliersListClicked()}">
 

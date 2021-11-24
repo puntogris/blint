@@ -1,7 +1,6 @@
 package com.puntogris.blint.ui.orders.manage
 
 import androidx.annotation.NonNull
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter

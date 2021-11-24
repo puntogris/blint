@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,54 +11,54 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
         tools:context=".ui.operations.OperationsFragment">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_marginTop="24dp"
             style="@style/Theme.Blint.CardView"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView327"
                     style="@style/Theme.Blint.TextButton"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:text="Cambio de precios generales" />
 
                 <TextView
                     android:id="@+id/textView328"
-                    android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:lineSpacingExtra="5dp"
                     android:text="Podras modificar los precios de un grupo de productos generalmente ya sea especificando una categoria o un proveedor." />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button28"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="16dp"
-                    android:layout_height="wrap_content"
-                    app:iconGravity="end"
                     android:onClick="@{()-> fragment.onGeneralPriceChangeClicked()}"
-                    app:icon="@drawable/ic_baseline_navigate_next_24"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:text="Modificar precios"
+                    app:icon="@drawable/ic_baseline_navigate_next_24"
+                    app:iconGravity="end"
                     tools:layout_editor_absoluteX="32dp"
                     tools:layout_editor_absoluteY="67dp" />
             </LinearLayout>

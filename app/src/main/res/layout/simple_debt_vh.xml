@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,12 +22,12 @@
 
             <TextView
                 android:id="@+id/textView191"
+                capitalizeFirstChar="@{debt.name}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                capitalizeFirstChar="@{debt.name}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,10 +35,10 @@
 
             <TextView
                 android:id="@+id/textView192"
+                debtColor="@{debt.amount}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                debtColor="@{debt.amount}"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView191"

@@ -31,6 +31,9 @@
         <entry key="app/src/main/res/layout/client_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_information_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/create_record_item_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/dashboard_report_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/debt_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/dialog_simple_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.13923611111111112" />

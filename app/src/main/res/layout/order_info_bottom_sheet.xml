@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -145,11 +145,11 @@
             android:layout_width="30dp"
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/top_window_bar_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal"
-            android:contentDescription="@string/top_window_bar_image" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button23"
@@ -158,8 +158,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/action_see_complete_order"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"
+            android:text="@string/action_see_complete_order"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

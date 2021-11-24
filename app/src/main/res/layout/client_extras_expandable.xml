@@ -14,8 +14,8 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
         style="@style/Theme.Blint.CardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,10 +51,10 @@
                     android:id="@+id/clientPaymentInfoText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{viewModel::updateClientPaymentInfo}"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:singleLine="true"
-                    android:afterTextChanged="@{viewModel::updateClientPaymentInfo}"
                     android:text="@{viewModel.currentClient.paymentInfo}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -69,18 +69,18 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 android:hint="@string/discount"
-                app:prefixText="%"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo">
+                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo"
+                app:prefixText="%">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/clientDiscountText"
                     emptyEditTextWithNumber="@{viewModel.currentClient.discount}"
                     android:layout_width="match_parent"
-                    android:afterTextChanged="@{viewModel::updateClientDiscount}"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{viewModel::updateClientDiscount}"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:singleLine="true" />
