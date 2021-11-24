@@ -2,7 +2,7 @@ package com.puntogris.blint.ui.backup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.data.repository.backup.BackupRepository
+import com.puntogris.blint.domain.repository.UserRepository
 import com.puntogris.blint.utils.types.BackupState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BackupViewModel @Inject constructor(
-    private val repository: BackupRepository
+    private val repository: UserRepository
 ) : ViewModel() {
 
     val backupState = MutableSharedFlow<BackupState>()

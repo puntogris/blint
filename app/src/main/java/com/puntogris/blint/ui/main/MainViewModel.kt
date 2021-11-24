@@ -1,21 +1,22 @@
 package com.puntogris.blint.ui.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import com.puntogris.blint.data.data_source.local.SharedPreferences
-import com.puntogris.blint.data.repository.main.MainRepository
+import com.puntogris.blint.domain.repository.EventRepository
+import com.puntogris.blint.domain.repository.StatisticRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    mainRepository: MainRepository,
+    statisticRepository: StatisticRepository,
+    eventRepository: EventRepository,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    val businessCounter = mainRepository.getBusinessCounterFlow().asLiveData()
+    val businessCounter = statisticRepository.getCurrentBusinessStatistics()
 
     fun showLogin() = sharedPreferences.showLoginScreen()
 
-    val lastEventsFlow = mainRepository.getBusinessLastEventsDatabase()
+    val lastEventsFlow = eventRepository.getBusinessLastEventsDatabase()
 }

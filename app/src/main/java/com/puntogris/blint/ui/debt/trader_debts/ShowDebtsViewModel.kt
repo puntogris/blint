@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.data.repository.clients.ClientRepository
-import com.puntogris.blint.data.repository.supplier.SupplierRepository
+import com.puntogris.blint.domain.repository.ClientRepository
+import com.puntogris.blint.domain.repository.SupplierRepository
 import com.puntogris.blint.model.SimpleDebt
 import com.puntogris.blint.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel

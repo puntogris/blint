@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.orders.details
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.orders.OrderRepository
+import com.puntogris.blint.domain.repository.OrdersRepository
 import com.puntogris.blint.model.order.OrderWithRecords
 import com.puntogris.blint.model.product.ProductWithDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrdersRepository
 ) : ViewModel() {
 
     private val _currentProduct = MutableStateFlow(ProductWithDetails())

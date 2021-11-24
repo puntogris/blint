@@ -2,7 +2,7 @@ package com.puntogris.blint.ui.orders.simple_order
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.orders.OrderRepository
+import com.puntogris.blint.domain.repository.OrdersRepository
 import com.puntogris.blint.model.order.NewOrder
 import com.puntogris.blint.model.order.NewRecord
 import com.puntogris.blint.model.product.Product
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SimpleOrderViewModel @Inject constructor(
-    private val repository: OrderRepository,
+    private val repository: OrdersRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

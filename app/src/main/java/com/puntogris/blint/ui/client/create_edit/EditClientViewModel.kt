@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.client.create_edit
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.clients.ClientRepository
+import com.puntogris.blint.domain.repository.ClientRepository
 import com.puntogris.blint.model.Client
 import com.puntogris.blint.utils.types.SimpleResult
 import dagger.hilt.android.lifecycle.HiltViewModel

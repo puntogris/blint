@@ -3,8 +3,8 @@ package com.puntogris.blint.ui.debt.debt_status
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.puntogris.blint.data.repository.debts.DebtsRepository
-import com.puntogris.blint.data.repository.statistics.StatisticRepository
+import com.puntogris.blint.domain.repository.DebtsRepository
+import com.puntogris.blint.domain.repository.StatisticRepository
 import com.puntogris.blint.model.Trader
 import com.puntogris.blint.model.order.Debt
 import com.puntogris.blint.utils.Constants

@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.supplier.create_edit
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.supplier.SupplierRepository
+import com.puntogris.blint.domain.repository.SupplierRepository
 import com.puntogris.blint.model.Supplier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

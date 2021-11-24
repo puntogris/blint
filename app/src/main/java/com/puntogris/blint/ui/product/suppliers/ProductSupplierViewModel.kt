@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.product.suppliers
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.data.repository.supplier.SupplierRepository
+import com.puntogris.blint.domain.repository.SupplierRepository
 import com.puntogris.blint.model.CheckableSupplier
 import com.puntogris.blint.model.Supplier
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.calendar
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.google.firebase.Timestamp
-import com.puntogris.blint.data.repository.events.EventRepository
+import com.puntogris.blint.domain.repository.EventRepository
 import com.puntogris.blint.model.Event
 import com.puntogris.blint.utils.toEventUiFlow
 import com.puntogris.blint.utils.types.EventStatus

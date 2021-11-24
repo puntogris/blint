@@ -5,9 +5,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.puntogris.blint.BuildConfig
+import com.puntogris.blint.data.data_source.local.SharedPreferences
 import com.puntogris.blint.data.data_source.remote.AuthServerApi
 import com.puntogris.blint.data.data_source.remote.FirebaseAuthApi
 import com.puntogris.blint.data.data_source.remote.FirebaseClients
+import com.puntogris.blint.data.data_source.remote.GoogleSingInApi
+import com.puntogris.blint.data.repository.AuthRepositoryImpl
+import com.puntogris.blint.domain.repository.AuthRepository
+import com.puntogris.blint.utils.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +33,22 @@ class AuthModule {
             .build()
 
         return GoogleSignIn.getClient(context, gso)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthRepository(
+        sharedPreferences: SharedPreferences,
+        authServerApi: AuthServerApi,
+        googleSingInApi: GoogleSingInApi,
+        dispatcher: DispatcherProvider
+    ): AuthRepository {
+        return AuthRepositoryImpl(
+            sharedPreferences,
+            authServerApi,
+            googleSingInApi,
+            dispatcher
+        )
     }
 
     @Provides

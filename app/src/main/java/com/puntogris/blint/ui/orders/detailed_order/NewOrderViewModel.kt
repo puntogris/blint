@@ -4,10 +4,10 @@ import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.data.data_source.toNewRecord
-import com.puntogris.blint.data.repository.clients.ClientRepository
-import com.puntogris.blint.data.repository.orders.OrderRepository
-import com.puntogris.blint.data.repository.products.ProductRepository
-import com.puntogris.blint.data.repository.supplier.SupplierRepository
+import com.puntogris.blint.domain.repository.ClientRepository
+import com.puntogris.blint.domain.repository.OrdersRepository
+import com.puntogris.blint.domain.repository.ProductRepository
+import com.puntogris.blint.domain.repository.SupplierRepository
 import com.puntogris.blint.model.order.NewDebt
 import com.puntogris.blint.model.order.NewOrder
 import com.puntogris.blint.model.order.NewRecord
@@ -22,11 +22,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val orderRepository: OrderRepository,
+    private val orderRepository: OrdersRepository,
     private val productRepository: ProductRepository,
     private val supplierRepository: SupplierRepository,
     private val clientRepository: ClientRepository
@@ -53,6 +54,7 @@ class NewOrderViewModel @Inject constructor(
     }.cachedIn(viewModelScope)
 
     fun addProduct(product: Product) {
+        _newOrder.value.newRecords = Collections.unmodifiableList(_newOrder.value.newRecords)
         if (!newOrder.value.newRecords.any { it.productId == product.productId }) {
             _newOrder.value = newOrder.value.copy(
                 newRecords = newOrder.value.newRecords.copyAndAdd(product.toNewRecord())

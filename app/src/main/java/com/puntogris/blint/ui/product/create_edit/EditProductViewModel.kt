@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.product.create_edit
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.products.ProductRepository
+import com.puntogris.blint.domain.repository.ProductRepository
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.Supplier
 import com.puntogris.blint.model.product.ProductWithDetails

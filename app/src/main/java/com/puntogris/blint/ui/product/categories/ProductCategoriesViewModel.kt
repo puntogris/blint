@@ -3,7 +3,7 @@ package com.puntogris.blint.ui.product.categories
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.data.repository.categories.CategoriesRepository
+import com.puntogris.blint.domain.repository.CategoriesRepository
 import com.puntogris.blint.model.Category
 import com.puntogris.blint.model.CheckableCategory
 import dagger.hilt.android.lifecycle.HiltViewModel

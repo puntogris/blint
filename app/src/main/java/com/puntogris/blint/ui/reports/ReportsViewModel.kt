@@ -2,7 +2,7 @@ package com.puntogris.blint.ui.reports
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.statistics.StatisticRepository
+import com.puntogris.blint.domain.repository.StatisticRepository
 import com.puntogris.blint.utils.types.ExportResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

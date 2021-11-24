@@ -2,7 +2,7 @@ package com.puntogris.blint.ui.settings
 
 import android.text.Editable
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.tickets.TicketsRepository
+import com.puntogris.blint.domain.repository.UserRepository
 import com.puntogris.blint.model.Ticket
 import com.puntogris.blint.utils.types.SimpleRepoResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TicketsViewModel @Inject constructor(
-    private val repository: TicketsRepository
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val ticket = Ticket()

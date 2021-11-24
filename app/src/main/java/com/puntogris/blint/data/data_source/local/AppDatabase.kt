@@ -34,14 +34,14 @@ import com.puntogris.blint.utils.Converters
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun businessDao(): BusinessDao
-    abstract fun clientsDao(): ClientsDao
-    abstract fun productsDao(): ProductsDao
-    abstract fun ordersDao(): OrdersDao
-    abstract fun suppliersDao(): SuppliersDao
-    abstract fun userDao(): UsersDao
-    abstract fun eventsDao(): EventsDao
-    abstract fun statisticsDao(): StatisticsDao
-    abstract fun categoriesDao(): CategoriesDao
-    abstract fun debtDao(): DebtsDao
+    abstract val businessDao: BusinessDao
+    abstract val clientsDao: ClientsDao
+    abstract val productsDao: ProductsDao
+    abstract val ordersDao: OrdersDao
+    abstract val suppliersDao: SuppliersDao
+    abstract val usersDao: UsersDao
+    abstract val eventsDao: EventsDao
+    abstract val statisticsDao: StatisticsDao
+    abstract val categoriesDao: CategoriesDao
+    abstract val debtsDao: DebtsDao
 }

@@ -13,6 +13,9 @@ interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
 
+    @Query("SELECT uid FROM user WHERE localReferenceId = '1'")
+    suspend fun getUserId(): String
+
     @Query("SELECT * FROM user WHERE localReferenceId = '1'")
     fun getUserFlow(): Flow<User>
 

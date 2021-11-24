@@ -1,7 +1,7 @@
 package com.puntogris.blint.ui.business.register_business
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.data.repository.business.BusinessRepository
+import com.puntogris.blint.domain.repository.BusinessRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
