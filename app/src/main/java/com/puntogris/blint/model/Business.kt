@@ -21,13 +21,7 @@ data class Business(
     val name: String = "",
 
     @ColumnInfo
-    val type: String = "",
-
-    @ColumnInfo
     val ownerUid: String = "",
-
-    @ColumnInfo
-    val role: String = "",
 
     @ColumnInfo
     val createdAt: Timestamp = Timestamp.now(),

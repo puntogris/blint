@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="textView14,button13,button14">
+            app:constraint_referenced_ids="textView14,button13">
 
         </androidx.constraintlayout.widget.Group>
 
@@ -53,17 +53,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button14"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:onClick="@{()-> fragment.onJoinBusinessClicked()}"
-            android:text="@string/action_join_business"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button13" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -72,6 +61,7 @@
             android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_anim_slide_up"
             android:paddingBottom="?actionBarSize"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

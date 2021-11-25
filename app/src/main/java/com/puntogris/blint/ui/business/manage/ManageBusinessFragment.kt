@@ -4,7 +4,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.model.Business
@@ -14,6 +13,7 @@ import com.puntogris.blint.utils.gone
 import com.puntogris.blint.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageBusinessFragment :
@@ -24,22 +24,29 @@ class ManageBusinessFragment :
     override fun initializeViews() {
         UiInterface.registerUi()
         binding.fragment = this
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
         launchAndRepeatWithViewLifecycle {
-//            val businesses = viewModel.getBusinessList()
-//            if (businesses.isNullOrEmpty()) onBusinessEmptyUi()
-//            else onBusinessFoundUi(businesses)
+            viewModel.businesses.collect { data ->
+                if (data.isNotEmpty()) {
+                    ManageBusinessAdapter { onBusinessClicked(it) }.let {
+                        binding.recyclerView.adapter = it
+                        it.submitList(data)
+                    }
+                } else {
+                    binding.businessEmptyUi.visible()
+                }
+                binding.progressBar.gone()
+            }
         }
     }
 
-    private fun onBusinessFoundUi(businesses: List<Business>) {
-        binding.progressBar.gone()
-        val businessAdapter = ManageBusinessAdapter { onBusinessClicked(it) }
-        binding.recyclerView.apply {
-            adapter = businessAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            scheduleLayoutAnimation()
-            businessAdapter.submitList(businesses)
-        }
+    private fun onBusinessClicked(business: Business) {
+        val action =
+            ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
+        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -52,33 +59,12 @@ class ManageBusinessFragment :
                 findNavController().navigate(R.id.registerBusinessFragment)
                 true
             }
-            R.id.syncBusiness -> {
-                findNavController().navigate(R.id.syncAccountFragment)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun onBusinessEmptyUi() {
-        binding.apply {
-            progressBar.gone()
-            businessEmptyUi.visible()
         }
     }
 
     fun onCreateNewBusinessClicked() {
         findNavController().navigate(R.id.registerBusinessFragment)
-    }
-
-    fun onJoinBusinessClicked() {
-        // findNavController().navigate(R.id.joinBusinessFragment)
-    }
-
-    private fun onBusinessClicked(business: Business) {
-        val action =
-            ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
-        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/role"
+                android:text="@string/author"
                 app:layout_constraintStart_toStartOf="@+id/textView42"
                 app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
@@ -57,7 +57,7 @@
                 style="@style/Theme.Blint.DataTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{business.role}"
+                android:text="@{business.email}"
                 app:layout_constraintStart_toStartOf="@+id/textView49"
                 app:layout_constraintTop_toBottomOf="@+id/textView49" />
 

@@ -55,6 +55,6 @@ class BusinessRepositoryImpl(
             }
         }
 
-    override suspend fun getBusinessListRoom() = businessDao.getBusiness()
+    override fun getBusinessFlow() = businessDao.getBusinessFlow()
 
 }

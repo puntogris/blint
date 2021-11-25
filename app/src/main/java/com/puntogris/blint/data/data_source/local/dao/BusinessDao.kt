@@ -2,6 +2,7 @@ package com.puntogris.blint.data.data_source.local.dao
 
 import androidx.room.*
 import com.puntogris.blint.model.Business
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BusinessDao {
@@ -11,6 +12,9 @@ interface BusinessDao {
 
     @Query("SELECT * FROM business")
     suspend fun getBusiness(): List<Business>
+
+    @Query("SELECT * FROM business")
+    fun getBusinessFlow(): Flow<List<Business>>
 
     @Query("DELETE FROM business where businessId = :businessId")
     suspend fun deleteBusiness(businessId: String)

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface BusinessRepository {
 
-    suspend fun getBusinessListRoom(): List<Business>
+    fun getBusinessFlow(): Flow<List<Business>>
 
     fun registerBusiness(businessName: String): Flow<SimpleRepoResult>
 

@@ -91,9 +91,6 @@
             <item
                 android:id="@+id/newBusiness"
                 android:title="@string/new_business" />
-            <item
-                android:id="@+id/syncBusiness"
-                android:title="@string/sync_businesses" />
         </menu>
     </item>
 
@@ -107,10 +104,6 @@
             <item
                 android:id="@+id/deleteBusiness"
                 android:title="@string/delete_business" />
-            <item
-                android:id="@+id/cancelDeletionBusiness"
-                android:title="@string/cancel_business_deletion"
-                android:visible="false" />
         </menu>
     </item>
 

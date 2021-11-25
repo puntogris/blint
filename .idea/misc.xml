@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/layout/business_deactivated_alert_view.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/business_deleting_alert_view.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
+        <entry key="app/src/main/res/layout/business_item_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/category_product_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_extras_expandable.xml" value="0.234375" />
@@ -61,6 +62,7 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_login_problems.xml" value="0.1831831831831832" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.23127147766323025" />
+        <entry key="app/src/main/res/layout/fragment_manage_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.1" />
