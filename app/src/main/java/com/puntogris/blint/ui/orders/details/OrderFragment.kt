@@ -9,22 +9,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.FragmentOrderBinding
-import com.puntogris.blint.model.order.OrdersTableItem
 import com.puntogris.blint.ui.base.BaseFragment
 import com.puntogris.blint.utils.Constants.IN
 import com.puntogris.blint.utils.UiInterface
 import com.puntogris.blint.utils.getDateWithTimeFormattedString
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.OutputStream
 import java.util.*
@@ -32,10 +27,8 @@ import java.util.*
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order) {
 
-    private val args: OrderFragmentArgs by navArgs()
-    private lateinit var ordersAdapter: OrdersTableAdapter
     private val viewModel: OrdersViewModel by viewModels()
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
+    private lateinit var mediaStorageLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
         UiInterface.registerUi(showAppBar = false)
@@ -43,45 +36,25 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        ordersAdapter = OrdersTableAdapter()
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = ordersAdapter
-        }
+        setupOrderTableAdapter()
+        setupMediaStorageLauncher()
+    }
 
-        if (args.orderId.isBlank()) {
-            lifecycleScope.launch {
-                val order = viewModel.fetchOrderRecords(args.orderId)
-                if (!order.records.isNullOrEmpty()) {
-                    ordersAdapter.submitList(order.records.map {
-                        OrdersTableItem(
-                            it.productName,
-                            it.amount,
-                            it.value
-                        )
-                    })
-                    viewModel.updateOrder(order)
-                    viewModel.order.value.records.let { orderItems ->
-                        val tableItems = orderItems.map {
-                            OrdersTableItem(it.productName, it.amount, it.value)
-                        }
-                        ordersAdapter.submitList(tableItems)
-                    }
-                }
-            }
-        } else {
-            args.order?.let {
-                viewModel.updateOrder(it)
-            }
-            viewModel.order.value.records.let { order ->
-                val tableItems = order.map {
-                    OrdersTableItem(it.productName, it.amount, it.value)
-                }
-                ordersAdapter.submitList(tableItems)
-            }
+    private fun setupOrderTableAdapter() {
+        OrdersTableAdapter().let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
         }
+    }
 
-        activityResultLauncher =
+    private fun subscribeUi(adapter: OrdersTableAdapter) {
+        viewModel.tableItems.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
+    private fun setupMediaStorageLauncher() {
+        mediaStorageLauncher =
             registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
                 try {
                     requireActivity().contentResolver.openOutputStream(uri)?.let {
@@ -117,6 +90,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         it.textSize = 15F
         it.textAlign = Paint.Align.CENTER
     }
+
     private val paintLeft = Paint().also {
         it.color = Color.BLACK
         it.textSize = 15F
@@ -311,7 +285,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun onSaveReceipt() {
-        activityResultLauncher.launch(
+        mediaStorageLauncher.launch(
             getString(
                 R.string.invoice_file_name,
                 viewModel.order.value.order.number

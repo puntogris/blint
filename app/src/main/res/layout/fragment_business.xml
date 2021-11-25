@@ -15,20 +15,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.business.BusinessFragment">
 
-        <ViewStub
-            android:id="@+id/statusAlertStub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:inflatedId="@+id/statusAlertStub"
-            app:employee="@{employee}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -44,13 +30,13 @@
             android:id="@+id/textVie2w103"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/details"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statusAlertStub" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView124"
@@ -68,7 +54,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{employee.name}"
+            android:text="@{business.name}"
             app:layout_constraintStart_toStartOf="@+id/textView124"
             app:layout_constraintTop_toBottomOf="@+id/textView124" />
 
@@ -85,7 +71,7 @@
         <TextView
             android:id="@+id/textView127"
             style="@style/Theme.Blint.DataTextView"
-            dateFromTimestamp="@{employee.createdAt}"
+            dateFromTimestamp="@{business.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView126"
@@ -104,7 +90,7 @@
         <TextView
             android:id="@+id/textView129"
             style="@style/Theme.Blint.DataTextView"
-            businessType="@{employee.email}"
+            businessType="@{business.email}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView128"
@@ -123,7 +109,7 @@
         <TextView
             android:id="@+id/textView194"
             style="@style/Theme.Blint.DataTextView"
-            businessStatus="@{employee.status}"
+            businessStatus="@{business.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"

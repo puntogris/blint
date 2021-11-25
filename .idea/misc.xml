@@ -97,7 +97,7 @@
         <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/help_vh.xml" value="0.23368055555555556" />
-        <entry key="app/src/main/res/layout/join_business_vh.xml" value="0.11006944444444444" />
+        <entry key="app/src/main/res/layout/join_business_vh.xml" value="0.21" />
         <entry key="app/src/main/res/layout/main_bottom_nav_drawer.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/main_fragment2.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/manage_category_vh.xml" value="0.234375" />
