@@ -2,16 +2,16 @@ package com.puntogris.blint.di
 
 import android.content.Context
 import androidx.room.Room
-import com.puntogris.blint.data.data_source.local.AppDatabase
-import com.puntogris.blint.data.data_source.local.SharedPreferences
-import com.puntogris.blint.data.data_source.local.dao.*
-import com.puntogris.blint.data.data_source.remote.FirebaseClients
-import com.puntogris.blint.data.data_source.remote.FirebaseUserApi
-import com.puntogris.blint.data.data_source.remote.UserServerApi
-import com.puntogris.blint.data.repository.*
-import com.puntogris.blint.domain.repository.*
-import com.puntogris.blint.utils.DispatcherProvider
-import com.puntogris.blint.utils.StandardDispatchers
+import com.puntogris.blint.common.data.data_source.FirebaseClients
+import com.puntogris.blint.common.utils.DispatcherProvider
+import com.puntogris.blint.common.utils.StandardDispatchers
+import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
+import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
+import com.puntogris.blint.feature_store.data.data_source.local.dao.*
+import com.puntogris.blint.feature_store.data.data_source.remote.FirebaseUserApi
+import com.puntogris.blint.feature_store.data.data_source.remote.UserServerApi
+import com.puntogris.blint.feature_store.data.repository.*
+import com.puntogris.blint.feature_store.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

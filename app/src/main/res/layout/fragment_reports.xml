@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.reports.ReportsFragment" />
+            type="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".ui.reports.ReportsFragment">
+            tools:context=".feature_store.presentation.reports.ReportsFragment">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dashboardRv"

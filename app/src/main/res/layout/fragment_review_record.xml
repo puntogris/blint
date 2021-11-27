@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.orders.detailed_order.NewOrderViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.NewOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.orders.detailed_order.ReviewRecordFragment">
+        tools:context=".feature_store.presentation.orders.detailed_order.ReviewRecordFragment">
 
         <TextView
             android:id="@+id/amounts_of_products_label"

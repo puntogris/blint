@@ -27,14 +27,17 @@
         <entry key="app/src/main/res/layout/business_deleting_alert_view.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
         <entry key="app/src/main/res/layout/business_item_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/calendar_event_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/category_product_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_information_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/create_record_item_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/dashboard_report_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/debt_paging_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/debt_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/dialog_simple_order.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/dropdown_item_list.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.13923611111111112" />
@@ -54,8 +57,11 @@
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_edit_supplier.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/fragment_employee.xml" value="0.2429553264604811" />
+        <entry key="app/src/main/res/layout/fragment_general_price_change.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_generate_join_code.xml" value="0.21944444444444444" />
+        <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_import_products.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_join_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_local_business.xml" value="0.13923611111111112" />
@@ -70,6 +76,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_modify_debt.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_operations.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_order_products.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_order_type.xml" value="0.234375" />
@@ -84,6 +91,7 @@
         <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_register_local_business.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_review_record.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
@@ -98,6 +106,7 @@
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/help_vh.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/join_business_vh.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/main_adapter_header_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/main_bottom_nav_drawer.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/main_fragment2.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/manage_category_vh.xml" value="0.234375" />
@@ -110,6 +119,9 @@
         <entry key="app/src/main/res/layout/no_notifications_layout.xml" value="0.17152777777777778" />
         <entry key="app/src/main/res/layout/notification_vh.xml" value="0.17152777777777778" />
         <entry key="app/src/main/res/layout/order_info_bottom_sheet.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/layout/order_table_item_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/order_trader_bottom_sheet.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/order_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/product_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_prices_expandable.xml" value="0.234375" />
@@ -120,6 +132,7 @@
         <entry key="app/src/main/res/layout/record_info_bottom_sheet.xml" value="0.15590277777777778" />
         <entry key="app/src/main/res/layout/remove_category_product_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/simple_debt_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/simple_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />

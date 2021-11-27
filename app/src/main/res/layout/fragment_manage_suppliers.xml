@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.manage.ManageSuppliersViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.supplier.manage.ManageSuppliersViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.client.ManageSuppliersFragment">
+        tools:context=".feature_store.presentation.client.ManageSuppliersFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"

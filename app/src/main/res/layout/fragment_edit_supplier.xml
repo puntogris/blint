@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.supplier.create_edit.EditSupplierViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierFragment" />
+            type="com.puntogris.blint.feature_store.presentation.supplier.create_edit.EditSupplierFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -26,7 +26,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="?actionBarSize"
             android:orientation="vertical"
-            tools:context=".ui.supplier.create_edit.EditSupplierFragment">
+            tools:context=".feature_store.presentation.supplier.create_edit.EditSupplierFragment">
 
             <include
                 android:id="@+id/companyLayout"

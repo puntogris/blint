@@ -6,14 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
-        tools:context=".ui.FragmentScanner">
+        tools:context=".feature_store.presentation.FragmentScanner">
 
         <androidx.camera.view.PreviewView
             android:id="@+id/viewFinder"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.puntogris.blint.utils.ViewFinderOverlay
+        <com.puntogris.blint.common.utils.ViewFinderOverlay
             android:id="@+id/overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

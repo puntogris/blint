@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.operations.OperationsFragment" />
+            type="com.puntogris.blint.feature_store.presentation.operations.OperationsFragment" />
     </data>
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:orientation="vertical"
-        tools:context=".ui.operations.OperationsFragment">
+        tools:context=".feature_store.presentation.operations.OperationsFragment">
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Theme.Blint.CardView"

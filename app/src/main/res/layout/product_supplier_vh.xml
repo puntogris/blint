@@ -6,7 +6,7 @@
 
         <variable
             name="supplier"
-            type="com.puntogris.blint.model.CheckableSupplier" />
+            type="com.puntogris.blint.feature_store.domain.model.CheckableSupplier" />
     </data>
 
     <LinearLayout

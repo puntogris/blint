@@ -20,17 +20,17 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 #-keepnames class androidx.navigation.fragment.NavHostFragment
--keep class com.puntogris.blint.model.Client
--keep class com.puntogris.blint.model.Supplier
--keep class com.puntogris.blint.model.product.ProductWithDetails
--keep class com.puntogris.blint.model.order.Record
--keep class com.puntogris.blint.model.Event
--keep class com.puntogris.blint.model.AuthUser
--keep class com.puntogris.blint.model.Business
--keep class com.puntogris.blint.model.product.Product
--keep class com.puntogris.blint.model.order.OrderWithRecords
--keep class com.puntogris.blint.model.order.Debt
--keep class com.puntogris.blint.model.Category
+-keep class com.puntogris.blint.feature_store.domain.model.Client
+-keep class com.puntogris.blint.feature_store.domain.model.Supplier
+-keep class com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
+-keep class com.puntogris.blint.feature_store.domain.model.order.Record
+-keep class com.puntogris.blint.feature_store.domain.model.Event
+-keep class com.puntogris.blint.feature_store.domain.model.AuthUser
+-keep class com.puntogris.blint.feature_store.domain.model.Business
+-keep class com.puntogris.blint.feature_store.domain.model.product.Product
+-keep class com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
+-keep class com.puntogris.blint.feature_store.domain.model.order.Debt
+-keep class com.puntogris.blint.feature_store.domain.model.Category
 -keep class com.puntogris.blint.model.FirestoreSupplier
 
 

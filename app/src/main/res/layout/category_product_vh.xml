@@ -6,7 +6,7 @@
 
         <variable
             name="category"
-            type="com.puntogris.blint.model.CheckableCategory" />
+            type="com.puntogris.blint.feature_store.domain.model.CheckableCategory" />
     </data>
 
     <LinearLayout

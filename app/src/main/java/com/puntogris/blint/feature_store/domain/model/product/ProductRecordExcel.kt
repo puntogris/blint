@@ -1,0 +1,7 @@
+package com.puntogris.blint.feature_store.domain.model.product
+
+data class ProductRecordExcel(
+    val name: String = "",
+    var historicInStock: Int = 0,
+    var historicOutStock: Int = 0
+)

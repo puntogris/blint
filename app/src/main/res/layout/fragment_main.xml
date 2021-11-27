@@ -7,11 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.main.MainFragment" />
+            type="com.puntogris.blint.feature_store.presentation.main.MainFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.main.MainViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.main.MainViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".ui.main.MainFragment">
+            tools:context=".feature_store.presentation.main.MainFragment">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"

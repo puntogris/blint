@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.backup.RestoreBackupFragment" />
+            type="com.puntogris.blint.feature_store.presentation.backup.RestoreBackupFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.backup.RestoreBackupFragment">
+        tools:context=".feature_store.presentation.backup.RestoreBackupFragment">
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/lastBackupGroup"

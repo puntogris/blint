@@ -6,7 +6,7 @@
 
         <variable
             name="business"
-            type="com.puntogris.blint.model.Business" />
+            type="com.puntogris.blint.feature_store.domain.model.Business" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

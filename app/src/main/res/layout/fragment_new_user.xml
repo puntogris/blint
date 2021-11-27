@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.main.NewUserFragment" />
+            type="com.puntogris.blint.feature_store.presentation.main.NewUserFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.NewUserFragment">
+        tools:context=".feature_store.presentation.main.NewUserFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView4"

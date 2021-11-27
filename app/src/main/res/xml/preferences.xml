@@ -11,7 +11,7 @@
         android:title="@string/backup_pref"
         android:key="backup_pref"
         app:iconSpaceReserved="true"
-        android:fragment="com.puntogris.blint.ui.settings.BackupPreferences"/>
+        android:fragment="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"/>
 
     <ListPreference
         android:title="@string/themes_pref"

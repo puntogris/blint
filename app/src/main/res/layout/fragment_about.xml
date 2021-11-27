@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.about.AboutFragment" />
+            type="com.puntogris.blint.feature_store.presentation.about.AboutFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

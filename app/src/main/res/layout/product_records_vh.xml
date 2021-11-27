@@ -7,7 +7,7 @@
 
         <variable
             name="record"
-            type="com.puntogris.blint.model.order.Record" />
+            type="com.puntogris.blint.feature_store.domain.model.order.Record" />
     </data>
 
 

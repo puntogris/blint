@@ -6,7 +6,7 @@
 
         <variable
             name="menuCard"
-            type="com.puntogris.blint.model.MenuCard" />
+            type="com.puntogris.blint.feature_store.domain.model.MenuCard" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

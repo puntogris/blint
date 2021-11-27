@@ -6,11 +6,11 @@
 
         <variable
             name="order"
-            type="com.puntogris.blint.model.order.Order" />
+            type="com.puntogris.blint.feature_store.domain.model.order.Order" />
 
         <variable
             name="bottomSheet"
-            type="com.puntogris.blint.ui.orders.details.OrderInfoBottomSheet" />
+            type="com.puntogris.blint.feature_store.presentation.orders.details.OrderInfoBottomSheet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

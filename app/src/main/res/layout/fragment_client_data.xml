@@ -6,11 +6,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.client.detail.ClientDataFragment" />
+            type="com.puntogris.blint.feature_store.presentation.client.detail.ClientDataFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.client.detail.ClientViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.client.detail.ClientViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

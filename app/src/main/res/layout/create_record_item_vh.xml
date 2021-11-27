@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.puntogris.blint.model.order.NewRecord" />
+            type="com.puntogris.blint.feature_store.domain.model.order.NewRecord" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

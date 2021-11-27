@@ -6,7 +6,7 @@
 
         <variable
             name="dashboardItem"
-            type="com.puntogris.blint.model.DashboardItem" />
+            type="com.puntogris.blint.feature_store.domain.model.DashboardItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -2,7 +2,7 @@ package com.puntogris.blint
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.puntogris.blint.data.data_source.local.SharedPreferences
+import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

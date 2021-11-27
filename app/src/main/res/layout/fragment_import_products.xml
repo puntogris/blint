@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.operations.ImportProductsFragment">
+        tools:context=".feature_store.presentation.operations.ImportProductsFragment">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

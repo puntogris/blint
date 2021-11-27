@@ -9,11 +9,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.scanner.ScannerResultBottomSheet" />
+            type="com.puntogris.blint.feature_store.presentation.scanner.ScannerResultBottomSheet" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.scanner.ScannerViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.scanner.ScannerViewModel" />
 
     </data>
 

@@ -7,11 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.orders.detailed_order.OrderProductsFragment" />
+            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderProductsFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.orders.detailed_order.NewOrderViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.NewOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        tools:context=".ui.orders.detailed_order.OrderProductsFragment">
+        tools:context=".feature_store.presentation.orders.detailed_order.OrderProductsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"

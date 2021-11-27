@@ -7,17 +7,17 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.debt.debt_status.DebtStatusFragment" />
+            type="com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.debt.debt_status.DebtStatusViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.debt.debt_status.DebtStatusFragment">
+        tools:context=".feature_store.presentation.debt.debt_status.DebtStatusFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView5"

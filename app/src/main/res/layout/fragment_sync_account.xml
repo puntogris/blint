@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.sync.SyncAccountFragment" />
+            type="com.puntogris.blint.feature_store.presentation.sync.SyncAccountFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.sync.SyncAccountFragment">
+        tools:context=".feature_store.presentation.sync.SyncAccountFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"

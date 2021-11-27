@@ -7,17 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.settings.TicketsViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.settings.TicketsViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.settings.SendTicketFragment" />
+            type="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.settings.SendTicketFragment">
+        tools:context=".feature_store.presentation.settings.SendTicketFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ticket_reason_input_layout"

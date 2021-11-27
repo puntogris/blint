@@ -7,17 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.settings.PreferencesViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.settings.PreferencesViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.account.UserAccountFragment" />
+            type="com.puntogris.blint.feature_store.presentation.account.UserAccountFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.account.UserAccountFragment">
+        tools:context=".feature_store.presentation.account.UserAccountFragment">
 
         <TextView
             android:id="@+id/textView15"

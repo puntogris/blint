@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.supplier.create_edit.EditSupplierViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.supplier.create_edit.EditSupplierFragment" />
+            type="com.puntogris.blint.feature_store.presentation.supplier.create_edit.EditSupplierFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

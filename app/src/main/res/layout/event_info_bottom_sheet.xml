@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.ui.calendar.CalendarViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.calendar.CalendarViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.ui.calendar.EventInfoBottomSheet" />
+            type="com.puntogris.blint.feature_store.presentation.calendar.EventInfoBottomSheet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
