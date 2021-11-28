@@ -8,8 +8,10 @@ import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.databinding.FragmentShowDebtsBinding
 import com.puntogris.blint.feature_store.domain.model.SimpleDebt
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragment_show_debts) {
 
@@ -29,7 +31,7 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
 
     private fun subscribeUi(adapter: SimpleDebtAdapter) {
         launchAndRepeatWithViewLifecycle {
-            viewModel.getDebtsFlow().collect {
+            viewModel.debtsFlow.collect {
                 adapter.submitData(it)
             }
         }

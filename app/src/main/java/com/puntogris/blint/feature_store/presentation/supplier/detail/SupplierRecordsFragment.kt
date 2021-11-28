@@ -8,8 +8,10 @@ import com.puntogris.blint.databinding.FragmentSupplierRecordsBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.presentation.orders.manage.RecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SupplierRecordsFragment :
     BaseFragment<FragmentSupplierRecordsBinding>(R.layout.fragment_supplier_records) {

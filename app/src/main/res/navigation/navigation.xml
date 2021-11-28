@@ -41,7 +41,9 @@
         android:label="@string/client_label" >
         <argument
             android:name="client"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Client" />
+            app:argType="com.puntogris.blint.feature_store.domain.model.Client"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
@@ -51,6 +53,11 @@
         <action
             android:id="@+id/action_clientFragment_to_debtStatusFragment"
             app:destination="@id/debtStatusFragment" />
+        <argument
+            android:name="clientId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/supplierFragment"
@@ -58,7 +65,9 @@
         android:label="@string/supplier_label" >
         <argument
             android:name="supplier"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Supplier" />
+            app:argType="com.puntogris.blint.feature_store.domain.model.Supplier"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
@@ -68,6 +77,11 @@
         <action
             android:id="@+id/action_supplierFragment_to_debtStatusFragment"
             app:destination="@id/debtStatusFragment" />
+        <argument
+            android:name="supplierId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"

@@ -59,6 +59,10 @@ class ClientRepositoryImpl(
             }
         }
 
+    override suspend fun getClient(clientId: String): Client = withContext(dispatcher.io) {
+        clientsDao.getClient(clientId)
+    }
+
     override fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(

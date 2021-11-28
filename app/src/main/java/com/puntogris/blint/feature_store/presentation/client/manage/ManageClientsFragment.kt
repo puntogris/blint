@@ -8,11 +8,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.feature_store.domain.model.Client
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ManageClientsFragment :
     BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {
@@ -37,15 +41,17 @@ class ManageClientsFragment :
     }
 
     private fun subscribeUi(adapter: ManageClientsAdapter) {
-        viewModel.clientsLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.clientsFlow.collect {
+                adapter.submitData(it)
+            }
         }
     }
 
     private fun onClientClickListener(client: Client) {
         hideKeyboard()
         val action =
-            ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client)
+            ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client = client)
         findNavController().navigate(action)
     }
 

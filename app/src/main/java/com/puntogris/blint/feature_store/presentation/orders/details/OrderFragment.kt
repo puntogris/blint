@@ -17,9 +17,11 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getDateWithTimeFormattedString
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.databinding.FragmentOrderBinding
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import java.io.File
 import java.io.OutputStream
 import java.util.*
@@ -48,8 +50,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun subscribeUi(adapter: OrdersTableAdapter) {
-        viewModel.tableItems.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.tableItems.collect {
+                adapter.submitList(it)
+            }
         }
     }
 

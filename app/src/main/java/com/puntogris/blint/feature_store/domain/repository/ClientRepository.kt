@@ -12,6 +12,8 @@ interface ClientRepository {
 
     suspend fun deleteClient(clientId: String): SimpleResult
 
+    suspend fun getClient(clientId: String): Client
+
     fun getClientsPaged(query: String? = null): Flow<PagingData<Client>>
 
     fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>>

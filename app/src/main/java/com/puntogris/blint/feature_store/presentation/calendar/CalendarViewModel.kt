@@ -3,13 +3,15 @@ package com.puntogris.blint.feature_store.presentation.calendar
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.google.firebase.Timestamp
-import com.puntogris.blint.common.utils.toEventUiFlow
+import com.puntogris.blint.common.utils.toEventUi
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.repository.EventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,10 +28,11 @@ class CalendarViewModel @Inject constructor(
 
     private var timestamp = Timestamp.now()
 
-    private val eventFilter = MutableLiveData(EventStatus.All)
+    private val eventFilter = MutableStateFlow(EventStatus.All)
 
-    val eventsLiveData = eventFilter.switchMap {
-        repository.getEventsPaged(it).toEventUiFlow().asLiveData()
+    @ExperimentalCoroutinesApi
+    val eventsFlow = eventFilter.flatMapLatest {
+        repository.getEventsPaged(it).toEventUi()
     }.cachedIn(viewModelScope)
 
     fun updateEventStatusFilter(eventStatus: EventStatus) {

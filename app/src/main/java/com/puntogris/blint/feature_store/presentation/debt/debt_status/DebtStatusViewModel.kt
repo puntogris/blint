@@ -1,8 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.debt.debt_status
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import androidx.lifecycle.*
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Trader
@@ -19,7 +17,7 @@ class DebtStatusViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val trader = savedStateHandle.get<Trader>("trader")!!
+    private val trader = DebtStatusFragmentArgs.fromSavedStateHandle(savedStateHandle).trader
 
     val traderDebts = debtsRepository.getLastTraderDebts(trader.traderId)
 

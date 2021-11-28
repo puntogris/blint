@@ -12,7 +12,10 @@ import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ManageProductsFragment :
     BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
@@ -66,8 +69,10 @@ class ManageProductsFragment :
     }
 
     private fun subscribeUi(adapter: ManageProductsAdapter) {
-        viewModel.productsLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.productsFlow.collect {
+                adapter.submitData(it)
+            }
         }
     }
 

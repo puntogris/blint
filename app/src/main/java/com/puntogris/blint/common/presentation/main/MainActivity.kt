@@ -121,9 +121,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController = getNavController()
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
-                startDestination =
-                    if (viewModel.showLogin()) R.id.loginFragment
-                    else R.id.mainFragment
+                setStartDestination(
+                    if (viewModel.showLogin()) R.id.loginFragment else R.id.mainFragment
+                )
             }
         navController.addOnDestinationChangedListener(this@MainActivity)
 

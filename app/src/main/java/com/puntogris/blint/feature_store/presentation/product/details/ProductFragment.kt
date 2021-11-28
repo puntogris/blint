@@ -101,7 +101,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
     private fun onDeleteProductConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteProductDatabase(args.productWithDetails.product.productId)) {
+            when (viewModel.deleteProductDatabase()) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
                 SimpleResult.Success -> {

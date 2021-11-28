@@ -8,11 +8,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ManageSuppliersFragment :
     BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {
@@ -34,8 +38,10 @@ class ManageSuppliersFragment :
     }
 
     private fun subscribeUi(adapter: ManageSuppliersAdapter) {
-        viewModel.suppliersLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.suppliersFlow.collect {
+                adapter.submitData(it)
+            }
         }
     }
 
@@ -43,7 +49,7 @@ class ManageSuppliersFragment :
         hideKeyboard()
         val action =
             ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(
-                supplier
+                supplier = supplier
             )
         findNavController().navigate(action)
     }

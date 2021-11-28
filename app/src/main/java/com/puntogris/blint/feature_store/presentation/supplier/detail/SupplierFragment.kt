@@ -20,8 +20,10 @@ import com.puntogris.blint.databinding.FragmentSupplierBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.toTrader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.fragment_supplier) {
 
@@ -80,7 +82,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
             R.id.debtStatus -> {
                 val action =
                     SupplierFragmentDirections.actionSupplierFragmentToDebtStatusFragment(
-                        trader = args.supplier.toTrader()
+                        trader = viewModel.currentSupplier.value.toTrader()
                     )
                 findNavController().navigate(action)
                 true
@@ -91,7 +93,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
 
     private fun onDeleteSupplierConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteSupplier(args.supplier.supplierId)) {
+            when (viewModel.deleteSupplier()) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_supplier_error))
                 SimpleResult.Success -> {

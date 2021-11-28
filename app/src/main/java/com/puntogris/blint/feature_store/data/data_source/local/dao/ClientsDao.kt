@@ -13,6 +13,9 @@ interface ClientsDao {
     @Query("DELETE FROM client WHERE clientId = :clientId")
     suspend fun delete(clientId: String)
 
+    @Query("SELECT * FROM client WHERE clientId = :clientId")
+    suspend fun getClient(clientId: String): Client
+
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM client INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     suspend fun getClients(): List<Client>

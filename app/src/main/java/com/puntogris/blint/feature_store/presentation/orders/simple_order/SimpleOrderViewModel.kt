@@ -18,7 +18,8 @@ class SimpleOrderViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val product = savedStateHandle.get<Product>("product")!!
+    private val product = SimpleOrderDialogArgs.fromSavedStateHandle(savedStateHandle).product
+
     private var newOrder = NewOrder()
 
     fun createSimpleOrder(amount: Int): Flow<RepoResult<Unit>> {

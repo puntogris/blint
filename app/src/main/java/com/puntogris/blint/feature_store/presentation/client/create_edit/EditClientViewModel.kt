@@ -1,14 +1,13 @@
 package com.puntogris.blint.feature_store.presentation.client.create_edit
 
 import android.text.Editable
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Client
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
+import com.puntogris.blint.feature_store.presentation.client.detail.ClientFragmentArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,12 +16,13 @@ class EditClientViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val client = savedStateHandle.get<Client>("client") ?: Client()
+    private val _currentClient = savedStateHandle.getLiveData<Client>("client")
+        .asFlow()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Client())
 
-    private val _currentClient = MutableStateFlow(client)
-    val currentClient = _currentClient.asStateFlow()
+    val currentClient: StateFlow<Client> = _currentClient
 
-    suspend fun saveClient(): SimpleResult = repository.saveClient(_currentClient.value)
+    suspend fun saveClient() = repository.saveClient(_currentClient.value)
 
     fun updateClientName(editable: Editable) {
         _currentClient.value.name = editable.toString()

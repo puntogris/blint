@@ -20,8 +20,10 @@ import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.toTrader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
 
@@ -44,7 +46,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     }
 
     private fun navigateToEditClientFragment() {
-        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(args.client)
+        val action = ClientFragmentDirections.actionClientFragmentToEditClientFragment(
+            viewModel.currentClient.value
+        )
         findNavController().navigate(action)
     }
 
@@ -77,7 +81,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
             }
             R.id.debtStatus -> {
                 val action = ClientFragmentDirections.actionClientFragmentToDebtStatusFragment(
-                    trader = args.client.toTrader()
+                    trader = viewModel.currentClient.value.toTrader()
                 )
                 findNavController().navigate(action)
                 true
@@ -88,7 +92,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
 
     private fun onDeleteClientConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteClient(args.client.clientId)) {
+            when (viewModel.deleteClient()) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_client_error))
                 SimpleResult.Success -> {

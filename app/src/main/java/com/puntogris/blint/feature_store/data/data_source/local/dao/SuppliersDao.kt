@@ -13,6 +13,9 @@ interface SuppliersDao {
     @Query("DELETE FROM supplier WHERE supplierId = :supplierId")
     suspend fun delete(supplierId: String)
 
+    @Query("SELECT * FROM supplier WHERE supplierId = :supplierId")
+    suspend fun getSupplier(supplierId: String): Supplier
+
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
     suspend fun getSuppliers(): List<Supplier>

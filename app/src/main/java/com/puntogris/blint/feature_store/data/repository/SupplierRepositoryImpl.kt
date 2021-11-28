@@ -24,6 +24,10 @@ class SupplierRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : SupplierRepository {
 
+    override suspend fun getSupplier(supplierId: String): Supplier = withContext(dispatcher.io){
+        suppliersDao.getSupplier(supplierId)
+    }
+
     override suspend fun saveSupplier(supplier: Supplier): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {

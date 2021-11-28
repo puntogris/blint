@@ -10,11 +10,15 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.fragment_calendar) {
 
@@ -51,8 +55,10 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     }
 
     private fun subscribeUi(adapter: CalendarEventsAdapter) {
-        viewModel.eventsLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.eventsFlow.collect {
+                adapter.submitData(it)
+            }
         }
     }
 

@@ -2,13 +2,17 @@ package com.puntogris.blint.feature_store.presentation.supplier.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,13 +21,17 @@ class SupplierViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val supplier = savedStateHandle.get<Supplier>("supplier") ?: Supplier()
+    private val supplierArg = savedStateHandle.getLiveData<Supplier>("supplier").asFlow()
+    private val supplierIdArg = savedStateHandle.getLiveData<String>("supplierId").asFlow()
 
-    private val _currentSupplier = MutableStateFlow(supplier)
-    val currentSupplier = _currentSupplier.asStateFlow()
+    val currentSupplier = combine(supplierArg, supplierIdArg) { supplier, id ->
+        supplier ?: repository.getSupplier(id)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Supplier())
 
-    suspend fun deleteSupplier(supplierId: String) = repository.deleteSupplier(supplierId)
+    @ExperimentalCoroutinesApi
+    val supplierRecords = currentSupplier.flatMapLatest {
+        repository.getSupplierRecordsPaged(it.supplierId)
+    }.cachedIn(viewModelScope)
 
-    val supplierRecords =
-        repository.getSupplierRecordsPaged(supplier.supplierId).cachedIn(viewModelScope)
+    suspend fun deleteSupplier() = repository.deleteSupplier(currentSupplier.value.supplierId)
 }

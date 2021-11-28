@@ -5,6 +5,9 @@ import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -12,13 +15,14 @@ class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    private val query = MutableLiveData("")
+    private val query = MutableStateFlow("")
 
-    val productsLiveData = query.switchMap {
-        if (it.isNullOrBlank()) {
-            productRepository.getProductsPaged().asLiveData()
+    @ExperimentalCoroutinesApi
+    val productsFlow = query.flatMapLatest {
+        if (it.isBlank()) {
+            productRepository.getProductsPaged()
         } else {
-            productRepository.getProductsWithQueryPaged(it).asLiveData()
+            productRepository.getProductsWithQueryPaged(it)
         }
     }.cachedIn(viewModelScope)
 

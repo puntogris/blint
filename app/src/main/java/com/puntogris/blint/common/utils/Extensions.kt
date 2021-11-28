@@ -137,7 +137,7 @@ fun Timestamp.getMonthAndYeah() =
 fun Timestamp.getMonth() =
     SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
 
-fun Flow<PagingData<Event>>.toEventUiFlow(): Flow<PagingData<EventUi>> {
+fun Flow<PagingData<Event>>.toEventUi(): Flow<PagingData<EventUi>> {
     return map { pagingData ->
         pagingData.map {
             EventUi.EventItem(it)
@@ -180,43 +180,6 @@ fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
     }
 }
 
-inline val Context.screenWidth: Int
-    get() =
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            Point().also { display?.getRealSize(it) }.x
-        } else {
-            @Suppress("DEPRECATION")
-            Point().also {
-                (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(
-                    it
-                )
-            }.x
-        }
-
-inline val Int.dp: Int
-    get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics
-    ).toInt()
-
-inline val Float.dp: Float
-    get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics
-    )
-
-inline fun getValueAnimator(
-    forward: Boolean = true,
-    duration: Long,
-    interpolator: TimeInterpolator,
-    crossinline updateListener: (progress: Float) -> Unit
-): ValueAnimator {
-    val a =
-        if (forward) ValueAnimator.ofFloat(0f, 1f)
-        else ValueAnimator.ofFloat(1f, 0f)
-    a.addUpdateListener { updateListener(it.animatedValue as Float) }
-    a.duration = duration
-    a.interpolator = interpolator
-    return a
-}
 
 fun LottieAnimationView.playAnimationOnce(@RawRes animation: Int) {
     visible()
@@ -233,18 +196,12 @@ fun LottieAnimationView.playAnimationInfinite(@RawRes animation: Int) {
 }
 
 fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
-    OptionsSheet().build(requireContext()) {
+    OptionsSheet().show(requireParentFragment().requireContext()) {
         displayMode(DisplayMode.GRID_HORIZONTAL)
         style(SheetStyle.BOTTOM_SHEET)
         with(
-            Option(
-                R.drawable.ic_baseline_speed_24,
-                this@showOrderPickerAndNavigate.getString(R.string.create_simple_order)
-            ),
-            Option(
-                R.drawable.ic_baseline_timer_24,
-                this@showOrderPickerAndNavigate.getString(R.string.create_detailed_order)
-            ),
+            Option(R.drawable.ic_baseline_speed_24,R.string.create_simple_order),
+            Option(R.drawable.ic_baseline_timer_24, R.string.create_detailed_order),
         )
         onPositive { index: Int, _ ->
             if (index == 0) {
@@ -255,7 +212,7 @@ fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
                 findNavController().navigate(action)
             }
         }
-    }.show(parentFragmentManager, "")
+    }
 }
 
 inline fun Fragment.launchAndRepeatWithViewLifecycle(
