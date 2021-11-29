@@ -245,19 +245,6 @@
             app:destination="@id/orderFragment" />
     </dialog>
     <fragment
-        android:id="@+id/operationsFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.operations.OperationsFragment"
-        android:label="@string/tools_label" />
-
-    <fragment
-        android:id="@+id/generalPriceChangeFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.operations.GeneralPriceChangeFragment"
-        android:label="@string/general_edition_label" />
-    <fragment
-        android:id="@+id/importProductsFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.operations.ImportProductsFragment"
-        android:label="@string/import_data_label" />
-    <fragment
         android:id="@+id/createEventFragment"
         android:name="com.puntogris.blint.feature_store.presentation.calendar.CreateEventFragment"
         android:label="@string/new_event_label" />

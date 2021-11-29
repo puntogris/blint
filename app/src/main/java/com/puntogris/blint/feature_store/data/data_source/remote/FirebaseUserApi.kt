@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.data.data_source.remote
 
+import com.puntogris.blint.BuildConfig
 import com.puntogris.blint.common.data.data_source.FirebaseClients
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.data.data_source.toUserEntity
