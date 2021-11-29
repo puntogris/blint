@@ -34,6 +34,7 @@
     <string name="new_event_label">New event</string>
     <string name="generate_report_label">Generate report</string>
     <string name="my_business_label">My business</string>
+    <string name="my_businesses_label">My businesses</string>
     <string name="review_order_label">Review order</string>
     <string name="publish_order_label">Publish order</string>
     <string name="new_order_label">New oder</string>

@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.puntogris.blint.R
@@ -49,20 +50,8 @@ class MainBottomNavDrawer : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.drawerNavigationView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.action_home -> R.id.mainFragment
-                R.id.action_products -> R.id.manageProductsFragment
-                R.id.action_suppliers -> R.id.manageSuppliersFragment
-                R.id.action_clients -> R.id.manageClientsFragment
-                R.id.action_orders -> R.id.manageOrdersFragment
-                R.id.action_settings -> R.id.preferencesFragment
-                else -> null
-            }?.let { action -> findNavController().navigate(action) }
+        binding.drawerNavigationView.setupWithNavController(findNavController())
 
-            dismiss()
-            true
-        }
     }
 
     companion object {

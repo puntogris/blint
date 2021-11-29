@@ -49,10 +49,4 @@
 
     <style name="Theme.Blint.CardView" parent="Widget.MaterialComponents.CardView"/>
 
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-    </style>
-
 </resources>

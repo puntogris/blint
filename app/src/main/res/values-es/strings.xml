@@ -30,6 +30,7 @@
     <string name="new_event_label">Nuevo evento</string>
     <string name="generate_report_label">Generar informe</string>
     <string name="my_business_label">Mi negocio</string>
+    <string name="my_businesses_label">Mis negocios</string>
     <string name="review_order_label">Revisar orden</string>
     <string name="publish_order_label">Publicar order</string>
     <string name="new_order_label">Nueva orden</string>

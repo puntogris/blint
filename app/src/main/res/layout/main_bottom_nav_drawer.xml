@@ -48,7 +48,6 @@
             android:id="@+id/drawer_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:background="@color/color_tinted_surface"
             android:overScrollMode="never"
             app:elevation="0dp"

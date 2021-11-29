@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_home"
-        android:icon="@drawable/ic_twotone_home_24"
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_outline_home_24"
         android:title="@string/home_label" />
     <item
-        android:id="@+id/action_products"
-        android:icon="@drawable/ic_twotone_inventory_2_24"
+        android:id="@+id/manageProductsFragment"
+        android:icon="@drawable/ic_outline_inventory_2_24"
         android:title="@string/products_label" />
     <item
-        android:id="@+id/action_suppliers"
-        android:icon="@drawable/ic_twotone_local_shipping_24"
+        android:id="@+id/manageSuppliersFragment"
+        android:icon="@drawable/ic_outline_local_shipping_24"
         android:title="@string/suppliers_label" />
     <item
-        android:id="@+id/action_clients"
-        android:icon="@drawable/ic_twotone_people_24"
+        android:id="@+id/manageClientsFragment"
+        android:icon="@drawable/ic_baseline_people_alt_24"
         android:title="@string/clients_label" />
     <item
-        android:id="@+id/action_orders"
-        android:icon="@drawable/ic_twotone_article_24"
+        android:id="@+id/manageOrdersFragment"
+        android:icon="@drawable/ic_outline_article_24"
         android:title="@string/orders_label" />
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_twotone_settings_24"
+        android:id="@+id/manageBusinessFragment"
+        android:icon="@drawable/ic_outline_storefront_24"
+        android:title="@string/my_businesses_label" />
+    <item
+        android:id="@+id/preferencesFragment"
+        android:icon="@drawable/ic_round_settings_24"
         android:title="@string/settings_label" />
 </menu>

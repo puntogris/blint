@@ -15,6 +15,8 @@
         <entry key="app/src/main/res/drawable/ic_packages.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_rating.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_report.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_round_store.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_round_storefront_24.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_search_barcode_2.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_shipped.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/selector.xml" value="0.17569444444444443" />
@@ -26,7 +28,7 @@
         <entry key="app/src/main/res/layout/business_deactivated_alert_view.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/business_deleting_alert_view.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
-        <entry key="app/src/main/res/layout/business_item_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/business_item_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/business_statistics_cards.xml" value="0.366079703429101" />
         <entry key="app/src/main/res/layout/calendar_event_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.1" />
