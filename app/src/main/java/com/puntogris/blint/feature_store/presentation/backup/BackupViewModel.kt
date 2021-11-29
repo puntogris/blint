@@ -31,7 +31,7 @@ class BackupViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            backupState.emitAll(repository.checkLastBackUpDate())
+            backupState.emitAll(repository.checkLastBackupTimestamp())
         }
     }
 

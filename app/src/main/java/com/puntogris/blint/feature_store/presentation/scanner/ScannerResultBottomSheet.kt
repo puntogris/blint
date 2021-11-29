@@ -27,7 +27,7 @@ class ScannerResultBottomSheet :
 
     fun onNavigateToProductClicked() {
         val action = ScannerResultBottomSheetDirections.actionScannerResultDialogToProductFragment(
-            viewModel.product.value!!
+            viewModel.scannedProduct.value!!
         )
         findNavController().navigate(action)
     }
@@ -36,7 +36,7 @@ class ScannerResultBottomSheet :
         resumeCameraOnNavigationBack = false
         dismiss()
         val action = ScannerResultBottomSheetDirections.actionGlobalSimpleOrderBottomSheet(
-            viewModel.product.value!!.product
+            viewModel.scannedProduct.value!!.product
         )
         findNavController().navigate(action)
     }
@@ -44,9 +44,7 @@ class ScannerResultBottomSheet :
     fun onCreateNewProduct() {
         val action =
             ScannerResultBottomSheetDirections.actionScannerResultDialogToEditProductFragment(
-                ProductWithDetails(
-                    Product(barcode = viewModel.barcodeScanned.value!!)
-                )
+                viewModel.scannedProduct.value!!
             )
         findNavController().navigate(action)
     }

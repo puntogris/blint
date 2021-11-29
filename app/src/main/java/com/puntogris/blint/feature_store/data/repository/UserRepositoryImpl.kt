@@ -65,12 +65,8 @@ class UserRepositoryImpl(
             emit(RepoResult.InProgress)
 
             if (!ticket.isValid()) emit(RepoResult.Error(R.string.snack_ticket_missing_required_data))
-//
-//            firebase.firestore
-//                .collection(Constants.TICKETS_COLLECTION)
-//                .document(ticket.ticketId)
-//                .set(ticket)
-//                .await()
+
+            userServerApi.sendTicket(ticket)
 
             emit(RepoResult.Success(Unit))
         } catch (e: Exception) {
@@ -78,18 +74,16 @@ class UserRepositoryImpl(
         }
     }.flowOn(dispatcher.io)
 
-    private fun getUserBackupStorageQuery() = ""
-    //firebase.storage.child("${Constants.USERS_PATH}/${firebase.currentUid}/${Constants.BACKUP_PATH}_${BuildConfig.VERSION_NAME}")
 
-    override fun checkLastBackUpDate(): Flow<BackupState> = flow {
+    override fun checkLastBackupTimestamp(): Flow<BackupState> = flow {
         try {
             emit(BackupState.Loading)
-            // val metadata = getUserBackupStorageQuery().metadata.await().creationTimeMillis
-            // emit(BackupState.ShowLastBackup(metadata))
+            val timestamp = userServerApi.getLastBackupTimestamp()
+            emit(BackupState.ShowLastBackup(timestamp))
         } catch (e: StorageException) {
             when (e.errorCode) {
                 StorageException.ERROR_NOT_AUTHENTICATED -> {
-                    emit(BackupState.Error(R.string.fast_login))
+                    emit(BackupState.Error(R.string.snack_an_error_occurred))
                 }
                 StorageException.ERROR_OBJECT_NOT_FOUND -> {
                     emit(BackupState.ShowLastBackup())
@@ -103,16 +97,16 @@ class UserRepositoryImpl(
         }
     }.flowOn(dispatcher.io)
 
+
+    @Suppress("BlockingMethodInNonBlockingContext")
     override fun createBackup(path: String): Flow<BackupState> = flow {
         try {
             emit(BackupState.Loading)
             appDatabase.close()
 
-            val dbRef = getUserBackupStorageQuery()
             val zipFile = File(path)
             val stream = FileInputStream(zipFile)
-
-            // dbRef.putStream(stream).await()
+            userServerApi.uploadBackup(stream)
 
             emit(BackupState.BackupSuccess)
         } catch (e: Exception) {
@@ -125,12 +119,10 @@ class UserRepositoryImpl(
             emit(BackupState.Loading)
             appDatabase.close()
 
-            val dbRef = getUserBackupStorageQuery()
             val localFile = File(context.filesDir.path + "/${Constants.BACKUP_PATH}")
-
             if (!localFile.exists()) localFile.parentFile?.mkdirs()
-           //  dbRef.getFile(localFile).await()
 
+            userServerApi.downloadBackup(localFile)
             Util.copyFile(File(localFile.path).inputStream(), File(path).outputStream())
 
             emit(BackupState.BackupSuccess)

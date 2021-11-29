@@ -20,5 +20,5 @@ interface UserRepository {
 
     fun restoreBackup(path: String): Flow<BackupState>
 
-    fun checkLastBackUpDate(): Flow<BackupState>
+    fun checkLastBackupTimestamp(): Flow<BackupState>
 }

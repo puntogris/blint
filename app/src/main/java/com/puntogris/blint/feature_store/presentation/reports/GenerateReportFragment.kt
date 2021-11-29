@@ -35,7 +35,6 @@ class GenerateReportFragment :
                 UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
             else shareFileIntent(uri)
         }
-
         setupDocumentLauncher()
     }
 
@@ -60,8 +59,8 @@ class GenerateReportFragment :
                 when (viewModel.generateReport()) {
                     SimpleResult.Failure -> {
                         reportTitle.setText(R.string.report_exported_error_title)
+                        reportMessage.setText(R.string.report_exported_error_message)
                         animationView.playAnimationOnce(R.raw.error)
-                        UiInterface.showSnackBar(getString(R.string.report_exported_error_message))
                     }
                     SimpleResult.Success -> {
                         reportTitle.setText(R.string.report_exported_success_title)

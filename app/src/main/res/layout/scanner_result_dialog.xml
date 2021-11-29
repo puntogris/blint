@@ -26,7 +26,7 @@
             android:id="@+id/productFoundGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.product.product.productId.isEmpty ? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.GONE : View.VISIBLE}"
             app:constraint_referenced_ids="button2,textView196,textView197,textView198,textView200,textView201,textView202,button5,textView64,productAmount,textView62,productLastEdited,textView61,textView60,textView15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:id="@+id/productNotFoundGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.product.product.productId.isEmpty ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.VISIBLE : View.GONE}"
             app:constraint_referenced_ids="textView67,button7,barcodeScanned,textView66"
             tools:visibility="gone" />
 
@@ -71,7 +71,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.product.product.name}"
+            android:text="@{viewModel.scannedProduct.product.name}"
             app:layout_constraintStart_toStartOf="@+id/textView60"
             app:layout_constraintTop_toBottomOf="@+id/textView60" />
 
@@ -92,7 +92,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.product.product.amount)}"
+            android:text="@{String.valueOf(viewModel.scannedProduct.product.amount)}"
             app:layout_constraintStart_toStartOf="@+id/textView62"
             app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
@@ -111,7 +111,7 @@
         <TextView
             android:id="@+id/productLastEdited"
             style="@style/Theme.Blint.DataTextView"
-            dateFromTimestamp="@{viewModel.product.product.lastRecordTimestamp}"
+            dateFromTimestamp="@{viewModel.scannedProduct.product.lastRecordTimestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView64"
@@ -180,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{viewModel.barcodeScanned}"
+            android:text="@{viewModel.scannedProduct.product.barcode}"
             app:layout_constraintBottom_toBottomOf="@+id/textView67"
             app:layout_constraintStart_toEndOf="@+id/textView67"
             app:layout_constraintTop_toTopOf="@+id/textView67" />
@@ -238,7 +238,7 @@
         <TextView
             android:id="@+id/textView200"
             style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.product.product.buyPrice}"
+            numberToMoneyString="@{viewModel.scannedProduct.product.buyPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView196"
@@ -247,7 +247,7 @@
         <TextView
             android:id="@+id/textView201"
             style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.product.product.sellPrice}"
+            numberToMoneyString="@{viewModel.scannedProduct.product.sellPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView197"
@@ -256,7 +256,7 @@
         <TextView
             android:id="@+id/textView202"
             style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.product.product.suggestedSellPrice}"
+            numberToMoneyString="@{viewModel.scannedProduct.product.suggestedSellPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/textView198"
