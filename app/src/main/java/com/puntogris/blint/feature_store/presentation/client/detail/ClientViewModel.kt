@@ -12,11 +12,11 @@ import javax.inject.Inject
 @HiltViewModel
 class ClientViewModel @Inject constructor(
     private val repository: ClientRepository,
-    savedStateHandle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
 
-    private val clientArg = savedStateHandle.getLiveData<Client>("client").asFlow()
-    private val clientIdArg = savedStateHandle.getLiveData<String>("clientId").asFlow()
+    private val clientArg = handle.getLiveData<Client>("client").asFlow()
+    private val clientIdArg = handle.getLiveData<String>("clientId").asFlow()
 
     val currentClient = combine(clientArg, clientIdArg){ client, id ->
         client ?: repository.getClient(id)

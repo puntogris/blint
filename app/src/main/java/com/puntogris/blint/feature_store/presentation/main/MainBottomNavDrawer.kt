@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.puntogris.blint.R
 import com.puntogris.blint.databinding.MainBottomNavDrawerBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainBottomNavDrawer : BottomSheetDialogFragment() {
 
     private lateinit var binding: MainBottomNavDrawerBinding
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).also { dialog ->
@@ -36,6 +41,8 @@ class MainBottomNavDrawer : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainBottomNavDrawerBinding.inflate(inflater)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

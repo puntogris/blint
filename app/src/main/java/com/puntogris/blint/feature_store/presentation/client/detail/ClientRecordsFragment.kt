@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 class ClientRecordsFragment :
     BaseFragment<FragmentClientRecordsBinding>(R.layout.fragment_client_records) {
 
-    private val viewModel: ClientViewModel by viewModels()
+    private val viewModel: ClientViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun initializeViews() {
         setupRecordsAdapter()

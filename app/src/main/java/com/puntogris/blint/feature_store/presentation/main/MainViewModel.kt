@@ -16,9 +16,9 @@ class MainViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    val businessCounter = businessRepository.getCurrentBusinessFlow().asLiveData()
-
     fun showLogin() = sharedPreferences.showLoginScreen()
+
+    val currentBusiness = businessRepository.getCurrentBusinessFlow().asLiveData()
 
     val lastEventsFlow = eventRepository.getBusinessLastEventsDatabase()
 }

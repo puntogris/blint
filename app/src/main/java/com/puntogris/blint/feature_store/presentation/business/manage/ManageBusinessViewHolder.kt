@@ -9,10 +9,22 @@ import com.puntogris.blint.feature_store.domain.model.Business
 class ManageBusinessViewHolder private constructor(val binding: BusinessItemVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(business: Business, clickListener: (Business) -> (Unit)) {
-        binding.business = business
-        binding.root.setOnClickListener { clickListener(business) }
-        binding.executePendingBindings()
+    fun bind(
+        selectedBusiness: SelectedBusiness,
+        clickListener: (Business) -> (Unit),
+        selectListener: (Business) -> Unit
+    ) {
+        with(binding) {
+            business = selectedBusiness
+            root.setOnClickListener {
+                clickListener(selectedBusiness.business)
+            }
+            selectBusinessButton.setOnClickListener {
+                selectListener(selectedBusiness.business)
+            }
+            selectBusinessButton.isEnabled = !selectedBusiness.isSelected
+            executePendingBindings()
+        }
     }
 
     companion object {

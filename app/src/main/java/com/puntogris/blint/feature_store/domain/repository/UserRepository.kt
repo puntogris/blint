@@ -2,6 +2,7 @@ package com.puntogris.blint.feature_store.domain.repository
 
 import com.puntogris.blint.common.utils.types.BackupState
 import com.puntogris.blint.common.utils.types.SimpleRepoResult
+import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.common.utils.types.SyncAccount
 import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.model.Ticket
@@ -11,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
 
     suspend fun syncUserAccount(authUser: AuthUser? = null): SyncAccount
+
+    suspend fun updateCurrentBusiness(businessId: String): SimpleResult
 
     fun getUserFlow(): Flow<User>
 

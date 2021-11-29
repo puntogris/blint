@@ -87,34 +87,5 @@
             app:layout_constraintStart_toStartOf="@+id/textView127"
             app:layout_constraintTop_toBottomOf="@+id/textView127" />
 
-        <TextView
-            android:id="@+id/textView129"
-            style="@style/Theme.Blint.DataTextView"
-            businessType="@{business.email}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView128"
-            app:layout_constraintTop_toBottomOf="@+id/textView128" />
-
-        <TextView
-            android:id="@+id/textView193"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status"
-            app:layout_constraintBottom_toBottomOf="@+id/textView128"
-            app:layout_constraintStart_toStartOf="@+id/textView194"
-            app:layout_constraintTop_toTopOf="@+id/textView128" />
-
-        <TextView
-            android:id="@+id/textView194"
-            style="@style/Theme.Blint.DataTextView"
-            businessStatus="@{business.status}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView193" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

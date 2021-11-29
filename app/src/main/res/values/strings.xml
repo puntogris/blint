@@ -50,6 +50,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_no">No</string>
     <string name="action_accept">Accept</string>
+    <string name="action_select_business">Select business</string>
     <string name="action_call">Call</string>
     <string name="action_message">Message</string>
     <string name="action_whats_app">WhatsApp</string>
@@ -136,6 +137,7 @@
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
     <string name="empty_businesses_message">Nothing was found here, we invite you to create a new business or join an existing one.</string>
+    <string name="business_selected">Business selected successfully.</string>
 
     <!-- Category-->
     <string name="add_category">Add category</string>

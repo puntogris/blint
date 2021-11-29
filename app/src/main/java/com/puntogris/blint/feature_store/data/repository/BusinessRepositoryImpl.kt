@@ -24,7 +24,10 @@ class BusinessRepositoryImpl(
     override fun registerBusiness(businessName: String): Flow<SimpleRepoResult> = flow {
         try {
             emit(RepoResult.InProgress)
-            val business = Business(ownerUid = usersDao.getUserId())
+            val business = Business(
+                name = businessName,
+                ownerUid = usersDao.getUserId()
+            )
 
             businessDao.insert(business)
 

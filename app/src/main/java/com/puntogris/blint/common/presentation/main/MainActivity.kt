@@ -96,7 +96,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-
     override fun preInitViews() {
         setTheme(R.style.Blint_Theme_DayNight)
     }

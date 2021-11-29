@@ -45,6 +45,7 @@
     <string name="action_delete">Eliminar</string>
     <string name="action_no">No</string>
     <string name="action_accept">Aceptar</string>
+    <string name="action_select_business">Seleccionar negocio</string>
     <string name="action_call">Llamar</string>
     <string name="action_message">Mensaje</string>
     <string name="action_whats_app">WhatsApp</string>
@@ -114,7 +115,7 @@
     <!-- Business -->
     <string name="ask_business_name">¿Cómo se llamará?</string>
     <string name="new_business_title">¡Estas a un paso de abrir tu negocio en Blint!</string>
-    <string name="create_business">crear negocio</string>
+    <string name="create_business">Crear negocio</string>
     <string name="action_join_business">unirme a un negocio</string>
     <string name="action_learn_about_blint">Aprende más sobre blint</string>
     <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.</string>
@@ -131,6 +132,7 @@
     <string name="disabled">Desactivado</string>
     <string name="enabled">Habilitado</string>
     <string name="empty_businesses_message">No se encontro nada por aquí, te invitamos a crear un nuevo negocio o unirte a uno ya existente.</string>
+    <string name="business_selected">Negocio seleccionado correctamente.</string>
 
     <!-- Category-->
     <string name="add_category">Agregar categoría</string>

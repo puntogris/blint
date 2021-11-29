@@ -2,18 +2,22 @@ package com.puntogris.blint.feature_store.presentation.business.manage
 
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.feature_store.domain.model.Business
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageBusinessFragment :
@@ -24,22 +28,24 @@ class ManageBusinessFragment :
     override fun initializeViews() {
         UiInterface.registerUi()
         binding.fragment = this
-        subscribeUi()
+        setupBusinessAdapter()
     }
 
-    private fun subscribeUi() {
-        //todo this is bad, remove the adapter from inside the flow
+    private fun setupBusinessAdapter(){
+        ManageBusinessAdapter(
+            { onBusinessClicked(it) },
+            { onBusinessSelected(it) }
+        ).let {
+            binding.recyclerView.adapter = it
+            subscribeUi(it)
+        }
+    }
+
+    private fun subscribeUi(adapter: ManageBusinessAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.businesses.collect { data ->
-                if (data.isNotEmpty()) {
-                    ManageBusinessAdapter { onBusinessClicked(it) }.let {
-                        binding.recyclerView.adapter = it
-                        it.submitList(data)
-                    }
-                } else {
-                    binding.businessEmptyUi.visible()
-                }
-                binding.progressBar.gone()
+                adapter.submitList(data)
+                binding.businessEmptyUi.isVisible = data.isEmpty()
             }
         }
     }
@@ -48,6 +54,24 @@ class ManageBusinessFragment :
         val action =
             ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
         findNavController().navigate(action)
+    }
+
+    private fun onBusinessSelected(business: Business) {
+        lifecycleScope.launch {
+            when(viewModel.updateCurrentBusiness(business)){
+                SimpleResult.Failure -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+                }
+                SimpleResult.Success -> {
+                    findNavController().navigate(R.id.mainFragment)
+                    UiInterface.showSnackBar(getString(R.string.business_selected))
+                }
+            }
+        }
+    }
+
+    fun onCreateNewBusinessClicked() {
+        findNavController().navigate(R.id.registerBusinessFragment)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -62,10 +86,6 @@ class ManageBusinessFragment :
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    fun onCreateNewBusinessClicked() {
-        findNavController().navigate(R.id.registerBusinessFragment)
     }
 
     override fun onDestroyView() {

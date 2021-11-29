@@ -17,7 +17,7 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
             MenuCard(R.string.clients_label, R.id.manageClientsFragment, R.drawable.ic_rating),
             MenuCard(R.string.management, 0, 0),
             MenuCard(R.string.orders_label, R.id.manageOrdersFragment, R.drawable.ic_report),
-            MenuCard(R.string.reports_label, R.id.reportsFragment, R.drawable.ic_analytics),
+            MenuCard(R.string.reports_label, R.id.reportsNavGraph, R.drawable.ic_analytics),
             MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_loan),
             MenuCard(R.string.shortcuts, 0, 0)
         )
@@ -34,9 +34,6 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //  if (isHeader(position)) {
-        //       return
-        //  }
         val item = getItem(position)
         return if (item.navigationId == 0) (holder as HeaderViewHolder).bind(getItem(position))
         else (holder as MenuCardViewHolder).bind(getItem(position), clickListener)

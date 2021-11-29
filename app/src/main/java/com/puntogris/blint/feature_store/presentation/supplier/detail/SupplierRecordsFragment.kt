@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collect
 class SupplierRecordsFragment :
     BaseFragment<FragmentSupplierRecordsBinding>(R.layout.fragment_supplier_records) {
 
-    private val viewModel: SupplierViewModel by viewModels()
+    private val viewModel: SupplierViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
         setupRecordsAdapter()

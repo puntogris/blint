@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.fragment_client_data) {
 
-    private val viewModel: ClientViewModel by viewModels()
+    private val viewModel: ClientViewModel by viewModels(ownerProducer = {requireParentFragment()})
     lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 

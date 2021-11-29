@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.main
 
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun initializeViews() {
         UiInterface.registerUi(showFab = false)

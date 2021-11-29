@@ -6,7 +6,7 @@
 
         <variable
             name="business"
-            type="com.puntogris.blint.feature_store.domain.model.Business" />
+            type="com.puntogris.blint.feature_store.presentation.business.manage.SelectedBusiness" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -23,16 +23,16 @@
             android:foreground="?selectableItemBackgroundBorderless">
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/business_name"
                 style="@style/Theme.Blint.DataTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{business.name}"
-                app:layout_constraintStart_toStartOf="@+id/textView46"
-                app:layout_constraintTop_toBottomOf="@+id/textView46" />
+                android:text="@{business.business.name}"
+                app:layout_constraintStart_toStartOf="@+id/business_name_label"
+                app:layout_constraintTop_toBottomOf="@+id/business_name_label" />
 
             <TextView
-                android:id="@+id/textView46"
+                android:id="@+id/business_name_label"
                 style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,57 +42,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView49"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/author"
-                app:layout_constraintStart_toStartOf="@+id/textView42"
-                app:layout_constraintTop_toBottomOf="@+id/textView42" />
-
-            <TextView
-                android:id="@+id/textView59"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{business.email}"
-                app:layout_constraintStart_toStartOf="@+id/textView49"
-                app:layout_constraintTop_toBottomOf="@+id/textView49" />
-
-            <TextView
-                android:id="@+id/textView22"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/creation_date"
-                app:layout_constraintStart_toStartOf="@+id/textView59"
-                app:layout_constraintTop_toBottomOf="@+id/textView59" />
-
-            <TextView
-                android:id="@+id/textView119"
-                style="@style/Theme.Blint.DataTextView"
-                dateFromTimestamp="@{business.createdAt}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/open_business_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:contentDescription="@string/open_image"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/select_business_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
                 app:tint="@color/primaryColor" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/select_business_button"
+                style="@style/Theme.Blint.Button"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_select_business"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/business_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

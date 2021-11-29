@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.feature_store.presentation.main.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_tinted_surface"
-        app:layout_constraintBottom_toTopOf="@+id/drawer_navigation_view"
-        app:layout_constraintTop_toTopOf="@+id/drawer_navigation_view">
+        android:orientation="vertical">
 
         <View
             android:id="@+id/view"
@@ -19,10 +22,27 @@
             android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bottom_sheet_handle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/bottom_sheet_handle" />
+
+        <TextView
+            android:id="@+id/currentBusinessNameLabel"
+            style="@style/TextAppearance.AppCompat.Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/business" />
+
+        <TextView
+            android:id="@+id/currentBusinessName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@{viewModel.currentBusiness.name}"
+            android:textSize="20sp"
+            tools:text="Business 1" />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/drawer_navigation_view"
@@ -33,9 +53,6 @@
             android:overScrollMode="never"
             app:elevation="0dp"
             app:itemBackground="@color/color_tinted_surface"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view"
             app:menu="@menu/bottom_nav_drawer_menu" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

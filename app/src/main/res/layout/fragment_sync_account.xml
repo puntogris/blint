@@ -63,7 +63,6 @@
             android:id="@+id/continueButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="16dp"
             android:enabled="false"

@@ -474,7 +474,7 @@
         android:name="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
         android:label="@string/send_ticket_label" />
     <navigation android:id="@+id/reportsNavGraph"
-        app:startDestination="@id/generateReportFragment">
+        app:startDestination="@id/reportsFragment">
         <fragment
             android:id="@+id/generateReportFragment"
             android:name="com.puntogris.blint.feature_store.presentation.reports.GenerateReportFragment"

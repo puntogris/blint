@@ -27,12 +27,6 @@ data class Business(
     val createdAt: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    val email: String = "",
-
-    @ColumnInfo
-    val status: String = "",
-
-    @ColumnInfo
     val lastStatusTimestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo

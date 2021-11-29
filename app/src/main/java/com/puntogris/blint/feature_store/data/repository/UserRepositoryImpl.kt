@@ -6,10 +6,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.Util
-import com.puntogris.blint.common.utils.types.BackupState
-import com.puntogris.blint.common.utils.types.RepoResult
-import com.puntogris.blint.common.utils.types.SimpleRepoResult
-import com.puntogris.blint.common.utils.types.SyncAccount
+import com.puntogris.blint.common.utils.types.*
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.data.data_source.remote.UserServerApi
@@ -59,75 +56,82 @@ class UserRepositoryImpl(
             }
         }
 
-
-    override fun sendTicket(ticket: Ticket): Flow<SimpleRepoResult> = flow {
-        try {
-            emit(RepoResult.InProgress)
-
-            if (!ticket.isValid()) emit(RepoResult.Error(R.string.snack_ticket_missing_required_data))
-
-            userServerApi.sendTicket(ticket)
-
-            emit(RepoResult.Success(Unit))
-        } catch (e: Exception) {
-            emit(RepoResult.Error(R.string.snack_error_connection_server_try_later))
-        }
-    }.flowOn(dispatcher.io)
-
-
-    override fun checkLastBackupTimestamp(): Flow<BackupState> = flow {
-        try {
-            emit(BackupState.Loading)
-            val timestamp = userServerApi.getLastBackupTimestamp()
-            emit(BackupState.ShowLastBackup(timestamp))
-        } catch (e: StorageException) {
-            when (e.errorCode) {
-                StorageException.ERROR_NOT_AUTHENTICATED -> {
-                    emit(BackupState.Error(R.string.snack_an_error_occurred))
-                }
-                StorageException.ERROR_OBJECT_NOT_FOUND -> {
-                    emit(BackupState.ShowLastBackup())
-                }
-                else -> {
-                    emit(BackupState.Error())
-                }
+    override suspend fun updateCurrentBusiness(businessId: String): SimpleResult =
+        withContext(dispatcher.io) {
+            SimpleResult.build {
+                appDatabase.usersDao.updateCurrentBusiness(businessId)
             }
-        } catch (e: Exception) {
-            emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
         }
-    }.flowOn(dispatcher.io)
 
 
-    @Suppress("BlockingMethodInNonBlockingContext")
-    override fun createBackup(path: String): Flow<BackupState> = flow {
-        try {
-            emit(BackupState.Loading)
-            appDatabase.close()
+override fun sendTicket(ticket: Ticket): Flow<SimpleRepoResult> = flow {
+    try {
+        emit(RepoResult.InProgress)
 
-            val zipFile = File(path)
-            val stream = FileInputStream(zipFile)
-            userServerApi.uploadBackup(stream)
+        if (!ticket.isValid()) emit(RepoResult.Error(R.string.snack_ticket_missing_required_data))
 
-            emit(BackupState.BackupSuccess)
-        } catch (e: Exception) {
-            emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
+        userServerApi.sendTicket(ticket)
+
+        emit(RepoResult.Success(Unit))
+    } catch (e: Exception) {
+        emit(RepoResult.Error(R.string.snack_error_connection_server_try_later))
+    }
+}.flowOn(dispatcher.io)
+
+
+override fun checkLastBackupTimestamp(): Flow<BackupState> = flow {
+    try {
+        emit(BackupState.Loading)
+        val timestamp = userServerApi.getLastBackupTimestamp()
+        emit(BackupState.ShowLastBackup(timestamp))
+    } catch (e: StorageException) {
+        when (e.errorCode) {
+            StorageException.ERROR_NOT_AUTHENTICATED -> {
+                emit(BackupState.Error(R.string.snack_an_error_occurred))
+            }
+            StorageException.ERROR_OBJECT_NOT_FOUND -> {
+                emit(BackupState.ShowLastBackup())
+            }
+            else -> {
+                emit(BackupState.Error())
+            }
         }
-    }.flowOn(dispatcher.io)
+    } catch (e: Exception) {
+        emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
+    }
+}.flowOn(dispatcher.io)
 
-    override fun restoreBackup(path: String): Flow<BackupState> = flow {
-        try {
-            emit(BackupState.Loading)
-            appDatabase.close()
 
-            val localFile = File(context.filesDir.path + "/${Constants.BACKUP_PATH}")
-            if (!localFile.exists()) localFile.parentFile?.mkdirs()
+@Suppress("BlockingMethodInNonBlockingContext")
+override fun createBackup(path: String): Flow<BackupState> = flow {
+    try {
+        emit(BackupState.Loading)
+        appDatabase.close()
 
-            userServerApi.downloadBackup(localFile)
-            Util.copyFile(File(localFile.path).inputStream(), File(path).outputStream())
+        val zipFile = File(path)
+        val stream = FileInputStream(zipFile)
+        userServerApi.uploadBackup(stream)
 
-            emit(BackupState.BackupSuccess)
-        } catch (e: Exception) {
-            emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
-        }
-    }.flowOn(dispatcher.io)
+        emit(BackupState.BackupSuccess)
+    } catch (e: Exception) {
+        emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
+    }
+}.flowOn(dispatcher.io)
+
+override fun restoreBackup(path: String): Flow<BackupState> = flow {
+    try {
+        emit(BackupState.Loading)
+        appDatabase.close()
+
+        val localFile = File(context.filesDir.path + "/${Constants.BACKUP_PATH}")
+        if (!localFile.exists()) localFile.parentFile?.mkdirs()
+
+        userServerApi.downloadBackup(localFile)
+        Util.copyFile(File(localFile.path).inputStream(), File(path).outputStream())
+
+        emit(BackupState.BackupSuccess)
+    } catch (e: Exception) {
+        emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
+    }
+}.flowOn(dispatcher.io)
 }
