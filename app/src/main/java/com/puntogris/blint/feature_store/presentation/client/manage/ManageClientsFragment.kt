@@ -13,10 +13,8 @@ import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageClientsBinding
 import com.puntogris.blint.feature_store.domain.model.Client
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ManageClientsFragment :
     BaseFragmentOptions<FragmentManageClientsBinding>(R.layout.fragment_manage_clients) {

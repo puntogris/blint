@@ -1,123 +1,83 @@
 package com.puntogris.blint.feature_store.presentation.reports
 
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.navGraphViewModels
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants.ANNUAL
-import com.puntogris.blint.common.utils.Constants.BIANNUAL
 import com.puntogris.blint.common.utils.Constants.CLIENTS_LIST
-import com.puntogris.blint.common.utils.Constants.HISTORICAL
-import com.puntogris.blint.common.utils.Constants.MONTHLY
+import com.puntogris.blint.common.utils.Constants.CLIENTS_RECORDS
 import com.puntogris.blint.common.utils.Constants.PRODUCTS_LIST
 import com.puntogris.blint.common.utils.Constants.PRODUCTS_RECORDS
-import com.puntogris.blint.common.utils.Constants.QUARTERLY
 import com.puntogris.blint.common.utils.Constants.SUPPLIERS_LIST
-import com.puntogris.blint.common.utils.Constants.WEEKLY
+import com.puntogris.blint.common.utils.Constants.SUPPLIERS_RECORDS
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.types.RepoResult
 import com.puntogris.blint.databinding.FragmentReportsBinding
-import com.puntogris.blint.feature_store.domain.model.DashboardItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
 
-    private val viewModel: ReportsViewModel by viewModels()
+    private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
         binding.fragment = this
+        binding.viewModel = viewModel
         UiInterface.registerUi(showFab = false)
-
-        val reportDashboardAdapter = ReportsDashboardAdapter()
-        binding.dashboardRv.apply {
-            adapter = reportDashboardAdapter
-            layoutManager = GridLayoutManager(requireContext(), 3)
-        }
-
-        lifecycleScope.launchWhenStarted {
-            when (val result = viewModel.getStatistics()) {
-                is RepoResult.Error -> {}
-                RepoResult.InProgress -> {}
-                is RepoResult.Success -> {
-                    val data = listOf(
-                        DashboardItem(
-                            getString(R.string.products_label),
-                            result.data.totalProducts.toString()
-                        ),
-                        DashboardItem(
-                            getString(R.string.suppliers_label),
-                            result.data.totalSuppliers.toString()
-                        ),
-                        DashboardItem(
-                            getString(R.string.clients_label),
-                            result.data.totalClients.toString()
-                        )
-                    )
-                    reportDashboardAdapter.submitList(data)
-                }
-            }
-        }
     }
 
     fun onProductsReportClicked() {
-        showTimeFrameBottomSheet(PRODUCTS_RECORDS)
+        showTimeFrameBottomSheet()
+        viewModel.updateReportType(PRODUCTS_RECORDS)
     }
-    //fun onClientsReportClicked(){ showTimeFrameBottomSheet(CLIENTS_RECORDS) }
-    //fun onSuppliersReportClicked(){ showTimeFrameBottomSheet(SUPPLIERS_RECORDS) }
+
+    fun onClientsReportClicked() {
+        showTimeFrameBottomSheet()
+        viewModel.updateReportType(CLIENTS_RECORDS)
+
+    }
+
+    fun onSuppliersReportClicked() {
+        showTimeFrameBottomSheet()
+        viewModel.updateReportType(SUPPLIERS_RECORDS)
+    }
 
     fun onProductListClicked() {
-        val action =
-            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = PRODUCTS_LIST)
-        findNavController().navigate(action)
+        viewModel.updateReportType(PRODUCTS_LIST)
+        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
     fun onClientListClicked() {
-        val action =
-            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = CLIENTS_LIST)
-        findNavController().navigate(action)
+        viewModel.updateReportType(CLIENTS_LIST)
+        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
     fun onSuppliersListClicked() {
-        val action =
-            ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(reportCode = SUPPLIERS_LIST)
-        findNavController().navigate(action)
+        viewModel.updateReportType(SUPPLIERS_LIST)
+        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
-    @Suppress("SameParameterValue")
-    private fun showTimeFrameBottomSheet(code: Int) {
-        OptionsSheet().build(requireContext()) {
-            title(this@ReportsFragment.getString(R.string.ask_report_time_frame_title))
+    private fun showTimeFrameBottomSheet() {
+        val timeFrames = TimeFrame.values()
+        OptionsSheet().show(requireParentFragment().requireContext()) {
+            title(R.string.ask_report_time_frame_title)
             displayMode(DisplayMode.LIST)
-            with(
-                Option(this@ReportsFragment.getString(R.string.weekly)),
-                Option(this@ReportsFragment.getString(R.string.monthly)),
-                Option(this@ReportsFragment.getString(R.string.quarterly)),
-                Option(this@ReportsFragment.getString(R.string.biannual)),
-                Option(this@ReportsFragment.getString(R.string.annual)),
-                Option(this@ReportsFragment.getString(R.string.historical))
-            )
-            onPositive { index: Int, _: Option ->
-                val timeCode = when (index) {
-                    0 -> WEEKLY
-                    1 -> MONTHLY
-                    2 -> QUARTERLY
-                    3 -> BIANNUAL
-                    4 -> ANNUAL
-                    else -> HISTORICAL
-                }
-                val action =
-                    ReportsFragmentDirections.actionReportsFragmentToGenerateReportFragment(
-                        reportCode = code,
-                        timeCode = timeCode
-                    )
-                this@ReportsFragment.findNavController().navigate(action)
+            with(*timeFrames.map { Option(it.res) }.toTypedArray())
+            onPositive { index: Int, _ ->
+                viewModel.updateTimeFrame(timeFrames[index])
+                findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
             }
-        }.show(parentFragmentManager, "")
+        }
     }
+}
+
+enum class TimeFrame(val res: Int, val days: Int) {
+    WEEKLY(R.string.weekly, 7),
+    MONTHLY(R.string.monthly, 30),
+    QUARTERLY(R.string.quarterly, 90),
+    BIANNUAL(R.string.biannual, 180),
+    ANNUAL(R.string.annual, 360),
+    HISTORICAL(R.string.historical, 0)
 }

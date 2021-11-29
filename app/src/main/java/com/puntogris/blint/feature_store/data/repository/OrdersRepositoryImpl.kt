@@ -31,16 +31,15 @@ class OrdersRepositoryImpl(
             emit(RepoResult.InProgress)
 
             val business = appDatabase.businessDao.getCurrentBusiness()
-            val statistics = appDatabase.statisticsDao.getStatistics()
 
-            val orderWithRecords = newOrder.toOrderWithRecords(business, statistics)
+            val orderWithRecords = newOrder.toOrderWithRecords(business)
 
             orderWithRecords.debt?.let {
                 if (it.traderType == Constants.CLIENT) {
-                    appDatabase.statisticsDao.updateClientsDebt(it.amount)
+                    appDatabase.businessDao.updateClientsDebt(it.amount)
                     appDatabase.clientsDao.updateClientDebt(it.traderId, it.amount)
                 } else {
-                    appDatabase.statisticsDao.updateSupplierDebt(it.amount)
+                    appDatabase.businessDao.updateSupplierDebt(it.amount)
                     appDatabase.suppliersDao.updateSupplierDebt(it.traderId, it.amount)
                 }
                 appDatabase.debtsDao.insert(it)
@@ -61,8 +60,9 @@ class OrdersRepositoryImpl(
             }
 
             appDatabase.withTransaction {
-                appDatabase.statisticsDao.incrementTotalOrders()
-                appDatabase.ordersDao.insertOrder(orderWithRecords)
+                appDatabase.businessDao.incrementTotalOrders()
+                appDatabase.ordersDao.insert(orderWithRecords.order)
+                appDatabase.recordsDao.insert(orderWithRecords.records)
                 appDatabase.ordersDao.insertOrderRecordsCrossRef(recordRefs)
             }
 
@@ -92,7 +92,7 @@ class OrdersRepositoryImpl(
                 maxSize = 200
             )
         ) {
-            appDatabase.ordersDao.getAllRecordsPaged()
+            appDatabase.recordsDao.getAllRecordsPaged()
         }.flow
     }
 

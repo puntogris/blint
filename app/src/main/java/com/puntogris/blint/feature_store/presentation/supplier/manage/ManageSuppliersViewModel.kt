@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ManageSuppliersViewModel @Inject constructor(
-    private val supplierRepository: SupplierRepository
+    private val repository: SupplierRepository
 ) : ViewModel() {
 
     private val query = MutableStateFlow("")
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val suppliersFlow = query.flatMapLatest {
-        supplierRepository.getSuppliersPaged(it)
+        repository.getSuppliersPaged(it)
     }.cachedIn(viewModelScope)
 
     fun setQuery(editable: Editable) {

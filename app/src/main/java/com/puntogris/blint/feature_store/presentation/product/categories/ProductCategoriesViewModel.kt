@@ -7,25 +7,30 @@ import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.CheckableCategory
 import com.puntogris.blint.feature_store.domain.repository.CategoriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductCategoriesViewModel @Inject constructor(
     private val repository: CategoriesRepository,
-    savedStateHandle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
 
-    private val query = MutableLiveData("")
+    private val query = MutableStateFlow("")
 
     private val initialCategories =
-        savedStateHandle.get<Array<Category>>("categories") ?: emptyArray()
+        ProductCategoryFragmentArgs.fromSavedStateHandle(handle).categories ?: emptyArray()
 
     private val initialCategoriesIds = initialCategories.map { it.categoryName }
 
     private val finalCategories = initialCategories.toMutableList()
 
-    val categoriesLiveData = query.switchMap {
-        repository.getCategoriesPaged(it).asLiveData()
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val categoriesFlow = query.flatMapLatest {
+        repository.getCategoriesPaged(it)
     }.map {
         it.map { category ->
             CheckableCategory(

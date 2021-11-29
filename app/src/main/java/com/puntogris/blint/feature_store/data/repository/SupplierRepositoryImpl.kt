@@ -6,10 +6,7 @@ import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.feature_store.data.data_source.local.dao.OrdersDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.StatisticsDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.*
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
@@ -19,10 +16,14 @@ import kotlinx.coroutines.withContext
 class SupplierRepositoryImpl(
     private val suppliersDao: SuppliersDao,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao,
+    private val businessDao: BusinessDao,
+    private val recordsDao: RecordsDao,
     private val dispatcher: DispatcherProvider
 ) : SupplierRepository {
+
+    override suspend fun getSuppliers() = withContext(dispatcher.io){
+        suppliersDao.getSuppliers()
+    }
 
     override suspend fun getSupplier(supplierId: String): Supplier = withContext(dispatcher.io){
         suppliersDao.getSupplier(supplierId)
@@ -35,7 +36,7 @@ class SupplierRepositoryImpl(
                 if (supplier.supplierId.isEmpty()) {
                     supplier.supplierId = UUIDGenerator.randomUUID()
                     supplier.businessId = usersDao.getCurrentBusinessId()
-                    statisticsDao.incrementTotalSuppliers()
+                    businessDao.incrementTotalSuppliers()
                 }
 
                 suppliersDao.insert(supplier)
@@ -59,7 +60,7 @@ class SupplierRepositoryImpl(
         withContext(dispatcher.io) {
             SimpleResult.build {
                 suppliersDao.delete(supplierId)
-                statisticsDao.decrementTotalSuppliers()
+                businessDao.decrementTotalSuppliers()
             }
         }
 
@@ -70,8 +71,6 @@ class SupplierRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            ordersDao.getSupplierRecords(supplierId)
-        }.flow
+        ) { recordsDao.getSupplierRecords(supplierId) }.flow
     }
 }

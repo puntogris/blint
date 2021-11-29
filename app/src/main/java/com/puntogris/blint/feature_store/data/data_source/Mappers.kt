@@ -5,13 +5,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.model.Business
-import com.puntogris.blint.feature_store.domain.model.Statistic
 import com.puntogris.blint.feature_store.domain.model.User
+import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
 import com.puntogris.blint.feature_store.domain.model.order.*
-import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.model.product.ProductCategoryCrossRef
-import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCrossRef
-import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
+import com.puntogris.blint.feature_store.domain.model.product.*
 import kotlin.math.absoluteValue
 
 fun FirebaseUser.toAuthUser(): AuthUser {
@@ -41,7 +38,7 @@ fun Product.toRecord(currentBusinessId: String): Record {
         timestamp = Timestamp.now(),
         businessId = currentBusinessId,
         barcode = barcode,
-        totalInStock = amount,
+        historicInStock = amount,
         sku = sku,
     )
 }
@@ -54,11 +51,11 @@ fun ProductWithDetails.toProductCategoryCrossRef(): List<ProductCategoryCrossRef
     return categories.map { ProductCategoryCrossRef(product.productId, it.categoryName) }
 }
 
-fun NewOrder.toOrderWithRecords(business: Business, statistic: Statistic): OrderWithRecords {
+fun NewOrder.toOrderWithRecords(business: Business): OrderWithRecords {
     return OrderWithRecords(
         order = Order(
             orderId = orderId,
-            number = statistic.totalOrders + 1,
+            number = business.totalOrders + 1,
             value = value,
             type = type,
             traderName = traderName,
@@ -77,15 +74,15 @@ fun NewOrder.toOrderWithRecords(business: Business, statistic: Statistic): Order
                 amount = it.amount,
                 productName = it.productName,
                 productId = it.productId,
-                totalOutStock = it.historicalOutStock,
-                totalInStock = it.historicalInStock,
+                historicOutStock = it.historicalOutStock,
+                historicInStock = it.historicalInStock,
                 businessId = business.businessId,
                 barcode = it.barcode,
                 productUnitPrice = it.productUnitPrice,
                 sku = it.sku,
             ).also { record ->
-                if (record.type == Constants.IN) record.totalInStock += record.amount.absoluteValue
-                else record.totalOutStock += record.amount.absoluteValue
+                if (record.type == Constants.IN) record.historicInStock += record.amount.absoluteValue
+                else record.historicOutStock += record.amount.absoluteValue
             }
         },
         debt = newDebt?.let {
@@ -112,5 +109,16 @@ fun Product.toNewRecord(): NewRecord {
         amount = 0,
         productUnitPrice = buyPrice,
         currentStock = amount
+    )
+}
+
+
+fun Record.toProductRecordExcel(product: Product): ProductRecordExcel {
+    return ProductRecordExcel(
+        product.name,
+        if (type == "IN") product.historicInStock - (historicInStock - amount).absoluteValue
+        else product.historicInStock - historicInStock,
+        if (type == "OUT") product.historicOutStock - (historicOutStock - amount).absoluteValue
+        else product.historicOutStock - historicOutStock
     )
 }

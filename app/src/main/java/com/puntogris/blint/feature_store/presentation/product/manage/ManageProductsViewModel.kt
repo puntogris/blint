@@ -1,7 +1,8 @@
 package com.puntogris.blint.feature_store.presentation.product.manage
 
 import android.text.Editable
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,13 +18,9 @@ class ManageProductsViewModel @Inject constructor(
 
     private val query = MutableStateFlow("")
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val productsFlow = query.flatMapLatest {
-        if (it.isBlank()) {
-            productRepository.getProductsPaged()
-        } else {
-            productRepository.getProductsWithQueryPaged(it)
-        }
+        productRepository.getProductsPaged(it)
     }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {

@@ -51,10 +51,10 @@ data class Record(
     var value: Float = 0F,
 
     @ColumnInfo
-    var totalInStock: Int = 0,
+    var historicInStock: Int = 0,
 
     @ColumnInfo
-    var totalOutStock: Int = 0,
+    var historicOutStock: Int = 0,
 
     @ColumnInfo
     var sku: String = "",

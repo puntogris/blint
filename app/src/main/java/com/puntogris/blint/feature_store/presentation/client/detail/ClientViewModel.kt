@@ -22,7 +22,7 @@ class ClientViewModel @Inject constructor(
         client ?: repository.getClient(id)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Client())
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val clientsRecords = currentClient.flatMapLatest {
         repository.getClientRecordsPaged(it.clientId)
     }.cachedIn(viewModelScope)

@@ -13,10 +13,8 @@ import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageSuppliersBinding
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ManageSuppliersFragment :
     BaseFragmentOptions<FragmentManageSuppliersBinding>(R.layout.fragment_manage_suppliers) {

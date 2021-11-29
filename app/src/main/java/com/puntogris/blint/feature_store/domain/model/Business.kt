@@ -36,6 +36,24 @@ data class Business(
     val lastStatusTimestamp: Timestamp = Timestamp.now(),
 
     @ColumnInfo
-    val logoUri: String = ""
+    val logoUri: String = "",
+
+    @ColumnInfo
+    val totalProducts: Int = 0,
+
+    @ColumnInfo
+    val totalClients: Int = 0,
+
+    @ColumnInfo
+    val totalSuppliers: Int = 0,
+
+    @ColumnInfo
+    val totalOrders: Int = 0,
+
+    @ColumnInfo
+    val clientsDebt: Float = 0F,
+
+    @ColumnInfo
+    val suppliersDebt: Float = 0F
 
 ) : Parcelable

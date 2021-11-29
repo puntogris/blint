@@ -4,16 +4,17 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.feature_store.data.data_source.toProductCategoryCrossRef
 import com.puntogris.blint.feature_store.data.data_source.toProductSupplierCrossRef
-import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.model.product.ProductCategoryCrossRef
-import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCrossRef
-import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
+import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
+import com.puntogris.blint.feature_store.domain.model.product.*
 
 @Dao
 interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(product: Product): Long
+
+    @Query("SELECT * FROM product")
+    suspend fun getProducts(): List<Product>
 
     @Transaction
     suspend fun insertProduct(productWithDetails: ProductWithDetails) {
@@ -155,4 +156,9 @@ interface ProductsDao {
         affectsSellPrice: Boolean,
         affectsSuggestedPrice: Boolean
     ): Int
+
+    @RewriteQueriesToDropUnusedColumns
+    @Transaction
+    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
+    suspend fun getProductRecordExcelList(): List<ProductRecordExcel>
 }

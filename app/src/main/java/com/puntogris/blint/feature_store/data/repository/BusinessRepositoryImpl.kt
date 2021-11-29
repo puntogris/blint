@@ -6,10 +6,8 @@ import com.puntogris.blint.common.utils.types.RepoResult
 import com.puntogris.blint.common.utils.types.SimpleRepoResult
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.StatisticsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.Business
-import com.puntogris.blint.feature_store.domain.model.Statistic
 import com.puntogris.blint.feature_store.domain.repository.BusinessRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,7 +17,6 @@ import kotlinx.coroutines.withContext
 class BusinessRepositoryImpl(
     private val businessDao: BusinessDao,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao,
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: DispatcherProvider,
 ) : BusinessRepository {
@@ -31,7 +28,6 @@ class BusinessRepositoryImpl(
 
             businessDao.insert(business)
 
-            statisticsDao.insert(Statistic(businessId = business.businessId))
             usersDao.updateCurrentBusiness(business.businessId)
 
             sharedPreferences.setShowNewUserScreenPref(false)

@@ -20,10 +20,8 @@ import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.toTrader
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragment_client) {
 

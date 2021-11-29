@@ -9,10 +9,12 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableSupplier
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ProductSupplierFragment :
@@ -41,8 +43,10 @@ class ProductSupplierFragment :
     }
 
     private fun subscribeUi(adapter: ProductSupplierAdapter) {
-        viewModel.suppliersLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        launchAndRepeatWithViewLifecycle {
+            viewModel.suppliersFlow.collect {
+                adapter.submitData(it)
+            }
         }
     }
 

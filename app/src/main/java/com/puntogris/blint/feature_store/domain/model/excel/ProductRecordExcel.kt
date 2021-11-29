@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.domain.model.product
+package com.puntogris.blint.feature_store.domain.model.excel
 
 data class ProductRecordExcel(
     val name: String = "",

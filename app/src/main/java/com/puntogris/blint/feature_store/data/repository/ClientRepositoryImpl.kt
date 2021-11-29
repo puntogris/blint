@@ -6,10 +6,7 @@ import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.OrdersDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.StatisticsDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.*
 import com.puntogris.blint.feature_store.domain.model.Client
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
@@ -19,24 +16,21 @@ import kotlinx.coroutines.withContext
 class ClientRepositoryImpl(
     private val clientsDao: ClientsDao,
     private val usersDao: UsersDao,
-    private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao,
+    private val recordsDao: RecordsDao,
+    private val businessDao: BusinessDao,
     private val dispatcher: DispatcherProvider
 ) : ClientRepository {
 
-    override suspend fun saveClient(client: Client): SimpleResult =
-        withContext(dispatcher.io) {
-            SimpleResult.build {
-
-                if (client.clientId.isBlank()) {
-                    client.clientId = UUIDGenerator.randomUUID()
-                    client.businessId = usersDao.getCurrentBusinessId()
-                    statisticsDao.incrementTotalClients()
-                }
-
-                clientsDao.insert(client)
+    override suspend fun saveClient(client: Client): SimpleResult = withContext(dispatcher.io) {
+        SimpleResult.build {
+            if (client.clientId.isBlank()) {
+                client.clientId = UUIDGenerator.randomUUID()
+                client.businessId = usersDao.getCurrentBusinessId()
+                businessDao.incrementTotalClients()
             }
+            clientsDao.insert(client)
         }
+    }
 
     override fun getClientsPaged(query: String?): Flow<PagingData<Client>> {
         return Pager(
@@ -51,17 +45,18 @@ class ClientRepositoryImpl(
         }.flow
     }
 
-    override suspend fun deleteClient(clientId: String): SimpleResult =
-        withContext(dispatcher.io) {
-            SimpleResult.build {
-                clientsDao.delete(clientId)
-                statisticsDao.decrementTotalClients()
-            }
+    override suspend fun deleteClient(clientId: String): SimpleResult = withContext(dispatcher.io) {
+        SimpleResult.build {
+            clientsDao.delete(clientId)
+            businessDao.decrementTotalClients()
         }
+    }
 
     override suspend fun getClient(clientId: String): Client = withContext(dispatcher.io) {
         clientsDao.getClient(clientId)
     }
+
+    override suspend fun getClients() = clientsDao.getClients()
 
     override fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>> {
         return Pager(
@@ -70,8 +65,6 @@ class ClientRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            ordersDao.getClientsRecords(clientId)
-        }.flow
+        ) { recordsDao.getClientsRecords(clientId) }.flow
     }
 }

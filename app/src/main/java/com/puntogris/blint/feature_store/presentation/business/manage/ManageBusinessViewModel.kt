@@ -11,5 +11,4 @@ class ManageBusinessViewModel @Inject constructor(
 ) : ViewModel() {
 
     val businesses = repository.getBusinessFlow()
-
 }

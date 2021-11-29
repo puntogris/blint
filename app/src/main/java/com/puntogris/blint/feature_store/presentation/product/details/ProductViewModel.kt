@@ -22,7 +22,7 @@ class ProductViewModel @Inject constructor(
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val productRecords = currentProduct.flatMapLatest {
         repository.getProductRecordsPaged(it.product.productId)
     }.cachedIn(viewModelScope)

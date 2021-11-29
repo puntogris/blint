@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface SupplierRepository {
 
+    suspend fun getSuppliers(): List<Supplier>
+
     suspend fun getSupplier(supplierId: String): Supplier
 
     suspend fun saveSupplier(supplier: Supplier): SimpleResult

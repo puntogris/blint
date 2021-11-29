@@ -13,10 +13,10 @@ interface DebtsDao {
     @Query("SELECT * FROM debt WHERE traderId = :traderId ORDER BY timestamp DESC")
     fun getTraderDebtsPaged(traderId: String): PagingSource<Int, Debt>
 
-    @Query("UPDATE statistic SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    @Query("UPDATE business SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
     suspend fun updateTotalClientsDebt(clientsDebt: Float)
 
-    @Query("UPDATE statistic SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM statistic INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    @Query("UPDATE business SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
     suspend fun updateTotalSupplierDebt(suppliersDebt: Float)
 
     @RewriteQueriesToDropUnusedColumns

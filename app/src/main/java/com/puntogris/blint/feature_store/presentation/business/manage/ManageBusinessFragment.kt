@@ -28,6 +28,7 @@ class ManageBusinessFragment :
     }
 
     private fun subscribeUi() {
+        //todo this is bad, remove the adapter from inside the flow
         launchAndRepeatWithViewLifecycle {
             viewModel.businesses.collect { data ->
                 if (data.isNotEmpty()) {

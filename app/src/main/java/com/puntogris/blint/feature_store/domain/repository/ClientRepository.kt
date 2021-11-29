@@ -14,6 +14,8 @@ interface ClientRepository {
 
     suspend fun getClient(clientId: String): Client
 
+    suspend fun getClients(): List<Client>
+
     fun getClientsPaged(query: String? = null): Flow<PagingData<Client>>
 
     fun getClientRecordsPaged(clientId: String): Flow<PagingData<Record>>

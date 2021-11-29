@@ -9,9 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
 
-    fun getProductsPaged(): Flow<PagingData<ProductWithDetails>>
-
-    fun getProductsWithQueryPaged(query: String): Flow<PagingData<ProductWithDetails>>
+    fun getProductsPaged(query: String?): Flow<PagingData<ProductWithDetails>>
 
     fun getProductRecordsPaged(productId: String): Flow<PagingData<Record>>
 
@@ -22,4 +20,6 @@ interface ProductRepository {
     suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult
 
     suspend fun getProductWithBarcode(barcode: String): ProductWithDetails?
+
+    suspend fun getProducts(): List<Product>
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.puntogris.blint.common.data.data_source.FirebaseClients
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.StandardDispatchers
+import com.puntogris.blint.feature_store.data.data_source.ExcelDrawer
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.data.data_source.local.dao.*
@@ -17,6 +18,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -53,6 +55,10 @@ class DatabaseModule {
 
     @Singleton
     @Provides
+    fun providesRecordsDao(appDatabase: AppDatabase) = appDatabase.recordsDao
+
+    @Singleton
+    @Provides
     fun providesSuppliersDao(appDatabase: AppDatabase) = appDatabase.suppliersDao
 
     @Singleton
@@ -62,10 +68,6 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun providesEventDao(appDatabase: AppDatabase) = appDatabase.eventsDao
-
-    @Singleton
-    @Provides
-    fun providesStatisticsDao(appDatabase: AppDatabase) = appDatabase.statisticsDao
 
     @Singleton
     @Provides
@@ -92,14 +94,12 @@ class DatabaseModule {
     fun provideBusinessRepository(
         businessDao: BusinessDao,
         usersDao: UsersDao,
-        statisticsDao: StatisticsDao,
         sharedPreferences: SharedPreferences,
         dispatcher: DispatcherProvider,
     ): BusinessRepository {
         return BusinessRepositoryImpl(
             businessDao,
             usersDao,
-            statisticsDao,
             sharedPreferences,
             dispatcher
         )
@@ -120,15 +120,15 @@ class DatabaseModule {
     fun provideClientRepository(
         clientsDao: ClientsDao,
         usersDao: UsersDao,
-        statisticsDao: StatisticsDao,
-        ordersDao: OrdersDao,
+        recordsDao: RecordsDao,
+        businessDao: BusinessDao,
         dispatcher: DispatcherProvider
     ): ClientRepository {
         return ClientRepositoryImpl(
             clientsDao,
             usersDao,
-            statisticsDao,
-            ordersDao,
+            recordsDao,
+            businessDao,
             dispatcher
         )
     }
@@ -167,15 +167,15 @@ class DatabaseModule {
     fun provideProductRepository(
         usersDao: UsersDao,
         productsDao: ProductsDao,
-        statisticsDao: StatisticsDao,
-        ordersDao: OrdersDao,
+        businessDao: BusinessDao,
+        recordsDao: RecordsDao,
         dispatcher: DispatcherProvider
     ): ProductRepository {
         return ProductRepositoryImpl(
             usersDao,
             productsDao,
-            statisticsDao,
-            ordersDao,
+            businessDao,
+            recordsDao,
             dispatcher
         )
     }
@@ -183,16 +183,20 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideStatisticRepository(
-        statisticsDao: StatisticsDao,
         clientsDao: ClientsDao,
         suppliersDao: SuppliersDao,
-        dispatcher: DispatcherProvider
+        dispatcher: DispatcherProvider,
+        excelDrawer: ExcelDrawer,
+        recordsDao: RecordsDao,
+        productsDao: ProductsDao
     ): StatisticRepository {
         return StatisticRepositoryImpl(
-            statisticsDao,
+            dispatcher,
+            excelDrawer,
             clientsDao,
             suppliersDao,
-            dispatcher
+            recordsDao,
+            productsDao
         )
     }
 
@@ -201,15 +205,15 @@ class DatabaseModule {
     fun provideSupplierRepository(
         suppliersDao: SuppliersDao,
         usersDao: UsersDao,
-        statisticsDao: StatisticsDao,
-        ordersDao: OrdersDao,
+        businessDao: BusinessDao,
+        recordsDao: RecordsDao,
         dispatcher: DispatcherProvider
     ): SupplierRepository {
         return SupplierRepositoryImpl(
             suppliersDao,
             usersDao,
-            statisticsDao,
-            ordersDao,
+            businessDao,
+            recordsDao,
             dispatcher
         )
     }
@@ -231,4 +235,17 @@ class DatabaseModule {
             userServerApi
         )
     }
+
+    @Singleton
+    @Provides
+    fun provideExcelDrawer(
+        @ApplicationContext context: Context,
+        workbook: XSSFWorkbook
+    ): ExcelDrawer {
+        return ExcelDrawer(context, workbook)
+    }
+
+    @Singleton
+    @Provides
+    fun provideExcelWorkBook() = XSSFWorkbook()
 }

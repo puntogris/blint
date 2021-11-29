@@ -30,10 +30,10 @@ class CalendarViewModel @Inject constructor(
 
     private val eventFilter = MutableStateFlow(EventStatus.All)
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val eventsFlow = eventFilter.flatMapLatest {
-        repository.getEventsPaged(it).toEventUi()
-    }.cachedIn(viewModelScope)
+        repository.getEventsPaged(it)
+    }.toEventUi().cachedIn(viewModelScope)
 
     fun updateEventStatusFilter(eventStatus: EventStatus) {
         this.eventFilter.value = eventStatus

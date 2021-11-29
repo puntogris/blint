@@ -258,14 +258,6 @@
         android:name="com.puntogris.blint.feature_store.presentation.operations.ImportProductsFragment"
         android:label="@string/import_data_label" />
     <fragment
-        android:id="@+id/reportsFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment"
-        android:label="@string/reports_label" >
-        <action
-            android:id="@+id/action_reportsFragment_to_generateReportFragment"
-            app:destination="@id/generateReportFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/createEventFragment"
         android:name="com.puntogris.blint.feature_store.presentation.calendar.CreateEventFragment"
         android:label="@string/new_event_label" />
@@ -281,25 +273,6 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </dialog>
-    <fragment
-        android:id="@+id/generateReportFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.reports.GenerateReportFragment"
-        android:label="@string/generate_report_label" >
-        <argument
-            android:name="reportCode"
-            app:argType="integer" />
-        <argument android:name="timeCode"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
-            android:name="startTime"
-            app:argType="long"
-            android:defaultValue="0L" />
-        <argument
-            android:name="endTime"
-            app:argType="long"
-            android:defaultValue="0L" />
-    </fragment>
     <fragment
         android:id="@+id/manageCategoriesFragment"
         android:name="com.puntogris.blint.feature_store.presentation.categories.ManageCategoriesFragment"
@@ -513,4 +486,35 @@
         android:id="@+id/sendTicketFragment"
         android:name="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
         android:label="@string/send_ticket_label" />
+    <navigation android:id="@+id/reportsNavGraph"
+        app:startDestination="@id/generateReportFragment">
+        <fragment
+            android:id="@+id/generateReportFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.reports.GenerateReportFragment"
+            android:label="@string/generate_report_label">
+            <argument
+                android:name="reportCode"
+                app:argType="integer" />
+            <argument
+                android:name="timeCode"
+                android:defaultValue=" "
+                app:argType="string" />
+            <argument
+                android:name="startTime"
+                android:defaultValue="0L"
+                app:argType="long" />
+            <argument
+                android:name="endTime"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/reportsFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment"
+            android:label="@string/reports_label">
+            <action
+                android:id="@+id/action_reportsFragment_to_generateReportFragment"
+                app:destination="@id/generateReportFragment" />
+        </fragment>
+    </navigation>
 </navigation>

@@ -28,7 +28,7 @@ class SupplierViewModel @Inject constructor(
         supplier ?: repository.getSupplier(id)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Supplier())
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val supplierRecords = currentSupplier.flatMapLatest {
         repository.getSupplierRecordsPaged(it.supplierId)
     }.cachedIn(viewModelScope)

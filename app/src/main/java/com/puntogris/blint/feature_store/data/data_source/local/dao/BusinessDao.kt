@@ -23,6 +23,33 @@ interface BusinessDao {
     suspend fun updateBusinessesOwnerUid(uid: String)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND localReferenceId = '1'LIMIT 1")
+    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND localReferenceId = '1' LIMIT 1")
     suspend fun getCurrentBusiness(): Business
+
+    @Query("UPDATE business SET totalOrders = totalOrders + 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun incrementTotalOrders()
+
+    @Query("UPDATE business SET totalProducts = totalProducts + 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun incrementTotalProducts()
+
+    @Query("UPDATE business SET totalProducts = totalProducts - 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun decrementTotalProducts()
+
+    @Query("UPDATE business SET totalClients = totalClients + 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun incrementTotalClients()
+
+    @Query("UPDATE business SET totalClients = totalClients - 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun decrementTotalClients()
+
+    @Query("UPDATE business SET totalSuppliers = totalSuppliers + 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun incrementTotalSuppliers()
+
+    @Query("UPDATE business SET totalSuppliers = totalSuppliers - 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
+    suspend fun decrementTotalSuppliers()
+
+    @Query("UPDATE business SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    suspend fun updateClientsDebt(clientsDebt: Float)
+
+    @Query("UPDATE business SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    suspend fun updateSupplierDebt(suppliersDebt: Float)
 }

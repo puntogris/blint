@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.feature_store.data.data_source.local.dao.OrdersDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.StatisticsDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.data.data_source.toRecord
 import com.puntogris.blint.feature_store.domain.model.order.Record
@@ -21,8 +21,8 @@ import kotlinx.coroutines.withContext
 class ProductRepositoryImpl(
     private val usersDao: UsersDao,
     private val productsDao: ProductsDao,
-    private val statisticsDao: StatisticsDao,
-    private val ordersDao: OrdersDao,
+    private val businessDao: BusinessDao,
+    private val recordsDao: RecordsDao,
     private val dispatcher: DispatcherProvider
 ) : ProductRepository {
 
@@ -41,11 +41,11 @@ class ProductRepositoryImpl(
 
                 productsDao.insertProduct(productWithDetails)
 
-                if (isNewProduct) statisticsDao.incrementTotalProducts()
+                if (isNewProduct) businessDao.incrementTotalProducts()
 
                 if (productWithDetails.product.amount != 0) {
                     val record = productWithDetails.product.toRecord(currentBusinessId)
-                    ordersDao.insert(record)
+                    recordsDao.insert(record)
                 }
 
                 SimpleResult.Success
@@ -54,33 +54,27 @@ class ProductRepositoryImpl(
             }
         }
 
-    override fun getProductsPaged(): Flow<PagingData<ProductWithDetails>> {
+    override fun getProductsPaged(query: String?): Flow<PagingData<ProductWithDetails>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) { productsDao.getProductsPaged() }.flow
+        ) {
+            if (query.isNullOrEmpty()) productsDao.getProductsPaged()
+            else productsDao.getProductsWithQueryPaged("%$query%")
+        }.flow
     }
 
     override suspend fun deleteProduct(productId: String): SimpleResult =
         withContext(dispatcher.io) {
             SimpleResult.build {
                 productsDao.delete(productId)
-                statisticsDao.decrementTotalProducts()
+                businessDao.decrementTotalProducts()
             }
         }
 
-    override fun getProductsWithQueryPaged(query: String): Flow<PagingData<ProductWithDetails>> {
-        return Pager(
-            PagingConfig(
-                pageSize = 30,
-                enablePlaceholders = true,
-                maxSize = 200
-            )
-        ) { productsDao.getProductsWithQueryPaged("%$query%") }.flow
-    }
 
     override suspend fun getProductsWithQuery(query: String): List<Product> =
         withContext(dispatcher.io) {
@@ -94,7 +88,7 @@ class ProductRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) { ordersDao.getProductRecordsPaged(productId) }.flow
+        ) { recordsDao.getProductRecordsPaged(productId) }.flow
     }
 
 
@@ -102,4 +96,6 @@ class ProductRepositoryImpl(
         withContext(dispatcher.io) {
             productsDao.getProductWithBarcode(barcode)
         }
+
+    override suspend fun getProducts() = productsDao.getProducts()
 }

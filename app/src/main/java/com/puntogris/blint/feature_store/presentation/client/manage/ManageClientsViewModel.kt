@@ -17,7 +17,7 @@ class ManageClientsViewModel @Inject constructor(
 
     private val query = MutableStateFlow("")
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val clientsFlow = query.flatMapLatest {
         clientRepository.getClientsPaged(it)
     }.cachedIn(viewModelScope)
