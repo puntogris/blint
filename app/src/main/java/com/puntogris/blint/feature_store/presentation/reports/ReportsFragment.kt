@@ -7,12 +7,6 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants.CLIENTS_LIST
-import com.puntogris.blint.common.utils.Constants.CLIENTS_RECORDS
-import com.puntogris.blint.common.utils.Constants.PRODUCTS_LIST
-import com.puntogris.blint.common.utils.Constants.PRODUCTS_RECORDS
-import com.puntogris.blint.common.utils.Constants.SUPPLIERS_LIST
-import com.puntogris.blint.common.utils.Constants.SUPPLIERS_RECORDS
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.databinding.FragmentReportsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,38 +18,37 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     override fun initializeViews() {
         binding.fragment = this
-        binding.viewModel = viewModel
         UiInterface.registerUi(showFab = false)
     }
 
     fun onProductsReportClicked() {
         showTimeFrameBottomSheet()
-        viewModel.updateReportType(PRODUCTS_RECORDS)
+        viewModel.updateReportType(ReportType.ProductRecords)
     }
 
     fun onClientsReportClicked() {
         showTimeFrameBottomSheet()
-        viewModel.updateReportType(CLIENTS_RECORDS)
+        viewModel.updateReportType(ReportType.ClientsRecords)
 
     }
 
     fun onSuppliersReportClicked() {
         showTimeFrameBottomSheet()
-        viewModel.updateReportType(SUPPLIERS_RECORDS)
+        viewModel.updateReportType(ReportType.SuppliersRecords)
     }
 
     fun onProductListClicked() {
-        viewModel.updateReportType(PRODUCTS_LIST)
+        viewModel.updateReportType(ReportType.ProductsList)
         findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
     fun onClientListClicked() {
-        viewModel.updateReportType(CLIENTS_LIST)
+        viewModel.updateReportType(ReportType.ClientsList)
         findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
     fun onSuppliersListClicked() {
-        viewModel.updateReportType(SUPPLIERS_LIST)
+        viewModel.updateReportType(ReportType.SuppliersList)
         findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 
@@ -73,11 +66,3 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
     }
 }
 
-enum class TimeFrame(val res: Int, val days: Int) {
-    WEEKLY(R.string.weekly, 7),
-    MONTHLY(R.string.monthly, 30),
-    QUARTERLY(R.string.quarterly, 90),
-    BIANNUAL(R.string.biannual, 180),
-    ANNUAL(R.string.annual, 360),
-    HISTORICAL(R.string.historical, 0)
-}

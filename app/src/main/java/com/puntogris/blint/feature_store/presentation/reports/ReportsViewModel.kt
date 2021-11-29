@@ -1,70 +1,53 @@
 package com.puntogris.blint.feature_store.presentation.reports
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.types.ExportResult
-import com.puntogris.blint.feature_store.domain.repository.*
+import com.puntogris.blint.R
+import com.puntogris.blint.common.utils.getDateFormattedString
+import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
+import com.puntogris.blint.feature_store.presentation.reports.ReportType.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class ReportsViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
-    private val supplierRepository: SupplierRepository,
-    private val clientRepository: ClientRepository
+    private val repository: ReportsRepository
 ) : ViewModel() {
 
-    fun updateTimeFrame(timeFrame: TimeFrame){
+    private val report = ExportReport()
 
+    fun updateTimeFrame(timeFrame: TimeFrame) {
+        report.timeFrame = timeFrame
     }
 
-    fun updateReportType(type:Int){
-
+    fun updateReportType(reportType: ReportType) {
+        report.type = reportType
     }
 
-    val type = 4
-    fun asd(){
-        when(type){
-            Constants.PRODUCTS_RECORDS -> {}
-            Constants.CLIENTS_RECORDS -> {}
-            Constants.SUPPLIERS_RECORDS -> {}
-            Constants.PRODUCTS_LIST ->{}
-            Constants.CLIENTS_LIST -> {}
-            Constants.SUPPLIERS_LIST -> {}
+    fun updateReportUri(uri: Uri) {
+        report.uri = uri
+    }
+
+    suspend fun generateReport(): SimpleResult {
+        return when (report.type) {
+            ClientsList -> repository.generateClientListReport(report)
+            ClientsRecords -> repository.generateClientsReport(report)
+            ProductsList -> repository.generateProductListReport(report)
+            ProductRecords -> repository.generateProductsReport(report)
+            SuppliersList -> repository.generateSupplierListReport(report)
+            SuppliersRecords -> repository.generateSuppliersReport(report)
+            else -> SimpleResult.Failure
         }
     }
 
-    private var saveDownloadFileUri: Uri? = null
-
-    fun saveDownloadUri(uri: Uri) {
-        saveDownloadFileUri = uri
+    fun getReportName(context: Context): String {
+        return report.type.takeIf { it != null }?.let {
+            context.getString(it.res, Date().getDateFormattedString())
+        } ?: context.getString(R.string.snack_an_error_occurred)
     }
 
-    fun getDownloadUri() = saveDownloadFileUri
-
-    private val _exportingState = MutableStateFlow<ExportResult>(ExportResult.InProgress)
-    val exportingState: StateFlow<ExportResult> = _exportingState
-
-    fun updateExportState(result: ExportResult) {
-        _exportingState.value = result
-    }
-
-   // suspend fun getProductRecords(timeCode: String) = statisticRepository.saveProductsRecords(timeCode)
-
-    suspend fun getAllClientsData() = clientRepository.getClients()
-
-    suspend fun getAllSuppliersData() = supplierRepository.getSuppliers()
-
-    suspend fun getAllProductsData() = productRepository.getProducts()
-
-//    suspend fun getClientRecords(timeCode:String, startTime:Long, endTime:Long) =
-//        clientRepository.getClientsReports(timeCode, startTime, endTime)
-//
-//    suspend fun getSuppliersRecords(timeCode:String, startTime:Long, endTime:Long) =
-//        supplierRepository.getSuppliersReports(timeCode, startTime, endTime)
-
+    fun getReportUri() = report.uri
 }
-

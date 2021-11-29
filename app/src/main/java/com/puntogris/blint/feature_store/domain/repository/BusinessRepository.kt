@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface BusinessRepository {
 
-    fun getBusinessFlow(): Flow<List<Business>>
+    fun getBusinessesFlow(): Flow<List<Business>>
+
+    fun getCurrentBusinessFlow(): Flow<Business>
 
     fun registerBusiness(businessName: String): Flow<SimpleRepoResult>
 

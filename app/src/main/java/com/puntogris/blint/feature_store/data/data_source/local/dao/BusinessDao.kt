@@ -14,7 +14,15 @@ interface BusinessDao {
     suspend fun getBusiness(): List<Business>
 
     @Query("SELECT * FROM business")
-    fun getBusinessFlow(): Flow<List<Business>>
+    fun getBusinessesFlow(): Flow<List<Business>>
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND localReferenceId = '1' LIMIT 1")
+    suspend fun getCurrentBusiness(): Business
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
+    fun getCurrentBusinessFlow(): Flow<Business>
 
     @Query("DELETE FROM business where businessId = :businessId")
     suspend fun deleteBusiness(businessId: String)
@@ -22,9 +30,6 @@ interface BusinessDao {
     @Query("UPDATE business SET ownerUid = :uid")
     suspend fun updateBusinessesOwnerUid(uid: String)
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM business INNER JOIN user ON currentBusinessId = businessId AND localReferenceId = '1' LIMIT 1")
-    suspend fun getCurrentBusiness(): Business
 
     @Query("UPDATE business SET totalOrders = totalOrders + 1 WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1') ")
     suspend fun incrementTotalOrders()

@@ -4,9 +4,8 @@ import android.content.Context
 import android.net.Uri
 import com.puntogris.blint.R
 import com.puntogris.blint.feature_store.domain.model.Client
-import com.puntogris.blint.feature_store.domain.model.excel.ClientRecordExcel
+import com.puntogris.blint.feature_store.domain.model.excel.TraderRecordExcel
 import com.puntogris.blint.feature_store.domain.model.Supplier
-import com.puntogris.blint.feature_store.domain.model.excel.SupplierRecordExcel
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
 import kotlinx.coroutines.Dispatchers
@@ -105,7 +104,7 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         context.writeToFile(uri, workbook)
     }
 
-    suspend fun drawSupplierRecords(records: List<SupplierRecordExcel>, uri: Uri) {
+    suspend fun drawSupplierRecords(records: List<TraderRecordExcel>, uri: Uri) {
         val sheet = workbook.createSheet("Supplier")
         val row0 = sheet.createRow(0)
         row0.createCell(0).setCellValue("Supplier")
@@ -113,11 +112,11 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         row0.createCell(2).setCellValue("In")
         var numberOfRows = 0
 
-        records.sortedBy { it.supplierName }.forEach { client ->
+        records.sortedBy { it.traderName }.forEach { supplier ->
             numberOfRows += 1
             val newRow = sheet.createRow(numberOfRows)
-            newRow.createCell(0).setCellValue(client.supplierName)
-            client.products.forEach {
+            newRow.createCell(0).setCellValue(supplier.traderName)
+            supplier.products.forEach {
                 numberOfRows += 1
                 val productRow = sheet.createRow(numberOfRows)
                 productRow.createCell(1).setCellValue(it.productName)
@@ -128,7 +127,7 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         context.writeToFile(uri, workbook)
     }
 
-    suspend fun drawClientsRecords(records: List<ClientRecordExcel>, uri: Uri){
+    suspend fun drawClientsRecords(records: List<TraderRecordExcel>, uri: Uri){
         val sheet = workbook.createSheet("Clients")
         val row0 = sheet.createRow(0)
         row0.createCell(0).setCellValue("Client")
@@ -136,10 +135,10 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         row0.createCell(2).setCellValue("Out")
         var numberOfRows = 0
 
-        records.sortedBy { it.clientName }.forEach { client ->
+        records.sortedBy { it.traderName }.forEach { client ->
             numberOfRows += 1
             val newRow = sheet.createRow(numberOfRows)
-            newRow.createCell(0).setCellValue(client.clientName)
+            newRow.createCell(0).setCellValue(client.traderName)
             client.products.forEach {
                 numberOfRows += 1
                 val productRow = sheet.createRow(numberOfRows)

@@ -2,8 +2,6 @@ package com.puntogris.blint.feature_store.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.feature_store.domain.model.excel.ClientRecordExcel
-import com.puntogris.blint.feature_store.domain.model.excel.SupplierRecordExcel
 import com.puntogris.blint.feature_store.domain.model.order.Record
 
 @Dao
@@ -37,22 +35,22 @@ interface RecordsDao {
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
-    suspend fun getAllClientsRecords(): List<ClientRecordExcel>
+    suspend fun getClientsRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
-    suspend fun getAllSuppliersRecords(): List<SupplierRecordExcel>
+    suspend fun getSuppliersRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
-    suspend fun getRecordsClientsWithDays(days: String): List<ClientRecordExcel>
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', -:days) AND datetime('now', 'localtime') ORDER BY traderName")
+    suspend fun getClientsRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', :days) AND datetime('now', 'localtime') ORDER BY traderName")
-    suspend fun getRecordsSuppliersWithDays(days: String): List<SupplierRecordExcel>
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', -:days) AND datetime('now', 'localtime') ORDER BY traderName")
+    suspend fun getSuppliersRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', :days) ORDER BY timestamp ASC LIMIT 1")
-    suspend fun getRecordsWithDays(productId: String, days: String): Record
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', -:days) ORDER BY timestamp ASC LIMIT 1")
+    suspend fun getProductsRecordsTimeFrame(productId: String, days: Int): Record
 
 }

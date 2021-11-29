@@ -440,7 +440,9 @@
     <string name="report_list_suppliers">suppliers_list_%1$s</string>
     <string name="report_list_clients">clients_list_%1$s</string>
     <string name="report_list_products">products_list_%1$s</string>
-    <string name="report_product_records">product_records_%1$s</string>
+    <string name="report_products_records">product_records_%1$s</string>
+    <string name="report_suppliers_records">suppliers_records_%1$s</string>
+    <string name="report_clients_records">clients_records_%1$s</string>
     <string name="action_share_report">Share report</string>
     <string name="report_exported_success_title">Report exported successfully</string>
     <string name="report_exported_error_title">An error occurred exporting the report</string>

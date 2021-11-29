@@ -431,7 +431,9 @@
     <string name="report_list_suppliers">proveedores_lista_%1$s</string>
     <string name="report_list_clients">clientes_lista_%1$s</string>
     <string name="report_list_products">productos_lista_%1$s</string>
-    <string name="report_product_records">productos_movimientos_%1$s</string>
+    <string name="report_products_records">productos_movimientos_%1$s</string>
+    <string name="report_suppliers_records">proveedores_movimientos_%1$s</string>
+    <string name="report_clients_records">clientes_movimientos_%1$s</string>
     <string name="action_share_report">Compartir informe</string>
     <string name="report_exported_success_title">Reporte exportado correctamente</string>
     <string name="report_exported_error_title">Ocurrió un error al exportar el informe</string>

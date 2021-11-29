@@ -189,8 +189,8 @@ class DatabaseModule {
         excelDrawer: ExcelDrawer,
         recordsDao: RecordsDao,
         productsDao: ProductsDao
-    ): StatisticRepository {
-        return StatisticRepositoryImpl(
+    ): ReportsRepository {
+        return ReportsRepositoryImpl(
             dispatcher,
             excelDrawer,
             clientsDao,

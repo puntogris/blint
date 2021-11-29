@@ -6,9 +6,14 @@ import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.model.Business
 import com.puntogris.blint.feature_store.domain.model.User
+import com.puntogris.blint.feature_store.domain.model.excel.ProductRecord
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
+import com.puntogris.blint.feature_store.domain.model.excel.TraderRecordExcel
 import com.puntogris.blint.feature_store.domain.model.order.*
-import com.puntogris.blint.feature_store.domain.model.product.*
+import com.puntogris.blint.feature_store.domain.model.product.Product
+import com.puntogris.blint.feature_store.domain.model.product.ProductCategoryCrossRef
+import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCrossRef
+import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import kotlin.math.absoluteValue
 
 fun FirebaseUser.toAuthUser(): AuthUser {
@@ -112,13 +117,34 @@ fun Product.toNewRecord(): NewRecord {
     )
 }
 
-
 fun Record.toProductRecordExcel(product: Product): ProductRecordExcel {
     return ProductRecordExcel(
         product.name,
-        if (type == "IN") product.historicInStock - (historicInStock - amount).absoluteValue
-        else product.historicInStock - historicInStock,
-        if (type == "OUT") product.historicOutStock - (historicOutStock - amount).absoluteValue
-        else product.historicOutStock - historicOutStock
+        if (type == "IN") {
+            product.historicInStock - (historicInStock - amount).absoluteValue
+        } else {
+            product.historicInStock - historicInStock
+        },
+        if (type == "OUT") {
+            product.historicOutStock - (historicOutStock - amount).absoluteValue
+        } else {
+            product.historicOutStock - historicOutStock
+        }
     )
+}
+
+fun List<Record>.toTraderExcelList(): List<TraderRecordExcel> {
+    return groupBy {
+        it.traderName
+    }.map { supplierGroup ->
+        TraderRecordExcel(
+            traderName = supplierGroup.key,
+            products = supplierGroup.value.groupBy { it.productName }.map { productGroup ->
+                ProductRecord(
+                    productName = productGroup.key,
+                    amount = productGroup.value.sumOf { it.amount }
+                )
+            }
+        )
+    }
 }

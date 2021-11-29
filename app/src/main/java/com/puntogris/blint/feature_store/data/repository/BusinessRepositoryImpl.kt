@@ -51,6 +51,8 @@ class BusinessRepositoryImpl(
             }
         }
 
-    override fun getBusinessFlow() = businessDao.getBusinessFlow()
+    override fun getBusinessesFlow() = businessDao.getBusinessesFlow()
+
+    override fun getCurrentBusinessFlow() = businessDao.getCurrentBusinessFlow()
 
 }

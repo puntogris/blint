@@ -51,7 +51,7 @@
 
                 <TextView
                     android:id="@+id/textView184"
-                    debtColorWithLimit="@{viewModel.businessStatistics.clientsDebt}"
+                    debtColorWithLimit="@{viewModel.currentBusiness.clientsDebt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/textView185"
-                    debtColorWithLimit="@{viewModel.businessStatistics.suppliersDebt}"
+                    debtColorWithLimit="@{viewModel.currentBusiness.suppliersDebt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
