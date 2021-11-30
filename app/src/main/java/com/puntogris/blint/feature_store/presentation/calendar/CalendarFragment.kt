@@ -8,14 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
-import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.databinding.FragmentCalendarBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -62,8 +61,8 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     }
 
     private fun registerEventUpdatedListener(adapter: CalendarEventsAdapter) {
-        setFragmentResultListener(Constants.EVENT_FILTER_KEY) { _, bundle ->
-            val position = bundle.getInt(Constants.EVENT_POSITION_KEY)
+        setFragmentResultListener(Keys.EVENT_FILTER_KEY) { _, bundle ->
+            val position = bundle.getInt(Keys.EVENT_POSITION_KEY)
             adapter.notifyItemChanged(position)
         }
     }

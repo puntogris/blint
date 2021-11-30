@@ -7,10 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentProductSupplierBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableSupplier
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,8 +53,8 @@ class ProductSupplierFragment :
 
     fun onDoneButtonClicked() {
         setFragmentResult(
-            Constants.EDIT_PRODUCT_KEY,
-            bundleOf(Constants.PRODUCT_SUPPLIERS_KEY to viewModel.getFinalSuppliers())
+            Keys.EDIT_PRODUCT_KEY,
+            bundleOf(Keys.PRODUCT_SUPPLIERS_KEY to viewModel.getFinalSuppliers())
         )
         findNavController().navigateUp()
     }

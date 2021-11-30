@@ -13,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.BarcodeAnalyzer
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.Constants.PRODUCT_BARCODE_KEY
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,8 +51,8 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
 
         startCamera()
 
-        setFragmentResultListener(Constants.SCANNER_FRAGMENT_KEY) { _, bundle ->
-            if (bundle.getBoolean(Constants.RESUME_CAMERA_KEY)) bindCameraUseCases()
+        setFragmentResultListener(Keys.SCANNER_FRAGMENT_KEY) { _, bundle ->
+            if (bundle.getBoolean(Keys.RESUME_CAMERA_KEY)) bindCameraUseCases()
         }
     }
 
@@ -101,8 +99,8 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     findNavController().navigate(action)
                 } else {
                     setFragmentResult(
-                        Constants.SCANNER_RESULT_KEY,
-                        bundleOf(PRODUCT_BARCODE_KEY to it)
+                        Keys.SCANNER_RESULT_KEY,
+                        bundleOf(Keys.PRODUCT_BARCODE_KEY to it)
                     )
                     findNavController().navigateUp()
                 }

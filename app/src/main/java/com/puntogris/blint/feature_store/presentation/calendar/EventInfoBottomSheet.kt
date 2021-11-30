@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
-import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.common.utils.types.SimpleResult
@@ -76,8 +76,8 @@ class EventInfoBottomSheet :
                     UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
                 SimpleResult.Success -> {
                     setFragmentResult(
-                        Constants.EVENT_FILTER_KEY,
-                        bundleOf(Constants.EVENT_POSITION_KEY to args.position)
+                        Keys.EVENT_FILTER_KEY,
+                        bundleOf(Keys.EVENT_POSITION_KEY to args.position)
                     )
                     findNavController().navigateUp()
                 }

@@ -83,8 +83,8 @@ class SimpleOrderDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         setFragmentResult(
-            Constants.SCANNER_FRAGMENT_KEY,
-            bundleOf(Constants.RESUME_CAMERA_KEY to true)
+            Keys.SCANNER_FRAGMENT_KEY,
+            bundleOf(Keys.RESUME_CAMERA_KEY to true)
         )
         super.onDismiss(dialog)
     }

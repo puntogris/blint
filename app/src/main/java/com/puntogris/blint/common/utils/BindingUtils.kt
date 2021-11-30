@@ -182,16 +182,6 @@ fun TextView.setDateFromTimestamp(timestamp: Timestamp?) {
     }
 }
 
-@BindingAdapter("deletionTimestamp")
-fun TextView.setDeletionTimestamp(timestamp: Timestamp?) {
-    timestamp?.let {
-        val calendar = Calendar.getInstance()
-        calendar.time = it.toDate()
-        calendar.add(Calendar.DAY_OF_YEAR, 15)
-        text = calendar.time.getDateFormattedString()
-    }
-}
-
 @BindingAdapter("recordType")
 fun View.setRecordType(type: String) {
     val color = if (type == IN || type == INITIAL) R.color.card6 else R.color.card1
@@ -223,12 +213,6 @@ fun TextView.setEventStatus(status: String) {
 fun View.setEventStatusColor(status: String) {
     val color = if (status == PENDING) R.color.card7 else R.color.card6
     setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
-}
-
-
-@BindingAdapter("timerFromSeconds")
-fun TextView.setTimerFromSeconds(seconds: Int) {
-    text = context.getString(R.string.timer_with_params, seconds / 60, seconds % 60)
 }
 
 @BindingAdapter("orderNumberTitle")
@@ -279,30 +263,6 @@ fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>) {
         addView(chip)
     }
 }
-
-//
-//@BindingAdapter("productOrderPrices")
-//fun TextView.setProductOrderPrices(product: ProductWithRecord) {
-//    text = if (product.record.type == IN) {
-//        product.product.buyPrice.toMoneyFormatted()
-//    } else {
-//        "${product.product.sellPrice.toMoneyFormatted()} /${product.product.suggestedSellPrice.toMoneyFormatted()}"
-//    }
-//}
-
-@BindingAdapter("productOrderPricesTitle")
-fun TextView.setProductOrderPricesTitle(record: Record) {
-    setText(if (record.type == IN) R.string.buy_price else R.string.sell_prices)
-}
-
-//@BindingAdapter("productRecordPriceEntry")
-//fun TextView.setProductRecordPriceEntry(product: ProductWithRecord) {
-//    text = if (product.record.type == IN) {
-//        product.product.buyPrice.toString()
-//    } else {
-//        product.product.sellPrice.toString()
-//    }
-//}
 
 fun TextView.setDateOrError(timeInMillis: Long) {
     text = if (timeInMillis == 0L) {

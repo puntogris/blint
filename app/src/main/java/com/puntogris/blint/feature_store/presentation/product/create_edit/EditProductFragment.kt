@@ -9,12 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.getInt
+import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.common.utils.types.StringValidator
-import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Supplier
@@ -79,16 +76,16 @@ class EditProductFragment :
     }
 
     private fun setupResultListeners() {
-        setFragmentResultListener(Constants.EDIT_PRODUCT_KEY) { _, bundle ->
-            bundle.getParcelableArrayList<Category>(Constants.PRODUCT_CATEGORIES_KEY)?.let {
+        setFragmentResultListener(Keys.EDIT_PRODUCT_KEY) { _, bundle ->
+            bundle.getParcelableArrayList<Category>(Keys.PRODUCT_CATEGORIES_KEY)?.let {
                 viewModel.updateProductCategories(it)
             }
-            bundle.getParcelableArrayList<Supplier>(Constants.PRODUCT_SUPPLIERS_KEY)?.let {
+            bundle.getParcelableArrayList<Supplier>(Keys.PRODUCT_SUPPLIERS_KEY)?.let {
                 viewModel.updateProductSuppliers(it)
             }
         }
-        setFragmentResultListener(Constants.SCANNER_RESULT_KEY) { _, bundle ->
-            bundle.getString(Constants.PRODUCT_BARCODE_KEY)?.let {
+        setFragmentResultListener(Keys.SCANNER_RESULT_KEY) { _, bundle ->
+            bundle.getString(Keys.PRODUCT_BARCODE_KEY)?.let {
                 viewModel.updateProductBarcode(it)
             }
         }

@@ -5,7 +5,6 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
-import com.puntogris.blint.common.utils.Constants.BACKUP_WEBSITE_LEARN_MORE
 import com.puntogris.blint.common.utils.types.BackupState
 import com.puntogris.blint.databinding.FragmentCreateBackUpBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +67,6 @@ class CreateBackupFragment :
     }
 
     fun onReadMoreAboutBackupsClicked() {
-        launchWebBrowserIntent(BACKUP_WEBSITE_LEARN_MORE)
+        launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
     }
 }

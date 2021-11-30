@@ -2,8 +2,6 @@ package com.puntogris.blint.feature_store.data.data_source.local
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.puntogris.blint.common.utils.Constants.SHOW_WELCOME_PREF
-import com.puntogris.blint.common.utils.Constants.USER_HAS_BUSINESS_PREF
 import com.puntogris.blint.common.utils.Keys
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

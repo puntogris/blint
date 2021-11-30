@@ -24,9 +24,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.Timestamp
 import com.maxkeppeler.sheets.core.SheetStyle
@@ -82,14 +80,6 @@ fun AppCompatActivity.getNavController() =
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
 
-fun BottomSheetDialogFragment.showSackBarAboveBottomSheet(message: String) {
-    Snackbar.make(
-        dialog?.window!!.decorView,
-        message,
-        Snackbar.LENGTH_SHORT
-    ).show()
-}
-
 fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
 
 fun String.containsInvalidCharacters() = !all { it.isLetter() || it.isWhitespace() }
@@ -117,9 +107,6 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
 
 fun Date.getDateFormattedString() =
     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(this).toString()
-
-fun Date.getDateFormattedStringUnderLine() =
-    SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(this).toString()
 
 fun Date.getDateWithTimeFormattedString() =
     SimpleDateFormat("dd/MM/yyyy - h:mm a", Locale.getDefault()).format(this).toString()
@@ -155,10 +142,6 @@ fun Flow<PagingData<Event>>.toEventUi(): Flow<PagingData<EventUi>> {
         }
     }
 }
-
-fun String.getDateWithFileName() =
-    SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault()).format(Date())
-        .toString() + "_$this.xls"
 
 fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
     try {
@@ -255,13 +238,13 @@ inline fun PreferenceFragmentCompat.preference(key: String, block: Preference.()
         block(this)
     }
 }
+
 inline fun Preference.onClick(crossinline block: () -> Unit) {
     setOnPreferenceClickListener {
         block()
         true
     }
 }
-
 
 inline fun PreferenceFragmentCompat.onPreferenceChange(
     key: String,

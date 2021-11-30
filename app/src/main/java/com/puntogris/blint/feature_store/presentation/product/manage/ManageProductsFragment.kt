@@ -36,8 +36,8 @@ class ManageProductsFragment :
     }
 
     private fun setupResultListener() {
-        setFragmentResultListener(Constants.SCANNER_RESULT_KEY) { _, bundle ->
-            bundle.getString(Constants.PRODUCT_BARCODE_KEY)?.let {
+        setFragmentResultListener(Keys.SCANNER_RESULT_KEY) { _, bundle ->
+            bundle.getString(Keys.PRODUCT_BARCODE_KEY)?.let {
                 viewModel.setQuery(it)
             }
         }

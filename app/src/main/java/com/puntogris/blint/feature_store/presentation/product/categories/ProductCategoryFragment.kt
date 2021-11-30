@@ -7,10 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentProductCategoryBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableCategory
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,8 +57,8 @@ class ProductCategoryFragment :
 
     fun onDoneButtonClicked() {
         setFragmentResult(
-            Constants.EDIT_PRODUCT_KEY,
-            bundleOf(Constants.PRODUCT_CATEGORIES_KEY to viewModel.getFinalCategories())
+            Keys.EDIT_PRODUCT_KEY,
+            bundleOf(Keys.PRODUCT_CATEGORIES_KEY to viewModel.getFinalCategories())
         )
         findNavController().navigateUp()
     }

@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants.BLINT_WEBSITE_LEARN_MORE
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchWebBrowserIntent
 import com.puntogris.blint.common.utils.types.SimpleResult
@@ -40,9 +40,9 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         }
     }
 
-    private fun onSignOutConfirmed(){
+    private fun onSignOutConfirmed() {
         lifecycleScope.launch {
-            when(viewModel.signOut()){
+            when (viewModel.signOut()) {
                 SimpleResult.Failure -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
@@ -55,7 +55,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onLearnMoreClicked() {
-        launchWebBrowserIntent(BLINT_WEBSITE_LEARN_MORE)
+        launchWebBrowserIntent(Constants.APP_LEARN_MORE_URL)
     }
 
     fun onCreateBusinessClicked() {

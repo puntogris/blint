@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
@@ -52,8 +53,8 @@ class ScannerResultBottomSheet :
     override fun dismiss() {
         super.dismiss()
         setFragmentResult(
-            Constants.SCANNER_FRAGMENT_KEY,
-            bundleOf(Constants.RESUME_CAMERA_KEY to resumeCameraOnNavigationBack)
+            Keys.SCANNER_FRAGMENT_KEY,
+            bundleOf(Keys.RESUME_CAMERA_KEY to resumeCameraOnNavigationBack)
         )
     }
 }

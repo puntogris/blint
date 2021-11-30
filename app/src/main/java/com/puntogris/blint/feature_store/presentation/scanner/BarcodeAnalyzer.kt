@@ -1,4 +1,4 @@
-package com.puntogris.blint.common.utils
+package com.puntogris.blint.feature_store.presentation.scanner
 
 import android.annotation.SuppressLint
 import androidx.camera.core.ImageAnalysis

@@ -5,6 +5,7 @@ import com.google.firebase.storage.StorageException
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.Util
 import com.puntogris.blint.common.utils.types.*
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
@@ -122,7 +123,7 @@ class UserRepositoryImpl(
             emit(BackupState.Loading)
             appDatabase.close()
 
-            val localFile = File(context.filesDir.path + "/${Constants.BACKUP_PATH}")
+            val localFile = File(context.filesDir.path + "/backup")
             if (!localFile.exists()) localFile.parentFile?.mkdirs()
 
             userServerApi.downloadBackup(localFile)

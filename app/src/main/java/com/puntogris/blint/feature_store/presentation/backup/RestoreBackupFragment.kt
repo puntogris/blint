@@ -68,6 +68,6 @@ class RestoreBackupFragment :
     }
 
     fun onReadMoreAboutBackupsClicked() {
-        launchWebBrowserIntent(Constants.BACKUP_WEBSITE_LEARN_MORE)
+        launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
     }
 }
