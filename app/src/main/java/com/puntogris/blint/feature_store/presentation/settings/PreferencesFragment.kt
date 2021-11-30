@@ -1,46 +1,64 @@
 package com.puntogris.blint.feature_store.presentation.settings
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BasePreferences
-import com.puntogris.blint.common.utils.Constants.ABOUT_PREF
-import com.puntogris.blint.common.utils.Constants.ACCOUNT_PREF
-import com.puntogris.blint.common.utils.Constants.BACKUP_PREF
-import com.puntogris.blint.common.utils.Constants.HELP_PREF
-import com.puntogris.blint.common.utils.Constants.THEME_PREF
-import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.types.SimpleResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PreferencesFragment : BasePreferences(R.xml.preferences) {
+class PreferencesFragment : PreferenceFragmentCompat() {
 
-    override fun initializeViews() {
+    private val viewModel: PreferencesViewModel by viewModels()
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.preferences, rootKey)
+
         UiInterface.registerUi()
-        findPreference<Preference>(ACCOUNT_PREF)?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.accountPreferences)
-            true
+
+        preferenceOnClick(Keys.ACCOUNT_PREF) {
+            findNavController().navigate(R.id.userAccountFragment)
         }
 
-        findPreference<Preference>(BACKUP_PREF)?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.backUpPreferences)
-            true
-        }
-        findPreference<ListPreference>(THEME_PREF)?.setOnPreferenceChangeListener { _, newValue ->
-            AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newValue.toString()))
-            true
+        onPreferenceChange(Keys.THEME_PREF){
+            AppCompatDelegate.setDefaultNightMode(Integer.parseInt(it.toString()))
         }
 
-        findPreference<Preference>(HELP_PREF)?.setOnPreferenceClickListener {
-            //todo navigate to website faq
-            true
+        preferenceOnClick(Keys.TICKET_PREF) {
+            findNavController().navigate(R.id.sendTicketFragment)
         }
-        findPreference<Preference>(ABOUT_PREF)?.setOnPreferenceClickListener {
-            findNavController().navigate(R.id.aboutFragment)
-            true
+
+        preference(Keys.SIGN_OUT_PREF) {
+            isVisible = viewModel.isUserSignedIn()
+            onClick {
+                lifecycleScope.launch {
+                    when (viewModel.logOut()) {
+                        SimpleResult.Failure -> {
+                            UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+                        }
+                        SimpleResult.Success -> {
+                            val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+                            findNavController().navigate(R.id.loginFragment, null, nav)
+                        }
+                    }
+                }
+            }
+        }
+
+        preference(Keys.SIGN_IN_PREF) {
+            isVisible = !viewModel.isUserSignedIn()
+            onClick {
+                findNavController().navigate(R.id.mainFragment)
+            }
         }
     }
-
 }

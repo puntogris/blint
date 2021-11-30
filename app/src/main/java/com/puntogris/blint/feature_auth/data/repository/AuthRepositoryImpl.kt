@@ -2,6 +2,7 @@ package com.puntogris.blint.feature_auth.data.repository
 
 import androidx.activity.result.ActivityResult
 import com.puntogris.blint.common.utils.DispatcherProvider
+import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_auth.data.data_source.GoogleSingInApi
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.data.data_source.remote.AuthServerApi
@@ -33,14 +34,11 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun signOutUser() = withContext(dispatcher.io) {
-        try {
+        SimpleResult.build {
             googleSingInApi.signOut()
             authServerApi.signOut()
-
             sharedPreferences.setShowNewUserScreenPref(true)
             sharedPreferences.setShowLoginScreen(true)
-        } catch (e: Exception) {
-            //handle
         }
     }
 }

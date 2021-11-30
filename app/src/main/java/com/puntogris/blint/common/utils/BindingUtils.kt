@@ -17,12 +17,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.Timestamp
 import com.puntogris.blint.R
-import com.puntogris.blint.common.utils.Constants.DISABLED
 import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.Constants.INITIAL
-import com.puntogris.blint.common.utils.Constants.LOCAL
 import com.puntogris.blint.common.utils.Constants.PENDING
-import com.puntogris.blint.common.utils.Constants.TO_DELETE
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.User
@@ -228,10 +225,6 @@ fun View.setEventStatusColor(status: String) {
     setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
 }
 
-@BindingAdapter("businessType")
-fun TextView.setBusinessType(type: String) {
-    setText(if (type == LOCAL) R.string.local else R.string.online)
-}
 
 @BindingAdapter("timerFromSeconds")
 fun TextView.setTimerFromSeconds(seconds: Int) {
@@ -287,15 +280,6 @@ fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>) {
     }
 }
 
-@BindingAdapter("businessStatus")
-fun TextView.setBusinessStatus(status: String) {
-    val res = when (status) {
-        TO_DELETE -> R.string.on_delete
-        DISABLED -> R.string.disabled
-        else -> R.string.enabled
-    }
-    setText(res)
-}
 //
 //@BindingAdapter("productOrderPrices")
 //fun TextView.setProductOrderPrices(product: ProductWithRecord) {

@@ -36,7 +36,7 @@
             android:id="@+id/userEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userData.email}"
+            android:text="@{viewModel.currentUser.email}"
             android:textAppearance="@style/Theme.Blint.DataTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -60,7 +60,7 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userData.name}"
+            android:text="@{viewModel.currentUser.name}"
             android:textAppearance="@style/Theme.Blint.DataTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -77,22 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:userDataImage="@{String.valueOf(viewModel.userData.photoUrl)}" />
-
-        <TextView
-            android:id="@+id/privacyPolicyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:foreground="?selectableItemBackground"
-            android:onClick="@{()->fragment.onReadPrivacyPolicyClicked()}"
-            android:padding="8dp"
-            android:text="@string/action_read_privacy_policy"
-            android:textColor="@color/primaryColor"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:userDataImage="@{String.valueOf(viewModel.currentUser.photoUrl)}" />
 
         <TextView
             android:id="@+id/textView63"
@@ -106,7 +91,7 @@
 
         <TextView
             android:id="@+id/textView65"
-            userCreationTimestamp="@{viewModel.userData}"
+            userCreationTimestamp="@{viewModel.currentUser}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Theme.Blint.DataTextView"

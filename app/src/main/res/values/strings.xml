@@ -238,6 +238,7 @@
     <string name="suggestions">Suggestions</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="open_source_licenses">Licenses</string>
     <string name="user_name">Username</string>
     <string name="creation_date">Creation date</string>
     <string name="e_mail">E-mail</string>
@@ -367,6 +368,23 @@
     <string name="billing_pref">Billing</string>
     <string name="privacy_pref">Privacy</string>
     <string name="sign_out_pref">Log out</string>
+    <string name="sign_in_pref">Log in</string>
+    <string name="website" translatable="false">Website</string>
+    <string name="github_title" translatable="false">GitHub</string>
+    <string name="github_summary">Blint is open-source, check it out on GitHub</string>
+    <string name="developer_website_summary" translatable="false">puntogris.com</string>
+    <string name="rate_app_title">Rate App</string>
+    <string name="rate_app_summary">If you like Recap, rate it on the Google Play Store</string>
+    <string name="see_faq_title">See the F.A.Q</string>
+    <string name="see_faq_summary">Check out the frequently asked questions</string>
+
+    <!-- Urls -->
+    <string name="website_url" translatable="false">https://www.puntogris.com</string>
+    <string name="github_url" translatable="false">https://www.github.com/blint</string>
+    <string name="privacy_policy_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/PRIVACY.md</string>
+    <string name="terms_and_conditions_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/TERMS.md</string>
+    <string name="play_store_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/TERMS.md</string>
+
 
     <!-- Menus -->
     <string name="options">Options</string>

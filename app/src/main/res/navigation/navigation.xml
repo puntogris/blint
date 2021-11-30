@@ -197,9 +197,9 @@
             app:destination="@id/productFragment" />
     </dialog>
     <fragment
-        android:id="@+id/accountPreferences"
-        android:name="com.puntogris.blint.feature_store.presentation.settings.AccountPreferences"
-        android:label="@string/my_account_pref" />
+        android:id="@+id/aboutPreferences"
+        android:name="com.puntogris.blint.feature_store.presentation.settings.AboutPreferences"
+        android:label="@string/about_us_label" />
     <fragment
         android:id="@+id/backUpPreferences"
         android:name="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"

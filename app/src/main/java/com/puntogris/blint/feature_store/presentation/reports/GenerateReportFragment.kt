@@ -6,20 +6,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
-import com.puntogris.blint.common.utils.Constants.CLIENTS_LIST
-import com.puntogris.blint.common.utils.Constants.PRODUCTS_LIST
-import com.puntogris.blint.common.utils.Constants.PRODUCTS_RECORDS
-import com.puntogris.blint.common.utils.Constants.SUPPLIERS_LIST
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
 class GenerateReportFragment :

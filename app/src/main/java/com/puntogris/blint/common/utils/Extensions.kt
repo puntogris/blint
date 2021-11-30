@@ -1,16 +1,10 @@
 package com.puntogris.blint.common.utils
 
-import android.animation.TimeInterpolator
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Point
 import android.net.Uri
-import android.util.TypedValue
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RawRes
@@ -25,6 +19,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
@@ -142,25 +138,22 @@ fun Flow<PagingData<Event>>.toEventUi(): Flow<PagingData<EventUi>> {
         pagingData.map {
             EventUi.EventItem(it)
         }
-    }
-        .map {
-            it.insertSeparators { before, after ->
+    }.map {
+        it.insertSeparators { before, after ->
 
-                if (after == null) {
-                    return@insertSeparators null
-                }
+            if (after == null) return@insertSeparators null
 
-                if (before == null) {
-                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
-                }
+            if (before == null) {
+                EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
+            }
 
-                if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()) {
-                    EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
-                } else {
-                    null
-                }
+            if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()) {
+                EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
+            } else {
+                null
             }
         }
+    }
 }
 
 fun String.getDateWithFileName() =
@@ -200,7 +193,7 @@ fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
         displayMode(DisplayMode.GRID_HORIZONTAL)
         style(SheetStyle.BOTTOM_SHEET)
         with(
-            Option(R.drawable.ic_baseline_speed_24,R.string.create_simple_order),
+            Option(R.drawable.ic_baseline_speed_24, R.string.create_simple_order),
             Option(R.drawable.ic_baseline_timer_24, R.string.create_detailed_order),
         )
         onPositive { index: Int, _ ->
@@ -255,4 +248,34 @@ fun <T> List<T>.copyAndAdd(item: T): List<T> {
 
 fun <T> List<T>.copyAndRemove(item: T): List<T> {
     return this.toMutableList().apply { remove(item) }
+}
+
+inline fun PreferenceFragmentCompat.preference(key: String, block: Preference.() -> Unit) {
+    findPreference<Preference>(key)?.apply {
+        block(this)
+    }
+}
+inline fun Preference.onClick(crossinline block: () -> Unit) {
+    setOnPreferenceClickListener {
+        block()
+        true
+    }
+}
+
+
+inline fun PreferenceFragmentCompat.onPreferenceChange(
+    key: String,
+    crossinline block: (Any) -> Unit
+) {
+    findPreference<Preference>(key)?.setOnPreferenceChangeListener { _, newValue ->
+        block(newValue)
+        true
+    }
+}
+
+inline fun PreferenceFragmentCompat.preferenceOnClick(key: String, crossinline block: () -> Unit) {
+    findPreference<Preference>(key)?.setOnPreferenceClickListener {
+        block()
+        true
+    }
 }

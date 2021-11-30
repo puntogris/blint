@@ -66,7 +66,7 @@ ext {
     camerax_version = "1.1.0-alpha10"
     material_version = "1.4.0-rc01"
     cool_bottom_sheets_version = "2.2.5"
-    preferences_version = "1.1.1"
+    preferences_version = "1.2.0-beta01"
     imagePicker_version = "1.4.3"
     glide_version = "4.12.0"
     paging_version = "3.1.0-alpha03"
@@ -86,6 +86,7 @@ ext {
     fragment_ktx_version = "1.4.0-alpha05"
     pdf_viewer_version = "1.0.7"
     country_picker_version = "1.0"
+    licensesVersion = "17.0.0"
 }
 
 dependencies {
@@ -218,5 +219,8 @@ dependencies {
 
     //Leak detector
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+    //Open source licenses
+    implementation "com.google.android.gms:play-services-oss-licenses:$licensesVersion"
 
 }

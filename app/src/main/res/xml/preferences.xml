@@ -2,50 +2,53 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        android:title="@string/my_account_pref"
-        android:key="account_pref"
-        app:iconSpaceReserved="true" />
-
-    <Preference
-        android:title="@string/backup_pref"
-        android:key="backup_pref"
-        app:iconSpaceReserved="true"
-        android:fragment="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"/>
-
-    <ListPreference
-        android:title="@string/themes_pref"
-        app:iconSpaceReserved="true"
-        android:defaultValue="1"
-        android:key="theme_pref"
-        android:entries="@array/theme_names"
-        android:entryValues="@array/theme_values"/>
-
-    <PreferenceCategory
-        android:title="@string/help_pref">
-
+    <PreferenceCategory android:title="@string/account_label">
         <Preference
-            android:title="See the F.A.Q"
-            app:summary="Check out the frequently asked questions."
-            android:key="help_pref"
+            android:key="account_preference"
+            android:title="@string/my_account_pref"
             app:iconSpaceReserved="true" />
-
         <Preference
-            android:title="Create a ticket"
-            app:summary="Report a bug or give us feedback."
-            android:key="help_pref"
+            android:fragment="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"
+            android:key="backupPreferences"
+            android:title="@string/backup_pref"
             app:iconSpaceReserved="true" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/theme_names"
+            android:entryValues="@array/theme_values"
+            android:key="theme_preference"
+            android:title="@string/themes_pref"
+            app:iconSpaceReserved="true" />
+        <Preference
+            android:key="sign_in_preference"
+            android:title="@string/sign_in_pref" />
+        <Preference
+            android:key="sig_out_preference"
+            android:title="@string/sign_out_pref" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="App">
-
+    <PreferenceCategory android:title="@string/help_pref">
         <Preference
-            android:title="@string/about_us_pref"
+            android:key="faq_preference"
+            android:title="@string/see_faq_title"
             app:iconSpaceReserved="true"
-            android:key="about_pref" />
-
+            app:summary="@string/see_faq_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/account_label" />
+        </Preference>
+        <Preference
+            android:key="ticket_preference"
+            android:title="Create a ticket"
+            app:iconSpaceReserved="true"
+            app:summary="Report a bug or give us feedback." />
     </PreferenceCategory>
 
-
+    <PreferenceCategory android:title="App">
+        <Preference
+            android:fragment="com.puntogris.blint.feature_store.presentation.settings.AboutPreferences"
+            android:key="about_preference"
+            android:title="@string/about_us_pref"
+            app:iconSpaceReserved="true" />
+    </PreferenceCategory>
 </PreferenceScreen>

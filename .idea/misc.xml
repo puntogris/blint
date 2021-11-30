@@ -43,7 +43,7 @@
         <entry key="app/src/main/res/layout/dropdown_item_list.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.13923611111111112" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_bottom_nav_drawer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.175" />
@@ -145,8 +145,11 @@
         <entry key="app/src/main/res/menu/bottom_nav_drawer_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/top_app_bar_menu.xml" value="0.234375" />
+        <entry key="app/src/main/res/xml/about_preferences.xml" value="0.234375" />
+        <entry key="app/src/main/res/xml/account_preferences.xml" value="0.234375" />
+        <entry key="app/src/main/res/xml/backup_preferences.xml" value="0.234375" />
         <entry key="app/src/main/res/xml/notifications_preferences.xml" value="0.234375" />
-        <entry key="app/src/main/res/xml/preferences.xml" value="0.5" />
+        <entry key="app/src/main/res/xml/preferences.xml" value="0.25" />
       </map>
     </option>
   </component>

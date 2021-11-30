@@ -36,7 +36,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         val nav = when (item) {
             0 -> R.id.calendarFragment
             1 -> R.id.manageCategoriesFragment
-            else -> R.id.accountPreferences
+            else -> R.id.aboutPreferences
         }
         findNavController().navigate(nav)
     }

@@ -233,6 +233,7 @@
     <string name="suggestions">Sugerencias</string>
     <string name="privacy_policy">Políticas de Privacidad</string>
     <string name="terms_and_conditions">Términos y Condiciones</string>
+    <string name="open_source_licenses">Licencias</string>
     <string name="user_name">Nombre de usuario</string>
     <string name="creation_date">Fecha de creación</string>
     <string name="e_mail">E-mail</string>
@@ -362,6 +363,12 @@
     <string name="billing_pref">Facturación</string>
     <string name="privacy_pref">Privacidad</string>
     <string name="sign_out_pref">Cerrar sesión</string>
+    <string name="sign_in_pref">Iniciar sesión</string>
+    <string name="github_summary">Blint es de codigo abierto, visita GitHub</string>
+    <string name="rate_app_title">Puntua la App</string>
+    <string name="rate_app_summary">Si te gusto Blint, puntuala en la Play Store</string>
+    <string name="see_faq_title">Lee las F.A.Q</string>
+    <string name="see_faq_summary">Revisa a las preguntas freguentes</string>
 
     <!-- Menus -->
     <string name="options">Opciones</string>
