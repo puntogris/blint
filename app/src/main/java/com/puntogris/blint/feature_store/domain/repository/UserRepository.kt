@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun syncUserAccount(authUser: AuthUser? = null): SyncAccount
+    suspend fun syncUserAccount(authUser: AuthUser): SyncAccount
 
     suspend fun updateCurrentBusiness(businessId: String): SimpleResult
 

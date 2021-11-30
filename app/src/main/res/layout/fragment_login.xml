@@ -19,15 +19,16 @@
             android:id="@+id/logoCard"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="100dp"
             app:cardCornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="69dp"
+                android:layout_height="74dp"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,27 +75,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginAnonymouslyButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:onClick="@{()-> fragment.continueAnonymously()}"
-            android:paddingHorizontal="16dp"
-            android:text="@string/action_continue_anonymously"
-            android:textAllCaps="false"
-            android:textColor="?colorControlNormal"
-            app:cornerRadius="25dp"
-            app:icon="@drawable/ic_fi_sr_incognito"
-            app:iconPadding="8dp"
-            app:iconTint="@color/grey"
-            app:layout_constraintBottom_toTopOf="@+id/loginProblemButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="@color/grey"
-            app:strokeWidth="1dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,30 +90,19 @@
             android:id="@+id/loginWithGoogleFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="184dp"
             android:backgroundTint="@color/white"
             android:onClick="@{()->fragment.startLoginWithGoogle()}"
             app:backgroundTint="@color/grey"
             app:borderWidth="1dp"
             app:elevation="0dp"
             app:fabCustomSize="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintBottom_toTopOf="@+id/loginProblemButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:rippleColor="@color/grey_5"
             app:srcCompat="@drawable/ic_google_logo"
             app:tint="@null"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/divider"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/loginAnonymouslyButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/divider_with_middle_circle"
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

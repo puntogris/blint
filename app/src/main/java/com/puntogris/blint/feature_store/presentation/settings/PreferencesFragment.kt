@@ -38,7 +38,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         }
 
         preference(Keys.SIGN_OUT_PREF) {
-            isVisible = viewModel.isUserSignedIn()
             onClick {
                 lifecycleScope.launch {
                     when (viewModel.logOut()) {
@@ -51,13 +50,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                         }
                     }
                 }
-            }
-        }
-
-        preference(Keys.SIGN_IN_PREF) {
-            isVisible = !viewModel.isUserSignedIn()
-            onClick {
-                findNavController().navigate(R.id.mainFragment)
             }
         }
     }

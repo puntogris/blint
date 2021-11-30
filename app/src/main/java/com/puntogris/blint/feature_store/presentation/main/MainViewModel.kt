@@ -5,7 +5,6 @@ import androidx.lifecycle.asLiveData
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.domain.repository.BusinessRepository
 import com.puntogris.blint.feature_store.domain.repository.EventRepository
-import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +15,8 @@ class MainViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    fun showLogin() = sharedPreferences.showLoginScreen()
+    fun showLoginScreen() = sharedPreferences.showLoginScreen()
+    fun showNewUserScreen() = sharedPreferences.showNewUserScreen()
 
     val currentBusiness = businessRepository.getCurrentBusinessFlow().asLiveData()
 

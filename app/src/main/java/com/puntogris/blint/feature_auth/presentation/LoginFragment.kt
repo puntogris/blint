@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.launchWebBrowserIntent
+import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.feature_store.data.data_source.remote.LoginResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,61 +23,49 @@ import kotlinx.coroutines.launch
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var loginActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var googleLoginLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.apply {
-            registerUi(showAppBar = false, showToolbar = false)
-        }
-        registerActivityResultLauncher()
+        UiInterface.registerUi(showAppBar = false, showToolbar = false)
+
+        registerGoogleLoginLauncher()
     }
 
-    private fun registerActivityResultLauncher() {
-        loginActivityResultLauncher =
+    private fun registerGoogleLoginLauncher() {
+        googleLoginLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                // onLoginFinished()
                 authGoogleUserIntoServer(it)
             }
     }
 
     private fun authGoogleUserIntoServer(result: ActivityResult) {
         lifecycleScope.launch {
-            viewModel.authGoogleUser(result).collect(::handleAuthUserIntoServerResult)
-        }
-    }
-
-    private fun handleAuthUserIntoServerResult(result: LoginResult) {
-        when (result) {
-            is LoginResult.Error -> {
-                UiInterface.showSnackBar(
-                    getString(R.string.snack_error_connection_server_try_later)
-                )
-                // onLoginError()
-            }
-            LoginResult.InProgress -> {
-                //  onLoginStarted()
-            }
-            is LoginResult.Success -> {
-                val action =
-                    LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(result.authUser)
-                findNavController().navigate(action)
+            viewModel.authGoogleUser(result).collect {
+                when (it) {
+                    is LoginResult.Error -> {
+                        UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                        binding.progressBar.gone()
+                    }
+                    LoginResult.InProgress -> {
+                        binding.progressBar.visible()
+                    }
+                    is LoginResult.Success -> {
+                        val action =
+                            LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(it.authUser)
+                        findNavController().navigate(action)
+                    }
+                }
             }
         }
     }
 
     fun startLoginWithGoogle() {
-        //   onLoginStarted()
         val intent = viewModel.getGoogleSignInIntent()
-        loginActivityResultLauncher.launch(intent)
-    }
-
-    fun continueAnonymously() {
-        findNavController().navigate(R.id.action_loginFragment_to_syncAccountFragment)
+        googleLoginLauncher.launch(intent)
     }
 
     fun onLoginProblemsClicked() {
-        //todo add faq link for login issues
-        launchWebBrowserIntent("")
+        launchWebBrowserIntent("https://blint.app/help/")
     }
 }

@@ -16,6 +16,6 @@ class BlintApplication : Application() {
         super.onCreate()
 
 
-        AppCompatDelegate.setDefaultNightMode(sharedPreferences.getThemePref())
+        AppCompatDelegate.setDefaultNightMode(sharedPreferences.getTheme())
     }
 }

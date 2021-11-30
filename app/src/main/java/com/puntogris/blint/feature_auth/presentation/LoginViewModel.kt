@@ -17,4 +17,6 @@ class LoginViewModel @Inject constructor(
 
     fun getGoogleSignInIntent() = googleSignInClient.signInIntent
 
+    suspend fun signOut() = loginRepository.signOutUser()
+
 }

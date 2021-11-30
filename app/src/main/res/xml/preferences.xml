@@ -20,10 +20,7 @@
             android:title="@string/themes_pref"
             app:iconSpaceReserved="true" />
         <Preference
-            android:key="sign_in_preference"
-            android:title="@string/sign_in_pref" />
-        <Preference
-            android:key="sig_out_preference"
+            android:key="sign_out_preference"
             android:title="@string/sign_out_pref" />
     </PreferenceCategory>
 

@@ -1,8 +1,8 @@
 package com.puntogris.blint.feature_store.presentation.sync
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
-import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,10 +10,13 @@ import javax.inject.Inject
 @HiltViewModel
 class SyncViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    handle: SavedStateHandle
 ) : ViewModel() {
 
-    suspend fun syncAccount(authUser: AuthUser?) = userRepository.syncUserAccount(authUser)
+    private val authUser = SyncAccountFragmentArgs.fromSavedStateHandle(handle).authUser
 
-    fun showWelcome() = sharedPreferences.showWelcomeScreen()
+    suspend fun syncAccount() = userRepository.syncUserAccount(authUser)
+
+    fun showWelcome() = sharedPreferences.showNewUserScreen()
 }

@@ -24,7 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintVertical_bias="0.55"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/loading" />
 
@@ -34,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="132dp"
+            android:layout_marginBottom="72dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/account_creation_in_progress_message"
             android:textAlignment="center"
@@ -49,13 +48,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/account_syncing_in_progress_title"
             android:textAlignment="center"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

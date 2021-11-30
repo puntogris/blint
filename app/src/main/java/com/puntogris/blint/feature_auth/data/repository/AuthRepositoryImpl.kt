@@ -37,7 +37,7 @@ class AuthRepositoryImpl(
         SimpleResult.build {
             googleSingInApi.signOut()
             authServerApi.signOut()
-            sharedPreferences.setShowNewUserScreenPref(true)
+            sharedPreferences.setShowNewUserScreen(true)
             sharedPreferences.setShowLoginScreen(true)
         }
     }

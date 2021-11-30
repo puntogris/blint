@@ -12,17 +12,17 @@ class SharedPreferences @Inject constructor(@ApplicationContext private val cont
 
     private val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun showLoginScreen() = sharedPref.getBoolean(SHOW_WELCOME_PREF, true)
+    fun showLoginScreen() = sharedPref.getBoolean(Keys.SHOW_LOGIN_SCREEN_PREF, true)
 
     fun setShowLoginScreen(value: Boolean) {
-        sharedPref.edit().putBoolean(SHOW_WELCOME_PREF, value).apply()
+        sharedPref.edit().putBoolean(Keys.SHOW_LOGIN_SCREEN_PREF, value).apply()
     }
 
-    fun getThemePref() = sharedPref.getString(Keys.THEME_PREF, "1")?.toInt() ?: 1
+    fun getTheme() = sharedPref.getString(Keys.THEME_PREF, "1")?.toInt() ?: 1
 
-    fun showWelcomeScreen() = sharedPref.getBoolean(USER_HAS_BUSINESS_PREF, true)
+    fun showNewUserScreen() = sharedPref.getBoolean(Keys.SHOW_NEW_USER_SCREEN_PREF, true)
 
-    fun setShowNewUserScreenPref(value: Boolean) {
-        sharedPref.edit().putBoolean(USER_HAS_BUSINESS_PREF, value).apply()
+    fun setShowNewUserScreen(value: Boolean) {
+        sharedPref.edit().putBoolean(Keys.SHOW_NEW_USER_SCREEN_PREF, value).apply()
     }
 }

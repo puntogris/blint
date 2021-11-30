@@ -10,6 +10,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants.BLINT_WEBSITE_LEARN_MORE
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchWebBrowserIntent
+import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.databinding.FragmentNewUserBinding
 import com.puntogris.blint.feature_auth.presentation.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,20 +29,29 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         }
     }
 
-    fun onLogOutClicked() {
+    fun onSignOutClicked() {
         InfoSheet().show(requireParentFragment().requireContext()) {
-            title("logout")
-            content("sure you wnat to logout?")
+            title(R.string.sign_out_pref)
+            content(R.string.ask_user_action_confirmation)
             onNegative(R.string.action_cancel)
             onPositive(R.string.action_yes) {
-                lifecycleScope.launch {
-                    // viewModel.singOut()
+                onSignOutConfirmed()
+            }
+        }
+    }
+
+    private fun onSignOutConfirmed(){
+        lifecycleScope.launch {
+            when(viewModel.signOut()){
+                SimpleResult.Failure -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+                }
+                SimpleResult.Success -> {
                     val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
                     findNavController().navigate(R.id.loginFragment, null, nav)
                 }
             }
         }
-
     }
 
     fun onLearnMoreClicked() {

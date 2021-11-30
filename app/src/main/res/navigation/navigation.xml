@@ -141,10 +141,6 @@
             app:destination="@id/eventInfoBottomSheet" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.settings.AboutFragment"
-        android:label="@string/about_us_label" />
-    <fragment
         android:id="@+id/editProductFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductFragment"
         android:label="@string/product_label" >
@@ -270,9 +266,7 @@
         android:label="" >
         <argument
             android:name="authUser"
-            app:argType="com.puntogris.blint.feature_store.domain.model.AuthUser"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.puntogris.blint.feature_store.domain.model.AuthUser" />
     </fragment>
     <fragment
         android:id="@+id/manageBusinessFragment"

@@ -21,7 +21,5 @@ class PreferencesViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     suspend fun logOut() = authRepository.signOutUser()
-
-    fun isUserSignedIn() = currentUser.value != null && !currentUser.value?.uid.isNullOrBlank()
 }
 

@@ -33,7 +33,7 @@ class BusinessRepositoryImpl(
 
             usersDao.updateCurrentBusiness(business.businessId)
 
-            sharedPreferences.setShowNewUserScreenPref(false)
+            sharedPreferences.setShowNewUserScreen(false)
 
             emit(RepoResult.Success(Unit))
         } catch (e: Exception) {
@@ -47,7 +47,10 @@ class BusinessRepositoryImpl(
                 businessDao.deleteBusiness(businessId)
                 val business = businessDao.getBusiness()
 
-                if (business.isEmpty()) DeleteBusiness.Success.NoBusiness
+                if (business.isEmpty()) {
+                    sharedPreferences.setShowNewUserScreen(true)
+                    DeleteBusiness.Success.NoBusiness
+                }
                 else DeleteBusiness.Success.HasBusiness
             } catch (e: Exception) {
                 DeleteBusiness.Failure

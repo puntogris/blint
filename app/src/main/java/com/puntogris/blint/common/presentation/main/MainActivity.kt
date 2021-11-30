@@ -34,7 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         @DrawableRes fabIcon: Int,
         fabListener: View.OnClickListener?
     ) {
-        if (showToolbar) binding.toolbar.visible() else binding.toolbar.gone()
+        binding.toolbar.isVisible = showToolbar
         if (showFab) {
             binding.fab.apply {
                 show()
@@ -121,7 +121,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
                 setStartDestination(
-                    if (viewModel.showLogin()) R.id.loginFragment else R.id.mainFragment
+                    when {
+                        viewModel.showLoginScreen() -> R.id.loginFragment
+                        viewModel.showNewUserScreen() -> R.id.newUserFragment
+                        else -> R.id.mainFragment
+                    }
                 )
             }
         navController.addOnDestinationChangedListener(this@MainActivity)

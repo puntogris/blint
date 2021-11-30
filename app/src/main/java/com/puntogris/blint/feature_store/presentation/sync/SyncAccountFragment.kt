@@ -19,17 +19,17 @@ class SyncAccountFragment :
     BaseFragment<FragmentSyncAccountBinding>(R.layout.fragment_sync_account) {
 
     private val viewModel: SyncViewModel by viewModels()
-    private val args: SyncAccountFragmentArgs by navArgs()
 
     override fun initializeViews() {
         binding.fragment = this
         UiInterface.registerUi(showFab = false, showAppBar = false, showToolbar = false)
         subscribeUi()
+
     }
 
     private fun subscribeUi() {
         launchAndRepeatWithViewLifecycle(Lifecycle.State.CREATED) {
-            when (viewModel.syncAccount(args.authUser)) {
+            when (viewModel.syncAccount()) {
                 is SyncAccount.Error -> onErrorSync()
                 SyncAccount.Success.BusinessNotFound -> onSuccessSync(R.id.newUserFragment)
                 SyncAccount.Success.HasBusiness -> onSuccessSync(R.id.mainFragment)
