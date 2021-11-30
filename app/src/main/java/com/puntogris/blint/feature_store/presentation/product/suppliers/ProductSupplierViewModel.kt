@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.product.suppliers
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
@@ -40,8 +41,8 @@ class ProductSupplierViewModel @Inject constructor(
         }
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String) {
-        this.query.value = query
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
     }
 
     fun toggleSupplier(supplier: Supplier) {

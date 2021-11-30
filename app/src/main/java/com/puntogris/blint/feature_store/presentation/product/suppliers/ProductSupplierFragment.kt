@@ -25,11 +25,6 @@ class ProductSupplierFragment :
 
         setupCategoriesAdapter()
         registerToolbarBackButton(binding.searchToolbar)
-
-        //use xml for this todo
-        binding.categoriesSearch.addTextChangedListener {
-            viewModel.setQuery(it.toString())
-        }
     }
 
     private fun setupCategoriesAdapter() {

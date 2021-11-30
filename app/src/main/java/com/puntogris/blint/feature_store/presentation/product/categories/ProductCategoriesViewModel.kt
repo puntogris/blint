@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.product.categories
 
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.paging.map
@@ -40,8 +41,8 @@ class ProductCategoriesViewModel @Inject constructor(
         }
     }.cachedIn(viewModelScope)
 
-    fun setQuery(query: String) {
-        this.query.value = query
+    fun setQuery(editable: Editable) {
+        query.value = editable.toString()
     }
 
     fun toggleCategory(category: Category) {

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoriesViewModel" />
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoryFragment" />
@@ -43,6 +45,7 @@
                     android:autofillHints="@string/auto_fill_hint_search_product"
                     android:background="@null"
                     android:hint="@string/search"
+                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:imeOptions="flagNoExtractUi|actionDone"
                     android:inputType="textNoSuggestions" />
 

@@ -25,15 +25,7 @@ class ProductCategoryFragment :
         UiInterface.registerUi(showAppBar = false, showToolbar = false)
 
         registerToolbarBackButton(binding.searchToolbar)
-        setupSearchListener()
         setupCategoriesAdapter()
-    }
-
-    private fun setupSearchListener() {
-        //todo change to set query from xml
-        binding.categoriesSearch.addTextChangedListener {
-            viewModel.setQuery(it.toString())
-        }
     }
 
     private fun setupCategoriesAdapter() {

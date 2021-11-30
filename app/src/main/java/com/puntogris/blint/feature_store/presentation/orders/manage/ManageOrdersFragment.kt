@@ -33,7 +33,6 @@ class ManageOrdersFragment :
         mediator?.attach()
     }
 
-
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
         override fun getItemCount(): Int = 2

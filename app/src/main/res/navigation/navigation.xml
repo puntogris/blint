@@ -372,6 +372,9 @@
         <action
             android:id="@+id/action_orderInfoBottomSheet_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_orderInfoBottomSheet_to_clientFragment"
+            app:destination="@id/clientFragment" />
     </dialog>
     <fragment
         android:id="@+id/orderFragment"
