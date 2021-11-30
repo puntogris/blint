@@ -14,7 +14,7 @@ class AboutPreferences: PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.about_preferences, rootKey)
-        UiInterface.registerUi()
+        UiInterface.registerUi(showAppBar = false)
 
         preferenceOnClick(Keys.LICENSES_PREF){
             Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {

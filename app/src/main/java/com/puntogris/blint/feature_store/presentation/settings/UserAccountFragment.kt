@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.account
+package com.puntogris.blint.feature_store.presentation.settings
 
 import androidx.fragment.app.viewModels
 import com.puntogris.blint.R

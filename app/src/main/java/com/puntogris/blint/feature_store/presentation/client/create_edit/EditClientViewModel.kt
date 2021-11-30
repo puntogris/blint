@@ -1,19 +1,25 @@
 package com.puntogris.blint.feature_store.presentation.client.create_edit
 
+import android.net.Uri
 import android.text.Editable
-import androidx.lifecycle.*
-import com.puntogris.blint.common.utils.types.SimpleResult
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
+import com.puntogris.blint.common.utils.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Client
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
-import com.puntogris.blint.feature_store.presentation.client.detail.ClientFragmentArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class EditClientViewModel @Inject constructor(
     private val repository: ClientRepository,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val contactsHelper: ContactsHelper
 ) : ViewModel() {
 
     private val _currentClient = savedStateHandle.getLiveData<Client>("client")
@@ -46,5 +52,19 @@ class EditClientViewModel @Inject constructor(
 
     fun updateClientDiscount(editable: Editable) {
         _currentClient.value.discount = editable.toString().toFloatOrNull() ?: 0F
+    }
+
+    fun setContact(uri: Uri) {
+        contactsHelper.getContact(uri)?.let {
+            savedStateHandle.set(
+                "client",
+                _currentClient.value.copy(
+                    name = it.name,
+                    email = it.email,
+                    address = it.address,
+                    phone = it.phone
+                )
+            )
+        }
     }
 }

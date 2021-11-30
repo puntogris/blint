@@ -13,7 +13,7 @@ class BackupPreferences : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.backup_preferences, rootKey)
 
-        UiInterface.registerUi()
+        UiInterface.registerUi(showAppBar = false)
 
         preferenceOnClick(Keys.CREATE_BACKUP_PREF) {
             findNavController().navigate(R.id.createBackupFragment)

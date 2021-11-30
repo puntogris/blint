@@ -3,7 +3,6 @@ package com.puntogris.blint.feature_store.presentation.client.detail
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.provider.ContactsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -50,26 +49,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val intent = Intent(Intent.ACTION_INSERT).apply {
-                        type = ContactsContract.Contacts.CONTENT_TYPE
-                        putExtra(
-                            ContactsContract.Intents.Insert.NAME,
-                            viewModel.currentClient.value.name
-                        )
-                        putExtra(
-                            ContactsContract.Intents.Insert.PHONE,
-                            viewModel.currentClient.value.phone
-                        )
-                        putExtra(
-                            ContactsContract.Intents.Insert.EMAIL,
-                            viewModel.currentClient.value.email
-                        )
-                        putExtra(
-                            ContactsContract.Intents.Insert.POSTAL,
-                            viewModel.currentClient.value.address
-                        )
-                    }
-                    contactPickerLauncher.launch(intent)
+                    contactPickerLauncher.launch(viewModel.getContactIntent())
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
@@ -79,7 +59,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
     }
 
     fun onPhoneButtonClicked() {
-        OptionsSheet().show(requireParentFragment().requireContext()) {
+        OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
                 Option(R.drawable.ic_baseline_call_24, R.string.action_call),
@@ -97,7 +77,7 @@ class ClientDataFragment : BaseFragment<FragmentClientDataBinding>(R.layout.frag
                     contactPickerLauncher.launch(it)
                 }
             }
-        }
+        }.show(parentFragmentManager, "")
     }
 
     fun onEmailButtonClicked() {

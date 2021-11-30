@@ -334,10 +334,8 @@
     <string name="snack_order_created_error">An error occurred creating the order. Try again.</string>
     <string name="order_create_success_message">*Order created successfully. Have a nice day!</string>
     <string name="order_create_error_message">An error occurred creating the order. Check your internet connection and try again.</string>
-    <string name="snack_pick_record_type">Specify a record type.</string>
-    <string name="created_successfully_title">Success creating it.</string>
     <string name="created_failed">Error creating it.</string>
-    <string name="product_already_added">Product already added.</string>
+    <string name="created_successfully_title">Created correctly.</string>
     <string name="buy_prices">Buy</string>
     <string name="sell_prices">Sell/ Sug.</string>
     <string name="snack_discount_error">Error with the discount amount.</string>
@@ -345,11 +343,6 @@
     <string name="supplier_or_client">Supplier/ Client:</string>
     <string name="order_needs_products">You need to add products.</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
-    <string name="order_value_discount_summary">A general discount of $%1$s was applied of the total value</string>
-    <string name="order_value_debt_client_summary">A debt of $%1$s was generated towards the supplier.</string>
-    <string name="order_value_debt_supplier_summary">A debt of $%1$s was generated against the client.</string>
-    <string name="order_value_debt_client_summary2">and a debt of $%1$s was generated towards the supplier.</string>
-    <string name="order_value_debt_supplier_summary2">and a debt of $%1$s was generated against the client.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
@@ -372,7 +365,7 @@
     <string name="website" translatable="false">Website</string>
     <string name="github_title" translatable="false">GitHub</string>
     <string name="github_summary">Blint is open-source, check it out on GitHub</string>
-    <string name="developer_website_summary" translatable="false">puntogris.com</string>
+    <string name="developer_website_summary" translatable="false">blint.app</string>
     <string name="rate_app_title">Rate App</string>
     <string name="rate_app_summary">If you like Recap, rate it on the Google Play Store</string>
     <string name="see_faq_title">See the F.A.Q</string>
@@ -384,7 +377,6 @@
     <string name="privacy_policy_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/PRIVACY.md</string>
     <string name="terms_and_conditions_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/TERMS.md</string>
     <string name="play_store_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/TERMS.md</string>
-
 
     <!-- Menus -->
     <string name="options">Options</string>

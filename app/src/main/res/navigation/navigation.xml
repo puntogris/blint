@@ -142,7 +142,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.about.AboutFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.settings.AboutFragment"
         android:label="@string/about_us_label" />
     <fragment
         android:id="@+id/editProductFragment"
@@ -206,7 +206,7 @@
         android:label="@string/backup_pref" />
     <fragment
         android:id="@+id/userAccountFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.account.UserAccountFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.settings.UserAccountFragment"
         android:label="@string/my_information_pref" />
     <fragment
         android:id="@+id/restoreBackupFragment"

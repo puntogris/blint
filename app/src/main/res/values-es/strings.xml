@@ -329,10 +329,8 @@
     <string name="snack_order_created_error">Ocurrió un error creando tu orden. Intentá nuevamente</string>
     <string name="order_create_success_message">*¡Se creo correctamente la orden. Que tengas un muy buen día!</string>
     <string name="order_create_error_message">No se pudo crear tu orden. Revisa tu conexión a internet e intentá nuevamente.</string>
-    <string name="snack_pick_record_type">Especifica el tipo de movimiento.</string>
-    <string name="created_successfully_title">Creación satisfactoria.</string>
     <string name="created_failed">Creación fallida.</string>
-    <string name="product_already_added">El producto ya se encuentra agregado.</string>
+    <string name="created_successfully_title">Creación correcta.</string>
     <string name="buy_prices">Compra</string>
     <string name="sell_prices">Venta/ Sug.</string>
     <string name="snack_discount_error">Error con el valor del descuento.</string>
@@ -340,11 +338,6 @@
     <string name="supplier_or_client">Proveedor/ Cliente:</string>
     <string name="order_needs_products">Necesita agregar productos.</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
-    <string name="order_value_discount_summary">Se aplico un descuento general de %1$s$ ya deducido del valor final</string>
-    <string name="order_value_debt_client_summary">Se genero una deuda de %1$s$ a favor del proveedor.</string>
-    <string name="order_value_debt_supplier_summary">Se genero una deuda de %1$s$ en contra del cliente.</string>
-    <string name="order_value_debt_client_summary2">y se genero una deuda de %1$s$ a favor del proveedor.</string>
-    <string name="order_value_debt_supplier_summary2">y se genero una deuda de %1$s$ en contra del cliente.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>

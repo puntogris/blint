@@ -18,7 +18,7 @@
             android:id="@+id/simpleOrderGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="loginAnonymouslyButton,button25,recordTypeInput,productAmountTextInput" />
+            app:constraint_referenced_ids="loginAnonymouslyButton,saveOrderButton,recordTypeInput,productAmountTextInput" />
 
         <TextView
             android:id="@+id/loginAnonymouslyButton"
@@ -79,13 +79,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button25"
+            android:id="@+id/saveOrderButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:onClick="@{()-> dialog.onSaveButtonClicked()}"
             android:text="@string/action_save"
             android:visibility="visible"

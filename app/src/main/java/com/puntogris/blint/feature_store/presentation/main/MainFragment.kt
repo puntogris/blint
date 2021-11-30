@@ -1,14 +1,13 @@
 package com.puntogris.blint.feature_store.presentation.main
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentMainBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.model.MenuCard
@@ -36,7 +35,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
         val nav = when (item) {
             0 -> R.id.calendarFragment
             1 -> R.id.manageCategoriesFragment
-            else -> R.id.aboutPreferences
+            else -> R.id.manageBusinessFragment
         }
         findNavController().navigate(nav)
     }
@@ -51,13 +50,9 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun subscribeEventsUi(adapter: MainCalendarAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.lastEventsFlow.collect {
-                if (it.isEmpty()) {
-                    binding.addEventTitle.visible()
-                    binding.addEventButton.visible()
-                } else {
-                    binding.calendarEvents.visible()
-                    adapter.updateList(it)
-                }
+                binding.emptyEventsGroupUi.isVisible = it.isEmpty()
+                binding.calendarEvents.isVisible = it.isNotEmpty()
+                adapter.updateList(it)
             }
         }
     }
@@ -68,27 +63,20 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     }
 
     private fun setupMenuRecyclerView() {
-        val adapter = MainMenuAdapter { onMenuCardClicked(it) }
+        val menuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
+        val manager = GridLayoutManager(requireContext(), 3).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (menuAdapter.isHeader(position)) spanCount else 1
+                }
+            }
+        }
 
         binding.recyclerView.apply {
-            this.adapter = adapter
-            setHasFixedSize(true)
-            val manager = GridLayoutManager(requireContext(), 3)
-                .also {
-                    it.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return if (adapter.isHeader(position)) it.spanCount else 1
-                        }
-                    }
-                }
-
+            adapter = menuAdapter
             layoutManager = manager
-            addItemDecoration(
-                GridSpanMarginDecoration(
-                    30, 10,
-                    gridLayoutManager = manager
-                )
-            )
+            setHasFixedSize(true)
+            addItemDecoration(GridSpanMarginDecoration(30, 10, manager))
         }
     }
 

@@ -1,20 +1,26 @@
 package com.puntogris.blint.feature_store.presentation.supplier.create_edit
 
+import android.net.Uri
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class EditSupplierViewModel @Inject constructor(
     private val repository: SupplierRepository,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val contactsHelper: ContactsHelper
 ) : ViewModel() {
 
     private val _currentSupplier = savedStateHandle.getLiveData<Supplier>("supplier")
@@ -59,5 +65,25 @@ class EditSupplierViewModel @Inject constructor(
 
     fun updateSupplierNotes(editable: Editable) {
         _currentSupplier.value.notes = editable.toString()
+    }
+
+    fun setContact(uri: Uri, code: Int) {
+        contactsHelper.getContact(uri)?.let {
+            val supplier = if (code == Constants.COMPANY_CONTACT) {
+                _currentSupplier.value.copy(
+                    companyName = it.name,
+                    companyPhone = it.phone,
+                    companyEmail = it.email,
+                    address = it.address
+                )
+            } else {
+                _currentSupplier.value.copy(
+                    sellerName = it.name,
+                    sellerEmail = it.email,
+                    sellerPhone = it.phone
+                )
+            }
+            savedStateHandle.set("supplier", supplier)
+        }
     }
 }

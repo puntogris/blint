@@ -22,8 +22,8 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+        UiInterface.registerUi(showAppBar = false)
 
-        UiInterface.registerUi()
 
         preferenceOnClick(Keys.ACCOUNT_PREF) {
             findNavController().navigate(R.id.userAccountFragment)

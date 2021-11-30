@@ -53,4 +53,8 @@ object Constants {
     //Shared pref
     const val SHOW_WELCOME_PREF = "show_welcome_ui"
     const val USER_HAS_BUSINESS_PREF = "user_has_business"
+
+    //Supplier contact picker
+    const val COMPANY_CONTACT = 1
+    const val SELLER_CONTACT = 2
 }

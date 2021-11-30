@@ -27,7 +27,7 @@ class EditSupplierFragment :
     private val viewModel: EditSupplierViewModel by viewModels()
     private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
-    private var contactPickerResultCode = 0
+    private var contactPickerCode = 0
 
     override fun initializeViews() {
         binding.fragment = this
@@ -41,18 +41,7 @@ class EditSupplierFragment :
                 isName = true,
                 maxLength = 20
             )) {
-                is StringValidator.Valid -> {
-                    lifecycleScope.launch {
-                        when (viewModel.saveSupplier()) {
-                            SimpleResult.Failure ->
-                                UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
-                            SimpleResult.Success -> {
-                                UiInterface.showSnackBar(getString(R.string.snack_save_supplier_success))
-                                findNavController().navigateUp()
-                            }
-                        }
-                    }
-                }
+                is StringValidator.Valid -> saveSupplier()
                 is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
             }
         }
@@ -64,25 +53,8 @@ class EditSupplierFragment :
     private fun setupContactPickerLauncher() {
         contactPickerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK && result.data?.data != null) {
-
-                    requireActivity().contentResolver.query(
-                        result.data?.data!!,
-                        arrayOf(Data.LOOKUP_KEY),
-                        null,
-                        null,
-                        null
-                    )?.let {
-                        if (it.moveToFirst()) {
-                            val lookUpKey = it.getString(it.getColumnIndex(Data.LOOKUP_KEY))
-                            if (lookUpKey != null) {
-                                getEmailWithLookUpKey(lookUpKey, contactPickerResultCode)
-                                getPhoneAndNameWithLookUpKey(lookUpKey, contactPickerResultCode)
-                                if (contactPickerResultCode == 1) loadAddressWithLookUpKey(lookUpKey)
-                            }
-                        }
-                        it.close()
-                    }
+                result.takeIf { it.resultCode == RESULT_OK }?.data?.data?.let {
+                    viewModel.setContact(it, contactPickerCode)
                 }
             }
     }
@@ -100,84 +72,21 @@ class EditSupplierFragment :
             }
     }
 
-    private fun getEmailWithLookUpKey(key: String, requestCode: Int) {
-        val emailWhere = Data.LOOKUP_KEY + " = ? AND " + Data.MIMETYPE + " = ?"
-        val emailWhereParams = arrayOf(key, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-        requireActivity().contentResolver.query(
-            Data.CONTENT_URI,
-            null,
-            emailWhere,
-            emailWhereParams,
-            null
-        )?.let {
-            if (it.moveToNext()) {
-
-                val emailId = it.getString(it.getColumnIndex(CommonDataKinds.Email.DATA))
-
-                if (requestCode == 1) {
-                    binding.companyLayout.supplierCompanyEmailText.setText(emailId)
-                } else {
-                    binding.sellerLayout.supplierSellerEmailText.setText(emailId)
+    private fun saveSupplier(){
+        lifecycleScope.launch {
+            when (viewModel.saveSupplier()) {
+                SimpleResult.Failure ->
+                    UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
+                SimpleResult.Success -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_save_supplier_success))
+                    findNavController().navigateUp()
                 }
             }
-            it.close()
-        }
-    }
-
-    private fun loadAddressWithLookUpKey(key: String) {
-        val addressWhere = Data.LOOKUP_KEY + " = ? AND " + Data.MIMETYPE + " = ?"
-        val addressWhereParams = arrayOf(key, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-
-        requireActivity().contentResolver.query(
-            Data.CONTENT_URI,
-            null,
-            addressWhere,
-            addressWhereParams,
-            null
-        )?.also {
-            if (it.moveToNext()) {
-                val address = it.getString(
-                    it.getColumnIndex(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS)
-                )
-                binding.companyLayout.supplierCompanyAddressText.setText(address)
-            }
-            it.close()
-        }
-    }
-
-    private fun getPhoneAndNameWithLookUpKey(key: String, requestCode: Int) {
-        val contactWhere = Data.LOOKUP_KEY + " = ? AND " + Data.MIMETYPE + " = ?"
-        val contactWhereParams = arrayOf(key, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-
-        requireActivity().contentResolver.query(
-            Data.CONTENT_URI,
-            null,
-            contactWhere,
-            contactWhereParams,
-            null
-        )?.let {
-
-            if (it.count > 0 && it.moveToNext()) {
-
-                if (it.getString(it.getColumnIndex(Contacts.HAS_PHONE_NUMBER)).toInt() > 0) {
-                    val name = it.getString(it.getColumnIndex(Contacts.DISPLAY_NAME))
-                    val phone = it.getString(it.getColumnIndex(CommonDataKinds.Phone.NUMBER))
-
-                    if (requestCode == 1) {
-                        binding.companyLayout.supplierCompanyName.setText(name)
-                        binding.companyLayout.supplierCompanyPhone.setText(phone)
-                    } else {
-                        binding.sellerLayout.supplierSellerName.setText(name)
-                        binding.sellerLayout.supplierSellerPhone.setText(phone)
-                    }
-                }
-            }
-            it.close()
         }
     }
 
     fun onAddContactInfoClicked(code: Int) {
-        contactPickerResultCode = code
+        contactPickerCode = code
         contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
     }
 }

@@ -11,13 +11,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.account.UserAccountFragment" />
+            type="com.puntogris.blint.feature_store.presentation.settings.UserAccountFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.account.UserAccountFragment">
+        tools:context=".feature_store.presentation.settings.UserAccountFragment">
 
         <TextView
             android:id="@+id/textView15"

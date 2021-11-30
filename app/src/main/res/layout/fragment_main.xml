@@ -172,7 +172,7 @@
                         android:onClick="@{() -> fragment.onSideMenuClicked(2)}"
                         android:paddingHorizontal="11dp"
                         android:paddingVertical="11dp"
-                        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+                        app:srcCompat="@drawable/ic_outline_storefront_24" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -202,6 +202,12 @@
                     tools:layout_editor_absoluteX="157dp"
                     tools:layout_editor_absoluteY="65dp" />
             </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/empty_events_group_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="addEventTitle,addEventButton" />
 
             <TextView
                 android:id="@+id/addEventTitle"

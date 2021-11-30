@@ -3,8 +3,6 @@ package com.puntogris.blint.feature_store.presentation.supplier.detail
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.provider.ContactsContract.Contacts
-import android.provider.ContactsContract.Intents
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -13,6 +11,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.databinding.FragmentSupplierDataBinding
@@ -41,20 +40,7 @@ class SupplierDataFragment :
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    Intent(Intent.ACTION_INSERT).apply {
-                        type = Contacts.CONTENT_TYPE
-                        with(viewModel.currentSupplier.value) {
-                            if (permissionCode == 1) {
-                                putExtra(Intents.Insert.NAME, companyName)
-                                putExtra(Intents.Insert.PHONE, companyPhone)
-                                putExtra(Intents.Insert.EMAIL, companyEmail)
-                            } else {
-                                putExtra(Intents.Insert.NAME, sellerName)
-                                putExtra(Intents.Insert.PHONE, sellerPhone)
-                                putExtra(Intents.Insert.EMAIL, sellerEmail)
-                            }
-                        }
-                    }.also { contactPickerLauncher.launch(it) }
+                    contactPickerLauncher.launch(viewModel.getContactIntent(permissionCode))
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
             }
     }
@@ -77,7 +63,7 @@ class SupplierDataFragment :
     }
 
     fun onEmailButtonClicked(code: Int) {
-        val email = if (code == 0) {
+        val email = if (code == Constants.COMPANY_CONTACT) {
             viewModel.currentSupplier.value.companyEmail
         } else {
             viewModel.currentSupplier.value.sellerEmail
@@ -91,7 +77,7 @@ class SupplierDataFragment :
     }
 
     fun onPhoneButtonClicked(code: Int) {
-        OptionsSheet().show(requireParentFragment().requireContext()) {
+        OptionsSheet().build(requireContext()) {
             displayMode(DisplayMode.LIST)
             with(
                 Option(R.drawable.ic_baseline_call_24, R.string.action_call),
@@ -99,7 +85,7 @@ class SupplierDataFragment :
                 Option(R.drawable.ic_whatsapp, R.string.action_whats_app)
             )
             onPositive { index: Int, _: Option ->
-                val phone = if (code == 0) {
+                val phone = if (code == Constants.COMPANY_CONTACT) {
                     viewModel.currentSupplier.value.companyPhone
                 } else {
                     viewModel.currentSupplier.value.sellerPhone
@@ -113,7 +99,7 @@ class SupplierDataFragment :
                     contactPickerLauncher.launch(it)
                 }
             }
-        }
+        }.show(parentFragmentManager, "")
     }
 
 }

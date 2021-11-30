@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textVie2w103"
+            android:id="@+id/businessDetailsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView124"
+            android:id="@+id/businessNameLabel"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,35 +47,35 @@
             android:layout_marginTop="16dp"
             android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textVie2w103" />
+            app:layout_constraintTop_toBottomOf="@+id/businessDetailsTitle" />
 
         <TextView
-            android:id="@+id/textView125"
+            android:id="@+id/businessName"
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{business.name}"
-            app:layout_constraintStart_toStartOf="@+id/textView124"
-            app:layout_constraintTop_toBottomOf="@+id/textView124" />
+            app:layout_constraintStart_toStartOf="@+id/businessNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/businessNameLabel" />
 
         <TextView
-            android:id="@+id/textView126"
+            android:id="@+id/businessDateLabel"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/creation_date"
-            app:layout_constraintStart_toStartOf="@+id/textView125"
-            app:layout_constraintTop_toBottomOf="@+id/textView125" />
+            app:layout_constraintStart_toStartOf="@+id/businessName"
+            app:layout_constraintTop_toBottomOf="@+id/businessName" />
 
         <TextView
-            android:id="@+id/textView127"
+            android:id="@+id/businessDate"
             style="@style/Theme.Blint.DataTextView"
             dateFromTimestamp="@{business.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView126"
-            app:layout_constraintTop_toBottomOf="@+id/textView126" />
+            app:layout_constraintStart_toStartOf="@+id/businessDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/businessDateLabel" />
 
         <TextView
             android:id="@+id/textView128"
@@ -84,8 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/author"
-            app:layout_constraintStart_toStartOf="@+id/textView127"
-            app:layout_constraintTop_toBottomOf="@+id/textView127" />
+            app:layout_constraintStart_toStartOf="@+id/businessDate"
+            app:layout_constraintTop_toBottomOf="@+id/businessDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
