@@ -1,13 +1,16 @@
 package com.puntogris.blint.feature_store.data.repository
 
+import android.net.Uri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.room.withTransaction
 import com.puntogris.blint.R
+import com.puntogris.blint.common.framework.PDFCreator
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.toOrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
@@ -19,11 +22,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import java.io.File
 import kotlin.math.absoluteValue
 
 class OrdersRepositoryImpl(
     private val dispatcher: DispatcherProvider,
-    private val appDatabase: AppDatabase
+    private val appDatabase: AppDatabase,
+    private val pdfCreator: PDFCreator
 ) : OrdersRepository {
 
     override fun saveOrder(newOrder: NewOrder): Flow<RepoResult<Unit>> = flow {
@@ -84,6 +89,7 @@ class OrdersRepositoryImpl(
         }.flow
     }
 
+
     override fun getRecordsPaged(): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(
@@ -101,4 +107,12 @@ class OrdersRepositoryImpl(
             appDatabase.ordersDao.getAllOrderRecords(orderId)
         }
 
+    override fun generateOrderPDF(uri: Uri?, orderWithRecords: OrderWithRecords): Resource<File> {
+        return try {
+            val file = pdfCreator.createPdf(uri, orderWithRecords)
+            Resource.Success(file)
+        } catch (e: Exception) {
+            Resource.Error(R.string.snack_invoice_save_error)
+        }
+    }
 }

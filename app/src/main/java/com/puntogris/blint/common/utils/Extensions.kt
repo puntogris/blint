@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +42,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.File
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -261,4 +263,12 @@ inline fun PreferenceFragmentCompat.preferenceOnClick(key: String, crossinline b
         block()
         true
     }
+}
+
+fun File.getUriFromProvider(context: Context): Uri {
+    return FileProvider.getUriForFile(
+        context,
+        context.packageName,
+        this
+    )
 }

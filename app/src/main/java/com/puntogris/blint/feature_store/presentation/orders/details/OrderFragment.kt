@@ -3,7 +3,6 @@ package com.puntogris.blint.feature_store.presentation.orders.details
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maxkeppeler.sheets.options.DisplayMode
@@ -12,12 +11,13 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.getUriFromProvider
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentOrderBinding
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.io.File
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order) {
@@ -26,10 +26,11 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     private lateinit var mediaStorageLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showAppBar = false)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        UiInterface.registerUi(showAppBar = false)
 
         setupOrderTableAdapter()
         setupMediaStorageLauncher()
@@ -52,15 +53,12 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
     private fun setupMediaStorageLauncher() {
         mediaStorageLauncher =
-            registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
-                try {
-                    requireActivity().contentResolver.openOutputStream(uri)?.let {
-                        viewModel.createPdf(it)
-                    }
-                    UiInterface.showSnackBar(getString(R.string.snack_invoice_saved_success))
-                } catch (e: Exception) {
-                    UiInterface.showSnackBar(getString(R.string.snack_invoice_save_error))
+            registerForActivityResult(ActivityResultContracts.CreateDocument()) {
+                val message = when (val result = viewModel.getOrderPDF(it)) {
+                    is Resource.Error -> result.error
+                    is Resource.Success -> R.string.snack_invoice_saved_success
                 }
+                UiInterface.showSnackBar(getString(message))
             }
     }
 
@@ -83,44 +81,40 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun onSeeReceipt() {
-        val file = File(
-            requireContext().filesDir.absolutePath + "/${
-                getString(
-                    R.string.invoice_file_name,
-                    viewModel.orderWithRecords.value.order.number
+        when (val result = viewModel.getOrderPDF()) {
+            is Resource.Error -> {
+                UiInterface.showSnackBar(getString(result.error))
+            }
+            is Resource.Success -> {
+                startActivity(
+                    PdfViewerActivity.launchPdfFromPath(
+                        context,
+                        result.data.path,
+                        getString(
+                            R.string.order_number_invoice,
+                            viewModel.orderWithRecords.value.order.number
+                        ),
+                        "pdf",
+                        enableDownload = false
+                    )
                 )
-            }"
-        )
-        viewModel.createPdf(file.outputStream())
-        startActivity(
-            PdfViewerActivity.launchPdfFromPath(
-                context,
-                file.path,
-                getString(
-                    R.string.order_number_invoice,
-                    viewModel.orderWithRecords.value.order.number
-                ),
-                "pdf",
-                enableDownload = false
-            )
-        )
+            }
+        }
     }
 
     private fun onShareReceipt() {
-        val file = File(
-            requireContext().filesDir.absolutePath + "/${
-                getString(
-                    R.string.invoice_file_name,
-                    viewModel.orderWithRecords.value.order.number
-                )
-            }"
-        )
-        viewModel.createPdf(file.outputStream())
-        val uri = FileProvider.getUriForFile(requireContext(), requireActivity().packageName, file)
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "application/pdf"
-        intent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(intent)
+        when (val result = viewModel.getOrderPDF()) {
+            is Resource.Error -> {
+                UiInterface.showSnackBar(getString(result.error))
+            }
+            is Resource.Success -> {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "application/pdf"
+                    putExtra(Intent.EXTRA_STREAM, result.data.getUriFromProvider(requireContext()))
+                }
+                startActivity(intent)
+            }
+        }
     }
 
     private fun onSaveReceipt() {

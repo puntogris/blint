@@ -5,12 +5,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
+import android.net.Uri
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.getDateWithTimeFormattedString
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.OutputStream
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
@@ -48,7 +49,27 @@ class PDFCreator @Inject constructor(
         textAlign = Paint.Align.RIGHT
     }
 
-    fun createPdf(file: OutputStream, orderWithRecords: OrderWithRecords) {
+
+    fun createPdf(uri: Uri?, orderWithRecords: OrderWithRecords): File {
+
+        val localFile = File(
+            context.filesDir.absolutePath + "/${
+                context.getString(
+                    R.string.invoice_file_name,
+                    orderWithRecords.order.number
+                )
+            }"
+        )
+
+        if (localFile.exists()) {
+            uri?.let {
+                val outputStream = context.contentResolver.openOutputStream(uri)
+                outputStream?.write(localFile.readBytes())
+                outputStream?.close()
+            }
+            return localFile
+        }
+
         val doc = PdfDocument()
 
         val width = 595
@@ -158,12 +179,14 @@ class PDFCreator @Inject constructor(
             initY += 50
 
         }
-        doc.finishPage(pageCanvas)
-        doc.writeTo(file)
-        doc.close()
-        file.close()
-    }
 
+        val stream = localFile.outputStream()
+        doc.finishPage(pageCanvas)
+        doc.writeTo(stream)
+        doc.close()
+        stream.close()
+        return localFile
+    }
 
     private fun Canvas.drawFooter(
         width: Int,

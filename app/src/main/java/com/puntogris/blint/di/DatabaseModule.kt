@@ -3,6 +3,7 @@ package com.puntogris.blint.di
 import android.content.Context
 import androidx.room.Room
 import com.puntogris.blint.common.data.data_source.FirebaseClients
+import com.puntogris.blint.common.framework.PDFCreator
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.StandardDispatchers
 import com.puntogris.blint.feature_store.data.data_source.ExcelDrawer
@@ -157,9 +158,10 @@ class DatabaseModule {
     @Provides
     fun provideOrdersRepository(
         dispatcher: DispatcherProvider,
-        appDatabase: AppDatabase
+        appDatabase: AppDatabase,
+        pdfCreator: PDFCreator
     ): OrdersRepository {
-        return OrdersRepositoryImpl(dispatcher, appDatabase)
+        return OrdersRepositoryImpl(dispatcher, appDatabase, pdfCreator)
     }
 
     @Singleton
