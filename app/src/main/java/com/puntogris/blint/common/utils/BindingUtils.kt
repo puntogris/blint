@@ -279,3 +279,10 @@ fun TextView.setOrderTotal(newRecord: List<NewRecord>) {
         newRecord.sumOf { (it.amount * it.productUnitPrice).toInt() }.toString()
     )
 }
+
+@BindingAdapter("pricesAndStockTitle")
+fun TextView.setPricesAndStockTitle(productId : String){
+    setText(
+        if (productId.isEmpty()) R.string.prices_and_initial_stock else R.string.prices_and_stock
+    )
+}

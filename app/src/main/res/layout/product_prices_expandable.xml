@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductViewModel" />
@@ -27,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/prices_and_stock"
+                pricesAndStockTitle="@{viewModel.currentProduct.product.productId}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -171,6 +172,12 @@
                 app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
                 app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24"
                 android:contentDescription="@string/increase_number_image" />
+
+            <androidx.constraintlayout.widget.Group
+                app:constraint_referenced_ids="increaseAmountButton, decreaseAmountButton, productAmount"
+                android:layout_width="match_parent"
+                android:visibility="@{viewModel.currentProduct.product.productId.empty ? View.VISIBLE : View.GONE}"
+                android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

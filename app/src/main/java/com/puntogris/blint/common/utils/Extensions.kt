@@ -11,6 +11,7 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -92,6 +93,16 @@ fun Activity.hideKeyboard() {
 
 fun Fragment.hideKeyboard() {
     view?.let { requireActivity().hideKeyboard(it) }
+}
+
+fun DialogFragment.hideKeyboard() {
+    if (requireDialog().currentFocus != null) {
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+            dialog!!.currentFocus!!.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+    }
 }
 
 fun Context.hideKeyboard(view: View) {
