@@ -1,12 +1,13 @@
 package com.puntogris.blint.feature_store.domain.model.order
 
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UUIDGenerator
 
 data class NewOrder(
 
     val orderId: String = UUIDGenerator.randomUUID(),
 
-    var type: String = "IN",
+    var type: String = Constants.IN,
 
     var traderId: String = "",
 
@@ -53,4 +54,8 @@ data class NewDebt(
 
 fun NewOrder.updateOrderTotalValue() {
     value = newRecords.sumOf { (it.productUnitPrice * it.amount).toInt() }.toFloat()
+}
+
+fun NewOrder.areRecordsValid(): Boolean {
+    return newRecords.isNotEmpty() && newRecords.all { it.amount > 0 && (type == Constants.IN || it.amount <= it.currentStock)}
 }

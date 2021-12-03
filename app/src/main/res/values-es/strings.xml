@@ -336,7 +336,6 @@
     <string name="snack_discount_error">Error con el valor del descuento.</string>
     <string name="snack_discount_limit">El descuento no puede ser mayor que el total de la orden.</string>
     <string name="supplier_or_client">Proveedor/ Cliente:</string>
-    <string name="order_needs_products">Necesita agregar productos.</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
 
     <!-- Preferences-->

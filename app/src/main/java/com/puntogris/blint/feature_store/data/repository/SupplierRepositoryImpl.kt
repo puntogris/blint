@@ -52,7 +52,7 @@ class SupplierRepositoryImpl(
             )
         ) {
             if (query.isNullOrBlank()) suppliersDao.getSuppliersPaged()
-            else suppliersDao.getSuppliersSearchPaged("%${query}%")
+            else suppliersDao.getSuppliersSearchPaged(query)
         }.flow
     }
 

@@ -37,11 +37,10 @@ class ProductRepositoryImpl(
                         productId = UUIDGenerator.randomUUID()
                         businessId = currentBusinessId
                     }
+                    businessDao.incrementTotalProducts()
                 }
 
                 productsDao.insertProduct(productWithDetails)
-
-                if (isNewProduct) businessDao.incrementTotalProducts()
 
                 if (productWithDetails.product.amount != 0) {
                     val record = productWithDetails.product.toRecord(currentBusinessId)
@@ -63,7 +62,7 @@ class ProductRepositoryImpl(
             )
         ) {
             if (query.isNullOrEmpty()) productsDao.getProductsPaged()
-            else productsDao.getProductsWithQueryPaged("%$query%")
+            else productsDao.getProductsWithQueryPaged(query)
         }.flow
     }
 
@@ -78,7 +77,7 @@ class ProductRepositoryImpl(
 
     override suspend fun getProductsWithQuery(query: String): List<Product> =
         withContext(dispatcher.io) {
-            productsDao.getProductsWithQuery("%$query%")
+            productsDao.getProductsWithQuery(query)
         }
 
     override fun getProductRecordsPaged(productId: String): Flow<PagingData<Record>> {

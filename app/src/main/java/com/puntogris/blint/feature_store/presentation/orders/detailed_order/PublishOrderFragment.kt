@@ -21,6 +21,7 @@ class PublishOrderFragment :
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
+        binding.fragment = this
         UiInterface.registerUi(showAppBar = false)
         subscribeUi()
     }
@@ -34,13 +35,12 @@ class PublishOrderFragment :
                             animationView.playAnimationOnce(R.raw.error)
                             publishOrderTitle.setText(R.string.created_failed)
                             publishOrderSubtitle.setText(R.string.order_create_error_message)
-                            UiInterface.showSnackBar(getString(R.string.snack_order_created_error))
+                            UiInterface.showSnackBar(getString(it.error))
                         }
                         is RepoResult.Success -> {
                             animationView.playAnimationOnce(R.raw.done)
                             publishOrderTitle.setText(R.string.created_successfully_title)
                             publishOrderSubtitle.setText(R.string.order_create_success_message)
-                            UiInterface.showSnackBar(getString(R.string.snack_created_order_success))
                         }
                         is RepoResult.InProgress -> {
                             animationView.playAnimationInfinite(R.raw.loading)

@@ -341,7 +341,6 @@
     <string name="snack_discount_error">Error with the discount amount.</string>
     <string name="snack_discount_limit">The discount can not be more than the order total.</string>
     <string name="supplier_or_client">Supplier/ Client:</string>
-    <string name="order_needs_products">You need to add products.</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
 
     <!-- Preferences-->

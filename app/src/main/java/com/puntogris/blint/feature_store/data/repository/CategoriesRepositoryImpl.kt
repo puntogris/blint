@@ -48,7 +48,7 @@ class CategoriesRepositoryImpl(
             )
         ) {
             if (query.isNullOrBlank()) categoriesDao.getCategoriesPaged()
-            else categoriesDao.getCategoriesWithQueryPaged("%$query%")
+            else categoriesDao.getCategoriesWithQueryPaged(query)
         }.flow
     }
 }

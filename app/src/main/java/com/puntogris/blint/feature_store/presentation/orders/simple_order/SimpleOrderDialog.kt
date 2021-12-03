@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import android.view.inputmethod.InputMethodManager
 import java.util.*
 
-
 @AndroidEntryPoint
 class SimpleOrderDialog : DialogFragment() {
 
@@ -56,11 +55,6 @@ class SimpleOrderDialog : DialogFragment() {
 
     fun onSaveButtonClicked() {
         val amount = binding.productAmountText.getString().toIntOrNull() ?: 0
-
-        if (!viewModel.amountIsValid(amount)) {
-            UiInterface.showSnackBar(getString(R.string.product_amount_empty))
-            return
-        }
 
         lifecycleScope.launch {
             viewModel.createSimpleOrder(amount).collect {

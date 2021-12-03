@@ -13,10 +13,7 @@ import com.puntogris.blint.common.utils.types.RepoResult
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.toOrderWithRecords
-import com.puntogris.blint.feature_store.domain.model.order.NewOrder
-import com.puntogris.blint.feature_store.domain.model.order.OrderRecordCrossRef
-import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
-import com.puntogris.blint.feature_store.domain.model.order.Record
+import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -35,40 +32,44 @@ class OrdersRepositoryImpl(
         try {
             emit(RepoResult.InProgress)
 
-            val business = appDatabase.businessDao.getCurrentBusiness()
+            if (!newOrder.areRecordsValid()) {
+                return@flow emit(RepoResult.Error(R.string.product_amount_empty))
+            }
 
+            val business = appDatabase.businessDao.getCurrentBusiness()
             val orderWithRecords = newOrder.toOrderWithRecords(business)
 
-            orderWithRecords.debt?.let {
-                if (it.traderType == Constants.CLIENT) {
-                    appDatabase.businessDao.updateClientsDebt(it.amount)
-                    appDatabase.clientsDao.updateClientDebt(it.traderId, it.amount)
-                } else {
-                    appDatabase.businessDao.updateSupplierDebt(it.amount)
-                    appDatabase.suppliersDao.updateSupplierDebt(it.traderId, it.amount)
-                }
-                appDatabase.debtsDao.insert(it)
-            }
-
-            orderWithRecords.records.forEach {
-                appDatabase.productsDao.updateProductAmountWithType(
-                    it.productId, it.amount.absoluteValue,
-                    orderWithRecords.order.type
-                )
-            }
-
             val recordRefs = orderWithRecords.records.map {
-                OrderRecordCrossRef(
-                    orderWithRecords.order.orderId,
-                    it.recordId
-                )
+                OrderRecordCrossRef(orderWithRecords.order.orderId, it.recordId)
             }
 
-            appDatabase.withTransaction {
-                appDatabase.businessDao.incrementTotalOrders()
-                appDatabase.ordersDao.insert(orderWithRecords.order)
-                appDatabase.recordsDao.insert(orderWithRecords.records)
-                appDatabase.ordersDao.insertOrderRecordsCrossRef(recordRefs)
+            with(appDatabase) {
+                withTransaction {
+
+                    orderWithRecords.records.forEach {
+                        productsDao.updateProductAmountWithType(
+                            it.productId,
+                            it.amount.absoluteValue,
+                            orderWithRecords.order.type
+                        )
+                    }
+
+                    orderWithRecords.debt?.let {
+                        if (it.traderType == Constants.CLIENT) {
+                            businessDao.updateClientsDebt(it.amount)
+                            clientsDao.updateClientDebt(it.traderId, it.amount)
+                        } else {
+                            businessDao.updateSupplierDebt(it.amount)
+                            suppliersDao.updateSupplierDebt(it.traderId, it.amount)
+                        }
+                        debtsDao.insert(it)
+                    }
+
+                    businessDao.incrementTotalOrders()
+                    ordersDao.insert(orderWithRecords.order)
+                    ordersDao.insertOrderRecordsCrossRef(recordRefs)
+                    recordsDao.insert(orderWithRecords.records)
+                }
             }
 
             emit(RepoResult.Success(Unit))
@@ -84,11 +85,8 @@ class OrdersRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            appDatabase.ordersDao.getAllOrdersPaged()
-        }.flow
+        ) { appDatabase.ordersDao.getAllOrdersPaged() }.flow
     }
-
 
     override fun getRecordsPaged(): Flow<PagingData<Record>> {
         return Pager(
@@ -97,9 +95,7 @@ class OrdersRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) {
-            appDatabase.recordsDao.getAllRecordsPaged()
-        }.flow
+        ) { appDatabase.recordsDao.getAllRecordsPaged() }.flow
     }
 
     override suspend fun getOrderRecords(orderId: String): OrderWithRecords =

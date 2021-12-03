@@ -9,10 +9,7 @@ import com.puntogris.blint.common.utils.copyAndAdd
 import com.puntogris.blint.common.utils.copyAndRemove
 import com.puntogris.blint.common.utils.types.RepoResult
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
-import com.puntogris.blint.feature_store.domain.model.order.NewDebt
-import com.puntogris.blint.feature_store.domain.model.order.NewOrder
-import com.puntogris.blint.feature_store.domain.model.order.NewRecord
-import com.puntogris.blint.feature_store.domain.model.order.updateOrderTotalValue
+import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
 import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
@@ -103,8 +100,9 @@ class NewOrderViewModel @Inject constructor(
         query.value = ""
     }
 
-    fun areProductsValid() = _newOrder.value.newRecords.isNotEmpty()
+    fun areProductsValid() = _newOrder.value.areRecordsValid()
 
+    //todo change this, looks bad
     fun isDebtValid() =
         if (_newOrder.value.newDebt != null) _newOrder.value.newDebt?.amount != 0F else true
 }

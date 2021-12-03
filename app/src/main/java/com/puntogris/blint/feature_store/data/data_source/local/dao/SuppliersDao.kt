@@ -25,7 +25,7 @@ interface SuppliersDao {
     fun getSuppliersPaged(): PagingSource<Int, Supplier>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND companyName LIKE :query")
+    @Query("SELECT * FROM supplier INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND companyName LIKE ('%'|| :query ||'%')")
     fun getSuppliersSearchPaged(query: String): PagingSource<Int, Supplier>
 
     @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")

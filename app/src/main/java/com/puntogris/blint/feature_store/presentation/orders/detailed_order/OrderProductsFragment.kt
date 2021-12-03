@@ -120,11 +120,10 @@ class OrderProductsFragment :
     }
 
     private fun navigateToReviewOrder() {
-        println(viewModel.newOrder.value.newRecords)
         if (viewModel.areProductsValid()) {
             findNavController().navigate(R.id.reviewRecordFragment)
         } else {
-            UiInterface.showSnackBar(getString(R.string.order_needs_products))
+            UiInterface.showSnackBar(getString(R.string.product_amount_empty))
         }
     }
 

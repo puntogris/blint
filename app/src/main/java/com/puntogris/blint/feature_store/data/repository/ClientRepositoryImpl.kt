@@ -41,7 +41,7 @@ class ClientRepositoryImpl(
             )
         ) {
             if (query.isNullOrBlank()) clientsDao.getClientsPaged()
-            else clientsDao.getClientsSearchPaged("%$query%")
+            else clientsDao.getClientsSearchPaged(query)
         }.flow
     }
 

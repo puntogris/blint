@@ -77,7 +77,7 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="@string/product"
@@ -107,7 +107,7 @@
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="24dp"
             android:layout_weight="1"
             android:text="@string/price"
             android:textAlignment="center"
@@ -157,7 +157,8 @@
             app:layout_constraintHeight_max="225dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
+            tools:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
