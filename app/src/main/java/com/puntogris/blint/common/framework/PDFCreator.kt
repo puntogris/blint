@@ -117,7 +117,7 @@ class PDFCreator @Inject constructor(
         canvas.drawText(context.getString(R.string.product), horizontalMargin, 190F, paintLeft)
         canvas.drawText(context.getString(R.string.sku_caps), xRow2, 190f, paintCenter)
         canvas.drawText(context.getString(R.string.amount), xRow3, 190f, paintCenter)
-        canvas.drawText(context.getString(R.string.value), xRow4, 190f, paintRight)
+        canvas.drawText(context.getString(R.string.total), xRow4, 190f, paintRight)
 
         var initY = 230F
 

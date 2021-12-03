@@ -287,7 +287,7 @@
     <string name="suggested">Suggested</string>
     <string name="affected_products">Affected products</string>
     <string name="modification_value">Modification value</string>
-    <string name="value">Value</string>
+    <string name="total">Total</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
     <string name="affected_products_price_change_alert">Select the fields of the products that you would like to affect with the new change.</string>
@@ -339,7 +339,8 @@
     <string name="buy_prices">Buy</string>
     <string name="sell_prices">Sell/ Sug.</string>
     <string name="snack_discount_error">Error with the discount amount.</string>
-    <string name="snack_discount_limit">The discount can not be more than the order total.</string>
+    <string name="order_fully_paid">Total: $%1$s, paid in full.</string>
+    <string name="order_with_debt">Total: $%1$s, debt of $%2$s.</string>
     <string name="supplier_or_client">Supplier/ Client:</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
 

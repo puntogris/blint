@@ -120,35 +120,12 @@ fun TextView.setClientOrSupplierTitleWithRecordType(type: String) {
 
 @BindingAdapter("totalOrderWithDetails")
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
-    var data = ""
-
-//    if (order.order.discount != 0F) {
-//        data += context.getString(
-//            R.string.order_value_discount_summary,
-//            order.order.discount.toMoneyFormatted()
-//        )
-//    }
-//
-//    if (order.debt != null) {
-//        val debt = order.debt?.amount?.absoluteValue?.toMoneyFormatted()
-//        if (data.isBlank()) {
-//            data = if (order.order.type == IN) context.getString(
-//                R.string.order_value_debt_supplier_summary,
-//                debt
-//            )
-//            else context.getString(R.string.order_value_debt_client_summary, debt)
-//        } else {
-//            data += if (order.order.type == IN) " " + context.getString(
-//                R.string.order_value_debt_supplier_summary2,
-//                debt
-//            )
-//            else " " + context.getString(R.string.order_value_debt_client_summary2, debt)
-//        }
-//    } else {
-//        if (order.order.discount != 0F) data += "."
-//    }
-
-    if (data.isEmpty()) gone() else text = data
+    val total = order.order.value.toString()
+    text = if (order.debt != null) {
+        context.getString(R.string.order_with_debt, total, order.debt?.amount.toString())
+    } else {
+        context.getString(R.string.order_fully_paid, total)
+    }
 }
 
 @BindingAdapter("dateFromTimestampWithTime")

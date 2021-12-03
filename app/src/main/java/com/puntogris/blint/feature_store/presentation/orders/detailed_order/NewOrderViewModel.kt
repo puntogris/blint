@@ -109,5 +109,5 @@ class NewOrderViewModel @Inject constructor(
 
     fun areProductsValid() = _newOrder.value.areRecordsValid()
 
-    fun isDebtValid() = _newOrder.value.newDebt?.amount != 0F 
+    fun isDebtValid() = _newOrder.value.newDebt?.amount != 0F
 }

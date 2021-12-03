@@ -42,24 +42,6 @@
             app:layout_constraintTop_toBottomOf="@+id/orderDateLabel" />
 
         <TextView
-            android:id="@+id/orderAuthorLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/author"
-            app:layout_constraintStart_toStartOf="@+id/orderDate"
-            app:layout_constraintTop_toBottomOf="@+id/orderDate" />
-
-        <TextView
-            android:id="@+id/orderAuthor"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/orderAuthorLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderAuthorLabel" />
-
-        <TextView
             android:id="@+id/orderTypeLabel"
             style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
@@ -85,9 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/value"
-            app:layout_constraintStart_toStartOf="@+id/orderAuthor"
-            app:layout_constraintTop_toBottomOf="@+id/orderAuthor" />
+            android:text="@string/total"
+            app:layout_constraintStart_toStartOf="@+id/orderDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/orderDate" />
 
         <TextView
             android:id="@+id/orderValue"
@@ -106,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/orderAuthor"
+            app:layout_constraintStart_toStartOf="@+id/orderValue"
             app:layout_constraintTop_toBottomOf="@+id/orderTotal" />
 
         <com.google.android.material.chip.ChipGroup
