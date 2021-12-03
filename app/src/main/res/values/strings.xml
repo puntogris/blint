@@ -476,7 +476,7 @@
     <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_client_added_order">Client %1$s added to the order.</string>
     <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
-    <string name="order_debt_amount_summary">Paying $%1$s of the total of $%2$s</string>
+    <string name="order_debt_amount_summary">Paid $%1$s of the total of $%2$s</string>
     <string name="order_total_template" translatable="false">Total: $%1$s</string>
 
     <!-- Sync account -->

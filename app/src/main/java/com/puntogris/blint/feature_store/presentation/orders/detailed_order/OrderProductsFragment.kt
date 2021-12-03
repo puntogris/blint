@@ -109,7 +109,7 @@ class OrderProductsFragment :
     }
 
     private fun onDataChanged() {
-        binding.orderTotal.setOrderTotal(viewModel.newOrder.value.newRecords)
+        viewModel.updateOrderTotal()
     }
 
     private fun onProductAdded(product: Product) {

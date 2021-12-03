@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.orders.detailed_order.ReviewRecordFragment">
+        tools:context=".feature_store.presentation.orders.detailed_order.ReviewOrderFragment">
 
         <TextView
             android:id="@+id/amounts_of_products_label"
@@ -144,6 +144,7 @@
             android:id="@+id/order_debt_summary"
             style="?textAppearanceSubtitle2"
             android:layout_width="wrap_content"
+            orderDebtSummary="@{viewModel.newOrder}"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/order_debt_selector_input_layout"
@@ -156,7 +157,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/total_with_dots"
+            orderTotal="@{viewModel.newOrder.value}"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

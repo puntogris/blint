@@ -74,8 +74,13 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun publishOrder(): Flow<RepoResult<Unit>> {
-        _newOrder.value.updateOrderTotalValue()
         return orderRepository.saveOrder(_newOrder.value)
+    }
+
+    fun updateOrderTotal(){
+        _newOrder.value = _newOrder.value.copy().apply {
+            updateOrderTotalValue()
+        }
     }
 
     fun setQuery(editable: Editable) {
@@ -83,7 +88,9 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun updateOrderDebt(amount: Float) {
-        _newOrder.value.newDebt = if (amount != 0F) NewDebt(amount = amount) else null
+        _newOrder.value = _newOrder.value.copy(
+            newDebt = if (amount != 0F) NewDebt(amount = amount) else null
+        )
     }
 
     fun updateOrderDebt(editable: Editable) {
@@ -102,7 +109,5 @@ class NewOrderViewModel @Inject constructor(
 
     fun areProductsValid() = _newOrder.value.areRecordsValid()
 
-    //todo change this, looks bad
-    fun isDebtValid() =
-        if (_newOrder.value.newDebt != null) _newOrder.value.newDebt?.amount != 0F else true
+    fun isDebtValid() = _newOrder.value.newDebt?.amount != 0F 
 }

@@ -23,9 +23,8 @@ import com.puntogris.blint.common.utils.Constants.PENDING
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.User
-import com.puntogris.blint.feature_store.domain.model.order.NewRecord
+import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
-import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import java.util.*
@@ -97,11 +96,6 @@ fun TextView.setDateFromFirebaseUser(user: User?) {
     if (user != null) {
         text = Date(user.createdAt.seconds).getDateFormattedString()
     }
-}
-
-@BindingAdapter("userRoleFormatted")
-fun TextView.setUserRoleFormatted(role: String) {
-    text = role.lowercase(Locale.getDefault()).capitalizeFirstChar()
 }
 
 @BindingAdapter("capitalizeFirstChar")
@@ -273,16 +267,30 @@ fun TextView.setDateOrError(timeInMillis: Long) {
 }
 
 @BindingAdapter("orderTotal")
-fun TextView.setOrderTotal(newRecord: List<NewRecord>) {
+fun TextView.setOrderTotal(total: Float) {
     text = context.getString(
         R.string.order_total_template,
-        newRecord.sumOf { (it.amount * it.productUnitPrice).toInt() }.toString()
+        total.toString()
     )
 }
 
 @BindingAdapter("pricesAndStockTitle")
-fun TextView.setPricesAndStockTitle(productId : String){
+fun TextView.setPricesAndStockTitle(productId: String) {
     setText(
         if (productId.isEmpty()) R.string.prices_and_initial_stock else R.string.prices_and_stock
+    )
+}
+
+@BindingAdapter("orderDebtSummary")
+fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
+    val totalPaid = if (newOrder.newDebt != null) {
+        newOrder.value - (newOrder.newDebt?.amount ?: 0F)
+    } else {
+        newOrder.value
+    }
+    text = context.getString(
+        R.string.order_debt_amount_summary,
+        totalPaid.toString(),
+        newOrder.value.toString()
     )
 }

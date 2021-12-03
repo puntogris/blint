@@ -131,7 +131,7 @@
 
         <TextView
             android:id="@+id/order_total"
-            orderTotal="@{viewModel.newOrder.newRecords}"
+            orderTotal="@{viewModel.newOrder.value}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

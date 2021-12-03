@@ -320,7 +320,7 @@
         </fragment>
         <fragment
             android:id="@+id/reviewRecordFragment"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewRecordFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment"
             android:label="@string/review_order_label">
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"

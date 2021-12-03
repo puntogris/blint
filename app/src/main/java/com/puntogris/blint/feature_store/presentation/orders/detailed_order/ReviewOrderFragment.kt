@@ -8,17 +8,18 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
-import com.puntogris.blint.databinding.FragmentReviewRecordBinding
+import com.puntogris.blint.databinding.FragmentReviewOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReviewRecordFragment :
-    BaseFragment<FragmentReviewRecordBinding>(R.layout.fragment_review_record) {
+class ReviewOrderFragment :
+    BaseFragment<FragmentReviewOrderBinding>(R.layout.fragment_review_order) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         UiInterface.registerUi(
             showFab = true,
@@ -49,7 +50,7 @@ class ReviewRecordFragment :
 
     private fun navigateToPublishOrder() {
         if (viewModel.isDebtValid()) {
-            findNavController().navigate(R.id.publishOrderFragment)
+            findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
         } else {
             UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
         }
