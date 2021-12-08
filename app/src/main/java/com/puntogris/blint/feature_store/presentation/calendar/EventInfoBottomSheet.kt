@@ -30,7 +30,6 @@ class EventInfoBottomSheet :
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModel.setEvent(args.event)
         setupEventStatusAdapter()
     }
 
@@ -39,7 +38,7 @@ class EventInfoBottomSheet :
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, eventStatus)
 
         binding.eventStatus.apply {
-            setText(if (args.event.status == EventStatus.Pending.value) eventStatus[0] else eventStatus[1])
+            setText(if (viewModel.event.value.status == EventStatus.Pending.value) eventStatus[0] else eventStatus[1])
             setAdapter(adapter)
             setOnItemClickListener { _, _, i, _ ->
                 viewModel.updateEventStatus(i)
@@ -58,7 +57,7 @@ class EventInfoBottomSheet :
 
     private fun onDeleteEventConfirmed() {
         lifecycleScope.launch {
-            when (viewModel.deleteEvent(args.event.eventId)) {
+            when (viewModel.deleteEvent()) {
                 SimpleResult.Failure ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_event_error))
                 SimpleResult.Success -> {

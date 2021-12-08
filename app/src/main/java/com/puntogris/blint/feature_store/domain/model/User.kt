@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
+import org.threeten.bp.OffsetDateTime
 
 /*
  localReferenceId is to make sure we only have one user saved locally and override it always,
@@ -37,5 +38,5 @@ data class User(
     val appTier: String = "BASIC",
 
     @ColumnInfo
-    val createdAt: Timestamp = Timestamp.now()
+    val createdAt: OffsetDateTime = OffsetDateTime.now()
 )

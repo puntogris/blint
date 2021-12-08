@@ -6,8 +6,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
+import org.threeten.bp.OffsetDateTime
 
 @Parcelize
 @Entity
@@ -27,7 +29,7 @@ data class Record(
     var traderName: String = "",
 
     @ColumnInfo
-    val timestamp: Timestamp = Timestamp.now(),
+    val timestamp: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
     var amount: Int = 0,

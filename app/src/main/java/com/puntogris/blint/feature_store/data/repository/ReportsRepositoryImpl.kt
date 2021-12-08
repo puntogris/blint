@@ -1,13 +1,12 @@
 package com.puntogris.blint.feature_store.data.repository
 
+import com.puntogris.blint.common.framework.ExcelDrawer
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.feature_store.data.data_source.ExcelDrawer
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
-import com.puntogris.blint.feature_store.data.data_source.toProductRecordExcel
 import com.puntogris.blint.feature_store.data.data_source.toTraderExcelList
 import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
 import com.puntogris.blint.feature_store.presentation.reports.ExportReport
@@ -72,15 +71,27 @@ class ReportsRepositoryImpl(
 
     override suspend fun generateProductsReport(report: ExportReport) = withContext(dispatcher.io) {
         SimpleResult.build {
-            val records = productsDao.getProducts().map {
+            val products = productsDao.getProducts()
 
-                val record = recordsDao.getProductsRecordsTimeFrame(
+            val records = products.map {
+                recordsDao.getProductsRecordsTimeFrame(
                     it.productId,
                     report.timeFrame.days
                 )
-                record.toProductRecordExcel(it)
             }
-            excelDrawer.drawProductRecords(records, requireNotNull(report.uri))
+            println(records.filterNotNull())
+
+//            val records = productsDao.getProducts().map {
+//                println(it)
+//                val record = recordsDao.getProductsRecordsTimeFrame(
+//                    it.productId,
+//                    report.timeFrame.days
+//                )
+//                println("aaaaaaaaaaaaaaaaaaaa")
+//                record.toProductRecordExcel(it)
+//            }
+//            println(records)
+          //  excelDrawer.drawProductRecords(records, report.uri ?: Uri.parse(""))
         }
     }
 }

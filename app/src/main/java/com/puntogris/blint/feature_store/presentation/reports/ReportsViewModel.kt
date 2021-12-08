@@ -9,7 +9,7 @@ import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
 import com.puntogris.blint.feature_store.presentation.reports.ReportType.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
+import org.threeten.bp.OffsetDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +18,8 @@ class ReportsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val report = ExportReport()
+
+    fun getReportUri() = report.uri
 
     fun updateTimeFrame(timeFrame: TimeFrame) {
         report.timeFrame = timeFrame
@@ -45,9 +47,7 @@ class ReportsViewModel @Inject constructor(
 
     fun getReportName(context: Context): String {
         return report.type.takeIf { it != null }?.let {
-            context.getString(it.res, Date().getDateFormattedString())
+            context.getString(it.res, OffsetDateTime.now().getDateFormattedString())
         } ?: context.getString(R.string.snack_an_error_occurred)
     }
-
-    fun getReportUri() = report.uri
 }

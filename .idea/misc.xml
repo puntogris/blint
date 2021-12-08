@@ -30,7 +30,7 @@
         <entry key="app/src/main/res/layout/business_employee_vh.xml" value="0.11006944444444444" />
         <entry key="app/src/main/res/layout/business_item_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/business_statistics_cards.xml" value="0.366079703429101" />
-        <entry key="app/src/main/res/layout/calendar_event_vh.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/calendar_event_vh.xml" value="0.4680259499536608" />
         <entry key="app/src/main/res/layout/calendar_separator_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/category_product_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/client_extras_expandable.xml" value="0.234375" />
@@ -134,7 +134,7 @@
         <entry key="app/src/main/res/layout/product_scope_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_search_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/product_supplier_vh.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/record_info_bottom_sheet.xml" value="0.15590277777777778" />
+        <entry key="app/src/main/res/layout/record_info_bottom_sheet.xml" value="0.33" />
         <entry key="app/src/main/res/layout/remove_category_product_vh.xml" value="0.1" />
         <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/simple_debt_vh.xml" value="0.234375" />

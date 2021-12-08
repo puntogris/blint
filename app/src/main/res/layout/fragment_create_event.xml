@@ -6,14 +6,18 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.puntogris.blint.feature_store.presentation.calendar.new_event.CreateEventViewModel" />
+
+        <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.calendar.CreateEventFragment" />
+            type="com.puntogris.blint.feature_store.presentation.calendar.new_event.CreateEventFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.calendar.CreateEventFragment">
+        tools:context=".feature_store.presentation.calendar.new_event.CreateEventFragment">
 
         <TextView
             android:id="@+id/textView2"
@@ -43,6 +47,7 @@
                 android:id="@+id/eventTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::setEventTitle}"
                 android:imeOptions="actionDone"
                 android:maxLength="30"
                 android:singleLine="true" />
@@ -66,6 +71,7 @@
                 android:id="@+id/eventMessageText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::setEventMessage}"
                 android:gravity="top"
                 android:lines="4"
                 android:maxLength="200"
@@ -119,7 +125,7 @@
             style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/not_specified"
+            dateFromTimestamp="@{viewModel.event.timestamp}"
             app:layout_constraintStart_toStartOf="@+id/appName"
             app:layout_constraintTop_toBottomOf="@+id/appName" />
     </androidx.constraintlayout.widget.ConstraintLayout>

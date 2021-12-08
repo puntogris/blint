@@ -49,6 +49,7 @@ class ProductRepositoryImpl(
 
                 SimpleResult.Success
             } catch (e: Exception) {
+                println(e.localizedMessage)
                 SimpleResult.Failure
             }
         }

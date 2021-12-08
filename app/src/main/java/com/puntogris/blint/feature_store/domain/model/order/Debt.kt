@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.puntogris.blint.common.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
+import org.threeten.bp.OffsetDateTime
 
 @Parcelize
 @Entity
@@ -30,7 +31,7 @@ data class Debt(
     var traderName: String = "",
 
     @ColumnInfo
-    var timestamp: Timestamp = Timestamp.now(),
+    var timestamp: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
     var businessId: String = "",

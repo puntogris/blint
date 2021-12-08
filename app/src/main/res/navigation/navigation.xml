@@ -242,7 +242,7 @@
     </dialog>
     <fragment
         android:id="@+id/createEventFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.calendar.CreateEventFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.calendar.new_event.CreateEventFragment"
         android:label="@string/new_event_label" />
     <dialog
         android:id="@+id/eventInfoBottomSheet"

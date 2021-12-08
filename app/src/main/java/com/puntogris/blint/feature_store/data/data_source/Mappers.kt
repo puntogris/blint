@@ -1,6 +1,5 @@
 package com.puntogris.blint.feature_store.data.data_source
 
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.AuthUser
@@ -40,7 +39,6 @@ fun Product.toRecord(currentBusinessId: String): Record {
         amount = amount,
         productId = productId,
         productName = name,
-        timestamp = Timestamp.now(),
         businessId = currentBusinessId,
         barcode = barcode,
         historicInStock = amount,

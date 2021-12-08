@@ -3,6 +3,7 @@ package com.puntogris.blint.feature_store.data.repository
 import android.content.Context
 import com.google.firebase.storage.StorageException
 import com.puntogris.blint.R
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.Util
 import com.puntogris.blint.common.utils.types.*
@@ -101,11 +102,12 @@ class UserRepositoryImpl(
 
 
     @Suppress("BlockingMethodInNonBlockingContext")
-    override fun createBackup(path: String): Flow<BackupState> = flow {
+    override fun createBackup(): Flow<BackupState> = flow {
         try {
             emit(BackupState.Loading)
             appDatabase.close()
 
+            val path = context.getDatabasePath(Constants.LOCAL_DATABASE_NAME).absolutePath
             val zipFile = File(path)
             val stream = FileInputStream(zipFile)
             userServerApi.uploadBackup(stream)
@@ -116,10 +118,12 @@ class UserRepositoryImpl(
         }
     }.flowOn(dispatcher.io)
 
-    override fun restoreBackup(path: String): Flow<BackupState> = flow {
+    override fun restoreBackup(): Flow<BackupState> = flow {
         try {
             emit(BackupState.Loading)
             appDatabase.close()
+
+            val path = context.getDatabasePath(Constants.LOCAL_DATABASE_NAME).absolutePath
 
             val localFile = File(context.filesDir.path + "/backup")
             if (!localFile.exists()) localFile.parentFile?.mkdirs()

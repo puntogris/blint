@@ -19,9 +19,9 @@ interface UserRepository {
 
     fun sendTicket(ticket: Ticket): Flow<SimpleRepoResult>
 
-    fun createBackup(path: String): Flow<BackupState>
+    fun createBackup(): Flow<BackupState>
 
-    fun restoreBackup(path: String): Flow<BackupState>
+    fun restoreBackup(): Flow<BackupState>
 
     fun checkLastBackupTimestamp(): Flow<BackupState>
 }

@@ -61,8 +61,9 @@ class CreateBackupFragment :
             title(R.string.ask_user_action_confirmation)
             content(R.string.create_backup_warning)
             onNegative(R.string.action_cancel)
-            onPositive(R.string.action_create_backup)
-            { viewModel.backupBusiness(getDatabasePath()) }
+            onPositive(R.string.action_create_backup) {
+                viewModel.backupBusiness()
+            }
         }
     }
 

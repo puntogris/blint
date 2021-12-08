@@ -2,6 +2,7 @@ package com.puntogris.blint
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -15,7 +16,7 @@ class BlintApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-
+        AndroidThreeTen.init(this)
         AppCompatDelegate.setDefaultNightMode(sharedPreferences.getTheme())
     }
 }

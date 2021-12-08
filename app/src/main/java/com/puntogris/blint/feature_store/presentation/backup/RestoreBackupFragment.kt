@@ -63,7 +63,7 @@ class RestoreBackupFragment :
             content(R.string.restore_backup_warning)
             onNegative(R.string.action_cancel)
             onPositive(R.string.action_restore_backup)
-            { viewModel.restoreBackup(getDatabasePath()) }
+            { viewModel.restoreBackup() }
         }
     }
 

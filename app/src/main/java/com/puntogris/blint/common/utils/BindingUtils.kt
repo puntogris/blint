@@ -31,6 +31,7 @@ import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
+import org.threeten.bp.OffsetDateTime
 import java.io.File
 import java.io.FilePermission
 import java.util.*
@@ -101,7 +102,8 @@ fun ImageView.setUserDataImage(image: String?) {
 @BindingAdapter("userCreationTimestamp")
 fun TextView.setDateFromFirebaseUser(user: User?) {
     if (user != null) {
-        text = Date(user.createdAt.seconds).getDateFormattedString()
+      //  text = Date(user.createdAt.seconds).getDateFormattedString()
+        text = user.createdAt.toString()
     }
 }
 
@@ -136,8 +138,8 @@ fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
 }
 
 @BindingAdapter("dateFromTimestampWithTime")
-fun TextView.setDateFromTimestampWithTime(timestamp: Timestamp) {
-    text = timestamp.toDate().getDateWithTimeFormattedString()
+fun TextView.setDateFromTimestampWithTime(timestamp: OffsetDateTime) {
+   text = timestamp.getDateWithTimeFormattedString()
 }
 
 @BindingAdapter("amountSymbolWithRecordType")
@@ -154,9 +156,9 @@ fun TextView.setRecordTypeString(type: String) {
 }
 
 @BindingAdapter("dateFromTimestamp")
-fun TextView.setDateFromTimestamp(timestamp: Timestamp?) {
+fun TextView.setDateFromTimestamp(timestamp: OffsetDateTime?) {
     timestamp?.let {
-        text = it.toDate().getDateFormattedString()
+        text = it.getDateFormattedString()
     }
 }
 

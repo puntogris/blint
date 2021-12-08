@@ -53,4 +53,8 @@ interface RecordsDao {
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', -:days) ORDER BY timestamp ASC LIMIT 1")
     suspend fun getProductsRecordsTimeFrame(productId: String, days: Int): Record
 
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE  datetime(timestamp) >= datetime('now', '-1 days') ORDER BY timestamp ASC")
+    suspend fun test(): Record
 }

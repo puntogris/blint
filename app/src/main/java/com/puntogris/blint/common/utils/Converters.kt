@@ -1,15 +1,23 @@
 package com.puntogris.blint.common.utils
 
 import androidx.room.TypeConverter
-import com.google.firebase.Timestamp
-import java.util.*
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 object Converters {
-    @JvmStatic
-    @TypeConverter
-    fun toTimestamp(dateLong: Long?): Timestamp? = dateLong?.let { Timestamp(Date(dateLong)) }
+    private val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
-    @JvmStatic
     @TypeConverter
-    fun fromTimestamp(date: Timestamp?): Long? = date?.toDate()?.time
+    @JvmStatic
+    fun toOffsetDateTime(value: String?): OffsetDateTime? {
+        return value?.let {
+            formatter.parse(value, OffsetDateTime::from)
+        }
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun fromOffsetDateTime(date: OffsetDateTime?): String? {
+        return date?.format(formatter)
+    }
 }

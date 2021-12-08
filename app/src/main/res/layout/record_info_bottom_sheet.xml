@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="record"
             type="com.puntogris.blint.feature_store.domain.model.order.Record" />
@@ -18,93 +18,72 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/recordProductNameLabel"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:text="@string/product"
-            app:layout_constraintBottom_toBottomOf="@+id/textView79"
-            app:layout_constraintEnd_toStartOf="@+id/textView79"
+            app:layout_constraintBottom_toBottomOf="@+id/recordTypeLabel"
+            app:layout_constraintEnd_toStartOf="@+id/recordTypeLabel"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView79" />
+            app:layout_constraintTop_toTopOf="@+id/recordTypeLabel" />
 
         <TextView
-            android:id="@+id/textView74"
+            android:id="@+id/recordProductName"
+            style="@style/Theme.Blint.DataTextView"
+            capitalizeFirstChar="@{record.productName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            capitalizeFirstChar="@{record.productName}"
-            style="@style/Theme.Blint.DataTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintStart_toStartOf="@+id/recordProductNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recordProductNameLabel" />
 
         <TextView
-            android:id="@+id/textView75"
+            android:id="@+id/recordTimestampLabel"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:text="@string/record_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView74" />
+            app:layout_constraintTop_toBottomOf="@+id/recordProductName" />
 
         <TextView
-            android:id="@+id/textView76"
+            android:id="@+id/recordTimestamp"
             style="@style/Theme.Blint.DataTextView"
-            android:layout_marginBottom="24dp"
             dateFromTimestampWithTime="@{record.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView75"
-            app:layout_constraintTop_toBottomOf="@+id/textView75" />
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="@+id/recordTimestampLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recordTimestampLabel" />
 
         <TextView
-            android:id="@+id/textView77"
+            android:id="@+id/recordTypeLabel"
             style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/author"
-            app:layout_constraintStart_toStartOf="@+id/textView76"
-            app:layout_constraintTop_toBottomOf="@+id/textView76" />
-
-        <TextView
-            android:id="@+id/textView78"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView77"
-            app:layout_constraintTop_toBottomOf="@+id/textView77"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/type"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            app:layout_constraintEnd_toStartOf="@+id/textView82"
+            app:layout_constraintEnd_toStartOf="@+id/recordAmountLabel"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView81" />
+            app:layout_constraintStart_toEndOf="@+id/recordProductNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recordDetailsTitle" />
 
         <TextView
-            android:id="@+id/textView80"
+            android:id="@+id/recordType"
+            style="@style/Theme.Blint.DataTextView"
+            recordTypeString="@{record.type}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            recordTypeString="@{record.type}"
-            style="@style/Theme.Blint.DataTextView"
-            app:layout_constraintStart_toStartOf="@+id/textView79"
-            app:layout_constraintTop_toBottomOf="@+id/textView79" />
+            app:layout_constraintStart_toStartOf="@+id/recordTypeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recordTypeLabel" />
 
         <TextView
-            android:id="@+id/textView81"
+            android:id="@+id/recordDetailsTitle"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,29 +91,29 @@
             android:text="@string/record_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
-            android:id="@+id/textView82"
+            android:id="@+id/recordAmountLabel"
+            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="@string/amount"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/textView79"
+            app:layout_constraintBottom_toBottomOf="@+id/recordTypeLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView79"
-            app:layout_constraintTop_toTopOf="@+id/textView79" />
+            app:layout_constraintStart_toEndOf="@+id/recordTypeLabel"
+            app:layout_constraintTop_toTopOf="@+id/recordTypeLabel" />
 
         <TextView
-            android:id="@+id/textView83"
+            android:id="@+id/recordAmount"
+            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Theme.Blint.DataTextView"
             android:text="@{String.valueOf(record.amount)}"
-            app:layout_constraintStart_toStartOf="@+id/textView82"
-            app:layout_constraintTop_toBottomOf="@+id/textView82" />
+            app:layout_constraintStart_toStartOf="@+id/recordAmountLabel"
+            app:layout_constraintTop_toBottomOf="@+id/recordAmountLabel" />
 
         <TextView
             android:id="@+id/externalNameTitle"
@@ -143,14 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="@+id/textView78"
-            app:layout_constraintTop_toBottomOf="@+id/textView78" />
+            app:layout_constraintStart_toStartOf="@+id/recordTimestamp"
+            app:layout_constraintTop_toBottomOf="@+id/recordTimestamp" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/externalNameTitle"
             app:layout_constraintTop_toBottomOf="@+id/externalNameTitle">
 
@@ -163,41 +141,41 @@
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/navigateToOrderButton"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/action_see_complete_order"
             android:onClick="@{()-> bottomSheet.onNavigateToFullOrder()}"
-            style="@style/Theme.Blint.Button"
+            android:text="@string/action_see_complete_order"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/divider"
             android:layout_width="30dp"
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/top_window_bar_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal"
-            android:contentDescription="@string/top_window_bar_image" />
+            app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <TextView
-            android:id="@+id/textView117"
+            android:id="@+id/initialRecordAlert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:visibility="gone"
             android:text="@string/initial_stock_record_message"
             android:textAlignment="center"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

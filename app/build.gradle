@@ -223,4 +223,7 @@ dependencies {
     //Open source licenses
     implementation "com.google.android.gms:play-services-oss-licenses:$licensesVersion"
 
+    //Date
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
+
 }

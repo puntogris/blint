@@ -28,7 +28,6 @@ import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.Timestamp
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
@@ -43,6 +42,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.threeten.bp.DateTimeUtils
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import java.io.File
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -63,15 +65,9 @@ fun View.invisible() {
 
 fun EditText.getString() = text.toString()
 
-fun EditText.getInt(): Int {
-    val text = text.toString()
-    return if (text.isEmpty()) 0 else text.toInt()
-}
+fun EditText.getInt(): Int = text.toString().toIntOrNull() ?: 0
 
-fun EditText.getFloat(): Float {
-    val text = text.toString()
-    return if (text.isNotBlank()) text.toFloat() else 0F
-}
+fun EditText.getFloat(): Float = text.toString().toFloatOrNull() ?: 0F
 
 fun FloatingActionButton.changeIconFromDrawable(icon: Int) {
     setImageDrawable(ContextCompat.getDrawable(context, icon))
@@ -119,20 +115,16 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
     }
 }
 
-fun Date.getDateFormattedString() =
-    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(this).toString()
+fun OffsetDateTime.getDateFormattedString(): String =
+    format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+
+fun OffsetDateTime.getDateWithTimeFormattedString(): String =
+    format(DateTimeFormatter.ofPattern("dd/MM/yyyy - h:mm a"))
+
+fun OffsetDateTime.getMonthAndYeah(): String = format(DateTimeFormatter.ofPattern("MMMM - yyyy"))
 
 fun Date.getDateWithTimeFormattedString() =
     SimpleDateFormat("dd/MM/yyyy - h:mm a", Locale.getDefault()).format(this).toString()
-
-fun Fragment.getDatabasePath(): String =
-    requireActivity().getDatabasePath("blint_database").absolutePath
-
-fun Timestamp.getMonthAndYeah() =
-    SimpleDateFormat("MMMM - yyyy", Locale.getDefault()).format(this.toDate()).toString()
-
-fun Timestamp.getMonth() =
-    SimpleDateFormat("MMMM", Locale.getDefault()).format(this.toDate()).toString()
 
 fun Flow<PagingData<Event>>.toEventUi(): Flow<PagingData<EventUi>> {
     return map { pagingData ->
@@ -145,11 +137,11 @@ fun Flow<PagingData<Event>>.toEventUi(): Flow<PagingData<EventUi>> {
             if (after == null) return@insertSeparators null
 
             if (before == null) {
-                EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
+                EventUi.SeparatorItem(after.event.timestamp.month.name)
             }
 
             if (before?.event?.timestamp?.getMonthAndYeah() != after.event.timestamp.getMonthAndYeah()) {
-                EventUi.SeparatorItem(after.event.timestamp.getMonth().capitalizeFirstChar())
+                EventUi.SeparatorItem(after.event.timestamp.month.name)
             } else {
                 null
             }
@@ -283,4 +275,8 @@ fun File.getUriFromProvider(context: Context): Uri {
         context.packageName,
         this
     )
+}
+
+fun Calendar.toOffsetDateTime(): OffsetDateTime {
+    return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(this), DateTimeUtils.toZoneId(timeZone))
 }

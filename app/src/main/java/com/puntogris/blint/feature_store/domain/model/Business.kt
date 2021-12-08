@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.puntogris.blint.common.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
+import org.threeten.bp.OffsetDateTime
 
 @Parcelize
 @Entity
@@ -24,10 +25,7 @@ data class Business(
     val ownerUid: String = "",
 
     @ColumnInfo
-    val createdAt: Timestamp = Timestamp.now(),
-
-    @ColumnInfo
-    val lastStatusTimestamp: Timestamp = Timestamp.now(),
+    val createdAt: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
     val logoUri: String = "",

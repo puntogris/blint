@@ -2,6 +2,9 @@ package com.puntogris.blint.common.utils
 
 object Constants {
 
+    //Room database
+    const val LOCAL_DATABASE_NAME = "blint_database"
+
     //Urls
     const val LOGIN_PROBLEMS_URL = "https://blint.app/help"
     const val APP_LEARN_MORE_URL = "https://blint.app/help"

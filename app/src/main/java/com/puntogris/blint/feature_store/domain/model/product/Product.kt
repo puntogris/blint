@@ -5,9 +5,9 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
+import org.threeten.bp.OffsetDateTime
 
 @Entity
 @Parcelize
@@ -52,7 +52,7 @@ data class Product(
     var size: String = "",
 
     @ColumnInfo
-    var lastRecordTimestamp: Timestamp = Timestamp.now(),
+    var lastRecordTimestamp: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
     var historicInStock: Int = 0,

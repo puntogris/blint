@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.Constants.INITIAL
 import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.visible
@@ -17,25 +18,26 @@ class RecordInfoBottomSheet :
     override fun initializeViews() {
         binding.record = args.record
         binding.bottomSheet = this
+
         if (args.record.type == INITIAL) {
-            binding.button23.gone()
+            binding.navigateToOrderButton.gone()
             binding.chipGroup.gone()
             binding.externalNameTitle.gone()
-            binding.textView117.visible()
+            binding.initialRecordAlert.visible()
         }
     }
 
     fun onExternalChipClicked() {
         if (args.record.traderId.isNotEmpty()) {
             when (args.record.type) {
-                "IN" -> {
+                Constants.IN -> {
                     val action =
                         RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(
                             supplierId = args.record.traderId
                         )
                     findNavController().navigate(action)
                 }
-                "OUT" -> {
+                Constants.OUT -> {
                     val action =
                         RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToClientFragment(
                             clientId = args.record.traderId
