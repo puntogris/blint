@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment" />
@@ -19,7 +20,7 @@
             tools:context=".feature_store.presentation.reports.ReportsFragment">
 
             <TextView
-                android:id="@+id/textView101"
+                android:id="@+id/generateReportTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -29,82 +30,38 @@
                 android:text="@string/generate_reports"
                 android:textSize="19sp" />
 
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/recordsReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onProductsReportClicked()}">
+                android:onClick="@{()->fragment.onProductsReportClicked()}"
+                android:text="@string/product_records_report" />
 
-                <TextView
-                    android:id="@+id/textView99"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/product_records_report"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/suppliersRecordsReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onSuppliersReportClicked()}">
+                android:onClick="@{()->fragment.onSuppliersReportClicked()}"
+                android:text="@string/suppliers_records_report" />
 
-                <TextView
-                    android:id="@+id/textView299"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Compras por proveedor"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/clientsRecordsReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onClientsReportClicked()}">
-
-                <TextView
-                    android:id="@+id/textView399"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Ventas por cliente"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-            </com.google.android.material.card.MaterialCardView>
+                android:onClick="@{()->fragment.onClientsReportClicked()}"
+                android:text="@string/clients_records_report" />
 
             <TextView
-                android:id="@+id/textView1021"
+                android:id="@+id/generateListTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -114,80 +71,35 @@
                 android:text="@string/generate_lists"
                 android:textSize="19sp" />
 
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/productsReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onProductListClicked()}">
+                android:onClick="@{()->fragment.onProductListClicked()}"
+                android:text="@string/products_label" />
 
-                <TextView
-                    android:id="@+id/textView199"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/products_label"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/clientsReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onClientListClicked()}">
+                android:onClick="@{()->fragment.onClientListClicked()}"
+                android:text="@string/clients_label" />
 
-                <TextView
-                    android:id="@+id/textView1939"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/clients_label"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/suppliersReport"
-                style="@style/Theme.Blint.CardView"
+                style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="?actionBarSize"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{()->fragment.onSuppliersListClicked()}">
-
-                <TextView
-                    android:id="@+id/textView1919"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/suppliers_label"
-                    tools:layout_editor_absoluteX="122dp"
-                    tools:layout_editor_absoluteY="16dp" />
-
-            </com.google.android.material.card.MaterialCardView>
+                android:onClick="@{()->fragment.onSuppliersListClicked()}"
+                android:text="@string/suppliers_label" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

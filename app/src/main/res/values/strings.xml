@@ -447,7 +447,9 @@
     <!-- Reports -->
     <string name="generate_reports">Generate reports</string>
     <string name="generate_lists">Generate lists</string>
-    <string name="product_records_report">Product stock movements</string>
+    <string name="product_records_report">Products stock movements</string>
+    <string name="clients_records_report">Clients stock movements</string>
+    <string name="suppliers_records_report">Suppliers stock movements</string>
     <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your business and this may take a few seconds.</string>
     <string name="generating_report_title">Generating report..</string>
     <string name="report_list_suppliers">suppliers_list_%1$s</string>

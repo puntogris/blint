@@ -429,6 +429,8 @@
     <string name="generate_reports">Generar informes</string>
     <string name="generate_lists">Generar listas</string>
     <string name="product_records_report">Movimientos por producto</string>
+    <string name="clients_records_report">Moviemientos por cliente</string>
+    <string name="suppliers_records_report">Movimientos por proveedor</string>
     <string name="generate_reports_alert">* Ten en cuenta que para generar informes debemos analizar toda la información de tu negocio y esto puede llevar varios segundos.</string>
     <string name="generating_report_title">Generando informe…</string>
     <string name="report_list_suppliers">proveedores_lista_%1$s</string>
