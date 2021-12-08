@@ -42,19 +42,14 @@ interface RecordsDao {
     suspend fun getSuppliersRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', -:days) AND datetime('now', 'localtime') ORDER BY traderName")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now', 'localtime') ORDER BY traderName")
     suspend fun getClientsRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and date(timestamp, 'unixepoch','localtime') BETWEEN datetime('now', -:days) AND datetime('now', 'localtime') ORDER BY traderName")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now', 'localtime') ORDER BY traderName")
     suspend fun getSuppliersRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND date(timestamp, 'unixepoch','localtime') >= datetime('now', -:days) ORDER BY timestamp ASC LIMIT 1")
-    suspend fun getProductsRecordsTimeFrame(productId: String, days: Int): Record
-
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE  datetime(timestamp) >= datetime('now', '-1 days') ORDER BY timestamp ASC")
-    suspend fun test(): Record
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productId = :productId AND datetime(timestamp) >= datetime('now',  '-'|| :days || ' days') ORDER BY timestamp ASC LIMIT 1")
+    suspend fun getProductsRecordsTimeFrame(productId: String, days: Int): Record?
 }

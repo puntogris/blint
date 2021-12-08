@@ -41,10 +41,10 @@ class UserRepositoryImpl(
                 if (business.isNotEmpty()) {
                     appDatabase.businessDao.updateBusinessesOwnerUid(user.uid)
                     appDatabase.usersDao.updateCurrentBusiness(business.first().businessId)
-                    sharedPreferences.setShowNewUserScreen(true)
+                    sharedPreferences.setShowNewUserScreen(false)
                     SyncAccount.Success.HasBusiness
                 } else {
-                    sharedPreferences.setShowNewUserScreen(false)
+                    sharedPreferences.setShowNewUserScreen(true)
                     SyncAccount.Success.BusinessNotFound
                 }.also {
                     sharedPreferences.setShowLoginScreen(false)

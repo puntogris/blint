@@ -1,7 +1,9 @@
 package com.puntogris.blint.feature_store.data.data_source.remote
 
+import com.google.firebase.Timestamp
 import com.puntogris.blint.BuildConfig
 import com.puntogris.blint.common.data.data_source.FirebaseClients
+import com.puntogris.blint.feature_store.data.data_source.toFirestoreUser
 import com.puntogris.blint.feature_store.data.data_source.toUserEntity
 import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.model.Ticket
@@ -14,7 +16,6 @@ class FirebaseUserApi(
     private val firebase: FirebaseClients
 ) : UserServerApi {
 
-
     private fun getUserBackupStorageQuery() =
         firebase.storage.child("users/${firebase.currentUid}/backup_${BuildConfig.VERSION_NAME}")
 
@@ -24,13 +25,15 @@ class FirebaseUserApi(
             .collection(USERS_COLLECTION)
             .document(requireNotNull(firebase.currentUid))
 
-        val user = userRef
+        val snap = userRef
             .get()
             .await()
-            .toObject(User::class.java)
 
-        return user ?: authUser.toUserEntity().also {
-            userRef.set(it).await()
+        return if (snap.exists()) {
+            DocumentSnapshotUserDeserializer().deserialize(snap)
+        } else {
+            userRef.set(authUser.toFirestoreUser()).await()
+            authUser.toUserEntity()
         }
     }
 

@@ -2,6 +2,7 @@ package com.puntogris.blint.feature_store.data.data_source
 
 import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.feature_store.data.data_source.remote.FirestoreUser
 import com.puntogris.blint.feature_store.domain.model.AuthUser
 import com.puntogris.blint.feature_store.domain.model.Business
 import com.puntogris.blint.feature_store.domain.model.User
@@ -26,6 +27,15 @@ fun FirebaseUser.toAuthUser(): AuthUser {
 
 fun AuthUser.toUserEntity(): User {
     return User(
+        uid = uid,
+        name = name,
+        photoUrl = photoUrl,
+        email = email
+    )
+}
+
+fun AuthUser.toFirestoreUser(): FirestoreUser {
+    return FirestoreUser(
         uid = uid,
         name = name,
         photoUrl = photoUrl,
@@ -118,12 +128,12 @@ fun Product.toNewRecord(): NewRecord {
 fun Record.toProductRecordExcel(product: Product): ProductRecordExcel {
     return ProductRecordExcel(
         product.name,
-        if (type == "IN") {
+        if (type == Constants.IN) {
             product.historicInStock - (historicInStock - amount).absoluteValue
         } else {
             product.historicInStock - historicInStock
         },
-        if (type == "OUT") {
+        if (type == Constants.OUT) {
             product.historicOutStock - (historicOutStock - amount).absoluteValue
         } else {
             product.historicOutStock - historicOutStock

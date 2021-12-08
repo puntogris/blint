@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.data.repository
 
+import android.net.Uri
 import com.puntogris.blint.common.framework.ExcelDrawer
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.SimpleResult
@@ -7,6 +8,7 @@ import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
+import com.puntogris.blint.feature_store.data.data_source.toProductRecordExcel
 import com.puntogris.blint.feature_store.data.data_source.toTraderExcelList
 import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
 import com.puntogris.blint.feature_store.presentation.reports.ExportReport
@@ -73,25 +75,15 @@ class ReportsRepositoryImpl(
         SimpleResult.build {
             val products = productsDao.getProducts()
 
-            val records = products.map {
-                recordsDao.getProductsRecordsTimeFrame(
+            val records = products.mapNotNull {
+                val record = recordsDao.getProductsRecordsTimeFrame(
                     it.productId,
                     report.timeFrame.days
                 )
+                record?.toProductRecordExcel(it)
             }
-            println(records.filterNotNull())
 
-//            val records = productsDao.getProducts().map {
-//                println(it)
-//                val record = recordsDao.getProductsRecordsTimeFrame(
-//                    it.productId,
-//                    report.timeFrame.days
-//                )
-//                println("aaaaaaaaaaaaaaaaaaaa")
-//                record.toProductRecordExcel(it)
-//            }
-//            println(records)
-          //  excelDrawer.drawProductRecords(records, report.uri ?: Uri.parse(""))
+            excelDrawer.drawProductRecords(records, report.uri ?: Uri.parse(""))
         }
     }
 }

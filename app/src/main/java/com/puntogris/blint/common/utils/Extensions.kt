@@ -28,6 +28,7 @@ import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.Timestamp
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
@@ -44,6 +45,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import java.io.File
 import java.text.DecimalFormat
@@ -115,6 +117,12 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
     }
 }
 
+fun Calendar.toOffsetDateTime(): OffsetDateTime {
+    return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(this), DateTimeUtils.toZoneId(timeZone))
+}
+fun Timestamp.toOffsetDateTime(): OffsetDateTime {
+    return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(toDate()), ZoneId.systemDefault())
+}
 fun OffsetDateTime.getDateFormattedString(): String =
     format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 
@@ -277,6 +285,3 @@ fun File.getUriFromProvider(context: Context): Uri {
     )
 }
 
-fun Calendar.toOffsetDateTime(): OffsetDateTime {
-    return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(this), DateTimeUtils.toZoneId(timeZone))
-}
