@@ -20,7 +20,7 @@ class EventRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : EventRepository {
 
-    override fun getBusinessLastEventsDatabase() =
+    override fun getBusinessLastEvents() =
         eventsDao.getLastThreeEventsFlow().flowOn(dispatcher.io)
 
     override suspend fun saveEvent(event: Event): SimpleResult =

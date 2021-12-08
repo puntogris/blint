@@ -1,6 +1,5 @@
 package com.puntogris.blint.feature_store.presentation.main
 
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,11 +20,11 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = false)
-
         binding.fragment = this
-        binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        UiInterface.registerUi(showFab = false)
 
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
@@ -50,8 +49,6 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     private fun subscribeEventsUi(adapter: MainCalendarAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.lastEventsFlow.collect {
-                binding.emptyEventsGroupUi.isVisible = it.isEmpty()
-                binding.calendarEvents.isVisible = it.isNotEmpty()
                 adapter.updateList(it)
             }
         }

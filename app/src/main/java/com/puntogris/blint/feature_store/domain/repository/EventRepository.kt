@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventRepository {
 
-    fun getBusinessLastEventsDatabase(): Flow<List<Event>>
+    fun getBusinessLastEvents(): Flow<List<Event>>
 
     fun getEventsPaged(eventStatus: EventStatus): Flow<PagingData<Event>>
 

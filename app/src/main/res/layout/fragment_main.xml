@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.main.MainFragment" />
@@ -192,7 +194,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="?actionBarSize"
-                android:visibility="gone">
+                android:visibility="@{viewModel.lastEventsFlow.empty ? View.GONE : View.VISIBLE}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/calendarRecyclerView"
@@ -202,12 +204,6 @@
                     tools:layout_editor_absoluteX="157dp"
                     tools:layout_editor_absoluteY="65dp" />
             </com.google.android.material.card.MaterialCardView>
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/empty_events_group_ui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="addEventTitle,addEventButton" />
 
             <TextView
                 android:id="@+id/addEventTitle"
@@ -219,19 +215,19 @@
                 android:text="@string/empty_calendar_alert"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{viewModel.lastEventsFlow.empty ? View.VISIBLE : View.GONE}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addEventButton"
                 style="@style/Theme.Blint.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="?actionBarSize"
                 android:onClick="@{()->fragment.onAddEventClicked()}"
                 android:text="@string/action_add_event"
-                android:visibility="gone" />
+                android:visibility="@{viewModel.lastEventsFlow.empty ? View.VISIBLE : View.GONE}" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
