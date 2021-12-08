@@ -1,13 +1,15 @@
 package com.puntogris.blint.feature_store.presentation.product.categories
 
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentProductCategoryBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableCategory
 import dagger.hilt.android.AndroidEntryPoint

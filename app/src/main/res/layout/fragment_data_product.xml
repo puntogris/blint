@@ -41,7 +41,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/descriptionTitle"
                         style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                         android:text="@string/description" />
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/productNameLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/productBarcodeLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                         android:text="@{viewModel.currentProduct.product.barcode}" />
 
                     <TextView
-                        android:id="@+id/textView218"
+                        android:id="@+id/productDescriptionLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                         android:text="@{viewModel.currentProduct.product.description}" />
 
                     <TextView
-                        android:id="@+id/textView39"
+                        android:id="@+id/imageTitle"
                         style="@style/Theme.Blint.TextButton"
                         removeImageVisibility="@{viewModel.currentProduct.product.image}"
                         android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                         android:text="@string/image" />
 
                     <ImageView
-                        android:id="@+id/divider"
+                        android:id="@+id/productImage"
                         imageFullSize="@{viewModel.currentProduct.product.image}"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -135,7 +135,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView33"
+                        android:id="@+id/pricesAndStockTitle"
                         style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -146,16 +146,16 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView28"
+                        android:id="@+id/productBuyPriceLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/buy_price"
-                        app:layout_constraintEnd_toStartOf="@+id/textView30"
+                        app:layout_constraintEnd_toStartOf="@+id/productSellPriceLabel"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView30" />
+                        app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
                     <TextView
                         android:id="@+id/productBuyPrice"
@@ -164,10 +164,10 @@
                         android:layout_height="wrap_content"
                         android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                        app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel" />
 
                     <TextView
-                        android:id="@+id/textView30"
+                        android:id="@+id/productSellPriceLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -175,8 +175,8 @@
                         android:text="@string/sell_price"
                         app:layout_constraintEnd_toStartOf="@+id/textView34"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView28"
-                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                        app:layout_constraintStart_toEndOf="@+id/productBuyPriceLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/pricesAndStockTitle" />
 
                     <TextView
                         android:id="@+id/productSellPrice"
@@ -184,8 +184,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
-                        app:layout_constraintStart_toStartOf="@+id/textView30"
-                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                        app:layout_constraintStart_toStartOf="@+id/productSellPriceLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel" />
 
 
                     <TextView
@@ -196,8 +196,8 @@
                         android:text="@string/suggested_sell_price"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView30"
-                        app:layout_constraintTop_toTopOf="@+id/textView30" />
+                        app:layout_constraintStart_toEndOf="@+id/productSellPriceLabel"
+                        app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
                     <TextView
                         android:id="@+id/productSuggestedSellPrice"
@@ -209,7 +209,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
                     <TextView
-                        android:id="@+id/textView47"
+                        android:id="@+id/productStockLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                         android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+                        app:layout_constraintTop_toBottomOf="@+id/productStockLabel" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,7 +249,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView36"
+                        android:id="@+id/suppliersAndCategoriesTitle"
                         style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                         android:text="@string/suppliers_and_categories" />
 
                     <TextView
-                        android:id="@+id/textView362"
+                        android:id="@+id/suppliersTitle"
                         removeListVisibility="@{viewModel.currentProduct.suppliers}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                     </com.google.android.material.chip.ChipGroup>
 
                     <TextView
-                        android:id="@+id/textView361"
+                        android:id="@+id/categoriesTitle"
                         removeListVisibility="@{viewModel.currentProduct.categories}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -316,7 +316,7 @@
                     android:layout_marginEnd="24dp">
 
                     <TextView
-                        android:id="@+id/textView40"
+                        android:id="@+id/extrasTitle"
                         style="@style/Theme.Blint.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -327,17 +327,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView41"
+                        android:id="@+id/productSkuLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/sku"
-                        app:layout_constraintEnd_toStartOf="@+id/textView45"
+                        app:layout_constraintEnd_toStartOf="@+id/productSizeLabel"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+                        app:layout_constraintTop_toBottomOf="@+id/extrasTitle" />
 
                     <TextView
                         android:id="@+id/productInternalCode"
@@ -346,10 +346,10 @@
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.currentProduct.product.sku}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+                        app:layout_constraintTop_toBottomOf="@+id/productSkuLabel" />
 
                     <TextView
-                        android:id="@+id/textView43"
+                        android:id="@+id/productBrandLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -366,19 +366,19 @@
                         android:layout_marginBottom="24dp"
                         android:text="@{viewModel.currentProduct.product.brand}"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView43"
-                        app:layout_constraintTop_toBottomOf="@+id/textView43" />
+                        app:layout_constraintStart_toStartOf="@+id/productBrandLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/productBrandLabel" />
 
                     <TextView
-                        android:id="@+id/textView45"
+                        android:id="@+id/productSizeLabel"
                         style="@style/Theme.Blint.DataSubTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/product_observation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView41"
-                        app:layout_constraintTop_toTopOf="@+id/textView41" />
+                        app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
+                        app:layout_constraintTop_toTopOf="@+id/productSkuLabel" />
 
                     <TextView
                         android:id="@+id/productSize"
@@ -386,8 +386,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.currentProduct.product.size}"
-                        app:layout_constraintStart_toStartOf="@+id/textView45"
-                        app:layout_constraintTop_toBottomOf="@+id/textView45" />
+                        app:layout_constraintStart_toStartOf="@+id/productSizeLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/productSizeLabel" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

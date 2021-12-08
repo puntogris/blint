@@ -4,7 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.provider.ContactsContract.*
+import android.provider.ContactsContract.Contacts
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -72,7 +72,7 @@ class EditSupplierFragment :
             }
     }
 
-    private fun saveSupplier(){
+    private fun saveSupplier() {
         lifecycleScope.launch {
             when (viewModel.saveSupplier()) {
                 SimpleResult.Failure ->

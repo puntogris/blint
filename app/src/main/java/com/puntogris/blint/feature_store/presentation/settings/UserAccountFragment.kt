@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.databinding.FragmentUserAccountBinding
-import com.puntogris.blint.feature_store.presentation.settings.PreferencesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

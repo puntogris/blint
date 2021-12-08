@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.common.utils.ContactsHelper
+import com.puntogris.blint.common.framework.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Client
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

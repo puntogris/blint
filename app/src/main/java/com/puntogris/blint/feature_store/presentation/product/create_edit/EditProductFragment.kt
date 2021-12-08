@@ -1,15 +1,21 @@
 package com.puntogris.blint.feature_store.presentation.product.create_edit
 
 import android.Manifest
+import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.getInt
+import com.puntogris.blint.common.utils.setImageFullSize
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditProductBinding
@@ -23,8 +29,8 @@ class EditProductFragment :
     BaseFragment<FragmentEditProductBinding>(R.layout.fragment_edit_product) {
 
     private val viewModel: EditProductViewModel by viewModels()
-    lateinit var scannerLauncher: ActivityResultLauncher<String>
-    private lateinit var getContent: ActivityResultLauncher<String>
+    private lateinit var scannerLauncher: ActivityResultLauncher<String>
+    private lateinit var getContent: ActivityResultLauncher<Array<String>>
 
     override fun initializeViews() {
         binding.fragment = this
@@ -54,7 +60,6 @@ class EditProductFragment :
                         SimpleResult.Failure -> R.string.snack_create_product_success
                         SimpleResult.Success -> {
                             findNavController().navigateUp()
-
                             R.string.snack_create_product_error
                         }
                     }
@@ -95,8 +100,13 @@ class EditProductFragment :
     }
 
     private fun setupGalleryLauncher() {
-        getContent = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        getContent = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
+            requireContext().contentResolver.takePersistableUriPermission(
+                it,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
             viewModel.updateProductImage(it.toString())
+            binding.descriptionLayout.productImage.setImageFullSize(it.toString())
         }
     }
 
@@ -105,7 +115,7 @@ class EditProductFragment :
     }
 
     fun onAddImageButtonClicked() {
-        getContent.launch("image/*")
+        getContent.launch(arrayOf("image/*"))
     }
 
     fun onRemoveImageButtonClicked() {

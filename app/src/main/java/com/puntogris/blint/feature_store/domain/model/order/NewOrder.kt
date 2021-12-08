@@ -57,5 +57,5 @@ fun NewOrder.updateOrderTotalValue() {
 }
 
 fun NewOrder.areRecordsValid(): Boolean {
-    return newRecords.isNotEmpty() && newRecords.all { it.amount > 0 && (type == Constants.IN || it.amount <= it.currentStock)}
+    return newRecords.isNotEmpty() && newRecords.all { it.amount > 0 && (type == Constants.IN || it.amount <= it.currentStock) }
 }

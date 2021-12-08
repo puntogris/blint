@@ -9,7 +9,6 @@ import com.puntogris.blint.feature_store.domain.model.product.Product
 class SearchProductViewHolder private constructor(val binding: ProductSearchVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(product: Product, clickListener: (Product) -> Unit) {
-        println(product)
         binding.product = product
         binding.root.setOnClickListener { clickListener(product) }
         binding.executePendingBindings()

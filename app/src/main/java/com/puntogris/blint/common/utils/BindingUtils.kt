@@ -1,5 +1,7 @@
 package com.puntogris.blint.common.utils
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -8,6 +10,8 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.content.IntentCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -27,10 +31,13 @@ import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
+import java.io.File
+import java.io.FilePermission
 import java.util.*
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String) {
+
     if (image.isNotEmpty()) {
         GlideApp.with(context)
             .load(image)

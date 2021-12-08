@@ -5,8 +5,11 @@ import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -20,7 +23,9 @@ import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
+import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

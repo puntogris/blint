@@ -1,14 +1,12 @@
 package com.puntogris.blint.feature_store.presentation.business.manage
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Business
 import com.puntogris.blint.feature_store.domain.repository.BusinessRepository
 import com.puntogris.blint.feature_store.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 @HiltViewModel

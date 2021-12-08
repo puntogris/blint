@@ -1,9 +1,7 @@
 package com.puntogris.blint.feature_store.presentation.settings
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.feature_store.domain.model.User
 import com.puntogris.blint.feature_store.domain.repository.AuthRepository
 import com.puntogris.blint.feature_store.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

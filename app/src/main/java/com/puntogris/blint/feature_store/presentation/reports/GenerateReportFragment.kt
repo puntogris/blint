@@ -38,8 +38,7 @@ class GenerateReportFragment :
             if (it != null) {
                 viewModel.updateReportUri(it)
                 startReportGeneration()
-            }
-            else {
+            } else {
                 findNavController().navigateUp()
             }
         }

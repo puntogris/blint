@@ -2,7 +2,9 @@ package com.puntogris.blint.feature_store.data.data_source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.puntogris.blint.feature_store.domain.model.order.*
+import com.puntogris.blint.feature_store.domain.model.order.Order
+import com.puntogris.blint.feature_store.domain.model.order.OrderRecordCrossRef
+import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 
 @Dao
 interface OrdersDao {

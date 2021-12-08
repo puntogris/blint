@@ -409,8 +409,8 @@
     <string name="email_image">email</string>
     <string name="profile_image">profile</string>
     <string name="menu_item_image">image</string>
-    <string name="decrease_number_image">increase number</string>
-    <string name="increase_number_image">decrease number</string>
+    <string name="decrease_number_image">decrease number</string>
+    <string name="increase_number_image">increase number</string>
     <string name="top_window_bar_image">window border</string>
     <string name="scan_image">scan</string>
     <string name="edit_icon">edit</string>

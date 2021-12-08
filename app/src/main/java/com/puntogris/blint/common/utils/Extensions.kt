@@ -97,7 +97,8 @@ fun Fragment.hideKeyboard() {
 
 fun DialogFragment.hideKeyboard() {
     if (requireDialog().currentFocus != null) {
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(
             dialog!!.currentFocus!!.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS

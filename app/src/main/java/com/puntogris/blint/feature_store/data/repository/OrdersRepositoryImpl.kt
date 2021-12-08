@@ -54,6 +54,7 @@ class OrdersRepositoryImpl(
                         )
                     }
 
+
                     orderWithRecords.debt?.let {
                         if (it.traderType == Constants.CLIENT) {
                             businessDao.updateClientsDebt(it.amount)

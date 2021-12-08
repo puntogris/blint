@@ -10,15 +10,16 @@ import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val repository: ProductRepository,
-    savedStateHandle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
 
-    val currentProduct = savedStateHandle.getLiveData<ProductWithDetails>("productWithDetails")
+    val currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
@@ -27,5 +28,6 @@ class ProductViewModel @Inject constructor(
         repository.getProductRecordsPaged(it.product.productId)
     }.cachedIn(viewModelScope)
 
-    suspend fun deleteProductDatabase() = repository.deleteProduct(currentProduct.value.product.productId)
+    suspend fun deleteProductDatabase() =
+        repository.deleteProduct(currentProduct.value.product.productId)
 }

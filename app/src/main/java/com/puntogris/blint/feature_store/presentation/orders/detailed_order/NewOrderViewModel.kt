@@ -77,7 +77,7 @@ class NewOrderViewModel @Inject constructor(
         return orderRepository.saveOrder(_newOrder.value)
     }
 
-    fun updateOrderTotal(){
+    fun updateOrderTotal() {
         _newOrder.value = _newOrder.value.copy().apply {
             updateOrderTotalValue()
         }

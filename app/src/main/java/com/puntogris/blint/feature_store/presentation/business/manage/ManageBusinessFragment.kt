@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
 import com.puntogris.blint.feature_store.domain.model.Business
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +29,7 @@ class ManageBusinessFragment :
         setupBusinessAdapter()
     }
 
-    private fun setupBusinessAdapter(){
+    private fun setupBusinessAdapter() {
         ManageBusinessAdapter(
             { onBusinessClicked(it) },
             { onBusinessSelected(it) }
@@ -58,7 +56,7 @@ class ManageBusinessFragment :
 
     private fun onBusinessSelected(business: Business) {
         lifecycleScope.launch {
-            when(viewModel.updateCurrentBusiness(business)){
+            when (viewModel.updateCurrentBusiness(business)) {
                 SimpleResult.Failure -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }

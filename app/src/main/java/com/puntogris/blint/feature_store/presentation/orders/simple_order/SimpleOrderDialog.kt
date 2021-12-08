@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.orders.simple_order
 
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -20,8 +19,6 @@ import com.puntogris.blint.databinding.DialogSimpleOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import android.view.inputmethod.InputMethodManager
-import java.util.*
 
 @AndroidEntryPoint
 class SimpleOrderDialog : DialogFragment() {
@@ -76,7 +73,6 @@ class SimpleOrderDialog : DialogFragment() {
             }
         }
     }
-
 
 
     override fun onDismiss(dialog: DialogInterface) {

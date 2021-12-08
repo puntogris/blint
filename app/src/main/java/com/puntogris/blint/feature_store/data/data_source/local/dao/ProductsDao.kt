@@ -4,8 +4,10 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.feature_store.data.data_source.toProductCategoryCrossRef
 import com.puntogris.blint.feature_store.data.data_source.toProductSupplierCrossRef
-import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
-import com.puntogris.blint.feature_store.domain.model.product.*
+import com.puntogris.blint.feature_store.domain.model.product.Product
+import com.puntogris.blint.feature_store.domain.model.product.ProductCategoryCrossRef
+import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCrossRef
+import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 
 @Dao
 interface ProductsDao {

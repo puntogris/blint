@@ -6,11 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
-import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -50,8 +50,7 @@ class BusinessRepositoryImpl(
                 if (business.isEmpty()) {
                     sharedPreferences.setShowNewUserScreen(true)
                     DeleteBusiness.Success.NoBusiness
-                }
-                else DeleteBusiness.Success.HasBusiness
+                } else DeleteBusiness.Success.HasBusiness
             } catch (e: Exception) {
                 DeleteBusiness.Failure
             }

@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SupplierDataFragment :
     BaseFragment<FragmentSupplierDataBinding>(R.layout.fragment_supplier_data) {
 
-    private val viewModel: SupplierViewModel by viewModels(ownerProducer = {requireParentFragment()})
+    private val viewModel: SupplierViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
     private var permissionCode = 0

@@ -4,10 +4,10 @@ import android.content.Context
 import android.net.Uri
 import com.puntogris.blint.R
 import com.puntogris.blint.feature_store.domain.model.Client
-import com.puntogris.blint.feature_store.domain.model.excel.TraderRecordExcel
 import com.puntogris.blint.feature_store.domain.model.Supplier
-import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
+import com.puntogris.blint.feature_store.domain.model.excel.TraderRecordExcel
+import com.puntogris.blint.feature_store.domain.model.product.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -127,7 +127,7 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         context.writeToFile(uri, workbook)
     }
 
-    suspend fun drawClientsRecords(records: List<TraderRecordExcel>, uri: Uri){
+    suspend fun drawClientsRecords(records: List<TraderRecordExcel>, uri: Uri) {
         val sheet = workbook.createSheet("Clients")
         val row0 = sheet.createRow(0)
         row0.createCell(0).setCellValue("Client")

@@ -6,7 +6,10 @@ import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResult
-import com.puntogris.blint.feature_store.data.data_source.local.dao.*
+import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
@@ -21,11 +24,11 @@ class SupplierRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : SupplierRepository {
 
-    override suspend fun getSuppliers() = withContext(dispatcher.io){
+    override suspend fun getSuppliers() = withContext(dispatcher.io) {
         suppliersDao.getSuppliers()
     }
 
-    override suspend fun getSupplier(supplierId: String): Supplier = withContext(dispatcher.io){
+    override suspend fun getSupplier(supplierId: String): Supplier = withContext(dispatcher.io) {
         suppliersDao.getSupplier(supplierId)
     }
 

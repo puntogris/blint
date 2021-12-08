@@ -1,7 +1,8 @@
 package com.puntogris.blint.feature_store.presentation.client.manage
 
 import android.text.Editable
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.feature_store.domain.repository.ClientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

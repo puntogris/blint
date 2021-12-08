@@ -5,28 +5,28 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    savedStateHandle: SavedStateHandle
+    private val handle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _currentProduct = savedStateHandle.getLiveData<ProductWithDetails>("productWithDetails")
+    private val _currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
     val currentProduct: StateFlow<ProductWithDetails> = _currentProduct
 
-    suspend fun saveProduct(): SimpleResult = productRepository.saveProduct(currentProduct.value)
+    suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
 
     fun updateProductImage(image: String) {
         _currentProduct.value.product.image = image
@@ -84,3 +84,4 @@ class EditProductViewModel @Inject constructor(
         _currentProduct.value.product.size = editable.toString()
     }
 }
+

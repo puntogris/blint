@@ -6,8 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.*
@@ -29,7 +27,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.userAccountFragment)
         }
 
-        onPreferenceChange(Keys.THEME_PREF){
+        onPreferenceChange(Keys.THEME_PREF) {
             AppCompatDelegate.setDefaultNightMode(Integer.parseInt(it.toString()))
         }
 

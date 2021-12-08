@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.puntogris.blint.common.utils.ContactsHelper
+import com.puntogris.blint.common.framework.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,5 +37,6 @@ class SupplierViewModel @Inject constructor(
 
     suspend fun deleteSupplier() = repository.deleteSupplier(currentSupplier.value.supplierId)
 
-    fun getContactIntent(code: Int) = contactsHelper.getSaveContactIntent(currentSupplier.value, code)
+    fun getContactIntent(code: Int) =
+        contactsHelper.getSaveContactIntent(currentSupplier.value, code)
 }

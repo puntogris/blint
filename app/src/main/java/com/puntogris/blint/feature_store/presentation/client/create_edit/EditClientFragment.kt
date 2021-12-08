@@ -70,7 +70,7 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
             }
     }
 
-    private fun saveClient(){
+    private fun saveClient() {
         lifecycleScope.launch {
             when (viewModel.saveClient()) {
                 SimpleResult.Failure ->

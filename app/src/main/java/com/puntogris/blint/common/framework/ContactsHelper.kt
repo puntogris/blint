@@ -1,4 +1,4 @@
-package com.puntogris.blint.common.utils
+package com.puntogris.blint.common.framework
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract.*
 import android.provider.ContactsContract.CommonDataKinds.*
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.Client
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import dagger.hilt.android.qualifiers.ApplicationContext

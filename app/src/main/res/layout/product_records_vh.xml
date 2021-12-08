@@ -10,7 +10,6 @@
             type="com.puntogris.blint.feature_store.domain.model.order.Record" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
