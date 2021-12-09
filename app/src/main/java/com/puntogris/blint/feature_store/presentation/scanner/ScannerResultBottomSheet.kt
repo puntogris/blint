@@ -24,7 +24,7 @@ class ScannerResultBottomSheet :
     }
 
     fun onNavigateToProductClicked() {
-        val action = ScannerResultBottomSheetDirections.actionScannerResultDialogToProductFragment(
+        val action = ScannerResultBottomSheetDirections.actionGlobalProductFragment(
             viewModel.scannedProduct.value!!
         )
         findNavController().navigate(action)

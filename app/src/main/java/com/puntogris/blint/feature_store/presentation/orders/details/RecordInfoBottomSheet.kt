@@ -32,14 +32,14 @@ class RecordInfoBottomSheet :
             when (args.record.type) {
                 Constants.IN -> {
                     val action =
-                        RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToSupplierFragment(
+                        RecordInfoBottomSheetDirections.actionGlobalSupplierFragment(
                             supplierId = args.record.traderId
                         )
                     findNavController().navigate(action)
                 }
                 Constants.OUT -> {
                     val action =
-                        RecordInfoBottomSheetDirections.actionRecordInfoBottomSheetToClientFragment(
+                        RecordInfoBottomSheetDirections.actionGlobalClientFragment(
                             clientId = args.record.traderId
                         )
                     findNavController().navigate(action)

@@ -130,14 +130,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         when (viewModel.orderWithRecords.value.order.type) {
             "IN" -> {
                 val action =
-                    OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToSupplierFragment(
+                    OrderInfoBottomSheetDirections.actionGlobalSupplierFragment(
                         supplierId = viewModel.orderWithRecords.value.order.traderId
                     )
                 findNavController().navigate(action)
             }
             "OUT" -> {
                 val action =
-                    OrderInfoBottomSheetDirections.actionOrderInfoBottomSheetToClientFragment(
+                    OrderInfoBottomSheetDirections.actionGlobalClientFragment(
                         clientId = viewModel.orderWithRecords.value.order.traderId
                     )
                 findNavController().navigate(action)

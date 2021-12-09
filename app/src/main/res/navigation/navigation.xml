@@ -48,9 +48,6 @@
             android:id="@+id/action_clientFragment_to_editClientFragment"
             app:destination="@id/editClientFragment" />
         <action
-            android:id="@+id/action_clientFragment_to_recordInfoBottomSheet"
-            app:destination="@id/recordInfoBottomSheet" />
-        <action
             android:id="@+id/action_clientFragment_to_debtStatusFragment"
             app:destination="@id/debtStatusFragment" />
         <argument
@@ -72,9 +69,6 @@
             android:id="@+id/action_supplierFragment_to_editSupplierFragment"
             app:destination="@id/editSupplierFragment" />
         <action
-            android:id="@+id/action_supplierFragment_to_recordInfoBottomSheet"
-            app:destination="@id/recordInfoBottomSheet" />
-        <action
             android:id="@+id/action_supplierFragment_to_debtStatusFragment"
             app:destination="@id/debtStatusFragment" />
         <argument
@@ -87,26 +81,15 @@
         android:id="@+id/manageProductsFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.manage.ManageProductsFragment">
         <action
-            android:id="@+id/action_manageProductsFragment_to_productFragment"
-            app:destination="@id/productFragment" />
-        <action
             android:id="@+id/action_manageProductsFragment_to_scannerFragment"
             app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageSuppliersFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.supplier.manage.ManageSuppliersFragment">
-        <action
-            android:id="@+id/action_manageSuppliersFragment_to_supplierFragment"
-            app:destination="@id/supplierFragment" />
-    </fragment>
+        android:name="com.puntogris.blint.feature_store.presentation.supplier.manage.ManageSuppliersFragment"/>
     <fragment
         android:id="@+id/manageClientsFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.client.manage.ManageClientsFragment" >
-        <action
-            android:id="@+id/action_manageClientsFragment_to_clientFragment"
-            app:destination="@id/clientFragment" />
-    </fragment>
+        android:name="com.puntogris.blint.feature_store.presentation.client.manage.ManageClientsFragment" />
     <fragment
         android:id="@+id/productFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.details.ProductFragment"
@@ -117,12 +100,6 @@
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
-        <action
-            android:id="@+id/action_productFragment_to_recordInfoBottomSheet"
-            app:destination="@id/recordInfoBottomSheet" />
-        <action
-            android:id="@+id/action_productFragment_to_supplierFragment"
-            app:destination="@id/supplierFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -188,9 +165,6 @@
         <action
             android:id="@+id/action_scannerResultDialog_to_editProductFragment"
             app:destination="@id/editProductFragment" />
-        <action
-            android:id="@+id/action_scannerResultDialog_to_productFragment"
-            app:destination="@id/productFragment" />
     </dialog>
     <fragment
         android:id="@+id/aboutPreferences"
@@ -230,12 +204,6 @@
         <argument
             android:name="record"
             app:argType="com.puntogris.blint.feature_store.domain.model.order.Record" />
-        <action
-            android:id="@+id/action_recordInfoBottomSheet_to_supplierFragment"
-            app:destination="@id/supplierFragment" />
-        <action
-            android:id="@+id/action_recordInfoBottomSheet_to_clientFragment"
-            app:destination="@id/clientFragment" />
         <action
             android:id="@+id/action_recordInfoBottomSheet_to_orderFragment"
             app:destination="@id/orderFragment" />
@@ -367,14 +335,8 @@
             android:name="order"
             app:argType="com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords" />
         <action
-            android:id="@+id/action_orderInfoBottomSheet_to_supplierFragment"
-            app:destination="@id/supplierFragment" />
-        <action
             android:id="@+id/action_orderInfoBottomSheet_to_orderFragment"
             app:destination="@id/orderFragment" />
-        <action
-            android:id="@+id/action_orderInfoBottomSheet_to_clientFragment"
-            app:destination="@id/clientFragment" />
     </dialog>
     <fragment
         android:id="@+id/orderFragment"
@@ -501,4 +463,16 @@
                 app:destination="@id/generateReportFragment" />
         </fragment>
     </navigation>
+    <action
+        android:id="@+id/action_global_supplierFragment"
+        app:destination="@id/supplierFragment" />
+    <action
+        android:id="@+id/action_global_clientFragment"
+        app:destination="@id/clientFragment" />
+    <action
+        android:id="@+id/action_global_recordInfoBottomSheet"
+        app:destination="@id/recordInfoBottomSheet" />
+    <action
+        android:id="@+id/action_global_productFragment"
+        app:destination="@id/productFragment" />
 </navigation>

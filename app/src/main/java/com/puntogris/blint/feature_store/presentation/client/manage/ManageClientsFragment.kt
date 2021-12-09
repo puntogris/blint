@@ -49,7 +49,7 @@ class ManageClientsFragment :
     private fun onClientClickListener(client: Client) {
         hideKeyboard()
         val action =
-            ManageClientsFragmentDirections.actionManageClientsFragmentToClientFragment(client = client)
+            ManageClientsFragmentDirections.actionGlobalClientFragment(client = client)
         findNavController().navigate(action)
     }
 

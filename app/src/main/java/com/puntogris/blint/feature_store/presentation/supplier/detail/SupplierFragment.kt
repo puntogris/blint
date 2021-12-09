@@ -106,7 +106,7 @@ class SupplierFragment : BaseFragmentOptions<FragmentSupplierBinding>(R.layout.f
 
     fun navigateToInfoRecord(record: Record) {
         val action =
-            SupplierFragmentDirections.actionSupplierFragmentToRecordInfoBottomSheet(record)
+            SupplierFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }
 

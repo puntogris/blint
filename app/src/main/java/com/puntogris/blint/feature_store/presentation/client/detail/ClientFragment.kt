@@ -102,7 +102,7 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     }
 
     fun navigateToInfoRecord(record: Record) {
-        val action = ClientFragmentDirections.actionClientFragmentToRecordInfoBottomSheet(record)
+        val action = ClientFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
         findNavController().navigate(action)
     }
 

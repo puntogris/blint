@@ -30,7 +30,6 @@ class OrdersRepositoryImpl(
 
     override fun saveOrder(newOrder: NewOrder): Flow<RepoResult<Unit>> = flow {
         try {
-            println(newOrder.newRecords)
             emit(RepoResult.InProgress)
 
             if (!newOrder.areRecordsValid()) {
@@ -39,7 +38,6 @@ class OrdersRepositoryImpl(
 
             val business = appDatabase.businessDao.getCurrentBusiness()
             val orderWithRecords = newOrder.toOrderWithRecords(business)
-            println(orderWithRecords)
 
             val recordRefs = orderWithRecords.records.map {
                 OrderRecordCrossRef(orderWithRecords.order.orderId, it.recordId)

@@ -46,7 +46,7 @@ class ManageSuppliersFragment :
     private fun onSupplierClickListener(supplier: Supplier) {
         hideKeyboard()
         val action =
-            ManageSuppliersFragmentDirections.actionManageSuppliersFragmentToSupplierFragment(
+            ManageSuppliersFragmentDirections.actionGlobalSupplierFragment(
                 supplier = supplier
             )
         findNavController().navigate(action)

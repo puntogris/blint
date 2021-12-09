@@ -82,7 +82,7 @@ class ManageProductsFragment :
     private fun onProductShortClickListener(product: ProductWithDetails) {
         hideKeyboard()
         val action =
-            ManageProductsFragmentDirections.actionManageProductsFragmentToProductFragment(product)
+            ManageProductsFragmentDirections.actionGlobalProductFragment(product)
         findNavController().navigate(action)
     }
 
