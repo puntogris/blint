@@ -1,6 +1,5 @@
 package com.puntogris.blint.common.data.data_source
 
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -18,6 +17,4 @@ class FirebaseClients @Inject constructor() {
     val currentUid: String?
         get() = auth.uid
 
-    val currentUser: FirebaseUser?
-        get() = auth.currentUser
 }

@@ -10,7 +10,6 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.databinding.FragmentCreateEventBinding
-import com.puntogris.blint.feature_store.presentation.calendar.CalendarViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*

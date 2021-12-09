@@ -1,7 +1,5 @@
 package com.puntogris.blint.common.utils
 
-import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -10,8 +8,6 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import androidx.core.content.IntentCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -19,7 +15,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.firebase.Timestamp
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.Constants.INITIAL
@@ -32,8 +27,6 @@ import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import org.threeten.bp.OffsetDateTime
-import java.io.File
-import java.io.FilePermission
 import java.util.*
 
 @BindingAdapter("imageFullSize")

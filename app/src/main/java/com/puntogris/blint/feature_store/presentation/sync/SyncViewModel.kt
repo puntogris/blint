@@ -10,13 +10,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SyncViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val sharedPreferences: SharedPreferences,
     handle: SavedStateHandle
 ) : ViewModel() {
 
     private val authUser = SyncAccountFragmentArgs.fromSavedStateHandle(handle).authUser
 
     suspend fun syncAccount() = userRepository.syncUserAccount(authUser)
-
-    fun showWelcome() = sharedPreferences.showNewUserScreen()
 }
