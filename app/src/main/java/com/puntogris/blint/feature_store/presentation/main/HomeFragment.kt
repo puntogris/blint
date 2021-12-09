@@ -7,7 +7,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.databinding.FragmentMainBinding
+import com.puntogris.blint.databinding.FragmentHomeBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.model.MenuCard
 import com.rubensousa.decorator.GridSpanMarginDecoration
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_main) {
+class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -55,7 +55,7 @@ class MainFragment : BaseFragmentOptions<FragmentMainBinding>(R.layout.fragment_
     }
 
     private fun onCalendarEventClicked(event: Event) {
-        val action = MainFragmentDirections.actionMainFragmentToEventInfoBottomSheet(event)
+        val action = HomeFragmentDirections.actionMainFragmentToEventInfoBottomSheet(event)
         findNavController().navigate(action)
     }
 

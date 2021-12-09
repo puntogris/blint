@@ -51,6 +51,9 @@ interface ProductsDao {
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
 
+    @Query("UPDATE product SET historicInStock = :inStock, historicOutStock = :outStock WHERE productId = :id")
+    suspend fun updateProductHistoryStock(id: String, inStock: Int, outStock: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProductSupplierCrossRef(refs: List<ProductSupplierCrossRef>)
 

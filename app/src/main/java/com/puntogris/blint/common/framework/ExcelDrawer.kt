@@ -87,16 +87,12 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         row0.createCell(0).setCellValue(context.getString(R.string.product))
         row0.createCell(1).setCellValue(context.getString(R.string.in_entry))
         row0.createCell(2).setCellValue(context.getString(R.string.out_entry))
-        var numberOfRows = 0
 
-        records.sortedBy { it.name }
-        records.forEach {
-
-            numberOfRows += 1
-            val newRow = sheet.createRow(numberOfRows)
-            newRow.createCell(0).setCellValue(it.name)
-            newRow.createCell(1).setCellValue(it.historicInStock.toString())
-            newRow.createCell(2).setCellValue(it.historicOutStock.toString())
+        records.sortedBy { it.name }.forEachIndexed { index, record ->
+            val newRow = sheet.createRow(index + 1)
+            newRow.createCell(0).setCellValue(record.name)
+            newRow.createCell(1).setCellValue(record.historicInStock.toString())
+            newRow.createCell(2).setCellValue(record.historicOutStock.toString())
         }
         context.writeToFile(uri, workbook)
         workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
@@ -105,10 +101,11 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
     suspend fun drawSupplierRecords(records: List<TraderRecordExcel>, uri: Uri) {
         val sheet = workbook.createSheet(context.getString(R.string.suppliers_label))
         val row0 = sheet.createRow(0)
+        var numberOfRows = 0
+
         row0.createCell(0).setCellValue(context.getString(R.string.supplier_label))
         row0.createCell(1).setCellValue(context.getString(R.string.product_label))
         row0.createCell(2).setCellValue(context.getString(R.string.in_entry))
-        var numberOfRows = 0
 
         records.sortedBy { it.traderName }.forEach { supplier ->
             numberOfRows += 1
@@ -129,10 +126,10 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
     suspend fun drawClientsRecords(records: List<TraderRecordExcel>, uri: Uri) {
         val sheet = workbook.createSheet(context.getString(R.string.clients_label))
         val row0 = sheet.createRow(0)
+        var numberOfRows = 0
         row0.createCell(0).setCellValue(context.getString(R.string.client_label))
         row0.createCell(1).setCellValue(context.getString(R.string.product_label))
         row0.createCell(2).setCellValue(context.getString(R.string.out_entry))
-        var numberOfRows = 0
 
         records.sortedBy { it.traderName }.forEach { client ->
             numberOfRows += 1

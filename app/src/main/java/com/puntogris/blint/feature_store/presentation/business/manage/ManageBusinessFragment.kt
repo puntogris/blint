@@ -61,7 +61,7 @@ class ManageBusinessFragment :
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
                 SimpleResult.Success -> {
-                    findNavController().navigate(R.id.mainFragment)
+                    findNavController().navigate(R.id.homeFragment)
                     UiInterface.showSnackBar(getString(R.string.business_selected))
                 }
             }

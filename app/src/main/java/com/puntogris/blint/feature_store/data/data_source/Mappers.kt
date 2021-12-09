@@ -43,7 +43,7 @@ fun AuthUser.toFirestoreUser(): FirestoreUser {
     )
 }
 
-fun Product.toRecord(currentBusinessId: String): Record {
+fun Product.toInitialRecord(currentBusinessId: String): Record {
     return Record(
         type = Constants.INITIAL,
         amount = amount,
@@ -87,16 +87,17 @@ fun NewOrder.toOrderWithRecords(business: Business): OrderWithRecords {
                 amount = it.amount,
                 productName = it.productName,
                 productId = it.productId,
-                historicOutStock = it.historicalOutStock,
-                historicInStock = it.historicalInStock,
+                historicOutStock = if (type == Constants.OUT) it.historicalOutStock + it.amount else it.historicalOutStock,
+                historicInStock = when (type) {
+                    Constants.IN -> it.historicalInStock + it.amount
+                    Constants.INITIAL -> it.historicalInStock + it.amount
+                    else -> it.historicalInStock
+                },
                 businessId = business.businessId,
                 barcode = it.barcode,
                 productUnitPrice = it.productUnitPrice,
                 sku = it.sku,
-            ).also { record ->
-                if (record.type == Constants.IN) record.historicInStock += record.amount.absoluteValue
-                else record.historicOutStock += record.amount.absoluteValue
-            }
+            )
         },
         debt = newDebt?.let {
             Debt(
@@ -128,7 +129,7 @@ fun Product.toNewRecord(): NewRecord {
 fun Record.toProductRecordExcel(product: Product): ProductRecordExcel {
     return ProductRecordExcel(
         product.name,
-        if (type == Constants.IN) {
+        if (type == Constants.IN || type == Constants.INITIAL) {
             product.historicInStock - (historicInStock - amount).absoluteValue
         } else {
             product.historicInStock - historicInStock

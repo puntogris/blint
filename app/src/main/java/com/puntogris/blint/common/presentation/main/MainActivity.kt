@@ -124,7 +124,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     when {
                         viewModel.showLoginScreen() -> R.id.loginFragment
                         viewModel.showNewUserScreen() -> R.id.newUserFragment
-                        else -> R.id.mainFragment
+                        else -> R.id.homeFragment
                     }
                 )
             }
@@ -132,7 +132,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment,
+                R.id.homeFragment,
                 R.id.loginFragment,
                 R.id.syncAccountFragment,
                 R.id.newUserFragment,

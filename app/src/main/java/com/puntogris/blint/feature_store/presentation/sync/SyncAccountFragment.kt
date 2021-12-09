@@ -31,7 +31,7 @@ class SyncAccountFragment :
             when (viewModel.syncAccount()) {
                 is SyncAccount.Error -> onErrorSync()
                 SyncAccount.Success.BusinessNotFound -> onSuccessSync(R.id.newUserFragment)
-                SyncAccount.Success.HasBusiness -> onSuccessSync(R.id.mainFragment)
+                SyncAccount.Success.HasBusiness -> onSuccessSync(R.id.homeFragment)
             }
         }
     }

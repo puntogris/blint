@@ -50,7 +50,7 @@ class RegisterBusinessFragment :
                     is RepoResult.Success -> {
                         UiInterface.showSnackBar(getString(R.string.snack_created_business_success))
                         val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-                        findNavController().navigate(R.id.mainFragment, null, nav)
+                        findNavController().navigate(R.id.homeFragment, null, nav)
                     }
                     RepoResult.InProgress -> {
                         binding.continueButton.isEnabled = false

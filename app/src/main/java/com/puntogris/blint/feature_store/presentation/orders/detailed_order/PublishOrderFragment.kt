@@ -54,6 +54,6 @@ class PublishOrderFragment :
 
     fun navigateToHome() {
         val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-        findNavController().navigate(R.id.mainFragment, null, nav)
+        findNavController().navigate(R.id.homeFragment, null, nav)
     }
 }

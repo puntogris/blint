@@ -18,10 +18,6 @@ interface RecordsDao {
     fun getProductRecordsPaged(productId: String): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND productName LIKE :productName ORDER BY timestamp DESC")
-    fun getPagedSearch(productName: String): PagingSource<Int, Record>
-
-    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND traderId = :supplierId AND type = 'IN'")
     fun getSupplierRecords(supplierId: String): PagingSource<Int, Record>
 
@@ -34,19 +30,19 @@ interface RecordsDao {
     fun getAllRecordsPaged(): PagingSource<Int, Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 ORDER BY traderName")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != '' ORDER BY traderName")
     suspend fun getClientsRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'  AND type = 'IN' AND traderId != 0 ORDER BY traderName ")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'  AND type = 'IN' AND traderId != '' ORDER BY traderName ")
     suspend fun getSuppliersRecords(): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != 0 and datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now', 'localtime') ORDER BY traderName")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'OUT' AND traderId != '' AND datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now') ORDER BY traderName")
     suspend fun getClientsRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != 0 and datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now', 'localtime') ORDER BY traderName")
+    @Query("SELECT * FROM record INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND type = 'IN' AND traderId != '' AND datetime(timestamp) BETWEEN datetime('now',  '-'|| :days || ' days') AND datetime('now') ORDER BY traderName")
     suspend fun getSuppliersRecordsTimeframe(days: Int): List<Record>
 
     @RewriteQueriesToDropUnusedColumns

@@ -9,7 +9,7 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.main.MainFragment" />
+            type="com.puntogris.blint.feature_store.presentation.main.HomeFragment" />
 
         <variable
             name="viewModel"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".feature_store.presentation.main.MainFragment">
+            tools:context=".feature_store.presentation.main.HomeFragment">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"

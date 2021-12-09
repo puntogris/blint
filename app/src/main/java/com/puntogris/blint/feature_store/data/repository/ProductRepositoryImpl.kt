@@ -10,7 +10,7 @@ import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.feature_store.data.data_source.toRecord
+import com.puntogris.blint.feature_store.data.data_source.toInitialRecord
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
@@ -43,13 +43,12 @@ class ProductRepositoryImpl(
                 productsDao.insertProduct(productWithDetails)
 
                 if (productWithDetails.product.amount != 0) {
-                    val record = productWithDetails.product.toRecord(currentBusinessId)
+                    val record = productWithDetails.product.toInitialRecord(currentBusinessId)
                     recordsDao.insert(record)
                 }
 
                 SimpleResult.Success
             } catch (e: Exception) {
-                println(e.localizedMessage)
                 SimpleResult.Failure
             }
         }

@@ -82,7 +82,7 @@ class ReportsRepositoryImpl(
                 )
                 record?.toProductRecordExcel(it)
             }
-
+            println(records)
             excelDrawer.drawProductRecords(records, report.uri ?: Uri.parse(""))
         }
     }

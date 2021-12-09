@@ -53,7 +53,7 @@ class DeleteBusinessFragment :
                 }
                 DeleteBusiness.Success.HasBusiness -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))
-                    findNavController().navigate(R.id.mainFragment)
+                    findNavController().navigate(R.id.homeFragment)
                 }
                 DeleteBusiness.Success.NoBusiness -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))

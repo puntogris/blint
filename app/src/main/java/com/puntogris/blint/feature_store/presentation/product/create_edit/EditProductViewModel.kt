@@ -10,14 +10,15 @@ import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class EditProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val handle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
 
     private val _currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
@@ -69,7 +70,11 @@ class EditProductViewModel @Inject constructor(
     }
 
     fun updateProductAmount(editable: Editable) {
-        _currentProduct.value.product.amount = editable.toString().toIntOrNull() ?: 0
+        val newAmount = editable.toString().toIntOrNull() ?: 0
+        _currentProduct.value.product.apply {
+            amount = newAmount
+            historicInStock = newAmount
+        }
     }
 
     fun updateProductSku(editable: Editable) {
