@@ -17,206 +17,184 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="?actionBarSize"
-            android:orientation="vertical">
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Blint.CardView"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/clientInformationTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="@string/information"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp">
+            <TextView
+                android:id="@+id/textView29"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientInformationTitle" />
 
-                    <TextView
-                        android:id="@+id/textView27"
-                        style="@style/Theme.Blint.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/information"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/phoneButton"
+                style="@style/Theme.Blint.ImageButton"
+                android:contentDescription="@string/more_image"
+                android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
+                app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
+                app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
-                    <TextView
-                        android:id="@+id/textView29"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/name"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            <ImageButton
+                android:id="@+id/contactButton"
+                style="@style/Theme.Blint.ImageButton"
+                android:contentDescription="@string/open_contact_image"
+                android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
+                app:layout_constraintBottom_toBottomOf="@+id/clientName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView29"
+                app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
-                    <ImageButton
-                        android:id="@+id/phoneButton"
-                        style="@style/Theme.Blint.ImageButton"
-                        android:contentDescription="@string/more_image"
-                        android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
-                        app:layout_constraintBottom_toBottomOf="@+id/clientPhoneNumber"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
-                        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+            <TextView
+                android:id="@+id/clientName"
+                style="@style/Theme.Blint.DataTextView"
+                capitalizeWord="@{viewModel.currentClient.name}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
-                    <ImageButton
-                        android:id="@+id/contactButton"
-                        style="@style/Theme.Blint.ImageButton"
-                        android:contentDescription="@string/open_contact_image"
-                        android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
-                        app:layout_constraintBottom_toBottomOf="@+id/clientName"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView29"
-                        app:srcCompat="@drawable/ic_baseline_person_add_24" />
+            <TextView
+                android:id="@+id/loginProblemButton"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientName" />
 
-                    <TextView
-                        android:id="@+id/clientName"
-                        style="@style/Theme.Blint.DataTextView"
-                        capitalizeWord="@{viewModel.currentClient.name}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            <TextView
+                android:id="@+id/clientPhoneNumber"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentClient.phone}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginProblemButton" />
 
-                    <TextView
-                        android:id="@+id/loginProblemButton"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/phone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clientName" />
+            <TextView
+                android:id="@+id/clientEmailLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/e_mail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientPhoneNumber" />
 
-                    <TextView
-                        android:id="@+id/clientPhoneNumber"
-                        style="@style/Theme.Blint.DataTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentClient.phone}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/loginProblemButton" />
+            <ImageButton
+                android:id="@+id/emailButton"
+                style="@style/Theme.Blint.ImageButton"
+                android:contentDescription="@string/email_image"
+                android:onClick="@{()-> fragment.onEmailButtonClicked()}"
+                app:layout_constraintBottom_toBottomOf="@+id/clientEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
+                app:srcCompat="@drawable/ic_baseline_email_24" />
 
-                    <TextView
-                        android:id="@+id/textView44"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/e_mail"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clientPhoneNumber" />
+            <TextView
+                android:id="@+id/clientEmail"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentClient.email}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientEmailLabel" />
 
-                    <ImageButton
-                        android:id="@+id/emailButton"
-                        style="@style/Theme.Blint.ImageButton"
-                        android:contentDescription="@string/email_image"
-                        android:onClick="@{()-> fragment.onEmailButtonClicked()}"
-                        app:layout_constraintBottom_toBottomOf="@+id/clientEmail"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView44"
-                        app:srcCompat="@drawable/ic_baseline_email_24" />
+            <TextView
+                android:id="@+id/clientAddressLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientEmail" />
 
-                    <TextView
-                        android:id="@+id/clientEmail"
-                        style="@style/Theme.Blint.DataTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentClient.email}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView44" />
+            <TextView
+                android:id="@+id/clientAddress"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentClient.address}"
+                app:layout_constraintStart_toStartOf="@+id/clientAddressLabel"
+                app:layout_constraintTop_toBottomOf="@+id/clientAddressLabel" />
 
-                    <TextView
-                        android:id="@+id/textView48"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/address"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clientEmail" />
+            <TextView
+                android:id="@+id/clientExtrasTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="@string/extras"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientAddress" />
 
-                    <TextView
-                        android:id="@+id/clientAddress"
-                        style="@style/Theme.Blint.DataTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:text="@{viewModel.currentClient.address}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView48"
-                        app:layout_constraintTop_toBottomOf="@+id/textView48" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Theme.Blint.CardView"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/clientPaymentInfoLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="20dp">
+                android:text="@string/payment_information"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientExtrasTitle" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/clientPaymentInfo"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentClient.paymentInfo}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfoLabel" />
 
-                    <TextView
-                        android:id="@+id/textView50"
-                        style="@style/Theme.Blint.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/extras" />
+            <TextView
+                android:id="@+id/clientDiscountLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/discount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo" />
 
-                    <TextView
-                        android:id="@+id/textView51"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/payment_information" />
+            <TextView
+                android:id="@+id/clientDiscount"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="88dp"
+                android:text="@{String.valueOf(viewModel.currentClient.discount)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientDiscountLabel" />
 
-                    <TextView
-                        android:id="@+id/clientPaymentInfo"
-                        style="@style/Theme.Blint.DataTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.currentClient.paymentInfo}" />
-
-                    <TextView
-                        android:id="@+id/textView53"
-                        style="@style/Theme.Blint.DataSubTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/discount" />
-
-                    <TextView
-                        android:id="@+id/clientDiscount"
-                        style="@style/Theme.Blint.DataTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:text="@{String.valueOf(viewModel.currentClient.discount)}" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -1,10 +1,7 @@
 package com.puntogris.blint.common.utils
 
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -70,7 +67,7 @@ fun TextView.setRemoveListVisibility(list: List<Any>?) {
 }
 
 @BindingAdapter("removeListVisibility")
-fun CardView.setRemoveListVisibility(product: ProductWithDetails) {
+fun TextView.setRemoveListVisibility(product: ProductWithDetails) {
     if (product.categories.isNullOrEmpty() && product.suppliers.isNullOrEmpty()) gone() else visible()
 }
 
@@ -95,6 +92,7 @@ fun ImageView.setUserDataImage(image: String?) {
 @BindingAdapter("userCreationTimestamp")
 fun TextView.setDateFromFirebaseUser(user: User?) {
     if (user != null) {
+        //todo
       //  text = Date(user.createdAt.seconds).getDateFormattedString()
         text = user.createdAt.toString()
     }

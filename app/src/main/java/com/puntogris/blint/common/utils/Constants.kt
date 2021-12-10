@@ -15,6 +15,9 @@ object Constants {
     const val PROBLEM = "PROBLEM"
     const val SUGGESTION = "SUGGESTION"
 
+    //Account
+    const val BASIC_PLAN = "basic_plan"
+
     //Debt Type
     const val CLIENT_DEBT = 0
     const val SUPPLIER_DEBT = 1

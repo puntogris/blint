@@ -1,6 +1,7 @@
 package com.puntogris.blint.feature_store.data.data_source.remote
 
 import com.google.firebase.Timestamp
+import com.puntogris.blint.common.utils.Constants
 
 class FirestoreUser(
     val uid: String = "",
@@ -13,7 +14,7 @@ class FirestoreUser(
 
     val currentBusinessId: String = "",
 
-    val appTier: String = "BASIC",
+    val appTier: String = Constants.BASIC_PLAN,
 
     val createdAt: Timestamp = Timestamp.now()
 )
