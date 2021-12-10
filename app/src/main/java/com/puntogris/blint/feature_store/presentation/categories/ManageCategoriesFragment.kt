@@ -11,7 +11,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -66,8 +66,8 @@ class ManageCategoriesFragment :
     private fun onSaveCategory(name: String) {
         lifecycleScope.launch {
             val result = when (viewModel.saveCategory(name)) {
-                SimpleResult.Failure -> R.string.snack_category_create_error
-                SimpleResult.Success -> R.string.snack_category_create_success
+                is Resource.Error -> R.string.snack_category_create_error
+                is Resource.Success -> R.string.snack_category_create_success
             }
             UiInterface.showSnackBar(getString(result))
         }
@@ -76,8 +76,8 @@ class ManageCategoriesFragment :
     private fun onCategoryDeleted(name: String) {
         lifecycleScope.launch {
             val result = when (viewModel.deleteCategory(name)) {
-                SimpleResult.Failure -> R.string.snack_categories_delete_error
-                SimpleResult.Success -> R.string.snack_categories_delete_success
+                is Resource.Error -> R.string.snack_categories_delete_error
+                is Resource.Success -> R.string.snack_categories_delete_success
             }
             UiInterface.showSnackBar(getString(result))
         }

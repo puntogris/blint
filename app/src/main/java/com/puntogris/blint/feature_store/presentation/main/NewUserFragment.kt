@@ -2,6 +2,7 @@ package com.puntogris.blint.feature_store.presentation.main
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.maxkeppeler.sheets.info.InfoSheet
@@ -10,7 +11,8 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchWebBrowserIntent
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentNewUserBinding
 import com.puntogris.blint.feature_auth.presentation.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,12 +45,11 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     private fun onSignOutConfirmed() {
         lifecycleScope.launch {
             when (viewModel.signOut()) {
-                SimpleResult.Failure -> {
+                is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
-                SimpleResult.Success -> {
-                    val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-                    findNavController().navigate(R.id.loginFragment, null, nav)
+                is Resource.Success -> {
+                    findNavController().navigateAndClearStack(R.id.loginFragment)
                 }
             }
         }
@@ -62,3 +63,4 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         findNavController().navigate(R.id.registerBusinessFragment)
     }
 }
+

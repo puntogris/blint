@@ -14,7 +14,7 @@ import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getInt
 import com.puntogris.blint.common.utils.setImageFullSize
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.feature_store.domain.model.Category
@@ -55,8 +55,8 @@ class EditProductFragment :
             is StringValidator.Valid -> {
                 lifecycleScope.launch {
                     val result = when (viewModel.saveProduct()) {
-                        SimpleResult.Failure -> R.string.snack_create_product_success
-                        SimpleResult.Success -> {
+                        is Resource.Error -> R.string.snack_create_product_success
+                        is Resource.Success -> {
                             findNavController().navigateUp()
                             R.string.snack_create_product_error
                         }

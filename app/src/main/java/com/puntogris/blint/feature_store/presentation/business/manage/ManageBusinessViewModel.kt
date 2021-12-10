@@ -1,7 +1,7 @@
 package com.puntogris.blint.feature_store.presentation.business.manage
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.model.Business
 import com.puntogris.blint.feature_store.domain.repository.BusinessRepository
 import com.puntogris.blint.feature_store.domain.repository.UserRepository
@@ -28,7 +28,7 @@ class ManageBusinessViewModel @Inject constructor(
         }
     }
 
-    suspend fun updateCurrentBusiness(business: Business): SimpleResult {
+    suspend fun updateCurrentBusiness(business: Business): SimpleResource {
         return userRepository.updateCurrentBusiness(business.businessId)
     }
 }

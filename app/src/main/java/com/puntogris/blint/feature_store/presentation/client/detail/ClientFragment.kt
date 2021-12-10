@@ -15,7 +15,7 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentClientBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.toTrader
@@ -91,9 +91,9 @@ class ClientFragment : BaseFragmentOptions<FragmentClientBinding>(R.layout.fragm
     private fun onDeleteClientConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteClient()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_client_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_client_success))
                     findNavController().navigateUp()
                 }

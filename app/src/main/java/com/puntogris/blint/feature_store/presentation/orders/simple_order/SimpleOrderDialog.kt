@@ -14,7 +14,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.Constants.OUT
-import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.databinding.DialogSimpleOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -56,15 +56,15 @@ class SimpleOrderDialog : DialogFragment() {
         lifecycleScope.launch {
             viewModel.createSimpleOrder(amount).collect {
                 when (it) {
-                    is RepoResult.Error -> {
+                    is ProgressResource.Error -> {
                         UiInterface.showSnackBar(getString(it.error))
                         dismiss()
                     }
-                    is RepoResult.Success -> {
+                    is ProgressResource.Success -> {
                         UiInterface.showSnackBar(getString(R.string.snack_created_order_success))
                         dismiss()
                     }
-                    RepoResult.InProgress -> {
+                    ProgressResource.InProgress -> {
                         hideKeyboard()
                         binding.simpleOrderGroup.gone()
                         binding.progressBar.visible()

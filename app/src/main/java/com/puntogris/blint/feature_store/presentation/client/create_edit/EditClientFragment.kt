@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditClientBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,9 +73,9 @@ class EditClientFragment : BaseFragment<FragmentEditClientBinding>(R.layout.frag
     private fun saveClient() {
         lifecycleScope.launch {
             when (viewModel.saveClient()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_save_client_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_save_client_success))
                     findNavController().navigateUp()
                 }

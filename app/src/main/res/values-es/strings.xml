@@ -362,6 +362,8 @@
     <string name="rate_app_summary">Si te gusto Blint, puntuala en la Play Store</string>
     <string name="see_faq_title">Lee las F.A.Q</string>
     <string name="see_faq_summary">Revisa a las preguntas freguentes</string>
+    <string name="report_bug_feedback">Errores o sugerencias</string>
+    <string name="report_bug_feedback_summary">Reporta un error o decinos una sugerencia</string>
 
     <!-- Menus -->
     <string name="options">Opciones</string>
@@ -469,10 +471,18 @@
     <!-- Tickets -->
     <string name="send_ticket_label">Enviar ticket</string>
     <string name="action_close_keyboard">Cerrar teclado</string>
-    <string name="select_business_hint">Seleccionar negocio</string>
+    <string name="ticket_reason_hint">Seleccionar razón</string>
     <string name="select_business_alert">*Nos contactaremos a la brevedad.\nTambién puedes contactarnos en:\ncontact@blint.app</string>
     <string name="snack_ticket_missing_required_data">Selecciona una razon y dejanos tu mensaje.</string>
     <string name="snack_ticket_sent_success">Ticket enviado correctamente, nos contactaremos vía e-mail próximamente.</string>
+
+    <!-- Delete account -->
+    <string name="snack_account_email_not_matching">El email no coincide con el que esta en tu cuenta.</string>
+    <string name="delete_account_email_required_alert">Como mecanismo de precaución te pedimos que ingreses el email que usaste para registrarte o el de la cuenta de google en tu dispositivo.</string>
+    <string name="delete_account_danger_alert">Zona de peligro!! Esta acción eliminara tu cuenta, borrando toda tu informacion local, en la nube y cerrando tu sesión. Esto es irreversible.</string>
+    <string name="snack_account_deleted_success">Cuenta eliminada correctamente.</string>
+    <string name="action_delete_account">Eliminar cuenta</string>
+    <string name="account_email">email de la cuenta</string>
 
     <!-- Invoice -->
     <string name="share">Compartir</string>

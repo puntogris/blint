@@ -7,7 +7,7 @@ import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.Constants.OUT
 import com.puntogris.blint.common.utils.copyAndAdd
 import com.puntogris.blint.common.utils.copyAndRemove
-import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
 import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -73,7 +73,7 @@ class NewOrderViewModel @Inject constructor(
         )
     }
 
-    fun publishOrder(): Flow<RepoResult<Unit>> {
+    fun publishOrder(): Flow<ProgressResource<Unit>> {
         return orderRepository.saveOrder(_newOrder.value)
     }
 

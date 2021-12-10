@@ -5,7 +5,7 @@ import com.google.firebase.Timestamp
 import com.puntogris.blint.common.utils.UUIDGenerator
 
 @Keep
-class Ticket(
+data class Ticket(
     var ticketId: String = UUIDGenerator.randomUUID(),
     var message: String = "",
     var timestamp: Timestamp = Timestamp.now(),

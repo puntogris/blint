@@ -13,7 +13,7 @@ import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.types.EventStatus
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -58,9 +58,9 @@ class EventInfoBottomSheet :
     private fun onDeleteEventConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteEvent()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_event_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_event_success))
                     findNavController().navigateUp()
                 }
@@ -71,9 +71,9 @@ class EventInfoBottomSheet :
     fun onSaveButtonClicked() {
         lifecycleScope.launch {
             when (viewModel.updateEvent()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     setFragmentResult(
                         Keys.EVENT_FILTER_KEY,
                         bundleOf(Keys.EVENT_POSITION_KEY to args.position)

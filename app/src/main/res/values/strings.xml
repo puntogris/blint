@@ -370,6 +370,8 @@
     <string name="rate_app_summary">If you like Recap, rate it on the Google Play Store</string>
     <string name="see_faq_title">See the F.A.Q</string>
     <string name="see_faq_summary">Check out the frequently asked questions</string>
+    <string name="report_bug_feedback">Bugs or feedback</string>
+    <string name="report_bug_feedback_summary">Report a bug or give us feedback</string>
 
     <!-- Urls -->
     <string name="website_url" translatable="false">https://www.puntogris.com</string>
@@ -489,10 +491,18 @@
     <!-- Tickets -->
     <string name="send_ticket_label">Send ticket</string>
     <string name="action_close_keyboard">Close keyboard</string>
-    <string name="select_business_hint">Select business</string>
+    <string name="ticket_reason_hint">Select reason</string>
     <string name="select_business_alert">*We will be in touch shortly.\nYou can also reach us at :\ncontact@blint.app</string>
     <string name="snack_ticket_missing_required_data">Choose a ticket reason and type a message.</string>
     <string name="snack_ticket_sent_success">Ticket sent successfully, we will be in touch via e-mail soon.</string>
+
+    <!-- Delete account -->
+    <string name="snack_account_email_not_matching">The email doesn\'t match the one in your account.</string>
+    <string name="delete_account_email_required_alert">As a safety precaution we will ask you to type the email you used in your registration or google account in your phone.</string>
+    <string name="delete_account_danger_alert">Danger zone!! This will delete your account, erase all your data locally, in the cloud and log you out. This action is irreversible.</string>
+    <string name="snack_account_deleted_success">Account deleted successfully.</string>
+    <string name="action_delete_account">Delete account</string>
+    <string name="account_email">account email</string>
 
     <!-- Invoice -->
     <string name="share">Share</string>

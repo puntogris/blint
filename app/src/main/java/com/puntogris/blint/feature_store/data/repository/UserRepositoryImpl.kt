@@ -30,6 +30,8 @@ class UserRepositoryImpl(
 
     override fun getUserFlow() = appDatabase.usersDao.getUserFlow()
 
+    override suspend fun getUser() = appDatabase.usersDao.getUser()
+
     override suspend fun syncUserAccount(authUser: AuthUser): SyncAccount =
         withContext(dispatcher.io) {
             try {
@@ -55,25 +57,28 @@ class UserRepositoryImpl(
             }
         }
 
-    override suspend fun updateCurrentBusiness(businessId: String): SimpleResult =
+    override suspend fun updateCurrentBusiness(businessId: String): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 appDatabase.usersDao.updateCurrentBusiness(businessId)
             }
         }
 
 
-    override fun sendTicket(ticket: Ticket): Flow<SimpleRepoResult> = flow {
+    override fun sendTicket(ticket: Ticket): Flow<SimpleProgressResource> = flow {
         try {
-            emit(RepoResult.InProgress)
+            emit(ProgressResource.InProgress)
 
-            if (!ticket.isValid()) emit(RepoResult.Error(R.string.snack_ticket_missing_required_data))
+            if (!ticket.isValid()) {
+                emit(ProgressResource.Error(R.string.snack_ticket_missing_required_data))
+                return@flow
+            }
 
             userServerApi.sendTicket(ticket)
 
-            emit(RepoResult.Success(Unit))
+            emit(ProgressResource.Success(Unit))
         } catch (e: Exception) {
-            emit(RepoResult.Error(R.string.snack_error_connection_server_try_later))
+            emit(ProgressResource.Error(R.string.snack_error_connection_server_try_later))
         }
     }.flowOn(dispatcher.io)
 
@@ -136,4 +141,22 @@ class UserRepositoryImpl(
             emit(BackupState.Error(R.string.snack_error_connection_server_try_later))
         }
     }.flowOn(dispatcher.io)
+
+    override suspend fun deleteUserAccount(email: String): Flow<SimpleProgressResource> = flow {
+        try {
+            emit(ProgressResource.InProgress)
+
+            if (email != appDatabase.usersDao.getUser().email) {
+                emit(ProgressResource.Error(R.string.snack_account_email_not_matching))
+                return@flow
+            }
+
+            userServerApi.deleteAccount()
+            appDatabase.clearAllTables()
+
+            emit(ProgressResource.Success(Unit))
+        } catch (e: Exception) {
+            emit(ProgressResource.Error(R.string.snack_error_connection_server_try_later))
+        }
+    }
 }

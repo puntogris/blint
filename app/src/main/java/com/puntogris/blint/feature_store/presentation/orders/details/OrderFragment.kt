@@ -10,6 +10,7 @@ import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getUriFromProvider
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
@@ -128,14 +129,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
     fun onExternalChipClicked() {
         when (viewModel.orderWithRecords.value.order.type) {
-            "IN" -> {
+            Constants.IN -> {
                 val action =
                     OrderInfoBottomSheetDirections.actionGlobalSupplierFragment(
                         supplierId = viewModel.orderWithRecords.value.order.traderId
                     )
                 findNavController().navigate(action)
             }
-            "OUT" -> {
+            Constants.OUT -> {
                 val action =
                     OrderInfoBottomSheetDirections.actionGlobalClientFragment(
                         clientId = viewModel.orderWithRecords.value.order.traderId

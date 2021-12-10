@@ -10,7 +10,7 @@ import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getFloat
 import com.puntogris.blint.common.utils.getString
 import com.puntogris.blint.common.utils.hideKeyboard
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentModifyDebtBinding
 import com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,8 +54,8 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
             val amount = binding.debtAmount.getFloat()
 
             val result = when (viewModel.saveDebt(amountSign = sign, debtAmount = amount)) {
-                SimpleResult.Failure -> R.string.snack_update_debt_error
-                SimpleResult.Success -> {
+                is Resource.Error -> R.string.snack_update_debt_error
+                is Resource.Success -> {
                     findNavController().navigateUp()
                     R.string.snack_update_debt_success
                 }

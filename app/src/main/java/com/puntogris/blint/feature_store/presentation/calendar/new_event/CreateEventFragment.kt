@@ -8,7 +8,7 @@ import com.maxkeppeler.sheets.calendar.SelectionMode
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,9 +28,9 @@ class CreateEventFragment :
         UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
             lifecycleScope.launch {
                 when (viewModel.createEvent()) {
-                    SimpleResult.Failure ->
+                    is Resource.Error ->
                         UiInterface.showSnackBar(getString(R.string.snack_create_event_error))
-                    SimpleResult.Success -> {
+                    is Resource.Success -> {
                         UiInterface.showSnackBar(getString(R.string.snack_create_event_success))
                         findNavController().navigateUp()
                     }

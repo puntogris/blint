@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.DebtsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.order.Debt
@@ -19,9 +19,9 @@ class DebtsRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : DebtsRepository {
 
-    override suspend fun saveDebt(debt: Debt): SimpleResult =
+    override suspend fun saveDebt(debt: Debt): SimpleResource =
         withContext(dispatcher.io) {
-            try {
+            SimpleResource.build {
                 debt.businessId = usersDao.getCurrentBusinessId()
 
                 if (debt.traderType == Constants.CLIENT) {
@@ -32,10 +32,6 @@ class DebtsRepositoryImpl(
                     debtsDao.updateTotalSupplierDebt(debt.amount)
                 }
                 debtsDao.insert(debt)
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 

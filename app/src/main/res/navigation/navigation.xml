@@ -475,4 +475,7 @@
     <action
         android:id="@+id/action_global_productFragment"
         app:destination="@id/productFragment" />
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.settings.DeleteAccountFragment" />
 </navigation>

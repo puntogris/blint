@@ -5,8 +5,6 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.Timestamp
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UUIDGenerator
 import kotlinx.parcelize.Parcelize
 import org.threeten.bp.OffsetDateTime

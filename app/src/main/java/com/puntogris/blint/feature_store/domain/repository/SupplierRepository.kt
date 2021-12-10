@@ -1,7 +1,7 @@
 package com.puntogris.blint.feature_store.domain.repository
 
 import androidx.paging.PagingData
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import kotlinx.coroutines.flow.Flow
@@ -12,9 +12,9 @@ interface SupplierRepository {
 
     suspend fun getSupplier(supplierId: String): Supplier
 
-    suspend fun saveSupplier(supplier: Supplier): SimpleResult
+    suspend fun saveSupplier(supplier: Supplier): SimpleResource
 
-    suspend fun deleteSupplier(supplierId: String): SimpleResult
+    suspend fun deleteSupplier(supplierId: String): SimpleResource
 
     fun getSuppliersPaged(query: String? = null): Flow<PagingData<Supplier>>
 

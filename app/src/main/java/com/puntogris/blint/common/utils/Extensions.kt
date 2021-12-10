@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
@@ -120,9 +122,11 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
 fun Calendar.toOffsetDateTime(): OffsetDateTime {
     return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(this), DateTimeUtils.toZoneId(timeZone))
 }
+
 fun Timestamp.toOffsetDateTime(): OffsetDateTime {
     return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(toDate()), ZoneId.systemDefault())
 }
+
 fun OffsetDateTime.getDateFormattedString(): String =
     format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 
@@ -285,3 +289,7 @@ fun File.getUriFromProvider(context: Context): Uri {
     )
 }
 
+fun NavController.navigateAndClearStack(destination: Int){
+    val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
+    navigate(destination, null, nav)
+}

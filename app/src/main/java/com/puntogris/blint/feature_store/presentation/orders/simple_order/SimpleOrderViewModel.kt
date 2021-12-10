@@ -2,7 +2,7 @@ package com.puntogris.blint.feature_store.presentation.orders.simple_order
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.NewRecord
 import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
@@ -20,7 +20,7 @@ class SimpleOrderViewModel @Inject constructor(
 
     private var newOrder = NewOrder()
 
-    fun createSimpleOrder(amount: Int): Flow<RepoResult<Unit>> {
+    fun createSimpleOrder(amount: Int): Flow<ProgressResource<Unit>> {
 
         newOrder.newRecords = listOf(
             NewRecord(

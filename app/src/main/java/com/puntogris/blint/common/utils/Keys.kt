@@ -7,6 +7,7 @@ object Keys {
     const val TICKET_PREF = "ticket_preference"
     const val THEME_PREF = "theme_preference"
     const val ACCOUNT_PREF = "account_preference"
+    const val DELETE_ACCOUNT_PREF = "delete_account_preference"
     const val LICENSES_PREF = "licenses_preference"
     const val CREATE_BACKUP_PREF = "create_backup_preference"
     const val RESTORE_BACKUP_PREF = "restore_backup_preference"

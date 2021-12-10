@@ -2,8 +2,8 @@ package com.puntogris.blint.feature_store.data.repository
 
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.DeleteBusiness
-import com.puntogris.blint.common.utils.types.RepoResult
-import com.puntogris.blint.common.utils.types.SimpleRepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
+import com.puntogris.blint.common.utils.types.SimpleProgressResource
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
@@ -21,9 +21,9 @@ class BusinessRepositoryImpl(
     private val dispatcher: DispatcherProvider,
 ) : BusinessRepository {
 
-    override fun registerBusiness(businessName: String): Flow<SimpleRepoResult> = flow {
+    override fun registerBusiness(businessName: String): Flow<SimpleProgressResource> = flow {
         try {
-            emit(RepoResult.InProgress)
+            emit(ProgressResource.InProgress)
             val business = Business(
                 name = businessName,
                 ownerUid = usersDao.getUserId()
@@ -35,9 +35,9 @@ class BusinessRepositoryImpl(
 
             sharedPreferences.setShowNewUserScreen(false)
 
-            emit(RepoResult.Success(Unit))
+            emit(ProgressResource.Success(Unit))
         } catch (e: Exception) {
-            emit(RepoResult.Error())
+            emit(ProgressResource.Error())
         }
     }.flowOn(dispatcher.io)
 

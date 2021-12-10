@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.EventStatus
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.EventsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.Event
@@ -23,9 +23,9 @@ class EventRepositoryImpl(
     override fun getBusinessLastEvents() =
         eventsDao.getLastThreeEventsFlow().flowOn(dispatcher.io)
 
-    override suspend fun saveEvent(event: Event): SimpleResult =
+    override suspend fun saveEvent(event: Event): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 event.businessId = usersDao.getCurrentBusinessId()
                 eventsDao.insert(event)
             }
@@ -44,16 +44,16 @@ class EventRepositoryImpl(
         }.flow
     }
 
-    override suspend fun deleteEvent(eventId: String): SimpleResult =
+    override suspend fun deleteEvent(eventId: String): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 eventsDao.delete(eventId)
             }
         }
 
-    override suspend fun updateEventStatus(event: Event): SimpleResult =
+    override suspend fun updateEventStatus(event: Event): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 eventsDao.updateEvent(event)
             }
         }

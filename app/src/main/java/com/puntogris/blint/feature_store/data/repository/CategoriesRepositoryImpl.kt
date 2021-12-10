@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.CategoriesDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.Category
@@ -18,24 +18,18 @@ class CategoriesRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : CategoriesRepository {
 
-    override suspend fun deleteCategory(categoryName: String): SimpleResult =
+    override suspend fun deleteCategory(categoryName: String): SimpleResource =
         withContext(dispatcher.io) {
-            try {
+            SimpleResource.build {
                 categoriesDao.deleteCategory(categoryName)
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
-    override suspend fun saveCategory(category: Category): SimpleResult =
+    override suspend fun saveCategory(category: Category): SimpleResource =
         withContext(dispatcher.io) {
-            try {
+            SimpleResource.build {
                 category.businessId = usersDao.getCurrentBusinessId()
                 categoriesDao.insert(category)
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 

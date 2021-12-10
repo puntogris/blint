@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
@@ -24,8 +24,8 @@ class ClientRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : ClientRepository {
 
-    override suspend fun saveClient(client: Client): SimpleResult = withContext(dispatcher.io) {
-        SimpleResult.build {
+    override suspend fun saveClient(client: Client): SimpleResource = withContext(dispatcher.io) {
+        SimpleResource.build {
             if (client.clientId.isBlank()) {
                 client.clientId = UUIDGenerator.randomUUID()
                 client.businessId = usersDao.getCurrentBusinessId()
@@ -48,12 +48,13 @@ class ClientRepositoryImpl(
         }.flow
     }
 
-    override suspend fun deleteClient(clientId: String): SimpleResult = withContext(dispatcher.io) {
-        SimpleResult.build {
-            clientsDao.delete(clientId)
-            businessDao.decrementTotalClients()
+    override suspend fun deleteClient(clientId: String): SimpleResource =
+        withContext(dispatcher.io) {
+            SimpleResource.build {
+                clientsDao.delete(clientId)
+                businessDao.decrementTotalClients()
+            }
         }
-    }
 
     override suspend fun getClient(clientId: String): Client = withContext(dispatcher.io) {
         clientsDao.getClient(clientId)

@@ -8,6 +8,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.SyncAccount
 import com.puntogris.blint.databinding.FragmentSyncAccountBinding
@@ -46,7 +47,7 @@ class SyncAccountFragment :
             continueButton.isEnabled = true
             continueButton.setText(R.string.action_exit)
             continueButton.setOnClickListener {
-                navigateToDestination(R.id.loginFragment)
+                findNavController().navigateAndClearStack(R.id.loginFragment)
             }
         }
     }
@@ -60,13 +61,9 @@ class SyncAccountFragment :
 
             continueButton.isEnabled = true
             continueButton.setOnClickListener {
-                navigateToDestination(destination)
+                findNavController().navigateAndClearStack(destination)
             }
         }
     }
 
-    private fun navigateToDestination(destination: Int) {
-        val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
-        findNavController().navigate(destination, null, nav)
-    }
 }

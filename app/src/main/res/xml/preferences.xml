@@ -4,6 +4,7 @@
 
     <PreferenceCategory android:title="@string/account_label">
         <Preference
+            android:fragment="com.puntogris.blint.feature_store.presentation.settings.UserAccountFragment"
             android:key="account_preference"
             android:title="@string/my_account_pref"
             app:iconSpaceReserved="true" />
@@ -20,6 +21,11 @@
             android:title="@string/themes_pref"
             app:iconSpaceReserved="true" />
         <Preference
+            android:fragment="com.puntogris.blint.feature_store.presentation.settings.DeleteAccountFragment"
+            android:key="delete_account_preference"
+            android:title="@string/action_delete"
+            app:summary="@string/action_delete_account" />
+        <Preference
             android:key="sign_out_preference"
             android:title="@string/sign_out_pref" />
     </PreferenceCategory>
@@ -35,10 +41,11 @@
                 android:data="@string/account_label" />
         </Preference>
         <Preference
+            android:fragment="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
             android:key="ticket_preference"
-            android:title="Create a ticket"
+            android:title="@string/report_bug_feedback"
             app:iconSpaceReserved="true"
-            app:summary="Report a bug or give us feedback." />
+            app:summary="@string/report_bug_feedback_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="App">

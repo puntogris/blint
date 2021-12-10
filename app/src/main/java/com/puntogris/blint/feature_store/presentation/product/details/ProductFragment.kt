@@ -17,7 +17,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.addOnTabSelectedListener
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentProductBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import dagger.hilt.android.AndroidEntryPoint
@@ -102,9 +102,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private fun onDeleteProductConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteProductDatabase()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_success))
                     findNavController().navigateUp()
                 }

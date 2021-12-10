@@ -6,7 +6,7 @@ import com.google.firebase.messaging.RemoteMessage
 class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-       //TODO
+        //TODO
     }
 
     override fun onNewToken(token: String) {

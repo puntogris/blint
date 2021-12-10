@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
@@ -26,9 +26,9 @@ class ProductRepositoryImpl(
     private val dispatcher: DispatcherProvider
 ) : ProductRepository {
 
-    override suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult =
+    override suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResource =
         withContext(dispatcher.io) {
-            try {
+            SimpleResource.build {
                 val isNewProduct = productWithDetails.product.productId.isBlank()
                 val currentBusinessId = usersDao.getCurrentBusinessId()
 
@@ -46,10 +46,6 @@ class ProductRepositoryImpl(
                     val record = productWithDetails.product.toInitialRecord(currentBusinessId)
                     recordsDao.insert(record)
                 }
-
-                SimpleResult.Success
-            } catch (e: Exception) {
-                SimpleResult.Failure
             }
         }
 
@@ -66,9 +62,9 @@ class ProductRepositoryImpl(
         }.flow
     }
 
-    override suspend fun deleteProduct(productId: String): SimpleResult =
+    override suspend fun deleteProduct(productId: String): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 productsDao.delete(productId)
                 businessDao.decrementTotalProducts()
             }

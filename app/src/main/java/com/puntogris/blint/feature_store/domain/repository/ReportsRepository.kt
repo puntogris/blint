@@ -1,19 +1,19 @@
 package com.puntogris.blint.feature_store.domain.repository
 
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.presentation.reports.ExportReport
 
 interface ReportsRepository {
 
-    suspend fun generateClientListReport(report: ExportReport): SimpleResult
+    suspend fun generateClientListReport(report: ExportReport): SimpleResource
 
-    suspend fun generateSupplierListReport(report: ExportReport): SimpleResult
+    suspend fun generateSupplierListReport(report: ExportReport): SimpleResource
 
-    suspend fun generateProductListReport(report: ExportReport): SimpleResult
+    suspend fun generateProductListReport(report: ExportReport): SimpleResource
 
-    suspend fun generateClientsReport(report: ExportReport): SimpleResult
+    suspend fun generateClientsReport(report: ExportReport): SimpleResource
 
-    suspend fun generateSuppliersReport(report: ExportReport): SimpleResult
+    suspend fun generateSuppliersReport(report: ExportReport): SimpleResource
 
-    suspend fun generateProductsReport(report: ExportReport): SimpleResult
+    suspend fun generateProductsReport(report: ExportReport): SimpleResource
 }

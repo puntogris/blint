@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
-import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.databinding.FragmentSendTicketBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -20,6 +20,8 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
 
     override fun initializeViews() {
         binding.fragment = this
+        binding.viewModel = viewModel
+
         UiInterface.registerUi(
             showFab = true,
             fabIcon = R.drawable.ic_baseline_send_24,
@@ -48,14 +50,14 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
         lifecycleScope.launch {
             viewModel.sendTicket().collect {
                 when (it) {
-                    is RepoResult.Error -> {
+                    is ProgressResource.Error -> {
                         binding.progressBar.gone()
                         UiInterface.showSnackBar(getString(it.error))
                     }
-                    is RepoResult.InProgress -> {
+                    is ProgressResource.InProgress -> {
                         binding.progressBar.visible()
                     }
-                    is RepoResult.Success -> {
+                    is ProgressResource.Success -> {
                         findNavController().navigateUp()
                         UiInterface.showSnackBar(getString(R.string.snack_ticket_sent_success))
                     }

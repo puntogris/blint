@@ -56,6 +56,14 @@ class FirebaseUserApi(
         return getUserBackupStorageQuery().metadata.await().creationTimeMillis
     }
 
+    override suspend fun deleteAccount() {
+        firebase.firestore
+            .collection(USERS_COLLECTION)
+            .document(requireNotNull(firebase.currentUid))
+            .delete()
+            .await()
+    }
+
     companion object {
         const val USERS_COLLECTION = "users"
         const val TICKETS_COLLECTION = "tickets"

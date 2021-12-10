@@ -6,8 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.framework.ContactsHelper
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.Supplier
 import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

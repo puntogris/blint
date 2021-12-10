@@ -5,7 +5,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.getDateFormattedString
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
 import com.puntogris.blint.feature_store.presentation.reports.ReportType.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,7 @@ class ReportsViewModel @Inject constructor(
         report.uri = uri
     }
 
-    suspend fun generateReport(): SimpleResult {
+    suspend fun generateReport(): SimpleResource {
         return when (report.type) {
             ClientsList -> repository.generateClientListReport(report)
             ClientsRecords -> repository.generateClientsReport(report)
@@ -41,7 +42,7 @@ class ReportsViewModel @Inject constructor(
             ProductRecords -> repository.generateProductsReport(report)
             SuppliersList -> repository.generateSupplierListReport(report)
             SuppliersRecords -> repository.generateSuppliersReport(report)
-            else -> SimpleResult.Failure
+            else -> Resource.Error()
         }
     }
 

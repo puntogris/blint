@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditSupplierBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,9 +75,9 @@ class EditSupplierFragment :
     private fun saveSupplier() {
         lifecycleScope.launch {
             when (viewModel.saveSupplier()) {
-                SimpleResult.Failure ->
+                is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_save_supplier_error))
-                SimpleResult.Success -> {
+                is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_save_supplier_success))
                     findNavController().navigateUp()
                 }

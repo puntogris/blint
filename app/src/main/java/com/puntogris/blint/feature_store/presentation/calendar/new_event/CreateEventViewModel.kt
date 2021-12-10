@@ -3,7 +3,6 @@ package com.puntogris.blint.feature_store.presentation.calendar.new_event
 import android.text.Editable
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.common.utils.toOffsetDateTime
-import com.puntogris.blint.common.utils.types.SimpleResult
 import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.repository.EventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +19,7 @@ class CreateEventViewModel @Inject constructor(
     private val _event = MutableStateFlow(Event())
     val event = _event.asStateFlow()
 
-    suspend fun createEvent(): SimpleResult = repository.saveEvent(event.value)
+    suspend fun createEvent() = repository.saveEvent(event.value)
 
     fun setEventTitle(editable: Editable) {
         event.value.title = editable.toString()

@@ -3,7 +3,7 @@ package com.puntogris.blint.feature_store.data.repository
 import android.net.Uri
 import com.puntogris.blint.common.framework.ExcelDrawer
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
@@ -23,33 +23,33 @@ class ReportsRepositoryImpl(
     private val productsDao: ProductsDao
 ) : ReportsRepository {
 
-    override suspend fun generateClientListReport(report: ExportReport): SimpleResult =
+    override suspend fun generateClientListReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 val clients = clientsDao.getClients()
                 excelDrawer.drawClientList(clients, requireNotNull(report.uri))
             }
         }
 
-    override suspend fun generateSupplierListReport(report: ExportReport): SimpleResult =
+    override suspend fun generateSupplierListReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 val suppliers = suppliersDao.getSuppliers()
                 excelDrawer.drawSupplierList(suppliers, requireNotNull(report.uri))
             }
         }
 
-    override suspend fun generateProductListReport(report: ExportReport): SimpleResult =
+    override suspend fun generateProductListReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 val products = productsDao.getProducts()
                 excelDrawer.drawProductsList(products, requireNotNull(report.uri))
             }
         }
 
-    override suspend fun generateClientsReport(report: ExportReport): SimpleResult =
+    override suspend fun generateClientsReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 val records = when (report.timeFrame.days) {
                     0 -> recordsDao.getClientsRecords()
                     else -> recordsDao.getClientsRecordsTimeframe(report.timeFrame.days)
@@ -59,9 +59,9 @@ class ReportsRepositoryImpl(
             }
         }
 
-    override suspend fun generateSuppliersReport(report: ExportReport): SimpleResult =
+    override suspend fun generateSuppliersReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 val records = when (report.timeFrame.days) {
                     0 -> recordsDao.getSuppliersRecords()
                     else -> recordsDao.getSuppliersRecordsTimeframe(report.timeFrame.days)
@@ -72,7 +72,7 @@ class ReportsRepositoryImpl(
         }
 
     override suspend fun generateProductsReport(report: ExportReport) = withContext(dispatcher.io) {
-        SimpleResult.build {
+        SimpleResource.build {
             val products = productsDao.getProducts()
 
             val records = products.mapNotNull {

@@ -7,9 +7,16 @@ import java.io.File
 import java.io.FileInputStream
 
 interface UserServerApi {
+
     suspend fun getUserAccount(authUser: AuthUser): User
+
     suspend fun sendTicket(ticket: Ticket)
+
     suspend fun uploadBackup(stream: FileInputStream)
+
     suspend fun downloadBackup(file: File)
+
     suspend fun getLastBackupTimestamp(): Long
+
+    suspend fun deleteAccount()
 }

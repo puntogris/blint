@@ -56,6 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_create_order.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_data_product.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_delete_account.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />

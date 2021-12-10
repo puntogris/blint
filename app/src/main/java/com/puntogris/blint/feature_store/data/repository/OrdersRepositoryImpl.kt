@@ -9,7 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.framework.PDFCreator
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.RepoResult
+import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.toOrderWithRecords
@@ -28,12 +28,12 @@ class OrdersRepositoryImpl(
     private val pdfCreator: PDFCreator
 ) : OrdersRepository {
 
-    override fun saveOrder(newOrder: NewOrder): Flow<RepoResult<Unit>> = flow {
+    override fun saveOrder(newOrder: NewOrder): Flow<ProgressResource<Unit>> = flow {
         try {
-            emit(RepoResult.InProgress)
+            emit(ProgressResource.InProgress)
 
             if (!newOrder.areRecordsValid()) {
-                return@flow emit(RepoResult.Error(R.string.product_amount_empty))
+                return@flow emit(ProgressResource.Error(R.string.product_amount_empty))
             }
 
             val business = appDatabase.businessDao.getCurrentBusiness()
@@ -77,9 +77,9 @@ class OrdersRepositoryImpl(
                 }
             }
 
-            emit(RepoResult.Success(Unit))
+            emit(ProgressResource.Success(Unit))
         } catch (e: Exception) {
-            emit(RepoResult.Error(R.string.snack_order_created_error))
+            emit(ProgressResource.Error(R.string.snack_order_created_error))
         }
     }.flowOn(dispatcher.io)
 

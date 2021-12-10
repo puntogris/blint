@@ -1,11 +1,14 @@
 package com.puntogris.blint.common.utils
 
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -18,7 +21,6 @@ import com.puntogris.blint.common.utils.Constants.INITIAL
 import com.puntogris.blint.common.utils.Constants.PENDING
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Supplier
-import com.puntogris.blint.feature_store.domain.model.User
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -53,17 +55,17 @@ fun Button.setLoadImageButtonText(image: String) {
 
 @BindingAdapter("removeImageVisibility")
 fun Button.setRemoveImageVisibility(image: String) {
-    if (image.isNotEmpty()) visible() else gone()
+    isVisible = image.isNotEmpty()
 }
 
 @BindingAdapter("removeImageVisibility")
 fun TextView.setRemoveImageVisibility(image: String) {
-    if (image.isNotEmpty()) visible() else gone()
+    isVisible = image.isNotEmpty()
 }
 
 @BindingAdapter("removeListVisibility")
 fun TextView.setRemoveListVisibility(list: List<Any>?) {
-    if (list.isNullOrEmpty()) gone() else visible()
+    isVisible = !list.isNullOrEmpty()
 }
 
 @BindingAdapter("removeListVisibility")
@@ -90,11 +92,9 @@ fun ImageView.setUserDataImage(image: String?) {
 }
 
 @BindingAdapter("userCreationTimestamp")
-fun TextView.setDateFromFirebaseUser(user: User?) {
-    if (user != null) {
-        //todo
-      //  text = Date(user.createdAt.seconds).getDateFormattedString()
-        text = user.createdAt.toString()
+fun TextView.setDateFromFirebaseUser(date: OffsetDateTime?) {
+    if (date != null) {
+        text = date.getDateWithTimeFormattedString()
     }
 }
 
@@ -130,7 +130,7 @@ fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
 
 @BindingAdapter("dateFromTimestampWithTime")
 fun TextView.setDateFromTimestampWithTime(timestamp: OffsetDateTime) {
-   text = timestamp.getDateWithTimeFormattedString()
+    text = timestamp.getDateWithTimeFormattedString()
 }
 
 @BindingAdapter("amountSymbolWithRecordType")

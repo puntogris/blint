@@ -43,6 +43,7 @@ class CalendarViewModel @Inject constructor(
     suspend fun updateEvent() = repository.updateEventStatus(event.value)
 
     fun updateEventStatus(position: Int) {
-        event.value.status = if (position == 0) EventStatus.Pending.value else EventStatus.Finished.value
+        event.value.status =
+            if (position == 0) EventStatus.Pending.value else EventStatus.Finished.value
     }
 }

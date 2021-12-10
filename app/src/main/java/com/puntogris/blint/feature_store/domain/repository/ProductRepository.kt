@@ -1,7 +1,7 @@
 package com.puntogris.blint.feature_store.domain.repository
 
 import androidx.paging.PagingData
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
@@ -15,9 +15,9 @@ interface ProductRepository {
 
     suspend fun getProductsWithQuery(query: String): List<Product>
 
-    suspend fun deleteProduct(productId: String): SimpleResult
+    suspend fun deleteProduct(productId: String): SimpleResource
 
-    suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResult
+    suspend fun saveProduct(productWithDetails: ProductWithDetails): SimpleResource
 
     suspend fun getProductWithBarcode(barcode: String): ProductWithDetails?
 

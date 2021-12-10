@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
@@ -32,9 +32,9 @@ class SupplierRepositoryImpl(
         suppliersDao.getSupplier(supplierId)
     }
 
-    override suspend fun saveSupplier(supplier: Supplier): SimpleResult =
+    override suspend fun saveSupplier(supplier: Supplier): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
 
                 if (supplier.supplierId.isEmpty()) {
                     supplier.supplierId = UUIDGenerator.randomUUID()
@@ -59,9 +59,9 @@ class SupplierRepositoryImpl(
         }.flow
     }
 
-    override suspend fun deleteSupplier(supplierId: String): SimpleResult =
+    override suspend fun deleteSupplier(supplierId: String): SimpleResource =
         withContext(dispatcher.io) {
-            SimpleResult.build {
+            SimpleResource.build {
                 suppliersDao.delete(supplierId)
                 businessDao.decrementTotalSuppliers()
             }

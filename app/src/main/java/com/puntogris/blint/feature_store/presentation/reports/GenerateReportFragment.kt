@@ -11,7 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.playAnimationOnce
-import com.puntogris.blint.common.utils.types.SimpleResult
+import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -51,12 +51,12 @@ class GenerateReportFragment :
         lifecycleScope.launch {
             with(binding) {
                 when (viewModel.generateReport()) {
-                    SimpleResult.Failure -> {
+                    is Resource.Error -> {
                         reportTitle.setText(R.string.report_exported_error_title)
                         reportMessage.setText(R.string.report_exported_error_message)
                         animationView.playAnimationOnce(R.raw.error)
                     }
-                    SimpleResult.Success -> {
+                    is Resource.Success -> {
                         reportTitle.setText(R.string.report_exported_success_title)
                         reportMessage.setText(R.string.report_exported_success_message)
                         animationView.playAnimationOnce(R.raw.done)

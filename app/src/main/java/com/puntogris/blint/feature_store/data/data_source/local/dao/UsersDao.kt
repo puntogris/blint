@@ -19,6 +19,9 @@ interface UsersDao {
     @Query("SELECT * FROM user WHERE localReferenceId = '1'")
     fun getUserFlow(): Flow<User>
 
+    @Query("SELECT * FROM user WHERE localReferenceId = '1'")
+    suspend fun getUser(): User
+
     @Query("SELECT currentBusinessId FROM user WHERE localReferenceId = '1'")
     suspend fun getCurrentBusinessId(): String
 
