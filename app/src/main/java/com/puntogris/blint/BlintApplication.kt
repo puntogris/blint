@@ -17,6 +17,9 @@ class BlintApplication : Application() {
         super.onCreate()
 
         AndroidThreeTen.init(this)
-        AppCompatDelegate.setDefaultNightMode(sharedPreferences.getTheme())
+
+        sharedPreferences.getTheme()?.toIntOrNull()?.let {
+            AppCompatDelegate.setDefaultNightMode(it)
+        }
     }
 }

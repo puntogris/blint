@@ -12,12 +12,14 @@
             android:fragment="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"
             android:key="backupPreferences"
             android:title="@string/backup_pref"
+            app:summary="@string/backup_summary_pref"
             app:iconSpaceReserved="true" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/theme_names"
             android:entryValues="@array/theme_values"
             android:key="theme_preference"
+            app:useSimpleSummaryProvider="true"
             android:title="@string/themes_pref"
             app:iconSpaceReserved="true" />
         <Preference
@@ -38,7 +40,7 @@
             app:summary="@string/see_faq_summary">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="@string/account_label" />
+                android:data="@string/website_help_url" />
         </Preference>
         <Preference
             android:fragment="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"

@@ -4,15 +4,13 @@ object Keys {
 
     //Preferences
     const val SIGN_OUT_PREF = "sign_out_preference"
-    const val TICKET_PREF = "ticket_preference"
     const val THEME_PREF = "theme_preference"
-    const val ACCOUNT_PREF = "account_preference"
-    const val DELETE_ACCOUNT_PREF = "delete_account_preference"
     const val LICENSES_PREF = "licenses_preference"
     const val CREATE_BACKUP_PREF = "create_backup_preference"
     const val RESTORE_BACKUP_PREF = "restore_backup_preference"
     const val SHOW_NEW_USER_SCREEN_PREF = "show_new_user_screen_preference"
     const val SHOW_LOGIN_SCREEN_PREF = "show_login_screen_preference"
+    const val APP_VERSION_PREF = "app_version_preference"
 
 
     //Navigation

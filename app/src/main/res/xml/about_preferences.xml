@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         app:iconSpaceReserved="true"
@@ -46,4 +47,8 @@
         app:iconSpaceReserved="true"
         app:key="licenses_preference"
         app:title="@string/open_source_licenses" />
+    <Preference
+        app:iconSpaceReserved="true"
+        app:key="app_version_preference"
+        app:title="@string/app_version" />
 </PreferenceScreen>

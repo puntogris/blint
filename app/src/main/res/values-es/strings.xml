@@ -342,6 +342,7 @@
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
     <string name="backup_pref">Copias de seguridad</string>
+    <string name="backup_summary_pref">Administre sus copias de seguridad</string>
     <string name="themes_pref">Temas</string>
     <string name="help_pref">Ayuda</string>
     <string name="about_us_pref">Acerca de Blint</string>
@@ -520,12 +521,6 @@
         <item>Claro</item>
         <item>Oscuro</item>
         <item>Definido por el sistema</item>
-    </string-array>
-
-    <string-array name="theme_values">
-        <item>1</item>
-        <item>2</item>
-        <item>-1</item>
     </string-array>
 
     <string-array name="ticket_reasons">

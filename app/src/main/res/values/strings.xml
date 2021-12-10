@@ -347,6 +347,7 @@
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
     <string name="backup_pref">Backups</string>
+    <string name="backup_summary_pref">Manage your backups</string>
     <string name="themes_pref">Themes</string>
     <string name="help_pref">Help</string>
     <string name="about_us_pref">About Blint</string>
@@ -375,9 +376,10 @@
 
     <!-- Urls -->
     <string name="website_url" translatable="false">https://www.puntogris.com</string>
+    <string name="website_help_url" translatable="false">https://www.blint.app/help/</string>
     <string name="github_url" translatable="false">https://www.github.com/blint</string>
-    <string name="privacy_policy_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/PRIVACY.md</string>
-    <string name="terms_and_conditions_url" translatable="false">https://github.com/b-lam/Resplash/blob/master/TERMS.md</string>
+    <string name="privacy_policy_url" translatable="false">https://blint.app/information/privacy-policy.html</string>
+    <string name="terms_and_conditions_url" translatable="false">https://blint.app/information/terms-and-conditions.html</string>
     <string name="play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.puntogris.blint</string>
 
     <!-- Menus -->
@@ -544,6 +546,7 @@
         <item>Defined by system</item>
     </string-array>
 
+    <!-- This values are from AppCompatDelegate -->
     <string-array name="theme_values">
         <item>1</item>
         <item>2</item>

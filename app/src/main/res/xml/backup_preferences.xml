@@ -6,13 +6,13 @@
     <Preference
         android:title="@string/create_backup_pref"
         android:summary="@string/create_backup_summary_pref"
-        app:iconSpaceReserved="false"
+        app:iconSpaceReserved="true"
         android:key="create_backup_preference"/>
 
     <Preference
         android:title="@string/restore_backup_pref"
         android:summary="@string/restore_backup_summary_pref"
-        app:iconSpaceReserved="false"
+        app:iconSpaceReserved="true"
         android:key="restore_backup_preference"/>
 
 </PreferenceScreen>

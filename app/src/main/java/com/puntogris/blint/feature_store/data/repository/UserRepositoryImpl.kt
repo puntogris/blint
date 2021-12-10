@@ -158,5 +158,5 @@ class UserRepositoryImpl(
         } catch (e: Exception) {
             emit(ProgressResource.Error(R.string.snack_error_connection_server_try_later))
         }
-    }
+    }.flowOn(dispatcher.io)
 }

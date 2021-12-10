@@ -1,6 +1,9 @@
 package com.puntogris.blint.feature_store.presentation.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,9 +21,17 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
     private val viewModel: PreferencesViewModel by viewModels()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+         UiInterface.registerUi(showAppBar = false)
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        UiInterface.registerUi(showAppBar = false)
 
         onPreferenceChange(Keys.THEME_PREF) {
             AppCompatDelegate.setDefaultNightMode(Integer.parseInt(it.toString()))

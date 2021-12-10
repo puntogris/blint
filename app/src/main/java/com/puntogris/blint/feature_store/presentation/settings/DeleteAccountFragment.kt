@@ -2,7 +2,6 @@ package com.puntogris.blint.feature_store.presentation.settings
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.puntogris.blint.R
@@ -22,6 +21,7 @@ class DeleteAccountFragment :
     private val viewModel: DeleteAccountViewModel by viewModels()
 
     override fun initializeViews() {
+        UiInterface.registerUi(showAppBar = false)
         binding.fragment = this
     }
 
@@ -32,17 +32,11 @@ class DeleteAccountFragment :
                     when (it) {
                         is ProgressResource.Error -> {
                             deleteAccountAnimation.gone()
-                            deleteAccountAnimation.playAnimationOnce(R.raw.error)
                             emailField.visible()
-                            UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                            UiInterface.showSnackBar(getString(it.error))
                         }
                         ProgressResource.InProgress -> {
-                            deleteAccountAnimation.apply {
-                                visible()
-                                setAnimation(R.raw.loading)
-                                repeatCount = LottieDrawable.INFINITE
-                                playAnimation()
-                            }
+                            deleteAccountAnimation.playAnimationInfinite(R.raw.loading)
                             emailField.gone()
                         }
                         is ProgressResource.Success -> signOutUser()
