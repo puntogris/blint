@@ -31,7 +31,6 @@ import java.util.*
 
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String) {
-
     if (image.isNotEmpty()) {
         GlideApp.with(context)
             .load(image)

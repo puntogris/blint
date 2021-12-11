@@ -226,7 +226,7 @@
                     android:layout_gravity="center"
                     removeListVisibility="@{viewModel.currentProduct}"
                     android:layout_marginTop="24dp"
-                    android:text="@string/suppliers_and_categories"
+                    android:text="@string/traders_and_categories"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productAmount" />

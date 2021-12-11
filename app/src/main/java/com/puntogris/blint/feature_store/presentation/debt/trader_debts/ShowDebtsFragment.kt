@@ -6,7 +6,8 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.databinding.FragmentShowDebtsBinding
-import com.puntogris.blint.feature_store.domain.model.SimpleDebt
+import com.puntogris.blint.feature_store.domain.model.Trader
+import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -21,13 +22,13 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
     }
 
     private fun setupDebtsAdapter() {
-        SimpleDebtAdapter { onDebtClicked(it) }.let {
+        TraderDebtAdapter { onDebtClicked(it) }.let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }
     }
 
-    private fun subscribeUi(adapter: SimpleDebtAdapter) {
+    private fun subscribeUi(adapter: TraderDebtAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.debtsFlow.collect {
                 adapter.submitData(it)
@@ -35,7 +36,7 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
         }
     }
 
-    private fun onDebtClicked(simpleDebt: SimpleDebt) {
+    private fun onDebtClicked(trader: Trader) {
 
     }
 }

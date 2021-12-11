@@ -6,5 +6,5 @@ data class TraderQuery(
 )
 
 enum class TraderFilter(val type: String) {
-    All("ALL"), CLIENT("CLIENT"), SUPPLIER("SUPPLIER")
+    All("ALL"), CLIENT("CLIENT"), SUPPLIER("SUPPLIER"), OTHER("OTHER")
 }

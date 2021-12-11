@@ -60,6 +60,7 @@ class ManageTradersFragment :
                 R.id.filterAllTradersButton -> viewModel.setFilter(TraderFilter.All)
                 R.id.filterClientsTradersButton -> viewModel.setFilter(TraderFilter.CLIENT)
                 R.id.filterSuppliersTradersButton -> viewModel.setFilter(TraderFilter.SUPPLIER)
+                R.id.filterOtherTradersButton -> viewModel.setFilter(TraderFilter.OTHER)
             }
         }
     }

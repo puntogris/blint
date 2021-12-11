@@ -3,10 +3,10 @@ package com.puntogris.blint.feature_store.presentation.debt.debt_status
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.puntogris.blint.databinding.DebtVhBinding
+import com.puntogris.blint.databinding.DebtStatusVhBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 
-class DebtStatusViewHolder private constructor(val binding: DebtVhBinding) :
+class DebtStatusViewHolder private constructor(val binding: DebtStatusVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(debt: Debt, clickListener: (Debt) -> (Unit)) {
@@ -18,7 +18,7 @@ class DebtStatusViewHolder private constructor(val binding: DebtVhBinding) :
     companion object {
         fun from(parent: ViewGroup): DebtStatusViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = DebtVhBinding.inflate(layoutInflater, parent, false)
+            val binding = DebtStatusVhBinding.inflate(layoutInflater, parent, false)
             return DebtStatusViewHolder(binding)
         }
     }

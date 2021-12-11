@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="debt"
-            type="com.puntogris.blint.feature_store.domain.model.SimpleDebt" />
+            name="trader"
+            type="com.puntogris.blint.feature_store.domain.model.Trader" />
     </data>
 
 
@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/textView191"
-            capitalizeFirstChar="@{debt.name}"
+            capitalizeFirstChar="@{trader.name}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/textView192"
-            debtColor="@{debt.amount}"
+            debtColor="@{trader.debt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"

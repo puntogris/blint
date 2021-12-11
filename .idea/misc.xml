@@ -135,10 +135,12 @@
         <entry key="app/src/main/res/layout/order_table_item_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_trader_bottom_sheet.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_description_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/product_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_prices_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_records_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_scope_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_scope_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_search_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/product_supplier_vh.xml" value="0.234375" />

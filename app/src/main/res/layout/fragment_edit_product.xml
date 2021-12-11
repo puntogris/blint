@@ -28,7 +28,7 @@
 
             <include
                 android:id="@+id/descriptionLayout"
-                layout="@layout/product_description_expandable"
+                layout="@layout/product_description_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -37,7 +37,7 @@
 
             <include
                 android:id="@+id/pricesLayout"
-                layout="@layout/product_prices_expandable"
+                layout="@layout/product_prices_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -46,7 +46,7 @@
 
             <include
                 android:id="@+id/scopeLayout"
-                layout="@layout/product_scope_expandable"
+                layout="@layout/product_scope_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -55,7 +55,7 @@
 
             <include
                 android:id="@+id/productExtrasLayout"
-                layout="@layout/product_extras_expandable"
+                layout="@layout/product_extras_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

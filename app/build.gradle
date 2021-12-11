@@ -18,7 +18,7 @@ android {
         applicationId "com.puntogris.blint"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 26
+        versionCode 28
         versionName "1.1.4"
         resConfigs "en", "es"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
