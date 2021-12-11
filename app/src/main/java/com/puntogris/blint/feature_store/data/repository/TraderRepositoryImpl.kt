@@ -6,6 +6,8 @@ import androidx.paging.PagingData
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResource
+import com.puntogris.blint.common.utils.types.TraderFilter
+import com.puntogris.blint.common.utils.types.TraderQuery
 import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.TradersDao
@@ -27,15 +29,18 @@ class TraderRepositoryImpl(
     override suspend fun saveTrader(trader: Trader): SimpleResource = withContext(dispatcher.io) {
         SimpleResource.build {
             if (trader.traderId.isBlank()) {
-                trader.traderId = UUIDGenerator.randomUUID()
-                trader.businessId = usersDao.getCurrentBusinessId()
+
+                trader.apply {
+                    traderId = UUIDGenerator.randomUUID()
+                    businessId = usersDao.getCurrentBusinessId()
+                }
                 businessDao.incrementTotalTraders()
             }
             tradersDao.insert(trader)
         }
     }
 
-    override fun getTradersPaged(query: String?): Flow<PagingData<Trader>> {
+    override fun getTradersPaged(query: TraderQuery?): Flow<PagingData<Trader>> {
         return Pager(
             PagingConfig(
                 pageSize = 30,
@@ -43,8 +48,17 @@ class TraderRepositoryImpl(
                 maxSize = 200
             )
         ) {
-            if (query.isNullOrBlank()) tradersDao.getTradersPaged()
-            else tradersDao.getTradersSearchPaged(query)
+            when {
+                query == null -> {
+                    tradersDao.getTradersSearchPaged("")
+                }
+                query.filter == TraderFilter.All -> {
+                    tradersDao.getTradersSearchPaged(query.query)
+                }
+                else -> {
+                    tradersDao.getTradersSearchPaged(query.query, query.filter.type)
+                }
+            }
         }.flow
     }
 

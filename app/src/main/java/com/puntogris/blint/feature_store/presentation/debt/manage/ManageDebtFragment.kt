@@ -42,18 +42,6 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
     }
 
     private fun onDebtClicked(debt: Debt) {
-
-    }
-
-    fun showClientsDebts() {
-        val action =
-            ManageDebtFragmentDirections.actionManageDebtFragmentToShowDebtsFragment(CLIENT_DEBT)
-        findNavController().navigate(action)
-    }
-
-    fun showSuppliersDebts() {
-        val action =
-            ManageDebtFragmentDirections.actionManageDebtFragmentToShowDebtsFragment(SUPPLIER_DEBT)
-        findNavController().navigate(action)
+        //todo
     }
 }

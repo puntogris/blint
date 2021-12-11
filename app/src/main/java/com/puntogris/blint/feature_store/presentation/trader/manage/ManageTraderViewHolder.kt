@@ -3,10 +3,10 @@ package com.puntogris.blint.feature_store.presentation.trader.manage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.puntogris.blint.databinding.ManageClientsVhBinding
+import com.puntogris.blint.databinding.ManageTradersVhBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
 
-class ManageClientViewHolder private constructor(val binding: ManageClientsVhBinding) :
+class ManageTraderViewHolder private constructor(val binding: ManageTradersVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(trader: Trader, clickListener: (Trader) -> Unit) {
         binding.client = trader
@@ -15,10 +15,10 @@ class ManageClientViewHolder private constructor(val binding: ManageClientsVhBin
     }
 
     companion object {
-        fun from(parent: ViewGroup): ManageClientViewHolder {
+        fun from(parent: ViewGroup): ManageTraderViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ManageClientsVhBinding.inflate(layoutInflater, parent, false)
-            return ManageClientViewHolder(binding)
+            val binding = ManageTradersVhBinding.inflate(layoutInflater, parent, false)
+            return ManageTraderViewHolder(binding)
         }
     }
 }

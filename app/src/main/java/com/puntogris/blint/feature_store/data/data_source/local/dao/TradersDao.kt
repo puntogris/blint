@@ -28,6 +28,10 @@ interface TradersDao {
     @Query("SELECT * FROM trader c INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%')")
     fun getTradersSearchPaged(query: String): PagingSource<Int, Trader>
 
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM trader c INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%') and type = :filter")
+    fun getTradersSearchPaged(query: String, filter: String): PagingSource<Int, Trader>
+
     @Query("UPDATE trader SET debt = debt + :amount WHERE traderId = :traderId")
     suspend fun updateTraderDebt(traderId: String, amount: Float)
 }

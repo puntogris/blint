@@ -81,9 +81,10 @@
         <entry key="app/src/main/res/layout/fragment_manage_business.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
-        <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_manage_traders.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_modify_debt.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_new_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_operations.xml" value="0.234375" />

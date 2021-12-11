@@ -23,6 +23,7 @@ class ProductCategoryFragment :
 
     override fun initializeViews() {
         binding.fragment = this
+        binding.viewModel = viewModel
 
         UiInterface.registerUi(showAppBar = false, showToolbar = false)
 

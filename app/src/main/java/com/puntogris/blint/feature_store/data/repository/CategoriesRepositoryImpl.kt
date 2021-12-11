@@ -41,8 +41,7 @@ class CategoriesRepositoryImpl(
                 maxSize = 200
             )
         ) {
-            if (query.isNullOrBlank()) categoriesDao.getCategoriesPaged()
-            else categoriesDao.getCategoriesWithQueryPaged(query)
+            categoriesDao.getCategoriesWithQueryPaged(query ?: "")
         }.flow
     }
 }

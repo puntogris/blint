@@ -344,12 +344,7 @@
     <fragment
         android:id="@+id/showDebtsFragment"
         android:name="com.puntogris.blint.feature_store.presentation.debt.trader_debts.ShowDebtsFragment"
-        android:label="@string/debts_label">
-        <argument
-            android:name="debtType"
-            app:argType="integer" />
-    </fragment>
-
+        android:label="@string/debts_label"/>
     <action
         android:id="@+id/action_global_newOrderGraphNav"
         app:destination="@id/detailedOrderGraphNav">

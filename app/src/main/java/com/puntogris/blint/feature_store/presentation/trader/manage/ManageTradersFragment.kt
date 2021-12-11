@@ -10,6 +10,7 @@ import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.databinding.FragmentManageTradersBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.collect
 class ManageTradersFragment :
     BaseFragmentOptions<FragmentManageTradersBinding>(R.layout.fragment_manage_traders) {
 
-    private val viewModel: ManageClientsViewModel by viewModels()
+    private val viewModel: ManageTradersViewModel by viewModels()
 
     override fun initializeViews() {
         binding.viewModel = viewModel
@@ -29,6 +30,7 @@ class ManageTradersFragment :
             findNavController().navigate(R.id.editTraderFragment)
         }
         setupClientsAdapter()
+        setupTraderFilter()
     }
 
     private fun setupClientsAdapter() {
@@ -40,7 +42,7 @@ class ManageTradersFragment :
 
     private fun subscribeUi(adapter: ManageTradersAdapter) {
         launchAndRepeatWithViewLifecycle {
-            viewModel.clientsFlow.collect {
+            viewModel.tradersFlow.collect {
                 adapter.submitData(it)
             }
         }
@@ -50,6 +52,16 @@ class ManageTradersFragment :
         hideKeyboard()
         val action = ManageTradersFragmentDirections.actionGlobalTraderFragment(trader = trader)
         findNavController().navigate(action)
+    }
+
+    private fun setupTraderFilter(){
+        binding.tradersFilter.addOnButtonCheckedListener { _, checkedId, _ ->
+            when(checkedId){
+                R.id.filterAllTradersButton -> viewModel.setFilter(TraderFilter.All)
+                R.id.filterClientsTradersButton -> viewModel.setFilter(TraderFilter.CLIENT)
+                R.id.filterSuppliersTradersButton -> viewModel.setFilter(TraderFilter.SUPPLIER)
+            }
+        }
     }
 
     override fun setUpMenuOptions(menu: Menu) {

@@ -57,8 +57,7 @@ class ProductRepositoryImpl(
                 maxSize = 200
             )
         ) {
-            if (query.isNullOrEmpty()) productsDao.getProductsPaged()
-            else productsDao.getProductsWithQueryPaged(query)
+            productsDao.getProductsWithQueryPaged(query ?: "")
         }.flow
     }
 

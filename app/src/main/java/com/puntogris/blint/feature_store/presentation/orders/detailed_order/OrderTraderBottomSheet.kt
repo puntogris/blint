@@ -52,7 +52,7 @@ class OrderTraderBottomSheet :
     private fun subscribeUi() {
         ManageTradersAdapter { onTraderClicked(it) }.let { adapter ->
             binding.recyclerView.adapter = adapter
-            viewModel.clientsLiveData.observe(viewLifecycleOwner) {
+            viewModel.tradersLiveData.observe(viewLifecycleOwner) {
                 adapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }

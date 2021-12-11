@@ -8,6 +8,7 @@ import com.puntogris.blint.common.utils.Constants.OUT
 import com.puntogris.blint.common.utils.copyAndAdd
 import com.puntogris.blint.common.utils.copyAndRemove
 import com.puntogris.blint.common.utils.types.ProgressResource
+import com.puntogris.blint.common.utils.types.TraderQuery
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
 import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -40,8 +41,8 @@ class NewOrderViewModel @Inject constructor(
         }
     }
 
-    val clientsLiveData = Transformations.switchMap(query) {
-        traderRepository.getTradersPaged(it).asLiveData()
+    val tradersLiveData = Transformations.switchMap(query) {
+        traderRepository.getTradersPaged(TraderQuery(query = it)).asLiveData()
     }.cachedIn(viewModelScope)
 
     fun addProduct(product: Product) {
