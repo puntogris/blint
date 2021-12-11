@@ -25,14 +25,14 @@ class ShowDebtsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val debtType = savedStateHandle.getLiveData<String>("debtType")
+    private val debtType = savedStateHandle.getLiveData<Int>("debtType")
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), "")
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val debtsFlow = debtType.flatMapLatest { type ->
         when (type) {
-            Constants.CLIENT -> clientRepository.getClientsPaged().map { pagingData ->
+            Constants.CLIENT_DEBT -> clientRepository.getClientsPaged().map { pagingData ->
                 pagingData.map {
                     SimpleDebt(it.name, it.debt, it.clientId)
                 }

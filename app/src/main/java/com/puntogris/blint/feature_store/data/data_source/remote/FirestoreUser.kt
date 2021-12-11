@@ -1,8 +1,10 @@
 package com.puntogris.blint.feature_store.data.data_source.remote
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import com.puntogris.blint.common.utils.Constants
 
+@Keep
 class FirestoreUser(
     val uid: String = "",
 

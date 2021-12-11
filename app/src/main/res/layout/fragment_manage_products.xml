@@ -44,6 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:text="@{viewModel.query}"
                     android:afterTextChanged="@{viewModel::setQuery}"
                     android:autofillHints="@string/auto_fill_hint_search_product"
                     android:background="@null"
@@ -59,6 +60,7 @@
                     android:foreground="?actionBarItemBackground"
                     android:onClickListener="@{()->fragment.onScanBarcodeClicked()}"
                     android:padding="8dp"
+                    android:layout_marginEnd="16dp"
                     app:srcCompat="@drawable/ic_barcode"
                     tools:ignore="ContentDescription" />
             </LinearLayout>

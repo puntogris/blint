@@ -24,6 +24,7 @@ class BusinessRepositoryImpl(
     override fun registerBusiness(businessName: String): Flow<SimpleProgressResource> = flow {
         try {
             emit(ProgressResource.InProgress)
+
             val business = Business(
                 name = businessName,
                 ownerUid = usersDao.getUserId()
@@ -50,7 +51,10 @@ class BusinessRepositoryImpl(
                 if (business.isEmpty()) {
                     sharedPreferences.setShowNewUserScreen(true)
                     DeleteBusiness.Success.NoBusiness
-                } else DeleteBusiness.Success.HasBusiness
+                } else {
+                    usersDao.updateCurrentBusiness(business.first().businessId)
+                    DeleteBusiness.Success.HasBusiness
+                }
             } catch (e: Exception) {
                 DeleteBusiness.Failure
             }

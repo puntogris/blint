@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/divider_round_corners_horizontal.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/bottom_sheet_handle.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/bottom_sheet_round_corners.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_analytics.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_barcode.xml" value="0.16215277777777778" />
@@ -21,6 +22,7 @@
         <entry key="app/src/main/res/drawable/ic_shipped.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/selector.xml" value="0.17569444444444443" />
         <entry key="app/src/main/res/drawable/top_background_round_corners.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/a.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/account_item_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2454861111111111" />
         <entry key="app/src/main/res/layout/add_category_product_vh.xml" value="0.23402777777777778" />
@@ -66,6 +68,7 @@
         <entry key="app/src/main/res/layout/fragment_generate_join_code.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.23368055555555556" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.13368055555555555" />
         <entry key="app/src/main/res/layout/fragment_import_products.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_join_business.xml" value="0.234375" />

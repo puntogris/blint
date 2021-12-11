@@ -6,7 +6,7 @@ object Constants {
     const val LOCAL_DATABASE_NAME = "blint_database"
 
     //Urls
-    const val LOGIN_PROBLEMS_URL = "https://blint.app/help"
+    const val LOGIN_PROBLEMS_URL = "https://blint.app/help/#login"
     const val APP_LEARN_MORE_URL = "https://blint.app/help"
     const val BACKUP_LEARN_MORE_URL = "https://blint.app/help"
     const val WHATS_APP_PACKAGE = "com.whatsapp"

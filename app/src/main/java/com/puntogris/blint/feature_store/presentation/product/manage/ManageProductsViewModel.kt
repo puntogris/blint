@@ -8,6 +8,7 @@ import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
@@ -16,7 +17,8 @@ class ManageProductsViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    private val query = MutableStateFlow("")
+    private val _query = MutableStateFlow("")
+    val query = _query.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val productsFlow = query.flatMapLatest {
@@ -24,10 +26,10 @@ class ManageProductsViewModel @Inject constructor(
     }.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {
-        this.query.value = query
+        this._query.value = query
     }
 
     fun setQuery(editable: Editable) {
-        query.value = editable.toString()
+        _query.value = editable.toString()
     }
 }

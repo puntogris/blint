@@ -58,6 +58,7 @@ module.exports = {
           collapsable: false,
           children: [
             '',
+            'v1.1.4',
             'v1.0.0'
           ]
         }
