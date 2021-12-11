@@ -15,7 +15,7 @@
     <color name="color_on_secondary">#000000</color>
     <color name="color_on_background">#ffffff</color>
     <color name="color_on_surface">#ffffff</color>
-    <color name="color_on_surface_secondary">#D4D4D4</color>
+    <color name="color_on_surface_secondary">#2D2D2D</color>
     <color name="color_on_surface_disabled">#60ffffff</color>
     <color name="color_on_error">#000000</color>
 

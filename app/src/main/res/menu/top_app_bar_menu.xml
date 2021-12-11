@@ -82,14 +82,14 @@
     </item>
 
     <item
-        android:id="@+id/manageBusinessMenu"
+        android:id="@+id/manageStoreMenu"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"
         android:visible="false"
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/newBusiness"
+                android:id="@+id/newStore"
                 android:title="@string/new_store" />
         </menu>
     </item>

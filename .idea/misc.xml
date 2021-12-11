@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/drawable/ic_search_barcode_2.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_shipped.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_store.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/list_item_checkable_selector.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/selector.xml" value="0.17569444444444443" />
         <entry key="app/src/main/res/drawable/top_background_round_corners.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/a.xml" value="0.234375" />
@@ -97,6 +98,7 @@
         <entry key="app/src/main/res/layout/fragment_product_category.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product_records.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_product_supplier.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_product_trader.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_publish_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_records_tab.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
@@ -150,6 +152,7 @@
         <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/simple_debt_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/simple_order.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/store_item_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_seller_expandable.xml" value="0.234375" />

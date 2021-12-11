@@ -3,10 +3,10 @@ package com.puntogris.blint.feature_store.presentation.store.manage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.puntogris.blint.databinding.BusinessItemVhBinding
+import com.puntogris.blint.databinding.StoreItemVhBinding
 import com.puntogris.blint.feature_store.domain.model.Store
 
-class ManageStoreViewHolder private constructor(val binding: BusinessItemVhBinding) :
+class ManageStoreViewHolder private constructor(val binding: StoreItemVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -15,14 +15,14 @@ class ManageStoreViewHolder private constructor(val binding: BusinessItemVhBindi
         selectListener: (Store) -> Unit
     ) {
         with(binding) {
-            business = selectedStore
+            store = selectedStore
             root.setOnClickListener {
                 clickListener(selectedStore.store)
             }
-            selectBusinessButton.setOnClickListener {
+            selectStoreButton.setOnClickListener {
                 selectListener(selectedStore.store)
             }
-            selectBusinessButton.isEnabled = !selectedStore.isSelected
+            selectStoreButton.isEnabled = !selectedStore.isSelected
             executePendingBindings()
         }
     }
@@ -30,7 +30,7 @@ class ManageStoreViewHolder private constructor(val binding: BusinessItemVhBindi
     companion object {
         fun from(parent: ViewGroup): ManageStoreViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = BusinessItemVhBinding.inflate(layoutInflater, parent, false)
+            val binding = StoreItemVhBinding.inflate(layoutInflater, parent, false)
             return ManageStoreViewHolder(binding)
         }
     }

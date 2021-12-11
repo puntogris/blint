@@ -1,17 +1,23 @@
 package com.puntogris.blint.feature_store.presentation.product.traders
 
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
-import com.puntogris.blint.databinding.FragmentProductSupplierBinding
+import com.puntogris.blint.databinding.FragmentProductTraderBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableTrader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ProductTraderFragment :
-    BaseFragment<FragmentProductSupplierBinding>(R.layout.fragment_product_supplier) {
+    BaseFragment<FragmentProductTraderBinding>(R.layout.fragment_product_trader) {
 
     private val viewModel: ProductTraderViewModel by viewModels()
 
@@ -31,23 +37,23 @@ class ProductTraderFragment :
     }
 
     private fun subscribeUi(adapter: ProductTraderAdapter) {
-//        launchAndRepeatWithViewLifecycle {
-//            viewModel.suppliersFlow.collect {
-//                adapter.submitData(it)
-//            }
-//        }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.tradersFlows.collect {
+                adapter.submitData(it)
+            }
+        }
     }
 
     private fun onSupplierClicked(trader: CheckableTrader) {
-        //  viewModel.toggleSupplier(trader.supplier)
+        viewModel.toggleTrader(trader.trader)
     }
 
     fun onDoneButtonClicked() {
-//        setFragmentResult(
-//            Keys.EDIT_PRODUCT_KEY,
-//            bundleOf(Keys.PRODUCT_SUPPLIERS_KEY to viewModel.getFinalSuppliers())
-//        )
-//        findNavController().navigateUp()
+        setFragmentResult(
+            Keys.EDIT_PRODUCT_KEY,
+            bundleOf(Keys.PRODUCT_SUPPLIERS_KEY to viewModel.getFinalTraders())
+        )
+        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {

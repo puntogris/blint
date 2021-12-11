@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="business"
+            name="store"
             type="com.puntogris.blint.feature_store.presentation.store.manage.SelectedStore" />
     </data>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
                 style="@style/Theme.Blint.DataTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{business.store.name}"
+                android:text="@{store.store.name}"
                 app:layout_constraintStart_toStartOf="@+id/business_name_label"
                 app:layout_constraintTop_toBottomOf="@+id/business_name_label" />
 
@@ -39,14 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:contentDescription="@string/open_image"
-                app:layout_constraintBottom_toTopOf="@+id/select_business_button"
+                app:layout_constraintBottom_toTopOf="@+id/select_store_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
                 app:tint="@color/primaryColor" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/select_business_button"
+                android:id="@+id/select_store_button"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="0dp"
                 android:layout_marginHorizontal="16dp"

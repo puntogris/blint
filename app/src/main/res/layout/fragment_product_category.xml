@@ -83,7 +83,6 @@
             android:id="@+id/doneButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:onClickListener="@{()-> fragment.onDoneButtonClicked()}"
             android:text="@string/action_continue"

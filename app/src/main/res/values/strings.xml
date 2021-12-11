@@ -204,9 +204,6 @@
     <string name="filter_by_category">Filter by category</string>
     <string name="available_categories">Categories available</string>
     <string name="empty_product_categories_message">*There are no categories added, select from the categories shown below to add them.</string>
-    <string name="available_suppliers">Suppliers available</string>
-    <string name="empty_product_suppliers_message">*There are no suppliers added, select from the suppliers shown below to add them.</string>
-    <string name="snack_product_suppliers_limit">A product can not have more than %1$d suppliers</string>
     <string name="snack_product_categories_limit">A product can not have more than %1$d categories</string>
     <string name="go_to_product">Go to product</string>
     <string name="create_product_with_code">Create product with this barcode</string>
@@ -288,7 +285,7 @@
     <string name="decrease">Decrease</string>
     <string name="affected_products_price_change_alert">Select the fields of the products that you would like to affect with the new change.</string>
     <string name="product_categories">Product categories</string>
-    <string name="product_suppliers">Product suppliers</string>
+    <string name="product_trader">Product traders</string>
     <string name="connecting_with_servers">Connecting with the servers..</string>
     <string name="size">Size</string>
     <string name="traders_and_categories">Traders and categories</string>
@@ -303,7 +300,7 @@
     <string name="ask_order_type_title">What is the type of the order?</string>
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
-    <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your store well organized.</string>
+    <string name="order_type_alert">*It is not necessary to specify a trader but it is important to keep your store well organized.</string>
     <string name="amount">Amount</string>
     <string name="add_client">Add client</string>
     <string name="total_with_dots">Total:</string>
@@ -336,7 +333,6 @@
     <string name="snack_discount_error">Error with the discount amount.</string>
     <string name="order_fully_paid">Total: $%1$s, paid in full.</string>
     <string name="order_with_debt">Total: $%1$s, debt of $%2$s.</string>
-    <string name="supplier_or_client">Supplier/ Client:</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
 
     <!-- Preferences-->
@@ -422,7 +418,7 @@
     <string name="auto_fill_hint_search_product">productsSearch</string>
     <string name="auto_fill_hint_client_search">clientsSearch</string>
     <string name="auto_fill_hint_search_orders">searchOrders</string>
-    <string name="auto_fill_hint_search_supplier">supplierSearch</string>
+    <string name="auto_fill_hint_search_trader">traderSearch</string>
     <string name="auto_fill_hint_search_categories">categoriesSearch</string>
 
     <!-- Symbols, numbers -->
@@ -441,7 +437,6 @@
     <string name="snack_update_debt_error">An error occurred updating the debt.</string>
     <string name="snack_update_debt_success">Debt updated successfully.</string>
     <string name="snack_debt_value_error">The debt can not be more than the order total.</string>
-    <string name="snack_order_debt_trader_alert">A client/ supplier is needed to register a debt in the order.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generate reports</string>
@@ -450,12 +445,10 @@
     <string name="traders_records_report">Traders stock movements</string>
     <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your store and this may take a few seconds.</string>
     <string name="generating_report_title">Generating report..</string>
-    <string name="report_list_suppliers">suppliers_list_%1$s</string>
     <string name="report_list_clients">clients_list_%1$s</string>
     <string name="report_list_products">products_list_%1$s</string>
     <string name="report_products_records">product_records_%1$s</string>
-    <string name="report_suppliers_records">suppliers_records_%1$s</string>
-    <string name="report_clients_records">clients_records_%1$s</string>
+    <string name="report_traders_records">traders_records_%1$s</string>
     <string name="action_share_report">Share report</string>
     <string name="report_exported_success_title">Report exported successfully</string>
     <string name="report_exported_error_title">An error occurred exporting the report</string>

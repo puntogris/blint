@@ -15,12 +15,12 @@ class ManageStoreViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val currentBusiness = userRepository.getUserFlow()
+    private val currentStore = userRepository.getUserFlow()
 
-    private val userBusinesses = storeRepository.getStoresFlow()
+    private val userStores = storeRepository.getStoresFlow()
 
-    val businesses = combine(userBusinesses, currentBusiness) { businesses, current ->
-        businesses.map {
+    val storesFlow = combine(userStores, currentStore) { stores, current ->
+        stores.map {
             SelectedStore(
                 store = it,
                 isSelected = it.storeId == current.currentStoreId
@@ -28,8 +28,6 @@ class ManageStoreViewModel @Inject constructor(
         }
     }
 
-    suspend fun updateCurrentBusiness(store: Store): SimpleResource {
-        return userRepository.updateCurrentBusiness(store.storeId)
-    }
+    suspend fun updateCurrentStore(store: Store) =  userRepository.updateCurrentStore(store.storeId)
 }
 

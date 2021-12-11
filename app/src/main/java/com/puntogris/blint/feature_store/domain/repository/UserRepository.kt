@@ -13,7 +13,7 @@ interface UserRepository {
 
     suspend fun syncUserAccount(authUser: AuthUser): SyncAccount
 
-    suspend fun updateCurrentBusiness(businessId: String): SimpleResource
+    suspend fun updateCurrentStore(businessId: String): SimpleResource
 
     suspend fun deleteUserAccount(email: String): Flow<SimpleProgressResource>
 

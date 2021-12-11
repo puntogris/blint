@@ -57,7 +57,7 @@ class UserRepositoryImpl(
             }
         }
 
-    override suspend fun updateCurrentBusiness(businessId: String): SimpleResource =
+    override suspend fun updateCurrentStore(businessId: String): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
                 appDatabase.usersDao.updateCurrentStore(businessId)

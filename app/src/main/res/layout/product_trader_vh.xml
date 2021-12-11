@@ -16,7 +16,7 @@
 
         <CheckedTextView
             android:id="@+id/supplierView"
-            capitalizeFirstChar="@{trader.trader.traderId}"
+            capitalizeFirstChar="@{trader.trader.name}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_item_checkable_selector"
@@ -24,7 +24,6 @@
             android:foreground="?selectableItemBackground"
             android:padding="12dp"
             android:textSize="17sp"
-            app:drawableStartCompat="@drawable/ic_outline_local_shipping_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

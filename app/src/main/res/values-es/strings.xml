@@ -199,9 +199,6 @@
     <string name="filter_by_category">Filtrar por categoría</string>
     <string name="available_categories">Categorias disponibles</string>
     <string name="empty_product_categories_message">*Sin categorías, seleccione de las categorías mostradas abajo para agregarlas.</string>
-    <string name="available_suppliers">Proveedores disponibles</string>
-    <string name="empty_product_suppliers_message">*Sin proveedores, seleccione de los proveedores mostrados abajo para agregarlas.</string>
-    <string name="snack_product_suppliers_limit">Un producto no puede tener más de %1$d proveedores</string>
     <string name="snack_product_categories_limit">Un producto no puede tener más de %1$d categorías</string>
     <string name="go_to_product">Ir al producto</string>
     <string name="create_product_with_code">Crear producto con este código</string>
@@ -216,7 +213,7 @@
     <string name="snack_save_trader_error">Ocurrió un error al guardar el comerciante.</string>
     <string name="snack_save_trader_success">Se guardo el comerciante satisfactoriamente.</string>
     <string name="notes">Notas</string>
-    <string name="add_traders">Agregar proveedores</string>
+    <string name="add_traders">Agregar comerciantes</string>
     <string name="trader_type_client">Cliente</string>
     <string name="trader_type_supplier">Proveedor</string>
     <string name="trader_type_other">Otro</string>
@@ -283,7 +280,7 @@
     <string name="decrease">Disminución</string>
     <string name="affected_products_price_change_alert">Selecciona los campos de los productos que te gustaría afectar con el nuevo cambio.</string>
     <string name="product_categories">Categorias de este producto</string>
-    <string name="product_suppliers">Proveedores de este producto</string>
+    <string name="product_trader">Comerciantes de este producto</string>
     <string name="connecting_with_servers">Conectando con los servidores…</string>
     <string name="size">Tamaño</string>
     <string name="traders_and_categories">Comerciantes y categorías</string>
@@ -298,7 +295,7 @@
     <string name="ask_order_type_title">Elige el tipo de orden</string>
     <string name="in_entry">Entrada</string>
     <string name="out_entry">Salida</string>
-    <string name="order_type_alert">*No es necesario de que especifiques un cliente/ proveedor, pero es importante para organizar mejor tu negocio.</string>
+    <string name="order_type_alert">*No es necesario de que especifiques un comerciante, pero es importante para organizar mejor tu negocio.</string>
     <string name="amount">Cantidad</string>
     <string name="add_client">Agregar cliente</string>
     <string name="total_with_dots">Total:</string>
@@ -331,7 +328,6 @@
     <string name="snack_discount_error">Error con el valor del descuento.</string>
     <string name="order_fully_paid">Total: %1$s$, pago completo.</string>
     <string name="order_with_debt">Total: %1$s$, deuda de %2$s$.</string>
-    <string name="supplier_or_client">Proveedor/ Cliente:</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
 
     <!-- Preferences-->
@@ -406,7 +402,7 @@
     <string name="auto_fill_hint_search_product">busquedaProductos</string>
     <string name="auto_fill_hint_client_search">busquedaCliente</string>
     <string name="auto_fill_hint_search_orders">busquedaOrden</string>
-    <string name="auto_fill_hint_search_supplier">busquedaProveedor</string>
+    <string name="auto_fill_hint_search_trader">busquedaComerciante</string>
     <string name="auto_fill_hint_search_categories">busquedaCategorias</string>
 
     <!-- Symbols, numbers -->
@@ -421,7 +417,6 @@
     <string name="snack_update_debt_error">Ocurrió un error al actualizar la deuda.</string>
     <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
     <string name="snack_debt_value_error">La deuda no puede ser mayor que el total de la orden.</string>
-    <string name="snack_order_debt_trader_alert">Se necesita un cliente/ proveedor para la deuda.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generar informes</string>
@@ -430,12 +425,10 @@
     <string name="traders_records_report">Moviemientos por comerciante</string>
     <string name="generate_reports_alert">* Ten en cuenta que para generar informes debemos analizar toda la información de tu negocio y esto puede llevar varios segundos.</string>
     <string name="generating_report_title">Generando informe…</string>
-    <string name="report_list_suppliers">proveedores_lista_%1$s</string>
     <string name="report_list_clients">clientes_lista_%1$s</string>
     <string name="report_list_products">productos_lista_%1$s</string>
     <string name="report_products_records">productos_movimientos_%1$s</string>
-    <string name="report_suppliers_records">proveedores_movimientos_%1$s</string>
-    <string name="report_clients_records">clientes_movimientos_%1$s</string>
+    <string name="report_traders_records">comerciantes_movimientos_%1$s</string>
     <string name="action_share_report">Compartir informe</string>
     <string name="report_exported_success_title">Reporte exportado correctamente</string>
     <string name="report_exported_error_title">Ocurrió un error al exportar el informe</string>

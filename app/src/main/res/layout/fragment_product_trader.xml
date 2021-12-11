@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.feature_store.presentation.product.traders.ProductTraderViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.product.traders.ProductTraderFragment" />
@@ -37,13 +39,13 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!--                    android:afterTextChanged="@{viewModel::setQuery}"-->
                 <EditText
                     android:id="@+id/categoriesSearch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:autofillHints="@string/auto_fill_hint_search_supplier"
+                    android:afterTextChanged="@{viewModel::setQuery}"
+                    android:autofillHints="@string/auto_fill_hint_search_trader"
                     android:background="@null"
                     android:hint="@string/search"
                     android:imeOptions="flagNoExtractUi|actionDone"
@@ -59,7 +61,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/product_suppliers"
+            android:text="@string/product_trader"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,8 +85,7 @@
             android:id="@+id/doneButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="16dp"
             android:onClickListener="@{()-> fragment.onDoneButtonClicked()}"
             android:text="@string/action_continue"
             app:layout_constraintBottom_toBottomOf="parent"

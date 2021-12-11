@@ -11,7 +11,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.Resource
-import com.puntogris.blint.databinding.FragmentManageBusinessBinding
+import com.puntogris.blint.databinding.FragmentManageStoreBinding
 import com.puntogris.blint.feature_store.domain.model.Store
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -19,20 +19,20 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageStoreFragment :
-    BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
+    BaseFragmentOptions<FragmentManageStoreBinding>(R.layout.fragment_manage_store) {
 
     private val viewModel: ManageStoreViewModel by viewModels()
 
     override fun initializeViews() {
         UiInterface.registerUi()
         binding.fragment = this
-        setupBusinessAdapter()
+        setupStoreAdapter()
     }
 
-    private fun setupBusinessAdapter() {
+    private fun setupStoreAdapter() {
         ManageStoreAdapter(
-            { onBusinessClicked(it) },
-            { onBusinessSelected(it) }
+            { onStoreClicked(it) },
+            { onStoreSelected(it) }
         ).let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
@@ -41,22 +41,22 @@ class ManageStoreFragment :
 
     private fun subscribeUi(adapter: ManageStoreAdapter) {
         launchAndRepeatWithViewLifecycle {
-            viewModel.businesses.collect { data ->
+            viewModel.storesFlow.collect { data ->
                 adapter.submitList(data)
-                binding.businessEmptyUi.isVisible = data.isEmpty()
+                binding.storesEmptyUi.isVisible = data.isEmpty()
             }
         }
     }
 
-    private fun onBusinessClicked(store: Store) {
+    private fun onStoreClicked(store: Store) {
         val action =
             ManageStoreFragmentDirections.actionManageStoreFragmentToStoreFragment(store)
         findNavController().navigate(action)
     }
 
-    private fun onBusinessSelected(store: Store) {
+    private fun onStoreSelected(store: Store) {
         lifecycleScope.launch {
-            when (viewModel.updateCurrentBusiness(store)) {
+            when (viewModel.updateCurrentStore(store)) {
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
@@ -68,17 +68,17 @@ class ManageStoreFragment :
         }
     }
 
-    fun onCreateNewBusinessClicked() {
+    fun onCreateNewStoreClicked() {
         findNavController().navigate(R.id.registerStoreFragment)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.manageBusinessMenu).isVisible = true
+        menu.findItem(R.id.manageStoreMenu).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.newBusiness -> {
+            R.id.newStore -> {
                 findNavController().navigate(R.id.registerStoreFragment)
                 true
             }

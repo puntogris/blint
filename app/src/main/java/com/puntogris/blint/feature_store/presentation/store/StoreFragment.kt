@@ -7,11 +7,11 @@ import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.databinding.FragmentBusinessBinding
+import com.puntogris.blint.databinding.FragmentStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StoreFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.fragment_business) {
+class StoreFragment : BaseFragmentOptions<FragmentStoreBinding>(R.layout.fragment_store) {
 
     private val args: StoreFragmentArgs by navArgs()
 

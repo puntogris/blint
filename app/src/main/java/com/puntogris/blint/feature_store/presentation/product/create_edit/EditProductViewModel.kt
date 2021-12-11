@@ -24,10 +24,10 @@ class EditProductViewModel @Inject constructor(
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
-
     suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
 
     fun updateProductImage(image: String) {
+        currentProduct.value.product.image = image
         handle["productWithDetails"] = currentProduct.value.copy(
             product = currentProduct.value.product.copy(
                 image = image

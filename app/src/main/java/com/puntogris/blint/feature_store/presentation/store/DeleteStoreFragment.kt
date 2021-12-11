@@ -10,13 +10,13 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getString
 import com.puntogris.blint.common.utils.types.DeleteStore
-import com.puntogris.blint.databinding.FragmentDeleteBusinessBinding
+import com.puntogris.blint.databinding.FragmentDeleteStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DeleteStoreFragment :
-    BaseFragment<FragmentDeleteBusinessBinding>(R.layout.fragment_delete_business) {
+    BaseFragment<FragmentDeleteStoreBinding>(R.layout.fragment_delete_store) {
 
     private val args: DeleteStoreFragmentArgs by navArgs()
     private val viewModel: StoreViewModel by viewModels()
