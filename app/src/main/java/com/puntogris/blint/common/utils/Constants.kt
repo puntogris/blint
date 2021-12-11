@@ -18,17 +18,15 @@ object Constants {
     //Account
     const val BASIC_PLAN = "basic_plan"
 
-    //Debt Type
-    const val CLIENT_DEBT = 0
-    const val SUPPLIER_DEBT = 1
 
     //Calendar event status
     const val PENDING = "PENDING"
     const val FINISHED = "DENIED"
 
-    //Debt type
+    //Trader type
     const val CLIENT = "CLIENT"
     const val SUPPLIER = "SUPPLIER"
+    const val OTHER = "OTHER"
 
     //Product record/ order type
     const val IN = "IN"

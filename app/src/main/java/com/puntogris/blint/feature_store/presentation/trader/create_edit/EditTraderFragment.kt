@@ -12,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
+import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.databinding.FragmentEditTraderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.fragment_edit_trader) {
 
-    private val viewModel: EditClientViewModel by viewModels()
+    private val viewModel: EditTraderViewModel by viewModels()
     private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 
@@ -46,6 +48,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
 
         setupContactPickerLauncher()
         setupContactPermissions()
+        setupTraderFilter()
     }
 
     private fun setupContactPickerLauncher() {
@@ -79,6 +82,17 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
                     UiInterface.showSnackBar(getString(R.string.snack_save_trader_success))
                     findNavController().navigateUp()
                 }
+            }
+        }
+    }
+
+    private fun setupTraderFilter(){
+        //Todo think a better way, the data binding adapter feels weird
+        binding.traderInformationLayout.traderType.addOnButtonCheckedListener { _, checkedId, _ ->
+            when(checkedId){
+                R.id.traderTypeOtherButton -> viewModel.updateTraderType(Constants.OTHER)
+                R.id.traderTypeClientButton -> viewModel.updateTraderType(Constants.CLIENT)
+                R.id.traderTypeSupplierButton -> viewModel.updateTraderType(Constants.SUPPLIER)
             }
         }
     }

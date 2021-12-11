@@ -222,6 +222,13 @@
     <string name="snack_save_trader_success">Trader saved successfully</string>
     <string name="notes">Notes</string>
     <string name="add_traders">Add traders</string>
+    <string name="trader_type_client">Client</string>
+    <string name="trader_type_supplier">Supplier</string>
+    <string name="trader_type_other">Other</string>
+    <string name="trader_type_title">Trader Type</string>
+    <string name="trader_filter_all">All traders</string>
+    <string name="trader_filter_clients">Clients</string>
+    <string name="trader_filter_suppliers">Suppliers</string>
 
     <!-- Text -->
     <string name="suggestions">Suggestions</string>

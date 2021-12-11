@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class EditClientViewModel @Inject constructor(
+class EditTraderViewModel @Inject constructor(
     private val repository: TraderRepository,
     private val savedStateHandle: SavedStateHandle,
     private val contactsHelper: ContactsHelper
@@ -56,6 +56,10 @@ class EditClientViewModel @Inject constructor(
 
     fun updateTraderNotes(editable: Editable) {
         _currentTrader.value.notes = editable.toString()
+    }
+
+    fun updateTraderType(type: String) {
+        _currentTrader.value.type = type
     }
 
     fun setContact(uri: Uri) {

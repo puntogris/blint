@@ -76,7 +76,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All traders"
+                android:text="@string/trader_filter_all"
                 android:textAllCaps="false" />
 
             <com.google.android.material.button.MaterialButton
@@ -84,7 +84,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clients"
+                android:text="@string/trader_filter_clients"
                 android:textAllCaps="false" />
 
             <com.google.android.material.button.MaterialButton
@@ -92,7 +92,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Suppliers"
+                android:text="@string/trader_filter_suppliers"
                 android:textAllCaps="false" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

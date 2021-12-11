@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditClientViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderViewModel" />
 
         <variable
             name="fragment"
@@ -126,9 +126,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
             android:hint="@string/address"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,5 +142,55 @@
                 android:singleLine="true"
                 android:text="@{viewModel.currentTrader.address}" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/Theme.Blint.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/trader_type_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderAddressInputLayout" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/traderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:singleSelection="true"
+            traderTypeToggleGroup="@{viewModel.currentTrader.type}"
+            app:checkedButton="@id/traderTypeOtherButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/traderTypeOtherButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trader_type_other" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/traderTypeClientButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trader_type_client" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/traderTypeSupplierButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trader_type_supplier" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditClientViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderViewModel" />
 
         <variable
             name="fragment"

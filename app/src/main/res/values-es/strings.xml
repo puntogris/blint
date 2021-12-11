@@ -217,6 +217,13 @@
     <string name="snack_save_trader_success">Se guardo el comerciante satisfactoriamente.</string>
     <string name="notes">Notas</string>
     <string name="add_traders">Agregar proveedores</string>
+    <string name="trader_type_client">Cliente</string>
+    <string name="trader_type_supplier">Proveedor</string>
+    <string name="trader_type_other">Otro</string>
+    <string name="trader_type_title">Tipo de comerciante</string>
+    <string name="trader_filter_all">Todos</string>
+    <string name="trader_filter_clients">Clientes</string>
+    <string name="trader_filter_suppliers">Proveedores</string>
 
     <!-- Text -->
     <string name="suggestions">Sugerencias</string>

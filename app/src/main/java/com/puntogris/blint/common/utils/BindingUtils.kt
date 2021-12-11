@@ -13,6 +13,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.puntogris.blint.R
@@ -271,4 +272,23 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
         totalPaid.toString(),
         newOrder.value.toString()
     )
+}
+@BindingAdapter("traderTypeToggleGroup")
+fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String){
+    val button = when(type){
+        Constants.SUPPLIER -> R.id.traderTypeSupplierButton
+        Constants.CLIENT -> R.id.traderTypeClientButton
+        else -> R.id.traderTypeOtherButton
+    }
+    if (checkedButtonId != button) check(button)
+}
+
+@BindingAdapter("traderType")
+fun TextView.setTraderType(type: String){
+    val res = when(type){
+        Constants.SUPPLIER -> R.string.trader_type_supplier
+        Constants.CLIENT -> R.string.trader_type_client
+        else -> R.string.trader_type_other
+    }
+    setText(res)
 }

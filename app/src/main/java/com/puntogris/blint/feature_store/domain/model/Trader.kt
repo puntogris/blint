@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.puntogris.blint.common.utils.Constants
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -19,7 +20,7 @@ data class Trader(
     var name: String = "",
 
     @ColumnInfo
-    var type: String = "OTHER",
+    var type: String = Constants.OTHER,
 
     @ColumnInfo
     var address: String = "",
