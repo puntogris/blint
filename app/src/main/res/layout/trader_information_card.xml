@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditClientViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderFragment" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/traderInformationTitle"
+            style="@style/Theme.Blint.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/traderNameInputLayout"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:hint="@string/name"
+            app:layout_constraintEnd_toStartOf="@+id/addTraderContactButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderInformationTitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/traderName"
+                capitalizeWord="@{viewModel.currentTrader.name}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::updateTraderName}"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="20"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/addTraderContactButton"
+            style="@style/Theme.Blint.ImageButton"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/open_contact_image"
+            android:onClick="@{()-> fragment.onAddClientFromContactsClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/traderNameInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/traderNameInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/traderNameInputLayout"
+            app:srcCompat="@drawable/ic_baseline_person_add_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/traderPhoneInputLayout"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/traderPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::updateTraderPhone}"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:text="@{viewModel.currentTrader.phone}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/traderEmailInputLayout"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/e_mail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/traderEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::updateTraderEmail}"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:text="@{viewModel.currentTrader.email}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/traderAddressInputLayout"
+            style="@style/Theme.Blint.TextInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:hint="@string/address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/traderAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{viewModel::updateTraderAddress}"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:text="@{viewModel.currentTrader.address}" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

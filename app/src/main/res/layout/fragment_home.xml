@@ -68,38 +68,11 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/clientsCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@{String.valueOf(viewModel.currentBusiness.totalClients)}"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/suppliersCount"
-                        app:layout_constraintEnd_toEndOf="@+id/clientsTitle"
-                        app:layout_constraintStart_toStartOf="@+id/clientsTitle"
-                        app:layout_constraintTop_toTopOf="@+id/suppliersCount"
-                        tools:text="102" />
-
-                    <TextView
-                        android:id="@+id/clientsTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/clients_label"
-                        android:textSize="17sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/suppliersTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/suppliersTitle"
-                        app:layout_constraintTop_toTopOf="@+id/suppliersTitle" />
-
-                    <TextView
                         android:id="@+id/suppliersCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@{String.valueOf(viewModel.currentBusiness.totalSuppliers)}"
+                        android:text="@{String.valueOf(viewModel.currentBusiness.totalTraders)}"
                         android:textColor="@color/primaryColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -112,11 +85,10 @@
                         android:id="@+id/suppliersTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suppliers_label"
+                        android:text="@string/traders_label"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="@+id/productsTitle"
-                        app:layout_constraintEnd_toStartOf="@+id/clientsTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/productsTitle"
                         app:layout_constraintTop_toTopOf="@+id/productsTitle" />
 
@@ -174,7 +146,7 @@
                         android:onClick="@{() -> fragment.onSideMenuClicked(2)}"
                         android:paddingHorizontal="11dp"
                         android:paddingVertical="11dp"
-                        app:srcCompat="@drawable/ic_outline_storefront_24" />
+                        app:srcCompat="@drawable/ic_baseline_settings_24" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

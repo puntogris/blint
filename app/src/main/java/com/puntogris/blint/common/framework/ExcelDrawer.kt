@@ -3,8 +3,7 @@ package com.puntogris.blint.common.framework
 import android.content.Context
 import android.net.Uri
 import com.puntogris.blint.R
-import com.puntogris.blint.feature_store.domain.model.Client
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
 import com.puntogris.blint.feature_store.domain.model.excel.TraderRecordExcel
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -14,39 +13,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbook) {
 
-    suspend fun drawClientList(clients: List<Client>, uri: Uri) {
-        val sheet = workbook.createSheet(context.getString(R.string.clients_label))
+    suspend fun drawTraderList(traders: List<Trader>, uri: Uri) {
+        val sheet = workbook.createSheet(context.getString(R.string.traders_label))
         val row0 = sheet.createRow(0)
         row0.createCell(0).setCellValue(context.getString(R.string.name))
         row0.createCell(1).setCellValue(context.getString(R.string.phone))
         row0.createCell(2).setCellValue(context.getString(R.string.address))
         row0.createCell(3).setCellValue(context.getString(R.string.e_mail))
 
-        clients.forEachIndexed { index, client ->
+        traders.forEachIndexed { index, client ->
             val row = sheet.createRow(index.inc())
             row.createCell(0).setCellValue(client.name)
             row.createCell(1).setCellValue(client.phone)
             row.createCell(2).setCellValue(client.address)
             row.createCell(3).setCellValue(client.email)
-        }
-        context.writeToFile(uri, workbook)
-        workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
-    }
-
-    suspend fun drawSupplierList(suppliers: List<Supplier>, uri: Uri) {
-        val sheet = workbook.createSheet(context.getString(R.string.suppliers_label))
-        val row0 = sheet.createRow(0)
-        row0.createCell(0).setCellValue(context.getString(R.string.name))
-        row0.createCell(1).setCellValue(context.getString(R.string.phone))
-        row0.createCell(2).setCellValue(context.getString(R.string.address))
-        row0.createCell(3).setCellValue(context.getString(R.string.e_mail))
-
-        suppliers.forEachIndexed { index, supplier ->
-            val row = sheet.createRow(index.inc())
-            row.createCell(0).setCellValue(supplier.companyName)
-            row.createCell(1).setCellValue(supplier.companyPhone)
-            row.createCell(2).setCellValue(supplier.address)
-            row.createCell(3).setCellValue(supplier.companyEmail)
         }
         context.writeToFile(uri, workbook)
         workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
@@ -98,36 +78,12 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
     }
 
-    suspend fun drawSupplierRecords(records: List<TraderRecordExcel>, uri: Uri) {
-        val sheet = workbook.createSheet(context.getString(R.string.suppliers_label))
+
+    suspend fun drawTradersRecords(records: List<TraderRecordExcel>, uri: Uri) {
+        val sheet = workbook.createSheet(context.getString(R.string.traders_label))
         val row0 = sheet.createRow(0)
         var numberOfRows = 0
-
-        row0.createCell(0).setCellValue(context.getString(R.string.supplier_label))
-        row0.createCell(1).setCellValue(context.getString(R.string.product_label))
-        row0.createCell(2).setCellValue(context.getString(R.string.in_entry))
-
-        records.sortedBy { it.traderName }.forEach { supplier ->
-            numberOfRows += 1
-            val newRow = sheet.createRow(numberOfRows)
-            newRow.createCell(0).setCellValue(supplier.traderName)
-            supplier.products.forEach {
-                numberOfRows += 1
-                val productRow = sheet.createRow(numberOfRows)
-                productRow.createCell(1).setCellValue(it.productName)
-                productRow.createCell(2).setCellValue(it.amount.toString())
-            }
-        }
-
-        context.writeToFile(uri, workbook)
-        workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
-    }
-
-    suspend fun drawClientsRecords(records: List<TraderRecordExcel>, uri: Uri) {
-        val sheet = workbook.createSheet(context.getString(R.string.clients_label))
-        val row0 = sheet.createRow(0)
-        var numberOfRows = 0
-        row0.createCell(0).setCellValue(context.getString(R.string.client_label))
+        row0.createCell(0).setCellValue(context.getString(R.string.trader_label))
         row0.createCell(1).setCellValue(context.getString(R.string.product_label))
         row0.createCell(2).setCellValue(context.getString(R.string.out_entry))
 

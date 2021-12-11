@@ -26,6 +26,87 @@ import java.util.*
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private val viewModel: MainViewModel by viewModels()
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    override fun preInitViews() {
+        setTheme(R.style.Blint_Theme_DayNight)
+    }
+
+    override fun initializeViews() {
+        setUpNavigation()
+        setUpScanner()
+    }
+
+    private fun setUpScanner() {
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission())
+            { isGranted: Boolean ->
+                if (isGranted) navController.navigate(R.id.scannerFragment)
+                else showSnackBar(getString(R.string.snack_require_camera_permission))
+            }
+    }
+
+    private fun setUpNavigation() {
+        setSupportActionBar(binding.toolbar)
+        navController = getNavController()
+        navController.graph = navController.navInflater.inflate(R.navigation.navigation)
+            .apply {
+                setStartDestination(
+                    when {
+                        viewModel.showLoginScreen() -> R.id.loginFragment
+                        viewModel.showNewUserScreen() -> R.id.newUserFragment
+                        else -> R.id.homeFragment
+                    }
+                )
+            }
+        navController.addOnDestinationChangedListener(this@MainActivity)
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.loginFragment,
+                R.id.syncAccountFragment,
+                R.id.newUserFragment,
+                R.id.publishOrderFragment
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.bottomAppBar.apply {
+            setNavigationOnClickListener {
+                showBottomDrawer()
+            }
+            setOnMenuItemClickListener(this@MainActivity)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        hideKeyboard()
+    }
+
+    private fun showBottomDrawer() {
+        MainBottomNavDrawer.newInstance().show(supportFragmentManager, MainBottomNavDrawer.TAG)
+    }
+
+    override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
+        when (menuItem?.itemId) {
+            R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
+        }
+        return true
+    }
+
     override fun registerUi(
         showFab: Boolean,
         showAppBar: Boolean,
@@ -87,92 +168,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else -> null
             }
             if (action != null) setAction(actionText, action)
-            show()
-        }
-    }
-
-    private val viewModel: MainViewModel by viewModels()
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-
-    override fun preInitViews() {
-        setTheme(R.style.Blint_Theme_DayNight)
-    }
-
-    override fun initializeViews() {
-        setUpNavigation()
-        setUpScanner()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    private fun setUpScanner() {
-        requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
-                if (isGranted) navController.navigate(R.id.scannerFragment)
-                else showSnackBar(getString(R.string.snack_require_camera_permission))
-            }
-    }
-
-    private fun setUpNavigation() {
-        setSupportActionBar(binding.toolbar)
-        navController = getNavController()
-        navController.graph = navController.navInflater.inflate(R.navigation.navigation)
-            .apply {
-                setStartDestination(
-                    when {
-                        viewModel.showLoginScreen() -> R.id.loginFragment
-                        viewModel.showNewUserScreen() -> R.id.newUserFragment
-                        else -> R.id.homeFragment
-                    }
-                )
-            }
-        navController.addOnDestinationChangedListener(this@MainActivity)
-
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.loginFragment,
-                R.id.syncAccountFragment,
-                R.id.newUserFragment,
-                R.id.publishOrderFragment
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.bottomAppBar.apply {
-            setNavigationOnClickListener {
-                showBottomDrawer()
-            }
-            setOnMenuItemClickListener(this@MainActivity)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
-        hideKeyboard()
-    }
-
-    private fun showBottomDrawer() {
-        MainBottomNavDrawer.newInstance()
-            .show(supportFragmentManager, MainBottomNavDrawer.TAG)
-    }
-
-    override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
-        when (menuItem?.itemId) {
-            R.id.menu_search -> {
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-            R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
-        }
-        return true
+        }.show()
     }
 }

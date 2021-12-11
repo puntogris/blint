@@ -32,11 +32,6 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     }
 
-    fun onSuppliersReportClicked() {
-        showTimeFrameBottomSheet()
-        viewModel.updateReportType(ReportType.SuppliersRecords)
-    }
-
     fun onProductListClicked() {
         viewModel.updateReportType(ReportType.ProductsList)
         findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
@@ -44,11 +39,6 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     fun onClientListClicked() {
         viewModel.updateReportType(ReportType.ClientsList)
-        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
-    }
-
-    fun onSuppliersListClicked() {
-        viewModel.updateReportType(ReportType.SuppliersList)
         findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
     }
 

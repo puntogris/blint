@@ -5,21 +5,17 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
-import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.OrderTraderBottomSheetBinding
-import com.puntogris.blint.feature_store.domain.model.Client
-import com.puntogris.blint.feature_store.domain.model.Supplier
-import com.puntogris.blint.feature_store.presentation.client.manage.ManageClientsAdapter
-import com.puntogris.blint.feature_store.presentation.supplier.manage.ManageSuppliersAdapter
+import com.puntogris.blint.feature_store.domain.model.Trader
+import com.puntogris.blint.feature_store.presentation.trader.manage.ManageTradersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +23,6 @@ class OrderTraderBottomSheet :
     BaseBottomSheetFragment<OrderTraderBottomSheetBinding>(R.layout.order_trader_bottom_sheet) {
 
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
-    private val args: OrderTraderBottomSheetArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -51,23 +46,13 @@ class OrderTraderBottomSheet :
         binding.fragment = this
 
         registerToolbarBackButton(binding.searchToolbar)
-
-        if (args.orderType == IN) subscribeSuppliersUi() else subscribeClientsUi()
+        subscribeUi()
     }
 
-    private fun subscribeClientsUi() {
-        ManageClientsAdapter { onTraderClicked(it) }.let { adapter ->
+    private fun subscribeUi() {
+        ManageTradersAdapter { onTraderClicked(it) }.let { adapter ->
             binding.recyclerView.adapter = adapter
             viewModel.clientsLiveData.observe(viewLifecycleOwner) {
-                adapter.submitData(viewLifecycleOwner.lifecycle, it)
-            }
-        }
-    }
-
-    private fun subscribeSuppliersUi() {
-        ManageSuppliersAdapter { onTraderClicked(it) }.let { adapter ->
-            binding.recyclerView.adapter = adapter
-            viewModel.suppliersLiveData.observe(viewLifecycleOwner) {
                 adapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
@@ -78,20 +63,9 @@ class OrderTraderBottomSheet :
         super.dismiss()
     }
 
-    private fun onTraderClicked(client: Client) {
-        viewModel.updateOrderTrader(client.name, client.clientId)
-        UiInterface.showSnackBar(getString(R.string.snack_client_added_order, client.name))
-        findNavController().navigate(R.id.createOrderFragment)
-    }
-
-    private fun onTraderClicked(supplier: Supplier) {
-        viewModel.updateOrderTrader(supplier.companyName, supplier.supplierId)
-        UiInterface.showSnackBar(
-            getString(
-                R.string.snack_suppliers_added_order,
-                supplier.companyName
-            )
-        )
+    private fun onTraderClicked(trader: Trader) {
+        viewModel.updateOrderTrader(trader.name, trader.traderId)
+        UiInterface.showSnackBar(getString(R.string.snack_trader_added_order, trader.name))
         findNavController().navigate(R.id.createOrderFragment)
     }
 }

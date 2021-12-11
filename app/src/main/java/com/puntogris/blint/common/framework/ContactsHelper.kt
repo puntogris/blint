@@ -6,9 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract.*
 import android.provider.ContactsContract.CommonDataKinds.*
-import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.feature_store.domain.model.Client
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -17,30 +15,13 @@ class ContactsHelper @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 
-    fun getSaveContactIntent(client: Client): Intent {
+    fun getSaveContactIntent(trader: Trader): Intent {
         return Intent(Intent.ACTION_INSERT).apply {
             type = Contacts.CONTENT_TYPE
-            putExtra(Intents.Insert.NAME, client.name)
-            putExtra(Intents.Insert.PHONE, client.phone)
-            putExtra(Intents.Insert.EMAIL, client.email)
-            putExtra(Intents.Insert.POSTAL, client.address)
-        }
-    }
-
-    fun getSaveContactIntent(supplier: Supplier, code: Int): Intent {
-        return Intent(Intent.ACTION_INSERT).apply {
-            type = Contacts.CONTENT_TYPE
-            with(supplier) {
-                if (code == Constants.COMPANY_CONTACT) {
-                    putExtra(Intents.Insert.NAME, companyName)
-                    putExtra(Intents.Insert.PHONE, companyPhone)
-                    putExtra(Intents.Insert.EMAIL, companyEmail)
-                } else {
-                    putExtra(Intents.Insert.NAME, sellerName)
-                    putExtra(Intents.Insert.PHONE, sellerPhone)
-                    putExtra(Intents.Insert.EMAIL, sellerEmail)
-                }
-            }
+            putExtra(Intents.Insert.NAME, trader.name)
+            putExtra(Intents.Insert.PHONE, trader.phone)
+            putExtra(Intents.Insert.EMAIL, trader.email)
+            putExtra(Intents.Insert.POSTAL, trader.address)
         }
     }
 

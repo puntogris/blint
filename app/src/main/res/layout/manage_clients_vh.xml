@@ -7,7 +7,7 @@
 
         <variable
             name="client"
-            type="com.puntogris.blint.feature_store.domain.model.Client" />
+            type="com.puntogris.blint.feature_store.domain.model.Trader" />
     </data>
 
     <LinearLayout

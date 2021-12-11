@@ -11,10 +11,9 @@ import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
 import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.repository.ClientRepository
 import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
-import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
+import com.puntogris.blint.feature_store.domain.repository.TraderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,8 +25,7 @@ import javax.inject.Inject
 class NewOrderViewModel @Inject constructor(
     private val orderRepository: OrdersRepository,
     private val productRepository: ProductRepository,
-    private val supplierRepository: SupplierRepository,
-    private val clientRepository: ClientRepository
+    private val traderRepository: TraderRepository
 ) : ViewModel() {
 
     private val query = MutableLiveData("")
@@ -43,11 +41,7 @@ class NewOrderViewModel @Inject constructor(
     }
 
     val clientsLiveData = Transformations.switchMap(query) {
-        clientRepository.getClientsPaged(it).asLiveData()
-    }.cachedIn(viewModelScope)
-
-    val suppliersLiveData = Transformations.switchMap(query) {
-        supplierRepository.getSuppliersPaged(query.value).asLiveData()
+        traderRepository.getTradersPaged(it).asLiveData()
     }.cachedIn(viewModelScope)
 
     fun addProduct(product: Product) {

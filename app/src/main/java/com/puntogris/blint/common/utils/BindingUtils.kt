@@ -20,7 +20,7 @@ import com.puntogris.blint.common.utils.Constants.IN
 import com.puntogris.blint.common.utils.Constants.INITIAL
 import com.puntogris.blint.common.utils.Constants.PENDING
 import com.puntogris.blint.feature_store.domain.model.Category
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -70,7 +70,7 @@ fun TextView.setRemoveListVisibility(list: List<Any>?) {
 
 @BindingAdapter("removeListVisibility")
 fun TextView.setRemoveListVisibility(product: ProductWithDetails) {
-    if (product.categories.isNullOrEmpty() && product.suppliers.isNullOrEmpty()) gone() else visible()
+    if (product.categories.isNullOrEmpty() && product.traders.isNullOrEmpty()) gone() else visible()
 }
 
 @BindingAdapter("emptyEditTextWithNumber")
@@ -115,7 +115,8 @@ fun TextView.setNumberToMoneyString(number: Float) {
 
 @BindingAdapter("clientOrSupplierTitleWithRecordType")
 fun TextView.setClientOrSupplierTitleWithRecordType(type: String) {
-    setText(if (type == IN) R.string.supplier_label else R.string.client_label)
+    //todo, maybe use type and show here
+    setText(if (type == IN) R.string.trader_label else R.string.trader_label)
 }
 
 @BindingAdapter("totalOrderWithDetails")
@@ -226,10 +227,10 @@ fun ChipGroup.setProductCategoriesChip(categories: List<Category>) {
 }
 
 @BindingAdapter("productSuppliersChipGroup")
-fun ChipGroup.setProductSuppliersChips(suppliers: List<Supplier>) {
+fun ChipGroup.setProductSuppliersChips(suppliers: List<Trader>) {
     suppliers.forEach {
         val chip = Chip(context).apply {
-            text = it.companyName.capitalizeFirstChar()
+            text = it.name.capitalizeFirstChar()
         }
         addView(chip)
     }

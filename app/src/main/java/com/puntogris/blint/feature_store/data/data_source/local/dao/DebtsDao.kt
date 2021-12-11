@@ -13,20 +13,13 @@ interface DebtsDao {
     @Query("SELECT * FROM debt WHERE traderId = :traderId ORDER BY timestamp DESC")
     fun getTraderDebtsPaged(traderId: String): PagingSource<Int, Debt>
 
-    @Query("UPDATE business SET clientsDebt = :clientsDebt + clientsDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
-    suspend fun updateTotalClientsDebt(clientsDebt: Float)
-
-    @Query("UPDATE business SET suppliersDebt = :suppliersDebt + suppliersDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
-    suspend fun updateTotalSupplierDebt(suppliersDebt: Float)
+    @Query("UPDATE business SET tradersDebt = :clientsDebt + tradersDebt WHERE businessId IN (SELECT businessId FROM business INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1')")
+    suspend fun updateTotalTradersDebt(clientsDebt: Float)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM debt INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp DESC")
     fun getDebtsPaged(): PagingSource<Int, Debt>
 
-    @Query("UPDATE client SET debt = debt + :amount WHERE clientId = :clientId")
-    suspend fun updateClientDebt(clientId: String, amount: Float)
-
-    @Query("UPDATE supplier SET debt = debt + :amount WHERE supplierId = :supplierId")
-    suspend fun updateTotalSupplierDebt(supplierId: String, amount: Float)
-
+    @Query("UPDATE trader SET debt = debt + :amount WHERE traderId = :traderId")
+    suspend fun updateTraderDebt(traderId: String, amount: Float)
 }

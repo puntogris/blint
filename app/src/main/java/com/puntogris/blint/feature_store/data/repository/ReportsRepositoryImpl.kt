@@ -4,10 +4,9 @@ import android.net.Uri
 import com.puntogris.blint.common.framework.ExcelDrawer
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.SimpleResource
-import com.puntogris.blint.feature_store.data.data_source.local.dao.ClientsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.ProductsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
-import com.puntogris.blint.feature_store.data.data_source.local.dao.SuppliersDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.TradersDao
 import com.puntogris.blint.feature_store.data.data_source.toProductRecordExcel
 import com.puntogris.blint.feature_store.data.data_source.toTraderExcelList
 import com.puntogris.blint.feature_store.domain.repository.ReportsRepository
@@ -17,25 +16,16 @@ import kotlinx.coroutines.withContext
 class ReportsRepositoryImpl(
     private val dispatcher: DispatcherProvider,
     private val excelDrawer: ExcelDrawer,
-    private val clientsDao: ClientsDao,
-    private val suppliersDao: SuppliersDao,
+    private val tradersDao: TradersDao,
     private val recordsDao: RecordsDao,
     private val productsDao: ProductsDao
 ) : ReportsRepository {
 
-    override suspend fun generateClientListReport(report: ExportReport): SimpleResource =
+    override suspend fun generateTradersListReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
-                val clients = clientsDao.getClients()
-                excelDrawer.drawClientList(clients, requireNotNull(report.uri))
-            }
-        }
-
-    override suspend fun generateSupplierListReport(report: ExportReport): SimpleResource =
-        withContext(dispatcher.io) {
-            SimpleResource.build {
-                val suppliers = suppliersDao.getSuppliers()
-                excelDrawer.drawSupplierList(suppliers, requireNotNull(report.uri))
+                val clients = tradersDao.getTraders()
+                excelDrawer.drawTraderList(clients, requireNotNull(report.uri))
             }
         }
 
@@ -47,7 +37,7 @@ class ReportsRepositoryImpl(
             }
         }
 
-    override suspend fun generateClientsReport(report: ExportReport): SimpleResource =
+    override suspend fun generateTradersReport(report: ExportReport): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
                 val records = when (report.timeFrame.days) {
@@ -55,19 +45,7 @@ class ReportsRepositoryImpl(
                     else -> recordsDao.getClientsRecordsTimeframe(report.timeFrame.days)
                 }.toTraderExcelList()
 
-                excelDrawer.drawClientsRecords(records, requireNotNull(report.uri))
-            }
-        }
-
-    override suspend fun generateSuppliersReport(report: ExportReport): SimpleResource =
-        withContext(dispatcher.io) {
-            SimpleResource.build {
-                val records = when (report.timeFrame.days) {
-                    0 -> recordsDao.getSuppliersRecords()
-                    else -> recordsDao.getSuppliersRecordsTimeframe(report.timeFrame.days)
-                }.toTraderExcelList()
-
-                excelDrawer.drawSupplierRecords(records, requireNotNull(report.uri))
+                excelDrawer.drawTradersRecords(records, requireNotNull(report.uri))
             }
         }
 

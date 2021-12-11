@@ -4,7 +4,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.Constants.INITIAL
 import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.visible
@@ -29,22 +28,11 @@ class RecordInfoBottomSheet :
 
     fun onExternalChipClicked() {
         if (args.record.traderId.isNotEmpty()) {
-            when (args.record.type) {
-                Constants.IN -> {
-                    val action =
-                        RecordInfoBottomSheetDirections.actionGlobalSupplierFragment(
-                            supplierId = args.record.traderId
-                        )
-                    findNavController().navigate(action)
-                }
-                Constants.OUT -> {
-                    val action =
-                        RecordInfoBottomSheetDirections.actionGlobalClientFragment(
-                            clientId = args.record.traderId
-                        )
-                    findNavController().navigate(action)
-                }
-            }
+            val action =
+                RecordInfoBottomSheetDirections.actionGlobalTraderFragment(
+                    traderId = args.record.traderId
+                )
+            findNavController().navigate(action)
         }
     }
 

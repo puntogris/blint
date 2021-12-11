@@ -44,14 +44,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="@string/clients_label"
+                    android:text="@string/traders_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView184"
-                    debtColorWithLimit="@{viewModel.currentBusiness.clientsDebt}"
+                    debtColorWithLimit="@{viewModel.currentBusiness.tradersDebt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -93,14 +93,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="@string/suppliers_label"
+                    android:text="@string/traders_label"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView185"
-                    debtColorWithLimit="@{viewModel.currentBusiness.suppliersDebt}"
+                    debtColorWithLimit="@{viewModel.currentBusiness.tradersDebt}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

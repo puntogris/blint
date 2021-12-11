@@ -2,32 +2,47 @@ package com.puntogris.blint.feature_store.domain.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import com.puntogris.blint.common.utils.Constants
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-/*
- A Trader is a generic wrapper for either a Client or Supplier.
-*/
-@Keep
 @Parcelize
-class Trader(
-    val traderId: String,
-    val traderType: String,
-    val traderName: String
+@Entity
+@Keep
+data class Trader(
+
+    @PrimaryKey(autoGenerate = false)
+    var traderId: String = "",
+
+    @ColumnInfo
+    var name: String = "",
+
+    @ColumnInfo
+    var type: String = "OTHER",
+
+    @ColumnInfo
+    var address: String = "",
+
+    @ColumnInfo
+    var email: String = "",
+
+    @ColumnInfo
+    var phone: String = "",
+
+    @ColumnInfo
+    var paymentInfo: String = "",
+
+    @ColumnInfo
+    var discount: Float = 0F,
+
+    @ColumnInfo
+    var businessId: String = "",
+
+    @ColumnInfo
+    var debt: Float = 0F,
+
+    @ColumnInfo
+    var notes: String = ""
+
 ) : Parcelable
-
-fun Client.toTrader(): Trader {
-    return Trader(
-        traderType = Constants.CLIENT,
-        traderId = clientId,
-        traderName = name
-    )
-}
-
-fun Supplier.toTrader(): Trader {
-    return Trader(
-        traderType = Constants.SUPPLIER,
-        traderId = supplierId,
-        traderName = companyName
-    )
-}

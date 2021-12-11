@@ -46,19 +46,12 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
                 )
             )
             setOnItemClickListener { _, _, i, _ ->
-                binding.addTraderButton.setText(
-                    if (i == 0) R.string.select_supplier else R.string.select_client
-                )
                 viewModel.updateOrderType(i)
             }
         }
     }
 
     fun onAddTraderClicked() {
-        val action =
-            OrderTypeFragmentDirections.actionOrderTypeFragmentToAddOrderClientSupplierBottomSheet(
-                viewModel.newOrder.value.type
-            )
-        findNavController().navigate(action)
+        findNavController().navigate(R.id.action_orderTypeFragment_to_orderTraderBottomSheet)
     }
 }

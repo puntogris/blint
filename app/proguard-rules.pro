@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 #-keepnames class androidx.navigation.fragment.NavHostFragment
--keep class com.puntogris.blint.feature_store.domain.model.Client
+-keep class com.puntogris.blint.feature_store.domain.model.Trader
 -keep class com.puntogris.blint.feature_store.domain.model.Supplier
 -keep class com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 -keep class com.puntogris.blint.feature_store.domain.model.order.Record

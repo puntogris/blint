@@ -6,10 +6,8 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.domain.model.SimpleDebt
-import com.puntogris.blint.feature_store.domain.repository.ClientRepository
-import com.puntogris.blint.feature_store.domain.repository.SupplierRepository
+import com.puntogris.blint.feature_store.domain.repository.TraderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,8 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShowDebtsViewModel @Inject constructor(
-    private val clientRepository: ClientRepository,
-    private val supplierRepository: SupplierRepository,
+    private val traderRepository: TraderRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -31,16 +28,9 @@ class ShowDebtsViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val debtsFlow = debtType.flatMapLatest { type ->
-        when (type) {
-            Constants.CLIENT_DEBT -> clientRepository.getClientsPaged().map { pagingData ->
-                pagingData.map {
-                    SimpleDebt(it.name, it.debt, it.clientId)
-                }
-            }
-            else -> supplierRepository.getSuppliersPaged().map { pagingData ->
-                pagingData.map {
-                    SimpleDebt(it.companyName, it.debt, it.supplierId)
-                }
+        traderRepository.getTradersPaged().map { pagingData ->
+            pagingData.map {
+                SimpleDebt(it.name, it.debt, it.traderId)
             }
         }.cachedIn(viewModelScope)
     }

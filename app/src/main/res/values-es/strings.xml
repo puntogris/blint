@@ -6,11 +6,10 @@
     <!-- Navigation -->
     <string name="home_label">Inicio</string>
     <string name="products_label">Productos</string>
-    <string name="clients_label">Clientes</string>
+    <string name="traders_label">Comerciantes</string>
     <string name="orders_label">Ordenes</string>
     <string name="reports_label">Informes</string>
     <string name="calendar_label">Agenda</string>
-    <string name="suppliers_label">Proveedores</string>
     <string name="settings_label">Configuración</string>
     <string name="account_label">Cuenta</string>
     <string name="tools_label">Herramientas</string>
@@ -18,8 +17,7 @@
     <string name="categories_label">Categorías</string>
     <string name="scanner_label">Escanear código</string>
     <string name="register_business_label">Registrar negocio</string>
-    <string name="client_label">Cliente</string>
-    <string name="supplier_label">Proveedor</string>
+    <string name="trader_label">Comerciante</string>
     <string name="product_label">Producto</string>
     <string name="help_label">Ayuda</string>
     <string name="about_us_label">Sobre blint</string>
@@ -31,6 +29,7 @@
     <string name="generate_report_label">Generar informe</string>
     <string name="my_business_label">Mi negocio</string>
     <string name="my_businesses_label">Mis negocios</string>
+    <string name="businesses_label">Negocios</string>
     <string name="review_order_label">Revisar orden</string>
     <string name="publish_order_label">Publicar order</string>
     <string name="new_order_label">Nueva orden</string>
@@ -209,25 +208,15 @@
     <string name="no_product_found_with_code">No se encontró un producto con este código de barras.</string>
     <string name="code_with_dots">Codigo:</string>
 
-    <!-- Client -->
-    <string name="snack_delete_client_error">Ocurrió un error al eliminar al cliente.</string>
-    <string name="snack_delete_client_success">Cliente eliminado correctamente.</string>
-    <string name="delete_client_warning">¡Zona de peligro! Estas por eliminar un cliente. Ten en cuenta que esta acción es irreversible.</string>
-    <string name="ask_delete_client_title">¿Deseas eliminar este cliente?</string>
-    <string name="snack_save_client_error">Ocurrió un error al guardar el cliente.</string>
-    <string name="snack_save_client_success">Se guardo el cliente satisfactoriamente.</string>
-
-    <!-- Supplier -->
-    <string name="add_suppliers">Agregar proveedores</string>
-    <string name="add_supplier">Agregar proveedor</string>
-    <string name="snack_save_supplier_success">Se guardo el proveedor satisfactoriamente.</string>
-    <string name="snack_save_supplier_error">Ocurrió un error al guardar el proveedor.</string>
+    <!-- Trader -->
+    <string name="snack_delete_trader_error">Ocurrió un error al eliminar al comerciante.</string>
+    <string name="snack_delete_trader_success">Comerciante eliminado correctamente.</string>
+    <string name="delete_client_warning">¡Zona de peligro! Estas por eliminar un comerciante. Ten en cuenta que esta acción es irreversible.</string>
+    <string name="ask_delete_trader_title">¿Deseas eliminar este comerciante?</string>
+    <string name="snack_save_trader_error">Ocurrió un error al guardar el comerciante.</string>
+    <string name="snack_save_trader_success">Se guardo el comerciante satisfactoriamente.</string>
     <string name="notes">Notas</string>
-    <string name="company">Empresa</string>
-    <string name="snack_delete_supplier_success">Proveedor eliminado correctamente.</string>
-    <string name="snack_delete_supplier_error">Ocurrió un error al eliminar el proveedor.</string>
-    <string name="ask_delete_supplier_title">¿Deseas eliminar este proveedor?</string>
-    <string name="delete_supplier_warning">¡Zona de peligro! Estas por eliminar un proveedor. Ten en cuenta que esta acción es irreversible.</string>
+    <string name="add_traders">Agregar proveedores</string>
 
     <!-- Text -->
     <string name="suggestions">Sugerencias</string>
@@ -298,8 +287,7 @@
     <string name="shortcuts">Atajos</string>
 
     <!-- Orders -->
-    <string name="select_supplier">Seleccionar Proveedor</string>
-    <string name="select_client">Seleccionar Cliente</string>
+    <string name="action_select_trader">Seleccionar comerciante</string>
     <string name="ask_order_type_title">Elige el tipo de orden</string>
     <string name="in_entry">Entrada</string>
     <string name="out_entry">Salida</string>
@@ -432,8 +420,7 @@
     <string name="generate_reports">Generar informes</string>
     <string name="generate_lists">Generar listas</string>
     <string name="product_records_report">Movimientos por producto</string>
-    <string name="clients_records_report">Moviemientos por cliente</string>
-    <string name="suppliers_records_report">Movimientos por proveedor</string>
+    <string name="traders_records_report">Moviemientos por comerciante</string>
     <string name="generate_reports_alert">* Ten en cuenta que para generar informes debemos analizar toda la información de tu negocio y esto puede llevar varios segundos.</string>
     <string name="generating_report_title">Generando informe…</string>
     <string name="report_list_suppliers">proveedores_lista_%1$s</string>
@@ -461,8 +448,7 @@
     <string name="amount_debt_positive">+%1$s $</string>
     <string name="amount_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
-    <string name="snack_client_added_order">Cliente %1$s agregado a la orden.</string>
-    <string name="snack_suppliers_added_order">Proveedor %1$s agregado a la orden.</string>
+    <string name="snack_trader_added_order">Comerciante %1$s agregado a la orden.</string>
     <string name="order_debt_amount_summary">Se pago $%1$s del total de $%2$s</string>
 
     <!-- Sync account -->

@@ -36,12 +36,10 @@ class ReportsViewModel @Inject constructor(
 
     suspend fun generateReport(): SimpleResource {
         return when (report.type) {
-            ClientsList -> repository.generateClientListReport(report)
-            ClientsRecords -> repository.generateClientsReport(report)
+            ClientsList -> repository.generateTradersListReport(report)
+            ClientsRecords -> repository.generateTradersReport(report)
             ProductsList -> repository.generateProductListReport(report)
             ProductRecords -> repository.generateProductsReport(report)
-            SuppliersList -> repository.generateSupplierListReport(report)
-            SuppliersRecords -> repository.generateSuppliersReport(report)
             else -> Resource.Error()
         }
     }

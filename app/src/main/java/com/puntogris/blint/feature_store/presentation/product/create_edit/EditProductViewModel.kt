@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.feature_store.domain.model.Category
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,8 +33,8 @@ class EditProductViewModel @Inject constructor(
         _currentProduct.value.product.image = image
     }
 
-    fun updateProductSuppliers(suppliers: List<Supplier>) {
-        _currentProduct.value.suppliers = suppliers
+    fun updateProductSuppliers(traders: List<Trader>) {
+        _currentProduct.value.traders = traders
     }
 
     fun updateProductCategories(categories: List<Category>) {

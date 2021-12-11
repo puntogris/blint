@@ -10,11 +10,10 @@
     <!-- Navigation -->
     <string name="home_label">Home</string>
     <string name="products_label">Products</string>
-    <string name="clients_label">Clients</string>
+    <string name="traders_label">Traders</string>
     <string name="orders_label">Orders</string>
     <string name="reports_label">Reports</string>
     <string name="calendar_label">Calendar</string>
-    <string name="suppliers_label">Suppliers</string>
     <string name="settings_label">Settings</string>
     <string name="account_label">Account</string>
     <string name="tools_label">Tools</string>
@@ -22,8 +21,7 @@
     <string name="categories_label">Categories</string>
     <string name="scanner_label">Scan code</string>
     <string name="register_business_label">Register business</string>
-    <string name="client_label">Client</string>
-    <string name="supplier_label">Supplier</string>
+    <string name="trader_label">Trader</string>
     <string name="product_label">Product</string>
     <string name="help_label">Help</string>
     <string name="about_us_label">About blint</string>
@@ -35,6 +33,7 @@
     <string name="generate_report_label">Generate report</string>
     <string name="my_business_label">My business</string>
     <string name="my_businesses_label">My businesses</string>
+    <string name="businesses_label">Businesses</string>
     <string name="review_order_label">Review order</string>
     <string name="publish_order_label">Publish order</string>
     <string name="new_order_label">New oder</string>
@@ -214,25 +213,15 @@
     <string name="no_product_found_with_code">A product with this barcode was not found.</string>
     <string name="code_with_dots">Code:</string>
 
-    <!-- Client -->
-    <string name="snack_delete_client_error">A problem occurred when deleting the client</string>
-    <string name="snack_delete_client_success">Client deleted successfully</string>
-    <string name="delete_client_warning">Danger zone! You are about to delete a client. This action is irreversible.</string>
-    <string name="ask_delete_client_title">Do you want to delete this client?</string>
-    <string name="snack_save_client_error">A problem occurred when saving the client</string>
-    <string name="snack_save_client_success">Client saved successfully</string>
-
-    <!-- Supplier -->
-    <string name="add_suppliers">Add suppliers</string>
-    <string name="add_supplier">Add supplier</string>
-    <string name="snack_save_supplier_success">Supplier saved successfully</string>
-    <string name="snack_save_supplier_error">A problem occurred when saving the supplier</string>
+    <!-- Trader -->
+    <string name="snack_delete_trader_error">A problem occurred when deleting the trader</string>
+    <string name="snack_delete_trader_success">Trader deleted successfully</string>
+    <string name="delete_client_warning">Danger zone! You are about to delete a trader. This action is irreversible.</string>
+    <string name="ask_delete_trader_title">Do you want to delete this trader?</string>
+    <string name="snack_save_trader_error">A problem occurred when saving the trader</string>
+    <string name="snack_save_trader_success">Trader saved successfully</string>
     <string name="notes">Notes</string>
-    <string name="company">Company</string>
-    <string name="snack_delete_supplier_success">Supplier deleted successfully</string>
-    <string name="snack_delete_supplier_error">A problem occurred when deleting the supplier</string>
-    <string name="ask_delete_supplier_title">Do you want to delete this supplier?</string>
-    <string name="delete_supplier_warning">Danger zone! You are about to delete a supplier. This action is irreversible.</string>
+    <string name="add_traders">Add traders</string>
 
     <!-- Text -->
     <string name="suggestions">Suggestions</string>
@@ -303,8 +292,7 @@
     <string name="shortcuts">Shortcuts</string>
 
     <!-- Orders -->
-    <string name="select_supplier">Select supplier</string>
-    <string name="select_client">Select client</string>
+    <string name="action_select_trader">Select trader</string>
     <string name="ask_order_type_title">What is the type of the order?</string>
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
@@ -452,8 +440,7 @@
     <string name="generate_reports">Generate reports</string>
     <string name="generate_lists">Generate lists</string>
     <string name="product_records_report">Products stock movements</string>
-    <string name="clients_records_report">Clients stock movements</string>
-    <string name="suppliers_records_report">Suppliers stock movements</string>
+    <string name="traders_records_report">Traders stock movements</string>
     <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your business and this may take a few seconds.</string>
     <string name="generating_report_title">Generating report..</string>
     <string name="report_list_suppliers">suppliers_list_%1$s</string>
@@ -481,8 +468,7 @@
     <string name="amount_debt_positive">+%1$s $</string>
     <string name="amount_normal">%1$s $</string>
     <string name="timer_with_params">%1$dm. %2$ds.</string>
-    <string name="snack_client_added_order">Client %1$s added to the order.</string>
-    <string name="snack_suppliers_added_order">Supplier %1$s added to the order.</string>
+    <string name="snack_trader_added_order">Trader %1$s added to the order.</string>
     <string name="order_debt_amount_summary">Paid $%1$s of the total of $%2$s</string>
     <string name="order_total_template" translatable="false">Total: $%1$s</string>
 

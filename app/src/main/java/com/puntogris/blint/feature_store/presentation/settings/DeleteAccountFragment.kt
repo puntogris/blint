@@ -3,7 +3,6 @@ package com.puntogris.blint.feature_store.presentation.settings
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.airbnb.lottie.LottieDrawable
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*

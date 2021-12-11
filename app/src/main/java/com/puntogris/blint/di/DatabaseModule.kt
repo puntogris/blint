@@ -44,7 +44,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesClientsDao(appDatabase: AppDatabase) = appDatabase.clientsDao
+    fun providesClientsDao(appDatabase: AppDatabase) = appDatabase.tradersDao
 
     @Singleton
     @Provides
@@ -58,9 +58,6 @@ class DatabaseModule {
     @Provides
     fun providesRecordsDao(appDatabase: AppDatabase) = appDatabase.recordsDao
 
-    @Singleton
-    @Provides
-    fun providesSuppliersDao(appDatabase: AppDatabase) = appDatabase.suppliersDao
 
     @Singleton
     @Provides
@@ -119,14 +116,14 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideClientRepository(
-        clientsDao: ClientsDao,
+        tradersDao: TradersDao,
         usersDao: UsersDao,
         recordsDao: RecordsDao,
         businessDao: BusinessDao,
         dispatcher: DispatcherProvider
-    ): ClientRepository {
-        return ClientRepositoryImpl(
-            clientsDao,
+    ): TraderRepository {
+        return TraderRepositoryImpl(
+            tradersDao,
             usersDao,
             recordsDao,
             businessDao,
@@ -185,8 +182,7 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideStatisticRepository(
-        clientsDao: ClientsDao,
-        suppliersDao: SuppliersDao,
+        tradersDao: TradersDao,
         dispatcher: DispatcherProvider,
         excelDrawer: ExcelDrawer,
         recordsDao: RecordsDao,
@@ -195,30 +191,12 @@ class DatabaseModule {
         return ReportsRepositoryImpl(
             dispatcher,
             excelDrawer,
-            clientsDao,
-            suppliersDao,
+            tradersDao,
             recordsDao,
             productsDao
         )
     }
 
-    @Singleton
-    @Provides
-    fun provideSupplierRepository(
-        suppliersDao: SuppliersDao,
-        usersDao: UsersDao,
-        businessDao: BusinessDao,
-        recordsDao: RecordsDao,
-        dispatcher: DispatcherProvider
-    ): SupplierRepository {
-        return SupplierRepositoryImpl(
-            suppliersDao,
-            usersDao,
-            businessDao,
-            recordsDao,
-            dispatcher
-        )
-    }
 
     @Singleton
     @Provides

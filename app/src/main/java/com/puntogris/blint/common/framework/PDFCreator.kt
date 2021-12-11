@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import com.puntogris.blint.R
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.getDateWithTimeFormattedString
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -100,13 +99,15 @@ class PDFCreator @Inject constructor(
             100f,
             paintLeft
         )
-        val trader =
-            if (orderWithRecords.order.type == Constants.IN) context.getString(R.string.supplier_label) else context.getString(
-                R.string.client_label
-            )
+
         val traderName =
             if (orderWithRecords.order.traderName.isBlank()) context.getString(R.string.not_specified) else orderWithRecords.order.traderName
-        canvas.drawText("$trader: $traderName", horizontalMargin, 130f, paintLeft)
+        canvas.drawText(
+            "${context.getString(R.string.trader_label)}: $traderName",
+            horizontalMargin,
+            130f,
+            paintLeft
+        )
 
         canvas.drawLine(horizontalMargin, 150f, width - horizontalMargin, 150f, paintCenter)
 

@@ -7,11 +7,11 @@
     <fragment
         android:id="@+id/scannerFragment"
         android:name="com.puntogris.blint.feature_store.presentation.scanner.ScannerFragment"
-        android:label="@string/scanner_label" >
+        android:label="@string/scanner_label">
         <argument
             android:name="originDestination"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_scannerFragment_to_scannerResultDialog"
             app:destination="@id/scannerResultDialog" />
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.puntogris.blint.feature_store.presentation.main.HomeFragment"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <action
             android:id="@+id/action_mainFragment_to_registerBusiness"
             app:destination="@id/registerBusinessFragment" />
@@ -36,46 +36,25 @@
         android:name="com.puntogris.blint.feature_store.presentation.settings.PreferencesFragment"
         android:label="@string/settings_label" />
     <fragment
-        android:id="@+id/clientFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.client.detail.ClientFragment"
-        android:label="@string/client_label" >
+        android:id="@+id/traderFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.trader.detail.TraderFragment"
+        android:label="@string/trader_label">
         <argument
-            android:name="client"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Client"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="trader"
+            android:defaultValue="@null"
+            app:argType="com.puntogris.blint.feature_store.domain.model.Trader"
+            app:nullable="true" />
         <action
-            android:id="@+id/action_clientFragment_to_editClientFragment"
-            app:destination="@id/editClientFragment" />
+            android:id="@+id/action_traderFragment_to_editTraderFragment"
+            app:destination="@id/editTraderFragment" />
         <action
-            android:id="@+id/action_clientFragment_to_debtStatusFragment"
+            android:id="@+id/action_traderFragment_to_debtStatusFragment"
             app:destination="@id/debtStatusFragment" />
         <argument
-            android:name="clientId"
+            android:name="traderId"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/supplierFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.supplier.detail.SupplierFragment"
-        android:label="@string/supplier_label" >
-        <argument
-            android:name="supplier"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Supplier"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_supplierFragment_to_editSupplierFragment"
-            app:destination="@id/editSupplierFragment" />
-        <action
-            android:id="@+id/action_supplierFragment_to_debtStatusFragment"
-            app:destination="@id/debtStatusFragment" />
-        <argument
-            android:name="supplierId"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/manageProductsFragment"
@@ -85,18 +64,15 @@
             app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/manageSuppliersFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.supplier.manage.ManageSuppliersFragment"/>
-    <fragment
-        android:id="@+id/manageClientsFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.client.manage.ManageClientsFragment" />
+        android:id="@+id/manageTradersFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.trader.manage.ManageTradersFragment" />
     <fragment
         android:id="@+id/productFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.details.ProductFragment"
-        android:label="@string/product_label" >
+        android:label="@string/product_label">
         <argument
             android:name="productWithDetails"
-            app:argType="com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails"/>
+            app:argType="com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails" />
         <action
             android:id="@+id/action_productFragment_to_editProductFragment"
             app:destination="@id/editProductFragment" />
@@ -104,7 +80,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.puntogris.blint.feature_auth.presentation.LoginFragment"
-        android:label="" >
+        android:label="">
         <action
             android:id="@+id/action_loginFragment_to_syncAccountFragment"
             app:destination="@id/syncAccountFragment" />
@@ -112,7 +88,7 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.puntogris.blint.feature_store.presentation.calendar.CalendarFragment"
-        android:label="@string/calendar_label" >
+        android:label="@string/calendar_label">
         <action
             android:id="@+id/action_calendarFragment_to_eventInfoBottomSheet"
             app:destination="@id/eventInfoBottomSheet" />
@@ -120,7 +96,7 @@
     <fragment
         android:id="@+id/editProductFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductFragment"
-        android:label="@string/product_label" >
+        android:label="@string/product_label">
         <argument
             android:name="productWithDetails"
             app:argType="com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails" />
@@ -131,34 +107,23 @@
             android:id="@+id/action_editProductFragment_to_productCategoryFragment"
             app:destination="@id/productCategoryFragment" />
         <action
-            android:id="@+id/action_editProductFragment_to_productSupplierFragment"
-            app:destination="@id/productSupplierFragment" />
+            android:id="@+id/action_editProductFragment_to_productTraderFragment"
+            app:destination="@id/productTraderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/editClientFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.client.create_edit.EditClientFragment"
-        android:label="@string/client_label" >
+        android:id="@+id/editTraderFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderFragment"
+        android:label="@string/trader_label">
         <argument
-            android:name="client"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Client"
+            android:name="trader"
             android:defaultValue="@null"
+            app:argType="com.puntogris.blint.feature_store.domain.model.Trader"
             app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/editSupplierFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.supplier.create_edit.EditSupplierFragment"
-        android:label="@string/supplier_label" >
-        <argument
-            android:name="supplier"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Supplier"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-
     <dialog
         android:id="@+id/scannerResultDialog"
         android:name="com.puntogris.blint.feature_store.presentation.scanner.ScannerResultBottomSheet"
-        android:label="" >
+        android:label="">
         <argument
             android:name="barcode"
             app:argType="string" />
@@ -189,7 +154,7 @@
     <fragment
         android:id="@+id/manageOrdersFragment"
         android:name="com.puntogris.blint.feature_store.presentation.orders.manage.ManageOrdersFragment"
-        android:label="@string/orders_label" >
+        android:label="@string/orders_label">
         <action
             android:id="@+id/action_manageOrdersFragment_to_recordInfoBottomSheet"
             app:destination="@id/recordInfoBottomSheet" />
@@ -200,7 +165,7 @@
     <dialog
         android:id="@+id/recordInfoBottomSheet"
         android:name="com.puntogris.blint.feature_store.presentation.orders.details.RecordInfoBottomSheet"
-        android:label="RecordInfoBottomSheet" >
+        android:label="RecordInfoBottomSheet">
         <argument
             android:name="record"
             app:argType="com.puntogris.blint.feature_store.domain.model.order.Record" />
@@ -215,14 +180,14 @@
     <dialog
         android:id="@+id/eventInfoBottomSheet"
         android:name="com.puntogris.blint.feature_store.presentation.calendar.EventInfoBottomSheet"
-        android:label="EventInfoBottomSheet" >
+        android:label="EventInfoBottomSheet">
         <argument
             android:name="event"
             app:argType="com.puntogris.blint.feature_store.domain.model.Event" />
         <argument
             android:name="position"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
     </dialog>
     <fragment
         android:id="@+id/manageCategoriesFragment"
@@ -231,7 +196,7 @@
     <fragment
         android:id="@+id/syncAccountFragment"
         android:name="com.puntogris.blint.feature_store.presentation.sync.SyncAccountFragment"
-        android:label="" >
+        android:label="">
         <argument
             android:name="authUser"
             app:argType="com.puntogris.blint.feature_store.domain.model.AuthUser" />
@@ -239,7 +204,7 @@
     <fragment
         android:id="@+id/manageBusinessFragment"
         android:name="com.puntogris.blint.feature_store.presentation.business.manage.ManageBusinessFragment"
-        android:label="@string/my_businesses_pref" >
+        android:label="@string/my_businesses_pref">
         <action
             android:id="@+id/action_manageBusinessFragment_to_businessFragment"
             app:destination="@id/businessFragment" />
@@ -247,7 +212,7 @@
     <fragment
         android:id="@+id/businessFragment"
         android:name="com.puntogris.blint.feature_store.presentation.business.BusinessFragment"
-        android:label="@string/my_business_label" >
+        android:label="@string/my_business_label">
         <argument
             android:name="business"
             app:argType="com.puntogris.blint.feature_store.domain.model.Business" />
@@ -259,7 +224,7 @@
     <fragment
         android:id="@+id/deleteBusinessFragment"
         android:name="com.puntogris.blint.feature_store.presentation.business.DeleteBusinessFragment"
-        android:label="@string/delete_business" >
+        android:label="@string/delete_business">
         <argument
             android:name="business"
             app:argType="com.puntogris.blint.feature_store.domain.model.Business" />
@@ -269,7 +234,8 @@
         android:id="@+id/newUserFragment"
         android:name="com.puntogris.blint.feature_store.presentation.main.NewUserFragment"
         android:label="@string/app_name" />
-    <navigation android:id="@+id/detailedOrderGraphNav"
+    <navigation
+        android:id="@+id/detailedOrderGraphNav"
         app:startDestination="@id/orderTypeFragment">
         <argument
             android:name="product"
@@ -280,8 +246,8 @@
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderTypeFragment"
             android:label="">
             <action
-                android:id="@+id/action_orderTypeFragment_to_addOrderClientSupplierBottomSheet"
-                app:destination="@id/addOrderClientSupplierBottomSheet" />
+                android:id="@+id/action_orderTypeFragment_to_orderTraderBottomSheet"
+                app:destination="@id/orderTraderBottomSheet" />
             <action
                 android:id="@+id/action_orderTypeFragment_to_createRecordFragment"
                 app:destination="@id/createOrderFragment" />
@@ -297,14 +263,10 @@
                 app:popUpToInclusive="false" />
         </fragment>
         <dialog
-            android:id="@+id/addOrderClientSupplierBottomSheet"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderTraderBottomSheet"
-            android:label="AddOrderClientSupplierBottomSheet">
-            <argument
-                android:name="orderType"
-                app:argType="string" />
+            android:id="@+id/orderTraderBottomSheet"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderTraderBottomSheet">
             <action
-                android:id="@+id/action_addOrderClientSupplierBottomSheet_to_createRecordFragment"
+                android:id="@+id/action_orderTraderBottomSheet_to_createRecordFragment"
                 app:destination="@id/createOrderFragment" />
         </dialog>
         <fragment
@@ -330,7 +292,7 @@
     <dialog
         android:id="@+id/orderInfoBottomSheet"
         android:name="com.puntogris.blint.feature_store.presentation.orders.details.OrderInfoBottomSheet"
-        android:label="OrderInfoBottomSheet" >
+        android:label="OrderInfoBottomSheet">
         <argument
             android:name="order"
             app:argType="com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords" />
@@ -341,21 +303,21 @@
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.puntogris.blint.feature_store.presentation.orders.details.OrderFragment"
-        android:label="@string/order_label" >
+        android:label="@string/order_label">
         <argument
             android:name="orderId"
-            app:argType="string"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="string" />
         <argument
             android:name="order"
+            android:defaultValue="@null"
             app:argType="com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/manageDebtFragment"
         android:name="com.puntogris.blint.feature_store.presentation.debt.manage.ManageDebtFragment"
-        android:label="@string/debts_label" >
+        android:label="@string/debts_label">
         <action
             android:id="@+id/action_manageDebtFragment_to_showDebtsFragment"
             app:destination="@id/showDebtsFragment" />
@@ -363,7 +325,7 @@
     <fragment
         android:id="@+id/debtStatusFragment"
         android:name="com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusFragment"
-        android:label="@string/debt_label" >
+        android:label="@string/debt_label">
         <action
             android:id="@+id/action_debtStatusFragment_to_modifyDebtFragment"
             app:destination="@id/modifyDebtFragment" />
@@ -374,7 +336,7 @@
     <fragment
         android:id="@+id/modifyDebtFragment"
         android:name="com.puntogris.blint.feature_store.presentation.debt.ModifyDebtFragment"
-        android:label="@string/update_debt_label" >
+        android:label="@string/update_debt_label">
         <argument
             android:name="trader"
             app:argType="com.puntogris.blint.feature_store.domain.model.Trader" />
@@ -382,7 +344,7 @@
     <fragment
         android:id="@+id/showDebtsFragment"
         android:name="com.puntogris.blint.feature_store.presentation.debt.trader_debts.ShowDebtsFragment"
-        android:label="@string/debts_label" >
+        android:label="@string/debts_label">
         <argument
             android:name="debtType"
             app:argType="integer" />
@@ -392,15 +354,15 @@
         android:id="@+id/action_global_newOrderGraphNav"
         app:destination="@id/detailedOrderGraphNav">
         <argument
-            app:argType="com.puntogris.blint.feature_store.domain.model.product.Product"
             android:name="product"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:defaultValue="@null"
+            app:argType="com.puntogris.blint.feature_store.domain.model.product.Product"
+            app:nullable="true" />
     </action>
     <dialog
         android:id="@+id/simpleOrderBottomSheet"
         android:name="com.puntogris.blint.feature_store.presentation.orders.simple_order.SimpleOrderDialog"
-        android:label="" >
+        android:label="">
         <argument
             android:name="product"
             app:argType="com.puntogris.blint.feature_store.domain.model.product.Product" />
@@ -411,28 +373,28 @@
     <fragment
         android:id="@+id/productCategoryFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoryFragment"
-        android:label="ProductCategoryFragment" >
+        android:label="ProductCategoryFragment">
         <argument
             android:name="categories"
-            app:nullable="true"
+            android:defaultValue="@null"
             app:argType="com.puntogris.blint.feature_store.domain.model.Category[]"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/productSupplierFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.product.suppliers.ProductSupplierFragment"
-        android:label="ProductSupplierFragment" >
+        android:id="@+id/productTraderFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.product.traders.ProductTraderFragment">
         <argument
-            android:name="suppliers"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Supplier[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="traders"
+            android:defaultValue="@null"
+            app:argType="com.puntogris.blint.feature_store.domain.model.Trader[]"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/sendTicketFragment"
         android:name="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
         android:label="@string/send_ticket_label" />
-    <navigation android:id="@+id/reportsNavGraph"
+    <navigation
+        android:id="@+id/reportsNavGraph"
         app:startDestination="@id/reportsFragment">
         <fragment
             android:id="@+id/generateReportFragment"
@@ -451,8 +413,8 @@
                 app:argType="long" />
             <argument
                 android:name="endTime"
-                app:argType="long"
-                android:defaultValue="0L" />
+                android:defaultValue="0L"
+                app:argType="long" />
         </fragment>
         <fragment
             android:id="@+id/reportsFragment"
@@ -464,11 +426,8 @@
         </fragment>
     </navigation>
     <action
-        android:id="@+id/action_global_supplierFragment"
-        app:destination="@id/supplierFragment" />
-    <action
-        android:id="@+id/action_global_clientFragment"
-        app:destination="@id/clientFragment" />
+        android:id="@+id/action_global_traderFragment"
+        app:destination="@id/traderFragment" />
     <action
         android:id="@+id/action_global_recordInfoBottomSheet"
         app:destination="@id/recordInfoBottomSheet" />

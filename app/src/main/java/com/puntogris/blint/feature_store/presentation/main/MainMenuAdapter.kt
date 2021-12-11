@@ -13,12 +13,12 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
         val list = listOf(
             MenuCard(R.string.administration, 0, 0),
             MenuCard(R.string.products_label, R.id.manageProductsFragment, R.drawable.ic_packages),
-            MenuCard(R.string.suppliers_label, R.id.manageSuppliersFragment, R.drawable.ic_shipped),
-            MenuCard(R.string.clients_label, R.id.manageClientsFragment, R.drawable.ic_rating),
-            MenuCard(R.string.management, 0, 0),
+            MenuCard(R.string.traders_label, R.id.manageTradersFragment, R.drawable.ic_rating),
             MenuCard(R.string.orders_label, R.id.manageOrdersFragment, R.drawable.ic_report),
+            MenuCard(R.string.management, 0, 0),
             MenuCard(R.string.reports_label, R.id.reportsNavGraph, R.drawable.ic_analytics),
             MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_loan),
+            MenuCard(R.string.businesses_label, R.id.manageBusinessFragment, R.drawable.ic_store),
             MenuCard(R.string.shortcuts, 0, 0)
         )
         submitList(list)
@@ -31,7 +31,6 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)

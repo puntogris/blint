@@ -5,15 +5,11 @@ import com.puntogris.blint.feature_store.presentation.reports.ExportReport
 
 interface ReportsRepository {
 
-    suspend fun generateClientListReport(report: ExportReport): SimpleResource
-
-    suspend fun generateSupplierListReport(report: ExportReport): SimpleResource
+    suspend fun generateTradersListReport(report: ExportReport): SimpleResource
 
     suspend fun generateProductListReport(report: ExportReport): SimpleResource
 
-    suspend fun generateClientsReport(report: ExportReport): SimpleResource
-
-    suspend fun generateSuppliersReport(report: ExportReport): SimpleResource
+    suspend fun generateTradersReport(report: ExportReport): SimpleResource
 
     suspend fun generateProductsReport(report: ExportReport): SimpleResource
 }

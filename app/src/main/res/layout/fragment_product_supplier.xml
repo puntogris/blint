@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.product.suppliers.ProductSupplierViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.product.traders.ProductTraderViewModel" />
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.product.suppliers.ProductSupplierFragment" />
+            type="com.puntogris.blint.feature_store.presentation.product.traders.ProductTraderFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +37,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <!--                    android:afterTextChanged="@{viewModel::setQuery}"-->
                 <EditText
                     android:id="@+id/categoriesSearch"
                     android:layout_width="0dp"
@@ -45,7 +46,6 @@
                     android:autofillHints="@string/auto_fill_hint_search_supplier"
                     android:background="@null"
                     android:hint="@string/search"
-                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:imeOptions="flagNoExtractUi|actionDone"
                     android:inputType="textNoSuggestions" />
 

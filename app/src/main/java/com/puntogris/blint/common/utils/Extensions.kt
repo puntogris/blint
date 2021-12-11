@@ -289,7 +289,7 @@ fun File.getUriFromProvider(context: Context): Uri {
     )
 }
 
-fun NavController.navigateAndClearStack(destination: Int){
+fun NavController.navigateAndClearStack(destination: Int) {
     val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
     navigate(destination, null, nav)
 }

@@ -24,7 +24,7 @@ class AboutPreferences : PreferenceFragmentCompat() {
             }
         }
 
-        preference(Keys.APP_VERSION_PREF){
+        preference(Keys.APP_VERSION_PREF) {
             summary = BuildConfig.VERSION_NAME + " (${BuildConfig.VERSION_CODE})"
         }
     }

@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import androidx.room.withTransaction
 import com.puntogris.blint.R
 import com.puntogris.blint.common.framework.PDFCreator
-import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.Resource
@@ -60,13 +59,8 @@ class OrdersRepositoryImpl(
                     }
 
                     orderWithRecords.debt?.let {
-                        if (it.traderType == Constants.CLIENT) {
-                            businessDao.updateClientsDebt(it.amount)
-                            clientsDao.updateClientDebt(it.traderId, it.amount)
-                        } else {
-                            businessDao.updateSupplierDebt(it.amount)
-                            suppliersDao.updateSupplierDebt(it.traderId, it.amount)
-                        }
+                        businessDao.updateTradersDebt(it.amount)
+                        tradersDao.updateTraderDebt(it.traderId, it.amount)
                         debtsDao.insert(it)
                     }
 

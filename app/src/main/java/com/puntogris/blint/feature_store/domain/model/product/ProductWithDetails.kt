@@ -6,7 +6,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.puntogris.blint.feature_store.domain.model.Category
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -16,12 +16,12 @@ data class ProductWithDetails(
     @Embedded var product: Product = Product(),
 
     @Relation(
-        entity = Supplier::class,
+        entity = Trader::class,
         parentColumn = "productId",
-        entityColumn = "supplierId",
+        entityColumn = "traderId",
         associateBy = Junction(ProductSupplierCrossRef::class)
     )
-    var suppliers: List<Supplier> = emptyList(),
+    var traders: List<Trader> = emptyList(),
 
     @Relation(
         entity = Category::class,

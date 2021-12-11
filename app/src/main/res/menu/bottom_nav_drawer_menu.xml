@@ -9,13 +9,9 @@
         android:icon="@drawable/ic_outline_inventory_2_24"
         android:title="@string/products_label" />
     <item
-        android:id="@+id/manageSuppliersFragment"
-        android:icon="@drawable/ic_outline_local_shipping_24"
-        android:title="@string/suppliers_label" />
-    <item
-        android:id="@+id/manageClientsFragment"
+        android:id="@+id/manageTradersFragment"
         android:icon="@drawable/ic_baseline_people_alt_24"
-        android:title="@string/clients_label" />
+        android:title="@string/traders_label" />
     <item
         android:id="@+id/manageOrdersFragment"
         android:icon="@drawable/ic_outline_article_24"

@@ -2,8 +2,6 @@ package com.puntogris.blint.feature_store.presentation.main
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R

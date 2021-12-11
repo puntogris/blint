@@ -34,7 +34,7 @@ class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_
         val nav = when (item) {
             0 -> R.id.calendarFragment
             1 -> R.id.manageCategoriesFragment
-            else -> R.id.manageBusinessFragment
+            else -> R.id.preferencesFragment
         }
         findNavController().navigate(nav)
     }

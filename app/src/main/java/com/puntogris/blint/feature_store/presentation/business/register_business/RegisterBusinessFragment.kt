@@ -5,7 +5,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.getString
+import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding

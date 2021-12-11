@@ -57,7 +57,7 @@ fun Product.toInitialRecord(currentBusinessId: String): Record {
 }
 
 fun ProductWithDetails.toProductSupplierCrossRef(): List<ProductSupplierCrossRef> {
-    return suppliers.map { ProductSupplierCrossRef(product.productId, it.supplierId) }
+    return traders.map { ProductSupplierCrossRef(product.productId, it.traderId) }
 }
 
 fun ProductWithDetails.toProductCategoryCrossRef(): List<ProductCategoryCrossRef> {

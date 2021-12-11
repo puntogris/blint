@@ -18,7 +18,7 @@ import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.feature_store.domain.model.Category
-import com.puntogris.blint.feature_store.domain.model.Supplier
+import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -73,7 +73,7 @@ class EditProductFragment :
             bundle.getParcelableArrayList<Category>(Keys.PRODUCT_CATEGORIES_KEY)?.let {
                 viewModel.updateProductCategories(it)
             }
-            bundle.getParcelableArrayList<Supplier>(Keys.PRODUCT_SUPPLIERS_KEY)?.let {
+            bundle.getParcelableArrayList<Trader>(Keys.PRODUCT_SUPPLIERS_KEY)?.let {
                 viewModel.updateProductSuppliers(it)
             }
         }
@@ -133,14 +133,17 @@ class EditProductFragment :
     }
 
     fun navigateToProductSuppliers() {
-        val action = EditProductFragmentDirections
-            .actionEditProductFragmentToProductSupplierFragment(viewModel.currentProduct.value.suppliers.toTypedArray())
+        val action = EditProductFragmentDirections.actionEditProductFragmentToProductTraderFragment(
+            viewModel.currentProduct.value.traders.toTypedArray()
+        )
         findNavController().navigate(action)
     }
 
     fun navigateToProductCategories() {
-        val action = EditProductFragmentDirections
-            .actionEditProductFragmentToProductCategoryFragment(viewModel.currentProduct.value.categories.toTypedArray())
+        val action =
+            EditProductFragmentDirections.actionEditProductFragmentToProductCategoryFragment(
+                viewModel.currentProduct.value.categories.toTypedArray()
+            )
         findNavController().navigate(action)
     }
 }
