@@ -7,13 +7,13 @@
 
         <variable
             name="business"
-            type="com.puntogris.blint.feature_store.domain.model.Business" />
+            type="com.puntogris.blint.feature_store.domain.model.Store" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.business.BusinessFragment">
+        tools:context=".feature_store.presentation.store.StoreFragment">
 
         <ProgressBar
             android:id="@+id/progressBar"

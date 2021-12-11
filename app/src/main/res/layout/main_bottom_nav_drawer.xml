@@ -32,7 +32,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/business" />
+            android:text="@string/store" />
 
         <TextView
             android:id="@+id/currentBusinessName"

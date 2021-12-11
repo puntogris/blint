@@ -30,22 +30,22 @@ interface ProductsDao {
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND barcode = :barcode")
+    @Query("SELECT * FROM product INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND barcode = :barcode")
     suspend fun getProductWithBarcode(barcode: String): ProductWithDetails?
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY name ASC")
+    @Query("SELECT * FROM product INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' ORDER BY name ASC")
     fun getProductsPaged(): PagingSource<Int, ProductWithDetails>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product p INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND p.name LIKE ('%'|| :query ||'%') OR barcode LIKE ('%'|| :query ||'%') OR sku LIKE ('%'|| :query ||'%')")
+    @Query("SELECT * FROM product p INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND p.name LIKE ('%'|| :query ||'%') OR barcode LIKE ('%'|| :query ||'%') OR sku LIKE ('%'|| :query ||'%')")
     fun getProductsWithQueryPaged(query: String): PagingSource<Int, ProductWithDetails>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM product p INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND p.name LIKE ('%'|| :query ||'%') OR barcode LIKE ('%'|| :query ||'%') OR sku LIKE ('%'|| :query ||'%') LIMIT 5")
+    @Query("SELECT * FROM product p INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND p.name LIKE ('%'|| :query ||'%') OR barcode LIKE ('%'|| :query ||'%') OR sku LIKE ('%'|| :query ||'%') LIMIT 5")
     suspend fun getProductsWithQuery(query: String): List<Product>
 
     @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")

@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.business.manage
+package com.puntogris.blint.feature_store.presentation.store.manage
 
 import android.view.Menu
 import android.view.MenuItem
@@ -12,16 +12,16 @@ import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageBusinessBinding
-import com.puntogris.blint.feature_store.domain.model.Business
+import com.puntogris.blint.feature_store.domain.model.Store
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageBusinessFragment :
+class ManageStoreFragment :
     BaseFragmentOptions<FragmentManageBusinessBinding>(R.layout.fragment_manage_business) {
 
-    private val viewModel: ManageBusinessViewModel by viewModels()
+    private val viewModel: ManageStoreViewModel by viewModels()
 
     override fun initializeViews() {
         UiInterface.registerUi()
@@ -30,7 +30,7 @@ class ManageBusinessFragment :
     }
 
     private fun setupBusinessAdapter() {
-        ManageBusinessAdapter(
+        ManageStoreAdapter(
             { onBusinessClicked(it) },
             { onBusinessSelected(it) }
         ).let {
@@ -39,7 +39,7 @@ class ManageBusinessFragment :
         }
     }
 
-    private fun subscribeUi(adapter: ManageBusinessAdapter) {
+    private fun subscribeUi(adapter: ManageStoreAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.businesses.collect { data ->
                 adapter.submitList(data)
@@ -48,28 +48,28 @@ class ManageBusinessFragment :
         }
     }
 
-    private fun onBusinessClicked(business: Business) {
+    private fun onBusinessClicked(store: Store) {
         val action =
-            ManageBusinessFragmentDirections.actionManageBusinessFragmentToBusinessFragment(business)
+            ManageStoreFragmentDirections.actionManageStoreFragmentToStoreFragment(store)
         findNavController().navigate(action)
     }
 
-    private fun onBusinessSelected(business: Business) {
+    private fun onBusinessSelected(store: Store) {
         lifecycleScope.launch {
-            when (viewModel.updateCurrentBusiness(business)) {
+            when (viewModel.updateCurrentBusiness(store)) {
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
                 is Resource.Success -> {
                     findNavController().navigate(R.id.homeFragment)
-                    UiInterface.showSnackBar(getString(R.string.business_selected))
+                    UiInterface.showSnackBar(getString(R.string.store_selected))
                 }
             }
         }
     }
 
     fun onCreateNewBusinessClicked() {
-        findNavController().navigate(R.id.registerBusinessFragment)
+        findNavController().navigate(R.id.registerStoreFragment)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -79,7 +79,7 @@ class ManageBusinessFragment :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.newBusiness -> {
-                findNavController().navigate(R.id.registerBusinessFragment)
+                findNavController().navigate(R.id.registerStoreFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

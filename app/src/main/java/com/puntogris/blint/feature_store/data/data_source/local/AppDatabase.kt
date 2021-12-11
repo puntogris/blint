@@ -16,7 +16,7 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCro
 
 @Database(
     entities = [
-        Business::class,
+        Store::class,
         Trader::class,
         Product::class,
         Record::class,
@@ -32,7 +32,7 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCro
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract val businessDao: BusinessDao
+    abstract val storeDao: StoreDao
     abstract val tradersDao: TradersDao
     abstract val productsDao: ProductsDao
     abstract val ordersDao: OrdersDao

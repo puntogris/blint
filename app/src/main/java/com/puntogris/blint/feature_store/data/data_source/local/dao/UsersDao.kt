@@ -22,11 +22,11 @@ interface UsersDao {
     @Query("SELECT * FROM user WHERE localReferenceId = '1'")
     suspend fun getUser(): User
 
-    @Query("SELECT currentBusinessId FROM user WHERE localReferenceId = '1'")
-    suspend fun getCurrentBusinessId(): String
+    @Query("SELECT currentStoreId FROM user WHERE localReferenceId = '1'")
+    suspend fun getCurrentStoreId(): String
 
-    @Query("UPDATE user SET currentBusinessId = :businessId WHERE localReferenceId = '1'")
-    suspend fun updateCurrentBusiness(businessId: String)
+    @Query("UPDATE user SET currentStoreId = :storeId WHERE localReferenceId = '1'")
+    suspend fun updateCurrentStore(storeId: String)
 }
 
 

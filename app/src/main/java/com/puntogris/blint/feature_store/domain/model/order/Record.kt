@@ -39,7 +39,7 @@ data class Record(
     var productName: String = "",
 
     @ColumnInfo
-    var businessId: String = "",
+    var storeId: String = "",
 
     @ColumnInfo
     var productUnitPrice: Float = 0F,

@@ -27,7 +27,7 @@ class DocumentSnapshotUserDeserializer {
             name = name,
             photoUrl = photoUrl,
             email = email,
-            currentBusinessId = currentBusinessId,
+            currentStoreId = currentBusinessId,
             appTier = appTier,
             createdAt = createdAt.toOffsetDateTime()
         )

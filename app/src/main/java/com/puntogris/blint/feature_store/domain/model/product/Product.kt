@@ -61,7 +61,7 @@ data class Product(
     var historicOutStock: Int = 0,
 
     @ColumnInfo
-    var businessId: String = "",
+    var storeId: String = "",
 
     @ColumnInfo
     val minStock: Int = 0

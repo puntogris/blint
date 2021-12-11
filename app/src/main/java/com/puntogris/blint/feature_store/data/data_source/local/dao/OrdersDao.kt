@@ -17,7 +17,7 @@ interface OrdersDao {
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM Orders INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY number DESC")
+    @Query("SELECT * FROM Orders INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' ORDER BY number DESC")
     fun getAllOrdersPaged(): PagingSource<Int, OrderWithRecords>
 
     @Transaction

@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.business.manage.ManageBusinessFragment" />
+            type="com.puntogris.blint.feature_store.presentation.store.manage.ManageStoreFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.business.manage.ManageBusinessFragment">
+        tools:context=".feature_store.presentation.store.manage.ManageStoreFragment">
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/businessEmptyUi"
@@ -45,7 +45,7 @@
             android:layout_marginTop="152dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="sans-serif-black"
-            android:text="@string/empty_businesses_message"
+            android:text="@string/empty_stores_message"
             android:textAlignment="center"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="104dp"
             android:onClick="@{()-> fragment.onCreateNewBusinessClicked()}"
-            android:text="@string/create_business"
+            android:text="@string/create_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

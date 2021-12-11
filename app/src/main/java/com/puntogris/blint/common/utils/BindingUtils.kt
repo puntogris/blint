@@ -272,9 +272,10 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
         newOrder.value.toString()
     )
 }
+
 @BindingAdapter("traderTypeToggleGroup")
-fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String){
-    val button = when(type){
+fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String) {
+    val button = when (type) {
         Constants.SUPPLIER -> R.id.traderTypeSupplierButton
         Constants.CLIENT -> R.id.traderTypeClientButton
         else -> R.id.traderTypeOtherButton
@@ -283,8 +284,8 @@ fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String){
 }
 
 @BindingAdapter("traderType")
-fun TextView.setTraderType(type: String){
-    val res = when(type){
+fun TextView.setTraderType(type: String) {
+    val res = when (type) {
         Constants.SUPPLIER -> R.string.trader_type_supplier
         Constants.CLIENT -> R.string.trader_type_client
         else -> R.string.trader_type_other

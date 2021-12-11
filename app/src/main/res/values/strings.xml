@@ -20,7 +20,7 @@
     <string name="debts_label">Debts</string>
     <string name="categories_label">Categories</string>
     <string name="scanner_label">Scan code</string>
-    <string name="register_business_label">Register business</string>
+    <string name="register_store_label">Register store</string>
     <string name="trader_label">Trader</string>
     <string name="product_label">Product</string>
     <string name="help_label">Help</string>
@@ -31,9 +31,9 @@
     <string name="import_data_label">Import external data</string>
     <string name="new_event_label">New event</string>
     <string name="generate_report_label">Generate report</string>
-    <string name="my_business_label">My business</string>
-    <string name="my_businesses_label">My businesses</string>
-    <string name="businesses_label">Businesses</string>
+    <string name="my_store_label">My store</string>
+    <string name="my_stores_label">My stores</string>
+    <string name="stores_label">Stores</string>
     <string name="review_order_label">Review order</string>
     <string name="publish_order_label">Publish order</string>
     <string name="new_order_label">New oder</string>
@@ -50,7 +50,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_no">No</string>
     <string name="action_accept">Accept</string>
-    <string name="action_select_business">Select business</string>
+    <string name="action_select_store">Select store</string>
     <string name="action_call">Call</string>
     <string name="action_message">Message</string>
     <string name="action_whats_app">WhatsApp</string>
@@ -75,16 +75,16 @@
     <!-- Backup -->
     <string name="create_backup_success_title">Backup done.</string>
     <string name="create_backup_success_message">*Backup completed successfully. Have a nice day.</string>
-    <string name="create_backup_warning">This will replace the last backup of your existing business or create a new one. Please note that we cannot save your images so they are not covered by the backing.</string>
+    <string name="create_backup_warning">This will replace the last backup of your existing store or create a new one. Please note that we cannot save your images so they are not covered by the backing.</string>
     <string name="ask_user_action_confirmation">Are your sure about this action?</string>
     <string name="action_read_more_about_backups">Read more about backups.</string>
     <string name="last_backup">Last backup:</string>
-    <string name="action_create_businesses_backup">Backup business</string>
-    <string name="create_backup_affects_this_businesses_alert">The backup affects these businesses, the backup is not from a single location, it backs up everything.</string>
-    <string name="restore_backup_warning">This will restore your business from the last copy you uploaded to the cloud, all the information you have will be erased and replaced by the backup copy. Please note that the images will not be restored.</string>
+    <string name="action_create_stores_backup">Backup store</string>
+    <string name="create_backup_affects_this_stores_alert">The backup affects these stores, the backup is not from a single location, it backs up everything.</string>
+    <string name="restore_backup_warning">This will restore your store from the last copy you uploaded to the cloud, all the information you have will be erased and replaced by the backup copy. Please note that the images will not be restored.</string>
     <string name="restore_backup_success_message">* Restoration carried out satisfactorily. Have a nice day.</string>
     <string name="restore_backup_success_title">Restoration completed</string>
-    <string name="action_restore_businesses_backup">Restore business</string>
+    <string name="action_restore_stores_backup">Restore store</string>
     <string name="action_create_backup">Backup</string>
     <string name="action_restore_backup">Restore backup</string>
     <string name="connecting_in_progress">Connecting to servers, please do not close the app.</string>
@@ -109,35 +109,35 @@
     <string name="snack_action_success">The task was carried out satisfactorily.</string>
 
     <!-- Delete-->
-    <string name="do_you_want_to_delete_business">Do yo want to delete this business?</string>
-    <string name="delete_business_warning_dialog">Danger zone! Be aware this action will disable your business for 15 days and then it will be deleted permanently.</string>
-    <string name="delete_local_business_warning_dialog">Danger zone! Keep in mind that this will eliminate your business and is irreversible.</string>
-    <string name="delete_business_warning">*For your safety when deleting a business, first we will disable your business for 15 days in case you change your mind, in this period no one can operate in the business. After the 15 days are completed, it will be automatically deleted and this action is irreversible.</string>
-    <string name="delete_local_business_warning">*The elimination of a local business occurs at the moment and is irreversible, unlike online businesses where you have a 15-day window to reverse this action.</string>
-    <string name="snack_business_name_does_not_match">Your input does not match with name of the business</string>
+    <string name="do_you_want_to_delete_store">Do yo want to delete this store?</string>
+    <string name="delete_store_warning_dialog">Danger zone! Be aware this action will disable your store for 15 days and then it will be deleted permanently.</string>
+    <string name="delete_local_store_warning_dialog">Danger zone! Keep in mind that this will eliminate your store and is irreversible.</string>
+    <string name="delete_store_warning">*For your safety when deleting a store, first we will disable your store for 15 days in case you change your mind, in this period no one can operate in the store. After the 15 days are completed, it will be automatically deleted and this action is irreversible.</string>
+    <string name="delete_local_store_warning">*The elimination of a local store occurs at the moment and is irreversible, unlike online stores where you have a 15-day window to reverse this action.</string>
+    <string name="snack_store_name_does_not_match">Your input does not match with name of the store</string>
     <string name="safety_ask_data">We will ask you some information for your safety</string>
 
-    <!-- Business -->
-    <string name="ask_business_name">What are you going to call it?</string>
-    <string name="new_business_title">You are one step away from opening your business at Blint!</string>
-    <string name="create_business">Create business</string>
-    <string name="action_join_business">Join a business</string>
+    <!-- Store -->
+    <string name="ask_store_name">What are you going to call it?</string>
+    <string name="new_store_title">You are one step away from opening your store at Blint!</string>
+    <string name="create_store">Create store</string>
+    <string name="action_join_store">Join a store</string>
     <string name="action_learn_about_blint">Learn more about blint</string>
-    <string name="new_user_message">You will need to be a part of a business to be able to operate in Blint.</string>
+    <string name="new_user_message">You will need to be a part of a store to be able to operate in Blint.</string>
     <string name="new_user_title">Hello!\nYou must be new here.</string>
-    <string name="snack_delete_business_error">An error occurred deleting this business.</string>
-    <string name="snack_delete_business_success">Business deleted successfully.</string>
+    <string name="snack_delete_store_error">An error occurred deleting this store.</string>
+    <string name="snack_delete_store_success">Store deleted successfully.</string>
     <string name="account_sync_success">Account synced successfully.</string>
     <string name="account_adventure_message">Your account is ready to go on a new adventure!</string>
-    <string name="snack_created_business_success">Business created successfully.</string>
-    <string name="cancel_business_deletion">Cancel elimination</string>
-    <string name="business_on_delete_alert">This business was disabled by the administrator and will be deleted soon.</string>
-    <string name="business_disabled_alert">This business was disabled by the administrator, contact the administrator for more information.</string>
+    <string name="snack_created_store_success">Store created successfully.</string>
+    <string name="cancel_store_deletion">Cancel elimination</string>
+    <string name="store_on_delete_alert">This store was disabled by the administrator and will be deleted soon.</string>
+    <string name="store_disabled_alert">This store was disabled by the administrator, contact the administrator for more information.</string>
     <string name="on_delete">Deleting</string>
     <string name="disabled">Disabled</string>
     <string name="enabled">Enabled</string>
-    <string name="empty_businesses_message">Nothing was found here, we invite you to create a new business or join an existing one.</string>
-    <string name="business_selected">Business selected successfully.</string>
+    <string name="empty_stores_message">Nothing was found here, we invite you to create a new store or join an existing one.</string>
+    <string name="store_selected">Store selected successfully.</string>
 
     <!-- Category-->
     <string name="add_category">Add category</string>
@@ -161,7 +161,7 @@
     <!-- Calendar -->
     <string name="action_add_event">Add event</string>
     <string name="last_calendar_events">Last calendar events</string>
-    <string name="empty_calendar_alert">Ops, your calendar is empty!\n\nTake a look at it, being organized is key to running a well managed business</string>
+    <string name="empty_calendar_alert">Ops, your calendar is empty!\n\nTake a look at it, being organized is key to running a well managed store</string>
     <string name="events_details">Event details</string>
     <string name="all">All</string>
     <string name="no_events_found_message">Ops! Nothing found here.</string>
@@ -239,10 +239,10 @@
     <string name="creation_date">Creation date</string>
     <string name="e_mail">E-mail</string>
     <string name="not_found">Not found</string>
-    <string name="local_business_not_found_in_account">We could not found local business in your account.</string>
+    <string name="local_store_not_found_in_account">We could not found local store in your account.</string>
     <string name="loading_with_dots">Loading..</string>
     <string name="helper_text_obligatory">*Required</string>
-    <string name="business_name_hint">Business Name</string>
+    <string name="store_name_hint">Store Name</string>
     <string name="role">Role</string>
     <string name="details">Details</string>
     <string name="manually">Manually</string>
@@ -303,7 +303,7 @@
     <string name="ask_order_type_title">What is the type of the order?</string>
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
-    <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your business well organized.</string>
+    <string name="order_type_alert">*It is not necessary to specify a client/ supplier but it is important to keep your store well organized.</string>
     <string name="amount">Amount</string>
     <string name="add_client">Add client</string>
     <string name="total_with_dots">Total:</string>
@@ -347,13 +347,13 @@
     <string name="help_pref">Help</string>
     <string name="about_us_pref">About Blint</string>
     <string name="auto_backup_pref">Automatic backup</string>
-    <string name="auto_backup_summary_pref">Your businesses are saved in the cloud automatically every day</string>
+    <string name="auto_backup_summary_pref">Your stores are saved in the cloud automatically every day</string>
     <string name="create_backup_pref">Create backup</string>
-    <string name="create_backup_summary_pref">Your entire businesses are backed up in the cloud</string>
+    <string name="create_backup_summary_pref">Your entire stores are backed up in the cloud</string>
     <string name="restore_backup_pref">Restore from backup</string>
-    <string name="restore_backup_summary_pref">Your business is restored from the cloud</string>
+    <string name="restore_backup_summary_pref">Your store is restored from the cloud</string>
     <string name="my_information_pref">Information</string>
-    <string name="my_businesses_pref">Businesses</string>
+    <string name="my_stores_pref">Stores</string>
     <string name="billing_pref">Billing</string>
     <string name="privacy_pref">Privacy</string>
     <string name="sign_out_pref">Log out</string>
@@ -379,8 +379,8 @@
 
     <!-- Menus -->
     <string name="options">Options</string>
-    <string name="delete_business">Delete business</string>
-    <string name="new_business">New business</string>
+    <string name="delete_store">Delete store</string>
+    <string name="new_store">New store</string>
     <string name="new_event">New event</string>
     <string name="new_supplier">New supplier</string>
     <string name="new_client">New client</string>
@@ -391,8 +391,8 @@
     <string name="search">Search</string>
 
     <!-- Images content descriptions -->
-    <string name="business_logo_image">business logo</string>
-    <string name="business_selected_image">selected business</string>
+    <string name="store_logo_image">store logo</string>
+    <string name="store_selected_image">selected store</string>
     <string name="notifications_icon">notifications</string>
     <string name="fab_action_button">action button</string>
     <string name="close_icon">close</string>
@@ -448,7 +448,7 @@
     <string name="generate_lists">Generate lists</string>
     <string name="product_records_report">Products stock movements</string>
     <string name="traders_records_report">Traders stock movements</string>
-    <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your business and this may take a few seconds.</string>
+    <string name="generate_reports_alert">*Keep in mind that to generate reports we have to analyze all the information of your store and this may take a few seconds.</string>
     <string name="generating_report_title">Generating report..</string>
     <string name="report_list_suppliers">suppliers_list_%1$s</string>
     <string name="report_list_clients">clients_list_%1$s</string>
@@ -480,14 +480,14 @@
     <string name="order_total_template" translatable="false">Total: $%1$s</string>
 
     <!-- Sync account -->
-    <string name="sync_businesses">Sync businesses</string>
+    <string name="sync_stores">Sync stores</string>
     <string name="snack_sync_account_error">An error occurred syncing your account.</string>
 
     <!-- Tickets -->
     <string name="send_ticket_label">Send ticket</string>
     <string name="action_close_keyboard">Close keyboard</string>
     <string name="ticket_reason_hint">Select reason</string>
-    <string name="select_business_alert">*We will be in touch shortly.\nYou can also reach us at :\ncontact@blint.app</string>
+    <string name="select_store_alert">*We will be in touch shortly.\nYou can also reach us at :\ncontact@blint.app</string>
     <string name="snack_ticket_missing_required_data">Choose a ticket reason and type a message.</string>
     <string name="snack_ticket_sent_success">Ticket sent successfully, we will be in touch via e-mail soon.</string>
 
@@ -506,7 +506,7 @@
     <string name="snack_invoice_save_error">An error occurred saving the invoice</string>
     <string name="sku_caps" translatable="false">SKU</string>
     <string name="invoice_by_blint">Generated by blint.app</string>
-    <string name="business">Business</string>
+    <string name="store">Store</string>
     <string name="total_caps" translatable="false">TOTAL</string>
     <string name="order_number_invoice">Order number: %1$d</string>
     <string name="invoice_file_name">order_%1$d_invoice.pdf</string>

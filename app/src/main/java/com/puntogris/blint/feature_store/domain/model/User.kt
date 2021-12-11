@@ -31,7 +31,7 @@ data class User(
     val email: String = "",
 
     @ColumnInfo
-    val currentBusinessId: String = "",
+    val currentStoreId: String = "",
 
     @ColumnInfo
     val appTier: String = "BASIC",

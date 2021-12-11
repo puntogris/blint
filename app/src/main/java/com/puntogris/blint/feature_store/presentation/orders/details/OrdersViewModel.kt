@@ -7,7 +7,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.order.OrdersTableItem
-import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
+import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val repository: OrdersRepository,
+    private val repository: OrderRepository,
     handle: SavedStateHandle
 ) : ViewModel() {
 

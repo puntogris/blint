@@ -38,11 +38,11 @@ class UserRepositoryImpl(
                 val user = userServerApi.getUserAccount(authUser)
                 appDatabase.usersDao.insert(user)
 
-                val business = appDatabase.businessDao.getBusiness()
+                val stores = appDatabase.storeDao.getStores()
 
-                if (business.isNotEmpty()) {
-                    appDatabase.businessDao.updateBusinessesOwnerUid(user.uid)
-                    appDatabase.usersDao.updateCurrentBusiness(business.first().businessId)
+                if (stores.isNotEmpty()) {
+                    appDatabase.storeDao.updateStoresOwnerUid(user.uid)
+                    appDatabase.usersDao.updateCurrentStore(stores.first().storeId)
                     sharedPreferences.setShowNewUserScreen(false)
                     SyncAccount.Success.HasBusiness
                 } else {
@@ -60,7 +60,7 @@ class UserRepositoryImpl(
     override suspend fun updateCurrentBusiness(businessId: String): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
-                appDatabase.usersDao.updateCurrentBusiness(businessId)
+                appDatabase.usersDao.updateCurrentStore(businessId)
             }
         }
 

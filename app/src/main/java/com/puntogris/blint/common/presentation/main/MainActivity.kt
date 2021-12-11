@@ -102,7 +102,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
         when (menuItem?.itemId) {
             R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            R.id.businessFragment -> navController.navigate(R.id.manageBusinessFragment)
+            R.id.storeFragment -> navController.navigate(R.id.manageStoreFragment)
         }
         return true
     }

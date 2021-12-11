@@ -14,7 +14,7 @@ class FirestoreUser(
 
     val email: String = "",
 
-    val currentBusinessId: String = "",
+    val currentStoreId: String = "",
 
     val appTier: String = Constants.BASIC_PLAN,
 

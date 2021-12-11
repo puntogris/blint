@@ -90,7 +90,7 @@
         <menu>
             <item
                 android:id="@+id/newBusiness"
-                android:title="@string/new_business" />
+                android:title="@string/new_store" />
         </menu>
     </item>
 
@@ -103,7 +103,7 @@
         <menu>
             <item
                 android:id="@+id/deleteBusiness"
-                android:title="@string/delete_business" />
+                android:title="@string/delete_store" />
         </menu>
     </item>
 

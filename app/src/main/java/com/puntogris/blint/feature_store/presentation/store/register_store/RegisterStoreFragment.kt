@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.business.register_business
+package com.puntogris.blint.feature_store.presentation.store.register_store
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,10 +17,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterBusinessFragment :
+class RegisterStoreFragment :
     BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
 
-    private val viewModel: RegisterBusinessViewModel by viewModels()
+    private val viewModel: RegisterStoreViewModel by viewModels()
 
     override fun initializeViews() {
         UiInterface.registerUi(showAppBar = false)
@@ -48,7 +48,7 @@ class RegisterBusinessFragment :
                         binding.animationView.playAnimationOnce(R.raw.error)
                     }
                     is ProgressResource.Success -> {
-                        UiInterface.showSnackBar(getString(R.string.snack_created_business_success))
+                        UiInterface.showSnackBar(getString(R.string.snack_created_store_success))
                         findNavController().navigateAndClearStack(R.id.homeFragment)
                     }
                     ProgressResource.InProgress -> {

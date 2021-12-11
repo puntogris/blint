@@ -40,7 +40,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesEmployeesDao(appDatabase: AppDatabase) = appDatabase.businessDao
+    fun providesEmployeesDao(appDatabase: AppDatabase) = appDatabase.storeDao
 
     @Singleton
     @Provides
@@ -89,14 +89,14 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideBusinessRepository(
-        businessDao: BusinessDao,
+    fun provideStoreRepository(
+        storeDao: StoreDao,
         usersDao: UsersDao,
         sharedPreferences: SharedPreferences,
         dispatcher: DispatcherProvider,
-    ): BusinessRepository {
-        return BusinessRepositoryImpl(
-            businessDao,
+    ): StoreRepository {
+        return StoreRepositoryImpl(
+            storeDao,
             usersDao,
             sharedPreferences,
             dispatcher
@@ -119,14 +119,14 @@ class DatabaseModule {
         tradersDao: TradersDao,
         usersDao: UsersDao,
         recordsDao: RecordsDao,
-        businessDao: BusinessDao,
+        storeDao: StoreDao,
         dispatcher: DispatcherProvider
     ): TraderRepository {
         return TraderRepositoryImpl(
             tradersDao,
             usersDao,
             recordsDao,
-            businessDao,
+            storeDao,
             dispatcher
         )
     }
@@ -137,8 +137,8 @@ class DatabaseModule {
         debtsDao: DebtsDao,
         usersDao: UsersDao,
         dispatcher: DispatcherProvider
-    ): DebtsRepository {
-        return DebtsRepositoryImpl(debtsDao, usersDao, dispatcher)
+    ): DebtRepository {
+        return DebtRepositoryImpl(debtsDao, usersDao, dispatcher)
     }
 
     @Singleton
@@ -157,8 +157,8 @@ class DatabaseModule {
         dispatcher: DispatcherProvider,
         appDatabase: AppDatabase,
         pdfCreator: PDFCreator
-    ): OrdersRepository {
-        return OrdersRepositoryImpl(dispatcher, appDatabase, pdfCreator)
+    ): OrderRepository {
+        return OrderRepositoryImpl(dispatcher, appDatabase, pdfCreator)
     }
 
     @Singleton
@@ -166,14 +166,14 @@ class DatabaseModule {
     fun provideProductRepository(
         usersDao: UsersDao,
         productsDao: ProductsDao,
-        businessDao: BusinessDao,
+        storeDao: StoreDao,
         recordsDao: RecordsDao,
         dispatcher: DispatcherProvider
     ): ProductRepository {
         return ProductRepositoryImpl(
             usersDao,
             productsDao,
-            businessDao,
+            storeDao,
             recordsDao,
             dispatcher
         )

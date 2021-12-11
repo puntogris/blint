@@ -3,13 +3,13 @@ package com.puntogris.blint.feature_store.presentation.orders.manage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
+import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ManageOrdersViewModel @Inject constructor(
-    private val repository: OrdersRepository
+    private val repository: OrderRepository
 ) : ViewModel() {
 
     fun getOrders() = repository.getOrdersPaged().cachedIn(viewModelScope)

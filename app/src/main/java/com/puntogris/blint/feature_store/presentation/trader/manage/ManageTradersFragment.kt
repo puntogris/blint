@@ -54,9 +54,9 @@ class ManageTradersFragment :
         findNavController().navigate(action)
     }
 
-    private fun setupTraderFilter(){
+    private fun setupTraderFilter() {
         binding.tradersFilter.addOnButtonCheckedListener { _, checkedId, _ ->
-            when(checkedId){
+            when (checkedId) {
                 R.id.filterAllTradersButton -> viewModel.setFilter(TraderFilter.All)
                 R.id.filterClientsTradersButton -> viewModel.setFilter(TraderFilter.CLIENT)
                 R.id.filterSuppliersTradersButton -> viewModel.setFilter(TraderFilter.SUPPLIER)

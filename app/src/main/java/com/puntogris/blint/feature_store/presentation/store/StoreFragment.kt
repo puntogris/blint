@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.business
+package com.puntogris.blint.feature_store.presentation.store
 
 import android.view.Menu
 import android.view.MenuItem
@@ -11,13 +11,13 @@ import com.puntogris.blint.databinding.FragmentBusinessBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.fragment_business) {
+class StoreFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.fragment_business) {
 
-    private val args: BusinessFragmentArgs by navArgs()
+    private val args: StoreFragmentArgs by navArgs()
 
     override fun initializeViews() {
         UiInterface.registerUi()
-        binding.business = args.business
+        binding.business = args.store
     }
 
     override fun setUpMenuOptions(menu: Menu) {
@@ -28,7 +28,7 @@ class BusinessFragment : BaseFragmentOptions<FragmentBusinessBinding>(R.layout.f
         return when (item.itemId) {
             R.id.deleteBusiness -> {
                 val action =
-                    BusinessFragmentDirections.actionBusinessFragmentToDeleteBusinessFragment(args.business)
+                    StoreFragmentDirections.actionStoreFragmentToDeleteStoreFragment(args.store)
                 findNavController().navigate(action)
                 true
             }

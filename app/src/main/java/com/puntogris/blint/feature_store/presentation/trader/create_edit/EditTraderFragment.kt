@@ -16,7 +16,6 @@ import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
-import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.databinding.FragmentEditTraderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -86,10 +85,10 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
         }
     }
 
-    private fun setupTraderFilter(){
+    private fun setupTraderFilter() {
         //Todo think a better way, the data binding adapter feels weird
         binding.traderInformationLayout.traderType.addOnButtonCheckedListener { _, checkedId, _ ->
-            when(checkedId){
+            when (checkedId) {
                 R.id.traderTypeOtherButton -> viewModel.updateTraderType(Constants.OTHER)
                 R.id.traderTypeClientButton -> viewModel.updateTraderType(Constants.CLIENT)
                 R.id.traderTypeSupplierButton -> viewModel.updateTraderType(Constants.SUPPLIER)

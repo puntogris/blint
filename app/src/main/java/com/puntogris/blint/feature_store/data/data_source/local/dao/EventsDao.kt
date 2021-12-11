@@ -15,17 +15,17 @@ interface EventsDao {
     suspend fun delete(eventId: String)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp ASC")
+    @Query("SELECT * FROM event INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' ORDER BY timestamp ASC")
     fun getEventsPaged(): PagingSource<Int, Event>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND status = :status ORDER BY timestamp ASC")
+    @Query("SELECT * FROM event INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND status = :status ORDER BY timestamp ASC")
     fun getEventsWithStatusPaged(status: String): PagingSource<Int, Event>
 
     @Update
     suspend fun updateEvent(event: Event)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM event INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' ORDER BY timestamp ASC LIMIT 3")
+    @Query("SELECT * FROM event INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' ORDER BY timestamp ASC LIMIT 3")
     fun getLastThreeEventsFlow(): Flow<List<Event>>
 }

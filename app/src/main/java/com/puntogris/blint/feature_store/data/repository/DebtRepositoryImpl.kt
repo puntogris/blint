@@ -8,20 +8,20 @@ import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.DebtsDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.order.Debt
-import com.puntogris.blint.feature_store.domain.repository.DebtsRepository
+import com.puntogris.blint.feature_store.domain.repository.DebtRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class DebtsRepositoryImpl(
+class DebtRepositoryImpl(
     private val debtsDao: DebtsDao,
     private val usersDao: UsersDao,
     private val dispatcher: DispatcherProvider
-) : DebtsRepository {
+) : DebtRepository {
 
     override suspend fun saveDebt(debt: Debt): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
-                debt.businessId = usersDao.getCurrentBusinessId()
+                debt.storeId = usersDao.getCurrentStoreId()
 
                 debtsDao.updateTraderDebt(debt.traderId, debt.amount)
                 debtsDao.updateTotalTradersDebt(debt.amount)

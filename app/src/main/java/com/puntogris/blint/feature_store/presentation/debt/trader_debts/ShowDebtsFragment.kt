@@ -7,7 +7,6 @@ import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.databinding.FragmentShowDebtsBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
-import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 

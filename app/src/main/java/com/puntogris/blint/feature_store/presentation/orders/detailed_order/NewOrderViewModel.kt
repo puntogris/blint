@@ -12,7 +12,7 @@ import com.puntogris.blint.common.utils.types.TraderQuery
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
 import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
+import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import com.puntogris.blint.feature_store.domain.repository.TraderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val orderRepository: OrdersRepository,
+    private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
     private val traderRepository: TraderRepository
 ) : ViewModel() {

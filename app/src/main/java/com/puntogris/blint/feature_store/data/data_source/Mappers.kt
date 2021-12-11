@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.feature_store.data.data_source.remote.FirestoreUser
 import com.puntogris.blint.feature_store.domain.model.AuthUser
-import com.puntogris.blint.feature_store.domain.model.Business
+import com.puntogris.blint.feature_store.domain.model.Store
 import com.puntogris.blint.feature_store.domain.model.User
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecord
 import com.puntogris.blint.feature_store.domain.model.excel.ProductRecordExcel
@@ -49,7 +49,7 @@ fun Product.toInitialRecord(currentBusinessId: String): Record {
         amount = amount,
         productId = productId,
         productName = name,
-        businessId = currentBusinessId,
+        storeId = currentBusinessId,
         barcode = barcode,
         historicInStock = amount,
         sku = sku,
@@ -64,17 +64,17 @@ fun ProductWithDetails.toProductCategoryCrossRef(): List<ProductCategoryCrossRef
     return categories.map { ProductCategoryCrossRef(product.productId, it.categoryName) }
 }
 
-fun NewOrder.toOrderWithRecords(business: Business): OrderWithRecords {
+fun NewOrder.toOrderWithRecords(store: Store): OrderWithRecords {
     return OrderWithRecords(
         order = Order(
             orderId = orderId,
-            number = business.totalOrders + 1,
+            number = store.totalOrders + 1,
             value = value,
             type = type,
             traderName = traderName,
             traderId = traderId,
-            businessId = business.businessId,
-            businessName = business.name,
+            storeId = store.storeId,
+            businessName = store.name,
             debtId = newDebt?.debtId ?: ""
         ),
         records = newRecords.map {
@@ -93,7 +93,7 @@ fun NewOrder.toOrderWithRecords(business: Business): OrderWithRecords {
                     Constants.INITIAL -> it.historicalInStock + it.amount
                     else -> it.historicalInStock
                 },
-                businessId = business.businessId,
+                storeId = store.storeId,
                 barcode = it.barcode,
                 productUnitPrice = it.productUnitPrice,
                 sku = it.sku,
@@ -106,7 +106,7 @@ fun NewOrder.toOrderWithRecords(business: Business): OrderWithRecords {
                 traderName = traderName,
                 traderId = traderId,
                 traderType = if (type == Constants.IN) Constants.SUPPLIER else Constants.CLIENT,
-                businessId = business.businessId
+                storeId = store.storeId
             )
         }
     )

@@ -1,38 +1,38 @@
 package com.puntogris.blint.feature_store.data.repository
 
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.DeleteBusiness
+import com.puntogris.blint.common.utils.types.DeleteStore
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.SimpleProgressResource
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
-import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.StoreDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
-import com.puntogris.blint.feature_store.domain.model.Business
-import com.puntogris.blint.feature_store.domain.repository.BusinessRepository
+import com.puntogris.blint.feature_store.domain.model.Store
+import com.puntogris.blint.feature_store.domain.repository.StoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
-class BusinessRepositoryImpl(
-    private val businessDao: BusinessDao,
+class StoreRepositoryImpl(
+    private val storeDao: StoreDao,
     private val usersDao: UsersDao,
     private val sharedPreferences: SharedPreferences,
     private val dispatcher: DispatcherProvider,
-) : BusinessRepository {
+) : StoreRepository {
 
-    override fun registerBusiness(businessName: String): Flow<SimpleProgressResource> = flow {
+    override fun registerStore(businessName: String): Flow<SimpleProgressResource> = flow {
         try {
             emit(ProgressResource.InProgress)
 
-            val business = Business(
+            val business = Store(
                 name = businessName,
                 ownerUid = usersDao.getUserId()
             )
 
-            businessDao.insert(business)
+            storeDao.insert(business)
 
-            usersDao.updateCurrentBusiness(business.businessId)
+            usersDao.updateCurrentStore(business.storeId)
 
             sharedPreferences.setShowNewUserScreen(false)
 
@@ -42,26 +42,26 @@ class BusinessRepositoryImpl(
         }
     }.flowOn(dispatcher.io)
 
-    override suspend fun deleteBusiness(businessId: String): DeleteBusiness =
+    override suspend fun deleteStore(businessId: String): DeleteStore =
         withContext(dispatcher.io) {
             try {
-                businessDao.deleteBusiness(businessId)
-                val business = businessDao.getBusiness()
+                storeDao.deleteStore(businessId)
+                val business = storeDao.getStores()
 
                 if (business.isEmpty()) {
                     sharedPreferences.setShowNewUserScreen(true)
-                    DeleteBusiness.Success.NoBusiness
+                    DeleteStore.Success.NoStores
                 } else {
-                    usersDao.updateCurrentBusiness(business.first().businessId)
-                    DeleteBusiness.Success.HasBusiness
+                    usersDao.updateCurrentStore(business.first().storeId)
+                    DeleteStore.Success.HasStores
                 }
             } catch (e: Exception) {
-                DeleteBusiness.Failure
+                DeleteStore.Failure
             }
         }
 
-    override fun getBusinessesFlow() = businessDao.getBusinessesFlow()
+    override fun getStoresFlow() = storeDao.getStoresFlow()
 
-    override fun getCurrentBusinessFlow() = businessDao.getCurrentBusinessFlow()
+    override fun getCurrentStoreFlow() = storeDao.getCurrentStoreFlow()
 
 }

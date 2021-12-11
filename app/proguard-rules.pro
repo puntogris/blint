@@ -26,7 +26,7 @@
 -keep class com.puntogris.blint.feature_store.domain.model.order.Record
 -keep class com.puntogris.blint.feature_store.domain.model.Event
 -keep class com.puntogris.blint.feature_store.domain.model.AuthUser
--keep class com.puntogris.blint.feature_store.domain.model.Business
+-keep class com.puntogris.blint.feature_store.domain.model.Store
 -keep class com.puntogris.blint.feature_store.domain.model.product.Product
 -keep class com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 -keep class com.puntogris.blint.feature_store.domain.model.order.Debt

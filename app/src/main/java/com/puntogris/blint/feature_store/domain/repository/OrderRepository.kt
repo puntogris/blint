@@ -10,7 +10,7 @@ import com.puntogris.blint.feature_store.domain.model.order.Record
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
-interface OrdersRepository {
+interface OrderRepository {
 
     fun generateOrderPDF(uri: Uri?, orderWithRecords: OrderWithRecords): Resource<File>
 

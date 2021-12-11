@@ -5,7 +5,7 @@ import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import kotlinx.coroutines.flow.Flow
 
-interface DebtsRepository {
+interface DebtRepository {
 
     suspend fun saveDebt(debt: Debt): SimpleResource
 

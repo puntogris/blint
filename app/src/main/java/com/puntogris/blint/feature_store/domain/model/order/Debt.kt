@@ -33,7 +33,7 @@ data class Debt(
     var timestamp: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
-    var businessId: String = "",
+    var storeId: String = "",
 
     @ColumnInfo
     var traderType: String = ""

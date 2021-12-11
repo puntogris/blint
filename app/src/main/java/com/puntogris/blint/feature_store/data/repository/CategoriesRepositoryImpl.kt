@@ -28,7 +28,7 @@ class CategoriesRepositoryImpl(
     override suspend fun saveCategory(category: Category): SimpleResource =
         withContext(dispatcher.io) {
             SimpleResource.build {
-                category.businessId = usersDao.getCurrentBusinessId()
+                category.storeId = usersDao.getCurrentStoreId()
                 categoriesDao.insert(category)
             }
         }

@@ -31,7 +31,7 @@ class TraderViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Trader())
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val clientsRecords = currentTrader.flatMapLatest {
+    val traderRecords = currentTrader.flatMapLatest {
         repository.getTradersRecordsPaged(it.traderId)
     }.cachedIn(viewModelScope)
 

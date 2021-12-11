@@ -13,7 +13,7 @@ import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.toOrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.order.*
-import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
+import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -21,11 +21,11 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.math.absoluteValue
 
-class OrdersRepositoryImpl(
+class OrderRepositoryImpl(
     private val dispatcher: DispatcherProvider,
     private val appDatabase: AppDatabase,
     private val pdfCreator: PDFCreator
-) : OrdersRepository {
+) : OrderRepository {
 
     override fun saveOrder(newOrder: NewOrder): Flow<ProgressResource<Unit>> = flow {
         try {
@@ -35,8 +35,8 @@ class OrdersRepositoryImpl(
                 return@flow emit(ProgressResource.Error(R.string.product_amount_empty))
             }
 
-            val business = appDatabase.businessDao.getCurrentBusiness()
-            val orderWithRecords = newOrder.toOrderWithRecords(business)
+            val store = appDatabase.storeDao.getCurrentStore()
+            val orderWithRecords = newOrder.toOrderWithRecords(store)
 
             val recordRefs = orderWithRecords.records.map {
                 OrderRecordCrossRef(orderWithRecords.order.orderId, it.recordId)
@@ -59,12 +59,12 @@ class OrdersRepositoryImpl(
                     }
 
                     orderWithRecords.debt?.let {
-                        businessDao.updateTradersDebt(it.amount)
+                        storeDao.updateTradersDebt(it.amount)
                         tradersDao.updateTraderDebt(it.traderId, it.amount)
                         debtsDao.insert(it)
                     }
 
-                    businessDao.incrementTotalOrders()
+                    storeDao.incrementTotalOrders()
                     ordersDao.insert(orderWithRecords.order)
                     ordersDao.insertOrderRecordsCrossRef(recordRefs)
                     recordsDao.insert(orderWithRecords.records)

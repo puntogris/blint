@@ -88,7 +88,7 @@ class PDFCreator @Inject constructor(
             ), horizontalMargin, 40f, paintLeft
         )
         canvas.drawText(
-            "${context.getString(R.string.business)}: ${orderWithRecords.order.businessName} ",
+            "${context.getString(R.string.store)}: ${orderWithRecords.order.businessName} ",
             horizontalMargin,
             70f,
             paintLeft

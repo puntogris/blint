@@ -8,8 +8,8 @@ import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.common.utils.types.TraderQuery
-import com.puntogris.blint.feature_store.data.data_source.local.dao.BusinessDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.RecordsDao
+import com.puntogris.blint.feature_store.data.data_source.local.dao.StoreDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.TradersDao
 import com.puntogris.blint.feature_store.data.data_source.local.dao.UsersDao
 import com.puntogris.blint.feature_store.domain.model.Trader
@@ -22,7 +22,7 @@ class TraderRepositoryImpl(
     private val tradersDao: TradersDao,
     private val usersDao: UsersDao,
     private val recordsDao: RecordsDao,
-    private val businessDao: BusinessDao,
+    private val storeDao: StoreDao,
     private val dispatcher: DispatcherProvider
 ) : TraderRepository {
 
@@ -32,9 +32,9 @@ class TraderRepositoryImpl(
 
                 trader.apply {
                     traderId = UUIDGenerator.randomUUID()
-                    businessId = usersDao.getCurrentBusinessId()
+                    storeId = usersDao.getCurrentStoreId()
                 }
-                businessDao.incrementTotalTraders()
+                storeDao.incrementTotalTraders()
             }
             tradersDao.insert(trader)
         }
@@ -66,7 +66,7 @@ class TraderRepositoryImpl(
         withContext(dispatcher.io) {
             SimpleResource.build {
                 tradersDao.delete(traderId)
-                businessDao.decrementTotalTraders()
+                storeDao.decrementTotalTraders()
             }
         }
 
@@ -83,6 +83,6 @@ class TraderRepositoryImpl(
                 enablePlaceholders = true,
                 maxSize = 200
             )
-        ) { recordsDao.getClientsRecords(traderId) }.flow
+        ) { recordsDao.getTradersRecords(traderId) }.flow
     }
 }

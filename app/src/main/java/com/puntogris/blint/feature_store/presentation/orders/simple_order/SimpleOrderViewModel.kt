@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.NewRecord
-import com.puntogris.blint.feature_store.domain.repository.OrdersRepository
+import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class SimpleOrderViewModel @Inject constructor(
-    private val repository: OrdersRepository,
+    private val repository: OrderRepository,
     handle: SavedStateHandle
 ) : ViewModel() {
 

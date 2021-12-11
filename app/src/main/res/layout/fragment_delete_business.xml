@@ -7,13 +7,13 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.business.DeleteBusinessFragment" />
+            type="com.puntogris.blint.feature_store.presentation.store.DeleteStoreFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.business.DeleteBusinessFragment">
+        tools:context=".feature_store.presentation.store.DeleteStoreFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/businessName"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            android:hint="@string/business_name_hint"
+            android:hint="@string/store_name_hint"
             app:helperText="@string/helper_text_obligatory"
             app:helperTextEnabled="true"
             app:layout_constraintBottom_toTopOf="@+id/textView120"
@@ -49,7 +49,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="104dp"
             android:lineSpacingExtra="4dp"
-            android:text="@string/delete_local_business_warning"
+            android:text="@string/delete_local_store_warning"
             app:layout_constraintBottom_toTopOf="@+id/button6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

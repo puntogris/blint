@@ -13,14 +13,14 @@ interface CategoriesDao {
     @Update
     suspend fun update(category: Category)
 
-    @Query("DELETE FROM category WHERE categoryName IN (SELECT categoryName FROM category INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND categoryName = :categoryName)")
+    @Query("DELETE FROM category WHERE categoryName IN (SELECT categoryName FROM category INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND categoryName = :categoryName)")
     suspend fun deleteCategory(categoryName: String)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM category INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1'")
+    @Query("SELECT * FROM category INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1'")
     fun getCategoriesPaged(): PagingSource<Int, Category>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM category INNER JOIN user ON businessId = currentBusinessId WHERE localReferenceId = '1' AND categoryName LIKE ('%'|| :query ||'%')")
+    @Query("SELECT * FROM category INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND categoryName LIKE ('%'|| :query ||'%')")
     fun getCategoriesWithQueryPaged(query: String): PagingSource<Int, Category>
 }

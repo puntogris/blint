@@ -38,7 +38,7 @@ data class Trader(
     var discount: Float = 0F,
 
     @ColumnInfo
-    var businessId: String = "",
+    var storeId: String = "",
 
     @ColumnInfo
     var debt: Float = 0F,

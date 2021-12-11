@@ -29,7 +29,7 @@ class TraderRecordsFragment :
 
     private fun subscribeUi(adapter: RecordsAdapter) {
         launchAndRepeatWithViewLifecycle {
-            viewModel.clientsRecords.collect {
+            viewModel.traderRecords.collect {
                 adapter.submitData(it)
             }
         }

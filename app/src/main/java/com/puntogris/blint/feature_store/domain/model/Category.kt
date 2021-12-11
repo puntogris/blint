@@ -17,6 +17,6 @@ data class Category(
     var categoryName: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
-    var businessId: String = ""
+    var storeId: String = ""
 
 ) : Parcelable

@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.business
+package com.puntogris.blint.feature_store.presentation.store
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -9,17 +9,17 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getString
-import com.puntogris.blint.common.utils.types.DeleteBusiness
+import com.puntogris.blint.common.utils.types.DeleteStore
 import com.puntogris.blint.databinding.FragmentDeleteBusinessBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DeleteBusinessFragment :
+class DeleteStoreFragment :
     BaseFragment<FragmentDeleteBusinessBinding>(R.layout.fragment_delete_business) {
 
-    private val args: DeleteBusinessFragmentArgs by navArgs()
-    private val viewModel: BusinessViewModel by viewModels()
+    private val args: DeleteStoreFragmentArgs by navArgs()
+    private val viewModel: StoreViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this
@@ -27,17 +27,17 @@ class DeleteBusinessFragment :
     }
 
     fun onDeleteBusinessClicked() {
-        if (binding.businessNameText.getString() == args.business.name) {
+        if (binding.businessNameText.getString() == args.store.name) {
             showDeleteBusinessDialog()
         } else {
-            UiInterface.showSnackBar(getString(R.string.snack_business_name_does_not_match))
+            UiInterface.showSnackBar(getString(R.string.snack_store_name_does_not_match))
         }
     }
 
     private fun showDeleteBusinessDialog() {
         InfoSheet().show(requireParentFragment().requireContext()) {
-            title(R.string.do_you_want_to_delete_business)
-            content(R.string.delete_local_business_warning_dialog)
+            title(R.string.do_you_want_to_delete_store)
+            content(R.string.delete_local_store_warning_dialog)
             onNegative(R.string.action_no)
             onPositive(R.string.action_delete) {
                 onDeleteConfirmation()
@@ -47,16 +47,16 @@ class DeleteBusinessFragment :
 
     private fun onDeleteConfirmation() {
         lifecycleScope.launch {
-            when (viewModel.deleteBusiness(args.business.businessId)) {
-                DeleteBusiness.Failure -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_error))
+            when (viewModel.deleteBusiness(args.store.storeId)) {
+                DeleteStore.Failure -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_store_error))
                 }
-                DeleteBusiness.Success.HasBusiness -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))
+                DeleteStore.Success.HasStores -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_store_success))
                     findNavController().navigate(R.id.homeFragment)
                 }
-                DeleteBusiness.Success.NoBusiness -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_delete_business_success))
+                DeleteStore.Success.NoStores -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_store_success))
                     findNavController().navigate(R.id.newUserFragment)
                 }
             }

@@ -31,7 +31,7 @@ data class Order(
     var traderName: String = "",
 
     @ColumnInfo
-    var businessId: String = "",
+    var storeId: String = "",
 
     @ColumnInfo
     var number: Int = 1,

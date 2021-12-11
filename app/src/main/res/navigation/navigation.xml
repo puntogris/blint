@@ -21,16 +21,16 @@
         android:name="com.puntogris.blint.feature_store.presentation.main.HomeFragment"
         android:label="@string/app_name">
         <action
-            android:id="@+id/action_mainFragment_to_registerBusiness"
-            app:destination="@id/registerBusinessFragment" />
+            android:id="@+id/action_mainFragment_to_registerStore"
+            app:destination="@id/registerStoreFragment" />
         <action
             android:id="@+id/action_mainFragment_to_eventInfoBottomSheet"
             app:destination="@id/eventInfoBottomSheet" />
     </fragment>
     <fragment
-        android:id="@+id/registerBusinessFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.business.register_business.RegisterBusinessFragment"
-        android:label="@string/register_business_label" />
+        android:id="@+id/registerStoreFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.store.register_store.RegisterStoreFragment"
+        android:label="@string/register_store_label" />
     <fragment
         android:id="@+id/preferencesFragment"
         android:name="com.puntogris.blint.feature_store.presentation.settings.PreferencesFragment"
@@ -202,32 +202,32 @@
             app:argType="com.puntogris.blint.feature_store.domain.model.AuthUser" />
     </fragment>
     <fragment
-        android:id="@+id/manageBusinessFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.business.manage.ManageBusinessFragment"
-        android:label="@string/my_businesses_pref">
+        android:id="@+id/manageStoreFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.store.manage.ManageStoreFragment"
+        android:label="@string/my_stores_pref">
         <action
-            android:id="@+id/action_manageBusinessFragment_to_businessFragment"
-            app:destination="@id/businessFragment" />
+            android:id="@+id/action_manageStoreFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/businessFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.business.BusinessFragment"
-        android:label="@string/my_business_label">
+        android:id="@+id/storeFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.store.StoreFragment"
+        android:label="@string/my_store_label">
         <argument
-            android:name="business"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Business" />
+            android:name="store"
+            app:argType="com.puntogris.blint.feature_store.domain.model.Store" />
         <action
-            android:id="@+id/action_businessFragment_to_deleteBusinessFragment"
-            app:destination="@id/deleteBusinessFragment" />
+            android:id="@+id/action_storeFragment_to_deleteStoreFragment"
+            app:destination="@id/deleteStoreFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/deleteBusinessFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.business.DeleteBusinessFragment"
-        android:label="@string/delete_business">
+        android:id="@+id/deleteStoreFragment"
+        android:name="com.puntogris.blint.feature_store.presentation.store.DeleteStoreFragment"
+        android:label="@string/delete_store">
         <argument
-            android:name="business"
-            app:argType="com.puntogris.blint.feature_store.domain.model.Business" />
+            android:name="store"
+            app:argType="com.puntogris.blint.feature_store.domain.model.Store" />
     </fragment>
 
     <fragment

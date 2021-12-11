@@ -41,8 +41,8 @@ class ReportsRepositoryImpl(
         withContext(dispatcher.io) {
             SimpleResource.build {
                 val records = when (report.timeFrame.days) {
-                    0 -> recordsDao.getClientsRecords()
-                    else -> recordsDao.getClientsRecordsTimeframe(report.timeFrame.days)
+                    0 -> recordsDao.getTradersRecords()
+                    else -> recordsDao.getTraderRecordsTimeframe(report.timeFrame.days)
                 }.toTraderExcelList()
 
                 excelDrawer.drawTradersRecords(records, requireNotNull(report.uri))

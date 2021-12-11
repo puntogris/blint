@@ -12,10 +12,10 @@ import org.threeten.bp.OffsetDateTime
 @Parcelize
 @Entity
 @Keep
-data class Business(
+data class Store(
 
     @PrimaryKey(autoGenerate = false)
-    val businessId: String = UUIDGenerator.randomUUID(),
+    val storeId: String = UUIDGenerator.randomUUID(),
 
     @ColumnInfo
     val name: String = "",

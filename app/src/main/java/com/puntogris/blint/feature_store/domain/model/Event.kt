@@ -31,5 +31,5 @@ data class Event(
     var message: String = "",
 
     @ColumnInfo
-    var businessId: String = ""
+    var storeId: String = ""
 ) : Parcelable

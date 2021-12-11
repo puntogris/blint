@@ -58,7 +58,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     }
 
     fun onCreateBusinessClicked() {
-        findNavController().navigate(R.id.registerBusinessFragment)
+        findNavController().navigate(R.id.registerStoreFragment)
     }
 }
 
