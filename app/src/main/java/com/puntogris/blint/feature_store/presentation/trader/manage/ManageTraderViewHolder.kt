@@ -9,7 +9,7 @@ import com.puntogris.blint.feature_store.domain.model.Trader
 class ManageTraderViewHolder private constructor(val binding: ManageTradersVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(trader: Trader, clickListener: (Trader) -> Unit) {
-        binding.client = trader
+        binding.trader = trader
         binding.root.setOnClickListener { clickListener(trader) }
         binding.executePendingBindings()
     }

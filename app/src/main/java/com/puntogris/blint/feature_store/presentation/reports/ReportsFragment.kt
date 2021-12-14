@@ -18,7 +18,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = false)
+        UiInterface.registerUi()
     }
 
     fun onProductsReportClicked() {

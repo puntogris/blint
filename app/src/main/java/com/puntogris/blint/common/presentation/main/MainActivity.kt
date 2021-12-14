@@ -12,16 +12,16 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
-import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseActivity
 import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.ActivityMainBinding
-import com.puntogris.blint.feature_store.presentation.main.MainBottomNavDrawer
 import com.puntogris.blint.feature_store.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -38,6 +38,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initializeViews() {
         setUpNavigation()
         setUpScanner()
+
+        val asd = ShapeAppearanceModel.builder().setAllCornerSizes(15f).build()
+        //   binding.bottomAppBar.background.current.constantState.
     }
 
     private fun setUpScanner() {
@@ -50,7 +53,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setUpNavigation() {
-        setSupportActionBar(binding.toolbar)
         navController = getNavController()
         navController.graph = navController.navInflater.inflate(R.navigation.navigation)
             .apply {
@@ -68,18 +70,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             setOf(
                 R.id.homeFragment,
                 R.id.loginFragment,
+                R.id.manageTradersFragment,
+                R.id.manageProductsFragment,
                 R.id.syncAccountFragment,
                 R.id.newUserFragment,
                 R.id.publishOrderFragment
             )
         )
+
+        setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomAppBar.apply {
-            setNavigationOnClickListener {
-                showBottomDrawer()
-            }
-            setOnMenuItemClickListener(this@MainActivity)
+            setupWithNavController(navController)
+            setOnItemSelectedListener(this@MainActivity)
         }
     }
 
@@ -92,66 +96,56 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
+        binding.bottomAppBar.isVisible = destination.id !in
+                listOf(
+                    R.id.preferencesFragment,
+                    R.id.editTraderFragment,
+                    R.id.manageStoreFragment,
+                    R.id.manageDebtFragment,
+                    R.id.reportsFragment,
+                    R.id.manageTradersFragment,
+                    R.id.editProductFragment,
+                    R.id.registerStoreFragment,
+                    R.id.loginFragment
+                )
+
         hideKeyboard()
     }
 
-    private fun showBottomDrawer() {
-        MainBottomNavDrawer.newInstance().show(supportFragmentManager, MainBottomNavDrawer.TAG)
-    }
-
-    override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
-        when (menuItem?.itemId) {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_home -> navController.navigate(R.id.homeFragment)
+            R.id.menu_products -> navController.navigate(R.id.manageProductsFragment)
+            R.id.menu_orders -> navController.navigate(R.id.manageOrdersFragment)
+            R.id.menu_settings -> navController.navigate(R.id.preferencesFragment)
             R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            R.id.storeFragment -> navController.navigate(R.id.manageStoreFragment)
         }
         return true
     }
 
+    /*
+    We call setHomeAsUpIndicator here to change the back icon.
+    There seems to not be a better way for this currently.
+    https://issuetracker.google.com/u/1/issues/121078028
+     */
     override fun registerUi(
-        showFab: Boolean,
         showAppBar: Boolean,
         showToolbar: Boolean,
         showFabCenter: Boolean,
         @DrawableRes fabIcon: Int,
         fabListener: View.OnClickListener?
     ) {
-        binding.toolbar.isVisible = showToolbar
-        if (showFab) {
-            binding.fab.apply {
-                show()
-                setFabImageAndClickListener(fabIcon, fabListener)
-            }
-            binding.bottomAppBar.fabAlignmentMode =
-                if (showFabCenter) BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                else BottomAppBar.FAB_ALIGNMENT_MODE_END
-        } else binding.fab.hide()
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_fi_rr_angle_left)
 
-        if (showAppBar) {
-            binding.bottomAppBar.visible()
-            binding.bottomAppBar.performShow()
-        } else binding.bottomAppBar.gone()
+        binding.toolbar.isVisible = showToolbar
+
+//        if (showAppBar) {
+//            binding.bottomAppBar.visible()
+//        } else binding.bottomAppBar.gone()
     }
 
     override fun setBottomAppBarInvisible() {
-        binding.bottomAppBar.apply {
-            invisible()
-            performHide()
-        }
-    }
-
-    override fun hideFab() {
-        binding.fab.hide()
-    }
-
-    override fun setFabImageAndClickListener(fabIcon: Int, fabListener: View.OnClickListener?) {
-        binding.fab.apply {
-            changeIconFromDrawable(fabIcon)
-            setOnClickListener(fabListener)
-        }
-    }
-
-    override fun setFabImage(fabIcon: Int) {
-        binding.fab.changeIconFromDrawable(fabIcon)
+        binding.bottomAppBar.invisible()
     }
 
     override fun showSnackBar(
@@ -162,8 +156,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     ) {
         Snackbar.make(binding.root, message, duration).apply {
             anchorView = when {
-                binding.fab.isVisible && binding.bottomAppBar.isVisible -> binding.fab
-                binding.fab.isVisible -> binding.fab
                 binding.bottomAppBar.isVisible -> binding.bottomAppBar
                 else -> null
             }

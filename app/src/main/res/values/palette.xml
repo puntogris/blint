@@ -17,6 +17,10 @@
     <color name="grey">#D6D6D6</color>
 
 
+    <color name="accent_yellow">#FF9E2D</color>
+    <color name="accent_blue">#2D8EFF</color>
+
+
     <!-- Scanner -->
     <color name="barcode_reticle_background">#99000000</color>
     <color name="barcode_reticle_stroke">#ffffff</color>

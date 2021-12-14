@@ -22,7 +22,6 @@ class ReviewOrderFragment :
         binding.lifecycleOwner = viewLifecycleOwner
 
         UiInterface.registerUi(
-            showFab = true,
             showAppBar = false,
             showFabCenter = false,
             fabIcon = R.drawable.ic_baseline_arrow_forward_24

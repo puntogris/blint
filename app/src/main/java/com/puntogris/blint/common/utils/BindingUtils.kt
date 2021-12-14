@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
@@ -13,6 +12,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -34,16 +34,22 @@ fun ImageView.setImageFullSize(image: String) {
     if (image.isNotEmpty()) {
         GlideApp.with(context)
             .load(image)
-            .transform(CenterCrop(), RoundedCorners(5))
             .transform()
+            .centerCrop()
+            .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(this)
         visible()
     } else gone()
 }
 
-@BindingAdapter("menuCardIcon")
-fun ImageView.setMenuCardIcon(@DrawableRes icon: Int) {
-    setImageDrawable(ContextCompat.getDrawable(context, icon))
+@BindingAdapter("profileImage")
+fun ImageView.setProfileImage(image: String?) {
+    if (!image.isNullOrEmpty()) {
+        GlideApp.with(context)
+            .load(image)
+            .circleCrop()
+            .into(this)
+    }
 }
 
 @BindingAdapter("loadImageButtonText")
@@ -75,7 +81,7 @@ fun TextView.setRemoveListVisibility(product: ProductWithDetails) {
 
 @BindingAdapter("emptyEditTextWithNumber")
 fun EditText.setEmptyEditTextWithNumber(value: Number) {
-    setText(if (value.toInt() == 0) "" else value.toString())
+    setText(if (value.toInt() == 0) "0" else value.toString())
 }
 
 @BindingAdapter("productPrices")
@@ -275,12 +281,12 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
 
 @BindingAdapter("traderTypeToggleGroup")
 fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String) {
-    val button = when (type) {
-        Constants.SUPPLIER -> R.id.traderTypeSupplierButton
-        Constants.CLIENT -> R.id.traderTypeClientButton
-        else -> R.id.traderTypeOtherButton
-    }
-    if (checkedButtonId != button) check(button)
+//    val button = when (type) {
+//        Constants.SUPPLIER -> R.id.traderTypeSupplierButton
+//        Constants.CLIENT -> R.id.traderTypeClientButton
+//        else -> R.id.traderTypeOtherButton
+//    }
+  //  if (checkedButtonId != button) check(button)
 }
 
 @BindingAdapter("traderType")

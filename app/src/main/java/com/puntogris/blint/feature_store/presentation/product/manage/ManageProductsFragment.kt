@@ -22,9 +22,7 @@ class ManageProductsFragment :
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
-            findNavController().navigate(R.id.editProductFragment)
-        }
+        UiInterface.registerUi(showToolbar = false, showAppBar = true)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.productSearch.clearFocus()
@@ -72,6 +70,10 @@ class ManageProductsFragment :
                 adapter.submitData(it)
             }
         }
+    }
+
+    fun onAddProductClicked(){
+        findNavController().navigate(R.id.editProductFragment)
     }
 
     fun onScanBarcodeClicked() {

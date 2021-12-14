@@ -3,9 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_fi_rr_home"
+        android:title="@string/home_label"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_products"
+        android:icon="@drawable/ic_fi_rr_box"
+        android:title="@string/products_label"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_orders"
+        android:icon="@drawable/ic_fi_rr_receipt"
+        android:title="@string/orders_label"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search_barcode_2"
+        android:icon="@drawable/ic_fi_rr_scan"
         android:title="@string/search"
-        app:showAsAction="ifRoom">
-    </item>
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_fi_rr_settings"
+        android:title="@string/settings_label"
+        app:showAsAction="ifRoom"/>
 </menu>

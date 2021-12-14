@@ -25,11 +25,11 @@ interface TradersDao {
     fun getTradersPaged(): PagingSource<Int, Trader>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM trader c INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%')")
+    @Query("SELECT * FROM trader c INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%') ORDER BY name ASC")
     fun getTradersSearchPaged(query: String): PagingSource<Int, Trader>
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM trader c INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%') and type = :filter")
+    @Query("SELECT * FROM trader c INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND c.name LIKE ('%'|| :query ||'%') and type = :filter  ORDER BY name ASC")
     fun getTradersSearchPaged(query: String, filter: String): PagingSource<Int, Trader>
 
     @Query("UPDATE trader SET debt = debt + :amount WHERE traderId = :traderId")

@@ -254,8 +254,8 @@
     <string name="payment_information">Billing information</string>
     <string name="discount">Discount</string>
     <string name="tab_data">DATA</string>
-    <string name="tab_records">RECORDS</string>
-    <string name="tab_orders">ORDERS</string>
+    <string name="tab_records">Records</string>
+    <string name="tab_orders">Orders</string>
     <string name="image_picker_folder_title">Images</string>
     <string name="action_change">Modify</string>
     <string name="action_add_image">Add image</string>

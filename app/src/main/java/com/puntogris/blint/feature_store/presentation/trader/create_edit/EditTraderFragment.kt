@@ -33,21 +33,23 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
-            when (val validator = StringValidator.from(
-                viewModel.currentTrader.value.name,
-                allowSpecialChars = true,
-                isName = true,
-                maxLength = 20
-            )) {
-                is StringValidator.Valid -> saveClient()
-                is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
-            }
-        }
+        UiInterface.registerUi()
 
         setupContactPickerLauncher()
         setupContactPermissions()
         setupTraderFilter()
+    }
+
+    fun onSaveButtonClicked(){
+        when (val validator = StringValidator.from(
+            viewModel.currentTrader.value.name,
+            allowSpecialChars = true,
+            isName = true,
+            maxLength = 20
+        )) {
+            is StringValidator.Valid -> saveClient()
+            is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
+        }
     }
 
     private fun setupContactPickerLauncher() {
@@ -87,13 +89,13 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
 
     private fun setupTraderFilter() {
         //Todo think a better way, the data binding adapter feels weird
-        binding.traderInformationLayout.traderType.addOnButtonCheckedListener { _, checkedId, _ ->
-            when (checkedId) {
-                R.id.traderTypeOtherButton -> viewModel.updateTraderType(Constants.OTHER)
-                R.id.traderTypeClientButton -> viewModel.updateTraderType(Constants.CLIENT)
-                R.id.traderTypeSupplierButton -> viewModel.updateTraderType(Constants.SUPPLIER)
-            }
-        }
+//        binding.traderInformationLayout.traderType.addOnButtonCheckedListener { _, checkedId, _ ->
+//            when (checkedId) {
+//                R.id.traderTypeOtherButton -> viewModel.updateTraderType(Constants.OTHER)
+//                R.id.traderTypeClientButton -> viewModel.updateTraderType(Constants.CLIENT)
+//                R.id.traderTypeSupplierButton -> viewModel.updateTraderType(Constants.SUPPLIER)
+//            }
+//        }
     }
 
     fun onAddClientFromContactsClicked() {

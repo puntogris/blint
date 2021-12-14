@@ -23,7 +23,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = true) {
+        UiInterface.registerUi() {
             onModifyDebtButtonClicked()
         }
 

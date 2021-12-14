@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
+import com.google.android.material.navigation.NavigationBarItemView
+import com.google.android.material.navigation.NavigationBarView
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.getNavHostFragment
 import com.puntogris.blint.feature_store.presentation.main.SetupUiListener
@@ -15,7 +17,7 @@ import com.puntogris.blint.feature_store.presentation.main.SetupUiListener
 abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes val layout: Int) :
     AppCompatActivity(),
     NavController.OnDestinationChangedListener,
-    Toolbar.OnMenuItemClickListener,
+    NavigationBarView.OnItemSelectedListener,
     SetupUiListener {
 
     private var _binding: T? = null

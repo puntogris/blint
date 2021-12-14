@@ -21,7 +21,7 @@ class SyncAccountFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = false, showAppBar = false, showToolbar = false)
+        UiInterface.registerUi(showAppBar = false, showToolbar = false)
         subscribeUi()
 
     }

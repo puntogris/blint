@@ -23,7 +23,6 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
         binding.viewModel = viewModel
 
         UiInterface.registerUi(
-            showFab = true,
             fabIcon = R.drawable.ic_baseline_send_24,
             showAppBar = false
         ) {

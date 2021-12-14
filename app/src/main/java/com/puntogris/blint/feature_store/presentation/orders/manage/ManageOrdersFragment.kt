@@ -19,10 +19,7 @@ class ManageOrdersFragment :
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_add_24) {
-            findNavController().navigate(NavigationDirections.actionGlobalNewOrderGraphNav())
-        }
-
+        UiInterface.registerUi()
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {

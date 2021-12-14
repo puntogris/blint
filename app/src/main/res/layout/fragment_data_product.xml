@@ -22,337 +22,337 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/descriptionTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:text="@string/description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/descriptionTitle"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/description"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/productNameLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTitle" />
 
-                <TextView
-                    android:id="@+id/productNameLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionTitle" />
+            <TextView
+                android:id="@+id/productName"
+                style="@style/Theme.Blint.DataTextView"
+                capitalizeFirstChar="@{viewModel.currentProduct.product.name}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/productNameLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
 
-                <TextView
-                    android:id="@+id/productName"
-                    style="@style/Theme.Blint.DataTextView"
-                    capitalizeFirstChar="@{viewModel.currentProduct.product.name}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/productNameLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
+            <TextView
+                android:id="@+id/productBarcodeLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/barcode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productName" />
 
-                <TextView
-                    android:id="@+id/productBarcodeLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/barcode"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productName" />
+            <TextView
+                android:id="@+id/productBarcode"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.barcode}"
+                app:layout_constraintStart_toStartOf="@+id/productBarcodeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
 
-                <TextView
-                    android:id="@+id/productBarcode"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.product.barcode}"
-                    app:layout_constraintStart_toStartOf="@+id/productBarcodeLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
+            <TextView
+                android:id="@+id/productDescriptionLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBarcode" />
 
-                <TextView
-                    android:id="@+id/productDescriptionLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/description"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productBarcode" />
+            <TextView
+                android:id="@+id/productDescription"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.description}"
+                app:layout_constraintStart_toStartOf="@+id/productDescriptionLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productDescriptionLabel" />
 
-                <TextView
-                    android:id="@+id/productDescription"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.product.description}"
-                    app:layout_constraintStart_toStartOf="@+id/productDescriptionLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productDescriptionLabel" />
+            <TextView
+                android:id="@+id/imageTitle"
+                style="@style/Theme.Blint.TextButton"
+                removeImageVisibility="@{viewModel.currentProduct.product.image}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productDescription" />
 
-                <TextView
-                    android:id="@+id/imageTitle"
-                    style="@style/Theme.Blint.TextButton"
-                    removeImageVisibility="@{viewModel.currentProduct.product.image}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productDescription" />
+            <ImageView
+                android:id="@+id/productImage"
+                imageFullSize="@{viewModel.currentProduct.product.image}"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/product_image"
+                app:layout_constraintTop_toBottomOf="@+id/imageTitle"
+                tools:layout_editor_absoluteX="0dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-                <ImageView
-                    android:id="@+id/productImage"
-                    imageFullSize="@{viewModel.currentProduct.product.image}"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:contentDescription="@string/product_image"
-                    app:layout_constraintTop_toBottomOf="@+id/imageTitle"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            <TextView
+                android:id="@+id/pricesAndStockTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/prices_and_stock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
-                <TextView
-                    android:id="@+id/pricesAndStockTitle"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/prices_and_stock"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productImage" />
+            <TextView
+                android:id="@+id/productBuyPriceLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buy_price"
+                app:layout_constraintEnd_toStartOf="@+id/productSellPriceLabel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
-                <TextView
-                    android:id="@+id/productBuyPriceLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/buy_price"
-                    app:layout_constraintEnd_toStartOf="@+id/productSellPriceLabel"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
+            <TextView
+                android:id="@+id/productBuyPrice"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel" />
 
-                <TextView
-                    android:id="@+id/productBuyPrice"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel" />
+            <TextView
+                android:id="@+id/productSellPriceLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/sell_price"
+                app:layout_constraintEnd_toStartOf="@+id/textView34"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productBuyPriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/pricesAndStockTitle" />
 
-                <TextView
-                    android:id="@+id/productSellPriceLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/sell_price"
-                    app:layout_constraintEnd_toStartOf="@+id/textView34"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/productBuyPriceLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/pricesAndStockTitle" />
-
-                <TextView
-                    android:id="@+id/productSellPrice"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
-                    app:layout_constraintStart_toStartOf="@+id/productSellPriceLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel" />
+            <TextView
+                android:id="@+id/productSellPrice"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
+                app:layout_constraintStart_toStartOf="@+id/productSellPriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel" />
 
 
-                <TextView
-                    android:id="@+id/textView34"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/suggested_sell_price"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/productSellPriceLabel"
-                    app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
+            <TextView
+                android:id="@+id/textView34"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suggested_sell_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productSellPriceLabel"
+                app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
-                <TextView
-                    android:id="@+id/productSuggestedSellPrice"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
-                    app:layout_constraintStart_toStartOf="@+id/textView34"
-                    app:layout_constraintTop_toBottomOf="@+id/textView34" />
+            <TextView
+                android:id="@+id/productSuggestedSellPrice"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
+                app:layout_constraintStart_toStartOf="@+id/textView34"
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
-                <TextView
-                    android:id="@+id/productStockLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/stock"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
+            <TextView
+                android:id="@+id/productStockLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/stock"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
 
-                <TextView
-                    android:id="@+id/productAmount"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productStockLabel" />
-
-
-                <TextView
-                    android:id="@+id/suppliersAndCategoriesTitle"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    removeListVisibility="@{viewModel.currentProduct}"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/traders_and_categories"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productAmount" />
-
-                <TextView
-                    android:id="@+id/suppliersTitle"
-                    removeListVisibility="@{viewModel.currentProduct.traders}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/traders_label"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/categoriesChipGroup" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/supplierChipGroup"
-                    productSuppliersChipGroup="@{viewModel.currentProduct.traders}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="@id/suppliersTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/suppliersTitle" />
+            <TextView
+                android:id="@+id/productAmount"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productStockLabel" />
 
 
-                <TextView
-                    android:id="@+id/categoriesTitle"
-                    removeListVisibility="@{viewModel.currentProduct.categories}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/categories_label"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/suppliersAndCategoriesTitle" />
+            <TextView
+                android:id="@+id/suppliersAndCategoriesTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                removeListVisibility="@{viewModel.currentProduct}"
+                android:layout_marginTop="24dp"
+                android:text="@string/traders_and_categories"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productAmount" />
+
+            <TextView
+                android:id="@+id/suppliersTitle"
+                removeListVisibility="@{viewModel.currentProduct.traders}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/traders_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoriesChipGroup" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/supplierChipGroup"
+                productSuppliersChipGroup="@{viewModel.currentProduct.traders}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@id/suppliersTitle"
+                app:layout_constraintTop_toBottomOf="@+id/suppliersTitle" />
 
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/categoriesChipGroup"
-                    productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/categoriesTitle">
-
-                </com.google.android.material.chip.ChipGroup>
-
-                <TextView
-                    android:id="@+id/extrasTitle"
-                    style="@style/Theme.Blint.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/extras"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supplierChipGroup" />
-
-                <TextView
-                    android:id="@+id/productSkuLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/sku"
-                    app:layout_constraintEnd_toStartOf="@+id/productSizeLabel"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/extrasTitle" />
-
-                <TextView
-                    android:id="@+id/productInternalCode"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.product.sku}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productSkuLabel" />
-
-                <TextView
-                    android:id="@+id/productBrandLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/brand"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/productInternalCode" />
-
-                <TextView
-                    android:id="@+id/productBrand"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:text="@{viewModel.currentProduct.product.brand}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/productBrandLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productBrandLabel" />
-
-                <TextView
-                    android:id="@+id/productSizeLabel"
-                    style="@style/Theme.Blint.DataSubTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/product_observation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
-                    app:layout_constraintTop_toTopOf="@+id/productSkuLabel" />
-
-                <TextView
-                    android:id="@+id/productSize"
-                    style="@style/Theme.Blint.DataTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.currentProduct.product.size}"
-                    app:layout_constraintStart_toStartOf="@+id/productSizeLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/productSizeLabel" />
+            <TextView
+                android:id="@+id/categoriesTitle"
+                removeListVisibility="@{viewModel.currentProduct.categories}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/categories_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/suppliersAndCategoriesTitle" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categoriesChipGroup"
+                productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
+                app:layout_constraintTop_toBottomOf="@+id/categoriesTitle">
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/extrasTitle"
+                style="@style/Theme.Blint.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/extras"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/supplierChipGroup" />
+
+            <TextView
+                android:id="@+id/productSkuLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/sku"
+                app:layout_constraintEnd_toStartOf="@+id/productSizeLabel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/extrasTitle" />
+
+            <TextView
+                android:id="@+id/productInternalCode"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.sku}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productSkuLabel" />
+
+            <TextView
+                android:id="@+id/productBrandLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productInternalCode" />
+
+            <TextView
+                android:id="@+id/productBrand"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@{viewModel.currentProduct.product.brand}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/productBrandLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productBrandLabel" />
+
+            <TextView
+                android:id="@+id/productSizeLabel"
+                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_observation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
+                app:layout_constraintTop_toTopOf="@+id/productSkuLabel" />
+
+            <TextView
+                android:id="@+id/productSize"
+                style="@style/Theme.Blint.DataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.size}"
+                app:layout_constraintStart_toStartOf="@+id/productSizeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productSizeLabel" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 </layout>

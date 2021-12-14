@@ -43,19 +43,6 @@
     </item>
 
     <item
-        android:id="@+id/manageClientsFragmentMenu"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="@string/options"
-        android:visible="false"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/newClient"
-                android:title="@string/new_client" />
-        </menu>
-    </item>
-
-    <item
         android:id="@+id/manageSuppliersFragmentMenu"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/options"

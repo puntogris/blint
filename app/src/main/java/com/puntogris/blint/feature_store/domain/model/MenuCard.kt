@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.domain.model
 
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes

@@ -20,54 +20,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <View
+            android:id="@+id/divider13"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productAmount" />
+
         <TextView
             android:id="@+id/productPricesTitle"
-            style="@style/Theme.Blint.TextButton"
-            pricesAndStockTitle="@{viewModel.currentProduct.product.productId}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/prices_and_stock"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productBuyPrice"
-            style="@style/Theme.Blint.TextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
-            android:hint="@string/buy_price"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@null"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toStartOf="@+id/productSellPrice"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productPricesTitle"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/textView39"
             app:prefixText="$">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productBuyPriceText"
-                emptyEditTextWithNumber="@{viewModel.currentProduct.product.buyPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductBuyPrice}"
+                android:background="@null"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
+                android:textAlignment="center" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productSellPrice"
-            style="@style/Theme.Blint.TextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/sell_price"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="@+id/productBuyPrice"
             app:layout_constraintEnd_toStartOf="@+id/productSuggestedSellPrice"
             app:layout_constraintHorizontal_bias="0.5"
@@ -78,24 +96,28 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productSellPriceText"
-                emptyEditTextWithNumber="@{viewModel.currentProduct.product.sellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductSellPrice}"
+                android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
+                android:textAlignment="center" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productSuggestedSellPrice"
-            style="@style/Theme.Blint.TextInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/suggested_sell_price"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="@+id/productSellPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -106,76 +128,117 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productSuggestedSellPriceText"
-                emptyEditTextWithNumber="@{viewModel.currentProduct.product.suggestedSellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductSuggestedPrice}"
+                android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
+                android:textAlignment="center" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/productAmount"
-            style="@style/Theme.Blint.TextInput"
+            emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/initial_stock"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBuyPrice">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/productAmountText"
-                emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:afterTextChanged="@{viewModel::updateProductAmount}"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/decreaseAmountButton"
-            style="@style/Theme.Blint.ImageButton"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/decrease_number_image"
-            android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
+            android:layout_marginEnd="16dp"
+            android:afterTextChanged="@{viewModel::updateProductAmount}"
+            android:background="@null"
+            android:ems="10"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/productAmount"
-            app:layout_constraintTop_toTopOf="@+id/productAmount"
-            app:srcCompat="@drawable/ic_baseline_exposure_neg_1_24" />
+            app:layout_constraintStart_toEndOf="@+id/textView32"
+            app:layout_constraintTop_toBottomOf="@+id/productPricesTitle" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/increaseAmountButton"
-            style="@style/Theme.Blint.ImageButton"
-            android:layout_marginEnd="24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/increase_number_image"
             android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/decreaseAmountButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/decreaseAmountButton"
-            app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
-            app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24" />
+            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
+            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
+            app:layout_constraintTop_toTopOf="@+id/productAmount"
+            app:srcCompat="@drawable/ic_fi_rr_plus" />
 
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/decreaseAmountButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/decrease_number_image"
+            android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/increaseAmountButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/increaseAmountButton"
+            app:srcCompat="@drawable/ic_fi_rr_minus" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.currentProduct.product.productId.empty ? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="increaseAmountButton, decreaseAmountButton, productAmount" />
+            android:layout_marginStart="24dp"
+            android:ems="5"
+            android:text="@string/stock"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/productAmount" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/buy_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/productBuyPrice"
+            app:layout_constraintStart_toStartOf="@+id/productBuyPrice"
+            app:layout_constraintTop_toBottomOf="@+id/divider13" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/productSellPrice"
+            app:layout_constraintStart_toStartOf="@+id/productSellPrice"
+            app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/suggested_sell_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/productSuggestedSellPrice"
+            app:layout_constraintStart_toStartOf="@+id/productSuggestedSellPrice"
+            app:layout_constraintTop_toTopOf="@+id/textView40" />
+
+        <View
+            android:id="@+id/divider5"
+            style="@style/Theme.Blint.LargeDivider"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

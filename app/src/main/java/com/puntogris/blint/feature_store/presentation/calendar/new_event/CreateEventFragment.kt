@@ -25,7 +25,7 @@ class CreateEventFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
+        UiInterface.registerUi(fabIcon = R.drawable.ic_baseline_save_24) {
             lifecycleScope.launch {
                 when (viewModel.createEvent()) {
                     is Resource.Error ->

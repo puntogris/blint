@@ -2,6 +2,9 @@ package com.puntogris.blint.common.utils
 
 object Constants {
 
+    const val CROSS_FADE_DURATION = 350
+
+
     //Room database
     const val LOCAL_DATABASE_NAME = "blint_database"
 

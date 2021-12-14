@@ -23,4 +23,5 @@
         <item name="bottomSheetDayNight">@color/color_background</item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
     </style>
+
 </resources>

@@ -29,7 +29,7 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
     private val viewModel: TraderViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24) {
+        UiInterface.registerUi(fabIcon = R.drawable.ic_baseline_edit_24) {
             navigateToEditClientFragment()
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)

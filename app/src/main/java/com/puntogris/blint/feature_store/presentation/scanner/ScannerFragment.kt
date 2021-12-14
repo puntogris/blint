@@ -37,11 +37,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     override fun initializeViews() {
         UiInterface.registerUi(
             showAppBar = false,
-            showFab = true,
-            fabIcon = R.drawable.ic_baseline_flash_off_24
         ) {
             camera?.cameraControl?.enableTorch(flashEnabled == TorchState.OFF)
+
         }
+        //todo
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -130,7 +130,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     TorchState.ON -> R.drawable.ic_baseline_flash_off_24
                     else -> R.drawable.ic_baseline_flash_on_24
                 }
-                UiInterface.setFabImage(flashIcon)
                 flashEnabled = torchState
             }
         }

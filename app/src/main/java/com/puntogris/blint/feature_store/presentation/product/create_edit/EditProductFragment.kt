@@ -35,16 +35,14 @@ class EditProductFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
-            saveProduct()
-        }
+        UiInterface.registerUi()
 
         setupResultListeners()
         setupGalleryLauncher()
         setupScannerLauncher()
     }
 
-    private fun saveProduct() {
+    fun onSaveButtonClicked() {
         val validator = StringValidator.from(
             viewModel.currentProduct.value.product.name,
             allowSpecialChars = true,
@@ -104,7 +102,7 @@ class EditProductFragment :
                 Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
             viewModel.updateProductImage(it.toString())
-            binding.descriptionLayout.productImage.setImageFullSize(it.toString())
+            binding.editProductContent.descriptionLayout.productImage.setImageFullSize(it.toString())
         }
     }
 
@@ -121,15 +119,15 @@ class EditProductFragment :
     }
 
     fun onIncreaseAmountButtonClicked() {
-        binding.pricesLayout.productAmountText.apply {
-            setText(getInt().inc().toString())
-        }
+//        binding.pricesLayout.productAmountText.apply {
+//            setText(getInt().inc().toString())
+//        }
     }
 
     fun onDecreaseAmountButtonClicked() {
-        binding.pricesLayout.productAmountText.apply {
-            setText(getInt().dec().toString())
-        }
+//        binding.pricesLayout.productAmountText.apply {
+//            setText(getInt().dec().toString())
+//        }
     }
 
     fun navigateToProductSuppliers() {

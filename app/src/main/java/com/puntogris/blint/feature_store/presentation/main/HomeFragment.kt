@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.main
 
+import android.graphics.Color
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,26 +25,33 @@ class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showFab = false)
+        UiInterface.registerUi(showToolbar = false)
 
         setupMenuRecyclerView()
         setupCalendarRecyclerView()
-    }
 
-    fun onSideMenuClicked(item: Int) {
-        val nav = when (item) {
-            0 -> R.id.calendarFragment
-            1 -> R.id.manageCategoriesFragment
-            else -> R.id.preferencesFragment
+        val donutSet = listOf(
+            80f,
+            80f,
+            40f
+        )
+
+        binding.donutChartView.apply {
+            donutColors = intArrayOf(
+                Color.parseColor("#2D8EFF"),
+                Color.parseColor("#FF9E2D"),
+                Color.parseColor("#FFFFFF")
+            )
+            animation.duration = 1000L
+            animate(donutSet)
         }
-        findNavController().navigate(nav)
     }
 
     private fun setupCalendarRecyclerView() {
-        MainCalendarAdapter { onCalendarEventClicked(it) }.let {
-            binding.calendarRecyclerView.adapter = it
-            subscribeEventsUi(it)
-        }
+//        MainCalendarAdapter { onCalendarEventClicked(it) }.let {
+//            binding.calendarRecyclerView.adapter = it
+//            subscribeEventsUi(it)
+//        }
     }
 
     private fun subscribeEventsUi(adapter: MainCalendarAdapter) {
@@ -61,19 +69,13 @@ class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_
 
     private fun setupMenuRecyclerView() {
         val menuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
-        val manager = GridLayoutManager(requireContext(), 3).apply {
-            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return if (menuAdapter.isHeader(position)) spanCount else 1
-                }
-            }
-        }
+        val manager = GridLayoutManager(requireContext(), 2)
 
         binding.recyclerView.apply {
             adapter = menuAdapter
             layoutManager = manager
             setHasFixedSize(true)
-            addItemDecoration(GridSpanMarginDecoration(30, 10, manager))
+            addItemDecoration(GridSpanMarginDecoration(60, 60, manager))
         }
     }
 
@@ -86,8 +88,8 @@ class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
-        binding.calendarRecyclerView.adapter = null
+        //  binding.recyclerView.adapter = null
+        //  binding.calendarRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

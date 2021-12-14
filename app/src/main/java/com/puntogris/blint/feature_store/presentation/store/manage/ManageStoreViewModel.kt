@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.store.manage
 
 import androidx.lifecycle.ViewModel
-import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.domain.model.Store
 import com.puntogris.blint.feature_store.domain.repository.StoreRepository
 import com.puntogris.blint.feature_store.domain.repository.UserRepository
@@ -28,6 +27,6 @@ class ManageStoreViewModel @Inject constructor(
         }
     }
 
-    suspend fun updateCurrentStore(store: Store) =  userRepository.updateCurrentStore(store.storeId)
+    suspend fun updateCurrentStore(store: Store) = userRepository.updateCurrentStore(store.storeId)
 }
 

@@ -23,7 +23,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     private val viewModel: CalendarViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true) {
+        UiInterface.registerUi() {
             findNavController().navigate(R.id.createEventFragment)
         }
         setupEventsFilter()

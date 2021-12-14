@@ -24,7 +24,7 @@ class GenerateReportFragment :
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_share_24) {
+        UiInterface.registerUi(fabIcon = R.drawable.ic_baseline_share_24) {
             val uri = viewModel.getReportUri()
             if (uri == null)
                 UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))

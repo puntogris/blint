@@ -31,7 +31,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_edit_24) {
+        UiInterface.registerUi() {
+            //todo
             navigateToEditProductFragment()
         }
 
@@ -46,16 +47,17 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
 
         mediator?.attach()
 
-        binding.tabLayout.addOnTabSelectedListener {
-            when (it) {
-                0 -> UiInterface.setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
-                    navigateToEditProductFragment()
-                }
-                else -> UiInterface.setFabImageAndClickListener {
-                    showOrderPickerAndNavigate(args.productWithDetails.product)
-                }
-            }
-        }
+        //todo
+//        binding.tabLayout.addOnTabSelectedListener {
+//            when (it) {
+//                0 -> UiInterface.setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
+//                    navigateToEditProductFragment()
+//                }
+//                else -> UiInterface.setFabImageAndClickListener {
+//                    showOrderPickerAndNavigate(args.productWithDetails.product)
+//                }
+//            }
+//        }
     }
 
     private fun navigateToEditProductFragment() {

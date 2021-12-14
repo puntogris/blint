@@ -25,7 +25,7 @@ class ManageCategoriesFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showFab = true) {
+        UiInterface.registerUi() {
             showCreateCategoryDialog()
         }
         setupCategoriesAdapter()

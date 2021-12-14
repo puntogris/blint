@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,19 +13,16 @@
             type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderFragment" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="?actionBarSize"
-            android:orientation="vertical"
-            tools:context=".feature_store.presentation.trader.create_edit.EditTraderFragment">
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:scrollbars="vertical">
 
             <include
                 android:id="@+id/traderInformationLayout"
@@ -34,19 +30,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="88dp"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
 
-            <include
-                android:id="@+id/traderExtrasLayout"
-                layout="@layout/trader_extras_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="20dp"
-                app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}" />
+        </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveTraderButton"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:onClickListener="@{() -> fragment.onSaveButtonClicked()}"
+            android:text="@string/action_save" />
+    </LinearLayout>
 </layout>

@@ -8,7 +8,6 @@ import com.puntogris.blint.R
 
 interface SetupUiListener {
     fun registerUi(
-        showFab: Boolean = false,
         showAppBar: Boolean = true,
         showToolbar: Boolean = true,
         showFabCenter: Boolean = true,
@@ -17,13 +16,7 @@ interface SetupUiListener {
     )
 
     fun setBottomAppBarInvisible()
-    fun hideFab()
-    fun setFabImageAndClickListener(
-        @DrawableRes fabIcon: Int = R.drawable.ic_baseline_add_24,
-        fabListener: View.OnClickListener? = null
-    )
 
-    fun setFabImage(@DrawableRes fabIcon: Int)
     fun showSnackBar(
         message: String,
         duration: Int = Snackbar.LENGTH_SHORT,

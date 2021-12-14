@@ -14,29 +14,27 @@
             type="com.puntogris.blint.feature_store.presentation.product.manage.ManageProductsViewModel" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/test"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:focusableInTouchMode="true"
-        android:orientation="vertical"
         tools:context=".feature_store.presentation.product.manage.ManageProductsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
             android:paddingLeft="@dimen/grid_1"
             android:paddingRight="@dimen/grid_1"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <EditText
@@ -44,14 +42,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@{viewModel.query}"
+                    android:background="@drawable/a"
+                    android:textSize="16sp"
+                    android:paddingStart="8dp"
+                    android:drawableStart="@drawable/ic_baseline_search_24"
+                    android:drawablePadding="10dp"
+                    android:backgroundTint="@color/color_on_primary"
                     android:afterTextChanged="@{viewModel::setQuery}"
                     android:autofillHints="@string/auto_fill_hint_search_product"
-                    android:background="@null"
                     android:hint="@string/search"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="textNoSuggestions"
-                    android:textSize="15sp" />
+                    android:text="@{viewModel.query}" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -60,8 +62,18 @@
                     android:foreground="?actionBarItemBackground"
                     android:onClickListener="@{()->fragment.onScanBarcodeClicked()}"
                     android:padding="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/ic_barcode"
+                    app:srcCompat="@drawable/ic_fi_rr_scan"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:foreground="?actionBarItemBackground"
+                    android:onClickListener="@{()->fragment.onAddProductClicked()}"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_fi_rr_plus"
                     tools:ignore="ContentDescription" />
             </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
@@ -69,10 +81,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingBottom="88dp"
             android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,184 +13,398 @@
             type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderFragment" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/traderInformationTitle"
-            style="@style/Theme.Blint.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/information"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/traderNameInputLayout"
-            style="@style/Theme.Blint.TextInput"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/name"
-            app:layout_constraintEnd_toStartOf="@+id/addTraderContactButton"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:ems="5"
+            android:text="@string/name"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/traderNameInputLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/traderInformationTitle">
+            app:layout_constraintTop_toTopOf="@+id/traderNameInputLayout" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/traderName"
-                capitalizeWord="@{viewModel.currentTrader.name}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::updateTraderName}"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:maxLength="20"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/traderNameInputLayout"
+            capitalizeWord="@{viewModel.currentTrader.name}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:afterTextChanged="@{viewModel::updateTraderName}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese el nombre"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/addTraderContactButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/traderInformationTitle" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/addTraderContactButton"
-            style="@style/Theme.Blint.ImageButton"
-            android:layout_marginStart="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginEnd="24dp"
             android:contentDescription="@string/open_contact_image"
             android:onClick="@{()-> fragment.onAddClientFromContactsClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/traderNameInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/traderNameInputLayout"
             app:layout_constraintTop_toTopOf="@+id/traderNameInputLayout"
-            app:srcCompat="@drawable/ic_baseline_person_add_24" />
+            app:layout_constraintVertical_bias="0.476"
+            app:srcCompat="@drawable/ic_fi_rr_user_add" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/traderPhoneInputLayout"
-            style="@style/Theme.Blint.TextInput"
+        <View
+            android:id="@+id/divider2"
+            style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/phone"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/traderPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::updateTraderPhone}"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:singleLine="true"
-                android:text="@{viewModel.currentTrader.phone}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/traderEmailInputLayout"
-            style="@style/Theme.Blint.TextInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/e_mail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/traderEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::updateTraderEmail}"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:singleLine="true"
-                android:text="@{viewModel.currentTrader.email}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/traderAddressInputLayout"
-            style="@style/Theme.Blint.TextInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/traderAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::updateTraderAddress}"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:singleLine="true"
-                android:text="@{viewModel.currentTrader.address}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+            app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout" />
 
         <TextView
-            android:id="@+id/textView"
-            style="@style/Theme.Blint.TextButton"
+            android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="@string/phone"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/traderPhoneInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/traderPhoneInputLayout" />
+
+        <EditText
+            android:id="@+id/traderPhoneInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/trader_type_title"
+            android:afterTextChanged="@{viewModel::updateTraderPhone}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese el telefono"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:text="@{viewModel.currentTrader.phone}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/traderNameInputLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/textView22"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <View
+            android:id="@+id/divider3"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="@string/e_mail"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/traderEmailInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintTop_toTopOf="@+id/traderEmailInputLayout" />
+
+        <EditText
+            android:id="@+id/traderEmailInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:afterTextChanged="@{viewModel::updateTraderEmail}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese el email"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:text="@{viewModel.currentTrader.email}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/traderPhoneInputLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/textView23"
+            app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+        <View
+            android:id="@+id/divider4"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout" />
+
+        <View
+            android:id="@+id/divider10"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="@string/address"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/traderAddressInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textView23"
+            app:layout_constraintTop_toTopOf="@+id/traderAddressInputLayout" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="5"
+            android:text="@string/type"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <EditText
+            android:id="@+id/traderAddressInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:afterTextChanged="@{viewModel::updateTraderAddress}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese la direccion"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:text="@{viewModel.currentTrader.address}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/traderEmailInputLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+        <View
+            android:id="@+id/divider5"
+            style="@style/Theme.Blint.LargeDivider"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/traderAddressInputLayout" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/traderType"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            app:singleSelection="true"
-            traderTypeToggleGroup="@{viewModel.currentTrader.type}"
-            app:checkedButton="@id/traderTypeOtherButton"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/extras"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:ems="5"
+            android:text="@string/billing"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/textView37">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/traderTypeOtherButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="@string/trader_type_other" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/traderTypeClientButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/trader_type_client" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/traderTypeSupplierButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/trader_type_supplier" />
+        </RadioGroup>
 
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese informacion pagos"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/traderAddressInputLayout"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toBottomOf="@+id/divider10" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="@string/discount"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
+            app:layout_constraintStart_toStartOf="@+id/textView25"
+            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese el descuento"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:text="@string/notes"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
+            app:layout_constraintStart_toStartOf="@+id/textView26"
+            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName3" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Ingrese las notas"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+
+        <View
+            android:id="@+id/divider6"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <View
+            android:id="@+id/divider7"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Seleccione el tipo de comerciante"
+            android:textColor="?android:textColorHint"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView36"
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

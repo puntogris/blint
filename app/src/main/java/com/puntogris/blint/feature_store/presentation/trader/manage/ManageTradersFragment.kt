@@ -1,11 +1,9 @@
 package com.puntogris.blint.feature_store.presentation.trader.manage
 
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
@@ -18,7 +16,7 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageTradersFragment :
-    BaseFragmentOptions<FragmentManageTradersBinding>(R.layout.fragment_manage_traders) {
+    BaseFragment<FragmentManageTradersBinding>(R.layout.fragment_manage_traders) {
 
     private val viewModel: ManageTradersViewModel by viewModels()
 
@@ -26,9 +24,14 @@ class ManageTradersFragment :
         binding.viewModel = viewModel
         registerToolbarBackButton(binding.searchToolbar)
 
-        UiInterface.registerUi(showToolbar = false, showAppBar = true, showFab = true) {
-            findNavController().navigate(R.id.editTraderFragment)
+        binding.searchToolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.action_add){
+                findNavController().navigate(R.id.editTraderFragment)
+            }
+            true
         }
+
+        UiInterface.registerUi(showToolbar = false, showAppBar = true)
         setupClientsAdapter()
         setupTraderFilter()
     }
@@ -65,16 +68,6 @@ class ManageTradersFragment :
         }
     }
 
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.manageClientsFragmentMenu).isVisible = true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.newClient) {
-            findNavController().navigate(R.id.editTraderFragment)
-            true
-        } else super.onOptionsItemSelected(item)
-    }
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null

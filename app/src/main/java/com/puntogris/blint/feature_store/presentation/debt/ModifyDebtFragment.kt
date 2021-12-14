@@ -22,7 +22,7 @@ class ModifyDebtFragment : BaseFragment<FragmentModifyDebtBinding>(R.layout.frag
     private val viewModel: DebtStatusViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showFab = true, fabIcon = R.drawable.ic_baseline_save_24) {
+        UiInterface.registerUi(fabIcon = R.drawable.ic_baseline_save_24) {
             if (
                 binding.debtAmount.getString().toFloatOrNull() != null &&
                 binding.debtAmount.getFloat() > 0

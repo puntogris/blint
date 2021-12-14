@@ -4,14 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/divider_round_corners_horizontal.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/drawable/a.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/bottom_sheet_handle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/bottom_sheet_round_corners.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_analytics.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_barcode.xml" value="0.16215277777777778" />
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_baseline_article_24.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/drawable/ic_chart_circle_yellow.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/drawable/ic_ellipse_11.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_home.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_plus.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_receipt.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_scan.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_sr_incognito.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_group_22.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_loan.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_packages.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_rating.xml" value="0.24513888888888888" />
@@ -24,7 +34,7 @@
         <entry key="app/src/main/res/drawable/list_item_checkable_selector.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/selector.xml" value="0.17569444444444443" />
         <entry key="app/src/main/res/drawable/top_background_round_corners.xml" value="0.25625" />
-        <entry key="app/src/main/res/layout/a.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/a.xml" value="0.25" />
         <entry key="app/src/main/res/layout/account_item_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2454861111111111" />
         <entry key="app/src/main/res/layout/add_category_product_vh.xml" value="0.23402777777777778" />
@@ -46,6 +56,7 @@
         <entry key="app/src/main/res/layout/debt_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/dialog_simple_order.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/dropdown_item_list.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_product_content_scrolling.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.25" />
@@ -71,7 +82,7 @@
         <entry key="app/src/main/res/layout/fragment_generate_join_code.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.23368055555555556" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_import_products.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_join_business.xml" value="0.234375" />
@@ -83,6 +94,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_manage_orders.xml" value="0.2342936480388754" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_traders.xml" value="0.234375" />
@@ -128,7 +140,8 @@
         <entry key="app/src/main/res/layout/manage_clients_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/manage_products_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/manage_suppliers_vh.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/menu_card_vh.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/manage_traders_vh.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/menu_card_vh.xml" value="0.33" />
         <entry key="app/src/main/res/layout/nav_divider_item_layout.xml" value="0.12430555555555556" />
         <entry key="app/src/main/res/layout/nav_menu_item_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/no_notifications_layout.xml" value="0.17152777777777778" />
@@ -137,9 +150,11 @@
         <entry key="app/src/main/res/layout/order_table_item_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_trader_bottom_sheet.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_vh.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/product_description_card.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_description_card.xml" value="0.25" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/product_extras_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_extras_expandable.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_prices_card.xml" value="0.25" />
         <entry key="app/src/main/res/layout/product_prices_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_records_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_scope_card.xml" value="0.234375" />
@@ -157,11 +172,12 @@
         <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_seller_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/trader_extras_card.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/trader_information_card.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/trader_information_card.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_app_bar_home_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_app_bar_settings_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/bottom_nav_drawer_menu.xml" value="0.234375" />
-        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/menu_add.xml" value="0.234375" />
         <entry key="app/src/main/res/menu/top_app_bar_menu.xml" value="0.234375" />
         <entry key="app/src/main/res/xml/about_preferences.xml" value="0.234375" />
         <entry key="app/src/main/res/xml/account_preferences.xml" value="0.234375" />
@@ -176,5 +192,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>

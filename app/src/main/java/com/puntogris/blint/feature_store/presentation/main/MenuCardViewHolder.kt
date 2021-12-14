@@ -10,7 +10,7 @@ class MenuCardViewHolder private constructor(val binding: MenuCardVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(menuCard: MenuCard, clickListener: (MenuCard) -> Unit) {
         binding.menuCard = menuCard
-        binding.root.setOnClickListener { clickListener(menuCard) }
+        binding.menuCardLayout.setOnClickListener { clickListener(menuCard) }
         binding.executePendingBindings()
     }
 

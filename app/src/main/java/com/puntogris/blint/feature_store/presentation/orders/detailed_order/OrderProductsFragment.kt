@@ -30,7 +30,6 @@ class OrderProductsFragment :
         registerToolbarBackButton(binding.searchToolbar)
 
         UiInterface.registerUi(
-            showFab = true,
             showAppBar = false,
             showToolbar = false,
             showFabCenter = false,
