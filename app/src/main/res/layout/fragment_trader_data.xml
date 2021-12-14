@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,201 +20,315 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/clientInformationTitle"
-                style="@style/Theme.Blint.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/information"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView29"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
+                android:ems="5"
                 android:text="@string/name"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/clientInformationTitle"
                 app:layout_constraintTop_toBottomOf="@+id/clientInformationTitle" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/phoneButton"
-                style="@style/Theme.Blint.ImageButton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:contentDescription="@string/more_image"
                 android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
                 app:layout_constraintBottom_toBottomOf="@+id/traderPhoneInputLayout"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/contactButton"
                 app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
-                app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                app:srcCompat="@drawable/ic_fi_rr_menu_dots_vertical" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/contactButton"
-                style="@style/Theme.Blint.ImageButton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="24dp"
                 android:contentDescription="@string/open_contact_image"
                 android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
                 app:layout_constraintBottom_toBottomOf="@+id/traderNameInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView29"
-                app:srcCompat="@drawable/ic_baseline_person_add_24" />
+                app:srcCompat="@drawable/ic_fi_rr_user_add" />
 
             <TextView
                 android:id="@+id/traderNameInputLayout"
-                style="@style/Theme.Blint.DataTextView"
                 capitalizeWord="@{viewModel.currentTrader.name}"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                android:layout_marginEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView29"
+                app:layout_constraintEnd_toStartOf="@+id/contactButton"
+                app:layout_constraintStart_toEndOf="@+id/textView29"
+                app:layout_constraintTop_toTopOf="@+id/textView29"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/loginProblemButton"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="5"
                 android:text="@string/phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView29"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
             <TextView
                 android:id="@+id/traderPhoneInputLayout"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentTrader.phone}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginProblemButton" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/loginProblemButton"
+                app:layout_constraintEnd_toEndOf="@+id/traderNameInputLayout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/loginProblemButton"
+                app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/clientEmailLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="5"
                 android:text="@string/e_mail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/loginProblemButton"
+                app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/emailButton"
-                style="@style/Theme.Blint.ImageButton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:contentDescription="@string/email_image"
                 android:onClick="@{()-> fragment.onEmailButtonClicked()}"
                 app:layout_constraintBottom_toBottomOf="@+id/traderEmailInputLayout"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/phoneButton"
                 app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
-                app:srcCompat="@drawable/ic_baseline_email_24" />
+                app:srcCompat="@drawable/ic_fi_rr_envelope" />
 
             <TextView
                 android:id="@+id/traderEmailInputLayout"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentTrader.email}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientEmailLabel" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/clientEmailLabel"
+                app:layout_constraintEnd_toEndOf="@+id/traderPhoneInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/clientEmailLabel"
+                app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/clientAddressLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="5"
                 android:text="@string/address"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/clientEmailLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider18" />
 
             <TextView
                 android:id="@+id/traderAddressInputLayout"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentTrader.address}"
-                app:layout_constraintStart_toStartOf="@+id/clientAddressLabel"
-                app:layout_constraintTop_toBottomOf="@+id/clientAddressLabel" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/clientAddressLabel"
+                app:layout_constraintEnd_toEndOf="@+id/traderEmailInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/clientAddressLabel"
+                app:layout_constraintTop_toTopOf="@+id/clientAddressLabel"
+                tools:text="Text" />
+
+            <View
+                android:id="@+id/divider21"
+                style="@style/Theme.Blint.LargeDivider"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
                 android:id="@+id/clientExtrasTitle"
-                style="@style/Theme.Blint.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/extras"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.577"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/divider21" />
 
             <TextView
                 android:id="@+id/clientPaymentInfoLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/payment_information"
-                app:layout_constraintStart_toStartOf="parent"
+                android:ems="5"
+                android:text="@string/billing"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/clientExtrasTitle"
                 app:layout_constraintTop_toBottomOf="@+id/clientExtrasTitle" />
 
             <TextView
                 android:id="@+id/clientPaymentInfo"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentTrader.paymentInfo}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfoLabel" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfoLabel"
+                app:layout_constraintEnd_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toEndOf="@+id/clientPaymentInfoLabel"
+                app:layout_constraintTop_toTopOf="@+id/clientPaymentInfoLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/clientDiscountLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:ems="5"
                 android:text="@string/discount"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfo" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/clientPaymentInfoLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider20" />
 
             <TextView
                 android:id="@+id/clientDiscount"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="88dp"
                 android:text="@{String.valueOf(viewModel.currentTrader.discount)}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientDiscountLabel" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/clientDiscountLabel"
+                app:layout_constraintEnd_toEndOf="@+id/clientPaymentInfo"
+                app:layout_constraintStart_toEndOf="@+id/clientDiscountLabel"
+                app:layout_constraintTop_toTopOf="@+id/clientDiscountLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/textView3"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="5"
                 android:text="@string/type"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderAddressInputLayout" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/clientAddressLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
             <TextView
                 android:id="@+id/textView4"
-                style="@style/Theme.Blint.DataTextView"
                 traderType="@{viewModel.currentTrader.type}"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintEnd_toEndOf="@+id/traderAddressInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView3"
+                tools:text="Text" />
 
+            <View
+                android:id="@+id/divider2"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout" />
+
+            <View
+                android:id="@+id/divider17"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout" />
+
+            <View
+                android:id="@+id/divider18"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout" />
+
+            <View
+                android:id="@+id/divider19"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/traderAddressInputLayout" />
+
+            <View
+                android:id="@+id/divider20"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfoLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -8,6 +8,9 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.maxkeppeler.sheets.options.DisplayMode
+import com.maxkeppeler.sheets.options.Option
+import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
@@ -106,28 +109,16 @@ class EditProductFragment :
         }
     }
 
-    fun onScanButtonClicked() {
-        scannerLauncher.launch(Manifest.permission.CAMERA)
-    }
-
-    fun onAddImageButtonClicked() {
-        getContent.launch(arrayOf("image/*"))
-    }
-
-    fun onRemoveImageButtonClicked() {
-        viewModel.updateProductImage("")
-    }
-
     fun onIncreaseAmountButtonClicked() {
-//        binding.pricesLayout.productAmountText.apply {
-//            setText(getInt().inc().toString())
-//        }
+        binding.editProductContent.pricesLayout.productAmount.apply {
+            setText(getInt().inc().toString())
+        }
     }
 
     fun onDecreaseAmountButtonClicked() {
-//        binding.pricesLayout.productAmountText.apply {
-//            setText(getInt().dec().toString())
-//        }
+        binding.editProductContent.pricesLayout.productAmount.apply {
+            setText(getInt().dec().toString())
+        }
     }
 
     fun navigateToProductSuppliers() {
@@ -143,5 +134,41 @@ class EditProductFragment :
                 viewModel.currentProduct.value.categories.toTypedArray()
             )
         findNavController().navigate(action)
+    }
+
+    fun showScannerOptions() {
+        OptionsSheet().show(requireParentFragment().requireContext()) {
+            multipleChoices(false)
+            displayMode(DisplayMode.LIST)
+            with(
+                Option(R.drawable.ic_fi_rr_scan,"Escanear un codigo"),
+                Option(R.drawable.ic_fi_rr_refresh,"Generar un codigo aleatorio")
+            )
+            onPositive { index: Int, _ ->
+                if (index == 0) {
+                    scannerLauncher.launch(Manifest.permission.CAMERA)
+                } else {
+                    //todo generate new code
+                }
+            }
+        }
+    }
+
+    fun showImageOptions() {
+        OptionsSheet().show(requireParentFragment().requireContext()) {
+            multipleChoices(false)
+            displayMode(DisplayMode.LIST)
+            with(
+                Option(R.drawable.ic_fi_rr_camera, "Seleccionar nueva foto"),
+                Option(R.drawable.ic_fi_rr_trash,"Eliminar foto")
+            )
+            onPositive { index: Int, _ ->
+                if (index == 0) {
+                    getContent.launch(arrayOf("image/*"))
+                } else {
+                    viewModel.updateProductImage("")
+                }
+            }
+        }
     }
 }

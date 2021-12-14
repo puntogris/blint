@@ -139,6 +139,7 @@
                 android:textAlignment="center" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <EditText
             android:id="@+id/productAmount"
             emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
@@ -154,33 +155,33 @@
             android:singleLine="true"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
+            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
             app:layout_constraintStart_toEndOf="@+id/textView32"
             app:layout_constraintTop_toBottomOf="@+id/productPricesTitle" />
-
-        <ImageView
-            android:id="@+id/increaseAmountButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/increase_number_image"
-            android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
-            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
-            app:layout_constraintTop_toTopOf="@+id/productAmount"
-            app:srcCompat="@drawable/ic_fi_rr_plus" />
 
         <ImageView
             android:id="@+id/decreaseAmountButton"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/decrease_number_image"
             android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="@+id/increaseAmountButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/increaseAmountButton"
+            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
+            app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
+            app:layout_constraintTop_toTopOf="@+id/productAmount"
             app:srcCompat="@drawable/ic_fi_rr_minus" />
+
+        <ImageView
+            android:id="@+id/increaseAmountButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/increase_number_image"
+            android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/decreaseAmountButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
+            app:srcCompat="@drawable/ic_fi_rr_plus" />
 
         <TextView
             android:id="@+id/textView32"

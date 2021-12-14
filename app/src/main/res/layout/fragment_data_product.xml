@@ -16,7 +16,6 @@
             type="com.puntogris.blint.feature_store.presentation.product.details.ProductViewModel" />
     </data>
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,143 +24,267 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:orientation="vertical">
+
+            <View
+                android:id="@+id/divider23"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
+
+            <View
+                android:id="@+id/divider24"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
+
+            <View
+                android:id="@+id/divider25"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productSellPrice" />
+
+            <View
+                android:id="@+id/divider26"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoriesChipGroup" />
+
+            <View
+                android:id="@+id/divider27"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productSkuLabel" />
+
+            <View
+                android:id="@+id/divider28"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productBrandLabel" />
+
+            <View
+                android:id="@+id/divider15"
+                style="@style/Theme.Blint.LargeDivider"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productDescriptionLabel" />
+
+            <View
+                android:id="@+id/divider16"
+                style="@style/Theme.Blint.LargeDivider"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productStockLabel" />
+
+            <View
+                android:id="@+id/divider22"
+                style="@style/Theme.Blint.LargeDivider"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/supplierChipGroup" />
 
             <TextView
                 android:id="@+id/descriptionTitle"
-                style="@style/Theme.Blint.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/description"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/productImage"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="16dp"
+                android:padding="5dp"
+                imageFullSize="@{viewModel.currentProduct.product.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTitle"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+                app:strokeColor="@android:color/darker_gray"
+                app:strokeWidth="3dp" />
+
             <TextView
                 android:id="@+id/productNameLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:ems="6"
                 android:text="@string/name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionTitle" />
-
-            <TextView
-                android:id="@+id/productName"
-                style="@style/Theme.Blint.DataTextView"
-                capitalizeFirstChar="@{viewModel.currentProduct.product.name}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/productNameLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
-
-            <TextView
-                android:id="@+id/productBarcodeLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/barcode"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productName" />
-
-            <TextView
-                android:id="@+id/productBarcode"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.barcode}"
-                app:layout_constraintStart_toStartOf="@+id/productBarcodeLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
-
-            <TextView
-                android:id="@+id/productDescriptionLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productBarcode" />
-
-            <TextView
-                android:id="@+id/productDescription"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.description}"
-                app:layout_constraintStart_toStartOf="@+id/productDescriptionLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productDescriptionLabel" />
-
-            <TextView
-                android:id="@+id/imageTitle"
-                style="@style/Theme.Blint.TextButton"
-                removeImageVisibility="@{viewModel.currentProduct.product.image}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="@string/image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDescription" />
-
-            <ImageView
-                android:id="@+id/productImage"
-                imageFullSize="@{viewModel.currentProduct.product.image}"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/product_image"
-                app:layout_constraintTop_toBottomOf="@+id/imageTitle"
-                tools:layout_editor_absoluteX="0dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-            <TextView
-                android:id="@+id/pricesAndStockTitle"
-                style="@style/Theme.Blint.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/prices_and_stock"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/descriptionTitle"
                 app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
             <TextView
-                android:id="@+id/productBuyPriceLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
+                android:id="@+id/productName"
+                capitalizeFirstChar="@{viewModel.currentProduct.product.name}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productNameLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productNameLabel"
+                app:layout_constraintTop_toTopOf="@+id/productNameLabel"
+                tools:text="Text" />
+
+            <TextView
+                android:id="@+id/productBarcodeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="6"
+                android:text="@string/barcode"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/productNameLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider23" />
+
+            <TextView
+                android:id="@+id/productBarcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.barcode}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productBarcodeLabel"
+                app:layout_constraintEnd_toEndOf="@+id/productName"
+                app:layout_constraintStart_toEndOf="@+id/productBarcodeLabel"
+                app:layout_constraintTop_toTopOf="@+id/productBarcodeLabel"
+                tools:text="Text" />
+
+            <TextView
+                android:id="@+id/productDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="6"
+                android:text="@string/description"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/productBarcodeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider24" />
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentProduct.product.description}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productDescriptionLabel"
+                app:layout_constraintEnd_toEndOf="@+id/productBarcode"
+                app:layout_constraintStart_toEndOf="@+id/productDescriptionLabel"
+                app:layout_constraintTop_toTopOf="@+id/productDescriptionLabel"
+                tools:text="Text" />
+
+            <TextView
+                android:id="@+id/pricesAndStockTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/prices_and_stock"
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider15" />
+
+            <TextView
+                android:id="@+id/productBuyPriceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
                 android:text="@string/buy_price"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/productSellPriceLabel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/productDescriptionLabel"
                 app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
             <TextView
                 android:id="@+id/productBuyPrice"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/productBuyPriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/productSellPriceLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="6"
                 android:text="@string/sell_price"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/textView34"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/productBuyPriceLabel"
@@ -169,20 +292,24 @@
 
             <TextView
                 android:id="@+id/productSellPrice"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/productSellPriceLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel"
+                tools:text="Text" />
 
 
             <TextView
                 android:id="@+id/textView34"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:ems="6"
                 android:text="@string/suggested_sell_price"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/productSellPriceLabel"
@@ -190,46 +317,54 @@
 
             <TextView
                 android:id="@+id/productSuggestedSellPrice"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/textView34"
-                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+                app:layout_constraintTop_toBottomOf="@+id/textView34"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/productStockLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="6"
                 android:text="@string/stock"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
+                app:layout_constraintStart_toStartOf="@+id/productBuyPriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider25" />
+
 
             <TextView
                 android:id="@+id/productAmount"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productStockLabel" />
-
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productStockLabel"
+                app:layout_constraintEnd_toEndOf="@+id/productDescription"
+                app:layout_constraintStart_toEndOf="@+id/productStockLabel"
+                app:layout_constraintTop_toTopOf="@+id/productStockLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/suppliersAndCategoriesTitle"
-                style="@style/Theme.Blint.TextButton"
-                android:layout_width="wrap_content"
+                removeListVisibility="@{viewModel.currentProduct}"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                removeListVisibility="@{viewModel.currentProduct}"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/traders_and_categories"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productAmount" />
+                app:layout_constraintTop_toBottomOf="@+id/divider16" />
 
             <TextView
                 android:id="@+id/suppliersTitle"
@@ -238,10 +373,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp"
+                android:ems="6"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/traders_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoriesChipGroup" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
+                app:layout_constraintTop_toBottomOf="@+id/divider26" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/supplierChipGroup"
@@ -252,7 +390,6 @@
                 app:layout_constraintStart_toStartOf="@id/suppliersTitle"
                 app:layout_constraintTop_toBottomOf="@+id/suppliersTitle" />
 
-
             <TextView
                 android:id="@+id/categoriesTitle"
                 removeListVisibility="@{viewModel.currentProduct.categories}"
@@ -260,11 +397,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="24dp"
+                android:ems="6"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/categories_label"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/productStockLabel"
                 app:layout_constraintTop_toBottomOf="@+id/suppliersAndCategoriesTitle" />
-
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/categoriesChipGroup"
@@ -273,84 +412,95 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
-                app:layout_constraintTop_toBottomOf="@+id/categoriesTitle">
+                app:layout_constraintTop_toBottomOf="@+id/categoriesTitle" />
 
-            </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:id="@+id/extrasTitle"
-                style="@style/Theme.Blint.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/extras"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/color_on_background"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/supplierChipGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/divider22" />
 
             <TextView
                 android:id="@+id/productSkuLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="6"
                 android:text="@string/sku"
-                app:layout_constraintEnd_toStartOf="@+id/productSizeLabel"
-                app:layout_constraintHorizontal_bias="0.5"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/suppliersTitle"
                 app:layout_constraintTop_toBottomOf="@+id/extrasTitle" />
 
             <TextView
                 android:id="@+id/productInternalCode"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentProduct.product.sku}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productSkuLabel" />
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/productDescription"
+                app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
+                app:layout_constraintTop_toTopOf="@+id/productSkuLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/productBrandLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:ems="6"
                 android:text="@string/brand"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productInternalCode" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/productSkuLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider27" />
 
             <TextView
                 android:id="@+id/productBrand"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:text="@{viewModel.currentProduct.product.brand}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/productBrandLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productBrandLabel" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productBrandLabel"
+                app:layout_constraintEnd_toEndOf="@+id/productInternalCode"
+                app:layout_constraintStart_toEndOf="@+id/productBrandLabel"
+                app:layout_constraintTop_toTopOf="@+id/productBrandLabel"
+                tools:text="Text" />
 
             <TextView
                 android:id="@+id/productSizeLabel"
-                style="@style/Theme.Blint.DataSubTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:ems="6"
                 android:text="@string/product_observation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
-                app:layout_constraintTop_toTopOf="@+id/productSkuLabel" />
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/productBrandLabel"
+                app:layout_constraintTop_toBottomOf="@+id/divider28" />
 
             <TextView
                 android:id="@+id/productSize"
-                style="@style/Theme.Blint.DataTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentProduct.product.size}"
-                app:layout_constraintStart_toStartOf="@+id/productSizeLabel"
-                app:layout_constraintTop_toBottomOf="@+id/productSizeLabel" />
-
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productSizeLabel"
+                app:layout_constraintEnd_toEndOf="@+id/productBrand"
+                app:layout_constraintStart_toEndOf="@+id/productSizeLabel"
+                app:layout_constraintTop_toTopOf="@+id/productSizeLabel"
+                tools:text="Text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
