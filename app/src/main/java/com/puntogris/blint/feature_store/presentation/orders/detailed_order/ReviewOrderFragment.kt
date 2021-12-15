@@ -18,6 +18,7 @@ class ReviewOrderFragment :
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
+        binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -47,7 +48,7 @@ class ReviewOrderFragment :
         }
     }
 
-    private fun navigateToPublishOrder() {
+    fun navigateToPublishOrder() {
         if (viewModel.isDebtValid()) {
             findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
         } else {

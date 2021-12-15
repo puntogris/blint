@@ -238,10 +238,10 @@
                 app:destination="@id/orderTraderBottomSheet" />
             <action
                 android:id="@+id/action_orderTypeFragment_to_createRecordFragment"
-                app:destination="@id/createOrderFragment" />
+                app:destination="@id/orderProductsFragment" />
         </fragment>
         <fragment
-            android:id="@+id/reviewRecordFragment"
+            android:id="@+id/reviewOderFragment"
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment"
             android:label="@string/review_order_label">
             <action
@@ -255,14 +255,14 @@
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderTraderBottomSheet">
             <action
                 android:id="@+id/action_orderTraderBottomSheet_to_createRecordFragment"
-                app:destination="@id/createOrderFragment" />
+                app:destination="@id/orderProductsFragment" />
         </dialog>
         <fragment
             android:id="@+id/publishOrderFragment"
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.PublishOrderFragment"
             android:label="@string/publish_order_label" />
         <fragment
-            android:id="@+id/createOrderFragment"
+            android:id="@+id/orderProductsFragment"
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderProductsFragment"
             android:label="@string/new_order_label">
             <argument
@@ -271,7 +271,7 @@
                 app:argType="string" />
             <action
                 android:id="@+id/action_createRecordFragment_to_reviewRecordFragment"
-                app:destination="@id/reviewRecordFragment" />
+                app:destination="@id/reviewOderFragment" />
         </fragment>
         <action
             android:id="@+id/action_global_scannerFragment"

@@ -127,10 +127,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     fun onExternalChipClicked() {
-//        val action =
-//            OrderInfoBottomSheetDirections.actionGlobalTraderFragment(
-//                traderId = viewModel.orderWithRecords.value.order.traderId
-//            )
-//        findNavController().navigate(action)
+        val action =
+            OrderFragmentDirections.actionGlobalTraderFragment(
+                traderId = viewModel.orderWithRecords.value.order.traderId
+            )
+        findNavController().navigate(action)
     }
 }

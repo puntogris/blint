@@ -78,6 +78,6 @@ class OrderTraderBottomSheet :
     private fun onTraderClicked(trader: Trader) {
         viewModel.updateOrderTrader(trader.name, trader.traderId)
         UiInterface.showSnackBar(getString(R.string.snack_trader_added_order, trader.name))
-        findNavController().navigate(R.id.createOrderFragment)
+        findNavController().navigate(R.id.orderProductsFragment)
     }
 }

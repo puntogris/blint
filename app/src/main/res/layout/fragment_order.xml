@@ -19,93 +19,104 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.orders.details.OrderFragment">
 
+        <View
+            android:id="@+id/divider29"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chip" />
+
         <TextView
             android:id="@+id/orderDateLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/date"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            android:ems="6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderType" />
+
+        <TextView
+            android:id="@+id/orderDate"
+            dateFromTimestampWithTime="@{viewModel.orderWithRecords.order.timestamp}"
+            android:layout_width="0dp"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/orderDateLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orderDateLabel"
+            app:layout_constraintTop_toTopOf="@+id/orderDateLabel" />
+
+        <TextView
+            android:id="@+id/orderTypeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:text="@string/record_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderType" />
-
-
-        <TextView
-            android:id="@+id/orderDate"
-            style="@style/Theme.Blint.DataTextView"
-            dateFromTimestampWithTime="@{viewModel.orderWithRecords.order.timestamp}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintStart_toStartOf="@+id/orderDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderDateLabel" />
-
-        <TextView
-            android:id="@+id/orderTypeLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:text="@string/type"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            android:ems="6"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/orderType"
-            style="@style/Theme.Blint.DataTextView"
             recordTypeString="@{viewModel.orderWithRecords.order.type}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/orderTypeLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderTypeLabel" />
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/orderTypeLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/orderTypeLabel"
+            app:layout_constraintTop_toTopOf="@+id/orderTypeLabel" />
 
         <TextView
             android:id="@+id/orderValueLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/total"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            android:ems="6"
             app:layout_constraintStart_toStartOf="@+id/orderDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/orderDate" />
 
-        <TextView
-            android:id="@+id/orderValue"
-            style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.orderWithRecords.order.value}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/orderValueLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderValueLabel" />
 
         <TextView
             android:id="@+id/externalNameTitle"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            clientOrSupplierTitleWithRecordType="@{viewModel.orderWithRecords.order.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trader_label"
+            android:ems="6"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/chip"
+            app:layout_constraintStart_toStartOf="@+id/orderValueLabel"
+            app:layout_constraintTop_toTopOf="@+id/chip" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip"
+            externalChipName="@{viewModel.orderWithRecords.order.traderName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/orderValue"
-            app:layout_constraintTop_toBottomOf="@+id/orderTotal" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/externalNameTitle"
-            app:layout_constraintTop_toBottomOf="@+id/externalNameTitle">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip6"
-                externalChipName="@{viewModel.orderWithRecords.order.traderName}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->fragment.onExternalChipClicked()}" />
-        </com.google.android.material.chip.ChipGroup>
+            android:onClick="@{()->fragment.onExternalChipClicked()}"
+            app:layout_constraintStart_toEndOf="@+id/externalNameTitle"
+            app:layout_constraintTop_toBottomOf="@+id/orderValueLabel" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -114,20 +125,20 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/generateInvoiceButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider29" />
 
         <TextView
             android:id="@+id/orderTotal"
             totalOrderWithDetails="@{viewModel.orderWithRecords}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/orderValueLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/orderValueLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderValue" />
+            app:layout_constraintStart_toEndOf="@+id/orderValueLabel"
+            app:layout_constraintTop_toTopOf="@+id/orderValueLabel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/generateInvoiceButton"

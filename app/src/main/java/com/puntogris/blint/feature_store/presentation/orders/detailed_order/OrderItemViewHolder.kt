@@ -11,21 +11,23 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(newRecord: NewRecord, dataChangedListener: () -> Unit) {
-        binding.item = newRecord
+        with(binding){
+            item = newRecord
 
-        binding.recordAmount.addTextChangedListener { editable ->
-            editable.toString().toIntOrNull()?.let {
-                newRecord.amount = it
-                dataChangedListener()
+            recordAmount.addTextChangedListener { editable ->
+                editable.toString().toIntOrNull()?.let {
+                    newRecord.amount = it
+                    dataChangedListener()
+                }
             }
-        }
-        binding.recordValue.addTextChangedListener { editable ->
-            editable.toString().toFloatOrNull()?.let {
-                newRecord.productUnitPrice = it
-                dataChangedListener()
+            recordValue.addTextChangedListener { editable ->
+                editable.toString().toFloatOrNull()?.let {
+                    newRecord.productUnitPrice = it
+                    dataChangedListener()
+                }
             }
+            executePendingBindings()
         }
-        binding.executePendingBindings()
     }
 
     companion object {

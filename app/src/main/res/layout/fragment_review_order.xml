@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment" />
         <variable
             name="viewModel"
             type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.NewOrderViewModel" />
@@ -17,45 +19,27 @@
 
         <TextView
             android:id="@+id/amounts_of_products_label"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:text="@string/products_amount"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/amount_of_products"
-            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{String.valueOf(viewModel.newOrder.newRecords.size())}"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/amounts_of_products_label"
             app:layout_constraintStart_toEndOf="@+id/amounts_of_products_label"
             app:layout_constraintTop_toTopOf="@+id/amounts_of_products_label" />
 
-        <TextView
-            android:id="@+id/order_date_label"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/date_with_dots"
-            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
-            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
-
-        <TextView
-            android:id="@+id/order_date"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/order_date_label"
-            app:layout_constraintStart_toEndOf="@+id/order_date_label"
-            app:layout_constraintTop_toTopOf="@+id/order_date_label" />
 
         <TextView
             android:id="@+id/review_order_alert"
@@ -63,31 +47,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="104dp"
+            android:layout_marginBottom="132dp"
             android:text="@string/review_order_alert"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/order_trader_label"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/trader_label"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/amounts_of_products_label"
             app:layout_constraintTop_toBottomOf="@+id/amounts_of_products_label" />
 
         <TextView
             android:id="@+id/order_trader"
-            style="@style/Theme.Blint.DataTextView"
             externalName="@{viewModel.newOrder.traderName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/order_trader_label"
             app:layout_constraintStart_toEndOf="@+id/order_trader_label"
             app:layout_constraintTop_toTopOf="@+id/order_trader_label" />
@@ -98,13 +83,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/order_payment_status"
             app:layout_constraintEnd_toStartOf="@+id/order_debt_amount_input_layout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_date_label">
+            app:layout_constraintTop_toBottomOf="@+id/order_trader_label">
 
             <AutoCompleteTextView
                 android:id="@+id/order_debt_selector"
@@ -143,24 +128,46 @@
         <TextView
             android:id="@+id/order_debt_summary"
             style="?textAppearanceSubtitle2"
-            android:layout_width="wrap_content"
             orderDebtSummary="@{viewModel.newOrder}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/order_debt_selector_input_layout"
             app:layout_constraintTop_toBottomOf="@+id/order_debt_selector_input_layout" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button3"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="0dp"
+            android:onClickListener="@{()-> fragment.navigateToPublishOrder()}"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/action_finish"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
-            android:id="@+id/order_total"
+            android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:fontFamily="sans-serif-medium"
-            orderTotal="@{viewModel.newOrder.value}"
-            android:textSize="19sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="16dp"
+            android:text="@string/total"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
+
+        <TextView
+            android:id="@+id/textView42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            numberToMoneyString="@{viewModel.newOrder.value}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

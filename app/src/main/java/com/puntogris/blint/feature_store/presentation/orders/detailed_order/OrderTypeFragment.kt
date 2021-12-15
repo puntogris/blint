@@ -19,15 +19,8 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(
-            showAppBar = false,
-            fabIcon = R.drawable.ic_baseline_arrow_forward_24,
-            showFabCenter = false
-        )
-        {
-            val action = OrderTypeFragmentDirections.actionOrderTypeFragmentToCreateRecordFragment()
-            findNavController().navigate(action)
-        }
+
+        UiInterface.registerUi(showAppBar = false)
 
         args.product?.let {
             viewModel.addProduct(it)
@@ -48,6 +41,10 @@ class OrderTypeFragment : BaseFragment<FragmentOrderTypeBinding>(R.layout.fragme
                 viewModel.updateOrderType(i)
             }
         }
+    }
+
+    fun navigateToOrderProducts(){
+        findNavController().navigate(R.id.action_orderTypeFragment_to_createRecordFragment)
     }
 
     fun onAddTraderClicked() {

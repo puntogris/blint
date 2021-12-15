@@ -29,12 +29,7 @@ class OrderProductsFragment :
         binding.viewModel = viewModel
         registerToolbarBackButton(binding.searchToolbar)
 
-        UiInterface.registerUi(
-            showAppBar = false,
-            showToolbar = false,
-            showFabCenter = false,
-            fabIcon = R.drawable.ic_baseline_arrow_forward_24
-        ) { navigateToReviewOrder() }
+        UiInterface.registerUi(showToolbar = false)
 
         setupProductsSearchAdapter()
         setupOderProductAdapter()
@@ -118,9 +113,9 @@ class OrderProductsFragment :
         hideKeyboard()
     }
 
-    private fun navigateToReviewOrder() {
+    fun navigateToReviewOrder() {
         if (viewModel.areProductsValid()) {
-            findNavController().navigate(R.id.reviewRecordFragment)
+            findNavController().navigate(R.id.reviewOderFragment)
         } else {
             UiInterface.showSnackBar(getString(R.string.product_amount_empty))
         }

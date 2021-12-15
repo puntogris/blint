@@ -331,8 +331,8 @@
     <string name="buy_prices">Buy</string>
     <string name="sell_prices">Sell/ Sug.</string>
     <string name="snack_discount_error">Error with the discount amount.</string>
-    <string name="order_fully_paid">Total: $%1$s, paid in full.</string>
-    <string name="order_with_debt">Total: $%1$s, debt of $%2$s.</string>
+    <string name="order_fully_paid">$%1$s, paid in full.</string>
+    <string name="order_with_debt">$%1$s, debt of $%2$s.</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
 
     <!-- Preferences-->

@@ -51,23 +51,6 @@ fun ImageView.setProfileImage(image: String?) {
     }
 }
 
-@BindingAdapter("loadImageButtonText")
-fun Button.setLoadImageButtonText(image: String) {
-    setText(
-        if (image.isNotEmpty()) R.string.action_change else R.string.action_add_image
-    )
-}
-
-@BindingAdapter("removeImageVisibility")
-fun Button.setRemoveImageVisibility(image: String) {
-    isVisible = image.isNotEmpty()
-}
-
-@BindingAdapter("removeImageVisibility")
-fun TextView.setRemoveImageVisibility(image: String) {
-    isVisible = image.isNotEmpty()
-}
-
 @BindingAdapter("removeListVisibility")
 fun TextView.setRemoveListVisibility(list: List<Any>?) {
     isVisible = !list.isNullOrEmpty()
@@ -116,12 +99,6 @@ fun TextView.setCapitalizeWord(text: String) {
 @BindingAdapter("numberToMoneyString")
 fun TextView.setNumberToMoneyString(number: Float) {
     text = context.getString(R.string.amount_normal, number.toMoneyFormatted())
-}
-
-@BindingAdapter("clientOrSupplierTitleWithRecordType")
-fun TextView.setClientOrSupplierTitleWithRecordType(type: String) {
-    //todo, maybe use type and show here
-    setText(if (type == IN) R.string.trader_label else R.string.trader_label)
 }
 
 @BindingAdapter("totalOrderWithDetails")
@@ -257,13 +234,6 @@ fun TextView.setOrderTotal(total: Float) {
     )
 }
 
-@BindingAdapter("pricesAndStockTitle")
-fun TextView.setPricesAndStockTitle(productId: String) {
-    setText(
-        if (productId.isEmpty()) R.string.prices_and_initial_stock else R.string.prices_and_stock
-    )
-}
-
 @BindingAdapter("orderDebtSummary")
 fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
     val totalPaid = if (newOrder.newDebt != null) {
@@ -276,16 +246,6 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
         totalPaid.toString(),
         newOrder.value.toString()
     )
-}
-
-@BindingAdapter("traderTypeToggleGroup")
-fun MaterialButtonToggleGroup.setTraderTypeToggleGroup(type: String) {
-//    val button = when (type) {
-//        Constants.SUPPLIER -> R.id.traderTypeSupplierButton
-//        Constants.CLIENT -> R.id.traderTypeClientButton
-//        else -> R.id.traderTypeOtherButton
-//    }
-  //  if (checkedButtonId != button) check(button)
 }
 
 @BindingAdapter("traderType")
