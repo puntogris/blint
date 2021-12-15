@@ -38,8 +38,7 @@ fun ImageView.setImageFullSize(image: String) {
             .centerCrop()
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(this)
-        visible()
-    } else gone()
+    }
 }
 
 @BindingAdapter("profileImage")

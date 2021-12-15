@@ -110,7 +110,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     R.id.productCategoryFragment,
                     R.id.productTraderFragment,
                     R.id.productFragment,
-                    R.id.traderFragment
+                    R.id.traderFragment,
+                    R.id.orderFragment
                 )
 
         hideKeyboard()

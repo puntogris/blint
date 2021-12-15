@@ -115,8 +115,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     }
 
     fun navigateToInfoRecord(record: Record) {
-        val action = ProductFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
-        findNavController().navigate(action)
+        //todo maybe add a global action to orderfragment
+//        val action = ProductFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
+//        findNavController().navigate(action)
     }
 
 

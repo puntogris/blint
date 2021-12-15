@@ -36,9 +36,11 @@ data class NewRecord(
 
     var historicalOutStock: Int = 0,
 
-    var sku: String = "",
+    var productImage: String = "",
 
-    var barcode: String = "",
+    var productSku: String = "",
+
+    var productBarcode: String = "",
 
     var currentStock: Int = 0
 )

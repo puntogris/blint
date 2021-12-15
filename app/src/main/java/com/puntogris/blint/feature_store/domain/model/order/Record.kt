@@ -39,6 +39,9 @@ data class Record(
     var productName: String = "",
 
     @ColumnInfo
+    var productImage: String = "",
+
+    @ColumnInfo
     var storeId: String = "",
 
     @ColumnInfo

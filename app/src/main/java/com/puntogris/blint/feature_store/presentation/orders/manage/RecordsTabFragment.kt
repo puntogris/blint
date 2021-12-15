@@ -36,7 +36,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
 
     private fun onRecordClickedListener(record: Record) {
         val action =
-            ManageOrdersFragmentDirections.actionManageOrdersFragmentToRecordInfoBottomSheet(record)
+            ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderFragment(orderId = record.orderId)
         findNavController().navigate(action)
     }
 

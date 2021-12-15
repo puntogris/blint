@@ -101,8 +101,9 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
     }
 
     fun navigateToInfoRecord(record: Record) {
-        val action = TraderFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
-        findNavController().navigate(action)
+        //todo globar order framg
+//        val action = TraderFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
+//        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {

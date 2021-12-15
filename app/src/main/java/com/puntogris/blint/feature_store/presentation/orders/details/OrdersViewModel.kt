@@ -30,16 +30,6 @@ class OrdersViewModel @Inject constructor(
         order ?: repository.getOrderRecords(orderId)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), OrderWithRecords())
 
-    val tableItems = orderWithRecords.mapLatest { order ->
-        order.records.map {
-            OrdersTableItem(
-                it.productName,
-                it.amount,
-                it.value
-            )
-        }
-    }
-
     fun getOrderPDF(uri: Uri? = null) = repository.generateOrderPDF(uri, orderWithRecords.value)
 
 }

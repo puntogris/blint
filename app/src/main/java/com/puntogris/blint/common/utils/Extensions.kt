@@ -3,6 +3,7 @@ package com.puntogris.blint.common.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -191,7 +192,7 @@ fun LottieAnimationView.playAnimationInfinite(@RawRes animation: Int) {
 
 fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
     OptionsSheet().show(requireParentFragment().requireContext()) {
-        displayMode(DisplayMode.GRID_HORIZONTAL)
+        displayMode(DisplayMode.LIST)
         style(SheetStyle.BOTTOM_SHEET)
         with(
             Option(R.drawable.ic_baseline_speed_24, R.string.create_simple_order),
@@ -293,3 +294,7 @@ fun NavController.navigateAndClearStack(destination: Int) {
     val nav = NavOptions.Builder().setPopUpTo(R.id.navigation, true).build()
     navigate(destination, null, nav)
 }
+
+fun Fragment.isDarkThemeOn() =
+    (resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)

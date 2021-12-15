@@ -256,14 +256,14 @@
                 android:id="@+id/productBuyPriceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="6"
+                android:layout_marginStart="24dp"
                 android:text="@string/buy_price"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/productSellPriceLabel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="@+id/productDescriptionLabel"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/productSellPriceLabel" />
 
             <TextView
@@ -272,6 +272,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/productBuyPriceLabel"
                 app:layout_constraintStart_toStartOf="@+id/productBuyPriceLabel"
                 app:layout_constraintTop_toBottomOf="@+id/productBuyPriceLabel"
                 tools:text="Text" />
@@ -281,7 +282,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="6"
                 android:text="@string/sell_price"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
@@ -296,6 +296,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/productSellPriceLabel"
                 app:layout_constraintStart_toStartOf="@+id/productSellPriceLabel"
                 app:layout_constraintTop_toBottomOf="@+id/productSellPriceLabel"
                 tools:text="Text" />
@@ -306,7 +307,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:ems="6"
                 android:text="@string/suggested_sell_price"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
@@ -321,6 +321,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView34"
                 app:layout_constraintStart_toStartOf="@+id/textView34"
                 app:layout_constraintTop_toBottomOf="@+id/textView34"
                 tools:text="Text" />
@@ -329,13 +330,14 @@
                 android:id="@+id/productStockLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:ems="6"
                 android:text="@string/stock"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="@+id/productBuyPriceLabel"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider25" />
 
 

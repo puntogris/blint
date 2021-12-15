@@ -35,8 +35,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
     }
 
     private fun onOrderClickListener(order: OrderWithRecords) {
-        val action =
-            ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderInfoBottomSheet(order)
+        val action = ManageOrdersFragmentDirections.actionManageOrdersFragmentToOrderFragment(order = order)
         findNavController().navigate(action)
     }
 

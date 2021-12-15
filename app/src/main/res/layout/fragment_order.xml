@@ -107,57 +107,14 @@
                 android:onClick="@{()->fragment.onExternalChipClicked()}" />
         </com.google.android.material.chip.ChipGroup>
 
-        <TextView
-            android:id="@+id/recordProductLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/product"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@+id/recordAmountLabel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
-
-        <TextView
-            android:id="@+id/recordAmountLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/amount"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/recordProductLabel"
-            app:layout_constraintEnd_toStartOf="@+id/recordPriceLabel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/recordProductLabel"
-            app:layout_constraintTop_toTopOf="@+id/recordProductLabel" />
-
-        <TextView
-            android:id="@+id/recordPriceLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="@string/price"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/recordAmountLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/recordAmountLabel"
-            app:layout_constraintTop_toTopOf="@+id/recordAmountLabel" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/generateInvoiceButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recordProductLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
         <TextView
             android:id="@+id/orderTotal"

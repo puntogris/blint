@@ -29,8 +29,9 @@ class SimpleOrderViewModel @Inject constructor(
                 productName = product.name,
                 historicalInStock = product.historicInStock,
                 historicalOutStock = product.historicOutStock,
-                sku = product.sku,
-                barcode = product.barcode,
+                productSku = product.sku,
+                productImage = product.image,
+                productBarcode = product.barcode,
                 currentStock = product.amount
             )
         )

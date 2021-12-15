@@ -9,6 +9,7 @@ import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,8 @@ class ManageOrdersFragment :
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        UiInterface.registerUi()
+        UiInterface.registerUi(showToolbar = false)
+        registerToolbar()
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
@@ -28,6 +30,18 @@ class ManageOrdersFragment :
             }
         }
         mediator?.attach()
+    }
+
+    private fun registerToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_add){
+                    findNavController().navigate(R.id.detailedOrderGraphNav)
+                }
+                true
+            }
+        }
     }
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :

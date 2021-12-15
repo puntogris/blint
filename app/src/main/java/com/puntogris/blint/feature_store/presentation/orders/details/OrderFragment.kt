@@ -37,16 +37,16 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun setupOrderTableAdapter() {
-        OrdersTableAdapter().let {
+        OrdersRecordsAdapter().let {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }
     }
 
-    private fun subscribeUi(adapter: OrdersTableAdapter) {
+    private fun subscribeUi(adapter: OrdersRecordsAdapter) {
         launchAndRepeatWithViewLifecycle {
-            viewModel.tableItems.collect {
-                adapter.submitList(it)
+            viewModel.orderWithRecords.collect {
+                adapter.submitList(it.records)
             }
         }
     }
@@ -64,7 +64,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
     fun onGenerateOrderReceiptClicked() {
         OptionsSheet().show(requireParentFragment().requireContext()) {
-            displayMode(DisplayMode.GRID_HORIZONTAL)
+            displayMode(DisplayMode.LIST)
             with(
                 Option(R.drawable.ic_baseline_article_24, R.string.see),
                 Option(R.drawable.ic_baseline_share_24, R.string.share),
@@ -127,10 +127,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     fun onExternalChipClicked() {
-        val action =
-            OrderInfoBottomSheetDirections.actionGlobalTraderFragment(
-                traderId = viewModel.orderWithRecords.value.order.traderId
-            )
-        findNavController().navigate(action)
+//        val action =
+//            OrderInfoBottomSheetDirections.actionGlobalTraderFragment(
+//                traderId = viewModel.orderWithRecords.value.order.traderId
+//            )
+//        findNavController().navigate(action)
     }
 }

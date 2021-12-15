@@ -84,6 +84,7 @@ fun NewOrder.toOrderWithRecords(store: Store): OrderWithRecords {
                 type = type,
                 traderId = traderId,
                 traderName = traderName,
+                productImage = it.productImage,
                 amount = it.amount,
                 productName = it.productName,
                 productId = it.productId,
@@ -94,9 +95,9 @@ fun NewOrder.toOrderWithRecords(store: Store): OrderWithRecords {
                     else -> it.historicalInStock
                 },
                 storeId = store.storeId,
-                barcode = it.barcode,
+                barcode = it.productBarcode,
                 productUnitPrice = it.productUnitPrice,
-                sku = it.sku,
+                sku = it.productSku,
             )
         },
         debt = newDebt?.let {
@@ -116,8 +117,8 @@ fun Product.toNewRecord(): NewRecord {
     return NewRecord(
         productName = name,
         productId = productId,
-        barcode = barcode,
-        sku = sku,
+        productBarcode = barcode,
+        productSku = sku,
         historicalInStock = historicInStock,
         historicalOutStock = historicOutStock,
         amount = 0,

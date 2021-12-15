@@ -5,60 +5,65 @@
     <data>
 
         <variable
-            name="item"
-            type="com.puntogris.blint.feature_store.domain.model.order.OrdersTableItem" />
+            name="record"
+            type="com.puntogris.blint.feature_store.domain.model.order.Record" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/productImage"
+            imageFullSize="@{record.productImage}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/color_on_primary"
+            android:padding="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
-            <TextView
-                android:id="@+id/textView173"
-                capitalizeFirstChar="@{item.productName}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="13dp"
-                android:layout_marginStart="24dp"
-                android:maxLength="17"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView179"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView173"
+            capitalizeFirstChar="@{record.productName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="13dp"
+            android:layout_marginStart="16dp"
+            android:maxLength="17"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/productImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView179"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(item.amount)}"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView173"
-                app:layout_constraintEnd_toStartOf="@+id/textView180"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView173"
-                app:layout_constraintTop_toTopOf="@+id/textView173" />
+        <TextView
+            android:id="@+id/textView179"
+            numberToMoneyString="@{record.value}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView173"
+            app:layout_constraintEnd_toStartOf="@+id/textView180"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView173"
+            app:layout_constraintTop_toTopOf="@+id/textView173" />
 
-            <TextView
-                android:id="@+id/textView180"
-                numberToMoneyString="@{item.value}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView179"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView179"
-                app:layout_constraintTop_toTopOf="@+id/textView179" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textView180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/card6"
+            android:text="@{String.valueOf(record.amount)}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView179"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView179" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
