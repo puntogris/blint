@@ -1,13 +1,18 @@
 package com.puntogris.blint.feature_store.presentation.categories
 
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
@@ -15,19 +20,19 @@ import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageCategoriesFragment :
-    BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
+    BaseFragmentOptions<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
 
     private val viewModel: ManageCategoriesViewModel by viewModels()
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi() {
-            showCreateCategoryDialog()
-        }
+        UiInterface.registerUi()
         setupCategoriesAdapter()
     }
 
@@ -44,9 +49,16 @@ class ManageCategoriesFragment :
                 adapter.submitData(it)
             }
         }
+        launchAndRepeatWithViewLifecycle {
+            adapter.loadStateFlow.map { it.refresh }
+                .distinctUntilChanged()
+                .collect {
+                    binding.addCategoryText.isVisible = it is LoadState.NotLoading && adapter.itemCount == 0
+                }
+        }
     }
 
-    private fun showCreateCategoryDialog() {
+    fun showCreateCategoryDialog() {
         InputSheet().show(requireParentFragment().requireContext()) {
             style(SheetStyle.DIALOG)
             title(R.string.add_category)
@@ -82,6 +94,21 @@ class ManageCategoriesFragment :
             UiInterface.showSnackBar(getString(result))
         }
     }
+
+    override fun setUpMenuOptions(menu: Menu) {
+        menu.findItem(R.id.action_menu_add).isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_menu_add -> {
+                showCreateCategoryDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null

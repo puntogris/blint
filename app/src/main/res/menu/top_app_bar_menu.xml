@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
@@ -56,30 +57,11 @@
     </item>
 
     <item
-        android:id="@+id/calendarFragmentMenu"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="@string/options"
+        android:id="@+id/action_menu_add"
+        android:title="@string/new_store"
+        android:icon="@drawable/ic_fi_rr_plus"
         android:visible="false"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/newEvent"
-                android:title="@string/new_event" />
-        </menu>
-    </item>
-
-    <item
-        android:id="@+id/manageStoreMenu"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="@string/options"
-        android:visible="false"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/newStore"
-                android:title="@string/new_store" />
-        </menu>
-    </item>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/businessFragmentMenu"

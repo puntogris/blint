@@ -38,9 +38,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun initializeViews() {
         setUpNavigation()
         setUpScanner()
-
-        val asd = ShapeAppearanceModel.builder().setAllCornerSizes(15f).build()
-        //   binding.bottomAppBar.background.current.constantState.
     }
 
     private fun setUpScanner() {
@@ -96,26 +93,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        binding.bottomAppBar.isVisible = destination.id !in
+        binding.bottomAppBar.isVisible = destination.id in
                 listOf(
-                    R.id.preferencesFragment,
-                    R.id.editTraderFragment,
-                    R.id.manageStoreFragment,
-                    R.id.manageDebtFragment,
-                    R.id.reportsFragment,
-                    R.id.manageTradersFragment,
-                    R.id.editProductFragment,
-                    R.id.registerStoreFragment,
-                    R.id.loginFragment,
-                    R.id.productCategoryFragment,
-                    R.id.productTraderFragment,
-                    R.id.productFragment,
-                    R.id.traderFragment,
-                    R.id.orderFragment,
-                    R.id.orderTypeFragment,
-                    R.id.orderProductsFragment,
-                    R.id.reviewOderFragment,
-                    R.id.publishOrderFragment
+                    R.id.homeFragment,
+                    R.id.manageProductsFragment,
+                    R.id.manageOrdersFragment
                 )
 
         hideKeyboard()

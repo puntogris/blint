@@ -16,7 +16,6 @@
             android:paddingEnd="@dimen/grid_1"
             app:contentInsetStartWithNavigation="0dp"
             app:menu="@menu/menu_add"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/orders_label"
             tools:ignore="RtlSymmetry" />
 

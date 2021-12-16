@@ -34,7 +34,7 @@ class CalendarViewModel @Inject constructor(
         repository.getEventsPaged(it)
     }.toEventUi().cachedIn(viewModelScope)
 
-    fun updateEventStatusFilter(eventStatus: EventStatus) {
+    fun setFilter(eventStatus: EventStatus) {
         this.eventFilter.value = eventStatus
     }
 

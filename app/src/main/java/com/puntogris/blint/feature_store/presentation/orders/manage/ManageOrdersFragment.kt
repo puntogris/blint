@@ -5,11 +5,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.puntogris.blint.NavigationDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,15 +28,12 @@ class ManageOrdersFragment :
 
     }
 
-    private fun registerToolbar(){
-        binding.toolbar.apply {
-            registerToolbarBackButton(this)
-            setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_add){
-                    findNavController().navigate(R.id.detailedOrderGraphNav)
-                }
-                true
+    private fun registerToolbar() {
+        binding.toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.action_add) {
+                findNavController().navigate(R.id.detailedOrderGraphNav)
             }
+            true
         }
     }
 

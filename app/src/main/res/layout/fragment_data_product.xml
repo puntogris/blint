@@ -170,7 +170,7 @@
                 android:id="@+id/productNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:ems="6"
                 android:text="@string/name"
                 android:textColor="@color/color_on_background"

@@ -49,6 +49,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="104dp"
             android:lineSpacingExtra="4dp"
+            android:textAlignment="center"
             android:text="@string/delete_local_store_warning"
             app:layout_constraintBottom_toTopOf="@+id/button6"
             app:layout_constraintEnd_toEndOf="parent"

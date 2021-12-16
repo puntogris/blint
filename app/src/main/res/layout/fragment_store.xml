@@ -30,11 +30,12 @@
             android:id="@+id/businessDetailsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/details"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             android:layout_marginTop="16dp"
             android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +54,6 @@
 
         <TextView
             android:id="@+id/businessName"
-            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{business.name}"
@@ -60,30 +62,33 @@
 
         <TextView
             android:id="@+id/businessDateLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/creation_date"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessName"
             app:layout_constraintTop_toBottomOf="@+id/businessName" />
 
         <TextView
             android:id="@+id/businessDate"
-            style="@style/Theme.Blint.DataTextView"
             dateFromTimestamp="@{business.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/businessDateLabel" />
 
         <TextView
             android:id="@+id/textView128"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/author"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessDate"
             app:layout_constraintTop_toBottomOf="@+id/businessDate" />
 

@@ -400,6 +400,7 @@
             android:id="@+id/textView37"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Seleccione el tipo de comerciante"
             android:textColor="?android:textColorHint"
             android:textSize="16sp"

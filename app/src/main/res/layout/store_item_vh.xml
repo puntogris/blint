@@ -14,23 +14,16 @@
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackgroundBorderless">
 
-        <TextView
-            android:id="@+id/business_name"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{store.store.name}"
-            app:layout_constraintStart_toStartOf="@+id/business_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/business_name_label" />
 
         <TextView
-            android:id="@+id/business_name_label"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:id="@+id/business_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/name"
+            android:layout_marginTop="24dp"
+            android:text="@{store.store.name}"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,27 +36,68 @@
             app:layout_constraintBottom_toTopOf="@+id/select_store_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:tint="@color/primaryColor" />
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/select_store_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/action_select_store"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/business_name" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="5dp"
+            android:layout_marginTop="16dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_store_button" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/business_name"
+            app:layout_constraintTop_toBottomOf="@+id/business_name"
+            app:srcCompat="@drawable/ic_fi_rr_box" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView43"
+            app:layout_constraintStart_toEndOf="@+id/textView43"
+            app:layout_constraintTop_toTopOf="@+id/textView43"
+            app:srcCompat="@drawable/ic_fi_rr_users" />
+
+        <TextView
+            android:id="@+id/textView43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(store.store.totalProducts)}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(store.store.totalTraders)}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="@+id/imageView8" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

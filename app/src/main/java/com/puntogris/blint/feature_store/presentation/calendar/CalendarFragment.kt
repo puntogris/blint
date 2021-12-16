@@ -2,7 +2,6 @@ package com.puntogris.blint.feature_store.presentation.calendar
 
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,23 +22,17 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     private val viewModel: CalendarViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi() {
-            findNavController().navigate(R.id.createEventFragment)
-        }
+        UiInterface.registerUi()
         setupEventsFilter()
         setupEventsAdapter()
     }
 
     private fun setupEventsFilter() {
-        val items = resources.getStringArray(R.array.filter_event_status)
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, items)
-
-        binding.calendarFilter.apply {
-            setAdapter(adapter)
-            setOnItemClickListener { _, _, i, _ ->
-                enumValues<EventStatus>().getOrNull(i)?.let {
-                    viewModel.updateEventStatusFilter(it)
-                }
+        binding.eventsFilter.addOnButtonCheckedListener { _, checkedId, _ ->
+            when (checkedId) {
+                R.id.filterAllEventsButton -> viewModel.setFilter(EventStatus.All)
+                R.id.filterPendingEventsButton -> viewModel.setFilter(EventStatus.Pending)
+                R.id.filterFinishedEventsButton -> viewModel.setFilter(EventStatus.Finished)
             }
         }
     }
@@ -74,14 +67,14 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.newEvent) {
+        return if (item.itemId == R.id.action_menu_add) {
             findNavController().navigate(R.id.createEventFragment)
             true
         } else super.onOptionsItemSelected(item)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.calendarFragmentMenu).isVisible = true
+        menu.findItem(R.id.action_menu_add).isVisible = true
     }
 
     override fun onDestroyView() {

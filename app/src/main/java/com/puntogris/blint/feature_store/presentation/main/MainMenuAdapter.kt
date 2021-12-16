@@ -10,12 +10,12 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
 
     init {
         val list = listOf(
-            MenuCard(R.string.traders_label, R.id.manageTradersFragment, R.drawable.ic_article_circle_blue),
-            MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_wallet_circle_yellow),
-            MenuCard(R.string.reports_label, R.id.reportsNavGraph, R.drawable.ic_chart_circle_yellow),
-            MenuCard(R.string.stores_label, R.id.manageStoreFragment, R.drawable.ic_store_circle_blue),
-            MenuCard(R.string.calendar_label, R.id.calendarFragment, R.drawable.ic_chart_circle_yellow),
-            MenuCard(R.string.categories_label, R.id.manageCategoriesFragment, R.drawable.ic_chart_circle_yellow),
+            MenuCard(R.string.traders_label, R.id.manageTradersFragment, R.drawable.ic_traders_circle_blue),
+            MenuCard(R.string.calendar_label, R.id.calendarFragment, R.drawable.ic_calendar_circle_yellow),
+            MenuCard(R.string.reports_label, R.id.reportsNavGraph, R.drawable.ic_reports_circle_yellow),
+            MenuCard(R.string.categories_label, R.id.manageCategoriesFragment, R.drawable.ic_category_circle_blue),
+            MenuCard(R.string.debts_label, R.id.manageDebtFragment, R.drawable.ic_debts_circle_blue),
+            MenuCard(R.string.stores_label, R.id.manageStoreFragment, R.drawable.ic_store_circle_yellow),
         )
         submitList(list)
     }

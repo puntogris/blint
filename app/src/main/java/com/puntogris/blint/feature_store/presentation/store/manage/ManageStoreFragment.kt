@@ -73,12 +73,12 @@ class ManageStoreFragment :
     }
 
     override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.manageStoreMenu).isVisible = true
+        menu.findItem(R.id.action_menu_add).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.newStore -> {
+            R.id.action_menu_add -> {
                 findNavController().navigate(R.id.registerStoreFragment)
                 true
             }

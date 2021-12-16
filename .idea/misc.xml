@@ -15,7 +15,10 @@
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_baseline_article_24.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/drawable/ic_calendar_circle_yellow.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_category_circle_blue.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_chart_circle_yellow.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/drawable/ic_debts_circle_blue.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_ellipse_11.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_home.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_plus.xml" value="0.24513888888888888" />
@@ -34,12 +37,15 @@
         <entry key="app/src/main/res/drawable/ic_packages.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_rating.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_report.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_reports_circle_yellow.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_round_store.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_round_storefront_24.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_search_barcode_2.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_shipped.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_store.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_store_circle_blue.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_store_circle_yellow.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_traders_circle_blue.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_twotone_home_24.xml" value="0.153125" />
         <entry key="app/src/main/res/drawable/ic_wallet_circle_yellow.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/list_item_checkable_selector.xml" value="0.24513888888888888" />
@@ -74,7 +80,7 @@
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_bottom_nav_drawer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_business.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.175" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.21388888888888888" />
         <entry key="app/src/main/res/layout/fragment_client_data.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_client_records.xml" value="0.234375" />
@@ -85,6 +91,7 @@
         <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_account.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_delete_store.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_edit_supplier.xml" value="0.10173611111111111" />
@@ -135,6 +142,7 @@
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_show_debts.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_store.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_supplier_data.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_supplier_records.xml" value="0.234375" />
@@ -153,7 +161,7 @@
         <entry key="app/src/main/res/layout/manage_clients_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/manage_products_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/manage_suppliers_vh.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/manage_traders_vh.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/manage_traders_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/menu_card_vh.xml" value="0.33" />
         <entry key="app/src/main/res/layout/nav_divider_item_layout.xml" value="0.12430555555555556" />
         <entry key="app/src/main/res/layout/nav_menu_item_layout.xml" value="0.1" />
@@ -180,7 +188,7 @@
         <entry key="app/src/main/res/layout/scanner_result_dialog.xml" value="0.33" />
         <entry key="app/src/main/res/layout/simple_debt_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/simple_order.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/store_item_vh.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/store_item_vh.xml" value="0.5145228215767634" />
         <entry key="app/src/main/res/layout/supplier_company_expandable.xml" value="0.10173611111111111" />
         <entry key="app/src/main/res/layout/supplier_extras_expandable.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/supplier_seller_expandable.xml" value="0.234375" />
@@ -210,7 +218,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.22" />
+        <option name="scale" value="0.234375" />
       </ProjectState>
     </option>
   </component>
