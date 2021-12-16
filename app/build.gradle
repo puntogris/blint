@@ -207,6 +207,4 @@ dependencies {
 
     //Charts
     implementation "com.diogobernardino:williamchart:$chartsVersion"
-
-
 }

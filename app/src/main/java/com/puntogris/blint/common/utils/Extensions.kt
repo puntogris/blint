@@ -47,6 +47,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.threeten.bp.DateTimeUtils
+import org.threeten.bp.Instant
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
@@ -118,10 +119,6 @@ fun Float.toMoneyFormatted(removeSuffix: Boolean = false): String {
             return this.removeSuffix(".00")
         }
     }
-}
-
-fun Calendar.toOffsetDateTime(): OffsetDateTime {
-    return OffsetDateTime.ofInstant(DateTimeUtils.toInstant(this), DateTimeUtils.toZoneId(timeZone))
 }
 
 fun Timestamp.toOffsetDateTime(): OffsetDateTime {

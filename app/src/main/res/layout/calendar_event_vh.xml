@@ -29,13 +29,13 @@
 
         <TextView
             android:id="@+id/eventTitle"
-            style="?attr/textAppearanceSubtitle1"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:text="@{event.title}"
-            app:layout_constraintEnd_toStartOf="@id/eventStauts"
+            app:layout_constraintEnd_toStartOf="@id/eventStatus"
             app:layout_constraintStart_toEndOf="@id/eventColor"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
@@ -47,8 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
-            android:letterSpacing="0.2"
-            android:textSize="14sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/eventColor"
             app:layout_constraintTop_toBottomOf="@id/eventTitle"
@@ -56,8 +55,7 @@
 
 
         <TextView
-            android:id="@+id/eventStauts"
-            style="?attr/textAppearanceSubtitle1"
+            android:id="@+id/eventStatus"
             eventStatus="@{event.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,5 +64,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/eventTitle"
             tools:text="Pending" />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

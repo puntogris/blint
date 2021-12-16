@@ -13,7 +13,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="wrap_content"
             app:tabGravity="center"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             app:tabIndicatorFullWidth="false"
             app:tabTextAppearance="@style/TabLayoutStyle"
             android:layout_height="wrap_content"/>

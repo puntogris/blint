@@ -19,114 +19,97 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.calendar.new_event.CreateEventFragment">
 
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content" />
+
         <TextView
-            android:id="@+id/textView2"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/information"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/message_hint"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventTitle"
-            style="@style/Theme.Blint.TextInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:hint="@string/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/eventTitleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::setEventTitle}"
-                android:imeOptions="actionDone"
-                android:maxLength="30"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventMessage"
-            style="@style/Theme.Blint.TextInput"
+        <TextView
+            android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:hint="@string/message_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventTitle">
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.event.message}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/openButton"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/eventMessageText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::setEventMessage}"
-                android:gravity="top"
-                android:lines="4"
-                android:maxLength="200"
-                android:maxLines="4" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textView186"
+        <ImageView
+            android:id="@+id/openButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:foreground="?selectableItemBackground"
-            android:onClick="@{()-> fragment.onHideKeyboardClicked()}"
-            android:padding="8dp"
-            android:text="@string/action_close_keyboard"
-            android:textColor="@color/primaryColor"
-            app:layout_constraintEnd_toEndOf="@+id/eventMessage"
-            app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/content"
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button9"
             style="@style/Theme.Blint.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:onClick="@{()-> fragment.onSelectDateClicked()}"
-            android:text="@string/add_date"
-            app:layout_constraintBottom_toBottomOf="@+id/eventDate"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="0dp"
+            android:layout_marginBottom="8dp"
+            android:onClickListener="@{()-> fragment.onSaveEventClicked()}"
+            android:text="@string/action_save"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/appName"
-            app:layout_constraintTop_toTopOf="@+id/appName" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/appName"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:id="@+id/textView47"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/date"
-            app:layout_constraintEnd_toStartOf="@+id/button9"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView186" />
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-        <TextView
-            android:id="@+id/eventDate"
-            style="@style/Theme.Blint.DataTextView"
-            dateFromTimestamp="@{viewModel.event.timestamp}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/appName"
-            app:layout_constraintTop_toBottomOf="@+id/appName" />
+
+        <View
+            android:id="@+id/addEventContentButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foreground="?selectableItemBackground"
+            android:onClickListener="@{()->fragment.onAddEventContentClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

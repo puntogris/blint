@@ -12,8 +12,9 @@
         android:id="@+id/calendarSeparator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/color_on_background"
         android:text="@{date.toUpperCase()}"
         android:textAlignment="center" />
 </layout>

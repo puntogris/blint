@@ -23,7 +23,7 @@
             android:layout_marginTop="24dp"
             android:text="@{store.store.name}"
             android:textColor="@color/color_on_background"
-            android:textSize="16sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

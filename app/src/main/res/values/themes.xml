@@ -22,6 +22,10 @@
         <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
         <item name="bottomSheetDayNight">@color/color_background</item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+        <item name="sheetsTitleColor">@color/color_secondary</item>
+        <item name="sheetsDividerColor">@color/color_on_primary</item>
+        <item name="sheetsCornerRadius">10dp</item>
+        <item name="sheetsButtonColor">@color/color_secondary</item>
     </style>
 
 </resources>
