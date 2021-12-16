@@ -9,9 +9,8 @@ import com.puntogris.blint.feature_store.domain.model.order.Debt
 class ManageDebtViewHolder private constructor(val binding: DebtTraderVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(debt: Debt, clickListener: (Debt) -> (Unit)) {
+    fun bind(debt: Debt) {
         binding.debt = debt
-        binding.root.setOnClickListener { clickListener(debt) }
         binding.executePendingBindings()
     }
 

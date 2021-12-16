@@ -17,7 +17,7 @@
                 android:title="@string/new_order"
                 android:visible="false" />
             <item
-                android:id="@+id/debtStatus"
+                android:id="@+id/updateDebt"
                 android:title="@string/debts_label"
                 android:visible="false" />
             <item

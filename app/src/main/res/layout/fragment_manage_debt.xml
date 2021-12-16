@@ -21,7 +21,6 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView5"
-            style="@style/Theme.Blint.CardView"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -45,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-medium"
                     android:text="@string/total_debt_balance"
                     android:textColor="@color/color_primary"
                     android:textSize="18sp"

@@ -89,8 +89,7 @@ class EditProductFragment :
         scannerLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
             if (isGranted) {
-                val action = EditProductFragmentDirections
-                    .actionEditProductFragmentToScannerFragment(1)
+                val action = EditProductFragmentDirections.actionGlobalScannerFragment(1)
                 findNavController().navigate(action)
             } else {
                 UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
@@ -148,7 +147,7 @@ class EditProductFragment :
                 if (index == 0) {
                     scannerLauncher.launch(Manifest.permission.CAMERA)
                 } else {
-                    //todo generate new code
+                    viewModel.updateProductBarcode()
                 }
             }
         }

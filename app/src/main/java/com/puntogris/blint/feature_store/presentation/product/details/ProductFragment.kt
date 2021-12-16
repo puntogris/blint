@@ -31,10 +31,7 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi() {
-            //todo
-            navigateToEditProductFragment()
-        }
+        UiInterface.registerUi()
 
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
 
@@ -46,18 +43,6 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
         }
 
         mediator?.attach()
-
-        //todo
-//        binding.tabLayout.addOnTabSelectedListener {
-//            when (it) {
-//                0 -> UiInterface.setFabImageAndClickListener(R.drawable.ic_baseline_edit_24) {
-//                    navigateToEditProductFragment()
-//                }
-//                else -> UiInterface.setFabImageAndClickListener {
-//                    showOrderPickerAndNavigate(args.productWithDetails.product)
-//                }
-//            }
-//        }
     }
 
     private fun navigateToEditProductFragment() {
@@ -115,9 +100,8 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
     }
 
     fun navigateToInfoRecord(record: Record) {
-        //todo maybe add a global action to orderfragment
-//        val action = ProductFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
-//        findNavController().navigate(action)
+        val action = ProductFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        findNavController().navigate(action)
     }
 
 

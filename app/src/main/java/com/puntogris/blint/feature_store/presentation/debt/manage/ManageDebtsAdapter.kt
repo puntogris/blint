@@ -5,7 +5,7 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import com.puntogris.blint.feature_store.presentation.debt.DebtDiffCallBack
 
-class ManageDebtsAdapter(private val clickListener: (Debt) -> Unit) :
+class ManageDebtsAdapter() :
     PagingDataAdapter<Debt, ManageDebtViewHolder>(
         DebtDiffCallBack()
     ) {
@@ -15,6 +15,6 @@ class ManageDebtsAdapter(private val clickListener: (Debt) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ManageDebtViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position)!!)
     }
 }

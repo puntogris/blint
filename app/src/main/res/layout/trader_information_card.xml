@@ -190,7 +190,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <TextView
             android:id="@+id/textView24"
@@ -274,30 +274,31 @@
             app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
 
         <RadioGroup
-            android:id="@+id/radioGroup2"
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            selectedTraderType="@{viewModel.currentTrader.type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView37">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/other_trader_type_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="@string/trader_type_other" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/client_trader_type_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:text="@string/trader_type_client" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/supplier_trader_type_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/trader_type_supplier" />

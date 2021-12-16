@@ -46,7 +46,7 @@ class ManageProductsFragment :
         { isGranted: Boolean ->
             if (isGranted) {
                 val action =
-                    ManageProductsFragmentDirections.actionManageProductsFragmentToScannerFragment(
+                    ManageProductsFragmentDirections.actionGlobalScannerFragment(
                         1
                     )
                 findNavController().navigate(action)

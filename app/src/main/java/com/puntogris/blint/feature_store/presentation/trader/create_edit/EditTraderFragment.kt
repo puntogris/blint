@@ -40,7 +40,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
         setupTraderFilter()
     }
 
-    fun onSaveButtonClicked(){
+    fun onSaveButtonClicked() {
         when (val validator = StringValidator.from(
             viewModel.currentTrader.value.name,
             allowSpecialChars = true,
@@ -63,14 +63,15 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
 
     private fun setupContactPermissions() {
         contactPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 if (isGranted) {
                     val intent = Intent(Intent.ACTION_PICK).apply {
                         type = ContactsContract.Contacts.CONTENT_TYPE
                     }
                     contactPickerLauncher.launch(intent)
-                } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                } else {
+                    UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                }
             }
     }
 
@@ -88,14 +89,14 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
     }
 
     private fun setupTraderFilter() {
-        //Todo think a better way, the data binding adapter feels weird
-//        binding.traderInformationLayout.traderType.addOnButtonCheckedListener { _, checkedId, _ ->
-//            when (checkedId) {
-//                R.id.traderTypeOtherButton -> viewModel.updateTraderType(Constants.OTHER)
-//                R.id.traderTypeClientButton -> viewModel.updateTraderType(Constants.CLIENT)
-//                R.id.traderTypeSupplierButton -> viewModel.updateTraderType(Constants.SUPPLIER)
-//            }
-//        }
+        binding.traderInformationLayout.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val type = when (checkedId) {
+                R.id.client_trader_type_radio_button -> Constants.CLIENT
+                R.id.supplier_trader_type_radio_button -> Constants.SUPPLIER
+                else -> Constants.OTHER
+            }
+            viewModel.updateTraderType(type)
+        }
     }
 
     fun onAddClientFromContactsClicked() {

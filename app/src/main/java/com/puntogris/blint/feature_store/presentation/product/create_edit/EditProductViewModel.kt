@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
@@ -43,8 +44,15 @@ class EditProductViewModel @Inject constructor(
         currentProduct.value.categories = categories
     }
 
-    fun updateProductBarcode(barcode: String) {
-        currentProduct.value.product.barcode = barcode
+    //todo something is off here, for some reason it's not updating
+    fun updateProductBarcode(barcode: String? = null) {
+        val b = barcode ?: UUIDGenerator.randomNumbersUUID()
+        handle["productWithDetails"] = currentProduct.value.copy().apply {
+            product = product.copy(
+                productId = barcode ?: b
+            )
+        }
+        currentProduct.value.product.barcode = b
     }
 
     fun updateProductBarcode(editable: Editable) {

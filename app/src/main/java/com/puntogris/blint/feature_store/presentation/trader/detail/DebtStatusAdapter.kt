@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.debt.debt_status
+package com.puntogris.blint.feature_store.presentation.trader.detail
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

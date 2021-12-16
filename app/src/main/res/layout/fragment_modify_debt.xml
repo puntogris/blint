@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.debt.ModifyDebtFragment">
+        tools:context=".feature_store.presentation.debt.update_debt.UpdateDebtFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/debt_type_input_layout"

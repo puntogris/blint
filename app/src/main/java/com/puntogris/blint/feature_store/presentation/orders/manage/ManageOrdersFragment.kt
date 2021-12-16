@@ -24,12 +24,10 @@ class ManageOrdersFragment :
         registerToolbar()
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.tab_orders)
-                else -> getString(R.string.tab_records)
-            }
+            tab.setText(if (position == 0) R.string.tab_orders else R.string.tab_records)
         }
         mediator?.attach()
+
     }
 
     private fun registerToolbar(){
@@ -46,6 +44,7 @@ class ManageOrdersFragment :
 
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
+
         override fun getItemCount(): Int = 2
         override fun createFragment(position: Int) =
             if (position == 0) OrdersTabFragment() else RecordsTabFragment()

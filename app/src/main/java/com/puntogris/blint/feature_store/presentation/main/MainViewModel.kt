@@ -15,20 +15,16 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences,
-    private val userRepository: UserRepository,
+    userRepository: UserRepository,
     storeRepository: StoreRepository,
-    eventRepository: EventRepository
 ) : ViewModel() {
 
     val user = userRepository.getUserFlow().asLiveData()
 
+    val currentBusiness = storeRepository.getCurrentStoreFlow().asLiveData()
+
     fun showLoginScreen() = sharedPreferences.showLoginScreen()
 
     fun showNewUserScreen() = sharedPreferences.showNewUserScreen()
-
-    val currentBusiness = storeRepository.getCurrentStoreFlow().asLiveData()
-
-    val lastEventsFlow = eventRepository.getStoreLastEvents()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
 }

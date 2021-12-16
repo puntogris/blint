@@ -248,9 +248,10 @@
     <string name="extras">Extras</string>
     <string name="payment_information">Informacion de pagos</string>
     <string name="discount">Descuento</string>
-    <string name="tab_data">DATOS</string>
-    <string name="tab_records">MOVIMIENTOS</string>
-    <string name="tab_orders">ORDENES</string>
+    <string name="tab_data">Datos</string>
+    <string name="tab_records">Movimientos</string>
+    <string name="tab_debts">Deudas</string>
+    <string name="tab_orders">Ordenes</string>
     <string name="image_picker_folder_title">Imágenes</string>
     <string name="action_change">Cambiar</string>
     <string name="action_add_image">Agregar imagen</string>

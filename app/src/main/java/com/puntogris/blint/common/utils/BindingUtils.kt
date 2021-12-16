@@ -1,19 +1,16 @@
 package com.puntogris.blint.common.utils
 
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.puntogris.blint.R
@@ -251,9 +248,19 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
 @BindingAdapter("traderType")
 fun TextView.setTraderType(type: String) {
     val res = when (type) {
-        Constants.SUPPLIER -> R.string.trader_type_supplier
         Constants.CLIENT -> R.string.trader_type_client
+        Constants.SUPPLIER -> R.string.trader_type_supplier
         else -> R.string.trader_type_other
     }
     setText(res)
+}
+
+@BindingAdapter("selectedTraderType")
+fun RadioGroup.setSelectedTraderType(type: String) {
+    val checkedId = when (type) {
+        Constants.CLIENT -> R.id.client_trader_type_radio_button
+        Constants.SUPPLIER -> R.id.supplier_trader_type_radio_button
+        else -> R.id.other_trader_type_radio_button
+    }
+    check(checkedId)
 }

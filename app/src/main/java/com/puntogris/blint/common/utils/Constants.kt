@@ -4,7 +4,6 @@ object Constants {
 
     const val CROSS_FADE_DURATION = 350
 
-
     //Room database
     const val LOCAL_DATABASE_NAME = "blint_database"
 
@@ -21,7 +20,6 @@ object Constants {
     //Account
     const val BASIC_PLAN = "basic_plan"
 
-
     //Calendar event status
     const val PENDING = "PENDING"
     const val FINISHED = "DENIED"
@@ -36,7 +34,4 @@ object Constants {
     const val OUT = "OUT"
     const val INITIAL = "INITIAL"
 
-    //Supplier contact picker
-    const val COMPANY_CONTACT = 1
-    const val SELLER_CONTACT = 2
 }

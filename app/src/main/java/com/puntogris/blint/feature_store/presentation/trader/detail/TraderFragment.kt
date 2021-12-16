@@ -34,10 +34,12 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         }
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.tab_data)
-                else -> getString(R.string.tab_records)
+            val res = when (position) {
+                0 -> R.string.tab_data
+                1 -> R.string.tab_records
+                else -> R.string.tab_debts
             }
+            tab.setText(res)
         }
         mediator?.attach()
     }
@@ -52,13 +54,17 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
     private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
-        override fun getItemCount(): Int = 2
+        override fun getItemCount(): Int = 3
 
-        override fun createFragment(position: Int): Fragment =
-            (if (position == 0) TraderDataFragment() else TraderRecordsFragment())
-                .apply {
-                    arguments = args.toBundle()
-                }
+        override fun createFragment(position: Int): Fragment {
+            return when(position){
+                0 -> TraderDataFragment()
+                1 -> TraderRecordsFragment()
+                else -> TraderDebtFragment()
+            }.apply {
+                arguments = args.toBundle()
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,11 +82,11 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
                 }
                 true
             }
-            R.id.debtStatus -> {
-                val action = TraderFragmentDirections.actionTraderFragmentToDebtStatusFragment(
-                    trader = viewModel.currentTrader.value
-                )
-                findNavController().navigate(action)
+            R.id.updateDebt -> {
+//                val action = TraderFragmentDirections.actionTraderFragmentToDebtStatusFragment(
+//                    trader = viewModel.currentTrader.value
+//                )
+//                findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -101,14 +107,13 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
     }
 
     fun navigateToInfoRecord(record: Record) {
-        //todo globar order framg
-//        val action = TraderFragmentDirections.actionGlobalRecordInfoBottomSheet(record)
-//        findNavController().navigate(action)
+        val action = TraderFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        findNavController().navigate(action)
     }
 
     override fun setUpMenuOptions(menu: Menu) {
         menu.findItem(R.id.moreOptions).isVisible = true
-        menu.findItem(R.id.debtStatus).isVisible = true
+        menu.findItem(R.id.updateDebt).isVisible = true
     }
 
     override fun onDestroyView() {

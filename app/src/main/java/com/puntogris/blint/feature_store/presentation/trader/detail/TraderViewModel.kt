@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.common.framework.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Trader
+import com.puntogris.blint.feature_store.domain.repository.DebtRepository
 import com.puntogris.blint.feature_store.domain.repository.TraderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,9 +17,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TraderViewModel @Inject constructor(
-    private val repository: TraderRepository,
+    private val traderRepository: TraderRepository,
+    private val debtRepository: DebtRepository,
     private val contactsHelper: ContactsHelper,
     handle: SavedStateHandle
 ) : ViewModel() {
@@ -27,15 +30,18 @@ class TraderViewModel @Inject constructor(
     private val traderIdArg = handle.getLiveData<String>("traderId").asFlow()
 
     val currentTrader = combine(traderArg, traderIdArg) { trader, id ->
-        trader ?: repository.getTrader(id)
+        trader ?: traderRepository.getTrader(id)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Trader())
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val traderRecords = currentTrader.flatMapLatest {
-        repository.getTradersRecordsPaged(it.traderId)
+        traderRepository.getTradersRecordsPaged(it.traderId)
     }.cachedIn(viewModelScope)
 
-    suspend fun deleteTrader() = repository.deleteTrader(currentTrader.value.traderId)
+    val traderDebts = currentTrader.flatMapLatest {
+        debtRepository.getLastTraderDebts(it.traderId)
+    }.cachedIn(viewModelScope)
+
+    suspend fun deleteTrader() = traderRepository.deleteTrader(currentTrader.value.traderId)
 
     fun getContactIntent() = contactsHelper.getSaveContactIntent(currentTrader.value)
 }

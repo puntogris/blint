@@ -7,11 +7,11 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusFragment" />
+            type="com.puntogris.blint.feature_store.presentation.trader.detail.TraderDebtFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.debt.debt_status.DebtStatusViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.trader.detail.TraderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,11 +21,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView5"
-            style="@style/Theme.Blint.CardView"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/color_on_primary"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -33,10 +35,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:gravity="center"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -45,15 +44,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-medium"
                     android:text="@string/total_debt_balance"
+                    android:textColor="@color/color_primary"
                     android:textSize="18sp"
                     tools:layout_editor_absoluteX="116dp"
                     tools:layout_editor_absoluteY="99dp" />
 
                 <TextView
                     android:id="@+id/textView184"
-                    debtColor="@{viewModel.totalDebtLiveData.tradersDebt}"
+                    debtColor="@{viewModel.currentTrader.debt}"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginBottom="16dp"
@@ -74,7 +74,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button8"
             app:layout_constraintTop_toBottomOf="@+id/textView187"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -82,13 +82,24 @@
             android:id="@+id/textView187"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/last_debts"
             android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView5" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/update_debt_label"
+            android:layout_marginHorizontal="16dp"
+            style="@style/Theme.Blint.Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

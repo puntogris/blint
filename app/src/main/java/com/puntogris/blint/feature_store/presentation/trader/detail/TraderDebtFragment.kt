@@ -1,32 +1,26 @@
-package com.puntogris.blint.feature_store.presentation.debt.debt_status
+package com.puntogris.blint.feature_store.presentation.trader.detail
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
-import com.puntogris.blint.databinding.FragmentDebtStatusBinding
+import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.fragment_debt_status) {
+class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.fragment_trader_debt) {
 
-    private val viewModel: DebtStatusViewModel by viewModels()
-    private val args: DebtStatusFragmentArgs by navArgs()
+    private val viewModel: TraderViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi() {
-            onModifyDebtButtonClicked()
-        }
-
+        UiInterface.registerUi()
         setupDebtsAdapter()
     }
 
@@ -46,13 +40,7 @@ class DebtStatusFragment : BaseFragment<FragmentDebtStatusBinding>(R.layout.frag
     }
 
     private fun onDebtClicked(debt: Debt) {
-
-    }
-
-    private fun onModifyDebtButtonClicked() {
-        val action =
-            DebtStatusFragmentDirections.actionDebtStatusFragmentToModifyDebtFragment(args.trader)
-        findNavController().navigate(action)
+        //TODO add a bottom sheet with the debt info and a button to navigate to the order
     }
 
     override fun onDestroyView() {
