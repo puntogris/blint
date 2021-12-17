@@ -22,11 +22,11 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/traders_label"
             android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            android:text="@string/traders_label" />
+            android:textSize="16sp" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/supplierChipGroup"
@@ -58,19 +58,19 @@
         <TextView
             android:id="@+id/textView26"
             android:layout_width="match_parent"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            android:layout_marginStart="24dp"
             android:layout_height="wrap_content"
-            android:text="@string/categories_label" />
+            android:layout_marginStart="24dp"
+            android:text="@string/categories_label"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/categoriesChipGroup"
             productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
             android:layout_width="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/addCategoryChip"

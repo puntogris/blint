@@ -32,6 +32,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
                 adapter.submitData(it)
             }
         }
+
     }
 
     private fun onOrderClickListener(order: OrderWithRecords) {

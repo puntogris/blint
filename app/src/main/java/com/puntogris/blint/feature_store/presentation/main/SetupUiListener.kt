@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.main
 
 import android.view.View
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R

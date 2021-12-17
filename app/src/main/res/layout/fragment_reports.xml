@@ -16,8 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginHorizontal="24dp"
+            android:orientation="vertical"
             tools:context=".feature_store.presentation.reports.ReportsFragment">
 
             <TextView
@@ -34,22 +34,22 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/recordsReport"
                 style="@style/Theme.Blint.Button"
-                android:backgroundTint="@color/color_on_primary"
-                android:textColor="@color/color_primary"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onProductsReportClicked()}"
-                android:text="@string/product_records_report" />
+                android:text="@string/product_records_report"
+                android:textColor="@color/color_primary" />
 
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tradersRecordsReport"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/color_on_primary"
-                android:textColor="@color/color_primary"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onClientsReportClicked()}"
-                android:text="@string/traders_records_report" />
+                android:text="@string/traders_records_report"
+                android:textColor="@color/color_primary" />
 
             <TextView
                 android:id="@+id/generateListTitle"
@@ -67,19 +67,19 @@
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
                 android:backgroundTint="@color/color_on_primary"
-                android:textColor="@color/color_primary"
                 android:onClick="@{()->fragment.onProductListClicked()}"
-                android:text="@string/products_label" />
+                android:text="@string/products_label"
+                android:textColor="@color/color_primary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tradersReport"
                 style="@style/Theme.Blint.Button"
-                android:backgroundTint="@color/color_on_primary"
-                android:textColor="@color/color_primary"
                 android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onClientListClicked()}"
-                android:text="@string/traders_label" />
+                android:text="@string/traders_label"
+                android:textColor="@color/color_primary" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

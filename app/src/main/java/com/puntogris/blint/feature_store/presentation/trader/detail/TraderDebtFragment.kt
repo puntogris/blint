@@ -7,6 +7,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +49,9 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
                 .collect { notLoading ->
                     if (notLoading) binding.recyclerView.scrollToPosition(0)
                 }
+        }
+        launchAndRepeatWithViewLifecycle {
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
         }
     }
 

@@ -37,17 +37,17 @@
                 android:id="@+id/categoriesSearch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingStart="8dp"
+                android:layout_marginEnd="24dp"
                 android:afterTextChanged="@{viewModel::setQuery}"
                 android:autofillHints="@string/auto_fill_hint_search_product"
                 android:background="@drawable/a"
-                android:layout_marginEnd="24dp"
                 android:backgroundTint="@color/color_on_primary"
                 android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="10dp"
                 android:hint="@string/search"
                 android:imeOptions="flagNoExtractUi|actionDone"
-                android:inputType="textNoSuggestions" />
+                android:inputType="textNoSuggestions"
+                android:paddingStart="8dp" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 

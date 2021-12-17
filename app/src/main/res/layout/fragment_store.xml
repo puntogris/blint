@@ -45,10 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
             android:layout_marginTop="16dp"
             android:text="@string/name"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/businessDetailsTitle" />
 

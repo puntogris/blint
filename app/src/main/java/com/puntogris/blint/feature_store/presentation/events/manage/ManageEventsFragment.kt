@@ -10,6 +10,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.databinding.FragmentManageEventsBinding
 import com.puntogris.blint.feature_store.domain.model.Event
@@ -51,6 +52,9 @@ class ManageEventsFragment :
             viewModel.eventsFlow.collect {
                 adapter.submitData(it)
             }
+        }
+        launchAndRepeatWithViewLifecycle {
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
         }
     }
 

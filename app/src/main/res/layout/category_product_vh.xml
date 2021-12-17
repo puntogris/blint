@@ -22,8 +22,8 @@
             android:background="@drawable/list_item_checkable_selector"
             android:drawablePadding="20dp"
             android:foreground="?selectableItemBackground"
-            android:paddingVertical="16dp"
             android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

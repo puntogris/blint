@@ -49,11 +49,11 @@ class OrderTraderBottomSheet :
         subscribeUi()
     }
 
-    private fun registerToolbar(){
+    private fun registerToolbar() {
         binding.searchToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_close){
+                if (it.itemId == R.id.action_close) {
                     dismiss()
                 }
                 true

@@ -3,11 +3,13 @@ package com.puntogris.blint.feature_store.presentation.categories
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
@@ -16,11 +18,13 @@ import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -50,15 +54,11 @@ class ManageCategoriesFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            adapter.loadStateFlow.map { it.refresh }
-                .distinctUntilChanged()
-                .collect {
-                    binding.addCategoryText.isVisible = it is LoadState.NotLoading && adapter.itemCount == 0
-                }
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
         }
     }
 
-    fun showCreateCategoryDialog() {
+    private fun showCreateCategoryDialog() {
         InputSheet().show(requireParentFragment().requireContext()) {
             style(SheetStyle.DIALOG)
             title(R.string.add_category)

@@ -55,7 +55,7 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {
-            return when(position){
+            return when (position) {
                 0 -> TraderDataFragment()
                 1 -> TraderRecordsFragment()
                 else -> TraderDebtFragment()

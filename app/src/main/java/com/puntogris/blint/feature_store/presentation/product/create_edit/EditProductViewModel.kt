@@ -27,14 +27,6 @@ class EditProductViewModel @Inject constructor(
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
-    init {
-        viewModelScope.launch {
-            currentProduct.collect {
-                println(it.traders)
-            }
-        }
-    }
-
     suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
 
     fun updateProductImage(image: String) {

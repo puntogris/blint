@@ -78,13 +78,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button9"
             style="@style/Theme.Blint.Button"
-            android:layout_marginHorizontal="16dp"
             android:layout_width="0dp"
-            android:backgroundTint="@color/color_on_primary"
-            android:textColor="@color/color_primary"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/color_on_primary"
             android:onClickListener="@{()-> fragment.onSaveEventClicked()}"
             android:text="@string/action_save"
+            android:textColor="@color/color_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

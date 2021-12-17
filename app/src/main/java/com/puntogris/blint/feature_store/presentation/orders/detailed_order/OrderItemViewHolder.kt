@@ -11,7 +11,7 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(newRecord: NewRecord, dataChangedListener: () -> Unit) {
-        with(binding){
+        with(binding) {
             item = newRecord
 
             recordAmount.addTextChangedListener { editable ->

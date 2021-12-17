@@ -37,8 +37,8 @@ class CreateEventFragment :
         }
     }
 
-    fun onAddEventContentClicked(){
-        InputSheet().show(requireParentFragment().requireContext()){
+    fun onAddEventContentClicked() {
+        InputSheet().show(requireParentFragment().requireContext()) {
             style(SheetStyle.DIALOG)
             title("Contenido del evento.")
             with(InputEditText {

@@ -39,9 +39,7 @@ class ProductCategoriesViewModel @Inject constructor(
             CheckableCategory(
                 category = category,
                 isChecked = category.categoryName in initialCategoriesIds
-            ).also {
-                println(it)
-            }
+            )
         }
     }.cachedIn(viewModelScope)
 

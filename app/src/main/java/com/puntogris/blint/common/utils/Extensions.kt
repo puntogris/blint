@@ -12,8 +12,8 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.Camera
 import androidx.camera.core.TorchState
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -23,15 +23,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagingData
-import androidx.paging.insertSeparators
-import androidx.paging.map
+import androidx.paging.*
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.Timestamp
 import com.maxkeppeler.sheets.core.SheetStyle
@@ -46,6 +43,8 @@ import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.presentation.main.SetupUiListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.threeten.bp.DateTimeUtils
@@ -294,6 +293,18 @@ fun Fragment.isDarkThemeOn() =
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
 
 
-fun Camera.toggleFlash(){
+fun Camera.toggleFlash() {
     cameraControl.enableTorch(cameraInfo.torchState.value == TorchState.OFF)
+}
+
+suspend inline fun showEmptyUiOnEmptyAdapter(
+    adapter: PagingDataAdapter<*, *>,
+    view: View
+) {
+    adapter.loadStateFlow
+        .distinctUntilChangedBy { it.source.refresh }
+        .map { it.source.refresh is LoadState.NotLoading }
+        .collect {
+            view.isVisible = adapter.itemCount == 0
+        }
 }

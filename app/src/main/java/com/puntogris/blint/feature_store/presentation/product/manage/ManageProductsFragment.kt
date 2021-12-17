@@ -70,9 +70,12 @@ class ManageProductsFragment :
                 adapter.submitData(it)
             }
         }
+        launchAndRepeatWithViewLifecycle {
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+        }
     }
 
-    fun onAddProductClicked(){
+    fun onAddProductClicked() {
         findNavController().navigate(R.id.editProductFragment)
     }
 

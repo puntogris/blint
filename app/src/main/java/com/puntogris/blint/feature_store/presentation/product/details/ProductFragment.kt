@@ -15,7 +15,6 @@ import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.addOnTabSelectedListener
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentProductBinding

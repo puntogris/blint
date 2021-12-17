@@ -13,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.toggleFlash
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService

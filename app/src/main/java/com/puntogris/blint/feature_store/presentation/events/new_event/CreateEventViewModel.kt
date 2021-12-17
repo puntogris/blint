@@ -20,7 +20,7 @@ class CreateEventViewModel @Inject constructor(
 
     suspend fun createEvent() = repository.saveEvent(event.value)
 
-    fun setEventContent(content: String){
+    fun setEventContent(content: String) {
         _event.value = _event.value.copy(
             content = content
         )

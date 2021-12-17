@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
@@ -25,7 +24,8 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding>(@LayoutRes val layou
         return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
             window?.let {
                 it.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-                WindowInsetsControllerCompat(it, it.decorView).isAppearanceLightStatusBars = !isDarkThemeOn()
+                WindowInsetsControllerCompat(it, it.decorView).isAppearanceLightStatusBars =
+                    !isDarkThemeOn()
             }
         }
     }

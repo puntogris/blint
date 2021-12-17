@@ -41,11 +41,11 @@
         <TextView
             android:id="@+id/debtTraderName"
             capitalizeFirstChar="@{debt.traderName}"
-            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/color_on_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

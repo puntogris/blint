@@ -140,8 +140,8 @@ class EditProductFragment :
             multipleChoices(false)
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_fi_rr_scan,"Escanear un codigo"),
-                Option(R.drawable.ic_fi_rr_refresh,"Generar un codigo aleatorio")
+                Option(R.drawable.ic_fi_rr_scan, "Escanear un codigo"),
+                Option(R.drawable.ic_fi_rr_refresh, "Generar un codigo aleatorio")
             )
             onPositive { index: Int, _ ->
                 if (index == 0) {
@@ -159,7 +159,7 @@ class EditProductFragment :
             displayMode(DisplayMode.LIST)
             with(
                 Option(R.drawable.ic_fi_rr_camera, "Seleccionar nueva foto"),
-                Option(R.drawable.ic_fi_rr_trash,"Eliminar foto")
+                Option(R.drawable.ic_fi_rr_trash, "Eliminar foto")
             )
             onPositive { index: Int, _ ->
                 if (index == 0) {

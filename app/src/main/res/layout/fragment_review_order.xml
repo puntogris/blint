@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment" />
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.NewOrderViewModel" />
@@ -139,9 +141,9 @@
             android:id="@+id/button3"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
-            android:onClickListener="@{()-> fragment.navigateToPublishOrder()}"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
+            android:onClickListener="@{()-> fragment.navigateToPublishOrder()}"
             android:text="@string/action_finish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -160,10 +162,10 @@
 
         <TextView
             android:id="@+id/textView42"
+            numberToMoneyString="@{viewModel.newOrder.value}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            numberToMoneyString="@{viewModel.newOrder.value}"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintStart_toEndOf="@+id/textView13"

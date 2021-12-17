@@ -20,9 +20,9 @@
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
-                    android:paddingEnd="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:paddingEnd="8dp"
                     app:menu="@menu/top_app_bar_menu" />
 
             </com.google.android.material.appbar.AppBarLayout>
