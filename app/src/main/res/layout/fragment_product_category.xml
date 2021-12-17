@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoriesViewModel" />
+
         <variable
             name="fragment"
             type="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoryFragment" />
@@ -29,39 +31,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/categoriesSearch"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="40dp"
+                android:paddingStart="8dp"
+                android:afterTextChanged="@{viewModel::setQuery}"
+                android:autofillHints="@string/auto_fill_hint_search_product"
+                android:background="@drawable/a"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/color_on_primary"
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/search"
+                android:imeOptions="flagNoExtractUi|actionDone"
+                android:inputType="textNoSuggestions" />
 
-                <EditText
-                    android:id="@+id/categoriesSearch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:autofillHints="@string/auto_fill_hint_search_product"
-                    android:background="@null"
-                    android:hint="@string/search"
-                    android:afterTextChanged="@{viewModel::setQuery}"
-                    android:imeOptions="flagNoExtractUi|actionDone"
-                    android:inputType="textNoSuggestions" />
-
-            </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/product_categories"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
 
@@ -69,6 +68,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_anim_slide_up"
             android:paddingBottom="88dp"
@@ -83,7 +83,8 @@
             android:id="@+id/doneButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
             android:onClickListener="@{()-> fragment.onDoneButtonClicked()}"
             android:text="@string/action_continue"
             app:layout_constraintBottom_toBottomOf="parent"

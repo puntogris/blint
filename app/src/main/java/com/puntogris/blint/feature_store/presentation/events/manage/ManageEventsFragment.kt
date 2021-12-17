@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar
+package com.puntogris.blint.feature_store.presentation.events.manage
 
 import android.view.Menu
 import android.view.MenuItem
@@ -11,15 +11,16 @@ import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.types.EventStatus
-import com.puntogris.blint.databinding.FragmentCalendarBinding
+import com.puntogris.blint.databinding.FragmentManageEventsBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.fragment_calendar) {
+class ManageEventsFragment :
+    BaseFragmentOptions<FragmentManageEventsBinding>(R.layout.fragment_manage_events) {
 
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: ManageEventsViewModel by viewModels()
 
     override fun initializeViews() {
         UiInterface.registerUi()
@@ -38,14 +39,14 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
     }
 
     private fun setupEventsAdapter() {
-        CalendarEventsAdapter(::onEventClicked).let {
+        ManageEventsAdapter(::onEventClicked).let {
             binding.recyclerView.adapter = it
             registerEventUpdatedListener(it)
             subscribeUi(it)
         }
     }
 
-    private fun subscribeUi(adapter: CalendarEventsAdapter) {
+    private fun subscribeUi(adapter: ManageEventsAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.eventsFlow.collect {
                 adapter.submitData(it)
@@ -53,7 +54,7 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
         }
     }
 
-    private fun registerEventUpdatedListener(adapter: CalendarEventsAdapter) {
+    private fun registerEventUpdatedListener(adapter: ManageEventsAdapter) {
         setFragmentResultListener(Keys.EVENT_FILTER_KEY) { _, bundle ->
             val position = bundle.getInt(Keys.EVENT_POSITION_KEY)
             adapter.notifyItemChanged(position)
@@ -62,7 +63,10 @@ class CalendarFragment : BaseFragmentOptions<FragmentCalendarBinding>(R.layout.f
 
     private fun onEventClicked(event: Event, position: Int) {
         val action =
-            CalendarFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(event, position)
+            ManageEventsFragmentDirections.actionCalendarFragmentToEventInfoBottomSheet(
+                event,
+                position
+            )
         findNavController().navigate(action)
     }
 

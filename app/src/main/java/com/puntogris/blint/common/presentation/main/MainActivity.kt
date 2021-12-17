@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.*
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseActivity
@@ -82,17 +81,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             setupWithNavController(navController)
             setOnItemSelectedListener(this@MainActivity)
         }
+
+        navController.addOnDestinationChangedListener(this@MainActivity)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    /*
+   We call setHomeAsUpIndicator here to change the back icon.
+   There seems to not be a better way for this currently.
+   https://issuetracker.google.com/u/1/issues/121078028
+    */
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
         arguments: Bundle?
     ) {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_fi_rr_angle_left)
+
         binding.bottomAppBar.isVisible = destination.id in
                 listOf(
                     R.id.homeFragment,
@@ -114,25 +123,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return true
     }
 
-    /*
-    We call setHomeAsUpIndicator here to change the back icon.
-    There seems to not be a better way for this currently.
-    https://issuetracker.google.com/u/1/issues/121078028
-     */
     override fun registerUi(
         showAppBar: Boolean,
         showToolbar: Boolean,
-        showFabCenter: Boolean,
-        @DrawableRes fabIcon: Int,
-        fabListener: View.OnClickListener?
     ) {
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_fi_rr_angle_left)
-
         binding.toolbar.isVisible = showToolbar
-
-//        if (showAppBar) {
-//            binding.bottomAppBar.visible()
-//        } else binding.bottomAppBar.gone()
     }
 
     override fun setBottomAppBarInvisible() {

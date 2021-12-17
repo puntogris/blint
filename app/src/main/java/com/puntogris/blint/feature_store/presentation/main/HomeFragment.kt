@@ -4,17 +4,13 @@ import android.graphics.Color
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
 import com.puntogris.blint.common.utils.UiInterface
-import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.databinding.FragmentHomeBinding
-import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.model.MenuCard
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_home) {

@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar
+package com.puntogris.blint.feature_store.presentation.events.manage
 
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class EventInfoBottomSheet :
     BaseBottomSheetFragment<EventInfoBottomSheetBinding>(R.layout.event_info_bottom_sheet) {
 
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: ManageEventsViewModel by viewModels()
     private val args: EventInfoBottomSheetArgs by navArgs()
 
     override fun initializeViews() {

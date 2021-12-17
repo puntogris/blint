@@ -12,7 +12,9 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +26,14 @@ class EditProductViewModel @Inject constructor(
     val currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
+
+    init {
+        viewModelScope.launch {
+            currentProduct.collect {
+                println(it.traders)
+            }
+        }
+    }
 
     suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
 

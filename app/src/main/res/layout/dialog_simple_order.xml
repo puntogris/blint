@@ -14,20 +14,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <View
+            android:id="@+id/divider33"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/color_on_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginAnonymouslyButton" />
+
         <androidx.constraintlayout.widget.Group
             android:id="@+id/simpleOrderGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="loginAnonymouslyButton,saveOrderButton,recordTypeInput,productAmountTextInput" />
+            app:constraint_referenced_ids="loginAnonymouslyButton,recordTypeInput,productAmountTextInput" />
 
         <TextView
             android:id="@+id/loginAnonymouslyButton"
-            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/create_simple_order"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/color_on_background"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,12 +51,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:hint="@string/type"
             app:layout_constraintEnd_toStartOf="@+id/productAmountTextInput"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginAnonymouslyButton">
+            app:layout_constraintTop_toBottomOf="@+id/divider33">
 
             <AutoCompleteTextView
                 android:id="@+id/recordType"
@@ -63,6 +76,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/amount"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@+id/recordTypeInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -78,20 +92,46 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveOrderButton"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="@{()-> dialog.onSaveButtonClicked()}"
-            android:text="@string/action_save"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <View
+            android:id="@+id/divider30"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/color_on_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recordTypeInput" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button4"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/action_cancel"
+            android:onClickListener="@{()-> dialog.dismiss()}"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button10"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider30"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button10"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_save"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintBottom_toBottomOf="@+id/button4"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClickListener="@{()-> dialog.onSaveButtonClicked()}"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button4"
+            app:layout_constraintTop_toTopOf="@+id/button4" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"

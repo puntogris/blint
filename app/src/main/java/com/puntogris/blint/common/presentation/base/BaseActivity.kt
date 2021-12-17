@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
-import com.google.android.material.navigation.NavigationBarItemView
 import com.google.android.material.navigation.NavigationBarView
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.getNavHostFragment

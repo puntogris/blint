@@ -24,7 +24,7 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
         return MenuCardViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder:MenuCardViewHolder , position: Int) {
+    override fun onBindViewHolder(holder: MenuCardViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }
 

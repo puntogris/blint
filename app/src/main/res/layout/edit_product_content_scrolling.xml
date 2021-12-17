@@ -31,7 +31,6 @@
                 layout="@layout/product_description_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
 
@@ -48,14 +47,12 @@
                 layout="@layout/product_scope_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:fragment="@{fragment}"
                 app:viewModel="@{viewModel}" />
 
             <include
                 android:id="@+id/productExtrasLayout"
                 layout="@layout/product_extras_card"
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

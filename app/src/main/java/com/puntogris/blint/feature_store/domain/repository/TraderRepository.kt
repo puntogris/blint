@@ -17,6 +17,8 @@ interface TraderRepository {
 
     suspend fun getTrader(): List<Trader>
 
+    fun getTraderFlow(traderId: String): Flow<Trader>
+
     fun getTradersPaged(query: TraderQuery? = null): Flow<PagingData<Trader>>
 
     fun getTradersRecordsPaged(traderId: String): Flow<PagingData<Record>>

@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.puntogris.blint.common.utils.types.SimpleResource
+import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import com.puntogris.blint.feature_store.domain.repository.DebtRepository
 import com.puntogris.blint.feature_store.domain.repository.StoreRepository
@@ -13,20 +14,18 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateDebtViewModel @Inject constructor(
     private val debtRepository: DebtRepository,
-    storeRepository: StoreRepository
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    val trader = savedStateHandle.get<Trader>("trader") ?: Trader()
 
-
-    val totalDebtLiveData = storeRepository.getCurrentStoreFlow().asLiveData()
-
-//    suspend fun saveDebt(amountSign: String, debtAmount: Float): SimpleResource {
-//        val debt = Debt().apply {
-//            amount = if (amountSign == "-") -debtAmount else debtAmount
-//            traderId = trader.traderId
-//            traderName = trader.name
-//            traderType = trader.type
-//        }
-//        return debtRepository.saveDebt(debt)
-//    }
+    suspend fun saveDebt(debtAmount: Float): SimpleResource {
+        val debt = Debt().apply {
+            amount = debtAmount
+            traderId = trader.traderId
+            traderName = trader.name
+            traderType = trader.type
+        }
+        return debtRepository.saveDebt(debt)
+    }
 }

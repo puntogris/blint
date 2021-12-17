@@ -36,13 +36,13 @@
     <color name="nav_bar">@color/reply_black_900_alpha_020</color>
 
 
-    <color name="card1">#FF6968</color>
+    <color name="card1">#EF5050</color>
     <color name="card2">#7A54FF</color>
     <color name="card3">#FF8F61</color>
     <color name="card4">#2AC3FF</color>
     <color name="card5">#5A65FF</color>
-    <color name="card6">#96DA45</color>
-    <color name="card7">#FFC107</color>
+    <color name="card6">#43A047</color>
+    <color name="card7">#FDD835</color>
 
     <color name="grey_3">#f7f7f7</color>
     <color name="grey_5">#f2f2f2</color>

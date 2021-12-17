@@ -1,6 +1,8 @@
 package com.puntogris.blint.feature_store.presentation.trader.detail
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
@@ -9,6 +11,8 @@ import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.map
 
 @AndroidEntryPoint
 class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.fragment_trader_debt) {
@@ -37,6 +41,21 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
                 adapter.submitData(it)
             }
         }
+        launchAndRepeatWithViewLifecycle {
+            adapter.loadStateFlow
+                .distinctUntilChangedBy { it.source.refresh }
+                .map { it.source.refresh is LoadState.NotLoading }
+                .collect { notLoading ->
+                    if (notLoading) binding.recyclerView.scrollToPosition(0)
+                }
+        }
+    }
+
+    fun onNewDebtClicked() {
+        val action = TraderFragmentDirections.actionTraderFragmentToUpdateDebtDialog(
+            viewModel.currentTrader.value
+        )
+        findNavController().navigate(action)
     }
 
     private fun onDebtClicked(debt: Debt) {

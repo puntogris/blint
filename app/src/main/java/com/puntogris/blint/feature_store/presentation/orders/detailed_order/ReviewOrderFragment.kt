@@ -22,11 +22,7 @@ class ReviewOrderFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(
-            showAppBar = false,
-            showFabCenter = false,
-            fabIcon = R.drawable.ic_baseline_arrow_forward_24
-        ) { navigateToPublishOrder() }
+        UiInterface.registerUi(showAppBar = false)
 
         setupOrderDebSelector()
     }

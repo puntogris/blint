@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar
+package com.puntogris.blint.feature_store.presentation.events.manage
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.types.EventUi
 import com.puntogris.blint.feature_store.domain.model.Event
+import com.puntogris.blint.feature_store.presentation.events.EventDiffCallBack
 
-class CalendarEventsAdapter(private val clickListener: (Event, Int) -> Unit) :
+class ManageEventsAdapter(private val clickListener: (Event, Int) -> Unit) :
     PagingDataAdapter<EventUi, RecyclerView.ViewHolder>(EventDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.calendar_event_vh -> CalendarEventsViewHolder.from(parent)
-            else -> CalendarSeparatorViewHolder.from(parent)
+            R.layout.calendar_event_vh -> EventItemViewHolder.from(parent)
+            else -> EventsDividerViewHolder.from(parent)
         }
     }
 
@@ -29,10 +30,10 @@ class CalendarEventsAdapter(private val clickListener: (Event, Int) -> Unit) :
         getItem(position)?.let {
             when (it) {
                 is EventUi.EventItem -> {
-                    (holder as CalendarEventsViewHolder).bind(it.event, clickListener, position)
+                    (holder as EventItemViewHolder).bind(it.event, clickListener, position)
                 }
                 is EventUi.SeparatorItem -> {
-                    (holder as CalendarSeparatorViewHolder).bind(it.date)
+                    (holder as EventsDividerViewHolder).bind(it.date)
                 }
             }
         }

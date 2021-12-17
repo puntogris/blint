@@ -3,6 +3,7 @@ package com.puntogris.blint.feature_store.data.data_source.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.puntogris.blint.feature_store.domain.model.Trader
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TradersDao {
@@ -15,6 +16,9 @@ interface TradersDao {
 
     @Query("SELECT * FROM trader WHERE traderId = :traderId")
     suspend fun getTrader(traderId: String): Trader
+
+    @Query("SELECT * FROM trader WHERE traderId = :traderId")
+    fun getTraderFlow(traderId: String): Flow<Trader>
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM trader INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1'")

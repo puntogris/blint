@@ -24,12 +24,13 @@ class GenerateReportFragment :
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(fabIcon = R.drawable.ic_baseline_share_24) {
-            val uri = viewModel.getReportUri()
-            if (uri == null)
-                UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
-            else shareFileIntent(uri)
-        }
+        UiInterface.registerUi()
+
+        //todo, add a share button and this maybe
+//        val uri = viewModel.getReportUri()
+//        if (uri == null)
+//            UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
+//        else shareFileIntent(uri)
         setupDocumentLauncher()
     }
 

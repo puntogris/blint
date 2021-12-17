@@ -7,18 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.calendar.new_event.CreateEventViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.events.new_event.CreateEventViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.calendar.new_event.CreateEventFragment" />
+            type="com.puntogris.blint.feature_store.presentation.events.new_event.CreateEventFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.calendar.new_event.CreateEventFragment">
-
+        tools:context=".feature_store.presentation.events.new_event.CreateEventFragment">
 
         <View
             android:id="@+id/divider"
@@ -38,7 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:paddingTop="8dp"
             android:text="@string/message_hint"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
@@ -50,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{viewModel.event.message}"
+            android:text="@{viewModel.event.content}"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/openButton"
             app:layout_constraintStart_toStartOf="@+id/title"
@@ -80,6 +80,8 @@
             style="@style/Theme.Blint.Button"
             android:layout_marginHorizontal="16dp"
             android:layout_width="0dp"
+            android:backgroundTint="@color/color_on_primary"
+            android:textColor="@color/color_primary"
             android:layout_marginBottom="8dp"
             android:onClickListener="@{()-> fragment.onSaveEventClicked()}"
             android:text="@string/action_save"

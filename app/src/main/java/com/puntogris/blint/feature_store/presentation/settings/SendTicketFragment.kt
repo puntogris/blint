@@ -22,12 +22,9 @@ class SendTicketFragment : BaseFragment<FragmentSendTicketBinding>(R.layout.frag
         binding.fragment = this
         binding.viewModel = viewModel
 
-        UiInterface.registerUi(
-            fabIcon = R.drawable.ic_baseline_send_24,
-            showAppBar = false
-        ) {
-            sendTicket()
-        }
+        UiInterface.registerUi(showAppBar = false)
+        //todo             sendTicket()
+        //remove maybe the ticket system and use a prepolated email
         setupTicketReasonAdapter()
     }
 

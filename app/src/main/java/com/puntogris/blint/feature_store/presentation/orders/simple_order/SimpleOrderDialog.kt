@@ -3,6 +3,7 @@ package com.puntogris.blint.feature_store.presentation.orders.simple_order
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.InputType
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -29,9 +30,17 @@ class SimpleOrderDialog : DialogFragment() {
     override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         binding = DialogSimpleOrderBinding.inflate(layoutInflater)
         binding.dialog = this
+
+
+        //TODO for some reason declaring this on the xml doesn't work as intended
+        binding.productAmountText.inputType = InputType.TYPE_CLASS_NUMBER
+
         setupOrderTypeAdapter()
+
         return MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
+            .setBackgroundInsetStart(20)
+            .setBackgroundInsetEnd(20)
             .create()
     }
 
@@ -73,7 +82,6 @@ class SimpleOrderDialog : DialogFragment() {
             }
         }
     }
-
 
     override fun onDismiss(dialog: DialogInterface) {
         setFragmentResult(

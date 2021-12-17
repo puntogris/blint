@@ -53,7 +53,7 @@ class ManageTradersFragment :
 
     private fun onClientClickListener(trader: Trader) {
         hideKeyboard()
-        val action = ManageTradersFragmentDirections.actionGlobalTraderFragment(trader = trader)
+        val action = ManageTradersFragmentDirections.actionGlobalTraderFragment(trader.traderId)
         findNavController().navigate(action)
     }
 

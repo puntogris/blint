@@ -25,10 +25,7 @@ data class Event(
     var status: String = Constants.PENDING,
 
     @ColumnInfo
-    var title: String = "",
-
-    @ColumnInfo
-    var message: String = "",
+    var content: String = "",
 
     @ColumnInfo
     var storeId: String = ""

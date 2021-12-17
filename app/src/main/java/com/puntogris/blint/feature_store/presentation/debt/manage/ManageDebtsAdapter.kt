@@ -5,7 +5,7 @@ import androidx.paging.PagingDataAdapter
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import com.puntogris.blint.feature_store.presentation.debt.DebtDiffCallBack
 
-class ManageDebtsAdapter() :
+class ManageDebtsAdapter :
     PagingDataAdapter<Debt, ManageDebtViewHolder>(
         DebtDiffCallBack()
     ) {

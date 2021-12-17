@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -33,25 +34,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productAmount" />
 
-        <TextView
-            android:id="@+id/productPricesTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/prices_and_stock"
-            android:textColor="@color/color_on_background"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productBuyPrice"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:background="@null"
             app:boxStrokeWidth="0dp"
@@ -74,7 +62,7 @@
                 android:inputType="numberDecimal"
                 android:singleLine="true"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
-                android:textAlignment="center" />
+                tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +92,7 @@
                 android:inputType="numberDecimal"
                 android:singleLine="true"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
-                android:textAlignment="center" />
+                tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +102,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
@@ -136,7 +123,7 @@
                 android:inputType="numberDecimal"
                 android:singleLine="true"
                 android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
-                android:textAlignment="center" />
+                tools:text="40" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -145,7 +132,7 @@
             emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:afterTextChanged="@{viewModel::updateProductAmount}"
             android:background="@null"
@@ -153,17 +140,16 @@
             android:imeOptions="actionDone"
             android:inputType="number"
             android:singleLine="true"
-            android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
             app:layout_constraintStart_toEndOf="@+id/textView32"
-            app:layout_constraintTop_toBottomOf="@+id/productPricesTitle" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/decreaseAmountButton"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/decrease_number_image"
             android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="@+id/productAmount"
@@ -200,11 +186,11 @@
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/buy_price"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/productBuyPrice"
             app:layout_constraintStart_toStartOf="@+id/productBuyPrice"
             app:layout_constraintTop_toBottomOf="@+id/divider13" />
 
@@ -212,10 +198,10 @@
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/sell_price"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/productSellPrice"
             app:layout_constraintStart_toStartOf="@+id/productSellPrice"
             app:layout_constraintTop_toTopOf="@+id/textView39" />
 
@@ -223,19 +209,22 @@
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/suggested_sell_price"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/productSuggestedSellPrice"
             app:layout_constraintStart_toStartOf="@+id/productSuggestedSellPrice"
             app:layout_constraintTop_toTopOf="@+id/textView40" />
 
         <View
             android:id="@+id/divider5"
-            style="@style/Theme.Blint.LargeDivider"
+            style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
-            android:layout_height="8dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

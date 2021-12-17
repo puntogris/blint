@@ -16,6 +16,5 @@ class ProductDataFragment :
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
     }
 }

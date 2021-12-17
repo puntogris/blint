@@ -13,8 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Keys
-import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
@@ -31,17 +30,11 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var orientationEventListener: OrientationEventListener
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProvider: ProcessCameraProvider
-    private var flashEnabled = TorchState.OFF
     private val args: ScannerFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        UiInterface.registerUi(
-            showAppBar = false,
-        ) {
-            camera?.cameraControl?.enableTorch(flashEnabled == TorchState.OFF)
-
-        }
-        //todo
+        binding.fragment = this
+        UiInterface.registerUi(showAppBar = false)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -93,6 +86,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 imageAnalysis.clearAnalyzer()
                 cameraProvider.unbindAll()
 
+                //todo create constants for this int, to get context of what is this for
                 if (args.originDestination == 0) {
                     val action =
                         ScannerFragmentDirections.actionScannerFragmentToScannerResultDialog(it)
@@ -130,7 +124,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     TorchState.ON -> R.drawable.ic_baseline_flash_off_24
                     else -> R.drawable.ic_baseline_flash_on_24
                 }
-                flashEnabled = torchState
+                binding.flashButton.setImageResource(flashIcon)
             }
         }
     }
@@ -146,6 +140,10 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 }.also { imageAnalysis.targetRotation = it }
             }
         }
+    }
+
+    fun onToggleFlashClicked() {
+        camera?.toggleFlash()
     }
 
     override fun onDestroyView() {

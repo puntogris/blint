@@ -35,9 +35,6 @@ data class Trader(
     var paymentInfo: String = "",
 
     @ColumnInfo
-    var discount: Float = 0F,
-
-    @ColumnInfo
     var storeId: String = "",
 
     @ColumnInfo

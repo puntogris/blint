@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar
+package com.puntogris.blint.feature_store.presentation.events
 
 import androidx.recyclerview.widget.DiffUtil
 import com.puntogris.blint.common.utils.types.EventUi

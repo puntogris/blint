@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar
+package com.puntogris.blint.feature_store.presentation.events.manage
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class CalendarViewModel @Inject constructor(
+class ManageEventsViewModel @Inject constructor(
     private val repository: EventRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {

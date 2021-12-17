@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.Camera
+import androidx.camera.core.TorchState
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
@@ -47,7 +49,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.threeten.bp.DateTimeUtils
-import org.threeten.bp.Instant
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
@@ -74,10 +75,6 @@ fun EditText.getString() = text.toString()
 fun EditText.getInt(): Int = text.toString().toIntOrNull() ?: 0
 
 fun EditText.getFloat(): Float = text.toString().toFloatOrNull() ?: 0F
-
-fun FloatingActionButton.changeIconFromDrawable(icon: Int) {
-    setImageDrawable(ContextCompat.getDrawable(context, icon))
-}
 
 fun AppCompatActivity.getNavController() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
@@ -295,3 +292,8 @@ fun NavController.navigateAndClearStack(destination: Int) {
 fun Fragment.isDarkThemeOn() =
     (resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+
+
+fun Camera.toggleFlash(){
+    cameraControl.enableTorch(cameraInfo.torchState.value == TorchState.OFF)
+}

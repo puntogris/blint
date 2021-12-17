@@ -3,8 +3,7 @@ package com.puntogris.blint.feature_store.presentation.orders.detailed_order
 import android.text.Editable
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
-import com.puntogris.blint.common.utils.Constants.IN
-import com.puntogris.blint.common.utils.Constants.OUT
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.copyAndAdd
 import com.puntogris.blint.common.utils.copyAndRemove
 import com.puntogris.blint.common.utils.types.ProgressResource
@@ -26,12 +25,15 @@ import javax.inject.Inject
 class NewOrderViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
-    private val traderRepository: TraderRepository
+    private val traderRepository: TraderRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val query = MutableLiveData("")
 
-    private val _newOrder = MutableStateFlow(NewOrder())
+    private val orderType = savedStateHandle.get<String>("orderType") ?: Constants.IN
+
+    private val _newOrder = MutableStateFlow(NewOrder(type = orderType))
     val newOrder = _newOrder.asStateFlow()
 
     val productsLiveData = query.switchMap {
@@ -93,7 +95,7 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun updateOrderType(code: Int) {
-        _newOrder.value.type = if (code == 0) IN else OUT
+        _newOrder.value.type = if (code == 0) Constants.IN else Constants.OUT
     }
 
     fun updateOrderTrader(traderName: String, traderId: String) {

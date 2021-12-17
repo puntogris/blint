@@ -47,10 +47,6 @@ class EditTraderViewModel @Inject constructor(
         currentTrader.value.paymentInfo = editable.toString()
     }
 
-    fun updateTraderDiscount(editable: Editable) {
-        currentTrader.value.discount = editable.toString().toFloatOrNull() ?: 0F
-    }
-
     fun updateTraderNotes(editable: Editable) {
         currentTrader.value.notes = editable.toString()
     }

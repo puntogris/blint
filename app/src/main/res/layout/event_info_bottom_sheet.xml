@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.calendar.CalendarViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.events.manage.ManageEventsViewModel" />
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.calendar.EventInfoBottomSheet" />
+            type="com.puntogris.blint.feature_store.presentation.events.manage.EventInfoBottomSheet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,27 +19,13 @@
         android:layout_height="wrap_content"
         android:background="@color/color_tinted_surface">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveEventButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
-            android:onClick="@{()->fragment.onSaveButtonClicked()}"
-            android:text="@string/action_save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/deleteEventButton"
-            app:layout_constraintTop_toBottomOf="@+id/eventStatusInputLayout" />
-
         <TextView
             android:id="@+id/eventDate"
-            style="@style/Theme.Blint.DataTextView"
             dateFromTimestamp="@{viewModel.event.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/eventDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/eventDateLabel" />
 
@@ -55,51 +41,37 @@
             app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <TextView
-            android:id="@+id/eventTitleLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:id="@+id/eventMessageLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/title"
+            android:layout_marginTop="20dp"
+            android:text="@string/message_hint"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
-            android:id="@+id/eventTitle"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.event.title}"
-            app:layout_constraintStart_toStartOf="@+id/eventTitleLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventTitleLabel" />
-
-        <TextView
-            android:id="@+id/eventMessageLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/message_hint"
-            app:layout_constraintStart_toStartOf="@+id/eventTitleLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
-
-        <TextView
             android:id="@+id/eventMessage"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.event.message}"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{viewModel.event.content}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
             app:layout_constraintTop_toBottomOf="@+id/eventMessageLabel" />
 
         <TextView
             android:id="@+id/eventDateLabel"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/date"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
             app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
 
@@ -107,11 +79,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/eventStatusInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:hint="@string/status"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventDate">
 
@@ -124,18 +99,21 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/deleteEventButton"
-            style="@style/Theme.Blint.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/delete_image"
+            android:foreground="?selectableItemBackground"
             android:onClick="@{()-> fragment.onDeleteEventButtonClicked()}"
-            android:src="@drawable/ic_baseline_delete_24"
-            app:layout_constraintBottom_toBottomOf="@+id/saveEventButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/saveEventButton"
+            android:padding="8dp"
+            android:src="@drawable/ic_fi_rr_trash"
+            app:layout_constraintBottom_toBottomOf="@+id/eventStatusInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/eventStatusInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/eventStatusInputLayout"
             app:tint="@color/almostBlack" />
 
         <TextView
@@ -148,5 +126,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveEventButton"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{()->fragment.onSaveButtonClicked()}"
+            android:text="@string/action_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventStatusInputLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

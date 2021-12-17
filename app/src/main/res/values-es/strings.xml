@@ -188,7 +188,7 @@
     <string name="snack_delete_product_success">Producto eliminado correctamente.</string>
     <string name="ask_delete_product_title">¿Deseas eliminar este producto?</string>
     <string name="delete_product_warning">¡Zona de peligro! Estas por eliminar un producto. Ten en cuenta que esta acción es irreversible.</string>
-    <string name="sku">SKU</string>
+    <string name="sku">Sku</string>
     <string name="create_simple_order">Crear orden rápida.</string>
     <string name="create_detailed_order">Crear orden detallada.</string>
     <string name="stock">Stock</string>

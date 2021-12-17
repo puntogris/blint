@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar.new_event
+package com.puntogris.blint.feature_store.presentation.events.new_event
 
 import androidx.lifecycle.ViewModel
 import com.puntogris.blint.feature_store.domain.model.Event
@@ -22,13 +22,13 @@ class CreateEventViewModel @Inject constructor(
 
     fun setEventContent(content: String){
         _event.value = _event.value.copy(
-            message = content
+            content = content
         )
     }
 
     fun setEventDate(year: Int, month: Int, day: Int) {
         _event.value = _event.value.copy(
-            timestamp = OffsetDateTime.of(year, month, day, 0, 0, 0, 0, ZoneOffset.UTC)
+            timestamp = OffsetDateTime.of(year, month + 1, day, 0, 0, 0, 0, ZoneOffset.UTC)
         )
     }
 }

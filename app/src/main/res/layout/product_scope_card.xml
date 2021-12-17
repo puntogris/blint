@@ -20,16 +20,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/productScopeButton"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/traders_and_categories"
+            android:layout_height="wrap_content"
             android:textColor="@color/color_on_background"
-            android:textSize="17sp" />
+            android:textSize="16sp"
+            android:text="@string/traders_label" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/supplierChipGroup"
@@ -37,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/addSupplierChip"
@@ -53,15 +50,25 @@
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="4dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            android:layout_marginStart="24dp"
+            android:layout_height="wrap_content"
+            android:text="@string/categories_label" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/categoriesChipGroup"
             productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
             android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp">
 
@@ -76,10 +83,12 @@
 
         <View
             android:id="@+id/divider5"
-            style="@style/Theme.Blint.LargeDivider"
+            style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="16dp" />
-
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider" />
     </LinearLayout>
 </layout>

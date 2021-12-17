@@ -1,5 +1,6 @@
 package com.puntogris.blint.common.utils
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -136,7 +137,7 @@ fun TextView.setDateFromTimestamp(timestamp: OffsetDateTime?) {
 @BindingAdapter("recordType")
 fun View.setRecordType(type: String) {
     val color = if (type == IN || type == INITIAL) R.color.card6 else R.color.card1
-    setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+    backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, color, null))
 }
 
 @BindingAdapter("externalChipName")
@@ -163,7 +164,7 @@ fun TextView.setEventStatus(status: String) {
 @BindingAdapter("eventStatusColor")
 fun View.setEventStatusColor(status: String) {
     val color = if (status == PENDING) R.color.card7 else R.color.card6
-    setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+    backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, color, null))
 }
 
 @BindingAdapter("orderNumberTitle")

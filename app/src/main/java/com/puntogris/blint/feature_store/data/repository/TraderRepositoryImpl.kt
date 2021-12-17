@@ -76,6 +76,8 @@ class TraderRepositoryImpl(
 
     override suspend fun getTrader() = tradersDao.getTraders()
 
+    override fun getTraderFlow(traderId: String) = tradersDao.getTraderFlow(traderId)
+
     override fun getTradersRecordsPaged(traderId: String): Flow<PagingData<Record>> {
         return Pager(
             PagingConfig(

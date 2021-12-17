@@ -30,7 +30,6 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding>(@LayoutRes val layou
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preInitializeViews()

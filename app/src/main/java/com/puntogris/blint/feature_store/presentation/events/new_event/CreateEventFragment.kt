@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.calendar.new_event
+package com.puntogris.blint.feature_store.presentation.events.new_event
 
 import android.text.InputType
 import androidx.fragment.app.viewModels
@@ -42,7 +42,7 @@ class CreateEventFragment :
             style(SheetStyle.DIALOG)
             title("Contenido del evento.")
             with(InputEditText {
-                defaultValue(viewModel.event.value.message)
+                defaultValue(viewModel.event.value.content)
                 content("Ingresa un titulo, mensaje o razon de este evento.")
                 required(true)
                 hint(R.string.message_hint)
