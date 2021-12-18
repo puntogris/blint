@@ -24,6 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="88dp"
             android:orientation="vertical">
 
             <View
@@ -41,20 +42,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/productNameLabel" />
 
             <View
-                android:id="@+id/divider24"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
-
-            <View
                 android:id="@+id/divider15"
                 style="@style/Theme.Blint.Divider"
                 android:layout_width="0dp"
@@ -65,7 +52,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDescriptionLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/productBarcodeLabel" />
 
             <View
                 android:id="@+id/divider25"
@@ -157,6 +144,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/color_on_primary"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
                 app:strokeColor="@android:color/darker_gray"
                 app:strokeWidth="3dp" />
@@ -193,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:ems="6"
-                android:text="@string/barcode"
+                android:text="@string/code"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/productNameLabel"
@@ -203,36 +191,12 @@
                 android:id="@+id/productBarcode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.barcode}"
+                textOrDefault="@{viewModel.currentProduct.product.barcode}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productBarcodeLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productName"
                 app:layout_constraintStart_toEndOf="@+id/productBarcodeLabel"
                 app:layout_constraintTop_toTopOf="@+id/productBarcodeLabel"
-                tools:text="Text" />
-
-            <TextView
-                android:id="@+id/productDescriptionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/description"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/productBarcodeLabel"
-                app:layout_constraintTop_toBottomOf="@+id/divider24" />
-
-            <TextView
-                android:id="@+id/productDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.description}"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/productDescriptionLabel"
-                app:layout_constraintEnd_toEndOf="@+id/productBarcode"
-                app:layout_constraintStart_toEndOf="@+id/productDescriptionLabel"
-                app:layout_constraintTop_toTopOf="@+id/productDescriptionLabel"
                 tools:text="Text" />
 
             <TextView
@@ -331,7 +295,7 @@
                 android:text="@{String.valueOf(viewModel.currentProduct.product.amount)}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productStockLabel"
-                app:layout_constraintEnd_toEndOf="@+id/productDescription"
+                app:layout_constraintEnd_toEndOf="@+id/productBarcode"
                 app:layout_constraintStart_toEndOf="@+id/productStockLabel"
                 app:layout_constraintTop_toTopOf="@+id/productStockLabel"
                 tools:text="Text" />
@@ -342,8 +306,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp"
-                android:ems="6"
                 android:text="@string/traders_label"
+                android:ems="6"
+                android:singleLine="true"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
@@ -364,8 +329,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp"
-                android:ems="6"
                 android:text="@string/categories_label"
+                android:ems="6"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/productStockLabel"
@@ -396,11 +361,11 @@
 
             <TextView
                 android:id="@+id/productInternalCode"
+                textOrDefault="@{viewModel.currentProduct.product.sku}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.sku}"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/productDescription"
+                app:layout_constraintEnd_toEndOf="@+id/productBarcode"
                 app:layout_constraintStart_toEndOf="@+id/productSkuLabel"
                 app:layout_constraintTop_toTopOf="@+id/productSkuLabel"
                 tools:text="Text" />
@@ -421,7 +386,7 @@
                 android:id="@+id/productBrand"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.brand}"
+                textOrDefault="@{viewModel.currentProduct.product.brand}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productBrandLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productInternalCode"
@@ -447,13 +412,35 @@
                 android:id="@+id/productSize"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.currentProduct.product.size}"
+                textOrDefault="@{viewModel.currentProduct.product.size}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productSizeLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productBrand"
                 app:layout_constraintStart_toEndOf="@+id/productSizeLabel"
                 app:layout_constraintTop_toTopOf="@+id/productSizeLabel"
                 tools:text="Text" />
+
+            <TextView
+                android:id="@+id/textView31"
+                textOrDefault="@{viewModel.currentProduct.categories}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/categoriesTitle"
+                app:layout_constraintEnd_toEndOf="@+id/productBarcode"
+                app:layout_constraintStart_toEndOf="@+id/categoriesTitle"
+                app:layout_constraintTop_toTopOf="@+id/categoriesTitle" />
+
+            <TextView
+                android:id="@+id/textView46"
+                textOrDefault="@{viewModel.currentProduct.traders}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/suppliersTitle"
+                app:layout_constraintEnd_toEndOf="@+id/productAmount"
+                app:layout_constraintStart_toEndOf="@+id/suppliersTitle"
+                app:layout_constraintTop_toTopOf="@+id/suppliersTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

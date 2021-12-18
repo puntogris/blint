@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.presentation.orders.manage.RecordsAdapter
@@ -32,6 +33,9 @@ class ProductRecordsFragment :
             viewModel.productRecords.collect {
                 adapter.submitData(it)
             }
+        }
+        launchAndRepeatWithViewLifecycle {
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
         }
     }
 

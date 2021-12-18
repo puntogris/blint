@@ -58,10 +58,11 @@
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductBuyPrice}"
                 android:background="@null"
+                android:hint="@string/price"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                android:text="@{String.valueOf(viewModel.currentProduct.product.buyPrice)}"
+                numberIfNotZero="@{viewModel.currentProduct.product.buyPrice}"
                 tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,9 +90,10 @@
                 android:afterTextChanged="@{viewModel::updateProductSellPrice}"
                 android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
+                android:hint="@string/price"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                android:text="@{String.valueOf(viewModel.currentProduct.product.sellPrice)}"
+                numberIfNotZero="@{viewModel.currentProduct.product.sellPrice}"
                 tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -120,19 +122,21 @@
                 android:afterTextChanged="@{viewModel::updateProductSuggestedPrice}"
                 android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
+                android:hint="@string/price"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                android:text="@{String.valueOf(viewModel.currentProduct.product.suggestedSellPrice)}"
+                numberIfNotZero="@{viewModel.currentProduct.product.suggestedSellPrice}"
                 tools:text="40" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <EditText
             android:id="@+id/productAmount"
-            emptyEditTextWithNumber="@{viewModel.currentProduct.product.amount}"
+            numberIfNotZero="@{viewModel.currentProduct.product.amount}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:hint="Ingrese el stock inicial"
             android:layout_marginEnd="16dp"
             android:afterTextChanged="@{viewModel::updateProductAmount}"
             android:background="@null"
@@ -174,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:ems="5"
+            android:ems="4"
             android:text="@string/stock"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
@@ -222,7 +226,6 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"

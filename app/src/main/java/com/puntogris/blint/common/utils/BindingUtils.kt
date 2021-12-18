@@ -8,7 +8,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -23,7 +22,6 @@ import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
-import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import org.threeten.bp.OffsetDateTime
 import java.util.*
 
@@ -49,21 +47,6 @@ fun ImageView.setProfileImage(image: String?) {
     }
 }
 
-@BindingAdapter("removeListVisibility")
-fun TextView.setRemoveListVisibility(list: List<Any>?) {
-    isVisible = !list.isNullOrEmpty()
-}
-
-@BindingAdapter("removeListVisibility")
-fun TextView.setRemoveListVisibility(product: ProductWithDetails) {
-    if (product.categories.isNullOrEmpty() && product.traders.isNullOrEmpty()) gone() else visible()
-}
-
-@BindingAdapter("emptyEditTextWithNumber")
-fun EditText.setEmptyEditTextWithNumber(value: Number) {
-    setText(if (value.toInt() == 0) "0" else value.toString())
-}
-
 @BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product) {
     text = "${product.buyPrice.toUSDFormatted()} / ${product.sellPrice.toUSDFormatted()}"
@@ -85,8 +68,8 @@ fun TextView.setDateFromFirebaseUser(date: OffsetDateTime?) {
 }
 
 @BindingAdapter("capitalizeFirstChar")
-fun TextView.setCapitalizeFirstChar(text: String) {
-    this.text = text.capitalizeFirstChar()
+fun TextView.setCapitalizeFirstChar(text: String?) {
+    this.text = text?.capitalizeFirstChar()
 }
 
 @BindingAdapter("capitalizeWord")
@@ -264,4 +247,19 @@ fun RadioGroup.setSelectedTraderType(type: String) {
         else -> R.id.other_trader_type_radio_button
     }
     check(checkedId)
+}
+
+@BindingAdapter("textOrDefault")
+fun TextView.setTextOrDefault(data: String?) {
+    text = if (data.isNullOrEmpty()) "-" else data
+}
+
+@BindingAdapter("textOrDefault")
+fun TextView.setTextOrDefault(data: List<*>?) {
+    if (data.isNullOrEmpty()) text = "-"
+}
+
+@BindingAdapter("numberIfNotZero")
+fun EditText.setNumberIfNotZero(data: Number) {
+    if (data.toInt() != 0) setText(data.toString())
 }

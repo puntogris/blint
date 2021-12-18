@@ -25,9 +25,6 @@ data class Product(
     var barcode: String = "",
 
     @ColumnInfo
-    var description: String = "",
-
-    @ColumnInfo
     var amount: Int = 0,
 
     @ColumnInfo

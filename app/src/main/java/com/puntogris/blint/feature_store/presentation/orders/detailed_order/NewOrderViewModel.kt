@@ -94,10 +94,6 @@ class NewOrderViewModel @Inject constructor(
         updateOrderDebt(editable.toString().toFloat())
     }
 
-    fun updateOrderType(code: Int) {
-        _newOrder.value.type = if (code == 0) Constants.IN else Constants.OUT
-    }
-
     fun updateOrderTrader(traderName: String, traderId: String) {
         _newOrder.value.traderId = traderId
         _newOrder.value.traderName = traderName

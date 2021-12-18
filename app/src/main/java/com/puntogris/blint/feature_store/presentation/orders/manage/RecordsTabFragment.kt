@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,9 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
             viewModel.getRecords().collect {
                 adapter.submitData(it)
             }
+        }
+        launchAndRepeatWithViewLifecycle {
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
         }
     }
 

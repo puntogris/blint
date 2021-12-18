@@ -35,10 +35,8 @@
                 android:id="@+id/recordsReport"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onProductsReportClicked()}"
-                android:text="@string/product_records_report"
-                android:textColor="@color/color_primary" />
+                android:text="@string/product_records_report" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -46,10 +44,8 @@
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onClientsReportClicked()}"
-                android:text="@string/traders_records_report"
-                android:textColor="@color/color_primary" />
+                android:text="@string/traders_records_report" />
 
             <TextView
                 android:id="@+id/generateListTitle"
@@ -66,20 +62,16 @@
                 android:id="@+id/productsReport"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onProductListClicked()}"
-                android:text="@string/products_label"
-                android:textColor="@color/color_primary" />
+                android:text="@string/products_label" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tradersReport"
                 style="@style/Theme.Blint.Button"
                 android:layout_width="match_parent"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/color_on_primary"
                 android:onClick="@{()->fragment.onClientListClicked()}"
-                android:text="@string/traders_label"
-                android:textColor="@color/color_primary" />
+                android:text="@string/traders_label"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

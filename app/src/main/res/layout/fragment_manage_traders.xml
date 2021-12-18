@@ -33,7 +33,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/a"
+                android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_on_primary"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -119,6 +119,7 @@
         <include
             android:id="@+id/empty_ui"
             layout="@layout/empty_ui"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

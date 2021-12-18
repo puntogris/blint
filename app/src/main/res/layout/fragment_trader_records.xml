@@ -21,6 +21,7 @@
 
         <include
             android:id="@+id/empty_ui"
+            android:visibility="gone"
             layout="@layout/empty_ui"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

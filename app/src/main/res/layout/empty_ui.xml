@@ -8,7 +8,6 @@
     android:drawableBottom="@drawable/ic_fi_rr_broom"
     android:text="No se encontro ni polvo por aca."
     android:drawablePadding="16dp"
-    android:textSize="15sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

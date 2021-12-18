@@ -32,7 +32,7 @@
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:onClickListener="@{() -> fragment.onSaveButtonClicked()}"

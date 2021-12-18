@@ -40,24 +40,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productBarcode" />
 
-
-        <View
-            android:id="@+id/divider22"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productDescription" />
 
         <EditText
             android:id="@+id/productName"
@@ -112,32 +99,12 @@
             app:srcCompat="@drawable/ic_fi_rr_scan" />
 
 
-        <EditText
-            android:id="@+id/productDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:afterTextChanged="@{viewModel::updateProductDescription}"
-            android:background="@null"
-            android:ems="10"
-            android:hint="Ingrese la descripccion"
-            android:imeOptions="actionDone"
-            android:inputType="textCapSentences"
-            android:maxLength="40"
-            android:singleLine="true"
-            android:text="@{viewModel.currentProduct.product.description}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/productBarcode"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/divider9" />
-
-
         <TextView
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:ems="5"
+            android:ems="4"
             android:text="@string/name"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
@@ -149,24 +116,13 @@
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
-            android:text="@string/barcode"
+            android:ems="4"
+            android:text="@string/code"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/productBarcode"
             app:layout_constraintStart_toStartOf="@+id/textView28"
             app:layout_constraintTop_toTopOf="@+id/productBarcode" />
-
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:text="@string/description"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView30"
-            app:layout_constraintTop_toTopOf="@+id/productDescription" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/productImage"
@@ -175,6 +131,7 @@
             android:layout_marginTop="32dp"
             android:onClickListener="@{()-> fragment.showImageOptions()}"
             android:padding="5dp"
+            android:background="@color/color_on_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

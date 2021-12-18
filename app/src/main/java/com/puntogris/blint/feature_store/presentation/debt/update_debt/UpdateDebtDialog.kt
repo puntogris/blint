@@ -26,7 +26,7 @@ class UpdateDebtDialog : DialogFragment() {
         binding = DialogUpdateDebtBinding.inflate(layoutInflater)
         binding.dialog = this
 
-        return MaterialAlertDialogBuilder(requireContext())
+        return MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
             .setView(binding.root)
             .setBackgroundInsetStart(20)
             .setBackgroundInsetEnd(20)

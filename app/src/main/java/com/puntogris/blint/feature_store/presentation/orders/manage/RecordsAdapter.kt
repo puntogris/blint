@@ -6,9 +6,7 @@ import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.presentation.orders.RecordDiffCallBack
 
 class RecordsAdapter(private val clickListener: (Record) -> Unit) :
-    PagingDataAdapter<Record, RecordsViewHolder>(
-        RecordDiffCallBack()
-    ) {
+    PagingDataAdapter<Record, RecordsViewHolder>(RecordDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordsViewHolder {
         return RecordsViewHolder.from(parent)

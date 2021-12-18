@@ -24,6 +24,9 @@
     <style name="Theme.Blint.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAllCaps">false</item>
         <item name="android:layout_height">65dp</item>
+        <item name="backgroundTint">@color/color_state_button</item>
+        <item name="android:textColor">@color/almostBlack</item>
+        <item name="rippleColor">@color/grey_10</item>
     </style>
 
     <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
@@ -72,6 +75,15 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
     </style>
 
 </resources>

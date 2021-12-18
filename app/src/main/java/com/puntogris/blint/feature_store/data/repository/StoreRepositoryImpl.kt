@@ -25,15 +25,16 @@ class StoreRepositoryImpl(
         try {
             emit(ProgressResource.InProgress)
 
+            val user = usersDao.getUser()
+
             val business = Store(
                 name = businessName,
-                ownerUid = usersDao.getUserId()
+                ownerUid = user.uid,
+                author = user.email
             )
 
             storeDao.insert(business)
-
             usersDao.updateCurrentStore(business.storeId)
-
             sharedPreferences.setShowNewUserScreen(false)
 
             emit(ProgressResource.Success(Unit))
@@ -63,5 +64,4 @@ class StoreRepositoryImpl(
     override fun getStoresFlow() = storeDao.getStoresFlow()
 
     override fun getCurrentStoreFlow() = storeDao.getCurrentStoreFlow()
-
 }

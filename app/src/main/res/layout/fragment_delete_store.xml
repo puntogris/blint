@@ -75,7 +75,7 @@
             android:id="@+id/button6"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:onClickListener="@{()-> fragment.onDeleteBusinessClicked()}"
             android:text="@string/action_delete"

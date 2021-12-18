@@ -209,6 +209,7 @@
     <string name="create_product_with_code">Create product with this barcode</string>
     <string name="no_product_found_with_code">A product with this barcode was not found.</string>
     <string name="code_with_dots">Code:</string>
+    <string name="code">Barcode</string>
 
     <!-- Trader -->
     <string name="snack_delete_trader_error">A problem occurred when deleting the trader</string>

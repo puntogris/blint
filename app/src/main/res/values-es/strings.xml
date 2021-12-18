@@ -204,6 +204,7 @@
     <string name="create_product_with_code">Crear producto con este código</string>
     <string name="no_product_found_with_code">No se encontró un producto con este código de barras.</string>
     <string name="code_with_dots">Codigo:</string>
+    <string name="code">Código</string>
 
     <!-- Trader -->
     <string name="snack_delete_trader_error">Ocurrió un error al eliminar al comerciante.</string>

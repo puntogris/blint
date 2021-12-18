@@ -24,6 +24,9 @@ data class Store(
     val ownerUid: String = "",
 
     @ColumnInfo
+    val author: String = "",
+
+    @ColumnInfo
     val createdAt: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo

@@ -3,13 +3,10 @@ package com.puntogris.blint.feature_store.presentation.categories
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.PagingDataAdapter
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
@@ -24,7 +21,6 @@ import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -46,7 +42,6 @@ class ManageCategoriesFragment :
             subscribeUi(it)
         }
     }
-
     private fun subscribeUi(adapter: ManageCategoriesAdapter) {
         launchAndRepeatWithViewLifecycle {
             viewModel.getProductCategories().collect {

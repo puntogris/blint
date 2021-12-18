@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="@{viewModel.user.name}"
+                capitalizeFirstChar="@{viewModel.user.name}"
                 android:textColor="#284B75"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="@+id/textView5"

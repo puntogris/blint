@@ -72,19 +72,11 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
                 true
             }
             R.id.deleteOption -> {
-                InfoSheet().show(requireParentFragment().requireContext()) {
-                    title(R.string.ask_delete_trader_title)
-                    content(R.string.delete_client_warning)
-                    onNegative(R.string.action_cancel)
-                    onPositive(R.string.action_yes) { onDeleteTraderConfirmed() }
-                }
+                navigateToDeleteTrader()
                 true
             }
             R.id.updateDebt -> {
-//                val action = TraderFragmentDirections.actionTraderFragmentToDebtStatusFragment(
-//                    trader = viewModel.currentTrader.value
-//                )
-//                findNavController().navigate(action)
+                navigateToUpdateDebt()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -104,9 +96,25 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         }
     }
 
+    fun navigateToUpdateDebt(){
+        val action = TraderFragmentDirections.actionTraderFragmentToUpdateDebtDialog(
+            viewModel.currentTrader.value
+        )
+        findNavController().navigate(action)
+    }
+
     fun navigateToInfoRecord(record: Record) {
         val action = TraderFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
         findNavController().navigate(action)
+    }
+
+    private fun navigateToDeleteTrader(){
+        InfoSheet().show(requireParentFragment().requireContext()) {
+            title(R.string.ask_delete_trader_title)
+            content(R.string.delete_client_warning)
+            onNegative(R.string.action_cancel)
+            onPositive(R.string.action_yes) { onDeleteTraderConfirmed() }
+        }
     }
 
     override fun setUpMenuOptions(menu: Menu) {

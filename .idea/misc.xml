@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/divider_round_corners_horizontal.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/a.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/b.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/bottom_sheet_handle.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/bottom_sheet_round_corners.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/dividier_with_middle_circle.xml" value="0.24513888888888888" />
@@ -120,6 +121,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_events.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_orders.xml" value="0.2342936480388754" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
+        <entry key="app/src/main/res/layout/fragment_manage_store.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_suppliers.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_manage_traders.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_modify_debt.xml" value="0.234375" />

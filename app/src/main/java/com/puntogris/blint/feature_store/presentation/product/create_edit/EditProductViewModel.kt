@@ -65,10 +65,6 @@ class EditProductViewModel @Inject constructor(
         currentProduct.value.product.name = editable.toString()
     }
 
-    fun updateProductDescription(editable: Editable) {
-        currentProduct.value.product.description = editable.toString()
-    }
-
     fun updateProductBuyPrice(editable: Editable) {
         currentProduct.value.product.buyPrice = editable.toString().toFloatOrNull() ?: 0F
     }

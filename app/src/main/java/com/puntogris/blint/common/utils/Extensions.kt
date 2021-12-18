@@ -42,10 +42,7 @@ import com.puntogris.blint.feature_store.domain.model.Event
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.presentation.main.SetupUiListener
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.threeten.bp.DateTimeUtils
 import org.threeten.bp.OffsetDateTime
@@ -302,8 +299,9 @@ suspend inline fun showEmptyUiOnEmptyAdapter(
     view: View
 ) {
     adapter.loadStateFlow
-        .distinctUntilChangedBy { it.source.refresh }
-        .map { it.source.refresh is LoadState.NotLoading }
+        .distinctUntilChanged()
+        .map { it.source.refresh }
+        .filter { it is LoadState.NotLoading }
         .collect {
             view.isVisible = adapter.itemCount == 0
         }

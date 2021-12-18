@@ -37,7 +37,7 @@ class SimpleOrderDialog : DialogFragment() {
 
         setupOrderTypeAdapter()
 
-        return MaterialAlertDialogBuilder(requireContext())
+        return MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
             .setView(binding.root)
             .setBackgroundInsetStart(20)
             .setBackgroundInsetEnd(20)

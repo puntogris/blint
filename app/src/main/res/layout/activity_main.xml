@@ -44,7 +44,7 @@
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/a"
+            android:background="@drawable/round_corners_17"
             app:backgroundTint="@color/color_on_primary"
             app:elevation="0dp"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"

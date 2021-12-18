@@ -56,10 +56,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     }
 
     fun onNewDebtClicked() {
-        val action = TraderFragmentDirections.actionTraderFragmentToUpdateDebtDialog(
-            viewModel.currentTrader.value
-        )
-        findNavController().navigate(action)
+        (requireParentFragment() as TraderFragment).navigateToUpdateDebt()
     }
 
     private fun onDebtClicked(debt: Debt) {

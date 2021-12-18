@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{business.name}"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/businessNameLabel" />
 
@@ -76,7 +77,6 @@
             dateFromTimestamp="@{business.createdAt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/businessDateLabel" />
@@ -91,6 +91,15 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/businessDate"
             app:layout_constraintTop_toBottomOf="@+id/businessDate" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{business.author}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView128"
+            app:layout_constraintTop_toBottomOf="@+id/textView128" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
