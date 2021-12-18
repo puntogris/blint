@@ -20,19 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 #-keepnames class androidx.navigation.fragment.NavHostFragment
--keep class com.puntogris.blint.feature_store.domain.model.Trader
--keep class com.puntogris.blint.feature_store.domain.model.Supplier
--keep class com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
--keep class com.puntogris.blint.feature_store.domain.model.order.Record
--keep class com.puntogris.blint.feature_store.domain.model.Event
--keep class com.puntogris.blint.feature_store.domain.model.AuthUser
--keep class com.puntogris.blint.feature_store.domain.model.Store
--keep class com.puntogris.blint.feature_store.domain.model.product.Product
--keep class com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
--keep class com.puntogris.blint.feature_store.domain.model.order.Debt
--keep class com.puntogris.blint.feature_store.domain.model.Category
--keep class com.puntogris.blint.model.FirestoreSupplier
-
 
 -keeppackagenames javax.**
 -keeppackagenames org.apache.poi.**

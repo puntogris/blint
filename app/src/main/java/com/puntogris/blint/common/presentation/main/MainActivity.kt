@@ -20,7 +20,6 @@ import com.puntogris.blint.feature_store.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 

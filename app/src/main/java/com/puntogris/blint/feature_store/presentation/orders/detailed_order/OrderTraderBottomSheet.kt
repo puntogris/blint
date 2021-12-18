@@ -45,20 +45,8 @@ class OrderTraderBottomSheet :
         binding.viewModel = viewModel
         binding.fragment = this
 
-        registerToolbar()
+        registerToolbarBackButton(binding.toolbar)
         subscribeUi()
-    }
-
-    private fun registerToolbar() {
-        binding.searchToolbar.apply {
-            registerToolbarBackButton(this)
-            setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_close) {
-                    dismiss()
-                }
-                true
-            }
-        }
     }
 
     private fun subscribeUi() {

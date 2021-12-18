@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.trader.detail
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment

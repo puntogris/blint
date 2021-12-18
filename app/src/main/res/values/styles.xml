@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Blint.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar.Colored">
-        <item name="backgroundTint">@color/grey_20</item>
-    </style>
-
-    <style name="Theme.Blint.Button.IconOnly" parent="@style/Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconPadding">0dp</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconTint">@color/primaryColor</item>
-    </style>
-
-    <style name="Theme.Blint.TextButton" parent="@style/TextAppearance.MaterialComponents.Button">
-        <item name="android:textColor">@color/primaryColor</item>
-        <item name="fontFamily">sans-serif-medium</item>
-    </style>
-
     <style name="Theme.Blint.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopEnd">2dp</item>
         <item name="boxCornerRadiusTopStart">2dp</item>
@@ -27,13 +12,6 @@
         <item name="backgroundTint">@color/color_state_button</item>
         <item name="android:textColor">@color/almostBlack</item>
         <item name="rippleColor">@color/grey_10</item>
-    </style>
-
-    <style name="Theme.Blint.ImageButton" parent="@style/Widget.AppCompat.ImageButton">
-        <item name="backgroundTint">@color/primaryColor</item>
-        <item name="tint">@android:color/white</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
     </style>
 
     <style name="SplashTheme">
@@ -57,17 +35,8 @@
         <item name="android:alpha">0.2</item>
     </style>
 
-    <style name="Theme.Blint.LargeDivider" parent="Base.Theme">>
-        <item name="android:background">@color/grey</item>
-        <item name="android:alpha">0.2</item>
-        <item name="android:elevation">1dp</item>
-    </style>
-
     <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
         <item name="cornerSize">10%</item>
-    </style>
-    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
-        <item name="cornerSize">50%</item>
     </style>
 
     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">

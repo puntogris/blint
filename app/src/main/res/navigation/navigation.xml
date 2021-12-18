@@ -241,7 +241,7 @@
             android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderProductsFragment"
             android:label="@string/new_order_label">
             <argument
-                android:name="productID"
+                android:name="productId"
                 android:defaultValue="0"
                 app:argType="string" />
             <action

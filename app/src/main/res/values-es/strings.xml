@@ -12,36 +12,27 @@
     <string name="calendar_label">Agenda</string>
     <string name="settings_label">Configuración</string>
     <string name="account_label">Cuenta</string>
-    <string name="tools_label">Herramientas</string>
     <string name="debts_label">Deudas</string>
     <string name="categories_label">Categorías</string>
     <string name="scanner_label">Escanear código</string>
     <string name="register_store_label">Registrar negocio</string>
     <string name="trader_label">Comerciante</string>
     <string name="product_label">Producto</string>
-    <string name="help_label">Ayuda</string>
     <string name="about_us_label">Sobre blint</string>
     <string name="backup_label">Respaldar negocio</string>
     <string name="restore_backup_label">Restaurar negocio</string>
-    <string name="general_edition_label">Edición general</string>
-    <string name="import_data_label">Importar lista externa</string>
     <string name="new_event_label">Nuevo evento</string>
     <string name="generate_report_label">Generar informe</string>
     <string name="my_store_label">Mi negocio</string>
-    <string name="my_stores_label">Mis negocios</string>
     <string name="stores_label">Negocios</string>
     <string name="review_order_label">Revisar orden</string>
     <string name="publish_order_label">Publicar order</string>
     <string name="new_order_label">Nueva orden</string>
     <string name="order_label">Orden</string>
-    <string name="debt_label">Deuda</string>
     <string name="update_debt_label">Actualizar deuda</string>
 
     <!-- Actions-->
-    <string name="action_send">Enviar</string>
     <string name="action_cancel">Cancelar</string>
-    <string name="action_rate_us_on_google_play">Calificar en la Play Store</string>
-    <string name="action_read_privacy_policy">Leer nuestras Políticas de Privacidad.</string>
     <string name="action_delete">Eliminar</string>
     <string name="action_no">No</string>
     <string name="action_accept">Aceptar</string>
@@ -51,11 +42,8 @@
     <string name="action_whats_app">WhatsApp</string>
     <string name="action_yes">Si</string>
     <string name="action_exit">Salir</string>
-    <string name="action_next">Siguiente</string>
     <string name="action_add">Agregar</string>
-    <string name="action_back">Atrás</string>
     <string name="action_finish">Finalizar</string>
-    <string name="action_close">Cerrar</string>
     <string name="action_save">Guardar</string>
     <string name="action_undo">Deshacer</string>
     <string name="action_continue">Continuar</string>
@@ -63,8 +51,6 @@
     <string name="action_edit_stock">Editar stock</string>
 
     <!-- Problems and advice -->
-    <string name="problems_and_advice">Sugerencia o mensaje</string>
-    <string name="tell_us_more">¿Que nos queres contar?</string>
     <string name="message_hint">Mensaje</string>
 
     <!-- Backup -->
@@ -93,8 +79,6 @@
     <string name="snack_error_connection_server_try_later">Hubo un problema conectándose con los servidores. Intentá nuevamente.</string>
     <string name="snack_ups_visit_blint">Ups, algo se rompió. Visita Blint.app para más info.</string>
     <string name="snack_require_camera_permission">Necesitamos acceso a la cámara para poder abrir el escaner.</string>
-    <string name="snack_wait_for_operation">Por favor espera que se termine la operación para continuar.</string>
-    <string name="snack_amount_cant_be_empty">La cantidad no puede estar vacia ni ser 0.</string>
     <string name="snack_text_empty">El campo de texto no puede estar vacio.</string>
     <string name="snack_the_text_cant_contain_special_chars">El campo de texto no puede contener caracteres especiales.</string>
     <string name="snack_text_min_max_length">El campo de texto debe tener entre 3 y 15 caracteres.</string>
@@ -105,9 +89,7 @@
 
     <!-- Delete-->
     <string name="do_you_want_to_delete_store">¿Deseas eliminar este negocio?</string>
-    <string name="delete_store_warning_dialog">¡Zona de peligro! Ten en cuenta que esta acción pondrá a tu negocio en una fase de desactivación y luego será eliminado definitivamente.</string>
     <string name="delete_local_store_warning_dialog">¡Zona de peligro! Ten en cuenta que esta acción eliminará tu negocio y es irreversible.</string>
-    <string name="delete_store_warning">*Como seguridad, Blint pondrá su negocio en fase de desactivación de 15 días. Durante este periodo podrá revertir la acción. Luego de los 15 días se eliminará .</string>
     <string name="delete_local_store_warning">*La eliminación de un negocio local ocurre en el momento y es irreversible.</string>
     <string name="snack_store_name_does_not_match">El nombre no coincide con el del negocio.</string>
     <string name="safety_ask_data">Por seguridad le pediremos unos datos.</string>
@@ -116,7 +98,6 @@
     <string name="ask_store_name">¿Cómo se llamará?</string>
     <string name="new_store_title">¡Estas a un paso de abrir tu negocio en Blint!</string>
     <string name="create_store">Crear negocio</string>
-    <string name="action_join_store">unirme a un negocio</string>
     <string name="action_learn_about_blint">Aprende más sobre blint</string>
     <string name="new_user_message">Vas a necesitar entrar a un negocio para poder operar en Blint.</string>
     <string name="new_user_title">¡Hola!\nNo te había visto antes por aquí.</string>
@@ -125,12 +106,6 @@
     <string name="account_sync_success">Cuenta sincronizada correctamente.</string>
     <string name="account_adventure_message">¡Tu cuenta esta lista para arrancar esta nueva aventura!</string>
     <string name="snack_created_store_success">Negocio creado satisfactoriamente.</string>
-    <string name="cancel_store_deletion">Cancelar eliminación</string>
-    <string name="store_on_delete_alert">Este negocio fue desactivado por el administrador y será eliminado próximamente.</string>
-    <string name="store_disabled_alert">Este negocio fue desactivado por el administrador. Comunícate con él para más información.</string>
-    <string name="on_delete">Por eliminar</string>
-    <string name="disabled">Desactivado</string>
-    <string name="enabled">Habilitado</string>
     <string name="empty_stores_message">No se encontro nada por aquí, te invitamos a crear un nuevo negocio o unirte a uno ya existente.</string>
     <string name="store_selected">Negocio seleccionado correctamente.</string>
 
@@ -144,23 +119,13 @@
 
     <!-- Login -->
     <string name="action_solve_login_problems">Solucionar problemas para entrar</string>
-    <string name="problem_with_blint_account">Problema con mi cuenta de Blint</string>
-    <string name="welcome_you">¡Hola terrícola!</string>
     <string name="read_more">Leer más.</string>
-    <string name="action_accept_terms_and_conditions">Acepto los términos y condiciones.</string>
     <string name="account_syncing_in_progress_title">Sincronizando cuenta…</string>
     <string name="account_creation_in_progress_message">Estamos terminando de preparar tu cuenta</string>
     <string name="fast_login">Iniciar más rápido</string>
-    <string name="action_continue_anonymously">Continuar de forma anonima</string>
 
     <!-- Calendar -->
-    <string name="action_add_event">Agregar evento</string>
-    <string name="last_calendar_events">Últimos eventos en agenda</string>
-    <string name="empty_calendar_alert">¡Ops, tu calendario esta vacio!\n\nDale una mirada, la organización es clave para todo negocio.</string>
     <string name="events_details">Detalles del evento</string>
-    <string name="all">Todos</string>
-    <string name="no_events_found_message">¡Ops! Nada por aquí.</string>
-    <string name="add_date">ingresar fecha</string>
     <string name="snack_create_event_error">Ocurrió un error al crear el evento.</string>
     <string name="snack_create_event_success">Evento creado satisfactoriamente.</string>
     <string name="ask_delete_event_title">¿Deseas eliminar este evento?</string>
@@ -168,18 +133,12 @@
     <string name="snack_delete_event_success">Evento eliminado correctamente.</string>
     <string name="snack_delete_event_error">Se produjo un error al eliminar el evento.</string>
     <string name="snack_update_event_error">Ocurrió un error al tratar de actualizar el evento.</string>
-    <string name="snack_update_event_success">Se actualizo el estado del evento correctamente.</string>
-    <string name="ask_event_date">¿Para qué fecha lo deseas programar?</string>
 
     <!-- Product -->
-    <string name="description">Descripción</string>
     <string name="barcode">Código de barras</string>
     <string name="buy_price">Compra</string>
     <string name="sell_price">Venta</string>
     <string name="suggested_sell_price">Sugerido</string>
-    <string name="initial_stock">Stock inicial</string>
-    <string name="prices_and_initial_stock">Precios y Stock inicial</string>
-    <string name="prices">Precios</string>
     <string name="snack_create_product_success">Error al crear el producto.</string>
     <string name="snack_create_product_error">Se guardo el producto satisfactoriamente.</string>
     <string name="brand">Marca</string>
@@ -192,14 +151,8 @@
     <string name="create_simple_order">Crear orden rápida.</string>
     <string name="create_detailed_order">Crear orden detallada.</string>
     <string name="stock">Stock</string>
-    <string name="images">Imágenes</string>
     <string name="image">Imagen</string>
-    <string name="prices_and_stock">Precios y stock</string>
     <string name="product_deleted">Producto eliminado.</string>
-    <string name="filter_by_category">Filtrar por categoría</string>
-    <string name="available_categories">Categorias disponibles</string>
-    <string name="empty_product_categories_message">*Sin categorías, seleccione de las categorías mostradas abajo para agregarlas.</string>
-    <string name="snack_product_categories_limit">Un producto no puede tener más de %1$d categorías</string>
     <string name="go_to_product">Ir al producto</string>
     <string name="create_product_with_code">Crear producto con este código</string>
     <string name="no_product_found_with_code">No se encontró un producto con este código de barras.</string>
@@ -218,103 +171,52 @@
     <string name="trader_type_client">Cliente</string>
     <string name="trader_type_supplier">Proveedor</string>
     <string name="trader_type_other">Otro</string>
-    <string name="trader_type_title">Tipo de comerciante</string>
     <string name="trader_filter_all">Todos</string>
     <string name="trader_filter_clients">Clientes</string>
     <string name="trader_filter_suppliers">Proveedores</string>
 
     <!-- Text -->
-    <string name="suggestions">Sugerencias</string>
     <string name="privacy_policy">Políticas de Privacidad</string>
     <string name="terms_and_conditions">Términos y Condiciones</string>
     <string name="open_source_licenses">Licencias</string>
     <string name="user_name">Nombre de usuario</string>
     <string name="creation_date">Fecha de creación</string>
     <string name="e_mail">E-mail</string>
-    <string name="not_found">No encontrado.</string>
-    <string name="local_store_not_found_in_account">No encontramos negocios locales enlazados a tu cuenta.</string>
     <string name="loading_with_dots">Cargando…</string>
     <string name="helper_text_obligatory">*Obligatorio</string>
     <string name="store_name_hint">Nombre del negocio</string>
-    <string name="role">Rol</string>
     <string name="details">Detalles</string>
-    <string name="manually">Manualmente</string>
     <string name="name">Nombre</string>
     <string name="type">Tipo</string>
     <string name="billing">Facturación</string>
-    <string name="members">Integrantes</string>
     <string name="information">Información</string>
     <string name="phone">Teléfono</string>
     <string name="address">Dirección</string>
-    <string name="extras">Extras</string>
-    <string name="payment_information">Informacion de pagos</string>
-    <string name="discount">Descuento</string>
     <string name="tab_data">Datos</string>
     <string name="tab_records">Movimientos</string>
     <string name="tab_debts">Deudas</string>
     <string name="tab_orders">Ordenes</string>
-    <string name="image_picker_folder_title">Imágenes</string>
-    <string name="action_change">Cambiar</string>
-    <string name="action_add_image">Agregar imagen</string>
     <string name="pending">Pendiente</string>
     <string name="finished">Finalizado</string>
     <string name="not_specified">No especificado</string>
-    <string name="local">Local</string>
-    <string name="online">Online</string>
-    <string name="seller">Vendedor</string>
-    <string name="account_created_success">Cuenta creada correctamente.</string>
-    <string name="account_created_cheers_message">¡Tu cuenta esta lista para arrancar esta nueva aventura!</string>
     <string name="price">Precio</string>
-    <string name="title">Titulo</string>
     <string name="date">Fecha</string>
     <string name="status">Estado</string>
-    <string name="filter">Filtro</string>
     <string name="product">Producto</string>
-    <string name="group">Grupo</string>
-    <string name="buys">Compra</string>
-    <string name="sale">Venta</string>
-    <string name="affected_prices">Precios afectados</string>
-    <string name="suggested">Sugerido</string>
-    <string name="affected_products">Productos afectados</string>
-    <string name="modification_value">Valor de modificación</string>
     <string name="total">Total</string>
-    <string name="increase">Aumento</string>
-    <string name="decrease">Disminución</string>
-    <string name="affected_products_price_change_alert">Selecciona los campos de los productos que te gustaría afectar con el nuevo cambio.</string>
     <string name="product_categories">Categorias de este producto</string>
     <string name="product_trader">Comerciantes de este producto</string>
     <string name="connecting_with_servers">Conectando con los servidores…</string>
     <string name="size">Tamaño</string>
-    <string name="traders_and_categories">Comerciantes y categorías</string>
-    <string name="category">Categoría</string>
-    <string name="discount_abbreviation">disc.</string>
-    <string name="management">Gestión</string>
-    <string name="administration">Administración</string>
-    <string name="shortcuts">Atajos</string>
 
     <!-- Orders -->
-    <string name="action_select_trader">Seleccionar comerciante</string>
-    <string name="ask_order_type_title">Elige el tipo de orden</string>
     <string name="in_entry">Entrada</string>
     <string name="out_entry">Salida</string>
-    <string name="order_type_alert">*No es necesario de que especifiques un comerciante, pero es importante para organizar mejor tu negocio.</string>
     <string name="amount">Cantidad</string>
-    <string name="add_client">Agregar cliente</string>
-    <string name="total_with_dots">Total:</string>
-    <string name="record_date">Fecha del movimiento</string>
-    <string name="total_order_value">Valor total:</string>
-    <string name="order_is_ready_title">La nueva orden esta lista para ser creada.</string>
     <string name="products_amount">Cantidad de productos:</string>
-    <string name="date_with_dots">Fecha:</string>
-    <string name="author_with_dots">Autor:</string>
     <string name="review_order_alert">*Al continuar esta orden será generada y enviada a los servidores, generando una factura y modificando el stock de los productos incluidos.</string>
     <string name="order_payment_status">Estado del pago</string>
     <string name="order_payment_status_completed">Completo</string>
-    <string name="order_details">Detalles de la orden</string>
-    <string name="action_see_complete_order">Ver orden completa</string>
-    <string name="record_details">Detalles del movimiento</string>
-    <string name="initial_stock_record_message">Este es un movimiento de stock inicial por lo cual no posee una orden.</string>
-    <string name="simple_order">Orden rápida</string>
     <string name="last_record">Último movimiento</string>
     <string name="creating_order">Creando orden</string>
     <string name="generate_receipt">Generar factura</string>
@@ -325,9 +227,6 @@
     <string name="order_create_error_message">No se pudo crear tu orden. Revisa tu conexión a internet e intentá nuevamente.</string>
     <string name="created_failed">Creación fallida.</string>
     <string name="created_successfully_title">Creación correcta.</string>
-    <string name="buy_prices">Compra</string>
-    <string name="sell_prices">Venta/ Sug.</string>
-    <string name="snack_discount_error">Error con el valor del descuento.</string>
     <string name="order_fully_paid">%1$s$, pago completo.</string>
     <string name="order_with_debt">%1$s$, deuda de %2$s$.</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
@@ -339,18 +238,13 @@
     <string name="themes_pref">Temas</string>
     <string name="help_pref">Ayuda</string>
     <string name="about_us_pref">Acerca de Blint</string>
-    <string name="auto_backup_pref">Backup automático</string>
-    <string name="auto_backup_summary_pref">Se guarda tu negocio en la nube automáticamente todos días</string>
     <string name="create_backup_pref">Crear copia de seguridad</string>
     <string name="create_backup_summary_pref">Se respalda todo su negocio en la nube</string>
     <string name="restore_backup_pref">Restaurar desde copia de seguridad</string>
     <string name="restore_backup_summary_pref">Se restaura su negocio desde la nube</string>
     <string name="my_information_pref">Mis datos</string>
     <string name="my_stores_pref">Mis negocios</string>
-    <string name="billing_pref">Facturación</string>
-    <string name="privacy_pref">Privacidad</string>
     <string name="sign_out_pref">Cerrar sesión</string>
-    <string name="sign_in_pref">Iniciar sesión</string>
     <string name="github_summary">Blint es de codigo abierto, visita GitHub</string>
     <string name="rate_app_title">Puntua la App</string>
     <string name="rate_app_summary">Si te gusto Blint, puntuala en la Play Store</string>
@@ -363,56 +257,33 @@
     <string name="options">Opciones</string>
     <string name="delete_store">Eliminar negocio</string>
     <string name="new_store">Nuevo negocio</string>
-    <string name="new_event">Nuevo evento</string>
     <string name="new_supplier">Nuevo proveedor</string>
-    <string name="new_client">Nuevo cliente</string>
     <string name="new_product">Nuevo producto</string>
     <string name="action_edit">Editar</string>
     <string name="new_order">Nueva orden</string>
-    <string name="search_with_dots">Buscar…</string>
     <string name="search">Buscar</string>
 
     <!-- Images content descriptions -->
-    <string name="store_logo_image">logo negocio</string>
-    <string name="store_selected_image">negocio seleccionado</string>
-    <string name="notifications_icon">notificaciones</string>
-    <string name="fab_action_button">boton</string>
     <string name="close_icon">cerrar</string>
     <string name="open_image">abrir</string>
     <string name="open_contact_image">abrir contacto</string>
-    <string name="expand_image">expandir</string>
     <string name="delete_image">eliminar</string>
-    <string name="app_logo_image">app logo</string>
-    <string name="share_image">compartir</string>
-    <string name="copy_image">copiar</string>
-    <string name="qr_code_image">codigo qr</string>
     <string name="more_image">mas opciones</string>
     <string name="email_image">email</string>
     <string name="profile_image">imagen de perfil</string>
-    <string name="menu_item_image">item del menu</string>
     <string name="decrease_number_image">disminuir numero</string>
     <string name="increase_number_image">incrementar numero</string>
     <string name="top_window_bar_image">borde de ventana</string>
     <string name="scan_image">scaner</string>
-    <string name="edit_icon">editar</string>
-    <string name="filter_image">filtrar</string>
-    <string name="product_image">imagen producto</string>
-    <string name="calendar_image">imagen calendario</string>
-    <string name="categories_image">imagen categorias</string>
 
     <!-- Auto fill hints -->
     <string name="auto_fill_hint_search_product">busquedaProductos</string>
     <string name="auto_fill_hint_client_search">busquedaCliente</string>
-    <string name="auto_fill_hint_search_orders">busquedaOrden</string>
-    <string name="auto_fill_hint_search_trader">busquedaComerciante</string>
-    <string name="auto_fill_hint_search_categories">busquedaCategorias</string>
 
     <!-- Symbols, numbers -->
     <string name="dollar_symbol">$</string>
-    <string name="zero_dollars">$0</string>
 
     <!-- Debt -->
-    <string name="modify_debt_alert">*Este valor será sumado/ restado al valor total de la deuda previamente registrada.</string>
     <string name="debt_value">Valor deuda</string>
     <string name="total_debt_balance">Balance total de deuda</string>
     <string name="last_debts">Últimas deudas</string>
@@ -443,18 +314,15 @@
     <string name="annual">Anual</string>
     <string name="historical">Histórico</string>
     <string name="ask_report_time_frame_title">Período de tiempo del reporte</string>
-    <string name="snack_report_generating_or_error">Aún no se ha generado el informe o ha ocurrido un error.</string>
 
     <!-- Binding -->
     <string name="order_number">Orden %1$d</string>
     <string name="amount_debt_positive">+%1$s $</string>
     <string name="amount_normal">%1$s $</string>
-    <string name="timer_with_params">%1$dm. %2$ds.</string>
     <string name="snack_trader_added_order">Comerciante %1$s agregado a la orden.</string>
     <string name="order_debt_amount_summary">Se pago $%1$s del total de $%2$s</string>
 
     <!-- Sync account -->
-    <string name="sync_stores">Sincronizar negocios</string>
     <string name="snack_sync_account_error">Ocurrió un error al sincronizar la cuenta.</string>
 
     <!-- Tickets -->
@@ -491,12 +359,6 @@
 
     <string-array name="event_status">
         <item>Pendiente</item>
-        <item>Finalizado</item>
-    </string-array>
-
-    <string-array name="filter_event_status">
-        <item>Todos</item>
-        <item>Pendientes</item>
         <item>Finalizado</item>
     </string-array>
 

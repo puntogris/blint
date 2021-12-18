@@ -9,17 +9,11 @@
 
     <color name="color_background">#0E0E0E</color>
     <color name="color_surface">#0E0E0E</color>
-    <color name="color_error">#cf6679</color>
 
     <color name="color_on_primary">#000000</color>
     <color name="color_on_secondary">#000000</color>
     <color name="color_on_background">#ffffff</color>
-    <color name="color_on_surface">#ffffff</color>
     <color name="color_on_surface_secondary">#2D2D2D</color>
-    <color name="color_on_surface_disabled">#60ffffff</color>
-    <color name="color_on_error">#000000</color>
 
-    <color name="color_dialog">#242424</color>
-    <color name="color_divider">#1FFFFFFF</color>
     <color name="color_tinted_surface">#262626</color>
 </resources>

@@ -29,7 +29,6 @@ import androidx.preference.PreferenceFragmentCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.tabs.TabLayout
 import com.google.firebase.Timestamp
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
@@ -223,17 +222,6 @@ fun Fragment.registerToolbarBackButton(toolbar: MaterialToolbar) {
     }
 }
 
-inline fun TabLayout.addOnTabSelectedListener(crossinline block: (Int) -> Unit) {
-    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-        override fun onTabSelected(tab: TabLayout.Tab?) {
-            block(tab?.position ?: return)
-        }
-
-        override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
-        override fun onTabReselected(tab: TabLayout.Tab?) = Unit
-    })
-}
-
 fun <T> List<T>.copyAndAdd(item: T): List<T> {
     return this.toMutableList().apply { add(item) }
 }
@@ -273,11 +261,7 @@ inline fun PreferenceFragmentCompat.preferenceOnClick(key: String, crossinline b
 }
 
 fun File.getUriFromProvider(context: Context): Uri {
-    return FileProvider.getUriForFile(
-        context,
-        context.packageName,
-        this
-    )
+    return FileProvider.getUriForFile(context, context.packageName, this)
 }
 
 fun NavController.navigateAndClearStack(destination: Int) {

@@ -18,16 +18,15 @@ android {
         applicationId "com.puntogris.blint"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 30
+        versionCode 31
         versionName "2.0.0"
         resConfigs "en", "es"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.debug
     }
-    ndkVersion '22.1.7171670'
+
     buildTypes {
         release {
-            ndk.debugSymbolLevel 'FULL'
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -73,7 +72,6 @@ ext {
     google_auth_version = "19.2.0"
     barcode_scanner = "17.0.0"
     apache_poi_version = "4.0.1"
-    zxing_version = "3.3.2"
     lifecycle_version = "2.4.0"
     android_hilt_version = "2.31-alpha"
     viewmodel_hilt_version = "1.0.0-alpha03"
@@ -183,9 +181,6 @@ dependencies {
     implementation group: 'xml-apis', name: 'xml-apis', version: '1.0.b2'
     implementation group: 'dom4j', name: 'dom4j', version: '1.6.1'
     implementation group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
-
-    //QR
-    implementation "com.google.zxing:core:$zxing_version"
 
     //Pdf viewer
     implementation "com.github.afreakyelf:Pdf-Viewer:$pdf_viewer_version"

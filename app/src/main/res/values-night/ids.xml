@@ -12,7 +12,4 @@
   or implied. See the License for the specific language governing permissions and limitations under
   the License.
   -->
-<resources>
-    <item name="tag_system_window_inset_top" type="id"/>
-    <item name="tag_view_top_snapshot" type="id"/>
-</resources>
+<resources></resources>
