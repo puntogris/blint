@@ -30,8 +30,6 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showAppBar = false)
-
         setupOrderTableAdapter()
         setupMediaStorageLauncher()
     }

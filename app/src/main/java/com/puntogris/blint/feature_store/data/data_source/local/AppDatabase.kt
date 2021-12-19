@@ -21,12 +21,13 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCro
         Product::class,
         Record::class,
         User::class,
-        ProductSupplierCrossRef::class,
         Event::class,
         Category::class,
-        ProductCategoryCrossRef::class,
         Order::class,
         Debt::class,
+        Traffic::class,
+        ProductSupplierCrossRef::class,
+        ProductCategoryCrossRef::class,
         OrderRecordCrossRef::class
     ], version = 2, exportSchema = false
 )
@@ -41,4 +42,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val categoriesDao: CategoriesDao
     abstract val debtsDao: DebtsDao
     abstract val recordsDao: RecordsDao
+    abstract val trafficDao: TrafficDao
 }

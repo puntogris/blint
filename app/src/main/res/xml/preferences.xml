@@ -43,7 +43,6 @@
                 android:data="@string/website_help_url" />
         </Preference>
         <Preference
-            android:fragment="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
             android:key="ticket_preference"
             android:title="@string/report_bug_feedback"
             app:iconSpaceReserved="true"

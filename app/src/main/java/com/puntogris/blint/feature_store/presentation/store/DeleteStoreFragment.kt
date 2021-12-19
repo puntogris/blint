@@ -9,6 +9,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getString
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.DeleteStore
 import com.puntogris.blint.databinding.FragmentDeleteStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ class DeleteStoreFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false)
+        registerToolbarBackButton(binding.toolbar)
     }
 
     fun onDeleteBusinessClicked() {

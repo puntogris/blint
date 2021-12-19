@@ -28,7 +28,7 @@ object UUIDGenerator {
     fun randomNumbersUUID(): String {
         val builder = StringBuilder()
         val maxRandom = AUTO_ID_NUMBERS.length
-        for (i in 0 until AUTO_ID_LENGTH) {
+        for (i in 0 until AUTO_NUMBERS_ID_LENGTH) {
             builder.append(AUTO_ID_NUMBERS[rand.nextInt(maxRandom)])
         }
         return builder.toString()

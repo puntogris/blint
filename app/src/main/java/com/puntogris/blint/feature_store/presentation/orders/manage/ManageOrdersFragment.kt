@@ -11,7 +11,6 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
-import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +21,8 @@ class ManageOrdersFragment :
     private var mediator: TabLayoutMediator? = null
 
     override fun initializeViews() {
-        UiInterface.registerUi(showToolbar = false)
         registerToolbar()
+
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.setText(if (position == 0) R.string.tab_orders else R.string.tab_records)
@@ -34,7 +33,7 @@ class ManageOrdersFragment :
 
     private fun registerToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.action_add) {
+            if (it.itemId == R.id.action_menu_item_add) {
                 showOrderPickerDialog()
             }
             true

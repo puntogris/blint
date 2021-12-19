@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.puntogris.blint"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 31
         versionCode 31
         versionName "2.0.0"

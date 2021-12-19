@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
-import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentProductTraderBinding
@@ -23,7 +22,6 @@ class ProductTraderFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false, showToolbar = false)
 
         setupCategoriesAdapter()
         registerToolbarBackButton(binding.searchToolbar)

@@ -20,7 +20,6 @@ class DeleteAccountFragment :
     private val viewModel: DeleteAccountViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi(showAppBar = false)
         binding.fragment = this
     }
 

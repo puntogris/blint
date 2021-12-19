@@ -7,11 +7,13 @@ import androidx.paging.PagingData
 import androidx.room.withTransaction
 import com.puntogris.blint.R
 import com.puntogris.blint.common.framework.PDFCreator
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.DispatcherProvider
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.feature_store.data.data_source.local.AppDatabase
 import com.puntogris.blint.feature_store.data.data_source.toOrderWithRecords
+import com.puntogris.blint.feature_store.domain.model.Traffic
 import com.puntogris.blint.feature_store.domain.model.order.*
 import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +44,15 @@ class OrderRepositoryImpl(
                 OrderRecordCrossRef(orderWithRecords.order.orderId, it.recordId)
             }
 
+            val traffic = Traffic().apply {
+                if (orderWithRecords.order.type == Constants.IN) {
+                    purchases = orderWithRecords.order.value
+                } else{
+                    sales = orderWithRecords.order.value
+                }
+                storeId = store.storeId
+            }
+
             with(appDatabase) {
                 withTransaction {
 
@@ -64,6 +75,7 @@ class OrderRepositoryImpl(
                         debtsDao.insert(it)
                     }
 
+                    trafficDao.updateOrInsert(traffic)
                     storeDao.incrementTotalOrders()
                     ordersDao.insert(orderWithRecords.order)
                     ordersDao.insertOrderRecordsCrossRef(recordRefs)

@@ -19,6 +19,15 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.debt.manage.ManageDebtFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/debts_label" />
 
         <View
             android:id="@+id/divider34"
@@ -44,7 +53,7 @@
             android:textColor="@color/color_on_background"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/textView184"

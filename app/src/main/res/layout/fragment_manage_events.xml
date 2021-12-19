@@ -9,6 +9,17 @@
         android:orientation="vertical"
         tools:context=".feature_store.presentation.events.manage.ManageEventsFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/menu_add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/calendar_label" />
+
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/eventsFilter"
             android:layout_width="wrap_content"
@@ -17,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:selectionRequired="true"
             app:singleSelection="true">
 

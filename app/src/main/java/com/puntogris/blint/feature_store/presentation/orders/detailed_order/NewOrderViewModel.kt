@@ -83,7 +83,9 @@ class NewOrderViewModel @Inject constructor(
     fun setQuery(editable: Editable) {
         query.value = editable.toString()
     }
-
+    fun setQuery(query: String) {
+        this.query.value = query
+    }
     fun updateOrderDebt(amount: Float) {
         _newOrder.value = _newOrder.value.copy(
             newDebt = if (amount != 0F) NewDebt(amount = amount) else null

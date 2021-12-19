@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/businessFragmentMenu"
+        android:icon="@drawable/ic_fi_rr_menu_dots_vertical"
+        android:title="@string/options"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/action_delete_store"
+                android:title="@string/delete_store" />
+        </menu>
+    </item>
+</menu>

@@ -319,6 +319,7 @@
     <string name="order_number">Orden %1$d</string>
     <string name="amount_debt_positive">+%1$s $</string>
     <string name="amount_normal">%1$s $</string>
+    <string name="price_template">%1$s$</string>
     <string name="snack_trader_added_order">Comerciante %1$s agregado a la orden.</string>
     <string name="order_debt_amount_summary">Se pago $%1$s del total de $%2$s</string>
 

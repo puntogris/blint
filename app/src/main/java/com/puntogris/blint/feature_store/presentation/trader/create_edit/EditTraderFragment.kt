@@ -14,6 +14,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditTraderBinding
@@ -32,9 +33,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        UiInterface.registerUi()
-
+        registerToolbarBackButton(binding.toolbar)
         setupContactPickerLauncher()
         setupContactPermissions()
         setupTraderFilter()

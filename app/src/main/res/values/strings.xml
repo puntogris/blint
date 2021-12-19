@@ -75,7 +75,7 @@
     <string name="data_from_servers">This is what we found on our servers.</string>
     <string name="no_backup_found">No backup found.</string>
 
-      <!-- Snack -->
+    <!-- Snack -->
     <string name="snack_an_error_occurred">A problem occurred.</string>
     <string name="snack_require_contact_permission">Access to your contacts is necessary to perform this action</string>
     <string name="snack_error_connection_server_try_later">There was a problem reaching our servers. Try again later.</string>
@@ -331,8 +331,10 @@
 
     <!-- Binding -->
     <string name="order_number">Order %1$d</string>
+    <string name="number_percentage" translatable="false">%1$d%%</string>
     <string name="amount_debt_positive">+%1$s $</string>
     <string name="amount_normal">%1$s $</string>
+    <string name="price_template">$%1$s</string>
     <string name="snack_trader_added_order">Trader %1$s added to the order.</string>
     <string name="order_debt_amount_summary">Paid $%1$s of the total of $%2$s</string>
     <string name="order_total_template" translatable="false">Total: $%1$s</string>
@@ -401,5 +403,7 @@
         <item>Problem</item>
         <item>Suggestion</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_add_manage_products"
+        android:icon="@drawable/ic_fi_rr_plus"
+        android:title="@string/action_add"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_scanner_manage_products"
+        android:icon="@drawable/ic_fi_rr_scan"
+        android:title="@string/scanner_label"
+        app:showAsAction="ifRoom" />
+</menu>

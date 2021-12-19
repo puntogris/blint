@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,70 +10,80 @@
             type="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".feature_store.presentation.reports.ReportsFragment">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/reports_label" />
+
+        <TextView
+            android:id="@+id/generateReportTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:orientation="vertical"
-            tools:context=".feature_store.presentation.reports.ReportsFragment">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/generate_reports"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/generateReportTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/generate_reports"
-                android:textColor="@color/color_on_background"
-                android:textSize="17sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/recordsReport"
-                style="@style/Theme.Blint.Button"
-                android:layout_width="match_parent"
-                android:onClick="@{()->fragment.onProductsReportClicked()}"
-                android:text="@string/product_records_report" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recordsReport"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:onClick="@{()->fragment.onProductsReportClicked()}"
+            android:text="@string/product_records_report" />
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/tradersRecordsReport"
-                style="@style/Theme.Blint.Button"
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                android:onClick="@{()->fragment.onClientsReportClicked()}"
-                android:text="@string/traders_records_report" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tradersRecordsReport"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->fragment.onClientsReportClicked()}"
+            android:text="@string/traders_records_report" />
 
-            <TextView
-                android:id="@+id/generateListTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/generate_lists"
-                android:textColor="@color/color_on_background"
-                android:textSize="17sp" />
+        <TextView
+            android:id="@+id/generateListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/generate_lists"
+            android:textColor="@color/color_on_background"
+            android:textSize="17sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/productsReport"
-                style="@style/Theme.Blint.Button"
-                android:layout_width="match_parent"
-                android:onClick="@{()->fragment.onProductListClicked()}"
-                android:text="@string/products_label" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/productsReport"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:onClick="@{()->fragment.onProductListClicked()}"
+            android:text="@string/products_label" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/tradersReport"
-                style="@style/Theme.Blint.Button"
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                android:onClick="@{()->fragment.onClientListClicked()}"
-                android:text="@string/traders_label"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tradersReport"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->fragment.onClientListClicked()}"
+            android:text="@string/traders_label" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

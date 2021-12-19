@@ -22,7 +22,6 @@ class PublishOrderFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false)
         subscribeUi()
     }
 

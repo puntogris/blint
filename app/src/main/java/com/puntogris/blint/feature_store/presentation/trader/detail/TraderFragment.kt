@@ -1,7 +1,5 @@
 package com.puntogris.blint.feature_store.presentation.trader.detail
 
-import android.view.Menu
-import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,8 +11,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentTraderBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
@@ -22,14 +21,39 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragment_trader) {
+class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_trader) {
 
     private val args: TraderFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
     private val viewModel: TraderViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi()
+        registerToolbar()
+        setupPager()
+    }
+
+    private fun registerToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_edit_trader -> {
+                        navigateToEditClientFragment()
+                    }
+                    R.id.action_delete_trader -> {
+                        navigateToDeleteTrader()
+                    }
+                    R.id.action_update_trader_debt -> {
+                        navigateToUpdateDebt()
+                    }
+                }
+                true
+            }
+        }
+    }
+
+    private fun setupPager(){
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val res = when (position) {
@@ -65,24 +89,6 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.editOption -> {
-                navigateToEditClientFragment()
-                true
-            }
-            R.id.deleteOption -> {
-                navigateToDeleteTrader()
-                true
-            }
-            R.id.updateDebt -> {
-                navigateToUpdateDebt()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun onDeleteTraderConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteTrader()) {
@@ -96,7 +102,7 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         }
     }
 
-    fun navigateToUpdateDebt(){
+    fun navigateToUpdateDebt() {
         val action = TraderFragmentDirections.actionTraderFragmentToUpdateDebtDialog(
             viewModel.currentTrader.value
         )
@@ -108,18 +114,13 @@ class TraderFragment : BaseFragmentOptions<FragmentTraderBinding>(R.layout.fragm
         findNavController().navigate(action)
     }
 
-    private fun navigateToDeleteTrader(){
+    private fun navigateToDeleteTrader() {
         InfoSheet().show(requireParentFragment().requireContext()) {
             title(R.string.ask_delete_trader_title)
             content(R.string.delete_client_warning)
             onNegative(R.string.action_cancel)
             onPositive(R.string.action_yes) { onDeleteTraderConfirmed() }
         }
-    }
-
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.moreOptions).isVisible = true
-        menu.findItem(R.id.updateDebt).isVisible = true
     }
 
     override fun onDestroyView() {

@@ -26,6 +26,7 @@
         <item name="sheetsDividerColor">@color/color_on_primary</item>
         <item name="sheetsCornerRadius">10dp</item>
         <item name="sheetsButtonColor">@color/color_secondary</item>
+        <item name="preferenceTheme">@style/Theme.Blint.PreferenceTheme</item>
     </style>
 
 </resources>

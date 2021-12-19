@@ -22,8 +22,6 @@ class ReviewOrderFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showAppBar = false)
-
         setupOrderDebSelector()
     }
 

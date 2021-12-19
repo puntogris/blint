@@ -5,13 +5,11 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 import org.threeten.bp.OffsetDateTime
 
 @Entity
 @Parcelize
-@IgnoreExtraProperties
 @Keep
 data class Product(
 

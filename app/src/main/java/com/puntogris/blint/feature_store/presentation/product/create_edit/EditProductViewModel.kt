@@ -11,29 +11,47 @@ import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val handle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
 
     val currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
         .asFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
 
+    val productBarcode = MutableStateFlow("")
+    val productImage = MutableStateFlow("")
+
+    init {
+        viewModelScope.launch {
+            currentProduct.collect {
+                productBarcode.value = it.product.barcode
+                productImage.value = it.product.image
+            }
+        }
+    }
+
     suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
+
+    fun updateProductBarcode(barcode: String? = null) {
+        (barcode ?: UUIDGenerator.randomNumbersUUID()).let {
+            currentProduct.value.product.barcode =it
+            productBarcode.value = it
+        }
+    }
 
     fun updateProductImage(image: String) {
         currentProduct.value.product.image = image
-        handle["productWithDetails"] = currentProduct.value.copy(
-            product = currentProduct.value.product.copy(
-                image = image
-            )
-        )
+        productImage.value = image
     }
 
     fun updateProductSuppliers(traders: List<Trader>) {
@@ -42,17 +60,6 @@ class EditProductViewModel @Inject constructor(
 
     fun updateProductCategories(categories: List<Category>) {
         currentProduct.value.categories = categories
-    }
-
-    //todo something is off here, for some reason it's not updating
-    fun updateProductBarcode(barcode: String? = null) {
-        val b = barcode ?: UUIDGenerator.randomNumbersUUID()
-        handle["productWithDetails"] = currentProduct.value.copy().apply {
-            product = product.copy(
-                productId = barcode ?: b
-            )
-        }
-        currentProduct.value.product.barcode = b
     }
 
     fun updateProductBarcode(editable: Editable) {
@@ -75,14 +82,6 @@ class EditProductViewModel @Inject constructor(
         currentProduct.value.product.suggestedSellPrice = editable.toString().toFloatOrNull() ?: 0F
     }
 
-    fun updateProductAmount(editable: Editable) {
-        val newAmount = editable.toString().toIntOrNull() ?: 0
-        currentProduct.value.product.apply {
-            amount = newAmount
-            historicInStock = newAmount
-        }
-    }
-
     fun updateProductSku(editable: Editable) {
         currentProduct.value.product.sku = editable.toString()
     }
@@ -93,6 +92,14 @@ class EditProductViewModel @Inject constructor(
 
     fun updateProductSize(editable: Editable) {
         currentProduct.value.product.size = editable.toString()
+    }
+
+    fun updateProductAmount(editable: Editable) {
+        val newAmount = editable.toString().toIntOrNull() ?: 0
+        currentProduct.value.product.apply {
+            amount = newAmount
+            historicInStock = newAmount
+        }
     }
 }
 

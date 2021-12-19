@@ -1,6 +1,7 @@
 package com.puntogris.blint.common.utils
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.db.williamchart.view.DonutChartView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.puntogris.blint.R
@@ -19,12 +21,18 @@ import com.puntogris.blint.common.utils.Constants.INITIAL
 import com.puntogris.blint.common.utils.Constants.PENDING
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Trader
+import com.puntogris.blint.feature_store.domain.model.Traffic
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import org.threeten.bp.OffsetDateTime
 import java.util.*
+import kotlin.math.absoluteValue
 
+/*
+For some reason if we set the drawable inside glide it uses the theme of the phone, ignoring the
+one in the settings, displaying the wrong background color.
+ */
 @BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String) {
     if (image.isNotEmpty()) {
@@ -34,6 +42,10 @@ fun ImageView.setImageFullSize(image: String) {
             .centerCrop()
             .transition(DrawableTransitionOptions.withCrossFade(Constants.CROSS_FADE_DURATION))
             .into(this)
+    } else {
+        Glide.with(context)
+            .clear(this)
+        setBackgroundResource(R.color.color_on_primary)
     }
 }
 
@@ -259,7 +271,81 @@ fun TextView.setTextOrDefault(data: List<*>?) {
     if (data.isNullOrEmpty()) text = "-"
 }
 
+@BindingAdapter("priceOrDefault")
+fun TextView.setTextOrDefault(data: Number?) {
+    text = if (data != null && data.toInt() != 0) context.getString(
+        R.string.price_template,
+        data.toFloat().toMoneyFormatted()
+    ) else "-"
+}
+
 @BindingAdapter("numberIfNotZero")
 fun EditText.setNumberIfNotZero(data: Number) {
     if (data.toInt() != 0) setText(data.toString())
+}
+
+@BindingAdapter("trafficDonutChart")
+fun DonutChartView.setTrafficDonutChart(data: List<Traffic>?) {
+
+    animation.duration = 1000L
+
+    donutColors = intArrayOf(
+        Color.parseColor("#FBB449"),
+        Color.parseColor("#2D8EFF")
+    )
+
+    val donutData = data.takeIf { !it.isNullOrEmpty() }?.first()?.let {
+        donutTotal = it.purchases + it.sales
+        listOf(it.purchases, it.sales)
+    } ?: emptyList()
+
+    animate(donutData)
+}
+
+@BindingAdapter("trafficRevenue")
+fun TextView.setTrafficRevenue(data: List<Traffic>?) {
+    val revenue = data.takeIf { !it.isNullOrEmpty() }?.first()?.revenue() ?: 0F
+
+    var revenueString = revenue.toMoneyFormatted()
+    if (revenue >= 0) revenueString = "+$revenueString"
+
+    text = context.getString(R.string.amount_normal, revenueString)
+}
+
+@BindingAdapter("compareTrafficRevenue")
+fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
+    when {
+        data.isNullOrEmpty() -> {
+            text = "+ 0% ($0.00)"
+        }
+        data.size == 1 -> {
+            val revenue = data.first().revenue()
+            val percentage = if (revenue < 0) "- 100%" else "+ 100%"
+            text = "$percentage ($${revenue.toMoneyFormatted()})"
+        }
+        else -> {
+            val firstRevenue = data[0].revenue()
+            val secondRevenue = data[1].revenue()
+            val revenue = firstRevenue - secondRevenue
+
+            val percentage = ((firstRevenue * 100 / secondRevenue).toInt() - 100).absoluteValue
+            val percentageString = if (revenue < 0) "- $percentage%" else "+ $percentage%"
+            text = "$percentageString ($${revenue.absoluteValue.toMoneyFormatted()})"
+        }
+    }
+}
+
+@BindingAdapter("trafficRevenuePercentage")
+fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
+    val percentage = data.takeIf { !it.isNullOrEmpty() }?.first()?.let {
+        val revenue = (it.sales * 100 / it.purchases).toInt()
+        if (revenue > 100) 100 else revenue
+    } ?: 0
+
+    text = context.getString(R.string.number_percentage, percentage)
+}
+
+@BindingAdapter("eventMessageOrDefault")
+fun TextView.setEventMessageOrDefault(message: String?) {
+    text = if (message.isNullOrBlank()) "Ingresa el contenido del evento" else message
 }

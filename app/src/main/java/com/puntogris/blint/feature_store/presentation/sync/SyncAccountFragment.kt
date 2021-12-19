@@ -5,7 +5,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
@@ -21,9 +20,7 @@ class SyncAccountFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false, showToolbar = false)
         subscribeUi()
-
     }
 
     private fun subscribeUi() {

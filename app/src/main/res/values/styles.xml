@@ -55,4 +55,8 @@
         <item name="cornerSize">10dp</item>
     </style>
 
+    <style name="Theme.Blint.PreferenceTheme" parent="@style/PreferenceThemeOverlay">
+        <item name="android:layout">@layout/preferences_layout</item>
+    </style>
+
 </resources>

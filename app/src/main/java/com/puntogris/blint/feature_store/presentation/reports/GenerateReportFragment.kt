@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.reports
 
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
@@ -10,7 +9,9 @@ import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,14 +25,10 @@ class GenerateReportFragment :
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi()
+        binding.fragment = this
 
-        //todo, add a share button and this maybe
-//        val uri = viewModel.getReportUri()
-//        if (uri == null)
-//            UiInterface.showSnackBar(getString(R.string.snack_report_generating_or_error))
-//        else shareFileIntent(uri)
         setupDocumentLauncher()
+        registerToolbarBackButton(binding.toolbar)
     }
 
     private fun setupDocumentLauncher() {
@@ -67,10 +64,19 @@ class GenerateReportFragment :
         }
     }
 
-    private fun shareFileIntent(uri: Uri) {
-        val share = Intent(Intent.ACTION_SEND)
-        share.type = "application/vnd.ms-excel"
-        share.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(share, getString(R.string.action_share_report)))
+    fun onShareReportClicked() {
+        val uri = viewModel.getReportUri()
+        if (uri == null)
+            UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
+        else {
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "application/vnd.ms-excel"
+            share.putExtra(Intent.EXTRA_STREAM, uri)
+            startActivity(Intent.createChooser(share, getString(R.string.action_share_report)))
+        }
+    }
+
+    fun onNavigateOutClicked() {
+        findNavController().navigateAndClearStack(R.id.homeFragment)
     }
 }

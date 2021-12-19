@@ -4,7 +4,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.databinding.FragmentManageTradersBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
@@ -22,13 +25,12 @@ class ManageTradersFragment :
         registerToolbarBackButton(binding.searchToolbar)
 
         binding.searchToolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.action_add) {
+            if (it.itemId == R.id.action_menu_item_add) {
                 findNavController().navigate(R.id.editTraderFragment)
             }
             true
         }
 
-        UiInterface.registerUi(showToolbar = false, showAppBar = true)
         setupClientsAdapter()
         setupTraderFilter()
     }

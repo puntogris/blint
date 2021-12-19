@@ -58,6 +58,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                 )
             }
+
         navController.addOnDestinationChangedListener(this@MainActivity)
 
         appBarConfiguration = AppBarConfiguration(
@@ -72,16 +73,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             )
         )
 
-        setSupportActionBar(binding.toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
         binding.bottomAppBar.apply {
             setupWithNavController(navController)
             setOnItemSelectedListener(this@MainActivity)
         }
 
         navController.addOnDestinationChangedListener(this@MainActivity)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -98,7 +95,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_fi_rr_angle_left)
 
         binding.bottomAppBar.isVisible = destination.id in
                 listOf(
@@ -119,17 +115,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             R.id.menu_search -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
         return true
-    }
-
-    override fun registerUi(
-        showAppBar: Boolean,
-        showToolbar: Boolean,
-    ) {
-        binding.toolbar.isVisible = showToolbar
-    }
-
-    override fun setBottomAppBarInvisible() {
-        binding.bottomAppBar.invisible()
     }
 
     override fun showSnackBar(

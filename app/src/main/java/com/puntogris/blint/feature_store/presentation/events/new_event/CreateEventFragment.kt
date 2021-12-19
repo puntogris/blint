@@ -11,6 +11,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +28,8 @@ class CreateEventFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi()
         setupCalendarListener()
+        registerToolbarBackButton(binding.toolbar)
     }
 
     private fun setupCalendarListener() {
@@ -68,4 +69,5 @@ class CreateEventFragment :
             }
         }
     }
+
 }

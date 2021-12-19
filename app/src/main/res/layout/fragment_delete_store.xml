@@ -15,6 +15,20 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.store.DeleteStoreFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/delete_store" />
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/businessName"
             style="@style/Theme.Blint.TextInput"
@@ -62,14 +76,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/safety_ask_data"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button6"

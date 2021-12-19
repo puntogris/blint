@@ -11,7 +11,7 @@ object Keys {
     const val SHOW_NEW_USER_SCREEN_PREF = "show_new_user_screen_preference"
     const val SHOW_LOGIN_SCREEN_PREF = "show_login_screen_preference"
     const val APP_VERSION_PREF = "app_version_preference"
-
+    const val TICKET_PREFERENCE = "ticket_preference"
 
     //Navigation
     const val PRODUCT_BARCODE_KEY = "product_barcode_key"

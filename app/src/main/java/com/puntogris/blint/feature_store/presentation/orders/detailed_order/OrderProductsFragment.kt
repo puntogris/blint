@@ -29,8 +29,6 @@ class OrderProductsFragment :
         binding.viewModel = viewModel
         registerToolbarBackButton(binding.searchToolbar)
 
-        UiInterface.registerUi(showToolbar = false)
-
         setupProductsSearchAdapter()
         setupOderProductAdapter()
         setupScannerLauncher()
@@ -73,6 +71,7 @@ class OrderProductsFragment :
         setFragmentResultListener(Keys.SCANNER_RESULT_KEY) { _, bundle ->
             bundle.getString(Keys.PRODUCT_BARCODE_KEY)?.let {
                 binding.productSearch.setText(it)
+                viewModel.setQuery(it)
             }
         }
     }

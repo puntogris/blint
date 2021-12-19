@@ -24,8 +24,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false, showToolbar = false)
-
         registerGoogleLoginLauncher()
     }
 

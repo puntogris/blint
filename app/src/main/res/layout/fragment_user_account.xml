@@ -19,6 +19,19 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.settings.UserAccountFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/account_label" />
+
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
@@ -76,7 +89,7 @@
             android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:userDataImage="@{String.valueOf(viewModel.currentUser.photoUrl)}" />
 
         <TextView

@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DatabaseModule {
+class AppModule {
 
     @Provides
     @Singleton
@@ -58,7 +58,6 @@ class DatabaseModule {
     @Provides
     fun providesRecordsDao(appDatabase: AppDatabase) = appDatabase.recordsDao
 
-
     @Singleton
     @Provides
     fun providesUserDao(appDatabase: AppDatabase) = appDatabase.usersDao
@@ -74,6 +73,12 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDebtsDao(appDatabase: AppDatabase) = appDatabase.debtsDao
+
+
+    @Singleton
+    @Provides
+    fun provideTrafficDao(appDatabase: AppDatabase) = appDatabase.trafficDao
+
 
     @Singleton
     @Provides
@@ -214,6 +219,15 @@ class DatabaseModule {
             dispatcher,
             userServerApi
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideTrafficRepository(
+        trafficDao: TrafficDao,
+        dispatchers: DispatcherProvider
+    ): TrafficRepository {
+        return TrafficRepositoryImp(trafficDao, dispatchers)
     }
 
     @Singleton

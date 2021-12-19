@@ -23,10 +23,6 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.apply {
-            registerUi(showAppBar = true, showToolbar = false)
-            setBottomAppBarInvisible()
-        }
     }
 
     fun onSignOutClicked() {

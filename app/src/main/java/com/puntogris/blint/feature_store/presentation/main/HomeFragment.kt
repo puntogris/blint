@@ -1,19 +1,17 @@
 package com.puntogris.blint.feature_store.presentation.main
 
-import android.graphics.Color
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
-import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.databinding.FragmentHomeBinding
 import com.puntogris.blint.feature_store.domain.model.MenuCard
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -22,25 +20,7 @@ class HomeFragment : BaseFragmentOptions<FragmentHomeBinding>(R.layout.fragment_
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi(showToolbar = false)
-
         setupMenuRecyclerView()
-
-        val donutSet = listOf(
-            80f,
-            80f,
-            40f
-        )
-
-        binding.donutChartView.apply {
-            donutColors = intArrayOf(
-                Color.parseColor("#2D8EFF"),
-                Color.parseColor("#FBB449"),
-                Color.parseColor("#FFFFFF")
-            )
-            animation.duration = 1000L
-            animate(donutSet)
-        }
     }
 
     private fun setupMenuRecyclerView() {

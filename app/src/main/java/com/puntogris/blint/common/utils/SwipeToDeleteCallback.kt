@@ -11,14 +11,12 @@ import com.puntogris.blint.R
 abstract class SwipeToDeleteCallback(context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
-    private val textPaint: TextPaint = TextPaint()
-    private val text = context.getString(R.string.action_delete)
-
-    init {
-        textPaint.isAntiAlias = true
-        textPaint.color = Color.GRAY
-        textPaint.textSize = 40F
+    private val textPaint: TextPaint = TextPaint().apply {
+        isAntiAlias = true
+        color = Color.GRAY
+        textSize = 40F
     }
+    private val text = context.getString(R.string.action_delete)
 
     override fun onChildDraw(
         c: Canvas,
@@ -42,9 +40,7 @@ abstract class SwipeToDeleteCallback(context: Context) :
         c.drawText(text, textLeftX, textY, textPaint)
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-
     }
-
 
     override fun onMove(
         recyclerView: RecyclerView,

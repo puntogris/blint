@@ -36,7 +36,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
 
     override fun initializeViews() {
         binding.fragment = this
-        UiInterface.registerUi(showAppBar = false)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 

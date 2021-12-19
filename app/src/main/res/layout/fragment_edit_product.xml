@@ -18,14 +18,67 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/editProductContent"
-            layout="@layout/edit_product_content_scrolling"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/product_label" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical"
             android:layout_weight="100"
-            app:fragment="@{fragment}"
-            app:viewModel="@{viewModel}" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?actionBarSize"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/descriptionLayout"
+                    layout="@layout/product_description_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fragment="@{fragment}"
+                    app:viewModel="@{viewModel}" />
+
+                <include
+                    android:id="@+id/pricesLayout"
+                    layout="@layout/product_prices_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fragment="@{fragment}"
+                    app:viewModel="@{viewModel}" />
+
+                <include
+                    android:id="@+id/scopeLayout"
+                    layout="@layout/product_scope_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fragment="@{fragment}"
+                    app:viewModel="@{viewModel}" />
+
+                <include
+                    android:id="@+id/productExtrasLayout"
+                    layout="@layout/product_extras_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:fragment="@{fragment}"
+                    app:viewModel="@{viewModel}" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveTraderButton"

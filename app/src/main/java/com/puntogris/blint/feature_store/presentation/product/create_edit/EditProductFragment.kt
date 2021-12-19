@@ -16,7 +16,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getInt
-import com.puntogris.blint.common.utils.setImageFullSize
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentEditProductBinding
@@ -38,7 +38,7 @@ class EditProductFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        UiInterface.registerUi()
+        registerToolbarBackButton(binding.toolbar)
 
         setupResultListeners()
         setupGalleryLauncher()
@@ -104,18 +104,17 @@ class EditProductFragment :
                 Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
             viewModel.updateProductImage(it.toString())
-            binding.editProductContent.descriptionLayout.productImage.setImageFullSize(it.toString())
         }
     }
 
     fun onIncreaseAmountButtonClicked() {
-        binding.editProductContent.pricesLayout.productAmount.apply {
+        binding.pricesLayout.productAmount.apply {
             setText(getInt().inc().toString())
         }
     }
 
     fun onDecreaseAmountButtonClicked() {
-        binding.editProductContent.pricesLayout.productAmount.apply {
+        binding.pricesLayout.productAmount.apply {
             setText(getInt().dec().toString())
         }
     }

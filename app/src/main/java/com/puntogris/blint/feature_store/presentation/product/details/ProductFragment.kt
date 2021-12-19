@@ -1,7 +1,5 @@
 package com.puntogris.blint.feature_store.presentation.product.details
 
-import android.view.Menu
-import android.view.MenuItem
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,8 +11,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentProductBinding
@@ -23,15 +22,57 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fragment_product) {
+class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_product) {
 
     private val args: ProductFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
     private val viewModel: ProductViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi()
+        setupToolbar()
+        setupPager()
+    }
 
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_edit_product -> navigateToEditProductFragment()
+                    R.id.action_delete_product -> showDeleteProductDialog()
+                    R.id.action_create_order_with_product -> {
+                        //todo maybe remove this and just show the in or out dialog
+                        showOrderPickerAndNavigate(args.productWithDetails.product)
+                    }
+                }
+                true
+            }
+        }
+    }
+
+    private fun showDeleteProductDialog() {
+        InfoSheet().show(requireParentFragment().requireContext()) {
+            title(R.string.ask_delete_product_title)
+            content(R.string.delete_product_warning)
+            onNegative(R.string.action_cancel)
+            onPositive(R.string.action_yes) { onDeleteProductConfirmed() }
+        }
+    }
+
+    private fun onDeleteProductConfirmed() {
+        lifecycleScope.launch {
+            when (viewModel.deleteProductDatabase()) {
+                is Resource.Error ->
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
+                is Resource.Success -> {
+                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_success))
+                    findNavController().navigateUp()
+                }
+            }
+        }
+    }
+
+    private fun setupPager() {
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
 
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -62,51 +103,9 @@ class ProductFragment : BaseFragmentOptions<FragmentProductBinding>(R.layout.fra
                 }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.editOption -> {
-                navigateToEditProductFragment()
-                true
-            }
-            R.id.deleteOption -> {
-                InfoSheet().show(requireParentFragment().requireContext()) {
-                    title(R.string.ask_delete_product_title)
-                    content(R.string.delete_product_warning)
-                    onNegative(R.string.action_cancel)
-                    onPositive(R.string.action_yes) { onDeleteProductConfirmed() }
-                }
-                true
-            }
-            R.id.createOrder -> {
-                showOrderPickerAndNavigate(args.productWithDetails.product)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun onDeleteProductConfirmed() {
-        lifecycleScope.launch {
-            when (viewModel.deleteProductDatabase()) {
-                is Resource.Error ->
-                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
-                is Resource.Success -> {
-                    UiInterface.showSnackBar(getString(R.string.snack_delete_product_success))
-                    findNavController().navigateUp()
-                }
-            }
-        }
-    }
-
     fun navigateToInfoRecord(record: Record) {
         val action = ProductFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
         findNavController().navigate(action)
-    }
-
-
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.moreOptions).isVisible = true
-        menu.findItem(R.id.createOrder).isVisible = true
     }
 
     override fun onDestroyView() {

@@ -1,15 +1,13 @@
 package com.puntogris.blint.feature_store.presentation.events.manage
 
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
-import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.databinding.FragmentManageEventsBinding
@@ -19,14 +17,26 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageEventsFragment :
-    BaseFragmentOptions<FragmentManageEventsBinding>(R.layout.fragment_manage_events) {
+    BaseFragment<FragmentManageEventsBinding>(R.layout.fragment_manage_events) {
 
     private val viewModel: ManageEventsViewModel by viewModels()
 
     override fun initializeViews() {
-        UiInterface.registerUi()
+        setupToolbar()
         setupEventsFilter()
         setupEventsAdapter()
+    }
+
+    private fun setupToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_menu_item_add){
+                    findNavController().navigate(R.id.createEventFragment)
+                }
+                true
+            }
+        }
     }
 
     private fun setupEventsFilter() {
@@ -72,17 +82,6 @@ class ManageEventsFragment :
                 position
             )
         findNavController().navigate(action)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.action_menu_add) {
-            findNavController().navigate(R.id.createEventFragment)
-            true
-        } else super.onOptionsItemSelected(item)
-    }
-
-    override fun setUpMenuOptions(menu: Menu) {
-        menu.findItem(R.id.action_menu_add).isVisible = true
     }
 
     override fun onDestroyView() {

@@ -322,10 +322,6 @@
             app:argType="com.puntogris.blint.feature_store.domain.model.Trader[]"
             app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/sendTicketFragment"
-        android:name="com.puntogris.blint.feature_store.presentation.settings.SendTicketFragment"
-        android:label="@string/send_ticket_label" />
     <navigation
         android:id="@+id/reportsNavGraph"
         app:startDestination="@id/reportsFragment">

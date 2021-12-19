@@ -7,7 +7,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragmentOptions
+import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
@@ -16,21 +16,39 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageProductsFragment :
-    BaseFragmentOptions<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
+    BaseFragment<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
 
     private val viewModel: ManageProductsViewModel by viewModels()
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        UiInterface.registerUi(showToolbar = false, showAppBar = true)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.productSearch.clearFocus()
-        registerToolbarBackButton(binding.searchToolbar)
 
+        setupToolbar()
         setupProductsAdapter()
         setupScannerLauncher()
         setupResultListener()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_add_manage_products -> {
+                        findNavController().navigate(R.id.editProductFragment)
+                    }
+                    R.id.action_scanner_manage_products -> {
+                        hideKeyboard()
+                        scannerLauncher.launch(Manifest.permission.CAMERA)
+                    }
+                }
+                true
+            }
+
+        }
     }
 
     private fun setupResultListener() {
@@ -75,15 +93,6 @@ class ManageProductsFragment :
         }
     }
 
-    fun onAddProductClicked() {
-        findNavController().navigate(R.id.editProductFragment)
-    }
-
-    fun onScanBarcodeClicked() {
-        hideKeyboard()
-        scannerLauncher.launch(Manifest.permission.CAMERA)
-    }
-
     private fun onProductShortClickListener(product: ProductWithDetails) {
         hideKeyboard()
         val action =
@@ -97,7 +106,7 @@ class ManageProductsFragment :
 
     override fun onDestroyView() {
         with(binding) {
-            searchToolbar.setNavigationOnClickListener(null)
+            toolbar.setNavigationOnClickListener(null)
             productSearch.clearFocus()
             recyclerView.adapter = null
         }

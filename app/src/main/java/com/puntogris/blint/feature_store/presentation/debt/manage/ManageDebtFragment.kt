@@ -3,8 +3,8 @@ package com.puntogris.blint.feature_store.presentation.debt.manage
 import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,8 +19,8 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.fragment = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        UiInterface.registerUi()
         setupDebtsAdapter()
+        registerToolbarBackButton(binding.toolbar)
     }
 
     private fun setupDebtsAdapter() {

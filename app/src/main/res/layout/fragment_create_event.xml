@@ -19,6 +19,19 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.events.new_event.CreateEventFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/new_event_label"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <View
             android:id="@+id/divider"
             style="@style/Theme.Blint.Divider"
@@ -43,14 +56,14 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{viewModel.event.content}"
+            eventMessageOrDefault="@{viewModel.event.content}"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/openButton"
             app:layout_constraintStart_toStartOf="@+id/title"
@@ -98,7 +111,6 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
-
 
         <View
             android:id="@+id/addEventContentButton"
