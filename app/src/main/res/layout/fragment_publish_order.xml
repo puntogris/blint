@@ -47,7 +47,7 @@
             android:layout_marginBottom="96dp"
             android:text="@string/connecting_with_servers"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/continue_button"
+            app:layout_constraintBottom_toTopOf="@+id/publish_order_continue_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />

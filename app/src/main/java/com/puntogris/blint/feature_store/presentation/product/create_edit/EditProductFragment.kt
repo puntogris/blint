@@ -110,13 +110,13 @@ class EditProductFragment :
     }
 
     fun onIncreaseAmountButtonClicked() {
-        binding.editProductPricesCard.productAmount.apply {
+        binding.editProductPricesCard.productPricesCardProductStock.apply {
             setText(getInt().inc().toString())
         }
     }
 
     fun onDecreaseAmountButtonClicked() {
-        binding.editProductPricesCard.productAmount.apply {
+        binding.editProductPricesCard.productPricesCardProductStock.apply {
             setText(getInt().dec().toString())
         }
     }
@@ -141,8 +141,8 @@ class EditProductFragment :
             multipleChoices(false)
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_fi_rr_scan, "Escanear un codigo"),
-                Option(R.drawable.ic_fi_rr_refresh, "Generar un codigo aleatorio")
+                Option(R.drawable.ic_fi_rr_scan, R.string.action_scan_barcode),
+                Option(R.drawable.ic_fi_rr_refresh, R.string.action_generate_barcode)
             )
             onPositive { index: Int, _ ->
                 if (index == 0) {
@@ -159,8 +159,8 @@ class EditProductFragment :
             multipleChoices(false)
             displayMode(DisplayMode.LIST)
             with(
-                Option(R.drawable.ic_fi_rr_camera, "Seleccionar nueva foto"),
-                Option(R.drawable.ic_fi_rr_trash, "Eliminar foto")
+                Option(R.drawable.ic_fi_rr_camera, R.string.action_select_photo),
+                Option(R.drawable.ic_fi_rr_trash, R.string.action_delete_photo)
             )
             onPositive { index: Int, _ ->
                 if (index == 0) {

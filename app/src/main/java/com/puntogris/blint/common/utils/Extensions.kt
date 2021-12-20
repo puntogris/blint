@@ -48,7 +48,6 @@ import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import java.io.File
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,8 +70,6 @@ fun AppCompatActivity.getNavController() =
 
 fun AppCompatActivity.getNavHostFragment() =
     (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
-
-fun Float.toUSDFormatted(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this)
 
 fun String.containsInvalidCharacters() = !all { it.isLetter() || it.isWhitespace() }
 
@@ -154,7 +151,6 @@ fun Fragment.launchWebBrowserIntent(uri: String, packageName: String? = null) {
             if (packageName != null) it.setPackage(packageName)
             startActivity(it)
         }
-
     } catch (e: Exception) {
         UiInterface.showSnackBar(getString(R.string.snack_ups_visit_blint))
     }

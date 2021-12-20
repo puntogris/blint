@@ -32,6 +32,7 @@
     <string name="new_order_label">New oder</string>
     <string name="order_label">Order</string>
     <string name="update_order_debt_title">Update debt</string>
+    <string name="administration_label">Administration</string>
 
     <!-- Actions-->
     <string name="action_cancel">Cancel</string>
@@ -51,6 +52,11 @@
     <string name="action_continue">Continue</string>
     <string name="action_done">Done</string>
     <string name="action_edit_stock">Edit stock</string>
+    <string name="action_add_event_content">Enter the content of the event</string>
+    <string name="action_scan_barcode">Scan barcode</string>
+    <string name="action_generate_barcode">Generate barcode</string>
+    <string name="action_delete_photo">Delete image</string>
+    <string name="action_select_photo">Pick image from gallery</string>
 
     <!-- Problems and advice -->
     <string name="message_hint">Message</string>
@@ -135,6 +141,8 @@
     <string name="snack_delete_event_success">Event deleted successfully.</string>
     <string name="snack_delete_event_error">An error occurred deleting the event.</string>
     <string name="snack_update_event_error">An error occurred updating the event.</string>
+    <string name="event_content">Content of the event.</string>
+    <string name="create_event_content_hint">Enter a title, message, or reason for this event.</string>
 
     <!-- Product -->
     <string name="barcode">Barcode</string>
@@ -177,7 +185,7 @@
     <string name="trader_filter_clients">Clients</string>
     <string name="trader_filter_suppliers">Suppliers</string>
 
-    <!-- Text -->
+    <!-- Other -->
     <string name="privacy_policy">Privacy policy</string>
     <string name="terms_and_conditions">Terms and conditions</string>
     <string name="open_source_licenses">Licenses</string>
@@ -210,12 +218,27 @@
     <string name="product_trader">Product traders</string>
     <string name="connecting_with_servers">Connecting with the servers..</string>
     <string name="size">Size</string>
+    <string name="empty_ui_content">We only found a bit of dust here.</string>
+    <string name="searching_servers_data_content">Looking for your information on the servers, do not close the app.</string>
+    <string name="enter_name_hint">Enter the name</string>
+    <string name="enter_phone_hint">Enter the phone number</string>
+    <string name="enter_email_hint">Enter the email</string>
+    <string name="enter_address_hint">Enter the address</string>
+    <string name="enter_billing_hint">Enter the billing information</string>
+    <string name="choose_type_hint">Select the type</string>
+    <string name="enter_barcode_hint">Enter the barcode</string>
+    <string name="enter_brand_hint">Enter the brand</string>
+    <string name="enter_sku_hint">Enter the SKU</string>
+    <string name="enter_notes_hint">Enter notes</string>
+    <string name="enter_initial_stock_hint">Enter initial stock</string>
+    <string name="debt">Debt</string>
+    <string name="default_traffic_revenue_comparison">"+ 0% ($0.00)"</string>
 
     <!-- Orders -->
     <string name="in_entry">In</string>
     <string name="out_entry">Out</string>
     <string name="amount">Amount</string>
-    <string name="products_amount">Amount of products:</string>
+    <string name="products_amount">Amount of products</string>
     <string name="review_order_alert">*By continuing this order will be generated and sent to the servers, generating an invoice and modifying the stock of the products included.</string>
     <string name="order_payment_status">Payment status</string>
     <string name="order_payment_status_completed">Full</string>
@@ -232,6 +255,7 @@
     <string name="order_fully_paid">$%1$s, paid in full.</string>
     <string name="order_with_debt">$%1$s, debt of $%2$s.</string>
     <string name="product_amount_empty">The product amount can not be zero or more than the stock.</string>
+    <string name="snack_order_debt_requires_trader">A trader is required to enter a debt.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">My account</string>
@@ -304,6 +328,9 @@
     <string name="snack_update_debt_error">An error occurred updating the debt.</string>
     <string name="snack_update_debt_success">Debt updated successfully.</string>
     <string name="snack_debt_value_error">The debt can not be less than zero.</string>
+    <string name="order_debt_selector_title">Add debt</string>
+    <string name="order_debt_selector_content">This debt will be deducted from the total value of the order, it can only be positive.</string>
+    <string name="update_order_debt_content">Take into account if the value is positive the debt will increase and decrease if it is negative.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generate reports</string>
@@ -338,6 +365,9 @@
     <string name="snack_trader_added_order">Trader %1$s added to the order.</string>
     <string name="order_debt_amount_summary">Paid $%1$s of the total of $%2$s</string>
     <string name="order_total_template" translatable="false">Total: $%1$s</string>
+    <string name="product_buy_sell_prices_template">$%1$s / $%2$s</string>
+    <string name="traffic_revenue_comparison"> %1$s%% ($%2$s)</string>
+    <string name="debt_of_template">Debt of $%1$s</string>
 
     <!-- Sync account -->
     <string name="snack_sync_account_error">An error occurred syncing your account.</string>
@@ -369,13 +399,8 @@
     <string name="total_caps" translatable="false">TOTAL</string>
     <string name="order_number_invoice">Order number: %1$d</string>
     <string name="invoice_file_name">order_%1$d_invoice.pdf</string>
-
-    <string name="order_debt_selector_title">Agregar deuda</string>
-    <string name="order_debt_selector_content">Esta deuda sera descontada del valor total de la orden, solo puede ser positiva.</string>
-    <string name="update_order_debt_content">Tene en cuenta si el valor es positivo se incrementara la deuda y se decrementara si es negativo.</string>
-    <string name="empty_ui_content">No se encontro ni polvo por aca.</string>
-    <string name="searching_servers_data_content">Buscando tu informacion en los servidores, no cierres la app.</string>
-    <string name="administration_label">Administration</string>
+    <string name="enter_debt_hint">Ingrese una deuda</string>
+    <string name="enter_trader_hint">Ingresa un comerciante</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

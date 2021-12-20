@@ -18,8 +18,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/product_extras_card_product_sku_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:ems="4"
+            android:text="@string/sku"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/product_extras_card_product_sku"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/product_extras_card_product_sku" />
+
+
+        <EditText
+            android:id="@+id/product_extras_card_product_sku"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:afterTextChanged="@{viewModel::updateProductSku}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/enter_sku_hint"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:text="@{viewModel.currentProduct.product.sku}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_sku_label"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
+
         <View
-            android:id="@+id/divider11"
+            android:id="@+id/product_extras_card_divider1"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -30,10 +64,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productInternalCode" />
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_product_sku" />
+
+        <TextView
+            android:id="@+id/product_extras_card_product_brand_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:text="@string/brand"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/product_extras_card_product_brand"
+            app:layout_constraintStart_toStartOf="@+id/product_extras_card_product_sku_label"
+            app:layout_constraintTop_toTopOf="@+id/product_extras_card_product_brand" />
+
+        <EditText
+            android:id="@+id/product_extras_card_product_brand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:afterTextChanged="@{viewModel::updateProductBrand}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/enter_brand_hint"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:text="@{viewModel.currentProduct.product.brand}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_brand_label"
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider1"
+            android:importantForAutofill="no" />
 
         <View
-            android:id="@+id/divider12"
+            android:id="@+id/product_extras_card_divider2"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -44,49 +110,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBrand" />
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_product_brand" />
 
-
-        <EditText
-            android:id="@+id/productInternalCode"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/product_extras_card_product_notes_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:afterTextChanged="@{viewModel::updateProductSku}"
-            android:background="@null"
-            android:ems="10"
-            android:hint="Ingrese el SKU"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:text="@{viewModel.currentProduct.product.sku}"
+            android:ems="4"
+            android:text="@string/notes"
+            android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView35"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/product_extras_card_product_notes"
+            app:layout_constraintStart_toStartOf="@+id/product_extras_card_product_brand_label"
+            app:layout_constraintTop_toTopOf="@+id/product_extras_card_product_notes" />
 
         <EditText
-            android:id="@+id/productBrand"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:afterTextChanged="@{viewModel::updateProductBrand}"
-            android:background="@null"
-            android:ems="10"
-            android:hint="Ingrese la marca"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true"
-            android:text="@{viewModel.currentProduct.product.brand}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView33"
-            app:layout_constraintTop_toBottomOf="@+id/divider11" />
-
-        <EditText
-            android:id="@+id/productSize"
+            android:id="@+id/product_extras_card_product_notes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -94,52 +133,16 @@
             android:afterTextChanged="@{viewModel::updateProductSize}"
             android:background="@null"
             android:ems="10"
-            android:hint="@string/product_observation"
+            android:hint="@string/enter_notes_hint"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:singleLine="true"
-            android:text="@{viewModel.currentProduct.product.size}"
+            android:text="@{viewModel.currentProduct.product.notes}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView38"
-            app:layout_constraintTop_toBottomOf="@+id/divider12" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="4"
-            android:text="@string/brand"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/productBrand"
-            app:layout_constraintStart_toStartOf="@+id/textView35"
-            app:layout_constraintTop_toTopOf="@+id/productBrand" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:ems="4"
-            android:text="@string/sku"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/productInternalCode"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productInternalCode" />
-
-        <TextView
-            android:id="@+id/textView38"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="4"
-            android:text="@string/notes"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/productSize"
-            app:layout_constraintStart_toStartOf="@+id/textView33"
-            app:layout_constraintTop_toTopOf="@+id/productSize" />
+            app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_notes_label"
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider2"
+            android:importantForAutofill="no" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -62,7 +62,7 @@
 
                 <include
                     android:id="@+id/edit_product_traders_categories_card"
-                    layout="@layout/edit_product_traders_categories"
+                    layout="@layout/edit_product_traders_categories_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:fragment="@{fragment}"

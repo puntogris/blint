@@ -44,7 +44,7 @@ data class Product(
     var brand: String = "",
 
     @ColumnInfo
-    var size: String = "",
+    var notes: String = "",
 
     @ColumnInfo
     var lastRecordTimestamp: OffsetDateTime = OffsetDateTime.now(),

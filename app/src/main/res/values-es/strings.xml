@@ -30,6 +30,7 @@
     <string name="new_order_label">Nueva orden</string>
     <string name="order_label">Orden</string>
     <string name="update_order_debt_title">Actualizar deuda</string>
+    <string name="administration_label">Administración</string>
 
     <!-- Actions-->
     <string name="action_cancel">Cancelar</string>
@@ -49,6 +50,11 @@
     <string name="action_continue">Continuar</string>
     <string name="action_done">Listo</string>
     <string name="action_edit_stock">Editar stock</string>
+    <string name="action_add_event_content">Ingrese el contenido del evento.</string>
+    <string name="action_scan_barcode">Escanear un codigo</string>
+    <string name="action_generate_barcode">Generar un codigo aleatorio</string>
+    <string name="action_delete_photo">Eliminar foto</string>
+    <string name="action_select_photo">Seleccionar nueva foto</string>
 
     <!-- Problems and advice -->
     <string name="message_hint">Mensaje</string>
@@ -133,6 +139,8 @@
     <string name="snack_delete_event_success">Evento eliminado correctamente.</string>
     <string name="snack_delete_event_error">Se produjo un error al eliminar el evento.</string>
     <string name="snack_update_event_error">Ocurrió un error al tratar de actualizar el evento.</string>
+    <string name="event_content">Contenido del evento.</string>
+    <string name="create_event_content_hint">Ingresa un titulo, mensaje o razón de este evento.</string>
 
     <!-- Product -->
     <string name="barcode">Código de barras</string>
@@ -175,7 +183,7 @@
     <string name="trader_filter_clients">Clientes</string>
     <string name="trader_filter_suppliers">Proveedores</string>
 
-    <!-- Text -->
+    <!-- Other -->
     <string name="privacy_policy">Políticas de Privacidad</string>
     <string name="terms_and_conditions">Términos y Condiciones</string>
     <string name="open_source_licenses">Licencias</string>
@@ -208,12 +216,27 @@
     <string name="product_trader">Comerciantes de este producto</string>
     <string name="connecting_with_servers">Conectando con los servidores…</string>
     <string name="size">Tamaño</string>
+    <string name="empty_ui_content">No se encontro ni polvo por acá.</string>
+    <string name="searching_servers_data_content">Buscando tu informacion en los servidores, no cierres la app.</string>
+    <string name="enter_name_hint">Ingrese el nombre</string>
+    <string name="enter_phone_hint">Ingrese el telefono</string>
+    <string name="enter_email_hint">Ingrese el email</string>
+    <string name="enter_address_hint">Ingrese la dirección</string>
+    <string name="enter_billing_hint">Ingrese informacion pagos</string>
+    <string name="enter_notes_hint">Ingrese las notas</string>
+    <string name="choose_type_hint">Seleccione el tipo</string>
+    <string name="enter_barcode_hint">Ingrese el código de barras</string>
+    <string name="enter_brand_hint">Ingrese la marca</string>
+    <string name="enter_sku_hint">Ingrese el SKU</string>
+    <string name="enter_initial_stock_hint">Ingrese el stock inicial</string>
+    <string name="debt">Deuda</string>
+    <string name="default_traffic_revenue_comparison">"+ 0% (0.00$)"</string>
 
     <!-- Orders -->
     <string name="in_entry">Entrada</string>
     <string name="out_entry">Salida</string>
     <string name="amount">Cantidad</string>
-    <string name="products_amount">Cantidad de productos:</string>
+    <string name="products_amount">Cantidad de productos</string>
     <string name="review_order_alert">*Al continuar esta orden será generada y enviada a los servidores, generando una factura y modificando el stock de los productos incluidos.</string>
     <string name="order_payment_status">Estado del pago</string>
     <string name="order_payment_status_completed">Completo</string>
@@ -230,6 +253,7 @@
     <string name="order_fully_paid">%1$s$, pago completo.</string>
     <string name="order_with_debt">%1$s$, deuda de %2$s$.</string>
     <string name="product_amount_empty">El valor ingresado no puede ser cero o mayor al stock.</string>
+    <string name="snack_order_debt_requires_trader">Un comerciante es requerido para ingresar una deuda.</string>
 
     <!-- Preferences-->
     <string name="my_account_pref">Mi cuenta</string>
@@ -290,6 +314,9 @@
     <string name="snack_update_debt_error">Ocurrió un error al actualizar la deuda.</string>
     <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
     <string name="snack_debt_value_error">La deuda no puede ser menos a cero.</string>
+    <string name="order_debt_selector_title">Agregar deuda</string>
+    <string name="order_debt_selector_content">Esta deuda será descontada del valor total de la orden, solo puede ser positiva.</string>
+    <string name="update_order_debt_content">Ten en cuenta si el valor es positivo se incrementara la deuda y se decrementara si es negativo.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generar informes</string>
@@ -322,6 +349,9 @@
     <string name="price_template">%1$s$</string>
     <string name="snack_trader_added_order">Comerciante %1$s agregado a la orden.</string>
     <string name="order_debt_amount_summary">Se pago $%1$s del total de $%2$s</string>
+    <string name="product_buy_sell_prices_template">%1$s$ / %2$s$</string>
+    <string name="traffic_revenue_comparison"> %1$s%% (%2$s$)</string>
+    <string name="debt_of_template">Deuda de %1$s$</string>
 
     <!-- Sync account -->
     <string name="snack_sync_account_error">Ocurrió un error al sincronizar la cuenta.</string>

@@ -77,7 +77,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/create_event_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/create_event_content"
-            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right"
+            tools:ignore="ContentDescription" />
 
         <CalendarView
             android:id="@+id/create_event_calendar"

@@ -55,7 +55,7 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
             row.createCell(5).setCellValue(product.suggestedSellPrice.toString())
             row.createCell(6).setCellValue(product.sku)
             row.createCell(7).setCellValue(product.brand)
-            row.createCell(8).setCellValue(product.size)
+            row.createCell(8).setCellValue(product.notes)
         }
         context.writeToFile(uri, workbook)
         workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))

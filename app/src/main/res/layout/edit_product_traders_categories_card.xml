@@ -20,7 +20,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -30,7 +29,7 @@
             android:textSize="16sp" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/supplierChipGroup"
+            android:id="@+id/product_traders_categories_card_suppliers_chip_group"
             productSuppliersChipGroup="@{viewModel.currentProduct.traders}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +37,7 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/addSupplierChip"
+                android:id="@+id/product_traders_categories_card_add_supplier_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->fragment.navigateToProductSuppliers()}"
@@ -47,7 +46,7 @@
         </com.google.android.material.chip.ChipGroup>
 
         <View
-            android:id="@+id/divider14"
+            android:id="@+id/product_traders_categories_card_divider1"
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -57,7 +56,6 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -67,7 +65,7 @@
             android:textSize="16sp" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/categoriesChipGroup"
+            android:id="@+id/product_traders_categories_card_categories_chip_group"
             productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +73,7 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/addCategoryChip"
+                android:id="@+id/product_traders_categories_card_add_category_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->fragment.navigateToProductCategories()}"
@@ -84,7 +82,7 @@
         </com.google.android.material.chip.ChipGroup>
 
         <View
-            android:id="@+id/divider5"
+            android:id="@+id/product_traders_categories_card_divider2"
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"

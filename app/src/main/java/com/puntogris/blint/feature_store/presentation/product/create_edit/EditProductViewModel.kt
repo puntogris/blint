@@ -91,7 +91,7 @@ class EditProductViewModel @Inject constructor(
     }
 
     fun updateProductSize(editable: Editable) {
-        currentProduct.value.product.size = editable.toString()
+        currentProduct.value.product.notes = editable.toString()
     }
 
     fun updateProductAmount(editable: Editable) {

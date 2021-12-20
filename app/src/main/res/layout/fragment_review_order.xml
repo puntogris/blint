@@ -101,7 +101,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/review_order_trader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/review_order_trader"
-            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right"
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/review_order_trader_button"
@@ -132,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Deuda:"
+            android:text="@string/debt"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/review_order_trader_label"
@@ -159,7 +160,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/review_order_debt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/review_order_debt"
-            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right"
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/review_order_debt_button"

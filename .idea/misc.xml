@@ -86,9 +86,12 @@
         <entry key="app/src/main/res/layout/dropdown_item_list.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/edit_product_content_scrolling.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/edit_product_description_card.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_product_extras_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/edit_product_prices_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/edit_product_traders_categories.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_trader_content_card.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/empty_ui.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/empty_ui_content.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.25" />
@@ -151,6 +154,7 @@
         <entry key="app/src/main/res/layout/fragment_register_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_register_local_business.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
+        <entry key="app/src/main/res/layout/fragment_register_store.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.25" />
@@ -188,10 +192,12 @@
         <entry key="app/src/main/res/layout/no_notifications_layout.xml" value="0.17152777777777778" />
         <entry key="app/src/main/res/layout/notification_vh.xml" value="0.17152777777777778" />
         <entry key="app/src/main/res/layout/order_info_bottom_sheet.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/order_record_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_table_item_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/order_trader_bottom_sheet.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_vh.xml" value="0.33" />
         <entry key="app/src/main/res/layout/preferences_layout.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/product_category_vh.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_description_card.xml" value="0.33" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/product_extras_card.xml" value="0.234375" />

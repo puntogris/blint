@@ -62,7 +62,11 @@ fun ImageView.setProfileImage(image: String?) {
 
 @BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product) {
-    text = "${product.buyPrice.toUSDFormatted()} / ${product.sellPrice.toUSDFormatted()}"
+    text = context.getString(
+        R.string.product_buy_sell_prices_template,
+        product.buyPrice.toMoneyFormatted(),
+        product.sellPrice.toMoneyFormatted()
+    )
 }
 
 @BindingAdapter("userDataImage")
@@ -149,14 +153,15 @@ fun Chip.setExternalChipName(name: String) {
 @BindingAdapter("externalName")
 fun TextView.setExternalName(name: String) {
     text = if (name.isNotEmpty()) name.capitalizeFirstChar()
-    else "Ingresa un comerciante"
+    else context.getString(R.string.enter_trader_hint)
 }
 
 
 @BindingAdapter("orderDebtOrDefault")
 fun TextView.setOrderDebtOrDefault(newOrder: NewOrder) {
-    text = if (newOrder.newDebt != null) "Debe $${newOrder.newDebt?.amount?.toMoneyFormatted()}"
-        else "Ingrese una deuda"
+    text = newOrder.newDebt?.amount?.let {
+        context.getString(R.string.debt_of_template, it.toMoneyFormatted())
+    } ?: context.getString(R.string.enter_debt_hint)
 }
 
 @BindingAdapter("eventStatus")
@@ -316,12 +321,16 @@ fun TextView.setTrafficRevenue(data: List<Traffic>?) {
 fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
     when {
         data.isNullOrEmpty() -> {
-            text = "+ 0% ($0.00)"
+            setText(R.string.default_traffic_revenue_comparison)
         }
         data.size == 1 -> {
             val revenue = data.first().revenue()
-            val percentage = if (revenue < 0) "- 100%" else "+ 100%"
-            text = "$percentage ($${revenue.toMoneyFormatted()})"
+            val percentage = if (revenue < 0) "- 100" else "+ 100"
+            text = context.getString(
+                R.string.traffic_revenue_comparison,
+                percentage,
+                revenue.toMoneyFormatted()
+            )
         }
         else -> {
             val firstRevenue = data[0].revenue()
@@ -329,8 +338,12 @@ fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
             val revenue = firstRevenue - secondRevenue
 
             val percentage = ((firstRevenue * 100 / secondRevenue).toInt() - 100).absoluteValue
-            val percentageString = if (revenue < 0) "- $percentage%" else "+ $percentage%"
-            text = "$percentageString ($${revenue.absoluteValue.toMoneyFormatted()})"
+            val percentageString = if (revenue < 0) "- $percentage" else "+ $percentage"
+            text = context.getString(
+                R.string.traffic_revenue_comparison,
+                percentageString,
+                revenue.absoluteValue.toMoneyFormatted()
+            )
         }
     }
 }
@@ -347,15 +360,16 @@ fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
 
 @BindingAdapter("eventMessageOrDefault")
 fun TextView.setEventMessageOrDefault(message: String?) {
-    text = if (message.isNullOrBlank()) "Ingresa el contenido del evento" else message
+    text =
+        if (message.isNullOrBlank()) context.getString(R.string.action_add_event_content) else message
 }
 
 @BindingAdapter("productRecordEntryPrice")
-fun EditText.setProductRecordEntryPrice(newRecord: NewRecord){
+fun EditText.setProductRecordEntryPrice(newRecord: NewRecord) {
     hint = "$${newRecord.productUnitPrice}"
 }
 
 @BindingAdapter("productRecordEntryStock")
-fun EditText.setProductRecordEntryStock(newRecord: NewRecord){
+fun EditText.setProductRecordEntryStock(newRecord: NewRecord) {
     hint = "+${newRecord.currentStock}"
 }

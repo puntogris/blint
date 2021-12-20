@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -44,7 +45,8 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/store_item_vh_store_name"
             app:layout_constraintTop_toBottomOf="@+id/store_item_vh_store_name"
-            app:srcCompat="@drawable/ic_fi_rr_box" />
+            app:srcCompat="@drawable/ic_fi_rr_box"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/store_item_vh_store_traders_count_icon"
@@ -54,7 +56,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/store_item_vh_store_products_count"
             app:layout_constraintStart_toEndOf="@+id/store_item_vh_store_products_count"
             app:layout_constraintTop_toTopOf="@+id/store_item_vh_store_products_count"
-            app:srcCompat="@drawable/ic_fi_rr_users" />
+            app:srcCompat="@drawable/ic_fi_rr_users"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/store_item_vh_store_products_count"

@@ -16,13 +16,76 @@
             type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductFragment" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/product_prices_card_initial_stock_group"
+            android:layout_width="wrap_content"
+            android:visibility="@{viewModel.currentProduct.product.productId.empty ? View.VISIBLE : View.GONE}"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="product_prices_card_product_stock,product_prices_card_divider1,product_prices_card_product_stock_label,product_prices_card_increase_stock_button, product_prices_card_decrease_stock_button" />
+
+        <TextView
+            android:id="@+id/product_prices_card_product_stock_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:ems="4"
+            android:text="@string/stock"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/product_prices_card_product_stock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_stock" />
+
+        <EditText
+            android:id="@+id/product_prices_card_product_stock"
+            numberIfNotZero="@{viewModel.currentProduct.product.stock}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:afterTextChanged="@{viewModel::updateProductAmount}"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/enter_initial_stock_hint"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/product_prices_card_decrease_stock_button"
+            app:layout_constraintStart_toEndOf="@+id/product_prices_card_product_stock_label"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
+
+        <ImageView
+            android:id="@+id/product_prices_card_decrease_stock_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/decrease_number_image"
+            android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/product_prices_card_product_stock"
+            app:layout_constraintEnd_toStartOf="@+id/product_prices_card_increase_stock_button"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_stock"
+            app:srcCompat="@drawable/ic_fi_rr_minus" />
+
+        <ImageView
+            android:id="@+id/product_prices_card_increase_stock_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/increase_number_image"
+            android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
+            app:layout_constraintBottom_toBottomOf="@+id/product_prices_card_decrease_stock_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_decrease_stock_button"
+            app:srcCompat="@drawable/ic_fi_rr_plus" />
+
         <View
-            android:id="@+id/divider13"
+            android:id="@+id/product_prices_card_divider1"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -32,10 +95,44 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productAmount" />
+            app:layout_constraintTop_toBottomOf="@+id/product_prices_card_product_stock" />
+
+        <TextView
+            android:id="@+id/product_prices_card_product_buy_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/buy_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/product_prices_card_product_buy_price_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/product_prices_card_divider1" />
+
+        <TextView
+            android:id="@+id/product_prices_card_product_sell_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/sell_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/product_prices_card_product_sell_price_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_buy_price_label" />
+
+        <TextView
+            android:id="@+id/product_prices_card_product_suggested_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/suggested_sell_price"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/product_prices_card_product_suggested_price_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_sell_price_label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/productBuyPrice"
+            android:id="@+id/product_prices_card_product_buy_price_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -45,15 +142,15 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toStartOf="@+id/productSellPrice"
+            app:layout_constraintEnd_toStartOf="@+id/product_prices_card_product_sell_price_input_layout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView39"
+            app:layout_constraintTop_toBottomOf="@+id/product_prices_card_product_buy_price_label"
             app:prefixText="$">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/productBuyPriceText"
+                android:id="@+id/product_prices_card_product_buy_price"
                 numberIfNotZero="@{viewModel.currentProduct.product.buyPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,23 +165,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/productSellPrice"
+            android:id="@+id/product_prices_card_product_sell_price_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="@+id/productBuyPrice"
-            app:layout_constraintEnd_toStartOf="@+id/productSuggestedSellPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/product_prices_card_product_buy_price_input_layout"
+            app:layout_constraintEnd_toStartOf="@+id/product_prices_card_product_suggested_price_input_layout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/productBuyPrice"
-            app:layout_constraintTop_toTopOf="@+id/productBuyPrice"
+            app:layout_constraintStart_toEndOf="@+id/product_prices_card_product_buy_price_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_buy_price_input_layout"
             app:prefixText="$">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/productSellPriceText"
+                android:id="@+id/product_prices_card_product_sell_price"
                 numberIfNotZero="@{viewModel.currentProduct.product.sellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +196,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/productSuggestedSellPrice"
+            android:id="@+id/product_prices_card_product_suggested_price_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -107,16 +204,16 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="@+id/productSellPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/product_prices_card_product_sell_price_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/productSellPrice"
-            app:layout_constraintTop_toTopOf="@+id/productSellPrice"
+            app:layout_constraintStart_toEndOf="@+id/product_prices_card_product_sell_price_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/product_prices_card_product_sell_price_input_layout"
             app:prefixText="$">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/productSuggestedSellPriceText"
+                android:id="@+id/product_prices_card_product_suggested_price"
                 numberIfNotZero="@{viewModel.currentProduct.product.suggestedSellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,99 +226,8 @@
                 tools:text="40" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <EditText
-            android:id="@+id/productAmount"
-            numberIfNotZero="@{viewModel.currentProduct.product.stock}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:afterTextChanged="@{viewModel::updateProductAmount}"
-            android:background="@null"
-            android:ems="10"
-            android:hint="Ingrese el stock inicial"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/decreaseAmountButton"
-            app:layout_constraintStart_toEndOf="@+id/textView32"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/decreaseAmountButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/decrease_number_image"
-            android:onClick="@{()-> fragment.onDecreaseAmountButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
-            app:layout_constraintEnd_toStartOf="@+id/increaseAmountButton"
-            app:layout_constraintTop_toTopOf="@+id/productAmount"
-            app:srcCompat="@drawable/ic_fi_rr_minus" />
-
-        <ImageView
-            android:id="@+id/increaseAmountButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
-            android:contentDescription="@string/increase_number_image"
-            android:onClick="@{()-> fragment.onIncreaseAmountButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="@+id/decreaseAmountButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/decreaseAmountButton"
-            app:srcCompat="@drawable/ic_fi_rr_plus" />
-
-        <TextView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:ems="4"
-            android:text="@string/stock"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/productAmount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productAmount" />
-
-        <TextView
-            android:id="@+id/textView39"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/buy_price"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/productBuyPrice"
-            app:layout_constraintTop_toBottomOf="@+id/divider13" />
-
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/sell_price"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/productSellPrice"
-            app:layout_constraintTop_toTopOf="@+id/textView39" />
-
-        <TextView
-            android:id="@+id/textView41"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/suggested_sell_price"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/productSuggestedSellPrice"
-            app:layout_constraintTop_toTopOf="@+id/textView40" />
-
         <View
-            android:id="@+id/divider5"
+            android:id="@+id/product_prices_card_divider2"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -231,7 +237,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productBuyPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/product_prices_card_product_buy_price_input_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

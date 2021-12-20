@@ -41,10 +41,10 @@ class CreateEventFragment :
     fun onAddEventContentClicked() {
         InputSheet().show(requireParentFragment().requireContext()) {
             style(SheetStyle.DIALOG)
-            title("Contenido del evento.")
+            title(R.string.event_content)
             with(InputEditText {
                 defaultValue(viewModel.event.value.content)
-                content("Ingresa un titulo, mensaje o razon de este evento.")
+                content(R.string.create_event_content_hint)
                 required(true)
                 hint(R.string.message_hint)
                 inputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)

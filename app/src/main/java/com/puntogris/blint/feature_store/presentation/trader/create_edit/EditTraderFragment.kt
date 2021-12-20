@@ -88,7 +88,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
     }
 
     private fun setupTraderFilter() {
-        binding.editTraderContentCard.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+        binding.editTraderContentCard.editTraderTypeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             val type = when (checkedId) {
                 R.id.client_trader_type_radio_button -> Constants.CLIENT
                 R.id.supplier_trader_type_radio_button -> Constants.SUPPLIER

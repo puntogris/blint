@@ -425,7 +425,7 @@
 
             <TextView
                 android:id="@+id/product_data_product_notes"
-                textOrDefault="@{viewModel.currentProduct.product.size}"
+                textOrDefault="@{viewModel.currentProduct.product.notes}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"

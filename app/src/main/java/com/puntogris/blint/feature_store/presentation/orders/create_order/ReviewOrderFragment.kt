@@ -35,7 +35,7 @@ class ReviewOrderFragment :
         if (viewModel.isTraderValid()){
             findNavController().navigate(R.id.orderDebtSelectorDialog)
         } else {
-            UiInterface.showSnackBar("Seleccione un comerciante para ingresar una deuda.")
+            UiInterface.showSnackBar(getString(R.string.snack_order_debt_requires_trader))
         }
     }
 }
