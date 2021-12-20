@@ -233,6 +233,10 @@
     <string name="enter_initial_stock_hint">Enter initial stock</string>
     <string name="debt">Debt</string>
     <string name="default_traffic_revenue_comparison">"+ 0% ($0.00)"</string>
+    <string name="enter_debt_hint">Enter a debt</string>
+    <string name="enter_trader_hint">Enter the trader</string>
+    <string name="hello_message">Hello,</string>
+    <string name="net_revenue">Net Revenue</string>
 
     <!-- Orders -->
     <string name="in_entry">In</string>
@@ -399,8 +403,7 @@
     <string name="total_caps" translatable="false">TOTAL</string>
     <string name="order_number_invoice">Order number: %1$d</string>
     <string name="invoice_file_name">order_%1$d_invoice.pdf</string>
-    <string name="enter_debt_hint">Ingrese una deuda</string>
-    <string name="enter_trader_hint">Ingresa un comerciante</string>
+
 
     <!-- Arrays -->
     <string-array name="debt_type">
