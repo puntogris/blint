@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.orders.detailed_order
+package com.puntogris.blint.feature_store.presentation.orders.create_order
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

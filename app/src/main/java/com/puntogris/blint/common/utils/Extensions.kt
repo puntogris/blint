@@ -30,7 +30,6 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.Timestamp
-import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
@@ -182,19 +181,17 @@ fun LottieAnimationView.playAnimationInfinite(@RawRes animation: Int) {
 fun Fragment.showOrderPickerAndNavigate(product: Product? = null) {
     OptionsSheet().show(requireParentFragment().requireContext()) {
         displayMode(DisplayMode.LIST)
-        style(SheetStyle.BOTTOM_SHEET)
         with(
-            Option(R.drawable.ic_baseline_speed_24, R.string.create_simple_order),
-            Option(R.drawable.ic_baseline_timer_24, R.string.create_detailed_order),
+            Option(R.drawable.ic_fi_rr_download, R.string.in_entry),
+            Option(R.drawable.ic_fi_rr_upload, R.string.out_entry)
         )
         onPositive { index: Int, _ ->
-            if (index == 0) {
-                val action = NavigationDirections.actionGlobalSimpleOrderBottomSheet(product!!)
-                findNavController().navigate(action)
-            } else {
-                val action = NavigationDirections.actionGlobalNewOrderGraphNav(product)
-                findNavController().navigate(action)
-            }
+            val type = if (index == 0) Constants.IN else Constants.OUT
+            val action = NavigationDirections.actionGlobalNewOrderGraphNav(
+                orderType = type,
+                product = product
+            )
+            findNavController().navigate(action)
         }
     }
 }

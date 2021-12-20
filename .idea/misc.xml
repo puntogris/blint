@@ -148,7 +148,7 @@
         <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
-        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_review_record.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />

@@ -217,7 +217,7 @@
             app:argType="string" />
         <fragment
             android:id="@+id/reviewOderFragment"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.create_order.ReviewOrderFragment"
             android:label="@string/review_order_label">
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
@@ -227,18 +227,18 @@
         </fragment>
         <dialog
             android:id="@+id/orderTraderBottomSheet"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderTraderBottomSheet">
+            android:name="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderTraderBottomSheet">
             <action
                 android:id="@+id/action_orderTraderBottomSheet_to_reviewOderFragment"
                 app:destination="@id/reviewOderFragment" />
         </dialog>
         <fragment
             android:id="@+id/publishOrderFragment"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.PublishOrderFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.create_order.PublishOrderFragment"
             android:label="@string/publish_order_label" />
         <fragment
             android:id="@+id/orderProductsFragment"
-            android:name="com.puntogris.blint.feature_store.presentation.orders.detailed_order.OrderProductsFragment"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderProductsFragment"
             android:label="@string/new_order_label">
             <argument
                 android:name="productId"
@@ -292,17 +292,6 @@
             app:argType="com.puntogris.blint.feature_store.domain.model.product.Product"
             app:nullable="true" />
     </action>
-    <dialog
-        android:id="@+id/simpleOrderBottomSheet"
-        android:name="com.puntogris.blint.feature_store.presentation.orders.simple_order.SimpleOrderDialog"
-        android:label="">
-        <argument
-            android:name="product"
-            app:argType="com.puntogris.blint.feature_store.domain.model.product.Product" />
-    </dialog>
-    <action
-        android:id="@+id/action_global_simpleOrderBottomSheet"
-        app:destination="@id/simpleOrderBottomSheet" />
     <fragment
         android:id="@+id/productCategoryFragment"
         android:name="com.puntogris.blint.feature_store.presentation.product.categories.ProductCategoryFragment"

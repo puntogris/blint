@@ -1,4 +1,4 @@
-package com.puntogris.blint.feature_store.presentation.orders.detailed_order
+package com.puntogris.blint.feature_store.presentation.orders.create_order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

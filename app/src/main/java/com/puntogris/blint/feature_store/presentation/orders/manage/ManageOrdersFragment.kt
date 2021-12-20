@@ -2,15 +2,11 @@ package com.puntogris.blint.feature_store.presentation.orders.manage
 
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.maxkeppeler.sheets.options.DisplayMode
-import com.maxkeppeler.sheets.options.Option
-import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,25 +30,9 @@ class ManageOrdersFragment :
     private fun registerToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.action_menu_item_add) {
-                showOrderPickerDialog()
+                showOrderPickerAndNavigate()
             }
             true
-        }
-    }
-
-    private fun showOrderPickerDialog() {
-        OptionsSheet().show(requireParentFragment().requireContext()) {
-            displayMode(DisplayMode.LIST)
-            with(
-                Option(R.drawable.ic_fi_rr_download, R.string.in_entry),
-                Option(R.drawable.ic_fi_rr_upload, R.string.out_entry)
-            )
-            onPositive { index: Int, _ ->
-                val type = if (index == 0) Constants.IN else Constants.OUT
-                val action =
-                    ManageOrdersFragmentDirections.actionGlobalNewOrderGraphNav(orderType = type)
-                findNavController().navigate(action)
-            }
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,13 +32,9 @@ class ScannerResultBottomSheet :
     }
 
     fun onCreateSimpleOrder() {
-        //todo maybe delete simple order and just show the normal options orders in, out
         resumeCameraOnNavigationBack = false
         dismiss()
-        val action = ScannerResultBottomSheetDirections.actionGlobalSimpleOrderBottomSheet(
-            viewModel.scannedProduct.value!!.product
-        )
-        findNavController().navigate(action)
+        showOrderPickerAndNavigate()
     }
 
     fun onCreateNewProduct() {

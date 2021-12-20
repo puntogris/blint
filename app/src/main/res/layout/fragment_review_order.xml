@@ -7,17 +7,17 @@
 
         <variable
             name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.ReviewOrderFragment" />
+            type="com.puntogris.blint.feature_store.presentation.orders.create_order.ReviewOrderFragment" />
 
         <variable
             name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.orders.detailed_order.NewOrderViewModel" />
+            type="com.puntogris.blint.feature_store.presentation.orders.create_order.NewOrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.orders.detailed_order.ReviewOrderFragment">
+        tools:context=".feature_store.presentation.orders.create_order.ReviewOrderFragment">
 
         <View
             android:id="@+id/divider37"

@@ -41,7 +41,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
                     R.id.action_edit_product -> navigateToEditProductFragment()
                     R.id.action_delete_product -> showDeleteProductDialog()
                     R.id.action_create_order_with_product -> {
-                        //todo maybe remove this and just show the in or out dialog
                         showOrderPickerAndNavigate(args.productWithDetails.product)
                     }
                 }
