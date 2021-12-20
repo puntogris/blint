@@ -45,7 +45,7 @@ class OrderTraderBottomSheet :
         binding.viewModel = viewModel
         binding.fragment = this
 
-        registerToolbarBackButton(binding.toolbar)
+        setupToolbar()
         subscribeUi()
     }
 
@@ -67,5 +67,17 @@ class OrderTraderBottomSheet :
         viewModel.updateOrderTrader(trader.name, trader.traderId)
         UiInterface.showSnackBar(getString(R.string.snack_trader_added_order, trader.name))
         findNavController().navigate(R.id.orderProductsFragment)
+    }
+
+    private fun setupToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_menu_item_close){
+                    dismiss()
+                }
+                true
+            }
+        }
     }
 }

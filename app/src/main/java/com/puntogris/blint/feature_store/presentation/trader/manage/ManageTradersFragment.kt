@@ -22,15 +22,8 @@ class ManageTradersFragment :
 
     override fun initializeViews() {
         binding.viewModel = viewModel
-        registerToolbarBackButton(binding.searchToolbar)
 
-        binding.searchToolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.action_menu_item_add) {
-                findNavController().navigate(R.id.editTraderFragment)
-            }
-            true
-        }
-
+        setupToolbar()
         setupClientsAdapter()
         setupTraderFilter()
     }
@@ -70,6 +63,17 @@ class ManageTradersFragment :
         }
     }
 
+    private fun setupToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_menu_item_add) {
+                    findNavController().navigate(R.id.editTraderFragment)
+                }
+                true
+            }
+        }
+    }
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null

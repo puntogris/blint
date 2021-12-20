@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.data.repository
 
 import com.puntogris.blint.common.utils.DispatcherProvider
-import com.puntogris.blint.common.utils.types.SimpleResource
 import com.puntogris.blint.feature_store.data.data_source.local.dao.TrafficDao
 import com.puntogris.blint.feature_store.domain.model.Traffic
 import com.puntogris.blint.feature_store.domain.repository.TrafficRepository

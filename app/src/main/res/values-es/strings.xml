@@ -193,9 +193,9 @@
     <string name="phone">Teléfono</string>
     <string name="address">Dirección</string>
     <string name="tab_data">Datos</string>
-    <string name="tab_records">Movimientos</string>
+    <string name="tab_records">Cambios de Stock</string>
     <string name="tab_debts">Deudas</string>
-    <string name="tab_orders">Ordenes</string>
+    <string name="tab_orders">Historial</string>
     <string name="pending">Pendiente</string>
     <string name="finished">Finalizado</string>
     <string name="not_specified">No especificado</string>

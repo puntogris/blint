@@ -19,6 +19,6 @@ class Traffic(
 
     @ColumnInfo
     var storeId: String = ""
-){
+) {
     fun revenue() = sales - purchases
 }

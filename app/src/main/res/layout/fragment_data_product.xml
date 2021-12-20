@@ -188,9 +188,9 @@
 
             <TextView
                 android:id="@+id/productBarcode"
+                textOrDefault="@{viewModel.currentProduct.product.barcode}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentProduct.product.barcode}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productBarcodeLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productName"
@@ -302,9 +302,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp"
-                android:text="@string/traders_label"
                 android:ems="6"
                 android:singleLine="true"
+                android:text="@string/traders_label"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/categoriesTitle"
@@ -325,8 +325,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp"
-                android:text="@string/categories_label"
                 android:ems="6"
+                android:text="@string/categories_label"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/productStockLabel"
@@ -380,9 +380,9 @@
 
             <TextView
                 android:id="@+id/productBrand"
+                textOrDefault="@{viewModel.currentProduct.product.brand}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentProduct.product.brand}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productBrandLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productInternalCode"
@@ -406,9 +406,9 @@
 
             <TextView
                 android:id="@+id/productSize"
+                textOrDefault="@{viewModel.currentProduct.product.size}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentProduct.product.size}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/productSizeLabel"
                 app:layout_constraintEnd_toEndOf="@+id/productBrand"

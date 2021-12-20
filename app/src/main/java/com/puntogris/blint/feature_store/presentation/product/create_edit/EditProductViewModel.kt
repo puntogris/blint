@@ -44,7 +44,7 @@ class EditProductViewModel @Inject constructor(
 
     fun updateProductBarcode(barcode: String? = null) {
         (barcode ?: UUIDGenerator.randomNumbersUUID()).let {
-            currentProduct.value.product.barcode =it
+            currentProduct.value.product.barcode = it
             productBarcode.value = it
         }
     }

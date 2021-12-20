@@ -30,11 +30,11 @@
             android:id="@+id/bar"
             recordType="@{record.type}"
             android:layout_width="4dp"
-            android:background="@drawable/divider_round_corners_horizontal"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/divider_round_corners_horizontal"
             app:layout_constraintBottom_toBottomOf="@id/tvUsed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvName" />

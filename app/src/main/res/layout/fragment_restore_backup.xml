@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            tools:visibility="visible"
-            app:constraint_referenced_ids="button19,textView71,textView70" />
+            app:constraint_referenced_ids="button19,textView71,textView70"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/backup_title"
@@ -120,9 +120,9 @@
             android:id="@+id/textView71"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:layout_marginStart="8dp"
             android:text="@string/loading_with_dots"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView70"
             app:layout_constraintStart_toEndOf="@+id/textView70"
             app:layout_constraintTop_toTopOf="@+id/textView70" />

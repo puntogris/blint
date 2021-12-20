@@ -9,33 +9,38 @@
         android:orientation="vertical"
         tools:context=".feature_store.presentation.product.details.ProductFragment">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            style="@style/Theme.Blint.AppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/product_label"
-            android:paddingLeft="@dimen/grid_1"
-            android:paddingRight="@dimen/grid_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/menu_product"/>
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:tabGravity="center"
-            app:tabIndicatorFullWidth="false"
-            app:tabTextAppearance="@style/TabLayoutStyle" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/grid_1"
+                android:paddingRight="@dimen/grid_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/menu_product"
+                app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+                app:title="@string/product_label" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:tabGravity="center"
+                app:tabIndicatorFullWidth="false"
+                app:tabTextAppearance="@style/TabLayoutStyle" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </LinearLayout>
 </layout>

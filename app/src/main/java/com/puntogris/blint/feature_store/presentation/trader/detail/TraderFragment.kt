@@ -32,7 +32,7 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
         setupPager()
     }
 
-    private fun registerToolbar(){
+    private fun registerToolbar() {
         binding.toolbar.apply {
             registerToolbarBackButton(this)
 
@@ -53,7 +53,7 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
         }
     }
 
-    private fun setupPager(){
+    private fun setupPager() {
         binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val res = when (position) {

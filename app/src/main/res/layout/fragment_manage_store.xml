@@ -26,12 +26,13 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_manage_stores"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/menu_manage_stores"
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/stores_label" />
 

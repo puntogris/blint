@@ -20,9 +20,9 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
             android:paddingLeft="@dimen/grid_1"
             android:paddingRight="@dimen/grid_1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
             android:layout_weight="100"
+            android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout

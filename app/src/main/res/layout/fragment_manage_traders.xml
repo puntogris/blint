@@ -16,35 +16,33 @@
         android:orientation="vertical"
         tools:context=".feature_store.presentation.trader.manage.ManageTradersFragment">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/search_toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            style="@style/Theme.Blint.AppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:paddingEnd="@dimen/grid_1"
-            app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/menu_add"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            tools:ignore="RtlSymmetry">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/round_corners_17"
-                android:backgroundTint="@color/color_on_primary"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/grid_1"
+                app:contentInsetStartWithNavigation="0dp"
+                app:menu="@menu/menu_add"
+                app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+                tools:ignore="RtlSymmetry">
 
                 <EditText
                     android:id="@+id/clientSearch"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:afterTextChanged="@{viewModel::setQuery}"
                     android:autofillHints="@string/auto_fill_hint_client_search"
-                    android:background="@null"
+                    android:background="@drawable/round_corners_17"
+                    android:backgroundTint="@color/color_on_primary"
                     android:drawableStart="@drawable/ic_baseline_search_24"
                     android:drawablePadding="10dp"
                     android:hint="@string/name"
@@ -53,8 +51,58 @@
                     android:paddingStart="8dp"
                     android:textSize="16sp" />
 
-            </LinearLayout>
-        </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/tradersFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:checkedButton="@+id/filterAllTradersButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterAllTradersButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/trader_filter_all"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterClientsTradersButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/trader_filter_clients"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterSuppliersTradersButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/trader_filter_suppliers"
+                    android:textAllCaps="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterOtherTradersButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/trader_type_other"
+                    android:textAllCaps="false" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -65,63 +113,14 @@
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tradersFilter" />
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/tradersFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:checkedButton="@+id/filterAllTradersButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterAllTradersButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/trader_filter_all"
-                android:textAllCaps="false" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterClientsTradersButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/trader_filter_clients"
-                android:textAllCaps="false" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterSuppliersTradersButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/trader_filter_suppliers"
-                android:textAllCaps="false" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterOtherTradersButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/trader_type_other"
-                android:textAllCaps="false" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         <include
             android:id="@+id/empty_ui"
             layout="@layout/empty_ui"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

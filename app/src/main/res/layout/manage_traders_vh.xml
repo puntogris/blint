@@ -17,13 +17,14 @@
 
         <TextView
             android:id="@+id/textView19"
-            style="@style/TextAppearance.MaterialComponents.Body1"
             capitalizeWord="@{trader.name}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

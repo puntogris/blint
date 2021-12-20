@@ -30,14 +30,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.preference_toolbar)
-        toolbar.apply {
+        view.findViewById<MaterialToolbar>(R.id.preference_toolbar).apply {
             registerToolbarBackButton(this)
             setTitle(R.string.settings_label)
         }
-    }
-
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
         onPreferenceChange(Keys.THEME_PREF) {
             AppCompatDelegate.setDefaultNightMode(Integer.parseInt(it.toString()))
@@ -66,6 +62,8 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
-
     }
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) = Unit
+
 }

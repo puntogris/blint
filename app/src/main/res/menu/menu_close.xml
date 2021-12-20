@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add_store"
-        android:title="@string/new_store"
-        android:icon="@drawable/ic_fi_rr_plus"
+        android:id="@+id/action_menu_item_close"
+        android:icon="@drawable/ic_fi_rr_cross"
+        android:title="@string/close_icon"
         app:showAsAction="ifRoom" />
 </menu>

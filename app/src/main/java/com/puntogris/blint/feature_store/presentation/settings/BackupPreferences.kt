@@ -20,14 +20,10 @@ class BackupPreferences : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.preference_toolbar)
-        toolbar.apply {
+        view.findViewById<MaterialToolbar>(R.id.preference_toolbar).apply {
             registerToolbarBackButton(this)
             setTitle(R.string.backup_pref)
         }
-    }
-
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
         preferenceOnClick(Keys.CREATE_BACKUP_PREF) {
             findNavController().navigate(R.id.createBackupFragment)
@@ -37,4 +33,6 @@ class BackupPreferences : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.restoreBackupFragment)
         }
     }
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) = Unit
 }

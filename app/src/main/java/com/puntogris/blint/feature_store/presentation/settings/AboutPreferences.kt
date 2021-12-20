@@ -23,14 +23,11 @@ class AboutPreferences : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.preference_toolbar)
-        toolbar.apply {
+        view.findViewById<MaterialToolbar>(R.id.preference_toolbar).apply {
             registerToolbarBackButton(this)
             setTitle(R.string.about_us_label)
         }
-    }
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
         preferenceOnClick(Keys.LICENSES_PREF) {
             Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
@@ -43,4 +40,6 @@ class AboutPreferences : PreferenceFragmentCompat() {
             summary = BuildConfig.VERSION_NAME + " (${BuildConfig.VERSION_CODE})"
         }
     }
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) = Unit
 }

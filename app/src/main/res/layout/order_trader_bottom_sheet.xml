@@ -22,51 +22,36 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
             android:paddingEnd="@dimen/grid_1"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/menu_close"
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             tools:ignore="RtlSymmetry">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/clientSearch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="100"
+                android:afterTextChanged="@{viewModel::setQuery}"
+                android:autofillHints="@string/auto_fill_hint_client_search"
+                android:background="@drawable/round_corners_17"
+                android:backgroundTint="@color/color_on_primary"
+                android:drawableStart="@drawable/ic_baseline_search_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/name"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="8dp"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/clientSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:afterTextChanged="@{viewModel::setQuery}"
-                    android:autofillHints="@string/auto_fill_hint_client_search"
-                    android:background="@drawable/round_corners_17"
-                    android:backgroundTint="@color/color_on_primary"
-                    android:drawableStart="@drawable/ic_baseline_search_24"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/name"
-                    android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions"
-                    android:paddingStart="8dp"
-                    android:textSize="16sp" />
 
-                <ImageView
-                    android:id="@+id/close_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/close_icon"
-                    android:onClickListener="@{()-> fragment.dismissAllowingStateLoss()}"
-                    app:srcCompat="@drawable/ic_fi_rr_cross" />
-
-            </LinearLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView

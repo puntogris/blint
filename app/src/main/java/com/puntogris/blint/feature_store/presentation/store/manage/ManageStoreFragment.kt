@@ -31,9 +31,8 @@ class ManageStoreFragment :
     private fun setupToolbar() {
         binding.toolbar.apply {
             registerToolbarBackButton(this)
-
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_menu_item_add) {
+                if (it.itemId == R.id.action_add_store) {
                     findNavController().navigate(R.id.registerStoreFragment)
                 }
                 true
@@ -43,9 +42,9 @@ class ManageStoreFragment :
 
     private fun setupStoreAdapter() {
         ManageStoreAdapter(
-            { onStoreClicked(it) },
-            { onStoreSelected(it) }
-        ).let {
+            clickListener = { onStoreClicked(it) },
+            selectListener = { onStoreSelected(it) }
+        ).also {
             binding.recyclerView.adapter = it
             subscribeUi(it)
         }

@@ -45,11 +45,11 @@ class ManageCategoriesFragment :
         }
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.toolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_menu_item_add){
+                if (it.itemId == R.id.action_menu_item_add) {
                     showCreateCategoryDialog()
                 }
                 true

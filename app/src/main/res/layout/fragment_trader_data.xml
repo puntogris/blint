@@ -85,9 +85,9 @@
 
             <TextView
                 android:id="@+id/traderPhoneInputLayout"
+                textOrDefault="@{viewModel.currentTrader.phone}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentTrader.phone}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/loginProblemButton"
                 app:layout_constraintEnd_toEndOf="@+id/traderNameInputLayout"
@@ -112,10 +112,10 @@
             <ImageView
                 android:id="@+id/emailButton"
                 android:layout_width="20dp"
-                android:textAlignment="textEnd"
                 android:layout_height="20dp"
                 android:contentDescription="@string/email_image"
                 android:onClick="@{()-> fragment.onEmailButtonClicked()}"
+                android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/traderEmailInputLayout"
                 app:layout_constraintEnd_toEndOf="@+id/phoneButton"
                 app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
@@ -123,9 +123,9 @@
 
             <TextView
                 android:id="@+id/traderEmailInputLayout"
+                textOrDefault="@{viewModel.currentTrader.email}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentTrader.email}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/clientEmailLabel"
                 app:layout_constraintEnd_toEndOf="@+id/traderPhoneInputLayout"
@@ -147,9 +147,9 @@
 
             <TextView
                 android:id="@+id/traderAddressInputLayout"
+                textOrDefault="@{viewModel.currentTrader.address}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentTrader.address}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/clientAddressLabel"
                 app:layout_constraintEnd_toEndOf="@+id/traderEmailInputLayout"
@@ -171,9 +171,9 @@
 
             <TextView
                 android:id="@+id/clientPaymentInfo"
+                textOrDefault="@{viewModel.currentTrader.paymentInfo}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentTrader.paymentInfo}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfoLabel"
                 app:layout_constraintEnd_toEndOf="@+id/textView4"
@@ -197,9 +197,9 @@
 
             <TextView
                 android:id="@+id/clientDiscount"
+                textOrDefault="@{viewModel.currentTrader.notes}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                textOrDefault="@{viewModel.currentTrader.notes}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/clientDiscountLabel"
                 app:layout_constraintEnd_toEndOf="@+id/clientPaymentInfo"

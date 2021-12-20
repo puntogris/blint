@@ -47,7 +47,7 @@ class OrderRepositoryImpl(
             val traffic = Traffic().apply {
                 if (orderWithRecords.order.type == Constants.IN) {
                     purchases = orderWithRecords.order.value
-                } else{
+                } else {
                     sales = orderWithRecords.order.value
                 }
                 storeId = store.storeId

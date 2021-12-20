@@ -27,8 +27,8 @@ class OrderProductsFragment :
         binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
         binding.viewModel = viewModel
-        registerToolbarBackButton(binding.searchToolbar)
 
+        setupToolbar()
         setupProductsSearchAdapter()
         setupOderProductAdapter()
         setupScannerLauncher()
@@ -87,10 +87,6 @@ class OrderProductsFragment :
             }
     }
 
-    fun onScanBarcodeButtonClicked() {
-        scannerLauncher.launch(Manifest.permission.CAMERA)
-    }
-
     private fun deleteListener(newRecord: NewRecord) {
         viewModel.removeProduct(newRecord)
         UiInterface.showSnackBar(
@@ -118,6 +114,19 @@ class OrderProductsFragment :
         } else {
             UiInterface.showSnackBar(getString(R.string.product_amount_empty))
         }
+    }
+
+    private fun setupToolbar(){
+        binding.toolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_menu_item_scan){
+                    scannerLauncher.launch(Manifest.permission.CAMERA)
+                }
+                true
+            }
+        }
+
     }
 
     override fun onDestroyView() {

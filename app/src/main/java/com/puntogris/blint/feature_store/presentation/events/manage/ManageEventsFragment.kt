@@ -27,11 +27,11 @@ class ManageEventsFragment :
         setupEventsAdapter()
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.toolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_menu_item_add){
+                if (it.itemId == R.id.action_menu_item_add) {
                     findNavController().navigate(R.id.createEventFragment)
                 }
                 true

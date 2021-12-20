@@ -9,57 +9,67 @@
         android:orientation="vertical"
         tools:context=".feature_store.presentation.events.manage.ManageEventsFragment">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            style="@style/Theme.Blint.AppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:menu="@menu/menu_add"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/calendar_label" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/eventsFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:checkedButton="@+id/filterAllEventsButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:selectionRequired="true"
-            app:singleSelection="true">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/menu_add"
+                app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+                app:title="@string/calendar_label" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterAllEventsButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/eventsFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/trader_filter_all"
-                android:textAllCaps="false" />
+                app:checkedButton="@+id/filterAllEventsButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterPendingEventsButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/pending"
-                android:textAllCaps="false" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterAllEventsButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/trader_filter_all"
+                    android:textAllCaps="false" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/filterFinishedEventsButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="@string/finished"
-                android:textAllCaps="false" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterPendingEventsButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/pending"
+                    android:textAllCaps="false" />
 
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterFinishedEventsButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:text="@string/finished"
+                    android:textAllCaps="false" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </com.google.android.material.appbar.AppBarLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -72,9 +82,9 @@
         <include
             android:id="@+id/empty_ui"
             layout="@layout/empty_ui"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -54,6 +54,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productBuyPriceText"
+                numberIfNotZero="@{viewModel.currentProduct.product.buyPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductBuyPrice}"
@@ -62,7 +63,6 @@
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                numberIfNotZero="@{viewModel.currentProduct.product.buyPrice}"
                 tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,15 +85,15 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productSellPriceText"
+                numberIfNotZero="@{viewModel.currentProduct.product.sellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductSellPrice}"
                 android:background="@android:color/transparent"
-                android:imeOptions="actionDone"
                 android:hint="@string/price"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                numberIfNotZero="@{viewModel.currentProduct.product.sellPrice}"
                 tools:text="40" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -117,15 +117,15 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/productSuggestedSellPriceText"
+                numberIfNotZero="@{viewModel.currentProduct.product.suggestedSellPrice}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{viewModel::updateProductSuggestedPrice}"
                 android:background="@android:color/transparent"
-                android:imeOptions="actionDone"
                 android:hint="@string/price"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                numberIfNotZero="@{viewModel.currentProduct.product.suggestedSellPrice}"
                 tools:text="40" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,11 +136,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Ingrese el stock inicial"
             android:layout_marginEnd="16dp"
             android:afterTextChanged="@{viewModel::updateProductAmount}"
             android:background="@null"
             android:ems="10"
+            android:hint="Ingrese el stock inicial"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:singleLine="true"
