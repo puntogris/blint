@@ -5,7 +5,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.playAnimationInfinite
+import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.databinding.FragmentPublishOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +18,7 @@ import kotlinx.coroutines.flow.collect
 class PublishOrderFragment :
     BaseFragment<FragmentPublishOrderBinding>(R.layout.fragment_publish_order) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
 
     override fun initializeViews() {
         binding.fragment = this

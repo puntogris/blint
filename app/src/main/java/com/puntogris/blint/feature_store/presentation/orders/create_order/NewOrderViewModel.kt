@@ -47,6 +47,12 @@ class NewOrderViewModel @Inject constructor(
         traderRepository.getTradersPaged(TraderQuery(query = it)).asLiveData()
     }.cachedIn(viewModelScope)
 
+    init {
+        savedStateHandle.get<Product>("product")?.let {
+            addProduct(it)
+        }
+    }
+
     fun addProduct(product: Product) {
         _newOrder.value.newRecords = Collections.unmodifiableList(_newOrder.value.newRecords)
         if (!newOrder.value.newRecords.any { it.productId == product.productId }) {

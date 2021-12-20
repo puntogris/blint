@@ -53,75 +53,18 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <TextView
-            android:id="@+id/product_name"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:text="@string/product"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@+id/product_amount"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <TextView
-            android:id="@+id/product_amount"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/amount"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/product_name"
-            app:layout_constraintEnd_toStartOf="@+id/product_value"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/product_name"
-            app:layout_constraintTop_toTopOf="@+id/product_name" />
-
-        <TextView
-            android:id="@+id/product_value"
-            style="@style/Theme.Blint.DataSubTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_weight="1"
-            android:text="@string/price"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/product_amount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/product_amount"
-            app:layout_constraintTop_toTopOf="@+id/product_amount" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/order_total"
+            app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_name" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <TextView
-            android:id="@+id/order_total"
-            orderTotal="@{viewModel.newOrder.value}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="19sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_search_recycler_view"
@@ -142,6 +85,7 @@
             tools:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"

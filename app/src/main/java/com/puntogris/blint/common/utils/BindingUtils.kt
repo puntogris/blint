@@ -23,6 +23,7 @@ import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.model.Traffic
 import com.puntogris.blint.feature_store.domain.model.order.NewOrder
+import com.puntogris.blint.feature_store.domain.model.order.NewRecord
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import org.threeten.bp.OffsetDateTime
@@ -148,7 +149,14 @@ fun Chip.setExternalChipName(name: String) {
 @BindingAdapter("externalName")
 fun TextView.setExternalName(name: String) {
     text = if (name.isNotEmpty()) name.capitalizeFirstChar()
-    else context.getString(R.string.not_specified)
+    else "Ingresa un comerciante"
+}
+
+
+@BindingAdapter("orderDebtOrDefault")
+fun TextView.setOrderDebtOrDefault(newOrder: NewOrder) {
+    text = if (newOrder.newDebt != null) "Debe $${newOrder.newDebt?.amount?.toMoneyFormatted()}"
+        else "Ingrese una deuda"
 }
 
 @BindingAdapter("eventStatus")
@@ -217,14 +225,6 @@ fun TextView.setDateOrError(timeInMillis: Long) {
     } else {
         Date(timeInMillis).getDateWithTimeFormattedString()
     }
-}
-
-@BindingAdapter("orderTotal")
-fun TextView.setOrderTotal(total: Float) {
-    text = context.getString(
-        R.string.order_total_template,
-        total.toString()
-    )
 }
 
 @BindingAdapter("orderDebtSummary")
@@ -348,4 +348,14 @@ fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
 @BindingAdapter("eventMessageOrDefault")
 fun TextView.setEventMessageOrDefault(message: String?) {
     text = if (message.isNullOrBlank()) "Ingresa el contenido del evento" else message
+}
+
+@BindingAdapter("productRecordEntryPrice")
+fun EditText.setProductRecordEntryPrice(newRecord: NewRecord){
+    hint = "$${newRecord.productUnitPrice}"
+}
+
+@BindingAdapter("productRecordEntryStock")
+fun EditText.setProductRecordEntryStock(newRecord: NewRecord){
+    hint = "+${newRecord.currentStock}"
 }

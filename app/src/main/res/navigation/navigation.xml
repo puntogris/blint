@@ -204,7 +204,7 @@
         android:name="com.puntogris.blint.feature_store.presentation.main.NewUserFragment"
         android:label="@string/app_name" />
     <navigation
-        android:id="@+id/detailedOrderGraphNav"
+        android:id="@+id/createOrderGraphNav"
         app:startDestination="@id/orderProductsFragment">
         <argument
             android:name="product"
@@ -222,7 +222,7 @@
             <action
                 android:id="@+id/action_reviewRecordFragment_to_publishOrderFragment"
                 app:destination="@id/publishOrderFragment"
-                app:popUpTo="@id/detailedOrderGraphNav"
+                app:popUpTo="@id/createOrderGraphNav"
                 app:popUpToInclusive="false" />
         </fragment>
         <dialog
@@ -248,6 +248,9 @@
                 android:id="@+id/action_createRecordFragment_to_reviewRecordFragment"
                 app:destination="@id/reviewOderFragment" />
         </fragment>
+        <dialog
+            android:id="@+id/orderDebtSelectorDialog"
+            android:name="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderDebtSelectorDialog" />
     </navigation>
     <fragment
         android:id="@+id/orderFragment"
@@ -285,7 +288,7 @@
         android:label="@string/debts_label" />
     <action
         android:id="@+id/action_global_newOrderGraphNav"
-        app:destination="@id/detailedOrderGraphNav">
+        app:destination="@id/createOrderGraphNav">
         <argument
             android:name="product"
             android:defaultValue="@null"

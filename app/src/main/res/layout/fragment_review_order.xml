@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +58,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <View
+            android:id="@+id/divider33"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -128,6 +141,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:singleLine="true"
             android:layout_marginEnd="16dp"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/order_trader_label"
@@ -135,63 +149,16 @@
             app:layout_constraintStart_toEndOf="@+id/order_trader_label"
             app:layout_constraintTop_toTopOf="@+id/order_trader_label" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/order_debt_selector_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/order_payment_status"
-            app:layout_constraintEnd_toStartOf="@+id/order_debt_amount_input_layout"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider39">
-
-            <AutoCompleteTextView
-                android:id="@+id/order_debt_selector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:text="@string/order_payment_status_completed"
-                tools:ignore="LabelFor" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/order_debt_amount_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/debt_value"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/order_debt_selector_input_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/order_debt_selector_input_layout"
-            app:layout_constraintTop_toTopOf="@+id/order_debt_selector_input_layout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/order_debt_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{viewModel::updateOrderDebt}"
-                android:imeOptions="actionDone"
-                android:inputType="numberDecimal" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
             android:id="@+id/order_debt_summary"
-            style="?textAppearanceSubtitle2"
+            android:textSize="16sp"
+            android:textColor="@color/color_on_background"
             orderDebtSummary="@{viewModel.newOrder}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/order_debt_selector_input_layout"
-            app:layout_constraintTop_toBottomOf="@+id/order_debt_selector_input_layout" />
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/divider39" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button3"
@@ -214,7 +181,7 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/order_trader_label"
-            app:layout_constraintTop_toBottomOf="@+id/divider38" />
+            app:layout_constraintTop_toBottomOf="@+id/divider33" />
 
         <TextView
             android:id="@+id/textView42"
@@ -232,11 +199,66 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="24dp"
-            android:onClickListener="@{()-> fragment.navigateToAddTrader()}"
             app:layout_constraintBottom_toBottomOf="@+id/order_trader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/order_trader"
-            app:srcCompat="@drawable/ic_fi_rr_plus" />
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foreground="?selectableItemBackground"
+            android:onClickListener="@{()-> fragment.navigateToAddTrader()}"
+            app:layout_constraintBottom_toTopOf="@+id/divider38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider37" />
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Deuda:"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/divider38" />
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="16sp"
+            orderDebtOrDefault="@{viewModel.newOrder}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView49"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/textView49"
+            app:layout_constraintTop_toTopOf="@+id/textView49" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView50"
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foreground="?selectableItemBackground"
+            android:onClickListener="@{()-> fragment.navigateToAddDebt()}"
+            app:layout_constraintBottom_toTopOf="@+id/divider33"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="dialog"
-            type="com.puntogris.blint.feature_store.presentation.debt.update_debt.UpdateDebtDialog" />
+            type="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderDebtSelectorDialog" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".feature_store.presentation.debt.update_debt.UpdateDebtDialog">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/debt_amount_input_layout"
@@ -58,7 +56,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClickListener="@{()-> dialog.onSaveDebtClicked()}"
+            android:onClickListener="@{()-> dialog.onPositiveButtonClicked()}"
             android:text="@string/action_save"
             android:textColor="@color/color_on_background"
             app:layout_constraintBottom_toBottomOf="@+id/button4"
@@ -74,7 +72,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/update_debt_label"
+            android:text="Agregar deuda"
             android:textColor="@color/color_on_background"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +85,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:text="Tene en cuenta si el valor es positivo se incrementara la deuda y se decrementara si es negativo."
+            android:text="Esta deuda sera descontada del valor total de la orden, solo puede ser positiva."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider32" />

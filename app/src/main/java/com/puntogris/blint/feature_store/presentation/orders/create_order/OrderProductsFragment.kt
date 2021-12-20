@@ -6,7 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.puntogris.blint.DetailedOrderGraphNavDirections
+import com.puntogris.blint.CreateOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.*
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 class OrderProductsFragment :
     BaseFragment<FragmentOrderProductsBinding>(R.layout.fragment_order_products) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.detailedOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
@@ -50,9 +50,9 @@ class OrderProductsFragment :
 
     private fun setupOderProductAdapter() {
         OrderProductsAdapter(
-            requireContext(),
-            { onDataChanged() },
-            { deleteListener(it) }
+            context = requireContext(),
+            dataChangedListener = { onDataChanged() },
+            deleteListener = { deleteListener(it) }
         ).let {
             binding.recyclerView.adapter = it
             subscribeProductRecords(it)
@@ -81,7 +81,7 @@ class OrderProductsFragment :
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(
+                    val action = CreateOrderGraphNavDirections.actionGlobalScannerFragment(
                         returnResult = true
                     )
                     findNavController().navigate(action)
