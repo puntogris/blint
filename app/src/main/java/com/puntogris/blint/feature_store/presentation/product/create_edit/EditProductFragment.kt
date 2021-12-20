@@ -38,7 +38,7 @@ class EditProductFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.editProductToolbar)
 
         setupResultListeners()
         setupGalleryLauncher()
@@ -110,13 +110,13 @@ class EditProductFragment :
     }
 
     fun onIncreaseAmountButtonClicked() {
-        binding.pricesLayout.productAmount.apply {
+        binding.editProductPricesCard.productAmount.apply {
             setText(getInt().inc().toString())
         }
     }
 
     fun onDecreaseAmountButtonClicked() {
-        binding.pricesLayout.productAmount.apply {
+        binding.editProductPricesCard.productAmount.apply {
             setText(getInt().dec().toString())
         }
     }

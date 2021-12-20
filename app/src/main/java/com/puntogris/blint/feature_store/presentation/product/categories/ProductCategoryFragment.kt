@@ -24,13 +24,13 @@ class ProductCategoryFragment :
         binding.fragment = this
         binding.viewModel = viewModel
 
-        registerToolbarBackButton(binding.searchToolbar)
+        registerToolbarBackButton(binding.productCategoryToolbar)
         setupCategoriesAdapter()
     }
 
     private fun setupCategoriesAdapter() {
         ProductCategoryAdapter { onCategoryClicked(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.productCategoryRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -56,7 +56,7 @@ class ProductCategoryFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.productCategoryRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

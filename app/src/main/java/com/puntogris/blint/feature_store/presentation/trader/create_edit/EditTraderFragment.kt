@@ -33,7 +33,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.editTraderToolbar)
         setupContactPickerLauncher()
         setupContactPermissions()
         setupTraderFilter()
@@ -88,7 +88,7 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
     }
 
     private fun setupTraderFilter() {
-        binding.traderInformationLayout.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+        binding.editTraderContentCard.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val type = when (checkedId) {
                 R.id.client_trader_type_radio_button -> Constants.CLIENT
                 R.id.supplier_trader_type_radio_button -> Constants.SUPPLIER

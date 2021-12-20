@@ -97,7 +97,7 @@ fun TextView.setNumberToMoneyString(number: Float) {
 
 @BindingAdapter("totalOrderWithDetails")
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
-    val total = order.order.value.toString()
+    val total = order.order.total.toString()
     text = if (order.debt != null) {
         context.getString(R.string.order_with_debt, total, order.debt?.amount.toString())
     } else {
@@ -230,14 +230,14 @@ fun TextView.setDateOrError(timeInMillis: Long) {
 @BindingAdapter("orderDebtSummary")
 fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
     val totalPaid = if (newOrder.newDebt != null) {
-        newOrder.value - (newOrder.newDebt?.amount ?: 0F)
+        newOrder.total - (newOrder.newDebt?.amount ?: 0F)
     } else {
-        newOrder.value
+        newOrder.total
     }
     text = context.getString(
         R.string.order_debt_amount_summary,
         totalPaid.toString(),
-        newOrder.value.toString()
+        newOrder.total.toString()
     )
 }
 

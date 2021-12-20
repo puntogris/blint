@@ -17,7 +17,7 @@ data class NewOrder(
 
     var newDebt: NewDebt? = null,
 
-    var value: Float = 0F
+    var total: Float = 0F
 )
 
 data class NewRecord(
@@ -55,7 +55,7 @@ data class NewDebt(
 )
 
 fun NewOrder.updateOrderTotalValue() {
-    value = newRecords.sumOf { (it.productUnitPrice * it.amount).toInt() }.toFloat()
+    total = newRecords.sumOf { (it.productUnitPrice * it.amount).toInt() }.toFloat()
 }
 
 fun NewOrder.areRecordsValid(): Boolean {

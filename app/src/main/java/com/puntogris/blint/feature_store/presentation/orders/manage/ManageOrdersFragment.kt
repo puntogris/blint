@@ -18,17 +18,22 @@ class ManageOrdersFragment :
 
     override fun initializeViews() {
         registerToolbar()
+        setupViewPager()
+    }
 
-        binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
-        mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+    private fun setupViewPager() {
+        binding.manageOrdersViewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
+        mediator = TabLayoutMediator(
+            binding.manageOrdersTabLayout,
+            binding.manageOrdersViewPager
+        ) { tab, position ->
             tab.setText(if (position == 0) R.string.tab_orders else R.string.tab_records)
         }
         mediator?.attach()
-
     }
 
     private fun registerToolbar() {
-        binding.toolbar.setOnMenuItemClickListener {
+        binding.manageOrdersToolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.action_menu_item_add) {
                 showOrderPickerAndNavigate()
             }
@@ -47,7 +52,7 @@ class ManageOrdersFragment :
     override fun onDestroyView() {
         mediator?.detach()
         mediator = null
-        binding.viewPager.adapter = null
+        binding.manageOrdersViewPager.adapter = null
         super.onDestroyView()
     }
 }

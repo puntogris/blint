@@ -60,10 +60,6 @@ fun View.visible() {
     visibility = View.VISIBLE
 }
 
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
 fun EditText.getString() = text.toString()
 
 fun EditText.getInt(): Int = text.toString().toIntOrNull() ?: 0
@@ -89,14 +85,15 @@ fun Fragment.hideKeyboard() {
 }
 
 fun DialogFragment.hideKeyboard() {
-    if (requireDialog().currentFocus != null) {
+    requireDialog().currentFocus?.let {
         val inputMethodManager =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(
-            dialog!!.currentFocus!!.windowToken,
+            it.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
+
 }
 
 fun Context.hideKeyboard(view: View) {

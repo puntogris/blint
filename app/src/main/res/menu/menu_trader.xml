@@ -11,7 +11,7 @@
                 android:title="@string/action_edit" />
             <item
                 android:id="@+id/action_update_trader_debt"
-                android:title="@string/update_debt_label" />
+                android:title="@string/update_order_debt_title" />
             <item
                 android:id="@+id/action_delete_trader"
                 android:title="@string/action_delete" />

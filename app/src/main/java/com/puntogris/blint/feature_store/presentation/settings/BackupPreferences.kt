@@ -20,7 +20,7 @@ class BackupPreferences : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<MaterialToolbar>(R.id.preference_toolbar).apply {
+        view.findViewById<MaterialToolbar>(R.id.preferences_toolbar).apply {
             registerToolbarBackButton(this)
             setTitle(R.string.backup_pref)
         }

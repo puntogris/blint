@@ -29,11 +29,11 @@ class CreateEventFragment :
         binding.lifecycleOwner = viewLifecycleOwner
 
         setupCalendarListener()
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.createEventToolbar)
     }
 
     private fun setupCalendarListener() {
-        binding.calendarView.setOnDateChangeListener { _, year, month, day ->
+        binding.createEventCalendar.setOnDateChangeListener { _, year, month, day ->
             viewModel.setEventDate(year, month, day)
         }
     }

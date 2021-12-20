@@ -51,7 +51,7 @@ data class Record(
     var orderId: String = "",
 
     @ColumnInfo
-    var value: Float = 0F,
+    var total: Float = 0F,
 
     @ColumnInfo
     var historicInStock: Int = 0,

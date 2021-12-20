@@ -11,14 +11,14 @@ import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.StringValidator
-import com.puntogris.blint.databinding.FragmentRegisterBusinessBinding
+import com.puntogris.blint.databinding.FragmentRegisterStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterStoreFragment :
-    BaseFragment<FragmentRegisterBusinessBinding>(R.layout.fragment_register_business) {
+    BaseFragment<FragmentRegisterStoreBinding>(R.layout.fragment_register_store) {
 
     private val viewModel: RegisterStoreViewModel by viewModels()
 
@@ -28,7 +28,7 @@ class RegisterStoreFragment :
 
     fun onStartBusinessRegistration() {
         when (val validator = StringValidator.from(
-            binding.businessNameText.getString(),
+            binding.registerStoreName.getString(),
             isName = true,
             maxLength = 25
         )) {
@@ -43,16 +43,16 @@ class RegisterStoreFragment :
                 when (it) {
                     is ProgressResource.Error -> {
                         UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                        binding.continueButton.isEnabled = true
-                        binding.animationView.playAnimationOnce(R.raw.error)
+                        binding.registerStoreContinueButton.isEnabled = true
+                        binding.registerStoreAnimationView.playAnimationOnce(R.raw.error)
                     }
                     is ProgressResource.Success -> {
                         UiInterface.showSnackBar(getString(R.string.snack_created_store_success))
                         findNavController().navigateAndClearStack(R.id.homeFragment)
                     }
                     ProgressResource.InProgress -> {
-                        binding.continueButton.isEnabled = false
-                        binding.animationView.playAnimationOnce(R.raw.loading)
+                        binding.registerStoreContinueButton.isEnabled = false
+                        binding.registerStoreAnimationView.playAnimationOnce(R.raw.loading)
                     }
                 }
             }

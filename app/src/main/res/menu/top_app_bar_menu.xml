@@ -18,7 +18,7 @@
                 android:visible="false" />
             <item
                 android:id="@+id/updateDebt"
-                android:title="@string/update_debt_label"
+                android:title="@string/update_order_debt_title"
                 android:visible="false" />
             <item
                 android:id="@+id/deleteOption"

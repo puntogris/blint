@@ -19,7 +19,7 @@ class CreateBackupFragment :
     override fun initializeViews() {
         binding.fragment = this
         subscribeUi()
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.createBackupToolbar)
     }
 
     private fun subscribeUi() {
@@ -28,27 +28,27 @@ class CreateBackupFragment :
                 with(binding) {
                     when (it) {
                         is BackupState.Loading -> {
-                            animationView.playAnimationInfinite(R.raw.loading)
-                            backupTitle.setText(R.string.loading_with_dots)
-                            backupSummary.setText(R.string.connecting_in_progress)
-                            lastBackupGroup.gone()
+                            createBackupAnimationView.playAnimationInfinite(R.raw.loading)
+                            createBackupTitle.setText(R.string.loading_with_dots)
+                            createBackupSummary.setText(R.string.connecting_in_progress)
+                            createBackupLastBackupGroup.gone()
                         }
                         is BackupState.BackupSuccess -> {
-                            backupSummary.setText(R.string.create_backup_success_message)
-                            backupTitle.setText(R.string.create_backup_success_title)
-                            animationView.playAnimationOnce(R.raw.done)
+                            createBackupTitle.setText(R.string.create_backup_success_title)
+                            createBackupSummary.setText(R.string.create_backup_success_message)
+                            createBackupAnimationView.playAnimationOnce(R.raw.done)
                         }
                         is BackupState.Error -> {
-                            backupTitle.setText(R.string.snack_an_error_occurred)
-                            backupSummary.setText(it.error)
-                            animationView.playAnimationOnce(R.raw.error)
+                            createBackupTitle.setText(R.string.snack_an_error_occurred)
+                            createBackupSummary.setText(it.error)
+                            createBackupAnimationView.playAnimationOnce(R.raw.error)
                         }
                         is BackupState.ShowLastBackup -> {
-                            backupTitle.setText(R.string.your_account_backups)
-                            backupSummary.setText(R.string.data_from_servers)
-                            lastBackupGroup.visible()
-                            animationView.gone()
-                            textView71.setDateOrError(it.lastBackupDate)
+                            createBackupTitle.setText(R.string.your_account_backups)
+                            createBackupSummary.setText(R.string.data_from_servers)
+                            createBackupLastBackupGroup.visible()
+                            createBackupAnimationView.gone()
+                            createBackupLastBackup.setDateOrError(it.lastBackupDate)
                         }
                     }
                 }

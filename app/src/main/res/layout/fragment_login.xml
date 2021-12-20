@@ -16,7 +16,7 @@
         tools:context=".feature_auth.presentation.LoginFragment">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/logoCard"
+            android:id="@+id/login_app_logo"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="100dp"
@@ -38,7 +38,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/appName"
+            android:id="@+id/login_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -48,20 +48,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoCard" />
+            app:layout_constraintTop_toBottomOf="@+id/login_app_logo" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/login_progress_bar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appName" />
+            app:layout_constraintTop_toBottomOf="@+id/login_app_name" />
 
         <Button
-            android:id="@+id/loginProblemButton"
+            android:id="@+id/login_problems_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,12 +82,12 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/fast_login"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/loginWithGoogleFab"
+            app:layout_constraintBottom_toTopOf="@+id/login_with_google_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/loginWithGoogleFab"
+            android:id="@+id/login_with_google_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="184dp"
@@ -97,7 +97,7 @@
             app:borderWidth="1dp"
             app:elevation="0dp"
             app:fabCustomSize="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/loginProblemButton"
+            app:layout_constraintBottom_toTopOf="@+id/login_problems_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:rippleColor="@color/grey_5"

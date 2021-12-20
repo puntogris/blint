@@ -24,7 +24,7 @@ class ProductTraderFragment :
         binding.fragment = this
 
         setupCategoriesAdapter()
-        registerToolbarBackButton(binding.searchToolbar)
+        registerToolbarBackButton(binding.productTraderToolbar)
     }
 
     private fun setupCategoriesAdapter() {

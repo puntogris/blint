@@ -54,7 +54,7 @@ class OrderProductsFragment :
             dataChangedListener = { onDataChanged() },
             deleteListener = { deleteListener(it) }
         ).let {
-            binding.recyclerView.adapter = it
+            binding.orderProductsRecyclerView.adapter = it
             subscribeProductRecords(it)
         }
     }
@@ -70,7 +70,7 @@ class OrderProductsFragment :
     private fun setupResultListener() {
         setFragmentResultListener(Keys.SCANNER_RESULT_KEY) { _, bundle ->
             bundle.getString(Keys.PRODUCT_BARCODE_KEY)?.let {
-                binding.productSearch.setText(it)
+                binding.orderProductsSearch.setText(it)
                 viewModel.setQuery(it)
             }
         }
@@ -105,8 +105,8 @@ class OrderProductsFragment :
 
     private fun onProductAdded(product: Product) {
         viewModel.addProduct(product)
-        binding.productSearch.setText("")
-        binding.productSearch.clearFocus()
+        binding.orderProductsSearch.setText("")
+        binding.orderProductsSearch.clearFocus()
         hideKeyboard()
     }
 
@@ -119,7 +119,7 @@ class OrderProductsFragment :
     }
 
     private fun setupToolbar(){
-        binding.toolbar.apply {
+        binding.orderProductsToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_scan){
@@ -132,7 +132,7 @@ class OrderProductsFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.orderProductsRecyclerView.adapter = null
         binding.productSearchRecyclerView.adapter = null
         super.onDestroyView()
     }

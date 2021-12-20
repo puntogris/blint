@@ -16,7 +16,7 @@
         tools:context=".feature_store.presentation.main.NewUserFragment">
 
         <TextView
-            android:id="@+id/newUserTitle"
+            android:id="@+id/new_user_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -26,10 +26,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/closeButton" />
+            app:layout_constraintTop_toBottomOf="@+id/new_user_close_screen_button" />
 
         <TextView
-            android:id="@+id/newUserSubtitle"
+            android:id="@+id/new_user_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -41,10 +41,10 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newUserTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/new_user_title" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/joinBusinessButton"
+            android:id="@+id/new_user_register_store_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -53,11 +53,10 @@
             android:text="@string/register_store_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/learnMoreButton"
+            android:id="@+id/new_user_learn_more_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -66,7 +65,7 @@
             android:padding="8dp"
             android:text="@string/action_learn_about_blint"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/joinBusinessButton"
+            app:layout_constraintBottom_toTopOf="@+id/new_user_register_store_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -77,14 +76,14 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:contentDescription="@string/image"
-            app:layout_constraintBottom_toTopOf="@+id/learnMoreButton"
+            app:layout_constraintBottom_toTopOf="@+id/new_user_learn_more_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newUserSubtitle"
+            app:layout_constraintTop_toBottomOf="@+id/new_user_subtitle"
             app:srcCompat="@drawable/ic_people_empty" />
 
         <ImageView
-            android:id="@+id/closeButton"
+            android:id="@+id/new_user_close_screen_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

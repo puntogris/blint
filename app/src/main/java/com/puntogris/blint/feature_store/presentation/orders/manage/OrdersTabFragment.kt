@@ -22,7 +22,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
 
     private fun setupOrdersAdapter() {
         OrdersAdapter { onOrderClickListener(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.ordersTabRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -34,7 +34,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.ordersTabEmptyUi)
         }
     }
 
@@ -44,7 +44,7 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.ordersTabRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

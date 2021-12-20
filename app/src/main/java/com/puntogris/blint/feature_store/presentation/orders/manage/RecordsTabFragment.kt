@@ -22,7 +22,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
 
     private fun setupRecordsAdapter() {
         RecordsAdapter { onRecordClickedListener(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.recordsTabRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -34,7 +34,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.recordsTabEmptyUi)
         }
     }
 
@@ -45,7 +45,7 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.recordsTabRecyclerView.adapter = null
         super.onDestroyView()
     }
 

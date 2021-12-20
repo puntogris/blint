@@ -24,7 +24,7 @@ class ManageProductsFragment :
     override fun initializeViews() {
         binding.fragment = this
         binding.viewModel = viewModel
-        binding.productSearch.clearFocus()
+        binding.manageProductSearch.clearFocus()
 
         setupToolbar()
         setupProductsAdapter()
@@ -50,7 +50,7 @@ class ManageProductsFragment :
             shortClickListener = { onProductShortClickListener(it) },
             longClickListener = { onProductLongClickListener(it) }
         ).let {
-            binding.recyclerView.adapter = it
+            binding.manageProductsRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -62,7 +62,7 @@ class ManageProductsFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageProductsEmptyUi)
         }
     }
 
@@ -74,7 +74,7 @@ class ManageProductsFragment :
     }
 
     private fun setupToolbar() {
-        binding.toolbar.apply {
+        binding.manageProductsToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -106,9 +106,9 @@ class ManageProductsFragment :
 
     override fun onDestroyView() {
         with(binding) {
-            toolbar.setNavigationOnClickListener(null)
-            productSearch.clearFocus()
-            recyclerView.adapter = null
+            manageProductsToolbar.setNavigationOnClickListener(null)
+            manageProductSearch.clearFocus()
+            manageProductsRecyclerView.adapter = null
         }
         super.onDestroyView()
     }

@@ -48,7 +48,7 @@ interface ProductsDao {
     @Query("SELECT * FROM product p INNER JOIN user ON storeId = currentStoreId WHERE localReferenceId = '1' AND p.name LIKE ('%'|| :query ||'%') OR barcode LIKE ('%'|| :query ||'%') OR sku LIKE ('%'|| :query ||'%') LIMIT 5")
     suspend fun getProductsWithQuery(query: String): List<Product>
 
-    @Query("UPDATE product SET amount = CASE WHEN :type = 'IN' THEN amount + :amount ELSE amount - :amount END WHERE productId = :id")
+    @Query("UPDATE product SET stock = CASE WHEN :type = 'IN' THEN stock + :amount ELSE stock - :amount END WHERE productId = :id")
     suspend fun updateProductAmountWithType(id: String, amount: Int, type: String)
 
     @Query("UPDATE product SET historicInStock = :inStock, historicOutStock = :outStock WHERE productId = :id")

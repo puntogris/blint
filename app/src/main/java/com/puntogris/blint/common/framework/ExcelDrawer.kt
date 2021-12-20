@@ -48,7 +48,7 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         products.forEachIndexed { index, product ->
             val row = sheet.createRow(index.inc())
             row.createCell(0).setCellValue(product.name)
-            row.createCell(1).setCellValue(product.amount.toString())
+            row.createCell(1).setCellValue(product.stock.toString())
             row.createCell(2).setCellValue(product.barcode)
             row.createCell(3).setCellValue(product.buyPrice.toString())
             row.createCell(4).setCellValue(product.sellPrice.toString())

@@ -20,12 +20,12 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupDebtsAdapter()
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.manageDebtToolbar)
     }
 
     private fun setupDebtsAdapter() {
         ManageDebtsAdapter().let {
-            binding.recyclerView.adapter = it
+            binding.manageDebtRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -37,8 +37,12 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageDebtEmptyUi)
         }
     }
 
+    override fun onDestroyView() {
+        binding.manageDebtRecyclerView.adapter = null
+        super.onDestroyView()
+    }
 }

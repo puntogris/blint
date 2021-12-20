@@ -16,7 +16,7 @@
         tools:context=".feature_store.presentation.reports.GenerateReportFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/generate_report_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,20 +29,7 @@
             app:title="@string/generate_report_label" />
 
         <TextView
-            android:id="@+id/reportMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="72dp"
-            android:text="@string/generate_reports_alert"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/button8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/reportTitle"
+            android:id="@+id/generate_report_title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,22 +37,35 @@
             android:text="@string/generating_report_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/generate_report_toolbar" />
+
+        <TextView
+            android:id="@+id/generate_report_alert_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="72dp"
+            android:text="@string/generate_reports_alert"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/generate_report_done_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+            android:id="@+id/generate_report_animation_view"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@+id/reportMessage"
+            app:layout_constraintBottom_toTopOf="@+id/generate_report_alert_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reportTitle"
+            app:layout_constraintTop_toBottomOf="@+id/generate_report_title"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button8"
+            android:id="@+id/generate_report_done_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -74,10 +74,10 @@
             android:text="@string/action_done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button11" />
+            app:layout_constraintStart_toEndOf="@+id/generate_report_share_report_button" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button11"
+            android:id="@+id/generate_report_share_report_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_marginStart="16dp"

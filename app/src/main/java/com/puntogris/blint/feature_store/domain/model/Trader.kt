@@ -32,7 +32,7 @@ data class Trader(
     var phone: String = "",
 
     @ColumnInfo
-    var paymentInfo: String = "",
+    var billing: String = "",
 
     @ColumnInfo
     var storeId: String = "",

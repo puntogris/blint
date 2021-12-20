@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp">
 
         <View
-            android:id="@+id/divider35"
+            android:id="@+id/divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -28,17 +28,17 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView190"
+            android:id="@+id/debt_date"
             dateFromTimestampWithTime="@{debt.timestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView189"
+            app:layout_constraintBottom_toBottomOf="@+id/debt_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView189" />
+            app:layout_constraintTop_toTopOf="@+id/debt_amount" />
 
         <TextView
-            android:id="@+id/textView189"
+            android:id="@+id/debt_amount"
             debtColor="@{debt.amount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

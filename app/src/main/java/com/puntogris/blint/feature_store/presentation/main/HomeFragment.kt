@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val menuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
         val manager = GridLayoutManager(requireContext(), 2)
 
-        binding.recyclerView.apply {
+        binding.homeFragmentMenuRecyclerView.apply {
             addItemDecoration(GridSpanMarginDecoration(60, 60, manager))
             adapter = menuAdapter
             layoutManager = manager
@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.homeFragmentMenuRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

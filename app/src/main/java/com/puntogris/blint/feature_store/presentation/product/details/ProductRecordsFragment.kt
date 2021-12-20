@@ -23,7 +23,7 @@ class ProductRecordsFragment :
 
     private fun setupRecordsAdapter() {
         RecordsAdapter { onRecordClickListener(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.productRecordsRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -35,11 +35,16 @@ class ProductRecordsFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.productRecordsEmptyUi)
         }
     }
 
     private fun onRecordClickListener(record: Record) {
         (requireParentFragment() as ProductFragment).navigateToInfoRecord(record)
+    }
+
+    override fun onDestroyView() {
+        binding.productRecordsRecyclerView.adapter = null
+        super.onDestroyView()
     }
 }

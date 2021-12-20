@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <CheckedTextView
-            android:id="@+id/categoryView"
+            android:id="@+id/product_trader_vh_category_check_view"
             capitalizeFirstChar="@{category.category.categoryName}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/divider"
+            android:id="@+id/product_category_vh_divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"

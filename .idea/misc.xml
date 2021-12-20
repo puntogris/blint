@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/drawable/ic_chart_circle_yellow.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/ic_debts_circle_blue.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_ellipse_11.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_broom.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_home.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_plus.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_receipt.xml" value="0.24513888888888888" />
@@ -84,6 +85,9 @@
         <entry key="app/src/main/res/layout/dialog_update_debt.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/dropdown_item_list.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/edit_product_content_scrolling.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_product_description_card.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_product_prices_card.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/edit_product_traders_categories.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/empty_ui.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/event_info_bottom_sheet.xml" value="0.22" />
         <entry key="app/src/main/res/layout/filter_categories_bottom_sheet.xml" value="0.1" />
@@ -101,7 +105,7 @@
         <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_account.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/fragment_delete_store.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_delete_store.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_edit_supplier.xml" value="0.10173611111111111" />
@@ -149,7 +153,7 @@
         <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
-        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_review_record.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />
@@ -187,6 +191,7 @@
         <entry key="app/src/main/res/layout/order_table_item_vh.xml" value="0.25" />
         <entry key="app/src/main/res/layout/order_trader_bottom_sheet.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/order_vh.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/preferences_layout.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/product_description_card.xml" value="0.33" />
         <entry key="app/src/main/res/layout/product_description_expandable.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/product_extras_card.xml" value="0.234375" />

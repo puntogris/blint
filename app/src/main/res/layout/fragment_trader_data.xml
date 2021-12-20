@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/trader_data_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -35,44 +35,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/phoneButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/more_image"
-                android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
-                app:layout_constraintBottom_toBottomOf="@+id/traderPhoneInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/contactButton"
-                app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
-                app:srcCompat="@drawable/ic_fi_rr_menu_dots_vertical" />
-
-            <ImageView
-                android:id="@+id/contactButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="24dp"
-                android:contentDescription="@string/open_contact_image"
-                android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
-                app:layout_constraintBottom_toBottomOf="@+id/traderNameInputLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView29"
-                app:srcCompat="@drawable/ic_fi_rr_user_add" />
-
             <TextView
-                android:id="@+id/traderNameInputLayout"
+                android:id="@+id/trader_data_name"
                 capitalizeWord="@{viewModel.currentTrader.name}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView29"
-                app:layout_constraintEnd_toStartOf="@+id/contactButton"
-                app:layout_constraintStart_toEndOf="@+id/textView29"
-                app:layout_constraintTop_toTopOf="@+id/textView29"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_name_label"
+                app:layout_constraintEnd_toStartOf="@+id/trader_data_contact_button"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_name_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_name_label"
                 tools:text="Text" />
 
+            <ImageView
+                android:id="@+id/trader_data_contact_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/open_contact_image"
+                android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_name_label"
+                app:srcCompat="@drawable/ic_fi_rr_user_add" />
+
+            <View
+                android:id="@+id/trader_data_divider1"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_name" />
+
             <TextView
-                android:id="@+id/loginProblemButton"
+                android:id="@+id/trade_data_phone_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -80,25 +82,49 @@
                 android:text="@string/phone"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView29"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+                app:layout_constraintStart_toStartOf="@+id/trader_data_name_label"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider1" />
 
             <TextView
-                android:id="@+id/traderPhoneInputLayout"
+                android:id="@+id/trade_data_phone"
                 textOrDefault="@{viewModel.currentTrader.phone}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/loginProblemButton"
-                app:layout_constraintEnd_toEndOf="@+id/traderNameInputLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/trade_data_phone_label"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_name"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/loginProblemButton"
-                app:layout_constraintTop_toTopOf="@+id/loginProblemButton"
+                app:layout_constraintStart_toEndOf="@+id/trade_data_phone_label"
+                app:layout_constraintTop_toTopOf="@+id/trade_data_phone_label"
                 app:layout_constraintVertical_bias="1.0"
                 tools:text="Text" />
 
+            <ImageView
+                android:id="@+id/trade_data_phone_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/more_image"
+                android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
+                app:layout_constraintBottom_toBottomOf="@+id/trade_data_phone"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_contact_button"
+                app:layout_constraintTop_toTopOf="@+id/trade_data_phone_label"
+                app:srcCompat="@drawable/ic_fi_rr_menu_dots_vertical" />
+
+            <View
+                android:id="@+id/trader_data_divider2"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trade_data_phone" />
+
             <TextView
-                android:id="@+id/clientEmailLabel"
+                android:id="@+id/trader_data_email_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -106,35 +132,48 @@
                 android:text="@string/e_mail"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/loginProblemButton"
-                app:layout_constraintTop_toBottomOf="@+id/divider17" />
+                app:layout_constraintStart_toStartOf="@+id/trade_data_phone_label"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider2" />
+
+            <TextView
+                android:id="@+id/trader_data_email"
+                textOrDefault="@{viewModel.currentTrader.email}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_email_label"
+                app:layout_constraintEnd_toEndOf="@+id/trade_data_phone"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_email_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_email_label"
+                tools:text="Text" />
 
             <ImageView
-                android:id="@+id/emailButton"
+                android:id="@+id/trader_data_email_button"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/email_image"
                 android:onClick="@{()-> fragment.onEmailButtonClicked()}"
                 android:textAlignment="textEnd"
-                app:layout_constraintBottom_toBottomOf="@+id/traderEmailInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/phoneButton"
-                app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_email"
+                app:layout_constraintEnd_toEndOf="@+id/trade_data_phone_button"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_email_label"
                 app:srcCompat="@drawable/ic_fi_rr_envelope" />
 
-            <TextView
-                android:id="@+id/traderEmailInputLayout"
-                textOrDefault="@{viewModel.currentTrader.email}"
+            <View
+                android:id="@+id/trader_data_divider3"
+                style="@style/Theme.Blint.Divider"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/clientEmailLabel"
-                app:layout_constraintEnd_toEndOf="@+id/traderPhoneInputLayout"
-                app:layout_constraintStart_toEndOf="@+id/clientEmailLabel"
-                app:layout_constraintTop_toTopOf="@+id/clientEmailLabel"
-                tools:text="Text" />
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_email" />
 
             <TextView
-                android:id="@+id/clientAddressLabel"
+                android:id="@+id/trader_data_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -142,73 +181,36 @@
                 android:text="@string/address"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/clientEmailLabel"
-                app:layout_constraintTop_toBottomOf="@+id/divider18" />
+                app:layout_constraintStart_toStartOf="@+id/trader_data_email_label"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider3" />
 
             <TextView
-                android:id="@+id/traderAddressInputLayout"
+                android:id="@+id/trader_data_address"
                 textOrDefault="@{viewModel.currentTrader.address}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/clientAddressLabel"
-                app:layout_constraintEnd_toEndOf="@+id/traderEmailInputLayout"
-                app:layout_constraintStart_toEndOf="@+id/clientAddressLabel"
-                app:layout_constraintTop_toTopOf="@+id/clientAddressLabel"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_address_label"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_email"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_address_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_address_label"
                 tools:text="Text" />
 
-            <TextView
-                android:id="@+id/clientPaymentInfoLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/billing"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/divider21" />
-
-            <TextView
-                android:id="@+id/clientPaymentInfo"
-                textOrDefault="@{viewModel.currentTrader.paymentInfo}"
+            <View
+                android:id="@+id/trader_data_divider4"
+                style="@style/Theme.Blint.Divider"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/clientPaymentInfoLabel"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
-                app:layout_constraintStart_toEndOf="@+id/clientPaymentInfoLabel"
-                app:layout_constraintTop_toTopOf="@+id/clientPaymentInfoLabel"
-                tools:text="Text" />
-
-            <TextView
-                android:id="@+id/clientDiscountLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:ems="6"
-                android:text="@string/notes"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/clientPaymentInfoLabel"
-                app:layout_constraintTop_toBottomOf="@+id/divider20" />
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_address" />
 
             <TextView
-                android:id="@+id/clientDiscount"
-                textOrDefault="@{viewModel.currentTrader.notes}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/clientDiscountLabel"
-                app:layout_constraintEnd_toEndOf="@+id/clientPaymentInfo"
-                app:layout_constraintStart_toEndOf="@+id/clientDiscountLabel"
-                app:layout_constraintTop_toTopOf="@+id/clientDiscountLabel"
-                tools:text="Text" />
-
-            <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/trader_data_type_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -216,23 +218,23 @@
                 android:text="@string/type"
                 android:textColor="@color/color_on_background"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/clientAddressLabel"
-                app:layout_constraintTop_toBottomOf="@+id/divider19" />
+                app:layout_constraintStart_toStartOf="@+id/trader_data_address_label"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider4" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/trader_data_type"
                 traderType="@{viewModel.currentTrader.type}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="@+id/traderAddressInputLayout"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="@+id/textView3"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_type_label"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_address"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_type_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_type_label"
                 tools:text="Text" />
 
             <View
-                android:id="@+id/divider2"
+                android:id="@+id/trader_data_divider5"
                 style="@style/Theme.Blint.Divider"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -242,59 +244,31 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderNameInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_type" />
 
-            <View
-                android:id="@+id/divider17"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
+            <TextView
+                android:id="@+id/trader_data_billing_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderPhoneInputLayout" />
+                android:ems="6"
+                android:text="@string/billing"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/trader_data_type_label"
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider5" />
 
-            <View
-                android:id="@+id/divider18"
-                style="@style/Theme.Blint.Divider"
+            <TextView
+                android:id="@+id/trader_data_billing"
+                textOrDefault="@{viewModel.currentTrader.billing}"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderEmailInputLayout" />
-
-            <View
-                android:id="@+id/divider19"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/traderAddressInputLayout" />
-
-            <View
-                android:id="@+id/divider21"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_billing_label"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_type"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_billing_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_billing_label"
+                tools:text="Text" />
 
             <View
                 android:id="@+id/divider20"
@@ -307,7 +281,34 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clientPaymentInfoLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/trader_data_billing_label" />
+
+            <TextView
+                android:id="@+id/trader_data_notes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:ems="6"
+                android:text="@string/notes"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/trader_data_billing_label"
+                app:layout_constraintTop_toBottomOf="@+id/divider20" />
+
+            <TextView
+                android:id="@+id/trader_data_notes"
+                textOrDefault="@{viewModel.currentTrader.notes}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/trader_data_notes_label"
+                app:layout_constraintEnd_toEndOf="@+id/trader_data_billing"
+                app:layout_constraintStart_toEndOf="@+id/trader_data_notes_label"
+                app:layout_constraintTop_toTopOf="@+id/trader_data_notes_label"
+                tools:text="Text" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

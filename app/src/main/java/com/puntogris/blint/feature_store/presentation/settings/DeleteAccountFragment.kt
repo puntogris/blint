@@ -21,22 +21,22 @@ class DeleteAccountFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.deleteAccountToolbar)
     }
 
     fun onDeleteAccountClicked() {
         lifecycleScope.launch {
             with(binding) {
-                viewModel.deleteAccount(binding.userEmail.getString()).collect {
+                viewModel.deleteAccount(binding.deleteAccountEmail.getString()).collect {
                     when (it) {
                         is ProgressResource.Error -> {
-                            deleteAccountAnimation.gone()
-                            userEmail.visible()
+                            deleteAccountAnimationView.gone()
+                            deleteAccountEmailInputLayout.visible()
                             UiInterface.showSnackBar(getString(it.error))
                         }
                         ProgressResource.InProgress -> {
-                            deleteAccountAnimation.playAnimationInfinite(R.raw.loading)
-                            userEmail.gone()
+                            deleteAccountAnimationView.playAnimationInfinite(R.raw.loading)
+                            deleteAccountEmailInputLayout.gone()
                         }
                         is ProgressResource.Success -> signOutUser()
                     }

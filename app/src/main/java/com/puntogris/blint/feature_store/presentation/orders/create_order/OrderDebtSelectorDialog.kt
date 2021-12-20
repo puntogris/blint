@@ -6,13 +6,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.puntogris.blint.R
+import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getFloat
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.databinding.DialogOrderDebtSelectorBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderDebtSelectorDialog :DialogFragment() {
+class OrderDebtSelectorDialog : DialogFragment() {
 
     private lateinit var binding: DialogOrderDebtSelectorBinding
     private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
@@ -28,16 +29,14 @@ class OrderDebtSelectorDialog :DialogFragment() {
             .create()
     }
 
-    fun onPositiveButtonClicked(){
-        //todo validate the debt amount
-
-        // UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
-        viewModel.updateOrderDebt(binding.debtAmount.getFloat())
-        dismiss()
-    }
-
-    override fun dismiss() {
+    fun onPositiveButtonClicked() {
         hideKeyboard()
-        super.dismiss()
+        val debt = binding.debtAmount.getFloat()
+        if (debt <= 0) {
+            UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
+        } else {
+            viewModel.updateOrderDebt(debt)
+            dismiss()
+        }
     }
 }

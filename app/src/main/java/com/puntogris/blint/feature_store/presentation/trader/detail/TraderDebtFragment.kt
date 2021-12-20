@@ -28,7 +28,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
 
     private fun setupDebtsAdapter() {
         DebtStatusAdapter { onDebtClicked(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.traderDebtRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -44,11 +44,11 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
                 .distinctUntilChangedBy { it.source.refresh }
                 .map { it.source.refresh is LoadState.NotLoading }
                 .collect { notLoading ->
-                    if (notLoading) binding.recyclerView.scrollToPosition(0)
+                    if (notLoading) binding.traderDebtRecyclerView.scrollToPosition(0)
                 }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.traderDebtEmptyUi)
         }
     }
 
@@ -57,7 +57,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.traderDebtRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

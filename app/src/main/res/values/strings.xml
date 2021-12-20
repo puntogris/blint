@@ -31,7 +31,7 @@
     <string name="publish_order_label">Publish order</string>
     <string name="new_order_label">New oder</string>
     <string name="order_label">Order</string>
-    <string name="update_debt_label">Update debt</string>
+    <string name="update_order_debt_title">Update debt</string>
 
     <!-- Actions-->
     <string name="action_cancel">Cancel</string>
@@ -303,7 +303,7 @@
     <string name="last_debts">Last debts</string>
     <string name="snack_update_debt_error">An error occurred updating the debt.</string>
     <string name="snack_update_debt_success">Debt updated successfully.</string>
-    <string name="snack_debt_value_error">The debt can not be more than the order total.</string>
+    <string name="snack_debt_value_error">The debt can not be less than zero.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generate reports</string>
@@ -369,6 +369,13 @@
     <string name="total_caps" translatable="false">TOTAL</string>
     <string name="order_number_invoice">Order number: %1$d</string>
     <string name="invoice_file_name">order_%1$d_invoice.pdf</string>
+
+    <string name="order_debt_selector_title">Agregar deuda</string>
+    <string name="order_debt_selector_content">Esta deuda sera descontada del valor total de la orden, solo puede ser positiva.</string>
+    <string name="update_order_debt_content">Tene en cuenta si el valor es positivo se incrementara la deuda y se decrementara si es negativo.</string>
+    <string name="empty_ui_content">No se encontro ni polvo por aca.</string>
+    <string name="searching_servers_data_content">Buscando tu informacion en los servidores, no cierres la app.</string>
+    <string name="administration_label">Administration</string>
 
     <!-- Arrays -->
     <string-array name="debt_type">

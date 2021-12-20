@@ -31,21 +31,21 @@ class PublishOrderFragment :
                 with(binding) {
                     when (it) {
                         is ProgressResource.Error -> {
-                            animationView.playAnimationOnce(R.raw.error)
+                            publishOrderAnimationView.playAnimationOnce(R.raw.error)
                             publishOrderTitle.setText(R.string.created_failed)
                             publishOrderSubtitle.setText(R.string.order_create_error_message)
                             UiInterface.showSnackBar(getString(it.error))
                         }
                         is ProgressResource.Success -> {
-                            animationView.playAnimationOnce(R.raw.done)
+                            publishOrderAnimationView.playAnimationOnce(R.raw.done)
                             publishOrderTitle.setText(R.string.created_successfully_title)
                             publishOrderSubtitle.setText(R.string.order_create_success_message)
                         }
                         is ProgressResource.InProgress -> {
-                            animationView.playAnimationInfinite(R.raw.loading)
+                            publishOrderAnimationView.playAnimationInfinite(R.raw.loading)
                         }
                     }
-                    continueButton.isEnabled = it !is ProgressResource.InProgress
+                    publishOrderContinueButton.isEnabled = it !is ProgressResource.InProgress
                 }
             }
         }

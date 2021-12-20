@@ -34,7 +34,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     }
 
     private fun setupToolbar() {
-        binding.toolbar.apply {
+        binding.productToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -72,14 +72,15 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     }
 
     private fun setupPager() {
-        binding.viewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
+        binding.productViewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
 
-        mediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> getString(R.string.tab_data)
-                else -> getString(R.string.tab_records)
+        mediator =
+            TabLayoutMediator(binding.productTabLayout, binding.productViewPager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> getString(R.string.tab_data)
+                    else -> getString(R.string.tab_records)
+                }
             }
-        }
 
         mediator?.attach()
     }
@@ -110,7 +111,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     override fun onDestroyView() {
         mediator?.detach()
         mediator = null
-        binding.viewPager.adapter = null
+        binding.productViewPager.adapter = null
         super.onDestroyView()
     }
 }

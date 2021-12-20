@@ -23,7 +23,7 @@ class TraderRecordsFragment :
 
     private fun setupRecordsAdapter() {
         RecordsAdapter { onRecordClickListener(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.traderRecordsRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -35,11 +35,16 @@ class TraderRecordsFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.traderRecordsEmptyUi)
         }
     }
 
     private fun onRecordClickListener(record: Record) {
         (requireParentFragment() as TraderFragment).navigateToInfoRecord(record)
+    }
+
+    override fun onDestroyView() {
+        binding.traderRecordsRecyclerView.adapter = null
+        super.onDestroyView()
     }
 }

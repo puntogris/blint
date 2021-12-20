@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/preference_toolbar"
+        android:id="@+id/preferences_toolbar"
         style="@style/Theme.Blint.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

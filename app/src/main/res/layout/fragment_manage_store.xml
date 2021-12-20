@@ -15,17 +15,9 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.store.manage.ManageStoreFragment">
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/stores_empty_ui"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="textView14,button13">
-
-        </androidx.constraintlayout.widget.Group>
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/manage_stores_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +29,7 @@
             app:title="@string/stores_label" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/manage_stores_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -47,36 +39,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/manage_stores_toolbar" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="0dp"
+        <include
+            android:id="@+id/manage_stores_empty_ui"
+            layout="@layout/empty_ui_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="152dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/empty_stores_message"
-            android:textAlignment="center"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button13"
-            style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="104dp"
-            android:onClick="@{()-> fragment.onCreateNewStoreClicked()}"
-            android:text="@string/create_store"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
+            app:layout_constraintTop_toBottomOf="@+id/manage_stores_toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

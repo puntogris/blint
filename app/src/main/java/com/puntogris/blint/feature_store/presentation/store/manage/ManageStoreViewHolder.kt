@@ -19,10 +19,10 @@ class ManageStoreViewHolder private constructor(val binding: StoreItemVhBinding)
             root.setOnClickListener {
                 clickListener(selectedStore.store)
             }
-            selectStoreButton.setOnClickListener {
+            storeItemVhSelectStoreButton.setOnClickListener {
                 selectListener(selectedStore.store)
             }
-            selectStoreButton.isEnabled = !selectedStore.isSelected
+            storeItemVhSelectStoreButton.isEnabled = !selectedStore.isSelected
             executePendingBindings()
         }
     }

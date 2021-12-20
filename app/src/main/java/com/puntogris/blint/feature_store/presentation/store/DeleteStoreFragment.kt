@@ -24,11 +24,11 @@ class DeleteStoreFragment :
 
     override fun initializeViews() {
         binding.fragment = this
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.deleteStoreToolbar)
     }
 
     fun onDeleteBusinessClicked() {
-        if (binding.businessNameText.getString() == args.store.name) {
+        if (binding.deleteStoreName.getString() == args.store.name) {
             showDeleteBusinessDialog()
         } else {
             UiInterface.showSnackBar(getString(R.string.snack_store_name_does_not_match))

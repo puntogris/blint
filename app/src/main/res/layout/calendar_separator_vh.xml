@@ -9,7 +9,7 @@
     </data>
 
     <TextView
-        android:id="@+id/calendarSeparator"
+        android:id="@+id/calendar_separator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

@@ -46,12 +46,12 @@ fun AuthUser.toFirestoreUser(): FirestoreUser {
 fun Product.toInitialRecord(currentBusinessId: String): Record {
     return Record(
         type = Constants.INITIAL,
-        amount = amount,
+        amount = stock,
         productId = productId,
         productName = name,
         storeId = currentBusinessId,
         barcode = barcode,
-        historicInStock = amount,
+        historicInStock = stock,
         sku = sku,
     )
 }
@@ -69,7 +69,7 @@ fun NewOrder.toOrderWithRecords(store: Store): OrderWithRecords {
         order = Order(
             orderId = orderId,
             number = store.totalOrders + 1,
-            value = value,
+            total = total,
             type = type,
             traderName = traderName,
             traderId = traderId,
@@ -123,7 +123,7 @@ fun Product.toNewRecord(): NewRecord {
         historicalOutStock = historicOutStock,
         amount = 0,
         productUnitPrice = buyPrice,
-        currentStock = amount
+        currentStock = stock
     )
 }
 

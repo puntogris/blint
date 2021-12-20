@@ -35,14 +35,14 @@ class SyncAccountFragment :
 
     private fun onErrorSync() {
         with(binding) {
-            animationView.playAnimationOnce(R.raw.error)
+            syncAccountAnimationView.playAnimationOnce(R.raw.error)
 
-            title.setText(R.string.snack_an_error_occurred)
-            subtitle.setText(R.string.snack_sync_account_error)
+            syncAccountTitle.setText(R.string.snack_an_error_occurred)
+            syncAccountSubtitle.setText(R.string.snack_sync_account_error)
 
-            continueButton.isEnabled = true
-            continueButton.setText(R.string.action_exit)
-            continueButton.setOnClickListener {
+            syncAccountContinueButton.isEnabled = true
+            syncAccountContinueButton.setText(R.string.action_exit)
+            syncAccountContinueButton.setOnClickListener {
                 findNavController().navigateAndClearStack(R.id.loginFragment)
             }
         }
@@ -50,13 +50,13 @@ class SyncAccountFragment :
 
     private fun onSuccessSync(destination: Int) {
         with(binding) {
-            animationView.playAnimationOnce(R.raw.done)
+            syncAccountAnimationView.playAnimationOnce(R.raw.done)
 
-            subtitle.setText(R.string.account_adventure_message)
-            title.setText(R.string.account_sync_success)
+            syncAccountTitle.setText(R.string.account_sync_success)
+            syncAccountSubtitle.setText(R.string.account_adventure_message)
 
-            continueButton.isEnabled = true
-            continueButton.setOnClickListener {
+            syncAccountContinueButton.isEnabled = true
+            syncAccountContinueButton.setOnClickListener {
                 findNavController().navigateAndClearStack(destination)
             }
         }

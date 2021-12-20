@@ -38,12 +38,12 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     override fun initializeViews() {
         binding.fragment = this
 
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.scannerToolbar)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        binding.overlay.post {
-            binding.overlay.setViewFinder()
+        binding.scannerOverlay.post {
+            binding.scannerOverlay.setViewFinder()
         }
 
         startCamera()
@@ -65,7 +65,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     }
 
     private fun bindCameraUseCases() {
-        val rotation = binding.viewFinder.display.rotation
+        val rotation = binding.scannerViewFinder.display.rotation
 
         preview = Preview.Builder()
             .setTargetRotation(rotation)
@@ -110,7 +110,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 this, cameraSelector, imageAnalysis, preview
             )
 
-            preview?.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            preview?.setSurfaceProvider(binding.scannerViewFinder.surfaceProvider)
 
             observerCameraState(camera?.cameraInfo!!)
 
@@ -126,7 +126,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     TorchState.ON -> R.drawable.ic_baseline_flash_off_24
                     else -> R.drawable.ic_baseline_flash_on_24
                 }
-                binding.flashButton.setImageResource(flashIcon)
+                binding.scannerFlashButton.setImageResource(flashIcon)
             }
         }
     }

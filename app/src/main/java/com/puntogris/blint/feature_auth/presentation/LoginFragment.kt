@@ -40,10 +40,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 when (it) {
                     is LoginResult.Error -> {
                         UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                        binding.progressBar.gone()
+                        binding.loginProgressBar.gone()
                     }
                     LoginResult.InProgress -> {
-                        binding.progressBar.visible()
+                        binding.loginProgressBar.visible()
                     }
                     is LoginResult.Success -> {
                         val action =

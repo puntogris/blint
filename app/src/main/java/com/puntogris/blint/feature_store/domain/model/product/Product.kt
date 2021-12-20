@@ -23,7 +23,7 @@ data class Product(
     var barcode: String = "",
 
     @ColumnInfo
-    var amount: Int = 0,
+    var stock: Int = 0,
 
     @ColumnInfo
     var image: String = "",

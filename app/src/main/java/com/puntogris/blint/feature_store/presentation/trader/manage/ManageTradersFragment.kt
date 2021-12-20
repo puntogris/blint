@@ -30,7 +30,7 @@ class ManageTradersFragment :
 
     private fun setupClientsAdapter() {
         ManageTradersAdapter { onClientClickListener(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.manageTradersRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -42,7 +42,7 @@ class ManageTradersFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageTradersEmptyUi)
         }
     }
 
@@ -53,18 +53,18 @@ class ManageTradersFragment :
     }
 
     private fun setupTraderFilter() {
-        binding.tradersFilter.addOnButtonCheckedListener { _, checkedId, _ ->
+        binding.manageTradersFilter.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
-                R.id.filterAllTradersButton -> viewModel.setFilter(TraderFilter.All)
-                R.id.filterClientsTradersButton -> viewModel.setFilter(TraderFilter.CLIENT)
-                R.id.filterSuppliersTradersButton -> viewModel.setFilter(TraderFilter.SUPPLIER)
-                R.id.filterOtherTradersButton -> viewModel.setFilter(TraderFilter.OTHER)
+                R.id.manage_traders_filter_all_button -> viewModel.setFilter(TraderFilter.All)
+                R.id.manage_traders_filter_clients_button -> viewModel.setFilter(TraderFilter.CLIENT)
+                R.id.manage_traders_filter_suppliers_button -> viewModel.setFilter(TraderFilter.SUPPLIER)
+                R.id.manage_traders_filter_other_button -> viewModel.setFilter(TraderFilter.OTHER)
             }
         }
     }
 
     private fun setupToolbar(){
-        binding.toolbar.apply {
+        binding.manageTradersToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -76,7 +76,7 @@ class ManageTradersFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.manageTradersRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

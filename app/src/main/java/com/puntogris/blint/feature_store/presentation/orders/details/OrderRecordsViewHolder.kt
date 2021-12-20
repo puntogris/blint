@@ -3,10 +3,10 @@ package com.puntogris.blint.feature_store.presentation.orders.details
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.puntogris.blint.databinding.OrderTableItemVhBinding
+import com.puntogris.blint.databinding.OrderRecordVhBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 
-class OrderRecordsViewHolder private constructor(val binding: OrderTableItemVhBinding) :
+class OrderRecordsViewHolder private constructor(val binding: OrderRecordVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(record: Record) {
@@ -17,7 +17,7 @@ class OrderRecordsViewHolder private constructor(val binding: OrderTableItemVhBi
     companion object {
         fun from(parent: ViewGroup): OrderRecordsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = OrderTableItemVhBinding.inflate(layoutInflater, parent, false)
+            val binding = OrderRecordVhBinding.inflate(layoutInflater, parent, false)
             return OrderRecordsViewHolder(binding)
         }
     }

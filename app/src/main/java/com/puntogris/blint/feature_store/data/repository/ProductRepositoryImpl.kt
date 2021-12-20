@@ -42,7 +42,7 @@ class ProductRepositoryImpl(
 
                 productsDao.insertProduct(productWithDetails)
 
-                if (productWithDetails.product.amount != 0) {
+                if (productWithDetails.product.stock != 0) {
                     val record = productWithDetails.product.toInitialRecord(currentStoreId)
                     recordsDao.insert(record)
                 }

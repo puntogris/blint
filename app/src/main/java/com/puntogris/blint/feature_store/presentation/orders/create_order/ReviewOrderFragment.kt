@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentReviewOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ class ReviewOrderFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.reviewOrderToolbar)
     }
 
     fun navigateToPublishOrder() {
@@ -31,6 +32,10 @@ class ReviewOrderFragment :
     }
 
     fun navigateToAddDebt(){
-        findNavController().navigate(R.id.orderDebtSelectorDialog)
+        if (viewModel.isTraderValid()){
+            findNavController().navigate(R.id.orderDebtSelectorDialog)
+        } else {
+            UiInterface.showSnackBar("Seleccione un comerciante para ingresar una deuda.")
+        }
     }
 }

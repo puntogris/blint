@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/productImage"
+            android:id="@+id/order_record_vh_product_image"
             imageFullSize="@{record.productImage}"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -29,7 +29,7 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
         <TextView
-            android:id="@+id/textView173"
+            android:id="@+id/order_record_vh_product_name"
             capitalizeFirstChar="@{record.productName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,23 +38,23 @@
             android:maxLength="17"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/productImage"
+            app:layout_constraintStart_toEndOf="@+id/order_record_vh_product_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView179"
-            numberToMoneyString="@{record.value}"
+            android:id="@+id/order_record_vh_record_total"
+            numberToMoneyString="@{record.total}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView173"
-            app:layout_constraintEnd_toStartOf="@+id/textView180"
+            app:layout_constraintBottom_toBottomOf="@+id/order_record_vh_product_name"
+            app:layout_constraintEnd_toStartOf="@+id/order_record_vh_record_amount"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView173"
-            app:layout_constraintTop_toTopOf="@+id/textView173" />
+            app:layout_constraintStart_toEndOf="@+id/order_record_vh_product_name"
+            app:layout_constraintTop_toTopOf="@+id/order_record_vh_product_name" />
 
         <TextView
-            android:id="@+id/textView180"
+            android:id="@+id/order_record_vh_record_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -62,8 +62,8 @@
             android:text="@{String.valueOf(record.amount)}"
             android:textColor="@color/card6"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView179"
+            app:layout_constraintBottom_toBottomOf="@+id/order_record_vh_record_total"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView179" />
+            app:layout_constraintTop_toTopOf="@+id/order_record_vh_record_total" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

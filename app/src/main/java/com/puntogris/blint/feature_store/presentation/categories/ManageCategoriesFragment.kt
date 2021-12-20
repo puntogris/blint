@@ -28,8 +28,8 @@ class ManageCategoriesFragment :
     }
 
     private fun setupCategoriesAdapter() {
-        ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }.let {
-            binding.recyclerView.adapter = it
+        ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }.also {
+            binding.manageCategoriesRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -46,7 +46,7 @@ class ManageCategoriesFragment :
     }
 
     private fun setupToolbar() {
-        binding.toolbar.apply {
+        binding.manageCategoriesToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -95,7 +95,7 @@ class ManageCategoriesFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.manageCategoriesRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

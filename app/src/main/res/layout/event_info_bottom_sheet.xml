@@ -20,14 +20,15 @@
         android:background="@color/color_tinted_surface">
 
         <TextView
-            android:id="@+id/eventDate"
-            dateFromTimestamp="@{viewModel.event.timestamp}"
+            android:id="@+id/event_info_title"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/eventDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventDateLabel" />
+            android:layout_marginTop="24dp"
+            android:text="@string/events_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <ImageView
             android:id="@+id/divider"
@@ -41,7 +42,7 @@
             app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <TextView
-            android:id="@+id/eventMessageLabel"
+            android:id="@+id/event_info_message_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -50,10 +51,10 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/event_info_title" />
 
         <TextView
-            android:id="@+id/eventMessage"
+            android:id="@+id/event_info_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -61,23 +62,32 @@
             android:text="@{viewModel.event.content}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventMessageLabel" />
+            app:layout_constraintStart_toStartOf="@+id/event_info_message_label"
+            app:layout_constraintTop_toBottomOf="@+id/event_info_message_label" />
 
         <TextView
-            android:id="@+id/eventDateLabel"
+            android:id="@+id/event_info_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/date"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/eventMessageLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventMessage" />
+            app:layout_constraintStart_toStartOf="@+id/event_info_message_label"
+            app:layout_constraintTop_toBottomOf="@+id/event_info_message" />
 
+        <TextView
+            android:id="@+id/event_info_date"
+            dateFromTimestamp="@{viewModel.event.timestamp}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/event_info_date_label"
+            app:layout_constraintTop_toBottomOf="@+id/event_info_date_label" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/eventStatusInputLayout"
+            android:id="@+id/event_info_status_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -85,13 +95,13 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/status"
-            app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
+            app:layout_constraintEnd_toStartOf="@+id/event_info_delete_event_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventDate">
+            app:layout_constraintTop_toBottomOf="@+id/event_info_date">
 
             <AutoCompleteTextView
-                android:id="@+id/eventStatus"
+                android:id="@+id/event_info_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -100,7 +110,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/deleteEventButton"
+            android:id="@+id/event_info_delete_event_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -109,26 +119,15 @@
             android:onClick="@{()-> fragment.onDeleteEventButtonClicked()}"
             android:padding="8dp"
             android:src="@drawable/ic_fi_rr_trash"
-            app:layout_constraintBottom_toBottomOf="@+id/eventStatusInputLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/event_info_status_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/eventStatusInputLayout"
-            app:layout_constraintTop_toTopOf="@+id/eventStatusInputLayout"
+            app:layout_constraintStart_toEndOf="@+id/event_info_status_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/event_info_status_input_layout"
             app:tint="@color/almostBlack" />
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/events_details"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveEventButton"
+            android:id="@+id/event_info_save_event_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -139,6 +138,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventStatusInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/event_info_status_input_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

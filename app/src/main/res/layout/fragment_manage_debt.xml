@@ -20,7 +20,7 @@
         tools:context=".feature_store.presentation.debt.manage.ManageDebtFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/manage_debt_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,21 +30,8 @@
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/debts_label" />
 
-        <View
-            android:id="@+id/divider34"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView184" />
-
         <TextView
-            android:id="@+id/textView181"
+            android:id="@+id/manage_debt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -54,22 +41,34 @@
             android:textColor="@color/color_on_background"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_toolbar" />
 
         <TextView
-            android:id="@+id/textView184"
+            android:id="@+id/manage_debt_store_debt"
             debtColorWithLimit="@{viewModel.currentBusiness.tradersDebt}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-black"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/textView181"
-            app:layout_constraintTop_toBottomOf="@+id/textView181" />
+            app:layout_constraintStart_toStartOf="@+id/manage_debt_title"
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_title" />
 
+        <View
+            android:id="@+id/manage_debt_divider"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_store_debt" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/manage_debt_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -79,10 +78,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView204" />
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_last_debts_title" />
 
         <TextView
-            android:id="@+id/textView204"
+            android:id="@+id/manage_debt_last_debts_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -90,20 +89,19 @@
             android:text="@string/last_debts"
             android:textColor="@color/color_on_background"
             android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/textView184"
-            app:layout_constraintTop_toBottomOf="@+id/divider34" />
+            app:layout_constraintStart_toStartOf="@+id/manage_debt_store_debt"
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_divider" />
 
         <include
-            android:id="@+id/empty_ui"
-            layout="@layout/empty_ui"
+            android:id="@+id/manage_debt_empty_ui"
+            layout="@layout/empty_ui_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView204" />
-
+            app:layout_constraintTop_toBottomOf="@+id/manage_debt_last_debts_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

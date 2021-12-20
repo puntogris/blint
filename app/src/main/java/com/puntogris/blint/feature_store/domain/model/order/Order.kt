@@ -19,7 +19,7 @@ data class Order(
     val timestamp: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo
-    var value: Float = 0F,
+    var total: Float = 0F,
 
     @ColumnInfo
     var type: String = "IN",

@@ -20,57 +20,19 @@
         tools:context=".feature_store.presentation.orders.details.OrderFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/order_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/grid_1"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/order_label"
             tools:ignore="RtlSymmetry" />
 
-        <View
-            android:id="@+id/divider29"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chip" />
-
         <TextView
-            android:id="@+id/orderDateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:ems="6"
-            android:text="@string/date"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderType" />
-
-        <TextView
-            android:id="@+id/orderDate"
-            dateFromTimestampWithTime="@{viewModel.orderWithRecords.order.timestamp}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/orderDateLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/orderDateLabel"
-            app:layout_constraintTop_toTopOf="@+id/orderDateLabel" />
-
-        <TextView
-            android:id="@+id/orderTypeLabel"
+            android:id="@+id/order_type_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -81,22 +43,73 @@
             android:textSize="16sp"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/order_toolbar" />
 
         <TextView
-            android:id="@+id/orderType"
+            android:id="@+id/order_type"
             recordTypeString="@{viewModel.orderWithRecords.order.type}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/orderTypeLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/order_type_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/orderTypeLabel"
-            app:layout_constraintTop_toTopOf="@+id/orderTypeLabel" />
+            app:layout_constraintStart_toEndOf="@+id/order_type_label"
+            app:layout_constraintTop_toTopOf="@+id/order_type_label" />
+
+        <View
+            android:id="@+id/order_divider1"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_type_label" />
 
         <TextView
-            android:id="@+id/orderValueLabel"
+            android:id="@+id/order_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/date"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_divider1" />
+
+        <TextView
+            android:id="@+id/order_date"
+            dateFromTimestampWithTime="@{viewModel.orderWithRecords.order.timestamp}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/order_date_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/order_date_label"
+            app:layout_constraintTop_toTopOf="@+id/order_date_label" />
+
+        <View
+            android:id="@+id/order_divider2"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_date" />
+
+        <TextView
+            android:id="@+id/order_total_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -104,56 +117,84 @@
             android:text="@string/total"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/orderDateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/orderDate" />
-
+            app:layout_constraintStart_toStartOf="@+id/order_date_label"
+            app:layout_constraintTop_toBottomOf="@+id/order_divider2" />
 
         <TextView
-            android:id="@+id/externalNameTitle"
+            android:id="@+id/order_total"
+            totalOrderWithDetails="@{viewModel.orderWithRecords}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/order_total_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/order_total_label"
+            app:layout_constraintTop_toTopOf="@+id/order_total_label" />
+
+        <View
+            android:id="@+id/order_divider3"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_total" />
+
+        <TextView
+            android:id="@+id/order_trader_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="6"
             android:text="@string/trader_label"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/chip"
-            app:layout_constraintStart_toStartOf="@+id/orderValueLabel"
-            app:layout_constraintTop_toTopOf="@+id/chip" />
+            app:layout_constraintBottom_toBottomOf="@+id/order_trader_chip"
+            app:layout_constraintStart_toStartOf="@+id/order_total_label"
+            app:layout_constraintTop_toTopOf="@+id/order_trader_chip" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip"
+            android:id="@+id/order_trader_chip"
             externalChipName="@{viewModel.orderWithRecords.order.traderName}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{()->fragment.onExternalChipClicked()}"
-            app:layout_constraintStart_toEndOf="@+id/externalNameTitle"
-            app:layout_constraintTop_toBottomOf="@+id/orderValueLabel" />
+            app:layout_constraintStart_toEndOf="@+id/order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/order_divider3" />
+
+        <View
+            android:id="@+id/order_divider4"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_trader_chip" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/order_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/generateInvoiceButton"
+            app:layout_constraintBottom_toTopOf="@+id/order_generate_invoice_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider29" />
+            app:layout_constraintTop_toBottomOf="@+id/order_divider4"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/orderTotal"
-            totalOrderWithDetails="@{viewModel.orderWithRecords}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/orderValueLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/orderValueLabel"
-            app:layout_constraintTop_toTopOf="@+id/orderValueLabel" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/generateInvoiceButton"
+            android:id="@+id/order_generate_invoice_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"

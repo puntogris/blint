@@ -11,10 +11,10 @@ class ProductTraderViewHolder private constructor(val binding: ProductTraderVhBi
 
     fun bind(trader: CheckableTrader, clickListener: (CheckableTrader) -> Unit) {
         binding.trader = trader
-        binding.supplierView.isChecked = trader.isChecked
+        binding.productTraderVhSupplierCheckView.isChecked = trader.isChecked
         binding.root.setOnClickListener {
             clickListener(trader)
-            binding.supplierView.toggle()
+            binding.productTraderVhSupplierCheckView.toggle()
         }
 
         binding.executePendingBindings()

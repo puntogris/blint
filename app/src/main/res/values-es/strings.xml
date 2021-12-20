@@ -29,7 +29,7 @@
     <string name="publish_order_label">Publicar order</string>
     <string name="new_order_label">Nueva orden</string>
     <string name="order_label">Orden</string>
-    <string name="update_debt_label">Actualizar deuda</string>
+    <string name="update_order_debt_title">Actualizar deuda</string>
 
     <!-- Actions-->
     <string name="action_cancel">Cancelar</string>
@@ -289,7 +289,7 @@
     <string name="last_debts">Últimas deudas</string>
     <string name="snack_update_debt_error">Ocurrió un error al actualizar la deuda.</string>
     <string name="snack_update_debt_success">Se actualizo la deuda correctamente.</string>
-    <string name="snack_debt_value_error">La deuda no puede ser mayor que el total de la orden.</string>
+    <string name="snack_debt_value_error">La deuda no puede ser menos a cero.</string>
 
     <!-- Reports -->
     <string name="generate_reports">Generar informes</string>

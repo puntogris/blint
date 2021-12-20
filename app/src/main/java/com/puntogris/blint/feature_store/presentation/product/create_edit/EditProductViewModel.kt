@@ -97,7 +97,7 @@ class EditProductViewModel @Inject constructor(
     fun updateProductAmount(editable: Editable) {
         val newAmount = editable.toString().toIntOrNull() ?: 0
         currentProduct.value.product.apply {
-            amount = newAmount
+            stock = newAmount
             historicInStock = newAmount
         }
     }

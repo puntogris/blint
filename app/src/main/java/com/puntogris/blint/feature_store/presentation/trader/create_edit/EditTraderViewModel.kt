@@ -44,7 +44,7 @@ class EditTraderViewModel @Inject constructor(
     }
 
     fun updateTraderPaymentInfo(editable: Editable) {
-        currentTrader.value.paymentInfo = editable.toString()
+        currentTrader.value.billing = editable.toString()
     }
 
     fun updateTraderNotes(editable: Editable) {

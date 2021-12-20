@@ -28,24 +28,12 @@ class ManageStoreFragment :
         setupStoreAdapter()
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.apply {
-            registerToolbarBackButton(this)
-            setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_add_store) {
-                    findNavController().navigate(R.id.registerStoreFragment)
-                }
-                true
-            }
-        }
-    }
-
     private fun setupStoreAdapter() {
         ManageStoreAdapter(
             clickListener = { onStoreClicked(it) },
             selectListener = { onStoreSelected(it) }
         ).also {
-            binding.recyclerView.adapter = it
+            binding.manageStoresRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -54,7 +42,7 @@ class ManageStoreFragment :
         launchAndRepeatWithViewLifecycle {
             viewModel.storesFlow.collect { data ->
                 adapter.submitList(data)
-                binding.storesEmptyUi.isVisible = data.isEmpty()
+                binding.manageStoresEmptyUi.isVisible = data.isEmpty()
             }
         }
     }
@@ -79,12 +67,20 @@ class ManageStoreFragment :
         }
     }
 
-    fun onCreateNewStoreClicked() {
-        findNavController().navigate(R.id.registerStoreFragment)
+    private fun setupToolbar() {
+        binding.manageStoresToolbar.apply {
+            registerToolbarBackButton(this)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_add_store) {
+                    findNavController().navigate(R.id.registerStoreFragment)
+                }
+                true
+            }
+        }
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.manageStoresRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

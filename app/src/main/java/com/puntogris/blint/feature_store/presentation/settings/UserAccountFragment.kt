@@ -17,6 +17,6 @@ class UserAccountFragment :
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.userAccountToolbar)
     }
 }

@@ -21,7 +21,7 @@
         tools:context=".feature_store.presentation.product.categories.ProductCategoryFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/search_toolbar"
+            android:id="@+id/product_category_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:navigationIcon="@drawable/ic_fi_rr_angle_left">
 
             <EditText
-                android:id="@+id/categoriesSearch"
+                android:id="@+id/product_category_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginEnd="24dp"
@@ -52,7 +52,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/product_category_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -62,10 +62,10 @@
             android:textColor="@color/color_on_background"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/product_category_toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/product_category_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -74,13 +74,13 @@
             android:paddingBottom="88dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/doneButton"
+            app:layout_constraintBottom_toTopOf="@+id/product_category_done_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/product_category_title" />
 
         <Button
-            android:id="@+id/doneButton"
+            android:id="@+id/product_category_done_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"

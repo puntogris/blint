@@ -21,7 +21,7 @@
         tools:context=".feature_store.presentation.trader.ManageSuppliersFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/order_trader_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             tools:ignore="RtlSymmetry">
 
             <EditText
-                android:id="@+id/clientSearch"
+                android:id="@+id/order_trader_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="100"
@@ -55,7 +55,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/order_trader_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

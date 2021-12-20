@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/orders_tab_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -18,8 +18,9 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <include
-            android:id="@+id/empty_ui"
-            layout="@layout/empty_ui"
+            android:id="@+id/orders_tab_empty_ui"
+            layout="@layout/empty_ui_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

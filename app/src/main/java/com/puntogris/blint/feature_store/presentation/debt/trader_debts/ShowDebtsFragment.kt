@@ -20,7 +20,7 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
 
     private fun setupDebtsAdapter() {
         TraderDebtAdapter { onDebtClicked(it) }.let {
-            binding.recyclerView.adapter = it
+            binding.showDebtsRecyclerView.adapter = it
             subscribeUi(it)
         }
     }
@@ -35,5 +35,10 @@ class ShowDebtsFragment : BaseFragment<FragmentShowDebtsBinding>(R.layout.fragme
 
     private fun onDebtClicked(trader: Trader) {
 
+    }
+
+    override fun onDestroyView() {
+        binding.showDebtsRecyclerView.adapter = null
+        super.onDestroyView()
     }
 }

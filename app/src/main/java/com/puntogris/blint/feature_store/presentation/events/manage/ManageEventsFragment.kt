@@ -28,7 +28,7 @@ class ManageEventsFragment :
     }
 
     private fun setupToolbar() {
-        binding.toolbar.apply {
+        binding.manageEventsToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -40,18 +40,18 @@ class ManageEventsFragment :
     }
 
     private fun setupEventsFilter() {
-        binding.eventsFilter.addOnButtonCheckedListener { _, checkedId, _ ->
+        binding.manageEventsFilter.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
-                R.id.filterAllEventsButton -> viewModel.setFilter(EventStatus.All)
-                R.id.filterPendingEventsButton -> viewModel.setFilter(EventStatus.Pending)
-                R.id.filterFinishedEventsButton -> viewModel.setFilter(EventStatus.Finished)
+                R.id.manage_events_filter_all_button -> viewModel.setFilter(EventStatus.All)
+                R.id.manage_events_filter_pending_button -> viewModel.setFilter(EventStatus.Pending)
+                R.id.manage_events_finished_all_button -> viewModel.setFilter(EventStatus.Finished)
             }
         }
     }
 
     private fun setupEventsAdapter() {
         ManageEventsAdapter(::onEventClicked).let {
-            binding.recyclerView.adapter = it
+            binding.manageEventsRecyclerView.adapter = it
             registerEventUpdatedListener(it)
             subscribeUi(it)
         }
@@ -85,7 +85,7 @@ class ManageEventsFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.manageEventsRecyclerView.adapter = null
         super.onDestroyView()
     }
 }

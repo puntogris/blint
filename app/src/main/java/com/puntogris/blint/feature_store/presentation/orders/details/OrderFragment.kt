@@ -31,14 +31,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.orderToolbar)
         setupOrderTableAdapter()
         setupMediaStorageLauncher()
     }
 
     private fun setupOrderTableAdapter() {
         OrdersRecordsAdapter().let {
-            binding.recyclerView.adapter = it
+            binding.orderRecyclerView.adapter = it
             subscribeUi(it)
         }
     }

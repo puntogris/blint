@@ -23,11 +23,11 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/productFoundGroup"
+            android:id="@+id/scanner_result_product_found_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.GONE : View.VISIBLE}"
-            app:constraint_referenced_ids="button2,textView196,textView197,textView198,textView200,textView201,textView202,button5,textView64,productAmount,textView62,productLastEdited,textView61,textView60,textView15"
+            app:constraint_referenced_ids="scanner_result_edit_product_stock_button,scanner_result_product_buy_price_label,scanner_result_product_sell_price_label,scanner_result_product_suggested_price_label,scanner_result_product_buy_price,scanner_result_product_sell_price,scanner_result_product_suggested_price,scanner_result_navigate_to_product_button,scanner_result_product_last_record_label,scanner_result_product_stock,scanner_result_product_stock_label,scanner_result_product_last_record,scanner_result_product_name,scanner_result_product_name_label,scanner_result_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,15 +35,26 @@
             tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/productNotFoundGroup"
+            android:id="@+id/scanner_result_product_not_found_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="textView67,button7,barcodeScanned,textView66"
+            app:constraint_referenced_ids="scanner_result_product_barcode_label,scanner_result_create_product_button,scanner_result_product_barcode,scanner_result_no_product_found_message"
             tools:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/scanner_result_divider"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/top_window_bar_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/scanner_result_title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,71 +63,191 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
 
         <TextView
-            android:id="@+id/textView60"
-            android:textColor="@color/color_on_background"
+            android:id="@+id/scanner_result_product_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/name"
-            app:layout_constraintEnd_toStartOf="@+id/textView62"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_stock_label"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView62" />
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_stock_label" />
 
         <TextView
-            android:id="@+id/textView61"
+            android:id="@+id/scanner_result_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.scannedProduct.product.name}"
-            app:layout_constraintStart_toStartOf="@+id/textView60"
-            app:layout_constraintTop_toBottomOf="@+id/textView60" />
+            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_name_label" />
 
         <TextView
-            android:id="@+id/textView62"
-            android:textColor="@color/color_on_background"
+            android:id="@+id/scanner_result_product_stock_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/stock"
-            app:layout_constraintEnd_toStartOf="@+id/textView64"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_last_record_label"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView60"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_title" />
 
         <TextView
-            android:id="@+id/productAmount"
+            android:id="@+id/scanner_result_product_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.scannedProduct.product.amount)}"
-            app:layout_constraintStart_toStartOf="@+id/textView62"
-            app:layout_constraintTop_toBottomOf="@+id/textView62" />
+            android:text="@{String.valueOf(viewModel.scannedProduct.product.stock)}"
+            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_stock_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_stock_label" />
 
         <TextView
-            android:id="@+id/textView64"
-            android:textColor="@color/color_on_background"
+            android:id="@+id/scanner_result_product_last_record_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="@string/last_record"
+            android:textColor="@color/color_on_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView62"
-            app:layout_constraintTop_toTopOf="@+id/textView62" />
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_stock_label"
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_stock_label" />
 
         <TextView
-            android:id="@+id/productLastEdited"
+            android:id="@+id/scanner_result_product_last_record"
             dateFromTimestamp="@{viewModel.scannedProduct.product.lastRecordTimestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView64"
-            app:layout_constraintTop_toBottomOf="@+id/textView64" />
+            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_last_record_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_last_record_label" />
+
+        <TextView
+            android:id="@+id/scanner_result_no_product_found_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/no_product_found_with_code"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_barcode_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/code_with_dots"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_no_product_found_message" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_barcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:singleLine="true"
+            android:text="@{viewModel.scannedProduct.product.barcode}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_barcode_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_barcode_label"
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_barcode_label"
+            tools:text="1234567890" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_buy_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/buy_price"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_name" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_buy_price"
+            priceOrDefault="@{viewModel.scannedProduct.product.buyPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_buy_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_buy_price_label" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_sell_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_price"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_buy_price_label"
+            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_suggested_price_label"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_buy_price_label"
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_buy_price_label" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_sell_price"
+            priceOrDefault="@{viewModel.scannedProduct.product.sellPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_sell_price_label" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_suggested_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="@string/suggested_sell_price"
+            android:textColor="@color/color_on_background"
+            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_sell_price_label" />
+
+        <TextView
+            android:id="@+id/scanner_result_product_suggested_price"
+            priceOrDefault="@{viewModel.scannedProduct.product.suggestedSellPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/scanner_result_product_suggested_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_suggested_price_label" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button5"
+            android:id="@+id/scanner_result_edit_product_stock_button"
+            style="@style/Theme.Blint.Button"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:onClickListener="@{() -> fragment.onCreateSimpleOrder()}"
+            android:text="@string/action_edit_stock"
+            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_navigate_to_product_button"
+            app:layout_constraintEnd_toStartOf="@+id/scanner_result_navigate_to_product_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/scanner_result_navigate_to_product_button"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scanner_result_navigate_to_product_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginStart="4dp"
@@ -128,11 +259,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/textView200" />
+            app:layout_constraintStart_toEndOf="@+id/scanner_result_edit_product_stock_button"
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_buy_price" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button7"
+            android:id="@+id/scanner_result_create_product_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -143,137 +274,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView67" />
-
-        <TextView
-            android:id="@+id/textView66"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/no_product_found_with_code"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
-
-        <TextView
-            android:id="@+id/textView67"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/code_with_dots"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView66" />
-
-        <TextView
-            android:id="@+id/barcodeScanned"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
-            android:singleLine="true"
-            android:text="@{viewModel.scannedProduct.product.barcode}"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView67"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView67"
-            app:layout_constraintTop_toTopOf="@+id/textView67"
-            tools:text="1234567890" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="30dp"
-            android:layout_height="5dp"
-            android:layout_marginTop="24dp"
-            android:contentDescription="@string/top_window_bar_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
-
-        <TextView
-            android:id="@+id/textView196"
-            android:textColor="@color/color_on_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/buy_price"
-            app:layout_constraintEnd_toStartOf="@+id/textView197"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView61" />
-
-        <TextView
-            android:id="@+id/textView197"
-            android:textColor="@color/color_on_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sell_price"
-            app:layout_constraintBottom_toBottomOf="@+id/textView196"
-            app:layout_constraintEnd_toStartOf="@+id/textView198"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView196"
-            app:layout_constraintTop_toTopOf="@+id/textView196" />
-
-        <TextView
-            android:id="@+id/textView198"
-            android:textColor="@color/color_on_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="@string/suggested_sell_price"
-            app:layout_constraintBottom_toBottomOf="@+id/textView197"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView197"
-            app:layout_constraintTop_toTopOf="@+id/textView197" />
-
-        <TextView
-            android:id="@+id/textView200"
-            priceOrDefault="@{viewModel.scannedProduct.product.buyPrice}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView196"
-            app:layout_constraintTop_toBottomOf="@+id/textView196" />
-
-        <TextView
-            android:id="@+id/textView201"
-            priceOrDefault="@{viewModel.scannedProduct.product.sellPrice}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView197"
-            app:layout_constraintTop_toBottomOf="@+id/textView197" />
-
-        <TextView
-            android:id="@+id/textView202"
-            priceOrDefault="@{viewModel.scannedProduct.product.suggestedSellPrice}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/textView198"
-            app:layout_constraintTop_toBottomOf="@+id/textView198" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button2"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            android:onClickListener="@{() -> fragment.onCreateSimpleOrder()}"
-            android:text="@string/action_edit_stock"
-            app:layout_constraintBottom_toBottomOf="@+id/button5"
-            app:layout_constraintEnd_toStartOf="@+id/button5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button5"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_barcode_label" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

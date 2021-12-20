@@ -15,27 +15,28 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/parentLayout"
+        android:id="@+id/order_products_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
         tools:context=".feature_store.presentation.orders.create_order.OrderProductsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/order_products_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_1"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/menu_scan"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left">
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            tools:ignore="RtlSymmetry">
 
             <EditText
-                android:id="@+id/product_search"
+                android:id="@+id/order_products_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="100"
@@ -54,17 +55,15 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/order_products_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton"
+            app:layout_constraintBottom_toTopOf="@+id/order_products_done_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/order_products_toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_search_recycler_view"
@@ -81,11 +80,11 @@
             app:layout_constraintHeight_max="225dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/order_products_toolbar"
             tools:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/order_products_done_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"

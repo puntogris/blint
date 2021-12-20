@@ -176,7 +176,7 @@ class PDFCreator @Inject constructor(
             )
             canvas.drawText(record.sku, xRow2, initY, paintLeft)
             canvas.drawText(record.amount.toString(), xRow3, initY, paintCenter)
-            canvas.drawText("${record.value}$", xRow4, initY, paintRight)
+            canvas.drawText("${record.total}$", xRow4, initY, paintRight)
             initY += 50
 
         }
@@ -199,7 +199,7 @@ class PDFCreator @Inject constructor(
         if (isLastPage) {
             drawText("${context.getString(R.string.total_caps)}:", 40f, height - 75f, paintLeft)
             drawText(
-                "${orderWithRecords.order.value}$",
+                "${orderWithRecords.order.total}$",
                 width - 40f,
                 height - 75f,
                 paintRight

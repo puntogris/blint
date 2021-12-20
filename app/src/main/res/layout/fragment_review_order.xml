@@ -19,61 +19,8 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.orders.create_order.ReviewOrderFragment">
 
-        <View
-            android:id="@+id/divider37"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amounts_of_products_label" />
-
-        <View
-            android:id="@+id/divider38"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
-
-        <View
-            android:id="@+id/divider39"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-        <View
-            android:id="@+id/divider33"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView49" />
-
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/review_order_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,9 +32,8 @@
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/review_order_label" />
 
-
         <TextView
-            android:id="@+id/amounts_of_products_label"
+            android:id="@+id/review_order_products_count_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -96,19 +42,195 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/review_order_toolbar" />
 
         <TextView
-            android:id="@+id/amount_of_products"
+            android:id="@+id/review_order_products_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{String.valueOf(viewModel.newOrder.newRecords.size())}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/amounts_of_products_label"
-            app:layout_constraintStart_toEndOf="@+id/amounts_of_products_label"
-            app:layout_constraintTop_toTopOf="@+id/amounts_of_products_label" />
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_products_count_label"
+            app:layout_constraintStart_toEndOf="@+id/review_order_products_count_label"
+            app:layout_constraintTop_toTopOf="@+id/review_order_products_count_label" />
 
+        <View
+            android:id="@+id/review_order_divider1"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_products_count_label" />
+
+        <TextView
+            android:id="@+id/review_order_trader_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/trader_label"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/review_order_products_count_label"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider1" />
+
+        <TextView
+            android:id="@+id/review_order_trader"
+            externalName="@{viewModel.newOrder.traderName}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_trader_label"
+            app:layout_constraintEnd_toStartOf="@+id/review_order_trader_open_icon"
+            app:layout_constraintStart_toEndOf="@+id/review_order_trader_label"
+            app:layout_constraintTop_toTopOf="@+id/review_order_trader_label" />
+
+        <ImageView
+            android:id="@+id/review_order_trader_open_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_trader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/review_order_trader"
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+
+        <View
+            android:id="@+id/review_order_trader_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foreground="?selectableItemBackground"
+            android:onClickListener="@{()-> fragment.navigateToAddTrader()}"
+            app:layout_constraintBottom_toTopOf="@+id/review_order_divider2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider1" />
+
+        <View
+            android:id="@+id/review_order_divider2"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_trader_label" />
+
+        <TextView
+            android:id="@+id/review_order_debt_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Deuda:"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/review_order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider2" />
+
+        <TextView
+            android:id="@+id/review_order_debt"
+            orderDebtOrDefault="@{viewModel.newOrder}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_debt_label"
+            app:layout_constraintEnd_toStartOf="@+id/review_order_debt_open_icon"
+            app:layout_constraintStart_toEndOf="@+id/review_order_debt_label"
+            app:layout_constraintTop_toTopOf="@+id/review_order_debt_label" />
+
+        <ImageView
+            android:id="@+id/review_order_debt_open_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_debt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/review_order_debt"
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
+
+        <View
+            android:id="@+id/review_order_debt_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foreground="?selectableItemBackground"
+            android:onClickListener="@{()-> fragment.navigateToAddDebt()}"
+            app:layout_constraintBottom_toTopOf="@+id/review_order_divider3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider2" />
+
+        <View
+            android:id="@+id/review_order_divider3"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_debt_label" />
+
+        <TextView
+            android:id="@+id/review_order_total_label"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/total"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/review_order_trader_label"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider3" />
+
+        <TextView
+            android:id="@+id/review_order_total"
+            numberToMoneyString="@{viewModel.newOrder.total}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/review_order_total_label"
+            app:layout_constraintStart_toEndOf="@+id/review_order_total_label"
+            app:layout_constraintTop_toTopOf="@+id/review_order_total_label" />
+
+        <TextView
+            android:id="@+id/review_order_total_debt_summary"
+            orderDebtSummary="@{viewModel.newOrder}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/review_order_total_label"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_divider4" />
+
+        <View
+            android:id="@+id/review_order_divider4"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_order_total_label" />
 
         <TextView
             android:id="@+id/review_order_alert"
@@ -119,49 +241,13 @@
             android:layout_marginBottom="132dp"
             android:text="@string/review_order_alert"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintBottom_toTopOf="@+id/review_order_done_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/order_trader_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/trader_label"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/amounts_of_products_label"
-            app:layout_constraintTop_toBottomOf="@+id/divider37" />
-
-        <TextView
-            android:id="@+id/order_trader"
-            externalName="@{viewModel.newOrder.traderName}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:layout_marginEnd="16dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/order_trader_label"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/order_trader_label"
-            app:layout_constraintTop_toTopOf="@+id/order_trader_label" />
-
-        <TextView
-            android:id="@+id/order_debt_summary"
-            android:textSize="16sp"
-            android:textColor="@color/color_on_background"
-            orderDebtSummary="@{viewModel.newOrder}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/divider39" />
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
+            android:id="@+id/review_order_done_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -171,94 +257,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/total"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
-            app:layout_constraintTop_toBottomOf="@+id/divider33" />
-
-        <TextView
-            android:id="@+id/textView42"
-            numberToMoneyString="@{viewModel.newOrder.value}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toTopOf="@+id/textView13" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/order_trader"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/order_trader"
-            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:foreground="?selectableItemBackground"
-            android:onClickListener="@{()-> fragment.navigateToAddTrader()}"
-            app:layout_constraintBottom_toTopOf="@+id/divider38"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider37" />
-
-        <TextView
-            android:id="@+id/textView49"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Deuda:"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/order_trader_label"
-            app:layout_constraintTop_toBottomOf="@+id/divider38" />
-
-        <TextView
-            android:id="@+id/textView50"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textSize="16sp"
-            orderDebtOrDefault="@{viewModel.newOrder}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView49"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/textView49"
-            app:layout_constraintTop_toTopOf="@+id/textView49" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView50"
-            app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:foreground="?selectableItemBackground"
-            android:onClickListener="@{()-> fragment.navigateToAddDebt()}"
-            app:layout_constraintBottom_toTopOf="@+id/divider33"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

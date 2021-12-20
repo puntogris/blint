@@ -277,7 +277,7 @@
     <dialog
         android:id="@+id/updateDebtDialog"
         android:name="com.puntogris.blint.feature_store.presentation.debt.update_debt.UpdateDebtDialog"
-        android:label="@string/update_debt_label">
+        android:label="@string/update_order_debt_title">
         <argument
             android:name="trader"
             app:argType="com.puntogris.blint.feature_store.domain.model.Trader" />

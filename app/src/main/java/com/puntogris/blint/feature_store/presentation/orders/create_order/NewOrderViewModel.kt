@@ -100,10 +100,6 @@ class NewOrderViewModel @Inject constructor(
         )
     }
 
-    fun updateOrderDebt(editable: Editable) {
-        updateOrderDebt(editable.toString().toFloat())
-    }
-
     fun updateOrderTrader(traderName: String, traderId: String) {
         _newOrder.value = _newOrder.value.copy(
             traderId = traderId,
@@ -114,5 +110,5 @@ class NewOrderViewModel @Inject constructor(
 
     fun areProductsValid() = _newOrder.value.areRecordsValid()
 
-    fun isDebtValid() = _newOrder.value.newDebt?.amount != 0F
+    fun isTraderValid() = _newOrder.value.traderName.isNotEmpty()
 }

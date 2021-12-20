@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/edit_product_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,32 +45,32 @@
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/descriptionLayout"
-                    layout="@layout/product_description_card"
+                    android:id="@+id/edit_product_description_card"
+                    layout="@layout/edit_product_description_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:fragment="@{fragment}"
                     app:viewModel="@{viewModel}" />
 
                 <include
-                    android:id="@+id/pricesLayout"
-                    layout="@layout/product_prices_card"
+                    android:id="@+id/edit_product_prices_card"
+                    layout="@layout/edit_product_prices_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:fragment="@{fragment}"
                     app:viewModel="@{viewModel}" />
 
                 <include
-                    android:id="@+id/scopeLayout"
-                    layout="@layout/product_scope_card"
+                    android:id="@+id/edit_product_traders_categories_card"
+                    layout="@layout/edit_product_traders_categories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:fragment="@{fragment}"
                     app:viewModel="@{viewModel}" />
 
                 <include
-                    android:id="@+id/productExtrasLayout"
-                    layout="@layout/product_extras_card"
+                    android:id="@+id/edit_product_extras_card"
+                    layout="@layout/edit_product_extras_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -81,7 +81,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveTraderButton"
+            android:id="@+id/edit_product_save_product_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"

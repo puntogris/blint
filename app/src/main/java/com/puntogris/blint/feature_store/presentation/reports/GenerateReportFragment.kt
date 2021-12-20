@@ -28,7 +28,7 @@ class GenerateReportFragment :
         binding.fragment = this
 
         setupDocumentLauncher()
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.generateReportToolbar)
     }
 
     private fun setupDocumentLauncher() {
@@ -50,14 +50,14 @@ class GenerateReportFragment :
             with(binding) {
                 when (viewModel.generateReport()) {
                     is Resource.Error -> {
-                        reportTitle.setText(R.string.report_exported_error_title)
-                        reportMessage.setText(R.string.report_exported_error_message)
-                        animationView.playAnimationOnce(R.raw.error)
+                        generateReportTitle.setText(R.string.report_exported_error_title)
+                        generateReportAlertMessage.setText(R.string.report_exported_error_message)
+                        generateReportAnimationView.playAnimationOnce(R.raw.error)
                     }
                     is Resource.Success -> {
-                        reportTitle.setText(R.string.report_exported_success_title)
-                        reportMessage.setText(R.string.report_exported_success_message)
-                        animationView.playAnimationOnce(R.raw.done)
+                        generateReportTitle.setText(R.string.report_exported_success_title)
+                        generateReportAlertMessage.setText(R.string.report_exported_success_message)
+                        generateReportAnimationView.playAnimationOnce(R.raw.done)
                     }
                 }
             }

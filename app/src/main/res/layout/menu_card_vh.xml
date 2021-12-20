@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuCardLayout"
+            android:id="@+id/menu_card_vh_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/color_on_primary"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/menu_card_vh_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="12dp"
@@ -41,7 +41,7 @@
                     app:setImageResource="@{menuCard.icon}" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/menu_card_vh_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -53,7 +53,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/menu_card_vh_icon" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

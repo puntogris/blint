@@ -18,7 +18,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
 
     override fun initializeViews() {
         binding.fragment = this
-        registerToolbarBackButton(binding.toolbar)
+        registerToolbarBackButton(binding.reportsToolbar)
     }
 
     fun onProductsReportClicked() {

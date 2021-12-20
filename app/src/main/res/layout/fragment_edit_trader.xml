@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/edit_trader_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,8 +36,8 @@
             android:scrollbars="vertical">
 
             <include
-                android:id="@+id/traderInformationLayout"
-                layout="@layout/trader_information_card"
+                android:id="@+id/edit_trader_content_card"
+                layout="@layout/edit_trader_content_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -48,7 +48,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveTraderButton"
+            android:id="@+id/edit_trader_save_trader_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"

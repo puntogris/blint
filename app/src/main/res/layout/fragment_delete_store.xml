@@ -16,7 +16,7 @@
         tools:context=".feature_store.presentation.store.DeleteStoreFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/delete_store_toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,48 +28,8 @@
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/delete_store" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/businessName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:hint="@string/store_name_hint"
-            app:helperText="@string/helper_text_obligatory"
-            app:helperTextEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/textView120"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView141"
-            app:layout_constraintVertical_bias="0.22000003">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/businessNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
-            android:id="@+id/textView120"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="104dp"
-            android:lineSpacingExtra="4dp"
-            android:text="@string/delete_local_store_warning"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/button6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView141"
+            android:id="@+id/delete_store_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -81,10 +41,51 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/delete_store_toolbar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/delete_store_name_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:hint="@string/store_name_hint"
+            app:helperText="@string/helper_text_obligatory"
+            app:helperTextEnabled="true"
+            app:layout_constraintBottom_toTopOf="@+id/delete_store_alert_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delete_store_title"
+            app:layout_constraintVertical_bias="0.22000003">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/delete_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/delete_store_alert_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="104dp"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/delete_local_store_warning"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/delete_store_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button6"
+            android:id="@+id/delete_store_delete_button"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"

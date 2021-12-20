@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/manage_category_vh_category_name"
             capitalizeFirstChar="@{category.categoryName}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
             tools:text="Category" />
 
         <View
-            android:id="@+id/divider8"
+            android:id="@+id/manage_category_vh_divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
