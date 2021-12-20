@@ -9,9 +9,9 @@
         android:name="com.puntogris.blint.feature_store.presentation.scanner.ScannerFragment"
         android:label="@string/scanner_label">
         <argument
-            android:name="originDestination"
-            android:defaultValue="0"
-            app:argType="integer" />
+            android:name="returnResult"
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_scannerFragment_to_scannerResultDialog"
             app:destination="@id/scannerResultDialog" />

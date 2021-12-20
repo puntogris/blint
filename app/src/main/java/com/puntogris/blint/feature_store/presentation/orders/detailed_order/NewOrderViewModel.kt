@@ -99,8 +99,10 @@ class NewOrderViewModel @Inject constructor(
     }
 
     fun updateOrderTrader(traderName: String, traderId: String) {
-        _newOrder.value.traderId = traderId
-        _newOrder.value.traderName = traderName
+        _newOrder.value = _newOrder.value.copy(
+            traderId = traderId,
+            traderName = traderName
+        )
         query.value = ""
     }
 

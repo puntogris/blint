@@ -47,7 +47,7 @@
                 android:hint="@string/search"
                 android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="textNoSuggestions"
-                android:paddingStart="8dp"
+                android:paddingHorizontal="8dp"
                 android:text="@{viewModel.query}"
                 android:textSize="16sp" />
 

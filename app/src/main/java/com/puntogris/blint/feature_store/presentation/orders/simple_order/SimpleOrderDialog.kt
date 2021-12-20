@@ -31,7 +31,6 @@ class SimpleOrderDialog : DialogFragment() {
         binding = DialogSimpleOrderBinding.inflate(layoutInflater)
         binding.dialog = this
 
-
         //TODO for some reason declaring this on the xml doesn't work as intended
         binding.productAmountText.inputType = InputType.TYPE_CLASS_NUMBER
 

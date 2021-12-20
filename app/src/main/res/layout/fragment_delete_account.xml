@@ -33,35 +33,50 @@
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
             android:onClick="@{()-> fragment.onDeleteAccountClicked()}"
             android:text="@string/action_delete_account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/emailField"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userEmailInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:autofillHints="emailAddress"
             android:hint="@string/account_email"
             android:inputType="textEmailAddress"
-            android:textAlignment="center"
+            app:helperText="@string/helper_text_obligatory"
+            app:helperTextEnabled="true"
             app:layout_constraintBottom_toTopOf="@+id/deleteAccountAlert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deleteAccountRequirements"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.24000001">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/deleteAccountTitle"
-            android:layout_width="wrap_content"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/action_delete_account"
-            android:textSize="22sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="32dp"
+            android:textAlignment="center"
+            android:text="@string/safety_ask_data"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

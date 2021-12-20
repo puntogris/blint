@@ -19,6 +19,7 @@ class CreateBackupFragment :
     override fun initializeViews() {
         binding.fragment = this
         subscribeUi()
+        registerToolbarBackButton(binding.toolbar)
     }
 
     private fun subscribeUi() {

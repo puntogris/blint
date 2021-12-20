@@ -19,6 +19,18 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.orders.details.OrderFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/grid_1"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/order_label"
+            tools:ignore="RtlSymmetry" />
+
         <View
             android:id="@+id/divider29"
             style="@style/Theme.Blint.Divider"
@@ -62,14 +74,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:ems="6"
             android:text="@string/type"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/orderType"

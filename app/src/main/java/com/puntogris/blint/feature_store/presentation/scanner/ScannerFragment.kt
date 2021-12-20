@@ -15,6 +15,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.toggleFlash
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,8 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
 
     override fun initializeViews() {
         binding.fragment = this
+
+        registerToolbarBackButton(binding.toolbar)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -79,25 +82,23 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
             .build()
 
-        orientationEventListener = getOrientationEventListener(imageAnalysis)
-            .also { it.enable() }
+        orientationEventListener = getOrientationEventListener(imageAnalysis).also { it.enable() }
 
         barcodeAnalyzer.onResult {
             requireActivity().runOnUiThread {
                 imageAnalysis.clearAnalyzer()
                 cameraProvider.unbindAll()
 
-                //todo create constants for this int, to get context of what is this for
-                if (args.originDestination == 0) {
-                    val action =
-                        ScannerFragmentDirections.actionScannerFragmentToScannerResultDialog(it)
-                    findNavController().navigate(action)
-                } else {
+                if (args.returnResult) {
                     setFragmentResult(
                         Keys.SCANNER_RESULT_KEY,
                         bundleOf(Keys.PRODUCT_BARCODE_KEY to it)
                     )
                     findNavController().navigateUp()
+                } else {
+                    val action =
+                        ScannerFragmentDirections.actionScannerFragmentToScannerResultDialog(it)
+                    findNavController().navigate(action)
                 }
             }
         }

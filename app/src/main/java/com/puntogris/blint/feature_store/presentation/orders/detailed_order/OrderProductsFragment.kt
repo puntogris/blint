@@ -81,7 +81,9 @@ class OrderProductsFragment :
             registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                    val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(1)
+                    val action = DetailedOrderGraphNavDirections.actionGlobalScannerFragment(
+                        returnResult = true
+                    )
                     findNavController().navigate(action)
                 } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
             }

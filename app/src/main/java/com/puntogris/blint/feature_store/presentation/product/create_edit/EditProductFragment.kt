@@ -89,7 +89,9 @@ class EditProductFragment :
         scannerLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
             if (isGranted) {
-                val action = EditProductFragmentDirections.actionGlobalScannerFragment(1)
+                val action = EditProductFragmentDirections.actionGlobalScannerFragment(
+                    returnResult = true
+                )
                 findNavController().navigate(action)
             } else {
                 UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))

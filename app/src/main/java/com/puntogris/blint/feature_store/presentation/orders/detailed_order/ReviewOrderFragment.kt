@@ -8,6 +8,7 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentReviewOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,7 @@ class ReviewOrderFragment :
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        registerToolbarBackButton(binding.toolbar)
         setupOrderDebSelector()
     }
 
@@ -49,6 +51,12 @@ class ReviewOrderFragment :
             UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
         }
     }
+
+
+    fun navigateToAddTrader(){
+        findNavController().navigate(R.id.orderTraderBottomSheet)
+    }
+
 
     override fun onDestroyView() {
         binding.orderDebtSelector.setAdapter(null)

@@ -47,7 +47,7 @@
                 android:hint="@string/search"
                 android:imeOptions="flagNoExtractUi|actionDone"
                 android:inputType="textNoSuggestions"
-                android:paddingStart="8dp" />
+                android:paddingHorizontal="8dp" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 

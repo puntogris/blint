@@ -13,6 +13,7 @@ import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getUriFromProvider
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentOrderBinding
 import com.rajat.pdfviewer.PdfViewerActivity
@@ -30,6 +31,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        registerToolbarBackButton(binding.toolbar)
         setupOrderTableAdapter()
         setupMediaStorageLauncher()
     }

@@ -100,7 +100,7 @@
         <entry key="app/src/main/res/layout/fragment_debt_status.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_account.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_delete_business.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/fragment_delete_store.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_delete_store.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/layout/fragment_edit_client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_product.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_edit_supplier.xml" value="0.10173611111111111" />
@@ -148,7 +148,7 @@
         <entry key="app/src/main/res/layout/fragment_register_online_business.xml" value="0.21319444444444444" />
         <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_restore_backup.xml" value="0.21319444444444444" />
-        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_review_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_review_record.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_scanner.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_send_ticket.xml" value="0.23127147766323025" />

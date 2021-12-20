@@ -31,7 +31,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/productNotFoundGroup"
@@ -55,7 +56,7 @@
 
         <TextView
             android:id="@+id/textView60"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -68,7 +69,6 @@
 
         <TextView
             android:id="@+id/textView61"
-            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.scannedProduct.product.name}"
@@ -77,7 +77,7 @@
 
         <TextView
             android:id="@+id/textView62"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -89,7 +89,6 @@
 
         <TextView
             android:id="@+id/productAmount"
-            style="@style/Theme.Blint.DataTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(viewModel.scannedProduct.product.amount)}"
@@ -98,7 +97,7 @@
 
         <TextView
             android:id="@+id/textView64"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -110,7 +109,6 @@
 
         <TextView
             android:id="@+id/productLastEdited"
-            style="@style/Theme.Blint.DataTextView"
             dateFromTimestamp="@{viewModel.scannedProduct.product.lastRecordTimestamp}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +135,6 @@
             android:id="@+id/button7"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
@@ -150,39 +147,44 @@
 
         <TextView
             android:id="@+id/textView66"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:text="@string/no_product_found_with_code"
             android:textAlignment="center"
-            android:textSize="17sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
         <TextView
             android:id="@+id/textView67"
-            style="@style/Theme.Blint.DataSubTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:text="@string/code_with_dots"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView66" />
 
         <TextView
             android:id="@+id/barcodeScanned"
-            style="@style/Theme.Blint.DataTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:singleLine="true"
             android:text="@{viewModel.scannedProduct.product.barcode}"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView67"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView67"
-            app:layout_constraintTop_toTopOf="@+id/textView67" />
+            app:layout_constraintTop_toTopOf="@+id/textView67"
+            tools:text="1234567890" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -197,7 +199,7 @@
 
         <TextView
             android:id="@+id/textView196"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -211,7 +213,7 @@
 
         <TextView
             android:id="@+id/textView197"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sell_price"
@@ -223,7 +225,7 @@
 
         <TextView
             android:id="@+id/textView198"
-            style="@style/Theme.Blint.DataSubTitleTextView"
+            android:textColor="@color/color_on_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -236,8 +238,7 @@
 
         <TextView
             android:id="@+id/textView200"
-            style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.scannedProduct.product.buyPrice}"
+            priceOrDefault="@{viewModel.scannedProduct.product.buyPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView196"
@@ -245,8 +246,7 @@
 
         <TextView
             android:id="@+id/textView201"
-            style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.scannedProduct.product.sellPrice}"
+            priceOrDefault="@{viewModel.scannedProduct.product.sellPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/textView197"
@@ -254,8 +254,7 @@
 
         <TextView
             android:id="@+id/textView202"
-            style="@style/Theme.Blint.DataTextView"
-            numberToMoneyString="@{viewModel.scannedProduct.product.suggestedSellPrice}"
+            priceOrDefault="@{viewModel.scannedProduct.product.suggestedSellPrice}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/textView198"

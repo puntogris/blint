@@ -27,16 +27,16 @@ class DeleteAccountFragment :
     fun onDeleteAccountClicked() {
         lifecycleScope.launch {
             with(binding) {
-                viewModel.deleteAccount(binding.emailField.getString()).collect {
+                viewModel.deleteAccount(binding.userEmail.getString()).collect {
                     when (it) {
                         is ProgressResource.Error -> {
                             deleteAccountAnimation.gone()
-                            emailField.visible()
+                            userEmail.visible()
                             UiInterface.showSnackBar(getString(it.error))
                         }
                         ProgressResource.InProgress -> {
                             deleteAccountAnimation.playAnimationInfinite(R.raw.loading)
-                            emailField.gone()
+                            userEmail.gone()
                         }
                         is ProgressResource.Success -> signOutUser()
                     }

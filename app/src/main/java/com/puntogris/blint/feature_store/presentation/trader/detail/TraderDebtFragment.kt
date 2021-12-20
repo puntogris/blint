@@ -52,10 +52,6 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
         }
     }
 
-    fun onNewDebtClicked() {
-        (requireParentFragment() as TraderFragment).navigateToUpdateDebt()
-    }
-
     private fun onDebtClicked(debt: Debt) {
         //TODO add a bottom sheet with the debt info and a button to navigate to the order
     }

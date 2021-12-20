@@ -19,6 +19,60 @@
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.orders.detailed_order.ReviewOrderFragment">
 
+        <View
+            android:id="@+id/divider37"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/amounts_of_products_label" />
+
+        <View
+            android:id="@+id/divider38"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
+
+        <View
+            android:id="@+id/divider39"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Theme.Blint.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+            app:title="@string/review_order_label" />
+
+
         <TextView
             android:id="@+id/amounts_of_products_label"
             android:layout_width="wrap_content"
@@ -29,7 +83,7 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/amount_of_products"
@@ -66,16 +120,18 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/amounts_of_products_label"
-            app:layout_constraintTop_toBottomOf="@+id/amounts_of_products_label" />
+            app:layout_constraintTop_toBottomOf="@+id/divider37" />
 
         <TextView
             android:id="@+id/order_trader"
             externalName="@{viewModel.newOrder.traderName}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/order_trader_label"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/order_trader_label"
             app:layout_constraintTop_toTopOf="@+id/order_trader_label" />
 
@@ -85,13 +141,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/order_payment_status"
             app:layout_constraintEnd_toStartOf="@+id/order_debt_amount_input_layout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_trader_label">
+            app:layout_constraintTop_toBottomOf="@+id/divider39">
 
             <AutoCompleteTextView
                 android:id="@+id/order_debt_selector"
@@ -152,13 +208,13 @@
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="22dp"
             android:layout_marginTop="16dp"
             android:text="@string/total"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/order_trader_label"
-            app:layout_constraintTop_toBottomOf="@+id/order_trader_label" />
+            app:layout_constraintTop_toBottomOf="@+id/divider38" />
 
         <TextView
             android:id="@+id/textView42"
@@ -170,6 +226,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:onClickListener="@{()-> fragment.navigateToAddTrader()}"
+            app:layout_constraintBottom_toBottomOf="@+id/order_trader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/order_trader"
+            app:srcCompat="@drawable/ic_fi_rr_plus" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

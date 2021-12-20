@@ -31,6 +31,7 @@ class ScannerResultBottomSheet :
     }
 
     fun onCreateSimpleOrder() {
+        //todo maybe delete simple order and just show the normal options orders in, out
         resumeCameraOnNavigationBack = false
         dismiss()
         val action = ScannerResultBottomSheetDirections.actionGlobalSimpleOrderBottomSheet(
