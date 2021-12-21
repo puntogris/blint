@@ -48,7 +48,7 @@
                     android:layout_marginBottom="12dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@{menuCard.title}"
-                    android:textColor="#284B75"
+                    android:textColor="@color/color_primary"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

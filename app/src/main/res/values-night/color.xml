@@ -2,18 +2,21 @@
 <resources>
 
     <!--Dark Color Theme-->
-    <color name="color_primary">#EBB0A5</color>
+    <color name="color_primary">#72A2DD</color>
     <color name="color_primary_variant">#4b01d0</color>
     <color name="color_secondary">#ffffff</color>
     <color name="color_secondary_variant">#018786</color>
 
-    <color name="color_background">#0E0E0E</color>
-    <color name="color_surface">#0E0E0E</color>
+    <color name="color_background">#202125</color>
+    <color name="color_surface">#242529</color>
 
-    <color name="color_on_primary">#000000</color>
+    <color name="color_on_primary">#242529</color>
     <color name="color_on_secondary">#000000</color>
     <color name="color_on_background">#ffffff</color>
     <color name="color_on_surface_secondary">#2D2D2D</color>
 
     <color name="color_tinted_surface">#262626</color>
+
+    <color name="color_blue_surface">#2D2E35</color>
+    <color name="color_yellow_surface">#2B2925</color>
 </resources>

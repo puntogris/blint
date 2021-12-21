@@ -68,8 +68,7 @@ class ManageProductsFragment :
 
     private fun onProductShortClickListener(product: ProductWithDetails) {
         hideKeyboard()
-        val action =
-            ManageProductsFragmentDirections.actionGlobalProductFragment(product)
+        val action = ManageProductsFragmentDirections.actionGlobalProductFragment(product)
         findNavController().navigate(action)
     }
 
@@ -88,7 +87,6 @@ class ManageProductsFragment :
                 }
                 true
             }
-
         }
     }
 

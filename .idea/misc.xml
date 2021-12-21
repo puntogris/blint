@@ -24,11 +24,26 @@
         <entry key="app/src/main/res/drawable/ic_chart_circle_yellow.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/drawable/ic_debts_circle_blue.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_ellipse_11.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_angle_left.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_angle_small_right.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_box.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_broom.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_camera.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_cross.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_download.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_envelope.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_home.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_menu_dots_vertical.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_minus.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_plus.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_receipt.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_refresh.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_rr_scan.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_settings.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_trash.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_upload.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_user_add.xml" value="0.24513888888888888" />
+        <entry key="app/src/main/res/drawable/ic_fi_rr_users.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_fi_sr_incognito.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_full_logo.xml" value="0.24513888888888888" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.24513888888888888" />
@@ -130,7 +145,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_manage_events.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/fragment_manage_events.xml" value="0.46842470506592643" />
         <entry key="app/src/main/res/layout/fragment_manage_orders.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_store.xml" value="0.234375" />

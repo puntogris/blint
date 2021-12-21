@@ -11,7 +11,6 @@
     <color name="accent_yellow">#FF9E2D</color>
     <color name="accent_blue">#2D8EFF</color>
 
-
     <!-- Scanner -->
     <color name="barcode_reticle_background">#99000000</color>
     <color name="barcode_reticle_stroke">#ffffff</color>
@@ -22,7 +21,6 @@
     <!--to guard for contrast. Q should have a transparent nav bar as Q will automatically -->
     <!--handles contrast by either dynamically coloring the nav bar handle (gesture nav) -->
     <!--or automatically applying a translucent background (3-button mode).-->
-
 
     <color name="card1">#EF5050</color>
     <color name="card6">#43A047</color>
