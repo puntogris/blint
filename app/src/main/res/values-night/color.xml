@@ -14,7 +14,7 @@
     <color name="color_on_primary">#242529</color>
     <color name="color_on_secondary">#000000</color>
     <color name="color_on_background">#ffffff</color>
-    <color name="color_on_surface_secondary">#2D2D2D</color>
+    <color name="color_on_surface_secondary">#242529</color>
 
     <color name="color_tinted_surface">#262626</color>
 

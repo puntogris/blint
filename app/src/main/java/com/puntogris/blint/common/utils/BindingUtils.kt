@@ -351,10 +351,8 @@ fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
 @BindingAdapter("trafficRevenuePercentage")
 fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
     val percentage = data.takeIf { !it.isNullOrEmpty() }?.first()?.let {
-        val revenue = (it.sales * 100 / it.purchases).toInt()
-        if (revenue > 100) 100 else revenue
+        (it.sales * 100 / (it.purchases + it.sales)).toInt()
     } ?: 0
-
     text = context.getString(R.string.number_percentage, percentage)
 }
 

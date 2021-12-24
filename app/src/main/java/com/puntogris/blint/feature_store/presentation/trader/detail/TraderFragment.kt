@@ -39,15 +39,9 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
 
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_edit_trader -> {
-                        navigateToEditClientFragment()
-                    }
-                    R.id.action_delete_trader -> {
-                        navigateToDeleteTrader()
-                    }
-                    R.id.action_update_trader_debt -> {
-                        navigateToUpdateDebt()
-                    }
+                    R.id.action_edit_trader ->  navigateToEditClientFragment()
+                    R.id.action_delete_trader -> navigateToDeleteTrader()
+                    R.id.action_update_trader_debt -> navigateToUpdateDebt()
                 }
                 true
             }

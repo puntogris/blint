@@ -60,6 +60,7 @@
                 app:checkedButton="@+id/manage_traders_filter_all_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
                 app:selectionRequired="true"

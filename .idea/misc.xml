@@ -147,7 +147,7 @@
         <entry key="app/src/main/res/layout/fragment_manage_categories.xml" value="0.23368055555555556" />
         <entry key="app/src/main/res/layout/fragment_manage_clients.xml" value="0.2429553264604811" />
         <entry key="app/src/main/res/layout/fragment_manage_debt.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_manage_events.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_manage_events.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_manage_orders.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_manage_products.xml" value="0.23127147766323025" />
         <entry key="app/src/main/res/layout/fragment_manage_store.xml" value="0.234375" />
