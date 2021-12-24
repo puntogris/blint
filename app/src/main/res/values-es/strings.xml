@@ -345,6 +345,9 @@
     <string name="annual">Anual</string>
     <string name="historical">Histórico</string>
     <string name="ask_report_time_frame_title">Período de tiempo del reporte</string>
+    <string name="initial_record_title">Registro de stock inicial</string>
+    <string name="initial_record_subtitle">Este cambio fue producido por la carga inicial de este producto y no tiene una orden adjuntada.</string>
+
 
     <!-- Binding -->
     <string name="order_number">Orden %1$d</string>

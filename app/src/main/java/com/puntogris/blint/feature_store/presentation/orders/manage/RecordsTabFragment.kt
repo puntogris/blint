@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
@@ -39,8 +40,11 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     }
 
     private fun onRecordClickedListener(record: Record) {
-        val action =
+        val action = if (record.type == Constants.INITIAL) {
+            ManageOrdersFragmentDirections.actionGlobalInitialRecordBottomSheet(record)
+        } else {
             ManageOrdersFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        }
         findNavController().navigate(action)
     }
 

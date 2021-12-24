@@ -92,7 +92,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                         result.data.path,
                         getString(
                             R.string.order_number_invoice,
-                            viewModel.orderWithRecords.value.order.number
+                            viewModel.orderWithRecords.value?.order?.number
                         ),
                         "pdf",
                         enableDownload = false
@@ -121,16 +121,17 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         mediaStorageLauncher.launch(
             getString(
                 R.string.invoice_file_name,
-                viewModel.orderWithRecords.value.order.number
+                viewModel.orderWithRecords.value?.order?.number
             )
         )
     }
 
     fun onExternalChipClicked() {
-        val action =
-            OrderFragmentDirections.actionGlobalTraderFragment(
-                traderId = viewModel.orderWithRecords.value.order.traderId
+        viewModel.orderWithRecords.value?.let {
+            val action = OrderFragmentDirections.actionGlobalTraderFragment(
+                traderId = it.order.traderId
             )
-        findNavController().navigate(action)
+            findNavController().navigate(action)
+        }
     }
 }

@@ -361,4 +361,14 @@
     <action
         android:id="@+id/action_global_scannerFragment"
         app:destination="@id/scannerFragment" />
+    <dialog
+        android:id="@+id/initialRecordBottomSheet"
+        android:name="com.puntogris.blint.feature_store.presentation.orders.InitialRecordBottomSheet" >
+        <argument
+            android:name="record"
+            app:argType="com.puntogris.blint.feature_store.domain.model.order.Record" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_initialRecordBottomSheet"
+        app:destination="@id/initialRecordBottomSheet" />
 </navigation>

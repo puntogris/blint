@@ -8,6 +8,7 @@
     <color name="color_secondary_variant">#018786</color>
 
     <color name="color_background">#ffffff</color>
+    <color name="color_background_secondary">#F1F4F7</color>
     <color name="color_surface">#ffffff</color>
 
     <color name="color_on_primary">#F1F4F7</color>

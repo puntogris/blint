@@ -34,7 +34,7 @@
                 android:layout_marginStart="8dp"
                 app:tabGravity="center"
                 app:tabIndicatorFullWidth="false"
-                app:tabTextAppearance="@style/TabLayoutStyle" />
+                app:tabTextAppearance="@style/Theme.Blint.TabLayoutTextStyle" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

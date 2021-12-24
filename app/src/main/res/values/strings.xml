@@ -359,6 +359,9 @@
     <string name="annual">Annual</string>
     <string name="historical">Historical</string>
     <string name="ask_report_time_frame_title">Report time frame</string>
+    <string name="initial_record_title">Initial stock record</string>
+    <string name="initial_record_subtitle">This change was caused by the initial creation of this product and does not have an order attached.</string>
+
 
     <!-- Binding -->
     <string name="order_number">Order %1$d</string>
@@ -403,7 +406,6 @@
     <string name="total_caps" translatable="false">TOTAL</string>
     <string name="order_number_invoice">Order number: %1$d</string>
     <string name="invoice_file_name">order_%1$d_invoice.pdf</string>
-
 
     <!-- Arrays -->
     <string-array name="debt_type">

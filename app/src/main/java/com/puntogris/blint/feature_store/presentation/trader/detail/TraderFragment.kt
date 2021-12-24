@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
@@ -102,7 +103,7 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
         }
     }
 
-    fun navigateToUpdateDebt() {
+    private fun navigateToUpdateDebt() {
         val action = TraderFragmentDirections.actionTraderFragmentToUpdateDebtDialog(
             viewModel.currentTrader.value
         )
@@ -110,7 +111,11 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
     }
 
     fun navigateToInfoRecord(record: Record) {
-        val action = TraderFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        val action = if (record.type == Constants.INITIAL) {
+            TraderFragmentDirections.actionGlobalInitialRecordBottomSheet(record)
+        } else {
+            TraderFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        }
         findNavController().navigate(action)
     }
 

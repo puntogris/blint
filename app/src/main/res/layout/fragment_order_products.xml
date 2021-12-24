@@ -43,7 +43,7 @@
                 android:afterTextChanged="@{viewModel::setQuery}"
                 android:autofillHints="@string/auto_fill_hint_client_search"
                 android:background="@drawable/round_corners_17"
-                android:backgroundTint="@color/color_on_primary"
+                android:backgroundTint="@color/color_background_secondary"
                 android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="10dp"
                 android:hint="@string/name"

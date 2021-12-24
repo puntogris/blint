@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
+import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
@@ -104,7 +105,11 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
     }
 
     fun navigateToInfoRecord(record: Record) {
-        val action = ProductFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        val action = if (record.type == Constants.INITIAL) {
+            ProductFragmentDirections.actionGlobalInitialRecordBottomSheet(record)
+        } else {
+            ProductFragmentDirections.actionGlobalOrderFragment(orderId = record.orderId)
+        }
         findNavController().navigate(action)
     }
 
