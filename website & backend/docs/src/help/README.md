@@ -33,7 +33,13 @@ No, we use our custom server to store them and prevent a third party accesing yo
 At the moment you can only create up to 10 businesses, but this can change in the future so do not worry.
     
 ### Is my information public?
+
 No! Only you can access the information of your business.
+
+### Is there a way to delete my account?
+
+Yeah! If you go to the settings screen you will see the menu option to delete all the data we have stored. 
+The app is open source, [here](https://github.com/puntogris/blint/blob/main/app/src/main/java/com/puntogris/blint/feature_store/data/data_source/remote/FirebaseUserApi.kt#L59) is the code that deletes your data. 
 
 ## I have another question!
 
