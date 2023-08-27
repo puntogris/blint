@@ -1,7 +1,13 @@
 package com.puntogris.blint.feature_store.presentation.orders.create_order
 
 import android.text.Editable
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.copyAndAdd
@@ -9,7 +15,11 @@ import com.puntogris.blint.common.utils.copyAndRemove
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.TraderQuery
 import com.puntogris.blint.feature_store.data.data_source.toNewRecord
-import com.puntogris.blint.feature_store.domain.model.order.*
+import com.puntogris.blint.feature_store.domain.model.order.NewDebt
+import com.puntogris.blint.feature_store.domain.model.order.NewOrder
+import com.puntogris.blint.feature_store.domain.model.order.NewRecord
+import com.puntogris.blint.feature_store.domain.model.order.areRecordsValid
+import com.puntogris.blint.feature_store.domain.model.order.updateOrderTotalValue
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
@@ -18,7 +28,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.util.*
+import java.util.Collections
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +53,7 @@ class NewOrderViewModel @Inject constructor(
         }
     }
 
-    val tradersLiveData = Transformations.switchMap(query) {
+    val tradersLiveData = query.switchMap {
         traderRepository.getTradersPaged(TraderQuery(query = it)).asLiveData()
     }.cachedIn(viewModelScope)
 

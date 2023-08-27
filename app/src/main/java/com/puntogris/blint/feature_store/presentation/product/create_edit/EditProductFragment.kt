@@ -100,12 +100,14 @@ class EditProductFragment :
     }
 
     private fun setupGalleryLauncher() {
-        getContent = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
-            requireContext().contentResolver.takePersistableUriPermission(
-                it,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-            viewModel.updateProductImage(it.toString())
+        getContent = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            if (uri != null) {
+                requireContext().contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                viewModel.updateProductImage(uri.toString())
+            }
         }
     }
 
