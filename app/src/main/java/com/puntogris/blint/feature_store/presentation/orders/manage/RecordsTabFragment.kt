@@ -10,7 +10,6 @@ import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentRecordsTabBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.fragment_records_tab) {

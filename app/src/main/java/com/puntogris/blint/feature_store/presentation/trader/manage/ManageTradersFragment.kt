@@ -12,7 +12,6 @@ import com.puntogris.blint.common.utils.types.TraderFilter
 import com.puntogris.blint.databinding.FragmentManageTradersBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageTradersFragment :

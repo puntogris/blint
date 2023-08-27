@@ -1,6 +1,5 @@
 package com.puntogris.blint.feature_store.presentation.trader.detail
 
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -68,7 +67,7 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
         findNavController().navigate(action)
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+    private inner class ScreenSlidePagerAdapter(parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 3

@@ -8,13 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.repository.OrderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
     private val repository: OrderRepository,

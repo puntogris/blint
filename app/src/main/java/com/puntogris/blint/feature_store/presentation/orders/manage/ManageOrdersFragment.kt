@@ -1,6 +1,5 @@
 package com.puntogris.blint.feature_store.presentation.orders.manage
 
-import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -41,7 +40,7 @@ class ManageOrdersFragment :
         }
     }
 
-    private inner class ScreenSlidePagerAdapter(@NonNull parentFragment: FragmentManager) :
+    private inner class ScreenSlidePagerAdapter(parentFragment: FragmentManager) :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2

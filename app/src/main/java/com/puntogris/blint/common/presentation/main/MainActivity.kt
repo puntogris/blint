@@ -18,7 +18,6 @@ import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.feature_store.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {

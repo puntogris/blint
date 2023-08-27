@@ -9,7 +9,6 @@ import com.puntogris.blint.databinding.FragmentTraderRecordsBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.presentation.orders.manage.RecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class TraderRecordsFragment :

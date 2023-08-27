@@ -57,14 +57,11 @@ class EditTraderViewModel @Inject constructor(
 
     fun setContact(uri: Uri) {
         contactsHelper.getContact(uri)?.let {
-            savedStateHandle.set(
-                "trader",
-                currentTrader.value.copy(
-                    name = it.name,
-                    email = it.email,
-                    address = it.address,
-                    phone = it.phone
-                )
+            savedStateHandle["trader"] = currentTrader.value.copy(
+                name = it.name,
+                email = it.email,
+                address = it.address,
+                phone = it.phone
             )
         }
     }

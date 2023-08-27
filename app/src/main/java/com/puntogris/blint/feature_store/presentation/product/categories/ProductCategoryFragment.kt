@@ -12,7 +12,6 @@ import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentProductCategoryBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableCategory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ProductCategoryFragment :

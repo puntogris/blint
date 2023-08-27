@@ -9,7 +9,6 @@ import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 

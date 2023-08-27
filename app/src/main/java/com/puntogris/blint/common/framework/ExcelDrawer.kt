@@ -102,7 +102,6 @@ class ExcelDrawer(private val context: Context, private val workbook: XSSFWorkbo
         workbook.removeSheetAt(workbook.getSheetIndex(sheet.sheetName))
     }
 
-    @Suppress("BlockingMethodInNonBlockingContext")
     private suspend fun Context.writeToFile(uri: Uri, workbook: XSSFWorkbook) {
         withContext(Dispatchers.IO) {
             val file = contentResolver.openOutputStream(uri)

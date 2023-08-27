@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.BundleCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -65,16 +66,25 @@ class EditProductFragment :
                     UiInterface.showSnackBar(getString(result))
                 }
             }
+
             is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
         }
     }
 
     private fun setupResultListeners() {
         setFragmentResultListener(Keys.EDIT_PRODUCT_KEY) { _, bundle ->
-            bundle.getParcelableArrayList<Category>(Keys.PRODUCT_CATEGORIES_KEY)?.let {
+            BundleCompat.getParcelableArrayList(
+                bundle,
+                Keys.PRODUCT_CATEGORIES_KEY,
+                Category::class.java
+            )?.let {
                 viewModel.updateProductCategories(it)
             }
-            bundle.getParcelableArrayList<Trader>(Keys.PRODUCT_SUPPLIERS_KEY)?.let {
+            BundleCompat.getParcelableArrayList(
+                bundle,
+                Keys.PRODUCT_SUPPLIERS_KEY,
+                Trader::class.java
+            )?.let {
                 viewModel.updateProductSuppliers(it)
             }
         }

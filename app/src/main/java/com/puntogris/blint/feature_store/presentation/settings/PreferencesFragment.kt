@@ -12,7 +12,12 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.puntogris.blint.BuildConfig
 import com.puntogris.blint.R
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.onPreferenceChange
+import com.puntogris.blint.common.utils.preferenceOnClick
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,8 +51,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 Uri.encode("Message:\n\n\nApp: Blint\nVersion: ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
             val uri = "mailto:$email?subject=$subject&body=$body"
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                type = "text/plain"
-                data = Uri.parse(uri)
+                setDataAndType(Uri.parse(uri), "text/plain")
             }
             if (intent.resolveActivity(requireContext().packageManager) != null) {
                 startActivity(intent)

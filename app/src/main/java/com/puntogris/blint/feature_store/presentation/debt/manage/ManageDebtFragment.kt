@@ -8,7 +8,6 @@ import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.fragment_manage_debt) {

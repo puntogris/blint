@@ -2,10 +2,10 @@ package com.puntogris.blint.common.utils.types
 
 sealed class DeleteStore {
     sealed class Success : DeleteStore() {
-        object HasStores : Success()
-        object NoStores : Success()
+        data object HasStores : Success()
+        data object NoStores : Success()
     }
 
-    object Failure : DeleteStore()
+    data object Failure : DeleteStore()
 }
 

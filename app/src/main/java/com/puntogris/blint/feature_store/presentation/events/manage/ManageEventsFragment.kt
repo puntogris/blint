@@ -13,7 +13,6 @@ import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.databinding.FragmentManageEventsBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageEventsFragment :

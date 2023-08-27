@@ -13,7 +13,6 @@ import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageStoreBinding
 import com.puntogris.blint.feature_store.domain.model.Store
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

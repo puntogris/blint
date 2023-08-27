@@ -11,7 +11,7 @@ import com.puntogris.blint.common.utils.getDateWithTimeFormattedString
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class PDFCreator @Inject constructor(
@@ -101,7 +101,7 @@ class PDFCreator @Inject constructor(
         )
 
         val traderName =
-            if (orderWithRecords.order.traderName.isBlank()) context.getString(R.string.not_specified) else orderWithRecords.order.traderName
+            orderWithRecords.order.traderName.ifBlank { context.getString(R.string.not_specified) }
         canvas.drawText(
             "${context.getString(R.string.trader_label)}: $traderName",
             horizontalMargin,

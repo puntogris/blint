@@ -9,5 +9,5 @@ sealed class ProgressResource<out T : Any> {
     data class Error(val error: Int = R.string.snack_an_error_occurred) :
         ProgressResource<Nothing>()
 
-    object InProgress : ProgressResource<Nothing>()
+    data object InProgress : ProgressResource<Nothing>()
 }

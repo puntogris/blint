@@ -8,7 +8,6 @@ import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.common.utils.types.BackupState
 import com.puntogris.blint.databinding.FragmentCreateBackUpBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CreateBackupFragment :

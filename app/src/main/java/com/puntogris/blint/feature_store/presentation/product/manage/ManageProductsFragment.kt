@@ -12,7 +12,6 @@ import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ManageProductsFragment :

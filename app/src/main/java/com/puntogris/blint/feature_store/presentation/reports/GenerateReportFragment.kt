@@ -32,7 +32,7 @@ class GenerateReportFragment :
     }
 
     private fun setupDocumentLauncher() {
-        documentLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument()) {
+        documentLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument("image/*")) {
             if (it != null) {
                 viewModel.updateReportUri(it)
                 startReportGeneration()

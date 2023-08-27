@@ -18,7 +18,6 @@ import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentOrderBinding
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order) {
@@ -53,7 +52,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
 
     private fun setupMediaStorageLauncher() {
         mediaStorageLauncher =
-            registerForActivityResult(ActivityResultContracts.CreateDocument()) {
+            registerForActivityResult(ActivityResultContracts.CreateDocument("image/*")) {
                 val message = when (val result = viewModel.getOrderPDF(it)) {
                     is Resource.Error -> result.error
                     is Resource.Success -> R.string.snack_invoice_saved_success
@@ -85,6 +84,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             is Resource.Error -> {
                 UiInterface.showSnackBar(getString(result.error))
             }
+
             is Resource.Success -> {
                 startActivity(
                     PdfViewerActivity.launchPdfFromPath(
@@ -92,7 +92,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
                         result.data.path,
                         getString(
                             R.string.order_number_invoice,
-                            viewModel.orderWithRecords.value?.order?.number
+                            viewModel.orderWithRecords.value.order.number
                         ),
                         "pdf",
                         enableDownload = false
@@ -107,6 +107,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
             is Resource.Error -> {
                 UiInterface.showSnackBar(getString(result.error))
             }
+
             is Resource.Success -> {
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "application/pdf"
@@ -121,17 +122,15 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
         mediaStorageLauncher.launch(
             getString(
                 R.string.invoice_file_name,
-                viewModel.orderWithRecords.value?.order?.number
+                viewModel.orderWithRecords.value.order.number
             )
         )
     }
 
     fun onExternalChipClicked() {
-        viewModel.orderWithRecords.value?.let {
-            val action = OrderFragmentDirections.actionGlobalTraderFragment(
-                traderId = it.order.traderId
-            )
-            findNavController().navigate(action)
-        }
+        val action = OrderFragmentDirections.actionGlobalTraderFragment(
+            traderId = viewModel.orderWithRecords.value.order.traderId
+        )
+        findNavController().navigate(action)
     }
 }

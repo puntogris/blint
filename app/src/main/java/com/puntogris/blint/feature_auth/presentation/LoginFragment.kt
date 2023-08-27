@@ -13,7 +13,6 @@ import com.puntogris.blint.common.utils.*
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.feature_store.data.data_source.remote.LoginResult
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
