@@ -3,7 +3,6 @@ package com.puntogris.blint.feature_store.presentation.product.create_edit
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.common.utils.UUIDGenerator
 import com.puntogris.blint.feature_store.domain.model.Category
@@ -12,8 +11,6 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,11 +20,10 @@ class EditProductViewModel @Inject constructor(
     handle: SavedStateHandle
 ) : ViewModel() {
 
-    val currentProduct = handle.getLiveData<ProductWithDetails>("productWithDetails")
-        .asFlow()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ProductWithDetails())
+    val currentProduct = handle.getStateFlow("productWithDetails", ProductWithDetails())
 
     val productBarcode = MutableStateFlow("")
+
     val productImage = MutableStateFlow("")
 
     init {
@@ -42,10 +38,9 @@ class EditProductViewModel @Inject constructor(
     suspend fun saveProduct() = productRepository.saveProduct(currentProduct.value)
 
     fun updateProductBarcode(barcode: String? = null) {
-        (barcode ?: UUIDGenerator.randomNumbersUUID()).let {
-            currentProduct.value.product.barcode = it
-            productBarcode.value = it
-        }
+        val newBarcode = barcode ?: UUIDGenerator.randomNumbersUUID()
+        currentProduct.value.product.barcode = newBarcode
+        productBarcode.value = newBarcode
     }
 
     fun updateProductImage(image: String) {
@@ -95,10 +90,9 @@ class EditProductViewModel @Inject constructor(
 
     fun updateProductAmount(editable: Editable) {
         val newAmount = editable.toString().toIntOrNull() ?: 0
-        currentProduct.value.product.apply {
+        with(currentProduct.value.product) {
             stock = newAmount
             historicInStock = newAmount
         }
     }
 }
-

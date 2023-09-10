@@ -27,4 +27,3 @@ class ProductCategoryViewHolder private constructor(val binding: ProductCategory
         }
     }
 }
-

@@ -21,9 +21,9 @@ class MainViewModel @Inject constructor(
 
     val currentBusiness = storeRepository.getCurrentStoreFlow().asLiveData()
 
+    val lastTraffic = trafficRepository.getLastTrafficFlow(2).asLiveData()
+
     fun showLoginScreen() = sharedPreferences.showLoginScreen()
 
     fun showNewUserScreen() = sharedPreferences.showNewUserScreen()
-
-    val lastTraffic = trafficRepository.getLastTrafficFlow(2).asLiveData()
 }

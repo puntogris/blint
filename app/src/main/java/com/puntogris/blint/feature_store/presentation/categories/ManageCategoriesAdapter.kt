@@ -32,4 +32,3 @@ class ManageCategoriesAdapter(
         }.apply { ItemTouchHelper(this).attachToRecyclerView(recyclerView) }
     }
 }
-

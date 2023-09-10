@@ -4,14 +4,10 @@ import android.net.Uri
 import android.text.Editable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.viewModelScope
 import com.puntogris.blint.common.framework.ContactsHelper
 import com.puntogris.blint.feature_store.domain.model.Trader
 import com.puntogris.blint.feature_store.domain.repository.TraderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,9 +17,7 @@ class EditTraderViewModel @Inject constructor(
     private val contactsHelper: ContactsHelper
 ) : ViewModel() {
 
-    val currentTrader = savedStateHandle.getLiveData<Trader>("trader")
-        .asFlow()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Trader())
+    val currentTrader = savedStateHandle.getStateFlow("trader", Trader())
 
     suspend fun saveClient() = repository.saveTrader(currentTrader.value)
 

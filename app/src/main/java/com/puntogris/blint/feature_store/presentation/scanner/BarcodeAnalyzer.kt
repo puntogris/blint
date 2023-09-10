@@ -30,7 +30,6 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
                     isScanning = false
                     imageProxy.close()
                 }
-
                 .addOnFailureListener {
                     isScanning = false
                     imageProxy.close()

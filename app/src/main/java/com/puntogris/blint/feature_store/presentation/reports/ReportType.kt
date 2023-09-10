@@ -8,4 +8,3 @@ enum class ReportType(val res: Int) {
     ClientsRecords(R.string.report_traders_records),
     ProductRecords(R.string.report_products_records)
 }
-

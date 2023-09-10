@@ -32,16 +32,19 @@ class RestoreBackupFragment :
                             backupSummary.setText(R.string.connecting_in_progress)
                             lastBackupGroup.gone()
                         }
+
                         is BackupState.BackupSuccess -> {
                             backupSummary.setText(R.string.restore_backup_success_message)
                             backupTitle.setText(R.string.restore_backup_success_title)
                             animationView.playAnimationOnce(R.raw.done)
                         }
+
                         is BackupState.Error -> {
                             backupTitle.setText(R.string.snack_an_error_occurred)
                             backupSummary.setText(it.error)
                             animationView.playAnimationOnce(R.raw.error)
                         }
+
                         is BackupState.ShowLastBackup -> {
                             backupTitle.setText(R.string.your_account_backups)
                             backupSummary.setText(R.string.data_from_servers)
@@ -54,7 +57,6 @@ class RestoreBackupFragment :
             }
         }
     }
-
 
     fun onRestorationButtonClicked() {
         InfoSheet().show(requireParentFragment().requireContext()) {

@@ -18,4 +18,3 @@ class ProductCategoryAdapter(private val clickListener: (CheckableCategory) -> U
         holder.bind(getItem(position)!!, clickListener)
     }
 }
-

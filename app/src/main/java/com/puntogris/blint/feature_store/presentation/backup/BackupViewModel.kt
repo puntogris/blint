@@ -17,6 +17,12 @@ class BackupViewModel @Inject constructor(
 
     val backupState = MutableSharedFlow<BackupState>()
 
+    init {
+        viewModelScope.launch {
+            backupState.emitAll(repository.checkLastBackupTimestamp())
+        }
+    }
+
     fun backupBusiness() {
         viewModelScope.launch {
             backupState.emitAll(repository.createBackup())
@@ -28,11 +34,4 @@ class BackupViewModel @Inject constructor(
             backupState.emitAll(repository.restoreBackup())
         }
     }
-
-    init {
-        viewModelScope.launch {
-            backupState.emitAll(repository.checkLastBackupTimestamp())
-        }
-    }
-
 }

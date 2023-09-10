@@ -4,44 +4,26 @@ import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UUIDGenerator
 
 data class NewOrder(
-
     val orderId: String = UUIDGenerator.randomUUID(),
-
     var type: String = Constants.IN,
-
     var traderId: String = "",
-
     var traderName: String = "",
-
     var newRecords: List<NewRecord> = emptyList(),
-
     var newDebt: NewDebt? = null,
-
     var total: Float = 0F
 )
 
 data class NewRecord(
-
     val recordId: String = UUIDGenerator.randomUUID(),
-
     var amount: Int = 0,
-
     var productId: String = "",
-
     var productName: String = "",
-
     var productUnitPrice: Float = 0F,
-
     var historicalInStock: Int = 0,
-
     var historicalOutStock: Int = 0,
-
     var productImage: String = "",
-
     var productSku: String = "",
-
     var productBarcode: String = "",
-
     var currentStock: Int = 0
 )
 
@@ -59,5 +41,7 @@ fun NewOrder.updateOrderTotalValue() {
 }
 
 fun NewOrder.areRecordsValid(): Boolean {
-    return newRecords.isNotEmpty() && newRecords.all { it.amount > 0 && (type == Constants.IN || it.amount <= it.currentStock) }
+    return newRecords.isNotEmpty() && newRecords.all {
+        it.amount > 0 && (type == Constants.IN || it.amount <= it.currentStock)
+    }
 }

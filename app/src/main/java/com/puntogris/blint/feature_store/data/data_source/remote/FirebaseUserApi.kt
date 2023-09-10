@@ -19,7 +19,6 @@ class FirebaseUserApi(
         firebase.storage.child("users/${firebase.currentUid}/backup_${BuildConfig.VERSION_NAME}")
 
     override suspend fun getUserAccount(authUser: AuthUser): User {
-
         val userRef = firebase.firestore
             .collection(USERS_COLLECTION)
             .document(requireNotNull(firebase.currentUid))

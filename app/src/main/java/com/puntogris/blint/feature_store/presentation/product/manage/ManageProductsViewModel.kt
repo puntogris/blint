@@ -21,9 +21,9 @@ class ManageProductsViewModel @Inject constructor(
     val query = _query.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val productsFlow = query.flatMapLatest {
-        productRepository.getProductsPaged(it)
-    }.cachedIn(viewModelScope)
+    val productsFlow = query
+        .flatMapLatest(productRepository::getProductsPaged)
+        .cachedIn(viewModelScope)
 
     fun setQuery(query: String) {
         this._query.value = query

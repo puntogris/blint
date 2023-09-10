@@ -20,7 +20,10 @@ import kotlinx.coroutines.flow.collectLatest
 class OrderProductsFragment :
     BaseFragment<FragmentOrderProductsBinding>(R.layout.fragment_order_products) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) {
+        defaultViewModelProviderFactory
+    }
+
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
@@ -118,17 +121,16 @@ class OrderProductsFragment :
         }
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.orderProductsToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_menu_item_scan){
+                if (it.itemId == R.id.action_menu_item_scan) {
                     scannerLauncher.launch(Manifest.permission.CAMERA)
                 }
                 true
             }
         }
-
     }
 
     override fun onDestroyView() {

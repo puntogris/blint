@@ -32,16 +32,15 @@ class ManageProductsFragment :
     }
 
     private fun setupScannerLauncher() {
-        scannerLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
-        { isGranted: Boolean ->
-            if (isGranted) {
-                val action =
-                    ManageProductsFragmentDirections.actionGlobalScannerFragment(
+        scannerLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                if (isGranted) {
+                    val action = ManageProductsFragmentDirections.actionGlobalScannerFragment(
                         returnResult = true
                     )
-                findNavController().navigate(action)
-            } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
-        }
+                    findNavController().navigate(action)
+                } else UiInterface.showSnackBar(getString(R.string.snack_require_camera_permission))
+            }
     }
 
     private fun setupProductsAdapter() {
@@ -79,6 +78,7 @@ class ManageProductsFragment :
                     R.id.action_add_manage_products -> {
                         findNavController().navigate(R.id.editProductFragment)
                     }
+
                     R.id.action_scanner_manage_products -> {
                         hideKeyboard()
                         scannerLauncher.launch(Manifest.permission.CAMERA)

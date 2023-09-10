@@ -69,7 +69,6 @@ class ProductRepositoryImpl(
             }
         }
 
-
     override suspend fun getProductsWithQuery(query: String): List<Product> =
         withContext(dispatcher.io) {
             productsDao.getProductsWithQuery(query)
@@ -84,7 +83,6 @@ class ProductRepositoryImpl(
             )
         ) { recordsDao.getProductRecordsPaged(productId) }.flow
     }
-
 
     override suspend fun getProductWithBarcode(barcode: String): ProductWithDetails? =
         withContext(dispatcher.io) {

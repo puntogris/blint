@@ -107,13 +107,15 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             cameraProvider.unbindAll()
 
             camera = cameraProvider.bindToLifecycle(
-                this, cameraSelector, imageAnalysis, preview
+                this,
+                cameraSelector,
+                imageAnalysis,
+                preview
             )
 
             preview?.setSurfaceProvider(binding.scannerViewFinder.surfaceProvider)
-
-            observerCameraState(camera?.cameraInfo!!)
-
+            val cameraInfo = requireNotNull(camera?.cameraInfo)
+            observerCameraState(cameraInfo)
         } catch (e: Exception) {
             UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
         }

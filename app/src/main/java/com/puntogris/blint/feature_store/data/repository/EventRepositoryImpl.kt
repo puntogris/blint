@@ -38,8 +38,11 @@ class EventRepositoryImpl(
                 maxSize = 200
             )
         ) {
-            if (eventStatus == EventStatus.All) eventsDao.getEventsPaged()
-            else eventsDao.getEventsWithStatusPaged(eventStatus.value)
+            if (eventStatus == EventStatus.All) {
+                eventsDao.getEventsPaged()
+            } else {
+                eventsDao.getEventsWithStatusPaged(eventStatus.value)
+            }
         }.flow
     }
 

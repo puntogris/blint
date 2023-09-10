@@ -17,9 +17,9 @@ interface UserRepository {
 
     suspend fun deleteUserAccount(email: String): Flow<SimpleProgressResource>
 
-    fun getUserFlow(): Flow<User>
-
     suspend fun getUser(): User
+
+    fun getUserFlow(): Flow<User>
 
     fun sendTicket(ticket: Ticket): Flow<SimpleProgressResource>
 

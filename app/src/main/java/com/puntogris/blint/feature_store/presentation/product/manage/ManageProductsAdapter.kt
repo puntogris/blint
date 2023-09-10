@@ -19,5 +19,4 @@ class ManageProductsAdapter(
     override fun onBindViewHolder(holder: ManageProductsViewHolder, position: Int) {
         holder.bind(getItem(position)!!, shortClickListener, longClickListener)
     }
-
 }

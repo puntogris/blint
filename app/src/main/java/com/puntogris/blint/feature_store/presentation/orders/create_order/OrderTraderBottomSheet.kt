@@ -22,7 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderTraderBottomSheet :
     BaseBottomSheetFragment<OrderTraderBottomSheetBinding>(R.layout.order_trader_bottom_sheet) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -69,11 +71,11 @@ class OrderTraderBottomSheet :
         findNavController().navigateUp()
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.orderTraderToolbar.apply {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_menu_item_close){
+                if (it.itemId == R.id.action_menu_item_close) {
                     dismiss()
                 }
                 true

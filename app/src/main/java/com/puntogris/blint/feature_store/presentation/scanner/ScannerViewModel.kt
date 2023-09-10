@@ -2,12 +2,11 @@ package com.puntogris.blint.feature_store.presentation.scanner
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import com.puntogris.blint.feature_store.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,9 +15,7 @@ class ScannerViewModel @Inject constructor(
     handle: SavedStateHandle
 ) : ViewModel() {
 
-    val scannedProduct = handle.getLiveData<String>("barcode").switchMap {
-        liveData {
-            emit(repository.getProductWithBarcode(it) ?: ProductWithDetails(Product(barcode = it)))
-        }
+    val scannedProduct = handle.getStateFlow("barcode", "").map {
+        repository.getProductWithBarcode(it) ?: ProductWithDetails(Product(barcode = it))
     }
 }

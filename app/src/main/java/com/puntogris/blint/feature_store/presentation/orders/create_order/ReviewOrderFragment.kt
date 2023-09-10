@@ -27,12 +27,12 @@ class ReviewOrderFragment :
         findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
     }
 
-    fun navigateToAddTrader(){
+    fun navigateToAddTrader() {
         findNavController().navigate(R.id.orderTraderBottomSheet)
     }
 
-    fun navigateToAddDebt(){
-        if (viewModel.isTraderValid()){
+    fun navigateToAddDebt() {
+        if (viewModel.isTraderValid()) {
             findNavController().navigate(R.id.orderDebtSelectorDialog)
         } else {
             UiInterface.showSnackBar(getString(R.string.snack_order_debt_requires_trader))

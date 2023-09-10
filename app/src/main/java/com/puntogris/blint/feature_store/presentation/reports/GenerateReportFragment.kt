@@ -21,7 +21,10 @@ import kotlinx.coroutines.launch
 class GenerateReportFragment :
     BaseFragment<FragmentGenerateReportBinding>(R.layout.fragment_generate_report) {
 
-    private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) { defaultViewModelProviderFactory }
+    private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) {
+        defaultViewModelProviderFactory
+    }
+
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
@@ -32,14 +35,15 @@ class GenerateReportFragment :
     }
 
     private fun setupDocumentLauncher() {
-        documentLauncher = registerForActivityResult(ActivityResultContracts.CreateDocument("image/*")) {
-            if (it != null) {
-                viewModel.updateReportUri(it)
-                startReportGeneration()
-            } else {
-                findNavController().navigateUp()
+        documentLauncher =
+            registerForActivityResult(ActivityResultContracts.CreateDocument("image/*")) {
+                if (it != null) {
+                    viewModel.updateReportUri(it)
+                    startReportGeneration()
+                } else {
+                    findNavController().navigateUp()
+                }
             }
-        }
 
         val fileName = viewModel.getReportName(requireContext())
         documentLauncher.launch("$fileName.xls")
@@ -54,6 +58,7 @@ class GenerateReportFragment :
                         generateReportAlertMessage.setText(R.string.report_exported_error_message)
                         generateReportAnimationView.playAnimationOnce(R.raw.error)
                     }
+
                     is Resource.Success -> {
                         generateReportTitle.setText(R.string.report_exported_success_title)
                         generateReportAlertMessage.setText(R.string.report_exported_success_message)
@@ -66,9 +71,9 @@ class GenerateReportFragment :
 
     fun onShareReportClicked() {
         val uri = viewModel.getReportUri()
-        if (uri == null)
+        if (uri == null) {
             UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
-        else {
+        } else {
             val share = Intent(Intent.ACTION_SEND)
             share.type = "application/vnd.ms-excel"
             share.putExtra(Intent.EXTRA_STREAM, uri)

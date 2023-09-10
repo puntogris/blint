@@ -51,5 +51,4 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
         binding.recordsTabRecyclerView.adapter = null
         super.onDestroyView()
     }
-
 }

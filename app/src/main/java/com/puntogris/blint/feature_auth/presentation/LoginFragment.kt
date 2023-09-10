@@ -38,12 +38,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             viewModel.authGoogleUser(result).collect {
                 when (it) {
                     is LoginResult.Error -> {
-                        UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
+                        UiInterface.showSnackBar(
+                            getString(R.string.snack_error_connection_server_try_later)
+                        )
                         binding.loginProgressBar.gone()
                     }
+
                     LoginResult.InProgress -> {
                         binding.loginProgressBar.visible()
                     }
+
                     is LoginResult.Success -> {
                         val action =
                             LoginFragmentDirections.actionLoginFragmentToSyncAccountFragment(it.authUser)

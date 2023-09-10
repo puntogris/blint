@@ -29,4 +29,3 @@ class ManageStoreViewModel @Inject constructor(
 
     suspend fun updateCurrentStore(store: Store) = userRepository.updateCurrentStore(store.storeId)
 }
-

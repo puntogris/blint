@@ -59,5 +59,4 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
             canvas.drawRoundRect(it, boxCornerRadius, boxCornerRadius, boxPaint)
         }
     }
-
 }

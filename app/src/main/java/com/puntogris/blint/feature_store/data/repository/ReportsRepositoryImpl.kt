@@ -60,7 +60,8 @@ class ReportsRepositoryImpl(
                 )
                 record?.toProductRecordExcel(it)
             }
-            excelDrawer.drawProductRecords(records, report.uri ?: Uri.parse(""))
+            val uri = report.uri ?: Uri.parse("")
+            excelDrawer.drawProductRecords(records, uri)
         }
     }
 }

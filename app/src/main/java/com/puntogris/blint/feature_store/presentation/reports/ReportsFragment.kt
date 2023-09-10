@@ -55,4 +55,3 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
         }
     }
 }
-

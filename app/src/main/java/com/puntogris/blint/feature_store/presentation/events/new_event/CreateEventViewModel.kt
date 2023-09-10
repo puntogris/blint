@@ -21,9 +21,7 @@ class CreateEventViewModel @Inject constructor(
     suspend fun createEvent() = repository.saveEvent(event.value)
 
     fun setEventContent(content: String) {
-        _event.value = _event.value.copy(
-            content = content
-        )
+        _event.value = _event.value.copy(content = content)
     }
 
     fun setEventDate(year: Int, month: Int, day: Int) {

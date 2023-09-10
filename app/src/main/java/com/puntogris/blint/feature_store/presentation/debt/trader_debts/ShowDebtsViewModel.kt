@@ -13,5 +13,4 @@ class ShowDebtsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val debtsFlow = traderRepository.getTradersPaged().cachedIn(viewModelScope)
-
 }

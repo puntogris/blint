@@ -18,4 +18,3 @@ class ManageStoreAdapter(
         holder.bind(getItem(position), clickListener, selectListener)
     }
 }
-

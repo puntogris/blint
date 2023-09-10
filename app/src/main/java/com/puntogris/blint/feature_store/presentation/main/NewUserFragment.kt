@@ -57,4 +57,3 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
         findNavController().navigate(R.id.registerStoreFragment)
     }
 }
-

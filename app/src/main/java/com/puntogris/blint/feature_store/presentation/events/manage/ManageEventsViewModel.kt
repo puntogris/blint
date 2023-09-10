@@ -2,7 +2,6 @@ package com.puntogris.blint.feature_store.presentation.events.manage
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.common.utils.toEventUi
@@ -12,9 +11,7 @@ import com.puntogris.blint.feature_store.domain.repository.EventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,9 +20,7 @@ class ManageEventsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val event = savedStateHandle.getLiveData<Event>("event")
-        .asFlow()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Event())
+    val event = savedStateHandle.getStateFlow("event", Event())
 
     private val eventFilter = MutableStateFlow(EventStatus.All)
 

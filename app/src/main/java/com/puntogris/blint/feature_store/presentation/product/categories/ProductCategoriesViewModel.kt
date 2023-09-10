@@ -48,8 +48,11 @@ class ProductCategoriesViewModel @Inject constructor(
     }
 
     fun toggleCategory(category: Category) {
-        if (category in finalCategories) finalCategories.remove(category)
-        else finalCategories.add(category)
+        if (category in finalCategories) {
+            finalCategories.remove(category)
+        } else {
+            finalCategories.add(category)
+        }
     }
 
     fun getFinalCategories() = finalCategories

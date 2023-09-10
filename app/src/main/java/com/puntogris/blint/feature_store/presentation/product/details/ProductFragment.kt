@@ -63,6 +63,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
             when (viewModel.deleteProductDatabase()) {
                 is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_error))
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_product_success))
                     findNavController().navigateUp()
@@ -96,11 +97,12 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(R.layout.fragment_p
 
         override fun getItemCount(): Int = 2
 
-        override fun createFragment(position: Int): Fragment =
-            (if (position == 0) ProductDataFragment() else ProductRecordsFragment())
-                .apply {
-                    arguments = args.toBundle()
-                }
+        override fun createFragment(position: Int): Fragment {
+            val fragment = if (position == 0) ProductDataFragment() else ProductRecordsFragment()
+            return fragment.apply {
+                arguments = args.toBundle()
+            }
+        }
     }
 
     fun navigateToInfoRecord(record: Record) {

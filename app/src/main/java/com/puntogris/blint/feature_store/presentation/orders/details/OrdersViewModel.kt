@@ -27,5 +27,4 @@ class OrdersViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), OrderWithRecords())
 
     fun getOrderPDF(uri: Uri? = null) = repository.generateOrderPDF(uri, orderWithRecords.value)
-
 }

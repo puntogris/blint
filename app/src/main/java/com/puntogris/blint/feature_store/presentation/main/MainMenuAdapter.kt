@@ -51,5 +51,4 @@ class MainMenuAdapter(private val clickListener: (MenuCard) -> Unit) :
     override fun onBindViewHolder(holder: MenuCardViewHolder, position: Int) {
         holder.bind(getItem(position), clickListener)
     }
-
 }

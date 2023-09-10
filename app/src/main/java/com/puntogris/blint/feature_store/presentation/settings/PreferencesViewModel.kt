@@ -20,4 +20,3 @@ class PreferencesViewModel @Inject constructor(
 
     suspend fun logOut() = authRepository.signOutUser()
 }
-

@@ -7,4 +7,3 @@ sealed class LoginResult {
     class Success(val authUser: AuthUser) : LoginResult()
     data object Error : LoginResult()
 }
-

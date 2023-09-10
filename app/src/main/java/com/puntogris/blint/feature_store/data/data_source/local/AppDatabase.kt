@@ -29,7 +29,9 @@ import com.puntogris.blint.feature_store.domain.model.product.ProductSupplierCro
         ProductSupplierCrossRef::class,
         ProductCategoryCrossRef::class,
         OrderRecordCrossRef::class
-    ], version = 2, exportSchema = false
+    ],
+    version = 2,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

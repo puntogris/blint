@@ -29,8 +29,7 @@ class TraderRepositoryImpl(
     override suspend fun saveTrader(trader: Trader): SimpleResource = withContext(dispatcher.io) {
         SimpleResource.build {
             if (trader.traderId.isBlank()) {
-
-                trader.apply {
+                with(trader) {
                     traderId = UUIDGenerator.randomUUID()
                     storeId = usersDao.getCurrentStoreId()
                 }
@@ -49,15 +48,9 @@ class TraderRepositoryImpl(
             )
         ) {
             when {
-                query == null -> {
-                    tradersDao.getTradersSearchPaged("")
-                }
-                query.filter == TraderFilter.All -> {
-                    tradersDao.getTradersSearchPaged(query.query)
-                }
-                else -> {
-                    tradersDao.getTradersSearchPaged(query.query, query.filter.type)
-                }
+                query == null -> tradersDao.getTradersSearchPaged("")
+                query.filter == TraderFilter.All -> tradersDao.getTradersSearchPaged(query.query)
+                else -> tradersDao.getTradersSearchPaged(query.query, query.filter.type)
             }
         }.flow
     }
