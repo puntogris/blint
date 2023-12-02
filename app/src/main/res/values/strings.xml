@@ -288,10 +288,10 @@
 
     <!-- Urls -->
     <string name="website_url" translatable="false">https://www.puntogris.com</string>
-    <string name="website_help_url" translatable="false">https://www.blint.puntogris.com/help/</string>
+    <string name="website_help_url" translatable="false">https://blint-web.vercel.app/help/</string>
     <string name="github_url" translatable="false">https://www.github.com/blint</string>
-    <string name="privacy_policy_url" translatable="false">https://blint.puntogris.com/information/privacy-policy.html</string>
-    <string name="terms_and_conditions_url" translatable="false">https://blint.puntogris.com/information/terms-and-conditions.html</string>
+    <string name="privacy_policy_url" translatable="false">https://blint-web.vercel.app/privacy-policy.html</string>
+    <string name="terms_and_conditions_url" translatable="false">https://blint-web.vercel.app/terms-and-conditions.html</string>
     <string name="play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.puntogris.blint</string>
 
     <!-- Menus -->

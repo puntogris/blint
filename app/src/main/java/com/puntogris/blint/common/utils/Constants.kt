@@ -8,9 +8,9 @@ object Constants {
     const val LOCAL_DATABASE_NAME = "blint_database"
 
     //Urls
-    const val LOGIN_PROBLEMS_URL = "https://blint.puntogris.com/help/#login"
-    const val APP_LEARN_MORE_URL = "https://blint.puntogris.com/help"
-    const val BACKUP_LEARN_MORE_URL = "https://blint.puntogris.com/help"
+    const val LOGIN_PROBLEMS_URL = "https://blint-web.vercel.app/help/#login"
+    const val APP_LEARN_MORE_URL = "https://blint-web.vercel.app/help"
+    const val BACKUP_LEARN_MORE_URL = "https://blint-web.vercel.app/help"
     const val WHATS_APP_PACKAGE = "com.whatsapp"
 
     //Ticket types
