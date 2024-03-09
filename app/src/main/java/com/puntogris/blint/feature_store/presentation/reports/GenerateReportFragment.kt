@@ -28,10 +28,18 @@ class GenerateReportFragment :
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        binding.fragment = this
-
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
         setupDocumentLauncher()
-        registerToolbarBackButton(binding.generateReportToolbar)
+    }
+
+    private fun setupListeners() {
+        binding.buttonDone.setOnClickListener {
+            findNavController().navigateAndClearStack(R.id.homeFragment)
+        }
+        binding.buttonShare.setOnClickListener {
+            onShareReportClicked()
+        }
     }
 
     private fun setupDocumentLauncher() {
@@ -54,15 +62,15 @@ class GenerateReportFragment :
             with(binding) {
                 when (viewModel.generateReport()) {
                     is Resource.Error -> {
-                        generateReportTitle.setText(R.string.report_exported_error_title)
-                        generateReportAlertMessage.setText(R.string.report_exported_error_message)
-                        generateReportAnimationView.playAnimationOnce(R.raw.error)
+                        textViewReportTitle.setText(R.string.report_exported_error_title)
+                        textViewReportAlert.setText(R.string.report_exported_error_message)
+                        viewAnimation.playAnimationOnce(R.raw.error)
                     }
 
                     is Resource.Success -> {
-                        generateReportTitle.setText(R.string.report_exported_success_title)
-                        generateReportAlertMessage.setText(R.string.report_exported_success_message)
-                        generateReportAnimationView.playAnimationOnce(R.raw.done)
+                        textViewReportTitle.setText(R.string.report_exported_success_title)
+                        textViewReportAlert.setText(R.string.report_exported_success_message)
+                        viewAnimation.playAnimationOnce(R.raw.done)
                     }
                 }
             }
@@ -79,9 +87,5 @@ class GenerateReportFragment :
             share.putExtra(Intent.EXTRA_STREAM, uri)
             startActivity(Intent.createChooser(share, getString(R.string.action_share_report)))
         }
-    }
-
-    fun onNavigateOutClicked() {
-        findNavController().navigateAndClearStack(R.id.homeFragment)
     }
 }

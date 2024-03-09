@@ -22,7 +22,15 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
     private val viewModel: LoginViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
+        binding.buttonRegister.setOnClickListener {
+            onCreateBusinessClicked()
+        }
+        binding.textViewReadMore.setOnClickListener {
+            onLearnMoreClicked()
+        }
+        binding.imageViewCloseIcon.setOnClickListener {
+            onSignOutClicked()
+        }
     }
 
     fun onSignOutClicked() {

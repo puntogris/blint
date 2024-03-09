@@ -1,6 +1,7 @@
 package com.puntogris.blint.feature_store.presentation.product.categories
 
 import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,16 +21,25 @@ class ProductCategoryFragment :
     private val viewModel: ProductCategoriesViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.viewModel = viewModel
-
-        registerToolbarBackButton(binding.productCategoryToolbar)
+        registerToolbarBackButton(binding.toolbar)
         setupCategoriesAdapter()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonDone.setOnClickListener {
+            onDoneButtonClicked()
+        }
+        binding.editTextSearchCategory.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.setQuery(editable)
+            }
+        }
     }
 
     private fun setupCategoriesAdapter() {
         val adapter = ProductCategoryAdapter { onCategoryClicked(it) }
-        binding.productCategoryRecyclerView.adapter = adapter
+        binding.recyclerViewCategories.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -54,7 +64,7 @@ class ProductCategoryFragment :
     }
 
     override fun onDestroyView() {
-        binding.productCategoryRecyclerView.adapter = null
+        binding.recyclerViewCategories.adapter = null
         super.onDestroyView()
     }
 }

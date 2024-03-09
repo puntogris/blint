@@ -3,26 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderProductsFragment" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.orders.create_order.NewOrderViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/order_products_root_layout"
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
         tools:context=".feature_store.presentation.orders.create_order.OrderProductsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/order_products_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,11 +25,10 @@
             tools:ignore="RtlSymmetry">
 
             <EditText
-                android:id="@+id/order_products_search"
+                android:id="@+id/editText_products_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="100"
-                android:afterTextChanged="@{viewModel::setQuery}"
                 android:autofillHints="@string/auto_fill_hint_client_search"
                 android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_background_secondary"
@@ -55,18 +43,18 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/order_products_recycler_view"
+            android:id="@+id/recyclerView_order_products"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/order_products_done_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_products_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/product_search_recycler_view"
+            android:id="@+id/recyclerView_search_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -80,16 +68,15 @@
             app:layout_constraintHeight_max="225dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_products_toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/order_products_done_button"
+            android:id="@+id/button_done"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClickListener="@{()->fragment.navigateToReviewOrder()}"
             android:text="@string/action_done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

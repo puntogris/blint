@@ -1,6 +1,7 @@
 package com.puntogris.blint.feature_store.presentation.product.traders
 
 import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,15 +21,25 @@ class ProductTraderFragment :
     private val viewModel: ProductTraderViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-
+        registerToolbarBackButton(binding.toolbar)
         setupCategoriesAdapter()
-        registerToolbarBackButton(binding.productTraderToolbar)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.editTextTraderSearch.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.setQuery(editable)
+            }
+        }
+        binding.buttonDone.setOnClickListener {
+            onDoneButtonClicked()
+        }
     }
 
     private fun setupCategoriesAdapter() {
         val adapter = ProductTraderAdapter { onSupplierClicked(it) }
-        binding.recyclerView.adapter = adapter
+        binding.recyclerViewTraders.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -53,7 +64,7 @@ class ProductTraderFragment :
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.adapter = null
+        binding.recyclerViewTraders.adapter = null
         super.onDestroyView()
     }
 }

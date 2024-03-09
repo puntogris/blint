@@ -23,8 +23,14 @@ class PublishOrderFragment :
     }
 
     override fun initializeViews() {
-        binding.fragment = this
+        setupListeners()
         subscribeUi()
+    }
+
+    private fun setupListeners() {
+        binding.buttonContinue.setOnClickListener {
+            navigateToHome()
+        }
     }
 
     private fun subscribeUi() {
@@ -33,23 +39,23 @@ class PublishOrderFragment :
                 with(binding) {
                     when (it) {
                         is ProgressResource.Error -> {
-                            publishOrderAnimationView.playAnimationOnce(R.raw.error)
-                            publishOrderTitle.setText(R.string.created_failed)
-                            publishOrderSubtitle.setText(R.string.order_create_error_message)
+                            viewAnimation.playAnimationOnce(R.raw.error)
+                            textViewPublishOrderSubtitle.setText(R.string.created_failed)
+                            textViewPublishOrderSubtitle.setText(R.string.order_create_error_message)
                             UiInterface.showSnackBar(getString(it.error))
                         }
 
                         is ProgressResource.Success -> {
-                            publishOrderAnimationView.playAnimationOnce(R.raw.done)
-                            publishOrderTitle.setText(R.string.created_successfully_title)
-                            publishOrderSubtitle.setText(R.string.order_create_success_message)
+                            viewAnimation.playAnimationOnce(R.raw.done)
+                            textViewPublishOrderTitle.setText(R.string.created_successfully_title)
+                            textViewPublishOrderSubtitle.setText(R.string.order_create_success_message)
                         }
 
                         is ProgressResource.InProgress -> {
-                            publishOrderAnimationView.playAnimationInfinite(R.raw.loading)
+                            viewAnimation.playAnimationInfinite(R.raw.loading)
                         }
                     }
-                    publishOrderContinueButton.isEnabled = it !is ProgressResource.InProgress
+                    buttonContinue.isEnabled = it !is ProgressResource.InProgress
                 }
             }
         }

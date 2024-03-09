@@ -25,14 +25,13 @@ class ManageCategoriesFragment :
     private val viewModel: ManageCategoriesViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
         setupCategoriesAdapter()
         setupToolbar()
     }
 
     private fun setupCategoriesAdapter() {
         val adapter = ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }
-        binding.manageCategoriesRecyclerView.adapter = adapter
+        binding.recyclerViewCategories.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -48,7 +47,7 @@ class ManageCategoriesFragment :
     }
 
     private fun setupToolbar() {
-        binding.manageCategoriesToolbar.apply {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -97,7 +96,7 @@ class ManageCategoriesFragment :
     }
 
     override fun onDestroyView() {
-        binding.manageCategoriesRecyclerView.adapter = null
+        binding.recyclerViewCategories.adapter = null
         super.onDestroyView()
     }
 }

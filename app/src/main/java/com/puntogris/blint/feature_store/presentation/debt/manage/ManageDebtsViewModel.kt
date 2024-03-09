@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.debt.manage
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.puntogris.blint.feature_store.domain.repository.DebtRepository
@@ -15,7 +14,7 @@ class ManageDebtsViewModel @Inject constructor(
     storeRepository: StoreRepository
 ) : ViewModel() {
 
-    val currentBusiness = storeRepository.getCurrentStoreFlow().asLiveData()
+    val currentBusiness = storeRepository.getCurrentStoreFlow()
 
     val debtsFlow = debtRepository.getDebtsPaged().cachedIn(viewModelScope)
 }

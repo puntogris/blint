@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.trader.manage.ManageTradersViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/manage_traders_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/grid_1"
@@ -36,10 +29,9 @@
                 tools:ignore="RtlSymmetry">
 
                 <EditText
-                    android:id="@+id/manage_traders_search"
+                    android:id="@+id/editText_traders_search"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:afterTextChanged="@{viewModel::setQuery}"
                     android:autofillHints="@string/auto_fill_hint_client_search"
                     android:background="@drawable/round_corners_17"
                     android:backgroundTint="@color/color_background_secondary"
@@ -54,11 +46,11 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
             <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/manage_traders_filter"
+                android:id="@+id/buttonGroup_traders_filters"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:checkedButton="@+id/manage_traders_filter_all_button"
+                app:checkedButton="@+id/buttonGroup_traders_filters_all_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +59,7 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/manage_traders_filter_all_button"
+                    android:id="@+id/button_traders_filters_all"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,7 +68,7 @@
                     android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/manage_traders_filter_clients_button"
+                    android:id="@+id/button_traders_filters_clients"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,7 +77,7 @@
                     android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/manage_traders_filter_suppliers_button"
+                    android:id="@+id/button_traders_filters_suppliers"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +86,7 @@
                     android:textAllCaps="false" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/manage_traders_filter_other_button"
+                    android:id="@+id/button_traders_filters_other"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,7 +98,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/manage_traders_recycler_view"
+            android:id="@+id/recyclerView_traders"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -125,7 +117,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/manage_traders_recycler_view" />
+            app:layout_constraintTop_toTopOf="@+id/recyclerView_traders" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

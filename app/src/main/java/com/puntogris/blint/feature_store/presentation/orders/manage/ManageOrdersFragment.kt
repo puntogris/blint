@@ -24,7 +24,7 @@ class ManageOrdersFragment :
     private fun setupViewPager() {
         binding.manageOrdersViewPager.adapter = ScreenSlidePagerAdapter(childFragmentManager)
         mediator = TabLayoutMediator(
-            binding.manageOrdersTabLayout,
+            binding.tabLayoutManageOrders,
             binding.manageOrdersViewPager
         ) { tab, position ->
             tab.setText(if (position == 0) R.string.tab_orders else R.string.tab_records)
@@ -33,7 +33,7 @@ class ManageOrdersFragment :
     }
 
     private fun registerToolbar() {
-        binding.manageOrdersToolbar.setOnMenuItemClickListener {
+        binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.action_menu_item_add) {
                 showOrderPickerAndNavigate()
             }

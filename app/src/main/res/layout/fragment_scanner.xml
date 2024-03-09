@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.scanner.ScannerFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +10,7 @@
         tools:context=".feature_store.presentation.FragmentScanner">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/scanner_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/grid_1"
@@ -29,30 +22,29 @@
             tools:ignore="RtlSymmetry" />
 
         <androidx.camera.view.PreviewView
-            android:id="@+id/scanner_view_finder"
+            android:id="@+id/previewView_scanner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.puntogris.blint.feature_store.presentation.scanner.ViewFinderOverlay
-            android:id="@+id/scanner_overlay"
+            android:id="@+id/overlay_scanner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layerType="software"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/scanner_flash_button"
+            android:id="@+id/button_toggle_flash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:onClickListener="@{()-> fragment.onToggleFlashClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

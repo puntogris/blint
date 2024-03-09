@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/manage_orders_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/grid_1"
@@ -25,7 +25,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/manage_orders_tab_layout"
+                android:id="@+id/tabLayout_manage_orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

@@ -3,21 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.store.manage.ManageStoreFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.store.manage.ManageStoreFragment">
 
-
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/manage_stores_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +21,7 @@
             app:title="@string/stores_label" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/manage_stores_recycler_view"
+            android:id="@+id/recyclerView_stores"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -39,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manage_stores_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <include
             android:id="@+id/manage_stores_empty_ui"
@@ -50,6 +42,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manage_stores_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

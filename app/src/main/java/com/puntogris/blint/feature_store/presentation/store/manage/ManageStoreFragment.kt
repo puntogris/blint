@@ -22,7 +22,6 @@ class ManageStoreFragment :
     private val viewModel: ManageStoreViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
         setupToolbar()
         setupStoreAdapter()
     }
@@ -32,7 +31,7 @@ class ManageStoreFragment :
             clickListener = { onStoreClicked(it) },
             selectListener = { onStoreSelected(it) }
         )
-        binding.manageStoresRecyclerView.adapter = adapter
+        binding.recyclerViewStores.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -67,7 +66,7 @@ class ManageStoreFragment :
     }
 
     private fun setupToolbar() {
-        with(binding.manageStoresToolbar) {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_add_store) {
@@ -79,7 +78,7 @@ class ManageStoreFragment :
     }
 
     override fun onDestroyView() {
-        binding.manageStoresRecyclerView.adapter = null
+        binding.recyclerViewStores.adapter = null
         super.onDestroyView()
     }
 }

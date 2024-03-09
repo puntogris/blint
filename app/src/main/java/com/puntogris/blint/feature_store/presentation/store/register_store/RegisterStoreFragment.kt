@@ -5,7 +5,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.getString
+import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.playAnimationOnce
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.databinding.FragmentRegisterStoreBinding
@@ -19,13 +23,19 @@ class RegisterStoreFragment :
     private val viewModel: RegisterStoreViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-        registerToolbarBackButton(binding.registerStoreToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonContinue.setOnClickListener {
+            onStartBusinessRegistration()
+        }
     }
 
     fun onStartBusinessRegistration() {
         val validator = StringValidator.from(
-            text = binding.registerStoreName.getString(),
+            text = binding.editTextStoreName.getString(),
             isName = true,
             maxLength = 25
         )
@@ -41,8 +51,8 @@ class RegisterStoreFragment :
                 when (it) {
                     is ProgressResource.Error -> {
                         UiInterface.showSnackBar(getString(R.string.snack_error_connection_server_try_later))
-                        binding.registerStoreContinueButton.isEnabled = true
-                        binding.registerStoreAnimationView.playAnimationOnce(R.raw.error)
+                        binding.buttonContinue.isEnabled = true
+                        binding.viewAnimation.playAnimationOnce(R.raw.error)
                     }
 
                     is ProgressResource.Success -> {
@@ -51,8 +61,8 @@ class RegisterStoreFragment :
                     }
 
                     ProgressResource.InProgress -> {
-                        binding.registerStoreContinueButton.isEnabled = false
-                        binding.registerStoreAnimationView.playAnimationOnce(R.raw.loading)
+                        binding.buttonContinue.isEnabled = false
+                        binding.viewAnimation.playAnimationOnce(R.raw.loading)
                     }
                 }
             }

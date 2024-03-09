@@ -3,31 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.sync.SyncAccountFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.sync.SyncAccountFragment">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/sync_account_animation_view"
+            android:id="@+id/view_animation"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@+id/sync_account_subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/textView_sync_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sync_account_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView_sync_title"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/loading" />
 
         <TextView
-            android:id="@+id/sync_account_subtitle"
+            android:id="@+id/textView_sync_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -37,13 +30,13 @@
             android:text="@string/account_creation_in_progress_message"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/sync_account_continue_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/sync_account_title"
+            android:id="@+id/textView_sync_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -59,7 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/sync_account_continue_button"
+            android:id="@+id/button_continue"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"

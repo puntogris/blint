@@ -19,7 +19,6 @@ class SyncAccountFragment :
     private val viewModel: SyncViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
         subscribeUi()
     }
 
@@ -35,11 +34,11 @@ class SyncAccountFragment :
 
     private fun onErrorSync() {
         with(binding) {
-            syncAccountAnimationView.playAnimationOnce(R.raw.error)
-            syncAccountTitle.setText(R.string.snack_an_error_occurred)
-            syncAccountSubtitle.setText(R.string.snack_sync_account_error)
+            viewAnimation.playAnimationOnce(R.raw.error)
+            textViewSyncTitle.setText(R.string.snack_an_error_occurred)
+            textViewSyncSubtitle.setText(R.string.snack_sync_account_error)
         }
-        with(binding.syncAccountContinueButton) {
+        with(binding.buttonContinue) {
             isEnabled = true
             setText(R.string.action_exit)
             setOnClickListener {
@@ -50,13 +49,11 @@ class SyncAccountFragment :
 
     private fun onSuccessSync(destination: Int) {
         with(binding) {
-            syncAccountAnimationView.playAnimationOnce(R.raw.done)
-
-            syncAccountTitle.setText(R.string.account_sync_success)
-            syncAccountSubtitle.setText(R.string.account_adventure_message)
-
-            syncAccountContinueButton.isEnabled = true
-            syncAccountContinueButton.setOnClickListener {
+            viewAnimation.playAnimationOnce(R.raw.done)
+            textViewSyncTitle.setText(R.string.account_sync_success)
+            textViewSyncSubtitle.setText(R.string.account_adventure_message)
+            buttonContinue.isEnabled = true
+            buttonContinue.setOnClickListener {
                 findNavController().navigateAndClearStack(destination)
             }
         }

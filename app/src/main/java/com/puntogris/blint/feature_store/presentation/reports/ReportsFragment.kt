@@ -19,29 +19,27 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
     }
 
     override fun initializeViews() {
-        binding.fragment = this
-        registerToolbarBackButton(binding.reportsToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
     }
 
-    fun onProductsReportClicked() {
-        showTimeFrameBottomSheet()
-        viewModel.updateReportType(ReportType.ProductRecords)
-    }
-
-    fun onClientsReportClicked() {
-        showTimeFrameBottomSheet()
-        viewModel.updateReportType(ReportType.ClientsRecords)
-
-    }
-
-    fun onProductListClicked() {
-        viewModel.updateReportType(ReportType.ProductsList)
-        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
-    }
-
-    fun onClientListClicked() {
-        viewModel.updateReportType(ReportType.ClientsList)
-        findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
+    private fun setupListeners() {
+        binding.buttonProductsRecords.setOnClickListener {
+            showTimeFrameBottomSheet()
+            viewModel.updateReportType(ReportType.ProductRecords)
+        }
+        binding.buttonTradersRecords.setOnClickListener {
+            showTimeFrameBottomSheet()
+            viewModel.updateReportType(ReportType.ClientsRecords)
+        }
+        binding.buttonProductsList.setOnClickListener {
+            viewModel.updateReportType(ReportType.ProductsList)
+            findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
+        }
+        binding.buttonTraderList.setOnClickListener {
+            viewModel.updateReportType(ReportType.ClientsList)
+            findNavController().navigate(R.id.action_reportsFragment_to_generateReportFragment)
+        }
     }
 
     private fun showTimeFrameBottomSheet() {

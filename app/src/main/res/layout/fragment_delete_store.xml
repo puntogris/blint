@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.store.DeleteStoreFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.store.DeleteStoreFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/delete_store_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +22,7 @@
             app:title="@string/delete_store" />
 
         <TextView
-            android:id="@+id/delete_store_title"
+            android:id="@+id/textView_delete_store_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,10 +34,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_store_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/delete_store_name_input_layout"
+            android:id="@+id/inputLayout_store_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,14 +46,14 @@
             android:hint="@string/store_name_hint"
             app:helperText="@string/helper_text_obligatory"
             app:helperTextEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/delete_store_alert_message"
+            app:layout_constraintBottom_toTopOf="@+id/textView_delete_store_alert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_store_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView_delete_store_title"
             app:layout_constraintVertical_bias="0.22000003">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/delete_store_name"
+                android:id="@+id/editText_store_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
@@ -69,7 +62,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/delete_store_alert_message"
+            android:id="@+id/textView_delete_store_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -78,19 +71,17 @@
             android:lineSpacingExtra="4dp"
             android:text="@string/delete_local_store_warning"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/delete_store_delete_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_delete_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete_store_delete_button"
+            android:id="@+id/button_delete_store"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClickListener="@{()-> fragment.onDeleteBusinessClicked()}"
             android:text="@string/action_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

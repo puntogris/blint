@@ -9,7 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.gone
+import com.puntogris.blint.common.utils.launchWebBrowserIntent
+import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentLoginBinding
 import com.puntogris.blint.feature_store.data.data_source.remote.LoginResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +26,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private lateinit var googleLoginLauncher: ActivityResultLauncher<Intent>
 
     override fun initializeViews() {
-        binding.fragment = this
         registerGoogleLoginLauncher()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonGoogleLogin.setOnClickListener {
+            startLoginWithGoogle()
+        }
+        binding.buttonLoginProblems.setOnClickListener {
+            onLoginProblemsClicked()
+        }
     }
 
     private fun registerGoogleLoginLauncher() {
@@ -41,11 +54,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         UiInterface.showSnackBar(
                             getString(R.string.snack_error_connection_server_try_later)
                         )
-                        binding.loginProgressBar.gone()
+                        binding.progressBarLogin.gone()
                     }
 
                     LoginResult.InProgress -> {
-                        binding.loginProgressBar.visible()
+                        binding.progressBarLogin.visible()
                     }
 
                     is LoginResult.Success -> {

@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.reports.GenerateReportFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.reports.GenerateReportFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/generate_report_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +22,7 @@
             app:title="@string/generate_report_label" />
 
         <TextView
-            android:id="@+id/generate_report_title"
+            android:id="@+id/textView_report_title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,10 +30,10 @@
             android:text="@string/generating_report_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/generate_report_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/generate_report_alert_message"
+            android:id="@+id/textView_report_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -48,41 +41,39 @@
             android:layout_marginBottom="72dp"
             android:text="@string/generate_reports_alert"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/generate_report_done_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/generate_report_animation_view"
+            android:id="@+id/view_animation"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@+id/generate_report_alert_message"
+            app:layout_constraintBottom_toTopOf="@+id/textView_report_alert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/generate_report_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView_report_title"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/generate_report_done_button"
+            android:id="@+id/button_done"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClickListener="@{()->fragment.onNavigateOutClicked()}"
             android:text="@string/action_done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/generate_report_share_report_button" />
+            app:layout_constraintStart_toEndOf="@+id/button_share" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/generate_report_share_report_button"
+            android:id="@+id/button_share"
             style="@style/Theme.Blint.Button"
             android:layout_width="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
-            android:onClickListener="@{()->fragment.onShareReportClicked()}"
             android:text="@string/share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

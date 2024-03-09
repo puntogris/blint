@@ -24,9 +24,18 @@ class RestoreBackupFragment :
     private val viewModel: BackupViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
         subscribeUi()
+        setupListeners()
         registerToolbarBackButton(binding.toolbar)
+    }
+
+    private fun setupListeners() {
+        binding.buttonRestore.setOnClickListener {
+            onRestorationButtonClicked()
+        }
+        binding.textViewReadMore.setOnClickListener {
+            launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
+        }
     }
 
     private fun subscribeUi() {
@@ -35,29 +44,29 @@ class RestoreBackupFragment :
                 with(binding) {
                     when (it) {
                         is BackupState.Loading -> {
-                            animationView.playAnimationInfinite(R.raw.loading)
-                            backupTitle.setText(R.string.loading_with_dots)
-                            backupSummary.setText(R.string.connecting_in_progress)
-                            lastBackupGroup.gone()
+                            viewAnimation.playAnimationInfinite(R.raw.loading)
+                            textViewBackupTitle.setText(R.string.loading_with_dots)
+                            textViewBackupSummary.setText(R.string.connecting_in_progress)
+                            groupLastBackup.gone()
                         }
 
                         is BackupState.BackupSuccess -> {
-                            backupSummary.setText(R.string.restore_backup_success_message)
-                            backupTitle.setText(R.string.restore_backup_success_title)
-                            animationView.playAnimationOnce(R.raw.done)
+                            textViewBackupSummary.setText(R.string.restore_backup_success_message)
+                            textViewBackupTitle.setText(R.string.restore_backup_success_title)
+                            viewAnimation.playAnimationOnce(R.raw.done)
                         }
 
                         is BackupState.Error -> {
-                            backupTitle.setText(R.string.snack_an_error_occurred)
-                            backupSummary.setText(it.error)
-                            animationView.playAnimationOnce(R.raw.error)
+                            textViewBackupTitle.setText(R.string.snack_an_error_occurred)
+                            textViewBackupSummary.setText(it.error)
+                            viewAnimation.playAnimationOnce(R.raw.error)
                         }
 
                         is BackupState.ShowLastBackup -> {
-                            backupTitle.setText(R.string.your_account_backups)
-                            backupSummary.setText(R.string.data_from_servers)
-                            lastBackupGroup.visible()
-                            animationView.gone()
+                            textViewBackupTitle.setText(R.string.your_account_backups)
+                            textViewBackupSummary.setText(R.string.data_from_servers)
+                            groupLastBackup.visible()
+                            viewAnimation.gone()
                             textViewLastBackupDate.setDateOrError(it.lastBackupDate)
                         }
                     }
@@ -71,12 +80,7 @@ class RestoreBackupFragment :
             title(R.string.ask_user_action_confirmation)
             content(R.string.restore_backup_warning)
             onNegative(R.string.action_cancel)
-            onPositive(R.string.action_restore_backup)
-            { viewModel.restoreBackup() }
+            onPositive(R.string.action_restore_backup) { viewModel.restoreBackup() }
         }
-    }
-
-    fun onReadMoreAboutBackupsClicked() {
-        launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
     }
 }

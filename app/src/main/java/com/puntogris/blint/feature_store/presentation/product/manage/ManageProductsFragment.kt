@@ -3,8 +3,10 @@ package com.puntogris.blint.feature_store.presentation.product.manage
 import android.Manifest
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
@@ -18,6 +20,8 @@ import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManageProductsFragment :
@@ -27,14 +31,25 @@ class ManageProductsFragment :
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.manageProductSearch.clearFocus()
-
         setupToolbar()
         setupProductsAdapter()
         setupScannerLauncher()
         setupResultListener()
+        setupViews()
+    }
+
+    private fun setupViews() {
+        binding.editTextProductSearch.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.setQuery(editable)
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.query.collectLatest {
+                binding.editTextProductSearch.setText(it)
+            }
+        }
+        binding.editTextProductSearch.clearFocus()
     }
 
     private fun setupScannerLauncher() {
@@ -50,13 +65,12 @@ class ManageProductsFragment :
     }
 
     private fun setupProductsAdapter() {
-        ManageProductsAdapter(
+        val adapter = ManageProductsAdapter(
             shortClickListener = { onProductShortClickListener(it) },
             longClickListener = { onProductLongClickListener(it) }
-        ).let {
-            binding.manageProductsRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        )
+        binding.recyclerViewProducts.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageProductsAdapter) {
@@ -77,7 +91,7 @@ class ManageProductsFragment :
     }
 
     private fun setupToolbar() {
-        binding.manageProductsToolbar.apply {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -109,9 +123,9 @@ class ManageProductsFragment :
 
     override fun onDestroyView() {
         with(binding) {
-            manageProductsToolbar.setNavigationOnClickListener(null)
-            manageProductSearch.clearFocus()
-            manageProductsRecyclerView.adapter = null
+            toolbar.setNavigationOnClickListener(null)
+            editTextProductSearch.clearFocus()
+            recyclerViewProducts.adapter = null
         }
         super.onDestroyView()
     }

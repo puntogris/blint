@@ -3,17 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.product.manage.ManageProductsFragment" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.product.manage.ManageProductsViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +11,7 @@
         tools:context=".feature_store.presentation.product.manage.ManageProductsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/manage_products_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,11 +23,10 @@
             app:menu="@menu/menu_manage_products">
 
             <EditText
-                android:id="@+id/manage_product_search"
+                android:id="@+id/editText_product_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:afterTextChanged="@{viewModel::setQuery}"
                 android:autofillHints="@string/auto_fill_hint_search_product"
                 android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_background_secondary"
@@ -48,13 +36,12 @@
                 android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="textNoSuggestions"
                 android:paddingHorizontal="8dp"
-                android:text="@{viewModel.query}"
                 android:textSize="16sp" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/manage_products_recycler_view"
+            android:id="@+id/recyclerView_products"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -64,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manage_products_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <include
             android:id="@+id/manage_products_empty_ui"

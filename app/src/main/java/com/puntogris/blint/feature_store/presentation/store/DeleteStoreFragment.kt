@@ -23,15 +23,17 @@ class DeleteStoreFragment :
     private val viewModel: StoreViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-        registerToolbarBackButton(binding.deleteStoreToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
     }
 
-    fun onDeleteBusinessClicked() {
-        if (binding.deleteStoreName.getString() == args.store.name) {
-            showDeleteBusinessDialog()
-        } else {
-            UiInterface.showSnackBar(getString(R.string.snack_store_name_does_not_match))
+    private fun setupListeners() {
+        binding.buttonDeleteStore.setOnClickListener {
+            if (binding.editTextStoreName.getString() == args.store.name) {
+                showDeleteBusinessDialog()
+            } else {
+                UiInterface.showSnackBar(getString(R.string.snack_store_name_does_not_match))
+            }
         }
     }
 

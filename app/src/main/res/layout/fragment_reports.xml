@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.reports.ReportsFragment" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +10,7 @@
         tools:context=".feature_store.presentation.reports.ReportsFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/reports_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +21,7 @@
             app:title="@string/reports_label" />
 
         <TextView
-            android:id="@+id/reports_stock_title"
+            android:id="@+id/textView_reports_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -40,24 +33,22 @@
             android:textSize="17sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/report_product_records"
+            android:id="@+id/button_products_records"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="24dp"
-            android:onClick="@{()->fragment.onProductsReportClicked()}"
             android:text="@string/product_records_report" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/report_trader_records"
+            android:id="@+id/button_traders_records"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
-            android:onClick="@{()->fragment.onClientsReportClicked()}"
             android:text="@string/traders_records_report" />
 
         <TextView
-            android:id="@+id/report_list_title"
+            android:id="@+id/textView_report_list_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -69,20 +60,18 @@
             android:textSize="17sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/report_products_list"
+            android:id="@+id/button_products_list"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="24dp"
-            android:onClick="@{()->fragment.onProductListClicked()}"
             android:text="@string/products_label" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/report_traders_list"
+            android:id="@+id/button_trader_list"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
-            android:onClick="@{()->fragment.onClientListClicked()}"
             android:text="@string/traders_label" />
 
     </LinearLayout>

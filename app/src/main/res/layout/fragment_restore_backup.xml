@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.backup.RestoreBackupFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.backup.RestoreBackupFragment">
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/lastBackupGroup"
+            android:id="@+id/group_last_backup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -37,7 +30,7 @@
             app:title="@string/backup_label" />
 
         <TextView
-            android:id="@+id/backup_title"
+            android:id="@+id/textView_backup_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/backup_summary"
+            android:id="@+id/textView_backup_summary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -59,10 +52,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backup_title" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_backup_title" />
 
         <TextView
-            android:id="@+id/backup_alert"
+            android:id="@+id/textView_backup_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -71,17 +64,16 @@
             android:lineSpacingExtra="4dp"
             android:text="@string/create_backup_affects_this_stores_alert"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/textView73"
+            app:layout_constraintBottom_toTopOf="@+id/textView_read_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView73"
+            android:id="@+id/textView_read_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:foreground="?selectableItemBackground"
-            android:onClick="@{()->fragment.onReadMoreAboutBackupsClicked()}"
             android:padding="8dp"
             android:text="@string/action_read_more_about_backups"
             android:textColor="@color/color_primary"
@@ -92,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+            android:id="@+id/view_animation"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="32dp"
@@ -110,7 +102,6 @@
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClick="@{()-> fragment.onRestorationButtonClicked()}"
             android:text="@string/action_restore_stores_backup"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,7 +118,7 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backup_summary" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_backup_summary" />
 
         <TextView
             android:id="@+id/textView_last_backup_date"

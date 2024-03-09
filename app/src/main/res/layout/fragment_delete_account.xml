@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.settings.DeleteAccountFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.account.DeleteAccountFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/delete_account_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +22,7 @@
             app:title="@string/action_delete_account" />
 
         <TextView
-            android:id="@+id/delete_account_title"
+            android:id="@+id/textView_delete_account_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,10 +33,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_account_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/delete_account_requirement"
+            android:id="@+id/textView_delete_account_requirement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -53,10 +46,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_account_title" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/delete_account_email_input_layout"
+            android:id="@+id/inputLayout_account_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -67,14 +60,14 @@
             android:inputType="textEmailAddress"
             app:helperText="@string/helper_text_obligatory"
             app:helperTextEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/delete_account_alert_message"
+            app:layout_constraintBottom_toTopOf="@+id/textVoew_delete_account_alert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_account_requirement"
+            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_requirement"
             app:layout_constraintVertical_bias="0.24000001">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/delete_account_email"
+                android:id="@+id/editText_account_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
@@ -83,38 +76,36 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/delete_account_alert_message"
+            android:id="@+id/textVoew_delete_account_alert"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="52dp"
             android:text="@string/delete_account_danger_alert"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/delete_account_delete_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/delete_account_animation_view"
+            android:id="@+id/view_animation"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/delete_account_delete_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/delete_account_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/loading" />
 
         <Button
-            android:id="@+id/delete_account_delete_button"
+            android:id="@+id/button_delete_account"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClick="@{()-> fragment.onDeleteAccountClicked()}"
             android:text="@string/action_delete_account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

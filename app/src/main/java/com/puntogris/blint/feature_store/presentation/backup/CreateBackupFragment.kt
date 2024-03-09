@@ -24,9 +24,18 @@ class CreateBackupFragment :
     private val viewModel: BackupViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
+        registerToolbarBackButton(binding.toolbar)
         subscribeUi()
-        registerToolbarBackButton(binding.createBackupToolbar)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonCreateBackup.setOnClickListener {
+            onBackupButtonClicked()
+        }
+        binding.textViewReadMore.setOnClickListener {
+            launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
+        }
     }
 
     private fun subscribeUi() {
@@ -35,27 +44,30 @@ class CreateBackupFragment :
                 with(binding) {
                     when (it) {
                         is BackupState.Loading -> {
-                            createBackupAnimationView.playAnimationInfinite(R.raw.loading)
-                            createBackupTitle.setText(R.string.loading_with_dots)
-                            createBackupSummary.setText(R.string.connecting_in_progress)
-                            createBackupLastBackupGroup.gone()
+                            viewAnimation.playAnimationInfinite(R.raw.loading)
+                            textViewBackupTitle.setText(R.string.loading_with_dots)
+                            textViewBackupSummary.setText(R.string.connecting_in_progress)
+                            groupLastBackup.gone()
                         }
+
                         is BackupState.BackupSuccess -> {
-                            createBackupTitle.setText(R.string.create_backup_success_title)
-                            createBackupSummary.setText(R.string.create_backup_success_message)
-                            createBackupAnimationView.playAnimationOnce(R.raw.done)
+                            textViewBackupTitle.setText(R.string.create_backup_success_title)
+                            textViewBackupSummary.setText(R.string.create_backup_success_message)
+                            viewAnimation.playAnimationOnce(R.raw.done)
                         }
+
                         is BackupState.Error -> {
-                            createBackupTitle.setText(R.string.snack_an_error_occurred)
-                            createBackupSummary.setText(it.error)
-                            createBackupAnimationView.playAnimationOnce(R.raw.error)
+                            textViewBackupTitle.setText(R.string.snack_an_error_occurred)
+                            textViewBackupSummary.setText(it.error)
+                            viewAnimation.playAnimationOnce(R.raw.error)
                         }
+
                         is BackupState.ShowLastBackup -> {
-                            createBackupTitle.setText(R.string.your_account_backups)
-                            createBackupSummary.setText(R.string.data_from_servers)
-                            createBackupLastBackupGroup.visible()
-                            createBackupAnimationView.gone()
-                            createBackupLastBackup.setDateOrError(it.lastBackupDate)
+                            textViewBackupTitle.setText(R.string.your_account_backups)
+                            textViewBackupSummary.setText(R.string.data_from_servers)
+                            groupLastBackup.visible()
+                            viewAnimation.gone()
+                            textViewLastBackup.setDateOrError(it.lastBackupDate)
                         }
                     }
                 }
@@ -68,13 +80,7 @@ class CreateBackupFragment :
             title(R.string.ask_user_action_confirmation)
             content(R.string.create_backup_warning)
             onNegative(R.string.action_cancel)
-            onPositive(R.string.action_create_backup) {
-                viewModel.backupBusiness()
-            }
+            onPositive(R.string.action_create_backup) { viewModel.backupBusiness() }
         }
-    }
-
-    fun onReadMoreAboutBackupsClicked() {
-        launchWebBrowserIntent(Constants.BACKUP_LEARN_MORE_URL)
     }
 }

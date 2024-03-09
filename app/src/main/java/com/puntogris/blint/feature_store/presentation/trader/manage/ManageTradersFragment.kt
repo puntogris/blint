@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.trader.manage
 
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
@@ -20,16 +21,23 @@ class ManageTradersFragment :
     private val viewModel: ManageTradersViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.viewModel = viewModel
-
         setupToolbar()
         setupClientsAdapter()
         setupTraderFilter()
+        setupViews()
+    }
+
+    private fun setupViews() {
+        binding.editTextTradersSearch.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.setQuery(editable)
+            }
+        }
     }
 
     private fun setupClientsAdapter() {
         val adapter = ManageTradersAdapter { onClientClickListener(it) }
-        binding.manageTradersRecyclerView.adapter = adapter
+        binding.recyclerViewTraders.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -51,18 +59,18 @@ class ManageTradersFragment :
     }
 
     private fun setupTraderFilter() {
-        binding.manageTradersFilter.addOnButtonCheckedListener { _, checkedId, _ ->
+        binding.buttonGroupTradersFilters.addOnButtonCheckedListener { _, checkedId, _ ->
             when (checkedId) {
-                R.id.manage_traders_filter_all_button -> viewModel.setFilter(TraderFilter.All)
-                R.id.manage_traders_filter_clients_button -> viewModel.setFilter(TraderFilter.CLIENT)
-                R.id.manage_traders_filter_suppliers_button -> viewModel.setFilter(TraderFilter.SUPPLIER)
-                R.id.manage_traders_filter_other_button -> viewModel.setFilter(TraderFilter.OTHER)
+                R.id.button_traders_filters_all -> viewModel.setFilter(TraderFilter.All)
+                R.id.button_traders_filters_clients -> viewModel.setFilter(TraderFilter.CLIENT)
+                R.id.button_traders_filters_suppliers -> viewModel.setFilter(TraderFilter.SUPPLIER)
+                R.id.button_traders_filters_other -> viewModel.setFilter(TraderFilter.OTHER)
             }
         }
     }
 
     private fun setupToolbar() {
-        with(binding.manageTradersToolbar) {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -74,7 +82,7 @@ class ManageTradersFragment :
     }
 
     override fun onDestroyView() {
-        binding.manageTradersRecyclerView.adapter = null
+        binding.recyclerViewTraders.adapter = null
         super.onDestroyView()
     }
 }

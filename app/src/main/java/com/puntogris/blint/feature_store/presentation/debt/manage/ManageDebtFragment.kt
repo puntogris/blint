@@ -5,9 +5,11 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setDebtColorWithLimit
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentManageDebtBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.fragment_manage_debt) {
@@ -15,16 +17,23 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
     private val viewModel: ManageDebtsViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        registerToolbarBackButton(binding.toolbar)
         setupDebtsAdapter()
-        registerToolbarBackButton(binding.manageDebtToolbar)
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.currentBusiness.collectLatest {
+                binding.textViewStoreDebt.setDebtColorWithLimit(it.tradersDebt)
+
+            }
+        }
     }
 
     private fun setupDebtsAdapter() {
         val adapter = ManageDebtsAdapter()
-        binding.manageDebtRecyclerView.adapter = adapter
+        binding.recyclerViewDebts.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -40,7 +49,7 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
     }
 
     override fun onDestroyView() {
-        binding.manageDebtRecyclerView.adapter = null
+        binding.recyclerViewDebts.adapter = null
         super.onDestroyView()
     }
 }

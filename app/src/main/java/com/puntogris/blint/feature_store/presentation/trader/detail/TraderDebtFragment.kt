@@ -5,10 +5,12 @@ import androidx.paging.LoadState
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.setDebtColor
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 
@@ -18,16 +20,23 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     private val viewModel: TraderViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         setupDebtsAdapter()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.currentTrader.collectLatest {
+                binding.textViewDebtBalance.setDebtColor(it.debt)
+            }
+        }
     }
 
     private fun setupDebtsAdapter() {
         val adapter = DebtStatusAdapter { onDebtClicked(it) }
-        binding.traderDebtRecyclerView.adapter = adapter
+        binding.recyclerViewDebts.adapter = adapter
         subscribeUi(adapter)
     }
 
@@ -42,7 +51,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
                 .distinctUntilChangedBy { it.source.refresh }
                 .map { it.source.refresh is LoadState.NotLoading }
                 .collect { notLoading ->
-                    if (notLoading) binding.traderDebtRecyclerView.scrollToPosition(0)
+                    if (notLoading) binding.recyclerViewDebts.scrollToPosition(0)
                 }
         }
         launchAndRepeatWithViewLifecycle {
@@ -55,7 +64,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     }
 
     override fun onDestroyView() {
-        binding.traderDebtRecyclerView.adapter = null
+        binding.recyclerViewDebts.adapter = null
         super.onDestroyView()
     }
 }

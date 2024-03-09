@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.store.register_store.RegisterStoreFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature_store.presentation.store.register_store.RegisterStoreFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/register_store_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +21,7 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/register_store_title"
+            android:id="@+id/textView_register_store_title"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,10 +31,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_store_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/register_store_subtitle"
+            android:id="@+id/textView_register_store_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -51,10 +44,10 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_store_title" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_store_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/register_store_name_input_layout"
+            android:id="@+id/inputLayout_store_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
@@ -63,10 +56,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_store_subtitle">
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_store_subtitle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_store_name"
+                android:id="@+id/editText_store_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
@@ -76,26 +69,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_store_continue_button"
+            android:id="@+id/button_continue"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:onClick="@{()-> fragment.onStartBusinessRegistration()}"
             android:text="@string/action_finish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/register_store_animation_view"
+            android:id="@+id/view_animation"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            app:layout_constraintBottom_toTopOf="@+id/register_store_continue_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_store_name_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayout_store_name"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/business4" />

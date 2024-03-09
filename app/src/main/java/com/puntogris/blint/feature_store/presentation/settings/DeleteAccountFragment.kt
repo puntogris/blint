@@ -25,24 +25,30 @@ class DeleteAccountFragment :
     private val viewModel: DeleteAccountViewModel by viewModels()
 
     override fun initializeViews() {
-        binding.fragment = this
-        registerToolbarBackButton(binding.deleteAccountToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonDeleteAccount.setOnClickListener {
+            onDeleteAccountClicked()
+        }
     }
 
     fun onDeleteAccountClicked() {
         lifecycleScope.launch {
             with(binding) {
-                viewModel.deleteAccount(binding.deleteAccountEmail.getString()).collect {
+                viewModel.deleteAccount(binding.editTextAccountEmail.getString()).collect {
                     when (it) {
                         is ProgressResource.Error -> {
-                            deleteAccountAnimationView.gone()
-                            deleteAccountEmailInputLayout.visible()
+                            viewAnimation.gone()
+                            inputLayoutAccountEmail.visible()
                             UiInterface.showSnackBar(getString(it.error))
                         }
 
                         ProgressResource.InProgress -> {
-                            deleteAccountAnimationView.playAnimationInfinite(R.raw.loading)
-                            deleteAccountEmailInputLayout.gone()
+                            viewAnimation.playAnimationInfinite(R.raw.loading)
+                            inputLayoutAccountEmail.gone()
                         }
 
                         is ProgressResource.Success -> signOutUser()

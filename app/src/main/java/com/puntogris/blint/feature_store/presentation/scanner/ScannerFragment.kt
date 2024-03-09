@@ -41,18 +41,22 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private val args: ScannerFragmentArgs by navArgs()
 
     override fun initializeViews() {
-        binding.fragment = this
-
-        registerToolbarBackButton(binding.scannerToolbar)
+        registerToolbarBackButton(binding.toolbar)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        binding.scannerOverlay.post {
-            binding.scannerOverlay.setViewFinder()
+        binding.overlayScanner.post {
+            binding.overlayScanner.setViewFinder()
         }
 
         startCamera()
+        setupListeners()
+    }
 
+    private fun setupListeners() {
+        binding.buttonToggleFlash.setOnClickListener {
+            camera?.toggleFlash()
+        }
         setFragmentResultListener(Keys.SCANNER_FRAGMENT_KEY) { _, bundle ->
             if (bundle.getBoolean(Keys.RESUME_CAMERA_KEY)) bindCameraUseCases()
         }
@@ -70,7 +74,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     }
 
     private fun bindCameraUseCases() {
-        val rotation = binding.scannerViewFinder.display.rotation
+        val rotation = binding.previewViewScanner.display.rotation
 
         preview = Preview.Builder()
             .setTargetRotation(rotation)
@@ -118,7 +122,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 preview
             )
 
-            preview?.setSurfaceProvider(binding.scannerViewFinder.surfaceProvider)
+            preview?.setSurfaceProvider(binding.previewViewScanner.surfaceProvider)
             val cameraInfo = requireNotNull(camera?.cameraInfo)
             observerCameraState(cameraInfo)
         } catch (ignored: Exception) {
@@ -133,7 +137,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                     TorchState.ON -> R.drawable.ic_baseline_flash_off_24
                     else -> R.drawable.ic_baseline_flash_on_24
                 }
-                binding.scannerFlashButton.setImageResource(flashIcon)
+                binding.buttonToggleFlash.setImageResource(flashIcon)
             }
         }
     }
@@ -149,10 +153,6 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
                 }.also { imageAnalysis.targetRotation = it }
             }
         }
-    }
-
-    fun onToggleFlashClicked() {
-        camera?.toggleFlash()
     }
 
     override fun onDestroyView() {
