@@ -3,15 +3,22 @@ package com.puntogris.blint.feature_store.presentation.trader.manage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.common.utils.setCapitalizeWord
+import com.puntogris.blint.common.utils.setTraderType
 import com.puntogris.blint.databinding.ManageTradersVhBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
 
 class ManageTraderViewHolder private constructor(val binding: ManageTradersVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(trader: Trader, clickListener: (Trader) -> Unit) {
-        binding.trader = trader
-        binding.root.setOnClickListener { clickListener(trader) }
-        binding.executePendingBindings()
+        with(binding) {
+            textViewTraderName.setCapitalizeWord(trader.name)
+            textViewTraderType.setTraderType(trader.type)
+            root.setOnClickListener {
+                clickListener(trader)
+            }
+        }
     }
 
     companion object {

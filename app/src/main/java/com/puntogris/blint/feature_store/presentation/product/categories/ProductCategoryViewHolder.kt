@@ -10,13 +10,14 @@ class ProductCategoryViewHolder private constructor(val binding: ProductCategory
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: CheckableCategory, clickListener: (CheckableCategory) -> Unit) {
-        binding.category = category
-        binding.productTraderVhCategoryCheckView.isChecked = category.isChecked
-        binding.root.setOnClickListener {
-            clickListener(category)
-            binding.productTraderVhCategoryCheckView.toggle()
+        with(binding) {
+            textViewCategoryName.text = category.category.categoryName
+            textViewCategoryName.isChecked = category.isChecked
+            root.setOnClickListener {
+                clickListener(category)
+                textViewCategoryName.toggle()
+            }
         }
-        binding.executePendingBindings()
     }
 
     companion object {

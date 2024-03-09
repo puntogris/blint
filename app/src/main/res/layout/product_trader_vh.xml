@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <variable
-            name="trader"
-            type="com.puntogris.blint.feature_store.domain.model.CheckableTrader" />
-    </data>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <CheckedTextView
-            android:id="@+id/product_trader_vh_supplier_check_view"
-            capitalizeFirstChar="@{trader.trader.name}"
+            android:id="@+id/textView_trader_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_item_checkable_selector"
@@ -29,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/product_trader_vh_divider"
+            android:id="@+id/view_divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"

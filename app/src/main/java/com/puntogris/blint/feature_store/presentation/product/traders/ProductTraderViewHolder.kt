@@ -3,6 +3,7 @@ package com.puntogris.blint.feature_store.presentation.product.traders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.common.utils.capitalizeFirstChar
 import com.puntogris.blint.databinding.ProductTraderVhBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableTrader
 
@@ -10,14 +11,14 @@ class ProductTraderViewHolder private constructor(val binding: ProductTraderVhBi
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(trader: CheckableTrader, clickListener: (CheckableTrader) -> Unit) {
-        binding.trader = trader
-        binding.productTraderVhSupplierCheckView.isChecked = trader.isChecked
-        binding.root.setOnClickListener {
-            clickListener(trader)
-            binding.productTraderVhSupplierCheckView.toggle()
+        with(binding) {
+            textViewTraderName.isChecked = trader.isChecked
+            textViewTraderName.text = trader.trader.name.capitalizeFirstChar()
+            root.setOnClickListener {
+                clickListener(trader)
+                textViewTraderName.toggle()
+            }
         }
-
-        binding.executePendingBindings()
     }
 
     companion object {

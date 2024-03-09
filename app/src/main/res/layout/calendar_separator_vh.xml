@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-        <variable
-            name="date"
-            type="String" />
-    </data>
-
     <TextView
-        android:id="@+id/calendar_separator"
+        android:id="@+id/textView_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:text="@{date.toUpperCase()}"
         android:textAlignment="center"
         android:textColor="@color/color_on_background" />
 </layout>

@@ -3,6 +3,8 @@ package com.puntogris.blint.feature_store.presentation.trader.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.common.utils.setDateFromTimestampWithTime
+import com.puntogris.blint.common.utils.setDebtColor
 import com.puntogris.blint.databinding.DebtStatusVhBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 
@@ -10,9 +12,11 @@ class DebtStatusViewHolder private constructor(val binding: DebtStatusVhBinding)
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(debt: Debt, clickListener: (Debt) -> (Unit)) {
-        binding.debt = debt
-        binding.root.setOnClickListener { clickListener(debt) }
-        binding.executePendingBindings()
+        with(binding) {
+            textViewDebtDate.setDateFromTimestampWithTime(debt.timestamp)
+            textViewDebtAmount.setDebtColor(debt.amount)
+            root.setOnClickListener { clickListener(debt) }
+        }
     }
 
     companion object {

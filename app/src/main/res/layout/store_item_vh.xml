@@ -3,86 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="store"
-            type="com.puntogris.blint.feature_store.presentation.store.manage.SelectedStore" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackgroundBorderless">
 
         <TextView
-            android:id="@+id/store_item_vh_store_name"
+            android:id="@+id/textView_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="@{store.store.name}"
             android:textColor="@color/color_on_background"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/store_item_vh_open_icon"
+            android:id="@+id/imageView_open_store_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:contentDescription="@string/open_image"
-            app:layout_constraintBottom_toTopOf="@+id/store_item_vh_select_store_button"
+            app:layout_constraintBottom_toTopOf="@+id/button_select_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_fi_rr_angle_small_right" />
 
         <ImageView
-            android:id="@+id/store_item_vh_store_products_count_icon"
+            android:id="@+id/imageView_store_products_count_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/store_item_vh_store_name"
-            app:layout_constraintTop_toBottomOf="@+id/store_item_vh_store_name"
+            app:layout_constraintStart_toStartOf="@+id/textView_store_name"
+            app:layout_constraintTop_toBottomOf="@+id/textView_store_name"
             app:srcCompat="@drawable/ic_fi_rr_box"
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:id="@+id/store_item_vh_store_traders_count_icon"
+            android:id="@+id/imageView_store_traders_count_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/store_item_vh_store_products_count"
-            app:layout_constraintStart_toEndOf="@+id/store_item_vh_store_products_count"
-            app:layout_constraintTop_toTopOf="@+id/store_item_vh_store_products_count"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_store_products_count"
+            app:layout_constraintStart_toEndOf="@+id/textView_store_products_count"
+            app:layout_constraintTop_toTopOf="@+id/textView_store_products_count"
             app:srcCompat="@drawable/ic_fi_rr_users"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/store_item_vh_store_products_count"
+            android:id="@+id/textView_store_products_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(store.store.totalProducts)}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/store_item_vh_store_products_count_icon"
-            app:layout_constraintStart_toEndOf="@+id/store_item_vh_store_products_count_icon"
-            app:layout_constraintTop_toTopOf="@+id/store_item_vh_store_products_count_icon" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_store_products_count_icon"
+            app:layout_constraintStart_toEndOf="@+id/imageView_store_products_count_icon"
+            app:layout_constraintTop_toTopOf="@+id/imageView_store_products_count_icon" />
 
         <TextView
-            android:id="@+id/store_item_vh_store_traders_count"
+            android:id="@+id/textView_store_traders_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(store.store.totalTraders)}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/store_item_vh_store_traders_count_icon"
-            app:layout_constraintStart_toEndOf="@+id/store_item_vh_store_traders_count_icon"
-            app:layout_constraintTop_toTopOf="@+id/store_item_vh_store_traders_count_icon" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_store_traders_count_icon"
+            app:layout_constraintStart_toEndOf="@+id/imageView_store_traders_count_icon"
+            app:layout_constraintTop_toTopOf="@+id/imageView_store_traders_count_icon" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/store_item_vh_select_store_button"
+            android:id="@+id/button_select_store"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
@@ -90,10 +80,10 @@
             android:text="@string/action_select_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_item_vh_store_products_count_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView_store_products_count_icon" />
 
         <View
-            android:id="@+id/store_item_vh_divider"
+            android:id="@+id/view_divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -104,6 +94,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_item_vh_select_store_button" />
+            app:layout_constraintTop_toBottomOf="@+id/button_select_store" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

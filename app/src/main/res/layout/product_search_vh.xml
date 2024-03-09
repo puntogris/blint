@@ -2,22 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="product"
-            type="com.puntogris.blint.feature_store.domain.model.product.Product" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground">
 
         <TextView
-            android:id="@+id/product_search_product_name"
+            android:id="@+id/textView_product_name"
             style="?attr/textAppearanceSubtitle1"
-            capitalizeFirstChar="@{product.name}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,27 +20,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/product_search_product_stock_label"
+            android:id="@+id/textView_product_stock_label"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/stock"
-            app:layout_constraintBottom_toBottomOf="@+id/product_search_product_name"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/product_search_product_name" />
+            app:layout_constraintTop_toTopOf="@+id/textView_product_name" />
 
         <TextView
-            android:id="@+id/product_search_product_stock"
+            android:id="@+id/textView_product_stock"
             style="?attr/textAppearanceSubtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:letterSpacing="0.2"
-            android:text="@{String.valueOf(product.stock)}"
-            app:layout_constraintBottom_toBottomOf="@+id/product_search_product_stock_label"
-            app:layout_constraintEnd_toStartOf="@+id/product_search_product_stock_label"
-            app:layout_constraintTop_toTopOf="@+id/product_search_product_stock_label" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_stock_label"
+            app:layout_constraintEnd_toStartOf="@+id/textView_product_stock_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

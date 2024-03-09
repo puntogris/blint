@@ -3,6 +3,7 @@ package com.puntogris.blint.feature_store.presentation.categories
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.common.utils.capitalizeFirstChar
 import com.puntogris.blint.databinding.ManageCategoryVhBinding
 import com.puntogris.blint.feature_store.domain.model.Category
 
@@ -10,8 +11,7 @@ class ManageCategoriesViewHolder private constructor(val binding: ManageCategory
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category) {
-        binding.category = category
-        binding.executePendingBindings()
+        binding.textViewCategoryName.text = category.categoryName.capitalizeFirstChar()
     }
 
     companion object {

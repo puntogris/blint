@@ -3,33 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="event"
-            type="com.puntogris.blint.feature_store.domain.model.Event" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackgroundBorderless">
 
         <View
-            android:id="@+id/event_color"
-            eventStatusColor="@{event.status}"
+            android:id="@+id/view_event_color"
             android:layout_width="4dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/divider_round_corners_horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/event_date"
+            app:layout_constraintBottom_toBottomOf="@id/textView_event_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/event_title" />
+            app:layout_constraintTop_toTopOf="@id/textView_event_title" />
 
         <TextView
-            android:id="@+id/event_title"
+            android:id="@+id/textView_event_title"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,35 +30,31 @@
             android:layout_marginEnd="24dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{event.content}"
-            app:layout_constraintEnd_toStartOf="@id/event_status"
-            app:layout_constraintStart_toEndOf="@id/event_color"
+            app:layout_constraintEnd_toStartOf="@id/textView_event_status"
+            app:layout_constraintStart_toEndOf="@id/view_event_color"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/event_date"
-            dateFromTimestamp="@{event.timestamp}"
+            android:id="@+id/textView_event_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/event_color"
-            app:layout_constraintTop_toBottomOf="@id/event_title"
+            app:layout_constraintStart_toEndOf="@id/view_event_color"
+            app:layout_constraintTop_toBottomOf="@id/textView_event_title"
             tools:text="12/4/1991" />
 
-
         <TextView
-            android:id="@+id/event_status"
-            eventStatus="@{event.status}"
+            android:id="@+id/textView_event_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/event_date"
+            app:layout_constraintBottom_toBottomOf="@id/textView_event_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/event_title"
+            app:layout_constraintTop_toTopOf="@id/textView_event_title"
             tools:text="Pending" />
 
         <View

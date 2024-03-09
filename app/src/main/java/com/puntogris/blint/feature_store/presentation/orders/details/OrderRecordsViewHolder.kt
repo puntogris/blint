@@ -3,6 +3,9 @@ package com.puntogris.blint.feature_store.presentation.orders.details
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.puntogris.blint.common.utils.capitalizeFirstChar
+import com.puntogris.blint.common.utils.setImageFullSize
+import com.puntogris.blint.common.utils.setNumberToMoneyString
 import com.puntogris.blint.databinding.OrderRecordVhBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 
@@ -10,8 +13,12 @@ class OrderRecordsViewHolder private constructor(val binding: OrderRecordVhBindi
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(record: Record) {
-        binding.record = record
-        binding.executePendingBindings()
+        with(binding) {
+            imageViewProductImage.setImageFullSize(record.productImage)
+            textViewProductName.text = record.productName.capitalizeFirstChar()
+            textViewRecordTotal.setNumberToMoneyString(record.total)
+            textViewRecordAmount.text = record.amount.toString()
+        }
     }
 
     companion object {

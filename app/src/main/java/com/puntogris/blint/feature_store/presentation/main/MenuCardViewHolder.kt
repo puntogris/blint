@@ -8,10 +8,15 @@ import com.puntogris.blint.feature_store.domain.model.MenuCard
 
 class MenuCardViewHolder private constructor(val binding: MenuCardVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(menuCard: MenuCard, clickListener: (MenuCard) -> Unit) {
-        binding.menuCard = menuCard
-        binding.menuCardVhCard.setOnClickListener { clickListener(menuCard) }
-        binding.executePendingBindings()
+        with(binding) {
+            cardViewMenu.setOnClickListener {
+                clickListener(menuCard)
+            }
+            textViewMenuTitle.setText(menuCard.title)
+            imageViewMenuIcon.setImageResource(menuCard.icon)
+        }
     }
 
     companion object {

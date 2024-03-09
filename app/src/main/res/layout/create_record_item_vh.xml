@@ -3,19 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="item"
-            type="com.puntogris.blint.feature_store.domain.model.order.NewRecord" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/textView_product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_record_amount"
+            app:layout_constraintEnd_toStartOf="@+id/editText_record_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText_record_amount"
+            tools:text="Product name" />
+
+        <EditText
+            android:id="@+id/editText_record_amount"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toEndOf="@+id/textView_product_name"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editText_record_value"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <EditText
+            android:id="@+id/editText_record_value"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_toEndOf="@+id/editText_record_amount"
+            android:hint="@string/price"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_record_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText_record_amount"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
         <View
-            android:id="@+id/divider"
+            android:id="@+id/view_divider"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -25,56 +65,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/product_name"
-            capitalizeFirstChar="@{item.productName}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/record_amount"
-            app:layout_constraintEnd_toStartOf="@+id/record_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/record_amount"
-            tools:text="Product name" />
-
-        <EditText
-            android:id="@+id/record_amount"
-            productRecordEntryStock="@{item}"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:layout_toEndOf="@+id/product_name"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/record_value"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill,LabelFor,TextFields" />
-
-        <EditText
-            android:id="@+id/record_value"
-            productRecordEntryPrice="@{item}"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_toEndOf="@+id/record_amount"
-            android:hint="@string/price"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/record_amount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/record_amount"
-            tools:ignore="Autofill,LabelFor,TextFields" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,9 +7,9 @@ import com.puntogris.blint.databinding.CalendarSeparatorVhBinding
 
 class EventsDividerViewHolder private constructor(val binding: CalendarSeparatorVhBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(date: String) {
-        binding.date = date
-        binding.executePendingBindings()
+        binding.textViewDate.text = date.uppercase()
     }
 
     companion object {

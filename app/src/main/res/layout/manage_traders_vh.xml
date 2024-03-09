@@ -3,21 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="trader"
-            type="com.puntogris.blint.feature_store.domain.model.Trader" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/manage_traders_vh_trader_name"
-            capitalizeWord="@{trader.name}"
+            android:id="@+id/textView_trader_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -31,8 +23,7 @@
             tools:text="Client 1" />
 
         <TextView
-            android:id="@+id/manage_traders_vh_trader_type"
-            traderType="@{trader.type}"
+            android:id="@+id/textView_trader_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"

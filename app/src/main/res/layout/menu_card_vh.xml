@@ -2,19 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="menuCard"
-            type="com.puntogris.blint.feature_store.domain.model.MenuCard" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menu_card_vh_card"
+            android:id="@+id/cardView_menu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/color_on_primary"
@@ -30,32 +23,30 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/menu_card_vh_icon"
+                    android:id="@+id/imageView_menu_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="12dp"
                     android:src="@drawable/ic_baseline_insert_chart_outlined_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:setImageResource="@{menuCard.icon}" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/menu_card_vh_title"
+                    android:id="@+id/textView_menu_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="12dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@{menuCard.title}"
                     android:textColor="@color/color_primary"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/menu_card_vh_icon" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView_menu_icon" />
+                
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,15 +15,16 @@ class ManageStoreViewHolder private constructor(val binding: StoreItemVhBinding)
         selectListener: (Store) -> Unit
     ) {
         with(binding) {
-            store = selectedStore
+            textViewStoreName.text = selectedStore.store.name
+            textViewStoreProductsCount.text = selectedStore.store.totalProducts.toString()
+            textViewStoreTradersCount.text = selectedStore.store.totalTraders.toString()
             root.setOnClickListener {
                 clickListener(selectedStore.store)
             }
-            storeItemVhSelectStoreButton.setOnClickListener {
+            buttonSelectStore.setOnClickListener {
                 selectListener(selectedStore.store)
             }
-            storeItemVhSelectStoreButton.isEnabled = !selectedStore.isSelected
-            executePendingBindings()
+            buttonSelectStore.isEnabled = !selectedStore.isSelected
         }
     }
 
