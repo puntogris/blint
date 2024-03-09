@@ -58,20 +58,20 @@ dependencies {
 
 ext {
     hilt_version = "2.47"
-    nav_version = "2.7.1"
+    nav_version = "2.7.7"
     coroutine_version = "1.7.2"
-    room_version = "2.6.0-beta01"
+    room_version = "2.6.1"
     camerax_version = "1.1.0-alpha10"
-    material_version = "1.9.0"
+    material_version = "1.11.0"
     cool_bottom_sheets_version = "2.2.5"
     preferences_version = "1.2.1"
     glide_version = "4.12.0"
-    paging_version = "3.2.0"
+    paging_version = "3.2.1"
     lottieVersion = "5.2.0"
-    google_auth_version = "19.2.0"
+    google_auth_version = "21.0.0"
     barcode_scanner = "17.2.0"
     apache_poi_version = "4.0.1"
-    lifecycle_version = "2.4.0"
+    lifecycle_version = "2.7.0"
     viewmodel_hilt_version = "1.0.0-alpha03"
     rv_decorator_version = "2.0.0"
     activity_ktx_version = "1.7.2"
@@ -84,9 +84,9 @@ ext {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:1.10.1"
+    implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "com.google.android.material:material:1.9.0"
+    implementation "com.google.android.material:material:1.11.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     testImplementation "junit:junit:4.13.2"
