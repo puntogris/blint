@@ -1,33 +1,38 @@
 package com.puntogris.blint.feature_store.presentation.reports
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GenerateReportFragment :
-    BaseFragment<FragmentGenerateReportBinding>(R.layout.fragment_generate_report) {
+class GenerateReportFragment : Fragment(R.layout.fragment_generate_report) {
 
     private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) {
         defaultViewModelProviderFactory
     }
 
+    private val binding by viewBinding(FragmentGenerateReportBinding::bind)
+
     private lateinit var documentLauncher: ActivityResultLauncher<String>
 
-    override fun initializeViews() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
         setupListeners()
         setupDocumentLauncher()
@@ -77,7 +82,7 @@ class GenerateReportFragment :
         }
     }
 
-    fun onShareReportClicked() {
+    private fun onShareReportClicked() {
         val uri = viewModel.getReportUri()
         if (uri == null) {
             UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))

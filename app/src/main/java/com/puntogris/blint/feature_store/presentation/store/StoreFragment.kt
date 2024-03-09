@@ -1,19 +1,25 @@
 package com.puntogris.blint.feature_store.presentation.store
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store) {
+class StoreFragment : Fragment(R.layout.fragment_store) {
 
     private val args: StoreFragmentArgs by navArgs()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentStoreBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.business = args.store
         setupToolbar()
     }

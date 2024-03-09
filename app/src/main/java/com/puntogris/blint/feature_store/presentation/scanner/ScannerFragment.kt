@@ -1,8 +1,10 @@
 package com.puntogris.blint.feature_store.presentation.scanner
 
+import android.os.Bundle
 import android.util.Size
 import android.view.OrientationEventListener
 import android.view.Surface
+import android.view.View
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraInfo
 import androidx.camera.core.CameraSelector
@@ -12,16 +14,17 @@ import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.toggleFlash
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentScannerBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
@@ -29,7 +32,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_scanner) {
+class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     @Inject
     lateinit var barcodeAnalyzer: BarcodeAnalyzer
@@ -40,7 +43,10 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
     private lateinit var cameraProvider: ProcessCameraProvider
     private val args: ScannerFragmentArgs by navArgs()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentScannerBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
 
         cameraExecutor = Executors.newSingleThreadExecutor()

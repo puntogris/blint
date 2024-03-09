@@ -1,5 +1,7 @@
 package com.puntogris.blint.feature_store.presentation.trader.detail
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -10,24 +12,27 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentTraderBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_trader) {
+class TraderFragment : Fragment(R.layout.fragment_trader) {
 
     private val args: TraderFragmentArgs by navArgs()
     private var mediator: TabLayoutMediator? = null
     private val viewModel: TraderViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentTraderBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbar()
         setupPager()
     }

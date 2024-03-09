@@ -1,30 +1,35 @@
 package com.puntogris.blint.feature_store.presentation.categories
 
+import android.os.Bundle
 import android.text.InputType
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageCategoriesFragment :
-    BaseFragment<FragmentManageCategoriesBinding>(R.layout.fragment_manage_categories) {
+class ManageCategoriesFragment : Fragment(R.layout.fragment_manage_categories) {
 
     private val viewModel: ManageCategoriesViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentManageCategoriesBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupCategoriesAdapter()
         setupToolbar()
     }

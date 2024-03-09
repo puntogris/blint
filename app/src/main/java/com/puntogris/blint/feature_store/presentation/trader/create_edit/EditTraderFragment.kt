@@ -4,32 +4,40 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentEditTraderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @SuppressLint("Range")
 @AndroidEntryPoint
-class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.fragment_edit_trader) {
+class EditTraderFragment : Fragment(R.layout.fragment_edit_trader) {
 
     private val viewModel: EditTraderViewModel by viewModels()
+
     private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
+
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentEditTraderBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

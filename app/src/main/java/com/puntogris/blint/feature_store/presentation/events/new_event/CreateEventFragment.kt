@@ -1,6 +1,9 @@
 package com.puntogris.blint.feature_store.presentation.events.new_event
 
+import android.os.Bundle
 import android.text.InputType
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -8,22 +11,25 @@ import com.maxkeppeler.sheets.core.SheetStyle
 import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CreateEventFragment :
-    BaseFragment<FragmentCreateEventBinding>(R.layout.fragment_create_event) {
+    Fragment(R.layout.fragment_create_event) {
 
     private val viewModel: CreateEventViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentCreateEventBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.fragment = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

@@ -1,26 +1,31 @@
 package com.puntogris.blint.feature_store.presentation.product.traders
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentProductTraderBinding
 import com.puntogris.blint.feature_store.domain.model.CheckableTrader
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductTraderFragment :
-    BaseFragment<FragmentProductTraderBinding>(R.layout.fragment_product_trader) {
+class ProductTraderFragment : Fragment(R.layout.fragment_product_trader) {
 
     private val viewModel: ProductTraderViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentProductTraderBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
         setupCategoriesAdapter()
         setupListeners()

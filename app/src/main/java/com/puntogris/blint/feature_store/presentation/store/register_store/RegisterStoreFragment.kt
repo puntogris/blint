@@ -1,10 +1,12 @@
 package com.puntogris.blint.feature_store.presentation.store.register_store
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getString
 import com.puntogris.blint.common.utils.navigateAndClearStack
@@ -12,17 +14,20 @@ import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.StringValidator
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentRegisterStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterStoreFragment :
-    BaseFragment<FragmentRegisterStoreBinding>(R.layout.fragment_register_store) {
+class RegisterStoreFragment : Fragment(R.layout.fragment_register_store) {
 
     private val viewModel: RegisterStoreViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentRegisterStoreBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
         setupListeners()
     }

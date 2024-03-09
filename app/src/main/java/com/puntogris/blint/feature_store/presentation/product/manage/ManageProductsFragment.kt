@@ -1,15 +1,17 @@
 package com.puntogris.blint.feature_store.presentation.product.manage
 
 import android.Manifest
+import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.hideKeyboard
@@ -17,6 +19,7 @@ import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,13 +27,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ManageProductsFragment :
-    BaseFragment<FragmentManageProductsBinding>(R.layout.fragment_manage_products) {
+class ManageProductsFragment : Fragment(R.layout.fragment_manage_products) {
 
     private val viewModel: ManageProductsViewModel by viewModels()
     private lateinit var scannerLauncher: ActivityResultLauncher<String>
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentManageProductsBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupProductsAdapter()
         setupScannerLauncher()

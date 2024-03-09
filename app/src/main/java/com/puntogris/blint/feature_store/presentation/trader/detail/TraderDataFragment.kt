@@ -3,27 +3,33 @@ package com.puntogris.blint.feature_store.presentation.trader.detail
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentTraderDataBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TraderDataFragment : BaseFragment<FragmentTraderDataBinding>(R.layout.fragment_trader_data) {
+class TraderDataFragment : Fragment(R.layout.fragment_trader_data) {
 
     private val viewModel: TraderViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var contactPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var contactPickerLauncher: ActivityResultLauncher<Intent>
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentTraderDataBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.let {
             it.fragment = this
             it.viewModel = viewModel

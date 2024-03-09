@@ -1,9 +1,11 @@
 package com.puntogris.blint.feature_store.presentation.backup
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Constants
 import com.puntogris.blint.common.utils.gone
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
@@ -13,17 +15,20 @@ import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.setDateOrError
 import com.puntogris.blint.common.utils.types.BackupState
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentRestoreBackupBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RestoreBackupFragment :
-    BaseFragment<FragmentRestoreBackupBinding>(R.layout.fragment_restore_backup) {
+class RestoreBackupFragment : Fragment(R.layout.fragment_restore_backup) {
 
     private val viewModel: BackupViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentRestoreBackupBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUi()
         setupListeners()
         registerToolbarBackButton(binding.toolbar)

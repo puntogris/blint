@@ -1,24 +1,30 @@
 package com.puntogris.blint.feature_store.presentation.reports
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.maxkeppeler.sheets.options.DisplayMode
 import com.maxkeppeler.sheets.options.Option
 import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentReportsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
+class ReportsFragment : Fragment(R.layout.fragment_reports) {
 
     private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) {
         defaultViewModelProviderFactory
     }
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentReportsBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
         setupListeners()
     }

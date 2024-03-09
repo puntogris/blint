@@ -1,24 +1,29 @@
 package com.puntogris.blint.feature_store.presentation.sync
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.playAnimationOnce
 import com.puntogris.blint.common.utils.types.SyncAccount
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentSyncAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SyncAccountFragment :
-    BaseFragment<FragmentSyncAccountBinding>(R.layout.fragment_sync_account) {
+class SyncAccountFragment : Fragment(R.layout.fragment_sync_account) {
 
     private val viewModel: SyncViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentSyncAccountBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeUi()
     }
 

@@ -1,26 +1,31 @@
 package com.puntogris.blint.feature_store.presentation.trader.manage
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.TraderFilter
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentManageTradersBinding
 import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageTradersFragment :
-    BaseFragment<FragmentManageTradersBinding>(R.layout.fragment_manage_traders) {
+class ManageTradersFragment : Fragment(R.layout.fragment_manage_traders) {
 
     private val viewModel: ManageTradersViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentManageTradersBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupClientsAdapter()
         setupTraderFilter()

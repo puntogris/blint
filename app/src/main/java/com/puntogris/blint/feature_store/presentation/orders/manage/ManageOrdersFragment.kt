@@ -1,22 +1,26 @@
 package com.puntogris.blint.feature_store.presentation.orders.manage
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentManageOrdersBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageOrdersFragment :
-    BaseFragment<FragmentManageOrdersBinding>(R.layout.fragment_manage_orders) {
+class ManageOrdersFragment : Fragment(R.layout.fragment_manage_orders) {
 
     private var mediator: TabLayoutMediator? = null
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentManageOrdersBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbar()
         setupViewPager()
     }

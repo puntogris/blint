@@ -1,26 +1,31 @@
 package com.puntogris.blint.feature_store.presentation.events.manage
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.EventStatus
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentManageEventsBinding
 import com.puntogris.blint.feature_store.domain.model.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageEventsFragment :
-    BaseFragment<FragmentManageEventsBinding>(R.layout.fragment_manage_events) {
+class ManageEventsFragment : Fragment(R.layout.fragment_manage_events) {
 
     private val viewModel: ManageEventsViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentManageEventsBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupEventsFilter()
         setupEventsAdapter()

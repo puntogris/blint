@@ -1,28 +1,35 @@
 package com.puntogris.blint.feature_store.presentation.store
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getString
 import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.DeleteStore
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentDeleteStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DeleteStoreFragment :
-    BaseFragment<FragmentDeleteStoreBinding>(R.layout.fragment_delete_store) {
+    Fragment(R.layout.fragment_delete_store) {
 
     private val args: DeleteStoreFragmentArgs by navArgs()
+
     private val viewModel: StoreViewModel by viewModels()
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentDeleteStoreBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registerToolbarBackButton(binding.toolbar)
         setupListeners()
     }

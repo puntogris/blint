@@ -1,10 +1,13 @@
 package com.puntogris.blint.feature_store.presentation.product.details
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseFragment
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentProductRecordsBinding
 import com.puntogris.blint.feature_store.domain.model.order.Record
 import com.puntogris.blint.feature_store.presentation.orders.manage.RecordsAdapter
@@ -12,11 +15,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductRecordsFragment :
-    BaseFragment<FragmentProductRecordsBinding>(R.layout.fragment_product_records) {
+    Fragment(R.layout.fragment_product_records) {
 
     private val viewModel: ProductViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
-    override fun initializeViews() {
+    private val binding by viewBinding(FragmentProductRecordsBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecordsAdapter()
     }
 

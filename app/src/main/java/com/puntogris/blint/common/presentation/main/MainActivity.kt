@@ -10,11 +10,14 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseActivity
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.getNavController
+import com.puntogris.blint.common.utils.hideKeyboard
 import com.puntogris.blint.databinding.ActivityMainBinding
 import com.puntogris.blint.feature_store.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,13 +97,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         destination: NavDestination,
         arguments: Bundle?
     ) {
-
-        binding.bottomAppBar.isVisible = destination.id in
-                listOf(
-                    R.id.homeFragment,
-                    R.id.manageProductsFragment,
-                    R.id.manageOrdersFragment
-                )
+        val destinationsWithToolbar = listOf(
+            R.id.homeFragment,
+            R.id.manageProductsFragment,
+            R.id.manageOrdersFragment
+        )
+        binding.bottomAppBar.isVisible = destination.id in destinationsWithToolbar
 
         hideKeyboard()
     }
