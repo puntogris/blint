@@ -36,13 +36,13 @@ class SyncAccountFragment :
     private fun onErrorSync() {
         with(binding) {
             syncAccountAnimationView.playAnimationOnce(R.raw.error)
-
             syncAccountTitle.setText(R.string.snack_an_error_occurred)
             syncAccountSubtitle.setText(R.string.snack_sync_account_error)
-
-            syncAccountContinueButton.isEnabled = true
-            syncAccountContinueButton.setText(R.string.action_exit)
-            syncAccountContinueButton.setOnClickListener {
+        }
+        with(binding.syncAccountContinueButton) {
+            isEnabled = true
+            setText(R.string.action_exit)
+            setOnClickListener {
                 findNavController().navigateAndClearStack(R.id.loginFragment)
             }
         }

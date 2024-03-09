@@ -40,12 +40,13 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
     }
 
     fun onSaveButtonClicked() {
-        when (val validator = StringValidator.from(
-            viewModel.currentTrader.value.name,
+        val validator = StringValidator.from(
+            text = viewModel.currentTrader.value.name,
             allowSpecialChars = true,
             isName = true,
             maxLength = 20
-        )) {
+        )
+        when (validator) {
             is StringValidator.Valid -> saveClient()
             is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
         }
@@ -77,8 +78,10 @@ class EditTraderFragment : BaseFragment<FragmentEditTraderBinding>(R.layout.frag
     private fun saveClient() {
         lifecycleScope.launch {
             when (viewModel.saveClient()) {
-                is Resource.Error ->
+                is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_save_trader_error))
+                }
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_save_trader_success))
                     findNavController().navigateUp()

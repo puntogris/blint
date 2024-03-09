@@ -36,9 +36,13 @@ class EventInfoBottomSheet :
     private fun setupEventStatusAdapter() {
         val eventStatus = resources.getStringArray(R.array.event_status)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item_list, eventStatus)
-
-        binding.eventInfoStatus.apply {
-            setText(if (viewModel.event.value.status == EventStatus.Pending.value) eventStatus[0] else eventStatus[1])
+        val eventStatusText = if (viewModel.event.value.status == EventStatus.Pending.value) {
+            eventStatus[0]
+        } else {
+            eventStatus[1]
+        }
+        with(binding.eventInfoStatus) {
+            setText(eventStatusText)
             setAdapter(adapter)
             setOnItemClickListener { _, _, i, _ ->
                 viewModel.updateEventStatus(i)
@@ -60,6 +64,7 @@ class EventInfoBottomSheet :
             when (viewModel.deleteEvent()) {
                 is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_delete_event_error))
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_event_success))
                     findNavController().navigateUp()
@@ -71,8 +76,10 @@ class EventInfoBottomSheet :
     fun onSaveButtonClicked() {
         lifecycleScope.launch {
             when (viewModel.updateEvent()) {
-                is Resource.Error ->
+                is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_event_error))
+                }
+
                 is Resource.Success -> {
                     setFragmentResult(
                         Keys.EVENT_FILTER_KEY,

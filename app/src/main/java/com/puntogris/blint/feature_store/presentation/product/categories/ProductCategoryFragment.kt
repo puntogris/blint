@@ -28,10 +28,9 @@ class ProductCategoryFragment :
     }
 
     private fun setupCategoriesAdapter() {
-        ProductCategoryAdapter { onCategoryClicked(it) }.let {
-            binding.productCategoryRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = ProductCategoryAdapter { onCategoryClicked(it) }
+        binding.productCategoryRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ProductCategoryAdapter) {

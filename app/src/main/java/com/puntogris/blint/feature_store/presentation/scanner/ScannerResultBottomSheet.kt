@@ -25,10 +25,10 @@ class ScannerResultBottomSheet :
     }
 
     fun onNavigateToProductClicked() {
-        val action = ScannerResultBottomSheetDirections.actionGlobalProductFragment(
-            viewModel.scannedProduct.value!!
-        )
-        findNavController().navigate(action)
+        viewModel.scannedProduct.value?.let {
+            val action = ScannerResultBottomSheetDirections.actionGlobalProductFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
     fun onCreateSimpleOrder() {
@@ -38,11 +38,11 @@ class ScannerResultBottomSheet :
     }
 
     fun onCreateNewProduct() {
-        val action =
-            ScannerResultBottomSheetDirections.actionScannerResultDialogToEditProductFragment(
-                viewModel.scannedProduct.value!!
-            )
-        findNavController().navigate(action)
+        viewModel.scannedProduct.value?.let {
+            val action =
+                ScannerResultBottomSheetDirections.actionScannerResultDialogToEditProductFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
     override fun dismiss() {

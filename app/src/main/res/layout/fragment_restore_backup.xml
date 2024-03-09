@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="button19,textView71,textView70"
+            app:constraint_referenced_ids="button_restore,textView_last_backup_date,textView_last_backup_label"
             tools:visibility="visible" />
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -86,7 +86,7 @@
             android:text="@string/action_read_more_about_backups"
             android:textColor="@color/color_primary"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/button19"
+            app:layout_constraintBottom_toTopOf="@+id/button_restore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.413"
             app:layout_constraintStart_toStartOf="parent" />
@@ -105,7 +105,7 @@
             app:lottie_rawRes="@raw/loading" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button19"
+            android:id="@+id/button_restore"
             style="@style/Theme.Blint.Button"
             android:layout_width="match_parent"
             android:layout_marginHorizontal="16dp"
@@ -118,7 +118,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView70"
+            android:id="@+id/textView_last_backup_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -130,15 +130,15 @@
             app:layout_constraintTop_toBottomOf="@+id/backup_summary" />
 
         <TextView
-            android:id="@+id/textView71"
+            android:id="@+id/textView_last_backup_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/loading_with_dots"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView70"
-            app:layout_constraintStart_toEndOf="@+id/textView70"
-            app:layout_constraintTop_toTopOf="@+id/textView70" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_last_backup_label"
+            app:layout_constraintStart_toEndOf="@+id/textView_last_backup_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_last_backup_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

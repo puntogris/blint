@@ -23,10 +23,9 @@ class ManageDebtFragment : BaseFragment<FragmentManageDebtBinding>(R.layout.frag
     }
 
     private fun setupDebtsAdapter() {
-        ManageDebtsAdapter().let {
-            binding.manageDebtRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = ManageDebtsAdapter()
+        binding.manageDebtRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageDebtsAdapter) {

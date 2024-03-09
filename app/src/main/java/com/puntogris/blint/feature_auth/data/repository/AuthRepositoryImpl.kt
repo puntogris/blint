@@ -27,7 +27,7 @@ class AuthRepositoryImpl(
             val authResult = authServerApi.signInWithCredential(credential)
             val authUser = requireNotNull(authResult.user).toAuthUser()
             emit(LoginResult.Success(authUser))
-        } catch (e: Exception) {
+        } catch (ignored: Exception) {
             googleSingInApi.signOut()
             emit(LoginResult.Error)
         }

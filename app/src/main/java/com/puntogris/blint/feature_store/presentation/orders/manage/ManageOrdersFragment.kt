@@ -1,5 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.orders.manage
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -44,8 +45,10 @@ class ManageOrdersFragment :
         FragmentStateAdapter(parentFragment, viewLifecycleOwner.lifecycle) {
 
         override fun getItemCount(): Int = 2
-        override fun createFragment(position: Int) =
-            if (position == 0) OrdersTabFragment() else RecordsTabFragment()
+
+        override fun createFragment(position: Int): Fragment {
+            return if (position == 0) OrdersTabFragment() else RecordsTabFragment()
+        }
     }
 
     override fun onDestroyView() {

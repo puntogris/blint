@@ -33,12 +33,12 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
     }
 
     private fun registerToolbar() {
-        binding.toolbar.apply {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
 
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_edit_trader ->  navigateToEditClientFragment()
+                    R.id.action_edit_trader -> navigateToEditClientFragment()
                     R.id.action_delete_trader -> navigateToDeleteTrader()
                     R.id.action_update_trader_debt -> navigateToUpdateDebt()
                 }
@@ -86,8 +86,10 @@ class TraderFragment : BaseFragment<FragmentTraderBinding>(R.layout.fragment_tra
     private fun onDeleteTraderConfirmed() {
         lifecycleScope.launch {
             when (viewModel.deleteTrader()) {
-                is Resource.Error ->
+                is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_trader_error))
+                }
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_trader_success))
                     findNavController().navigateUp()

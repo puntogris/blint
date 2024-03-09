@@ -43,14 +43,14 @@
             android:ems="10"
             android:hint="@string/enter_sku_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
             android:singleLine="true"
             android:text="@{viewModel.currentProduct.product.sku}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_sku_label"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/product_extras_card_divider1"
@@ -89,14 +89,14 @@
             android:ems="10"
             android:hint="@string/enter_brand_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
             android:singleLine="true"
             android:text="@{viewModel.currentProduct.product.brand}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_brand_label"
-            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider1"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider1" />
 
         <View
             android:id="@+id/product_extras_card_divider2"
@@ -135,14 +135,14 @@
             android:ems="10"
             android:hint="@string/enter_notes_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
             android:singleLine="true"
             android:text="@{viewModel.currentProduct.product.notes}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/product_extras_card_product_notes_label"
-            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider2"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/product_extras_card_divider2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -27,10 +27,9 @@ class ProductTraderFragment :
     }
 
     private fun setupCategoriesAdapter() {
-        ProductTraderAdapter { onSupplierClicked(it) }.let {
-            binding.recyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = ProductTraderAdapter { onSupplierClicked(it) }
+        binding.recyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ProductTraderAdapter) {

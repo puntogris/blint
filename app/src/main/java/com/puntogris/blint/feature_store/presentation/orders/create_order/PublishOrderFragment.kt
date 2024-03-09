@@ -18,7 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class PublishOrderFragment :
     BaseFragment<FragmentPublishOrderBinding>(R.layout.fragment_publish_order) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) {
+        defaultViewModelProviderFactory
+    }
 
     override fun initializeViews() {
         binding.fragment = this

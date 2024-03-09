@@ -14,7 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_reports) {
 
-    private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) { defaultViewModelProviderFactory }
+    private val viewModel: ReportsViewModel by navGraphViewModels(R.id.reportsNavGraph) {
+        defaultViewModelProviderFactory
+    }
 
     override fun initializeViews() {
         binding.fragment = this
@@ -43,7 +45,7 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding>(R.layout.fragment_r
     }
 
     private fun showTimeFrameBottomSheet() {
-        val timeFrames = TimeFrame.values()
+        val timeFrames = TimeFrame.entries
         OptionsSheet().show(requireParentFragment().requireContext()) {
             title(R.string.ask_report_time_frame_title)
             displayMode(DisplayMode.LIST)

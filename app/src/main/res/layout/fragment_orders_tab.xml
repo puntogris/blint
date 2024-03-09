@@ -20,9 +20,9 @@
         <include
             android:id="@+id/orders_tab_empty_ui"
             layout="@layout/empty_ui_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

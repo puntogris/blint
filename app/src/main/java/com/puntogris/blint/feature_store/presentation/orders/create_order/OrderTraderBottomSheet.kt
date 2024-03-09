@@ -52,11 +52,10 @@ class OrderTraderBottomSheet :
     }
 
     private fun subscribeUi() {
-        ManageTradersAdapter { onTraderClicked(it) }.let { adapter ->
-            binding.orderTraderRecyclerView.adapter = adapter
-            viewModel.tradersLiveData.observe(viewLifecycleOwner) {
-                adapter.submitData(viewLifecycleOwner.lifecycle, it)
-            }
+        val adapter = ManageTradersAdapter { onTraderClicked(it) }
+        binding.orderTraderRecyclerView.adapter = adapter
+        viewModel.tradersLiveData.observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
@@ -72,7 +71,7 @@ class OrderTraderBottomSheet :
     }
 
     private fun setupToolbar() {
-        binding.orderTraderToolbar.apply {
+        with(binding.orderTraderToolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_close) {

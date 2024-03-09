@@ -2,7 +2,7 @@ package com.puntogris.blint.common.utils
 
 object Keys {
 
-    //Preferences
+    // Preferences
     const val SIGN_OUT_PREF = "sign_out_preference"
     const val THEME_PREF = "theme_preference"
     const val LICENSES_PREF = "licenses_preference"
@@ -13,7 +13,7 @@ object Keys {
     const val APP_VERSION_PREF = "app_version_preference"
     const val TICKET_PREFERENCE = "ticket_preference"
 
-    //Navigation
+    // Navigation
     const val PRODUCT_BARCODE_KEY = "product_barcode_key"
     const val EVENT_FILTER_KEY = "event_filter_key"
     const val EVENT_POSITION_KEY = "event_position_key"

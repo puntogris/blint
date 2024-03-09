@@ -23,8 +23,8 @@
         <androidx.constraintlayout.widget.Group
             android:id="@+id/product_prices_card_initial_stock_group"
             android:layout_width="wrap_content"
-            android:visibility="@{viewModel.currentProduct.product.productId.empty ? View.VISIBLE : View.GONE}"
             android:layout_height="wrap_content"
+            android:visibility="@{viewModel.currentProduct.product.productId.empty ? View.VISIBLE : View.GONE}"
             app:constraint_referenced_ids="product_prices_card_product_stock,product_prices_card_divider1,product_prices_card_product_stock_label,product_prices_card_increase_stock_button, product_prices_card_decrease_stock_button" />
 
         <TextView
@@ -52,13 +52,13 @@
             android:ems="10"
             android:hint="@string/enter_initial_stock_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="number"
             android:singleLine="true"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/product_prices_card_decrease_stock_button"
             app:layout_constraintStart_toEndOf="@+id/product_prices_card_product_stock_label"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/product_prices_card_decrease_stock_button"

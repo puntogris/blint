@@ -37,20 +37,23 @@ class TraderDataFragment : BaseFragment<FragmentTraderDataBinding>(R.layout.frag
     private fun setupContactPickerLauncher() {
         contactPickerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                val resultMessage =
-                    if (it.resultCode == Activity.RESULT_OK) R.string.snack_action_success
-                    else R.string.snack_an_error_occurred
+                val resultMessage = if (it.resultCode == Activity.RESULT_OK) {
+                    R.string.snack_action_success
+                } else {
+                    R.string.snack_an_error_occurred
+                }
                 UiInterface.showSnackBar(getString(resultMessage))
             }
     }
 
     private fun setupContactPermissions() {
         contactPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 if (isGranted) {
                     contactPickerLauncher.launch(viewModel.getContactIntent())
-                } else UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                } else {
+                    UiInterface.showSnackBar(getString(R.string.snack_require_contact_permission))
+                }
             }
     }
 
@@ -68,14 +71,15 @@ class TraderDataFragment : BaseFragment<FragmentTraderDataBinding>(R.layout.frag
             )
             onPositive { index: Int, _: Option ->
                 val phone = viewModel.currentTrader.value.phone
-                if (index == 0) {
+                val intent = if (index == 0) {
                     Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null))
                 } else {
                     Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$phone"))
-                }.also {
-                    if (index == 2) it.setPackage(WHATS_APP_PACKAGE)
-                    contactPickerLauncher.launch(it)
                 }
+                if (index == 2) {
+                    intent.setPackage(WHATS_APP_PACKAGE)
+                }
+                contactPickerLauncher.launch(intent)
             }
         }.show(parentFragmentManager, "")
     }

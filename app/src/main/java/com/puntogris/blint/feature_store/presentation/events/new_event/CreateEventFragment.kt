@@ -42,18 +42,20 @@ class CreateEventFragment :
         InputSheet().show(requireParentFragment().requireContext()) {
             style(SheetStyle.DIALOG)
             title(R.string.event_content)
-            with(InputEditText {
-                defaultValue(viewModel.event.value.content)
-                content(R.string.create_event_content_hint)
-                required(true)
-                hint(R.string.message_hint)
-                inputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-                onNegative(R.string.action_cancel)
-                onPositive(R.string.action_accept) {
-                    viewModel.setEventContent(it["0"].toString())
-                    hideKeyboard()
+            with(
+                InputEditText {
+                    defaultValue(viewModel.event.value.content)
+                    content(R.string.create_event_content_hint)
+                    required(true)
+                    hint(R.string.message_hint)
+                    inputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                    onNegative(R.string.action_cancel)
+                    onPositive(R.string.action_accept) {
+                        viewModel.setEventContent(it["0"].toString())
+                        hideKeyboard()
+                    }
                 }
-            })
+            )
         }
     }
 
@@ -62,6 +64,7 @@ class CreateEventFragment :
             when (viewModel.createEvent()) {
                 is Resource.Error ->
                     UiInterface.showSnackBar(getString(R.string.snack_create_event_error))
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_create_event_success))
                     findNavController().navigateUp()

@@ -42,14 +42,14 @@
             android:ems="10"
             android:hint="@string/enter_name_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
             android:maxLength="20"
             android:singleLine="true"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/edit_trader_contact_button"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_name_label"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/edit_trader_contact_button"
@@ -99,6 +99,8 @@
             android:ems="10"
             android:hint="@string/enter_phone_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="phone"
             android:singleLine="true"
             android:text="@{viewModel.currentTrader.phone}"
             android:textSize="16sp"
@@ -106,9 +108,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_phone_label"
-            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider1"
-            android:importantForAutofill="no"
-            android:inputType="phone" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider1" />
 
         <View
             android:id="@+id/edit_trader_divider2"
@@ -145,6 +145,8 @@
             android:ems="10"
             android:hint="@string/enter_email_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
             android:singleLine="true"
             android:text="@{viewModel.currentTrader.email}"
             android:textSize="16sp"
@@ -152,9 +154,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_email_label"
-            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider2"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider2" />
 
         <View
             android:id="@+id/edit_trader_divider3"
@@ -191,6 +191,7 @@
             android:ems="10"
             android:hint="@string/enter_address_hint"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
             android:singleLine="true"
             android:text="@{viewModel.currentTrader.address}"
@@ -199,8 +200,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_address_label"
-            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider3"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider3" />
 
         <View
             android:id="@+id/edit_trader_divider4"
@@ -304,12 +304,12 @@
             android:background="@null"
             android:ems="10"
             android:hint="@string/enter_billing_hint"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/edit_trader_address"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_billing_label"
-            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider5"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider5" />
 
         <View
             android:id="@+id/edit_trader_divider6"
@@ -345,13 +345,13 @@
             android:background="@null"
             android:ems="10"
             android:hint="@string/enter_notes_hint"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/edit_trader_billing"
             app:layout_constraintStart_toEndOf="@+id/edit_trader_notes_label"
-            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider6"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

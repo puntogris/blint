@@ -5,9 +5,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.getString
+import com.puntogris.blint.common.utils.gone
+import com.puntogris.blint.common.utils.navigateAndClearStack
+import com.puntogris.blint.common.utils.playAnimationInfinite
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.common.utils.types.ProgressResource
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentDeleteAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -33,10 +39,12 @@ class DeleteAccountFragment :
                             deleteAccountEmailInputLayout.visible()
                             UiInterface.showSnackBar(getString(it.error))
                         }
+
                         ProgressResource.InProgress -> {
                             deleteAccountAnimationView.playAnimationInfinite(R.raw.loading)
                             deleteAccountEmailInputLayout.gone()
                         }
+
                         is ProgressResource.Success -> signOutUser()
                     }
                 }
@@ -50,6 +58,7 @@ class DeleteAccountFragment :
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
+
                 is Resource.Success -> {
                     findNavController().navigateAndClearStack(R.id.loginFragment)
                     UiInterface.showSnackBar(getString(R.string.snack_account_deleted_success))

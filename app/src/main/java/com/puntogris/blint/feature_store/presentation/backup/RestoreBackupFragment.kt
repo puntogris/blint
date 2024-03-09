@@ -4,8 +4,16 @@ import androidx.fragment.app.viewModels
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Constants
+import com.puntogris.blint.common.utils.gone
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.launchWebBrowserIntent
+import com.puntogris.blint.common.utils.playAnimationInfinite
+import com.puntogris.blint.common.utils.playAnimationOnce
+import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setDateOrError
 import com.puntogris.blint.common.utils.types.BackupState
+import com.puntogris.blint.common.utils.visible
 import com.puntogris.blint.databinding.FragmentRestoreBackupBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +58,7 @@ class RestoreBackupFragment :
                             backupSummary.setText(R.string.data_from_servers)
                             lastBackupGroup.visible()
                             animationView.gone()
-                            textView71.setDateOrError(it.lastBackupDate)
+                            textViewLastBackupDate.setDateOrError(it.lastBackupDate)
                         }
                     }
                 }

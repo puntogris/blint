@@ -42,6 +42,7 @@ class NewUserFragment : BaseFragment<FragmentNewUserBinding>(R.layout.fragment_n
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
+
                 is Resource.Success -> {
                     findNavController().navigateAndClearStack(R.id.loginFragment)
                 }

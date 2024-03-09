@@ -16,7 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderDebtSelectorDialog : DialogFragment() {
 
     private lateinit var binding: DialogOrderDebtSelectorBinding
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
+
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         binding = DialogOrderDebtSelectorBinding.inflate(layoutInflater)

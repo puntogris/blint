@@ -9,7 +9,11 @@ import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.CreateOrderGraphNavDirections
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
 import com.puntogris.blint.databinding.FragmentOrderProductsBinding
 import com.puntogris.blint.feature_store.domain.model.order.NewRecord
 import com.puntogris.blint.feature_store.domain.model.product.Product
@@ -52,14 +56,13 @@ class OrderProductsFragment :
     }
 
     private fun setupOderProductAdapter() {
-        OrderProductsAdapter(
+        val adapter = OrderProductsAdapter(
             context = requireContext(),
             dataChangedListener = { onDataChanged() },
             deleteListener = { deleteListener(it) }
-        ).let {
-            binding.orderProductsRecyclerView.adapter = it
-            subscribeProductRecords(it)
-        }
+        )
+        binding.orderProductsRecyclerView.adapter = adapter
+        subscribeProductRecords(adapter)
     }
 
     private fun subscribeProductRecords(adapter: OrderProductsAdapter) {

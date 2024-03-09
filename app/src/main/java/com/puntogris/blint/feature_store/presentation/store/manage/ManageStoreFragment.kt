@@ -28,13 +28,12 @@ class ManageStoreFragment :
     }
 
     private fun setupStoreAdapter() {
-        ManageStoreAdapter(
+        val adapter = ManageStoreAdapter(
             clickListener = { onStoreClicked(it) },
             selectListener = { onStoreSelected(it) }
-        ).also {
-            binding.manageStoresRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        )
+        binding.manageStoresRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageStoreAdapter) {
@@ -58,6 +57,7 @@ class ManageStoreFragment :
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
                 }
+
                 is Resource.Success -> {
                     findNavController().navigate(R.id.homeFragment)
                     UiInterface.showSnackBar(getString(R.string.store_selected))
@@ -67,7 +67,7 @@ class ManageStoreFragment :
     }
 
     private fun setupToolbar() {
-        binding.manageStoresToolbar.apply {
+        with(binding.manageStoresToolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_add_store) {

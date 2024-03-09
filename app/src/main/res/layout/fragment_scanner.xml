@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/grid_1"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             app:title="@string/scanner_label"
             tools:ignore="RtlSymmetry" />
 

@@ -36,10 +36,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(R.layout.fragment_order
     }
 
     private fun setupOrderTableAdapter() {
-        OrdersRecordsAdapter().let {
-            binding.orderRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = OrdersRecordsAdapter()
+        binding.orderRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: OrdersRecordsAdapter) {

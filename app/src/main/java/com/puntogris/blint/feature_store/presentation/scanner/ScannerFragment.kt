@@ -3,7 +3,12 @@ package com.puntogris.blint.feature_store.presentation.scanner
 import android.util.Size
 import android.view.OrientationEventListener
 import android.view.Surface
-import androidx.camera.core.*
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraInfo
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.Preview
+import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -116,7 +121,7 @@ class ScannerFragment : BaseFragment<FragmentScannerBinding>(R.layout.fragment_s
             preview?.setSurfaceProvider(binding.scannerViewFinder.surfaceProvider)
             val cameraInfo = requireNotNull(camera?.cameraInfo)
             observerCameraState(cameraInfo)
-        } catch (e: Exception) {
+        } catch (ignored: Exception) {
             UiInterface.showSnackBar(getString(R.string.snack_an_error_occurred))
         }
     }

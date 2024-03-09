@@ -21,10 +21,9 @@ class TraderRecordsFragment :
     }
 
     private fun setupRecordsAdapter() {
-        RecordsAdapter { onRecordClickListener(it) }.let {
-            binding.traderRecordsRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = RecordsAdapter { onRecordClickListener(it) }
+        binding.traderRecordsRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: RecordsAdapter) {

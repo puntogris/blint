@@ -8,7 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
+import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
 import com.puntogris.blint.databinding.FragmentManageProductsBinding
 import com.puntogris.blint.feature_store.domain.model.product.ProductWithDetails
 import dagger.hilt.android.AndroidEntryPoint

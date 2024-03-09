@@ -20,10 +20,9 @@ class OrdersTabFragment : BaseFragment<FragmentOrdersTabBinding>(R.layout.fragme
     }
 
     private fun setupOrdersAdapter() {
-        OrdersAdapter { onOrderClickListener(it) }.let {
-            binding.ordersTabRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = OrdersAdapter { onOrderClickListener(it) }
+        binding.ordersTabRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: OrdersAdapter) {

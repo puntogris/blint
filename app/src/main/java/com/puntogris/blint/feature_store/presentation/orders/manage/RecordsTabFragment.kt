@@ -21,10 +21,9 @@ class RecordsTabFragment : BaseFragment<FragmentRecordsTabBinding>(R.layout.frag
     }
 
     private fun setupRecordsAdapter() {
-        RecordsAdapter { onRecordClickedListener(it) }.let {
-            binding.recordsTabRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = RecordsAdapter { onRecordClickedListener(it) }
+        binding.recordsTabRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: RecordsAdapter) {

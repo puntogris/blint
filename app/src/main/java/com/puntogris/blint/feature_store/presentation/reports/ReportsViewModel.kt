@@ -45,7 +45,7 @@ class ReportsViewModel @Inject constructor(
     }
 
     fun getReportName(context: Context): String {
-        return report.type.takeIf { it != null }?.let {
+        return report.type?.let {
             context.getString(it.res, OffsetDateTime.now().getDateFormattedString())
         } ?: context.getString(R.string.snack_an_error_occurred)
     }

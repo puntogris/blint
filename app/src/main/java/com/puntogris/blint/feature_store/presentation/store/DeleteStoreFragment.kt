@@ -52,10 +52,12 @@ class DeleteStoreFragment :
                 DeleteStore.Failure -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_store_error))
                 }
+
                 DeleteStore.Success.HasStores -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_store_success))
                     findNavController().navigate(R.id.homeFragment)
                 }
+
                 DeleteStore.Success.NoStores -> {
                     UiInterface.showSnackBar(getString(R.string.snack_delete_store_success))
                     findNavController().navigate(R.id.newUserFragment)

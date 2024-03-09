@@ -24,11 +24,12 @@ class RegisterStoreFragment :
     }
 
     fun onStartBusinessRegistration() {
-        when (val validator = StringValidator.from(
-            binding.registerStoreName.getString(),
+        val validator = StringValidator.from(
+            text = binding.registerStoreName.getString(),
             isName = true,
             maxLength = 25
-        )) {
+        )
+        when (validator) {
             is StringValidator.Valid -> registerBusiness(validator.value)
             is StringValidator.NotValid -> UiInterface.showSnackBar(getString(validator.error))
         }
@@ -43,10 +44,12 @@ class RegisterStoreFragment :
                         binding.registerStoreContinueButton.isEnabled = true
                         binding.registerStoreAnimationView.playAnimationOnce(R.raw.error)
                     }
+
                     is ProgressResource.Success -> {
                         UiInterface.showSnackBar(getString(R.string.snack_created_store_success))
                         findNavController().navigateAndClearStack(R.id.homeFragment)
                     }
+
                     ProgressResource.InProgress -> {
                         binding.registerStoreContinueButton.isEnabled = false
                         binding.registerStoreAnimationView.playAnimationOnce(R.raw.loading)

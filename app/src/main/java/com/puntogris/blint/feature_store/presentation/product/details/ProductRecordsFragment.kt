@@ -21,10 +21,9 @@ class ProductRecordsFragment :
     }
 
     private fun setupRecordsAdapter() {
-        RecordsAdapter { onRecordClickListener(it) }.let {
-            binding.productRecordsRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = RecordsAdapter { onRecordClickListener(it) }
+        binding.productRecordsRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: RecordsAdapter) {

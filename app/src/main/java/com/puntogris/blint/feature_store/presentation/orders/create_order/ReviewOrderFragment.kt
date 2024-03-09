@@ -13,7 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReviewOrderFragment :
     BaseFragment<FragmentReviewOrderBinding>(R.layout.fragment_review_order) {
 
-    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) { defaultViewModelProviderFactory }
+    private val viewModel: NewOrderViewModel by navGraphViewModels(R.id.createOrderGraphNav) {
+        defaultViewModelProviderFactory
+    }
 
     override fun initializeViews() {
         binding.fragment = this

@@ -26,10 +26,9 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     }
 
     private fun setupDebtsAdapter() {
-        DebtStatusAdapter { onDebtClicked(it) }.let {
-            binding.traderDebtRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = DebtStatusAdapter { onDebtClicked(it) }
+        binding.traderDebtRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: DebtStatusAdapter) {
@@ -52,7 +51,7 @@ class TraderDebtFragment : BaseFragment<FragmentTraderDebtBinding>(R.layout.frag
     }
 
     private fun onDebtClicked(debt: Debt) {
-        //TODO add a bottom sheet with the debt info and a button to navigate to the order
+        // TODO add a bottom sheet with the debt info and a button to navigate to the order
     }
 
     override fun onDestroyView() {

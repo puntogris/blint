@@ -8,7 +8,11 @@ import com.maxkeppeler.sheets.input.InputSheet
 import com.maxkeppeler.sheets.input.type.InputEditText
 import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseFragment
-import com.puntogris.blint.common.utils.*
+import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.hideKeyboard
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.FragmentManageCategoriesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,10 +31,9 @@ class ManageCategoriesFragment :
     }
 
     private fun setupCategoriesAdapter() {
-        ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }.also {
-            binding.manageCategoriesRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = ManageCategoriesAdapter(requireContext()) { onCategoryDeleted(it) }
+        binding.manageCategoriesRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageCategoriesAdapter) {

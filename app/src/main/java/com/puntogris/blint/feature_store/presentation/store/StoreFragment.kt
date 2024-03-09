@@ -19,7 +19,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
     }
 
     private fun setupToolbar() {
-        binding.storeToolbar.apply {
+        with(binding.storeToolbar) {
             registerToolbarBackButton(this)
 
             setOnMenuItemClickListener {

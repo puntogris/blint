@@ -28,10 +28,9 @@ class ManageTradersFragment :
     }
 
     private fun setupClientsAdapter() {
-        ManageTradersAdapter { onClientClickListener(it) }.let {
-            binding.manageTradersRecyclerView.adapter = it
-            subscribeUi(it)
-        }
+        val adapter = ManageTradersAdapter { onClientClickListener(it) }
+        binding.manageTradersRecyclerView.adapter = adapter
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageTradersAdapter) {
@@ -62,8 +61,8 @@ class ManageTradersFragment :
         }
     }
 
-    private fun setupToolbar(){
-        binding.manageTradersToolbar.apply {
+    private fun setupToolbar() {
+        with(binding.manageTradersToolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {

@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val menuAdapter = MainMenuAdapter { onMenuCardClicked(it) }
         val manager = GridLayoutManager(requireContext(), 2)
 
-        binding.homeFragmentMenuRecyclerView.apply {
+        with(binding.homeFragmentMenuRecyclerView) {
             addItemDecoration(GridSpanMarginDecoration(60, 60, manager))
             adapter = menuAdapter
             layoutManager = manager

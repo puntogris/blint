@@ -27,7 +27,7 @@ class ManageEventsFragment :
     }
 
     private fun setupToolbar() {
-        binding.manageEventsToolbar.apply {
+        with(binding.manageEventsToolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_add) {
@@ -49,11 +49,10 @@ class ManageEventsFragment :
     }
 
     private fun setupEventsAdapter() {
-        ManageEventsAdapter(::onEventClicked).let {
-            binding.manageEventsRecyclerView.adapter = it
-            registerEventUpdatedListener(it)
-            subscribeUi(it)
-        }
+        val adapter = ManageEventsAdapter(::onEventClicked)
+        binding.manageEventsRecyclerView.adapter = adapter
+        registerEventUpdatedListener(adapter)
+        subscribeUi(adapter)
     }
 
     private fun subscribeUi(adapter: ManageEventsAdapter) {
