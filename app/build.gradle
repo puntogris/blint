@@ -17,7 +17,7 @@ android {
         minSdk 24
         compileSdk 34
         targetSdk 33
-        versionCode 36
+        versionCode 37
         versionName "2.0.0"
         resConfigs "en", "es"
 
