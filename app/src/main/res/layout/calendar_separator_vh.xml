@@ -3,7 +3,7 @@
     android:id="@+id/textView_date"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginTop="@dimen/spacing_4"
+    android:layout_marginBottom="@dimen/spacing_2"
     android:textAlignment="center"
     android:textColor="@color/color_on_background" />

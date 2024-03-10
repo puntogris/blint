@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginStart="@dimen/spacing_2"
+    android:layout_marginEnd="@dimen/spacing_2"
+    android:layout_marginBottom="@dimen/spacing_2">
 
     <TextView
         android:id="@+id/textView_trader_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="16sp"
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginTop="@dimen/spacing_4"
+        android:layout_marginBottom="@dimen/spacing_4"
+        android:textSize="@dimen/text_md"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
         android:id="@+id/textView_trader_debt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="@dimen/spacing_6"
         android:fontFamily="sans-serif-medium"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView_trader_name"

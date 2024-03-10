@@ -29,19 +29,19 @@
             android:background="@drawable/round_corners_17"
             android:backgroundTint="@color/color_background_secondary"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/spacing_2_5"
             android:hint="@string/search"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="textNoSuggestions"
-            android:paddingHorizontal="8dp"
-            android:textSize="16sp" />
+            android:paddingHorizontal="@dimen/spacing_2"
+            android:textSize="@dimen/text_md" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_products"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/spacing_0"
         android:clipToPadding="false"
         android:paddingBottom="88dp"
         android:scrollbars="vertical"

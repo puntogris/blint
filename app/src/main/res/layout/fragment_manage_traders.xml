@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/grid_1"
-            app:contentInsetStartWithNavigation="0dp"
+            app:contentInsetStartWithNavigation="@dimen/spacing_0"
             app:menu="@menu/menu_add"
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
             tools:ignore="RtlSymmetry">
@@ -34,12 +34,12 @@
                 android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_background_secondary"
                 android:drawableStart="@drawable/ic_baseline_search_24"
-                android:drawablePadding="10dp"
+                android:drawablePadding="@dimen/spacing_2_5"
                 android:hint="@string/name"
                 android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="textNoSuggestions"
-                android:paddingHorizontal="8dp"
-                android:textSize="16sp" />
+                android:paddingHorizontal="@dimen/spacing_2"
+                android:textSize="@dimen/text_md" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -47,7 +47,7 @@
             android:id="@+id/buttonGroup_traders_filters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/spacing_2"
             app:checkedButton="@+id/buttonGroup_traders_filters_all_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -98,7 +98,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_traders"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/spacing_0"
         android:clipToPadding="false"
         android:paddingBottom="88dp"
         android:scrollbars="vertical"

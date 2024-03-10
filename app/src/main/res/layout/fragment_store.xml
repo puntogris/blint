@@ -36,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_4"
         android:text="@string/name"
         android:textColor="@color/color_on_background"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/store_details_title" />
 
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@{business.name}"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="@+id/textView_store_name_label"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_name_label" />
 
@@ -56,10 +56,10 @@
         android:id="@+id/textView_store_date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_4"
         android:text="@string/creation_date"
         android:textColor="@color/color_on_background"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="@+id/textView_store_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_name" />
 
@@ -67,7 +67,7 @@
         android:id="@+id/textView_store_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="@+id/textView_store_date_label"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_date_label" />
 
@@ -75,10 +75,10 @@
         android:id="@+id/textView_store_author_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_4"
         android:text="@string/author"
         android:textColor="@color/color_on_background"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="@+id/textView_store_date"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_date" />
 
@@ -86,7 +86,7 @@
         android:id="@+id/textView_store_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_md"
         app:layout_constraintStart_toStartOf="@+id/textView_store_author_label"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_author_label" />
 

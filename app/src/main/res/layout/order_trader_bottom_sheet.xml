@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/grid_1"
-        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetStartWithNavigation="@dimen/spacing_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,12 +30,12 @@
             android:background="@drawable/round_corners_17"
             android:backgroundTint="@color/color_background_secondary"
             android:drawableStart="@drawable/ic_baseline_search_24"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/spacing_2_5"
             android:hint="@string/name"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="textNoSuggestions"
-            android:paddingHorizontal="8dp"
-            android:textSize="16sp" />
+            android:paddingHorizontal="@dimen/spacing_2"
+            android:textSize="@dimen/text_md" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 

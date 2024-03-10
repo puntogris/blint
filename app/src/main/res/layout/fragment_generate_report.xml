@@ -32,10 +32,10 @@
 
     <TextView
         android:id="@+id/textView_report_alert"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/spacing_0"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginEnd="@dimen/spacing_6"
         android:layout_marginBottom="72dp"
         android:text="@string/generate_reports_alert"
         android:textAlignment="center"
@@ -58,9 +58,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_done"
         style="@style/Theme.Blint.Button"
-        android:layout_width="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="@dimen/spacing_0"
+        android:layout_marginHorizontal="@dimen/spacing_4"
+        android:layout_marginBottom="@dimen/spacing_2"
         android:text="@string/action_done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,8 +70,8 @@
         android:id="@+id/button_share"
         style="@style/Theme.Blint.Button"
         android:layout_width="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/spacing_4"
+        android:layout_marginBottom="@dimen/spacing_2"
         android:text="@string/share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

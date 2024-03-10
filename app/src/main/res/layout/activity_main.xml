@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/spacing_4"
         android:background="@drawable/round_corners_17"
         app:backgroundTint="@color/color_on_primary"
-        app:elevation="0dp"
+        app:elevation="@dimen/spacing_0"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/bottom_navigation" />
 

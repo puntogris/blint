@@ -8,18 +8,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginTop="@dimen/spacing_4"
         android:text="@string/traders_label"
         android:textColor="@color/color_on_background"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_md" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup_traders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginTop="@dimen/spacing_2">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_add_supplier"
@@ -33,27 +33,27 @@
         android:id="@+id/product_traders_categories_card_divider1"
         style="@style/Theme.Blint.Divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="@dimen/spacing"
+        android:layout_marginStart="@dimen/spacing_4"
+        android:layout_marginTop="@dimen/spacing_2"
+        android:layout_marginEnd="@dimen/spacing_4"
         android:background="?android:attr/listDivider" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginTop="@dimen/spacing_4"
         android:text="@string/categories_label"
         android:textColor="@color/color_on_background"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_md" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup_categories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginStart="@dimen/spacing_6"
+        android:layout_marginTop="@dimen/spacing_2">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_add_cateogies"
@@ -67,10 +67,10 @@
         android:id="@+id/product_traders_categories_card_divider2"
         style="@style/Theme.Blint.Divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="@dimen/spacing"
+        android:layout_marginStart="@dimen/spacing_4"
+        android:layout_marginTop="@dimen/spacing_2"
+        android:layout_marginEnd="@dimen/spacing_4"
         android:background="?android:attr/listDivider" />
 </LinearLayout>
 

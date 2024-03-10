@@ -22,7 +22,7 @@
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView_scanner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/spacing_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
     <com.puntogris.blint.feature_store.presentation.scanner.ViewFinderOverlay
         android:id="@+id/overlay_scanner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/spacing_0"
         android:layerType="software"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/button_toggle_flash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/spacing_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
