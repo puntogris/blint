@@ -58,7 +58,7 @@
         android:id="@+id/textView_user_email_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/spacing_6"
         android:layout_marginTop="@dimen/spacing_8"
         android:text="@string/e_mail"
         android:textColor="@color/color_on_background"

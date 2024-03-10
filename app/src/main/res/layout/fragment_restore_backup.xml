@@ -43,7 +43,7 @@
         android:layout_width="@dimen/spacing_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_6"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/spacing_10"
         android:layout_marginEnd="@dimen/spacing_6"
         android:text="@string/searching_servers_data_content"
         android:textAlignment="center"

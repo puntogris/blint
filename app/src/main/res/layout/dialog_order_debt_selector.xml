@@ -63,7 +63,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/order_debt_selector_title"
         android:textColor="@color/color_on_background"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_xl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

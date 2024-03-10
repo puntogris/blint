@@ -24,7 +24,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="@dimen/spacing_0"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginHorizontal="@dimen/spacing_10"
         android:layout_marginTop="@dimen/spacing_8"
         android:fontFamily="sans-serif-medium"
         android:text="@string/safety_ask_data"

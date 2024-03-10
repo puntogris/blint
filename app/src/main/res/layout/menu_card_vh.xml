@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/imageView_menu_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/spacing_10"
+                android:layout_height="@dimen/spacing_10"
                 android:layout_marginTop="@dimen/spacing_3"
                 android:src="@drawable/ic_baseline_insert_chart_outlined_24"
                 app:layout_constraintEnd_toEndOf="parent"

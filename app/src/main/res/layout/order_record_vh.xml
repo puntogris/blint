@@ -6,8 +6,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView_product_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/spacing_10"
+        android:layout_height="@dimen/spacing_10"
         android:layout_marginStart="@dimen/spacing_4"
         android:layout_marginTop="@dimen/spacing_4"
         android:layout_marginBottom="@dimen/spacing_4"

@@ -131,7 +131,7 @@
                     android:layout_marginTop="@dimen/spacing_4"
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/color_primary"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_xl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

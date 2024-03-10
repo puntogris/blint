@@ -29,7 +29,7 @@
             <EditText
                 android:id="@+id/editText_traders_search"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/spacing_10"
                 android:autofillHints="@string/auto_fill_hint_client_search"
                 android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_background_secondary"
@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_0"
         android:clipToPadding="false"
-        android:paddingBottom="88dp"
+        android:paddingBottom="@dimen/spacing_20"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

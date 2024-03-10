@@ -24,7 +24,7 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
             isScanning = true
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    barcodes.firstOrNull()?.rawValue?.let { barcode ->
+                    barcodes.firstOrNull()?.displayValue?.let { barcode ->
                         resultListener?.invoke(barcode)
                     }
                     isScanning = false
