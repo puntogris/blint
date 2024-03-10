@@ -29,6 +29,10 @@ import org.threeten.bp.OffsetDateTime
 import java.util.Date
 import kotlin.math.absoluteValue
 
+private const val ONE_MILLION_LIMIT = 1000000
+private const val DONUT_CHART_ANIMATION_DURATION_MS = 1000L
+private const val ONE_HUNDRED_PERCENT = 100
+
 /*
  * For some reason if we set the drawable inside glide it uses the theme of the phone, ignoring the
  * one in the settings, displaying the wrong background color.
@@ -78,10 +82,6 @@ fun setDateFromFirebaseUser(textView: TextView, date: OffsetDateTime?) {
     }
 }
 
-fun setCapitalizeFirstChar(textView: TextView, text: String?) {
-    textView.text = text?.capitalizeFirstChar()
-}
-
 fun setCapitalizeWord(textView: TextView, text: String) {
     textView.text = text.split(" ").joinToString(" ") { it.capitalizeFirstChar() }
 }
@@ -109,14 +109,17 @@ fun setAmountSymbolWithRecordType(textView: TextView, type: String) {
 
 fun setRecordTypeString(textView: TextView, type: String) {
     textView.setText(
-        if (type == IN || type == INITIAL) R.string.in_entry
-        else R.string.out_entry
+        if (type == IN || type == INITIAL) {
+            R.string.in_entry
+        } else {
+            R.string.out_entry
+        }
     )
 }
 
 fun setDateFromTimestamp(textView: TextView, timestamp: OffsetDateTime?) {
-    timestamp?.let {
-        textView.text = it.getDateFormattedString()
+    if (timestamp != null) {
+        textView.text = timestamp.getDateFormattedString()
     }
 }
 
@@ -143,21 +146,31 @@ fun setExternalName(textView: TextView, name: String) {
     }
 }
 
-
 fun setOrderDebtOrDefault(textView: TextView, newOrder: NewOrder) {
-    textView.text = newOrder.newDebt?.amount?.let {
-        textView.context.getString(R.string.debt_of_template, it.toMoneyFormatted())
-    } ?: textView.context.getString(R.string.enter_debt_hint)
+    val amount = newOrder.newDebt?.amount
+
+    textView.text = if (amount != null) {
+        textView.context.getString(R.string.debt_of_template, amount.toMoneyFormatted())
+    } else {
+        textView.context.getString(R.string.enter_debt_hint)
+    }
 }
 
 fun setEventStatus(textView: TextView, status: String) {
-    textView.setText(if (status == PENDING) R.string.pending else R.string.finished)
+    textView.setText(
+        if (status == PENDING) {
+            R.string.pending
+        } else {
+            R.string.finished
+        }
+    )
 }
 
 fun setEventStatusColor(view: View, status: String) {
     val color = if (status == PENDING) R.color.card7 else R.color.card6
-    view.backgroundTintList =
-        ColorStateList.valueOf(ResourcesCompat.getColor(view.resources, color, null))
+    view.backgroundTintList = ColorStateList.valueOf(
+        ResourcesCompat.getColor(view.resources, color, null)
+    )
 }
 
 fun setOrderNumberTitle(textView: TextView, number: Int) {
@@ -175,8 +188,11 @@ fun setDebtColor(textView: TextView, amount: Float) {
 }
 
 fun setDebtColorWithLimit(textView: TextView, amount: Float) {
-    val newAmount =
-        if (amount > 1000000) (amount / 1000000).toMoneyFormatted() + "M." else amount.toMoneyFormatted()
+    val newAmount = if (amount > ONE_MILLION_LIMIT) {
+        (amount / ONE_MILLION_LIMIT).toMoneyFormatted() + "M."
+    } else {
+        amount.toMoneyFormatted()
+    }
     if (amount >= 0) {
         textView.text = textView.context.getString(R.string.amount_debt_positive, newAmount)
         textView.setTextColor(ContextCompat.getColor(textView.context, R.color.card6))
@@ -248,22 +264,30 @@ fun setTextOrDefault(textView: TextView, data: String?) {
 }
 
 fun setTextOrDefault(textView: TextView, data: List<*>?) {
-    if (data.isNullOrEmpty()) textView.text = "-"
+    if (data.isNullOrEmpty()) {
+        textView.text = "-"
+    }
 }
 
 fun setTextOrDefault(textView: TextView, data: Number?) {
-    textView.text = if (data != null && data.toInt() != 0) textView.context.getString(
-        R.string.price_template,
-        data.toFloat().toMoneyFormatted()
-    ) else "-"
+    textView.text = if (data != null && data.toInt() != 0) {
+        textView.context.getString(
+            R.string.price_template,
+            data.toFloat().toMoneyFormatted()
+        )
+    } else {
+        "-"
+    }
 }
 
 fun setNumberIfNotZero(editText: EditText, data: Number) {
-    if (data.toInt() != 0) editText.setText(data.toString())
+    if (data.toInt() != 0) {
+        editText.setText(data.toString())
+    }
 }
 
 fun setTrafficDonutChart(donutChartView: DonutChartView, data: List<Traffic>?) {
-    donutChartView.animation.duration = 1000L
+    donutChartView.animation.duration = DONUT_CHART_ANIMATION_DURATION_MS
 
     donutChartView.donutColors = intArrayOf(
         Color.parseColor("#FBB449"),
@@ -308,7 +332,8 @@ fun setCompareTrafficRevenue(textView: TextView, data: List<Traffic>?) {
             val secondRevenue = data[1].revenue()
             val revenue = firstRevenue - secondRevenue
 
-            val percentage = ((firstRevenue * 100 / secondRevenue).toInt() - 100).absoluteValue
+            val percentage =
+                ((firstRevenue * ONE_HUNDRED_PERCENT / secondRevenue).toInt() - ONE_HUNDRED_PERCENT).absoluteValue
             val percentageString = if (revenue < 0) "- $percentage" else "+ $percentage"
             textView.text = textView.context.getString(
                 R.string.traffic_revenue_comparison,
@@ -320,8 +345,8 @@ fun setCompareTrafficRevenue(textView: TextView, data: List<Traffic>?) {
 }
 
 fun setTrafficRevenuePercentage(textView: TextView, data: List<Traffic>?) {
-    val percentage = data.takeIf { !it.isNullOrEmpty() }?.first()?.let {
-        (it.sales * 100 / (it.purchases + it.sales)).toInt()
+    val percentage = data?.firstOrNull()?.let {
+        (it.sales * ONE_HUNDRED_PERCENT / (it.purchases + it.sales)).toInt()
     } ?: 0
     textView.text = textView.context.getString(R.string.number_percentage, percentage)
 }
