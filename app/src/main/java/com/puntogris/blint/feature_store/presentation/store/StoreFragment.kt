@@ -27,7 +27,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
 
     private fun setupViews() {
         with(binding) {
-            textViewStoreDate.setDateFromTimestamp(args.store.createdAt)
+            setDateFromTimestamp(textViewStoreDate, args.store.createdAt)
             textViewStoreName.text = args.store.name
             textViewStoreAuthor.text = args.store.author
         }

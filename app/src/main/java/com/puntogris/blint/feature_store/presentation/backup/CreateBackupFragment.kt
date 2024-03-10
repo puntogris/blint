@@ -72,7 +72,7 @@ class CreateBackupFragment : Fragment(R.layout.fragment_create_back_up) {
                             textViewBackupSummary.setText(R.string.data_from_servers)
                             groupLastBackup.visible()
                             viewAnimation.gone()
-                            textViewLastBackup.setDateOrError(it.lastBackupDate)
+                            setDateOrError(textViewLastBackup, it.lastBackupDate)
                         }
                     }
                 }

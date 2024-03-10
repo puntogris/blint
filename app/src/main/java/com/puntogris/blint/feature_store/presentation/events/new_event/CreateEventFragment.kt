@@ -51,7 +51,7 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.event.collectLatest {
-                binding.textViewCreateEventContent.setEventMessageOrDefault(it.content)
+                setEventMessageOrDefault(binding.textViewCreateEventContent, it.content)
             }
         }
     }

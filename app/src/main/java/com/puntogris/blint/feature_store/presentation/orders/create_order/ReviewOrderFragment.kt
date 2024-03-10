@@ -37,10 +37,10 @@ class ReviewOrderFragment : Fragment(R.layout.fragment_review_order) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.newOrder.collectLatest {
-                binding.textViewOrderTotalDebtSummary.setOrderDebtSummary(it)
-                binding.textViewOrderTotal.setNumberToMoneyString(it.total)
-                binding.textViewOrderDebt.setOrderDebtOrDefault(it)
-                binding.textViewTraderName.setExternalName(it.traderName)
+                setOrderDebtSummary(binding.textViewOrderTotalDebtSummary, it)
+                setNumberToMoneyString(binding.textViewOrderTotal, it.total)
+                setOrderDebtOrDefault(binding.textViewOrderDebt, it)
+                setExternalName(binding.textViewTraderName, it.traderName)
                 binding.textViewProductsCount.text = it.newRecords.size.toString()
             }
         }

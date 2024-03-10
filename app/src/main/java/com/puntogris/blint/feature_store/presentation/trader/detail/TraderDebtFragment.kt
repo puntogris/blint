@@ -34,7 +34,7 @@ class TraderDebtFragment : Fragment(R.layout.fragment_trader_debt) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentTrader.collectLatest {
-                binding.textViewDebtBalance.setDebtColor(it.debt)
+                setDebtColor(binding.textViewDebtBalance, it.debt)
             }
         }
     }

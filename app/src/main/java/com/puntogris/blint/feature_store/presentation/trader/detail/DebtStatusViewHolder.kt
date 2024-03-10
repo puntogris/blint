@@ -13,8 +13,8 @@ class DebtStatusViewHolder private constructor(val binding: DebtStatusVhBinding)
 
     fun bind(debt: Debt, clickListener: (Debt) -> (Unit)) {
         with(binding) {
-            textViewDebtDate.setDateFromTimestampWithTime(debt.timestamp)
-            textViewDebtAmount.setDebtColor(debt.amount)
+            setDateFromTimestampWithTime(textViewDebtDate, debt.timestamp)
+            setDebtColor(textViewDebtAmount, debt.amount)
             root.setOnClickListener { clickListener(debt) }
         }
     }

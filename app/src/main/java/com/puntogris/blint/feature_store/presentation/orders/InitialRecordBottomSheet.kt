@@ -47,7 +47,7 @@ class InitialRecordBottomSheet : BottomSheetDialogFragment() {
         with(binding) {
             textViewProductName.text = args.record.productName
             textViewProductAmount.text = args.record.amount.toString()
-            textViewProductDate.setDateFromTimestampWithTime(args.record.timestamp)
+            setDateFromTimestampWithTime(textViewProductDate, args.record.timestamp)
         }
     }
 }

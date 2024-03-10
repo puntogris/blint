@@ -16,8 +16,8 @@ class OrderItemViewHolder private constructor(val binding: CreateRecordItemVhBin
     fun bind(newRecord: NewRecord, dataChangedListener: () -> Unit) {
         with(binding) {
             textViewProductName.text = newRecord.productName.capitalizeFirstChar()
-            editTextRecordAmount.setProductRecordEntryStock(newRecord)
-            editTextRecordValue.setProductRecordEntryPrice(newRecord)
+            setProductRecordEntryStock(editTextRecordAmount, newRecord)
+            setProductRecordEntryPrice(editTextRecordValue, newRecord)
             editTextRecordAmount.addTextChangedListener { editable ->
                 editable.toString().toIntOrNull()?.let {
                     newRecord.amount = it

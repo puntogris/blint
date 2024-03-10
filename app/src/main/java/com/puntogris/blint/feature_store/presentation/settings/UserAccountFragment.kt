@@ -28,10 +28,10 @@ class UserAccountFragment : Fragment(R.layout.fragment_user_account) {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentUser.collectLatest { user ->
                 if (user != null) {
-                    binding.textViewUserRegistrationDate.setDateFromFirebaseUser(user.createdAt)
+                    setDateFromFirebaseUser(binding.textViewUserRegistrationDate, user.createdAt)
                     binding.textViewUserEmail.text = user.email
                     binding.textViewUserName.text = user.name
-                    binding.imageViewUserPhoto.setUserDataImage(user.photoUrl)
+                    setUserDataImage(binding.imageViewUserPhoto, user.photoUrl)
                 }
             }
         }

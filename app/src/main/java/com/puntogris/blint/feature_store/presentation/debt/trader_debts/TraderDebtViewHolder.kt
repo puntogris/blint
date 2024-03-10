@@ -14,7 +14,7 @@ class TraderDebtViewHolder private constructor(val binding: TraderDebtVhBinding)
     fun bind(trader: Trader, clickListener: (Trader) -> (Unit)) {
         with(binding) {
             textViewTraderName.text = trader.name.capitalizeFirstChar()
-            textViewTraderDebt.setDebtColor(trader.debt)
+            setDebtColor(textViewTraderDebt, trader.debt)
             root.setOnClickListener { clickListener(trader) }
         }
     }

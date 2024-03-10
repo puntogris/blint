@@ -13,8 +13,8 @@ class ManageTraderViewHolder private constructor(val binding: ManageTradersVhBin
 
     fun bind(trader: Trader, clickListener: (Trader) -> Unit) {
         with(binding) {
-            textViewTraderName.setCapitalizeWord(trader.name)
-            textViewTraderType.setTraderType(trader.type)
+            setCapitalizeWord(textViewTraderName, trader.name)
+            setTraderType(textViewTraderType, trader.type)
             root.setOnClickListener {
                 clickListener(trader)
             }

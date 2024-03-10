@@ -54,11 +54,11 @@ class EditTraderFragment : Fragment(R.layout.fragment_edit_trader) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentTrader.collectLatest {
-                binding.editTextTraderName.setCapitalizeWord(it.name)
+                setCapitalizeWord(binding.editTextTraderName, it.name)
                 binding.editTextTraderPhone.setText(it.phone)
                 binding.editTextTraderEmail.setText(it.email)
                 binding.editTextTraderAddress.setText(it.address)
-                binding.radioGroupTraderType.setSelectedTraderType(it.type)
+                setSelectedTraderType(binding.radioGroupTraderType, it.type)
             }
         }
     }

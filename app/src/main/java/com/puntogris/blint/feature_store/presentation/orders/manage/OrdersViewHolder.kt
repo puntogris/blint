@@ -15,11 +15,11 @@ class OrdersViewHolder private constructor(val binding: OrderVhBinding) :
 
     fun bind(order: OrderWithRecords, clickListener: (OrderWithRecords) -> Unit) {
         with(binding) {
-            viewOrderTypeIcon.setRecordType(order.order.type)
-            textViewOrderNumber.setOrderNumberTitle(order.order.number)
-            textViewOrderDate.setDateFromTimestamp(order.order.timestamp)
+            setRecordType(viewOrderTypeIcon, order.order.type)
+            setOrderNumberTitle(textViewOrderNumber, order.order.number)
+            setDateFromTimestamp(textViewOrderDate, order.order.timestamp)
             textViewOrderTotal.text = order.order.total.toString()
-            textViewOrderTypeSign.setAmountSymbolWithRecordType(order.order.type)
+            setAmountSymbolWithRecordType(textViewOrderTypeSign, order.order.type)
             root.setOnClickListener {
                 clickListener(order)
             }

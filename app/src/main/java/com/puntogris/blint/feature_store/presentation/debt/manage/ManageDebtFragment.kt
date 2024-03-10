@@ -31,8 +31,7 @@ class ManageDebtFragment : Fragment(R.layout.fragment_manage_debt) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentBusiness.collectLatest {
-                binding.textViewStoreDebt.setDebtColorWithLimit(it.tradersDebt)
-
+                setDebtColorWithLimit(binding.textViewStoreDebt, it.tradersDebt)
             }
         }
     }

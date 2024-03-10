@@ -44,13 +44,13 @@ class TraderDataFragment : Fragment(R.layout.fragment_trader_data) {
     private fun setupObservers() {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentTrader.collectLatest {
-                binding.textViewTraderName.setCapitalizeWord(it.name)
-                binding.textViewTraderPhone.setTextOrDefault(it.phone)
-                binding.textViewTraderEmail.setTextOrDefault(it.email)
-                binding.textViewTraderAddress.setTextOrDefault(it.address)
-                binding.textViewTraderType.setTraderType(it.type)
-                binding.textViewTraderBilling.setTextOrDefault(it.billing)
-                binding.textViewTraderNotes.setTextOrDefault(it.notes)
+                setCapitalizeWord(binding.textViewTraderName, it.name)
+                setTextOrDefault(binding.textViewTraderPhone, it.phone)
+                setTextOrDefault(binding.textViewTraderEmail, it.email)
+                setTextOrDefault(binding.textViewTraderAddress, it.address)
+                setTraderType(binding.textViewTraderType, it.type)
+                setTextOrDefault(binding.textViewTraderBilling, it.billing)
+                setTextOrDefault(binding.textViewTraderNotes, it.notes)
             }
         }
     }

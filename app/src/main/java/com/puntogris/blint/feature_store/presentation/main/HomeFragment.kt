@@ -37,9 +37,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View? {
         return super.onCreateView(inflater, container, savedInstanceState).also {
-            it?.findViewById<DonutChartView>(R.id.donutChart_store_revenue)?.setTrafficDonutChart(
-                emptyList()
-            )
+            it?.findViewById<DonutChartView>(R.id.donutChart_store_revenue)?.let {
+                setTrafficDonutChart(it, emptyList())
+            }
         }
     }
 
@@ -53,15 +53,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         launchAndRepeatWithViewLifecycle {
             viewModel.user.collectLatest {
                 binding.textViewUserName.text = it.name.capitalizeFirstChar()
-                binding.imageViewUserPhoto.setProfileImage(it.photoUrl)
+                setProfileImage(binding.imageViewUserPhoto, it.photoUrl)
             }
         }
         launchAndRepeatWithViewLifecycle {
             viewModel.lastTraffic.collectLatest {
-                binding.textViewStoreDailyRevenue.setTrafficRevenue(it)
-                binding.textViewStoreRevenueDifference.setCompareTrafficRevenue(it)
-                binding.donutChartStoreRevenue.setTrafficDonutChart(it)
-                binding.textViewStoreRevenuePercentage.setTrafficRevenuePercentage(it)
+                setTrafficRevenue(binding.textViewStoreDailyRevenue, it)
+                setCompareTrafficRevenue(binding.textViewStoreRevenueDifference, it)
+                setTrafficDonutChart(binding.donutChartStoreRevenue, it)
+                setTrafficRevenuePercentage(binding.textViewStoreRevenuePercentage, it)
             }
         }
         launchAndRepeatWithViewLifecycle {

@@ -15,11 +15,11 @@ class RecordsViewHolder private constructor(val binding: ProductRecordsVhBinding
 
     fun bind(record: Record, clickListener: (Record) -> Unit) {
         with(binding) {
-            viewRecordTypeIcon.setRecordType(record.type)
+            setRecordType(viewRecordTypeIcon, record.type)
             textViewProductName.text = record.productName.capitalizeFirstChar()
-            textViewRecordDate.setDateFromTimestamp(record.timestamp)
+            setDateFromTimestamp(textViewRecordDate, record.timestamp)
             textViewProductStock.text = record.amount.toString()
-            textViewRecordTypeSign.setAmountSymbolWithRecordType(record.type)
+            setAmountSymbolWithRecordType(textViewRecordTypeSign, record.type)
             root.setOnClickListener { clickListener(record) }
         }
     }

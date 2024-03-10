@@ -32,20 +32,20 @@ class ProductDataFragment : Fragment(R.layout.fragment_data_product) {
         launchAndRepeatWithViewLifecycle {
             viewModel.currentProduct.collectLatest {
                 with(binding) {
-                    imageViewProductImage.setImageFullSize(it.product.image)
+                    setImageFullSize(imageViewProductImage, it.product.image)
                     textViewProductName.text = it.product.name.capitalizeFirstChar()
-                    textViewProductBarcode.setTextOrDefault(it.product.barcode)
-                    textViewProductBuyPrice.setTextOrDefault(it.product.buyPrice)
-                    textViewProductSellPrice.setTextOrDefault(it.product.sellPrice)
-                    textViewProductSuggestedPrice.setTextOrDefault(it.product.suggestedSellPrice)
-                    textViewProductSku.setTextOrDefault(it.product.sku)
-                    textViewProductBrand.setTextOrDefault(it.product.brand)
-                    textViewProductNotes.setTextOrDefault(it.product.notes)
+                    setTextOrDefault(textViewProductBarcode, it.product.barcode)
+                    setTextOrDefault(textViewProductBuyPrice, it.product.buyPrice)
+                    setTextOrDefault(textViewProductSellPrice, it.product.sellPrice)
+                    setTextOrDefault(textViewProductSuggestedPrice, it.product.suggestedSellPrice)
+                    setTextOrDefault(textViewProductSku, it.product.sku)
+                    setTextOrDefault(textViewProductBrand, it.product.brand)
+                    setTextOrDefault(textViewProductNotes, it.product.notes)
                     textViewProductStock.text = it.product.stock.toString()
-                    textViewProductCategoriesSummary.setTextOrDefault(it.categories)
-                    textViewProductSuppliersSummary.setTextOrDefault(it.traders)
-                    chipGroupProductSuppliers.setProductSuppliersChips(it.traders)
-                    chipGroupProductCategories.setProductCategoriesChip(it.categories)
+                    setTextOrDefault(textViewProductCategoriesSummary, it.categories)
+                    setTextOrDefault(textViewProductSuppliersSummary, it.traders)
+                    setProductSuppliersChips(chipGroupProductSuppliers, it.traders)
+                    setProductCategoriesChip(chipGroupProductCategories, it.categories)
                 }
             }
         }

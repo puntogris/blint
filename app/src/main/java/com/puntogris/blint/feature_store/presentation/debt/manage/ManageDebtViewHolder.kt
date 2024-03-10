@@ -14,8 +14,8 @@ class ManageDebtViewHolder private constructor(val binding: DebtTraderVhBinding)
 
     fun bind(debt: Debt) {
         with(binding) {
-            textViewDebtAmount.setDebtColor(debt.amount)
-            textViewDebtDate.setDateFromTimestamp(debt.timestamp)
+            setDebtColor(textViewDebtAmount, debt.amount)
+            setDateFromTimestamp(textViewDebtDate, debt.timestamp)
             textViewDebtTraderName.text = debt.traderName.capitalizeFirstChar()
         }
     }

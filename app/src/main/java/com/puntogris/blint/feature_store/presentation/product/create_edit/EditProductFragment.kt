@@ -63,10 +63,10 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
 
                 with(binding.editProductPricesCard) {
                     groupInitialStockCard.isVisible = it.product.productId.isEmpty()
-                    editTextProductStock.setNumberIfNotZero(it.product.stock)
-                    editTextProductBuyPrice.setNumberIfNotZero(it.product.buyPrice)
-                    editTextProductSellPrice.setNumberIfNotZero(it.product.sellPrice)
-                    editTextProductSuggestedPrice.setNumberIfNotZero(it.product.suggestedSellPrice)
+                    setNumberIfNotZero(editTextProductStock, it.product.stock)
+                    setNumberIfNotZero(editTextProductBuyPrice, it.product.buyPrice)
+                    setNumberIfNotZero(editTextProductSellPrice, it.product.sellPrice)
+                    setNumberIfNotZero(editTextProductSuggestedPrice, it.product.suggestedSellPrice)
                 }
                 with(binding.editProductTradersCategoriesCard) {
                     chipAddSupplier.setOnClickListener {
@@ -75,8 +75,8 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
                     chipAddCateogies.setOnClickListener {
                         navigateToProductCategories()
                     }
-                    chipGroupCategories.setProductCategoriesChip(it.categories)
-                    chipGroupTraders.setProductSuppliersChips(it.traders)
+                    setProductCategoriesChip(chipGroupCategories, it.categories)
+                    setProductSuppliersChips(chipGroupTraders, it.traders)
                 }
                 with(binding.editProductExtrasCard) {
                     editTextProductSku.setText(it.product.sku)
@@ -87,7 +87,7 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
         }
         launchAndRepeatWithViewLifecycle {
             viewModel.productImage.collectLatest {
-                binding.editProductDescriptionCard.imageViewProductImage.setImageFullSize(it)
+                setImageFullSize(binding.editProductDescriptionCard.imageViewProductImage, it)
             }
         }
         launchAndRepeatWithViewLifecycle {

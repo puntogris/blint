@@ -49,9 +49,9 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
         launchAndRepeatWithViewLifecycle {
             viewModel.orderWithRecords.collectLatest {
                 binding.chipOrderTrader.setExternalChipName(it.order.traderName)
-                binding.textViewOrderTotal.setTotalOrderWithDetails(it)
-                binding.textViewOrderDate.setDateFromTimestampWithTime(it.order.timestamp)
-                binding.textViewOrderType.setRecordTypeString(it.order.type)
+                setTotalOrderWithDetails(binding.textViewOrderTotal, it)
+                setDateFromTimestampWithTime(binding.textViewOrderDate, it.order.timestamp)
+                setRecordTypeString(binding.textViewOrderType, it.order.type)
             }
         }
     }

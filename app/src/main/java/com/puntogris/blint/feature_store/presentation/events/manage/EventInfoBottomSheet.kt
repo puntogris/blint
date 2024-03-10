@@ -69,7 +69,7 @@ class EventInfoBottomSheet : BottomSheetDialogFragment() {
         launchAndRepeatWithViewLifecycle {
             viewModel.event.collectLatest {
                 binding.textViewEventMessage.text = it.content
-                binding.textViewEventDate.setDateFromTimestamp(it.timestamp)
+                setDateFromTimestamp(binding.textViewEventDate, it.timestamp)
             }
         }
     }

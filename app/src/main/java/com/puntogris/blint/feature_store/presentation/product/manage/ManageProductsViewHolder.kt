@@ -18,7 +18,7 @@ class ManageProductsViewHolder private constructor(val binding: ManageProductsVh
     ) {
         with(binding) {
             textViewProductName.text = product.product.name.capitalizeFirstChar()
-            textViewProductPrices.setProductPrices(product.product)
+            setProductPrices(textViewProductPrices, product.product)
             textViewProductStock.text = product.product.stock.toString()
             root.setOnClickListener { shortClickListener(product) }
             root.setOnLongClickListener {

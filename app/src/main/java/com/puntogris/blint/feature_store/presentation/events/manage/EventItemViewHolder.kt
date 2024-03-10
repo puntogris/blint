@@ -14,10 +14,10 @@ class EventItemViewHolder private constructor(val binding: CalendarEventVhBindin
 
     fun bind(event: Event, clickListener: (Event, Int) -> Unit, position: Int) {
         with(binding) {
-            viewEventColor.setEventStatusColor(event.status)
+            setEventStatusColor(viewEventColor, event.status)
             textViewEventTitle.text = event.content
-            textViewEventDate.setDateFromTimestamp(event.timestamp)
-            textViewEventStatus.setEventStatus(event.status)
+            setDateFromTimestamp(textViewEventDate, event.timestamp)
+            setEventStatus(textViewEventStatus, event.status)
             root.setOnClickListener {
                 clickListener(event, position)
             }

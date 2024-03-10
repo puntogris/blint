@@ -14,9 +14,9 @@ class OrderRecordsViewHolder private constructor(val binding: OrderRecordVhBindi
 
     fun bind(record: Record) {
         with(binding) {
-            imageViewProductImage.setImageFullSize(record.productImage)
+            setImageFullSize(imageViewProductImage, record.productImage)
             textViewProductName.text = record.productName.capitalizeFirstChar()
-            textViewRecordTotal.setNumberToMoneyString(record.total)
+            setNumberToMoneyString(textViewRecordTotal, record.total)
             textViewRecordAmount.text = record.amount.toString()
         }
     }

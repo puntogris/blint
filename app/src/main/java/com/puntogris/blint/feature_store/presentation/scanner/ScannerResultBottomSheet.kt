@@ -71,11 +71,11 @@ class ScannerResultBottomSheet :
                     groupProductNotFound.isVisible = it.product.productId.isEmpty()
                     textViewProductName.text = it.product.name
                     textViewProductStock.text = it.product.stock.toString()
-                    textViewProductLastRecord.setDateFromTimestamp(it.product.lastRecordTimestamp)
+                    setDateFromTimestamp(textViewProductLastRecord, it.product.lastRecordTimestamp)
                     textViewProductBarcode.text = it.product.barcode
-                    textViewProductBuyPrice.setTextOrDefault(it.product.buyPrice)
-                    textViewProductSellPrice.setTextOrDefault(it.product.sellPrice)
-                    textViewProductSuggestedPrice.setTextOrDefault(it.product.suggestedSellPrice)
+                    setTextOrDefault(textViewProductBuyPrice, it.product.buyPrice)
+                    setTextOrDefault(textViewProductSellPrice, it.product.sellPrice)
+                    setTextOrDefault(textViewProductSuggestedPrice, it.product.suggestedSellPrice)
                 }
             }
         }
