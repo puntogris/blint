@@ -17,7 +17,7 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
         color = ContextCompat.getColor(context, R.color.barcode_reticle_stroke)
         style = Paint.Style.STROKE
         strokeWidth =
-            context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_stroke_width)
+            context.resources.getDimensionPixelOffset(R.dimen.spacing_1)
                 .toFloat()
     }
 
@@ -31,7 +31,7 @@ class ViewFinderOverlay(context: Context, attrs: AttributeSet) : View(context, a
     }
 
     private val boxCornerRadius: Float =
-        context.resources.getDimensionPixelOffset(R.dimen.barcode_reticle_corner_radius).toFloat()
+        context.resources.getDimensionPixelOffset(R.dimen.spacing_2).toFloat()
 
     private var boxRect: RectF? = null
 

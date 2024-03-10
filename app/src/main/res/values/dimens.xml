@@ -1,21 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="barcode_reticle_stroke_width">4dp</dimen>
-    <dimen name="barcode_reticle_corner_radius">8dp</dimen>
-
-    <dimen name="spacing_medium">16dp</dimen>
-
-    <!--BottomAppBar-->
-
-    <!--BottomNavigationDrawer-->
-
-    <!--Layout-->
-    <!--Reply uses an 8dp grid system. Smaller components can align to a 2dp 'sub' grid.-->
-
-    <!--2dp sub grid-->
-
-    <!--8dp grid-->
-    <dimen name="grid_1">8dp</dimen>
-    <dimen name="grid_2">16dp</dimen>
 </resources>

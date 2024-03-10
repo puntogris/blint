@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/grid_1"
+            android:paddingEnd="@dimen/spacing_2"
             app:contentInsetStartWithNavigation="@dimen/spacing_0"
             app:menu="@menu/menu_add"
             app:navigationIcon="@drawable/ic_fi_rr_angle_left"
