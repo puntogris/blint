@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/spacing_5"
             android:backgroundTint="@color/color_on_primary"
             app:cardCornerRadius="@dimen/spacing_2_5"
             app:cardElevation="@dimen/spacing_0"

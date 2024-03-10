@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/imageView_trader_contact_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/spacing_5"
+            android:layout_height="@dimen/spacing_5"
             android:layout_marginEnd="@dimen/spacing_6"
             android:contentDescription="@string/open_contact_image"
             app:layout_constraintBottom_toBottomOf="@+id/textView_trader_name"
@@ -85,8 +85,8 @@
 
         <ImageView
             android:id="@+id/imageView_trader_phone_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/spacing_5"
+            android:layout_height="@dimen/spacing_5"
             android:contentDescription="@string/more_image"
             app:layout_constraintBottom_toBottomOf="@+id/textView_trader_phone"
             app:layout_constraintEnd_toEndOf="@+id/imageView_trader_contact_icon"
@@ -131,8 +131,8 @@
 
         <ImageView
             android:id="@+id/imageView_trader_email_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/spacing_5"
+            android:layout_height="@dimen/spacing_5"
             android:contentDescription="@string/email_image"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@+id/textView_trader_email"

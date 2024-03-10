@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/total_debt_balance"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_lg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/last_debts"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_lg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_debt_divider" />
 

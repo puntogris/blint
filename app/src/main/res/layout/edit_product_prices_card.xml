@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/imageView_decrease_stock_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         android:layout_marginEnd="@dimen/spacing_4"
         android:contentDescription="@string/decrease_number_image"
         app:layout_constraintBottom_toBottomOf="@+id/editText_product_stock"
@@ -55,8 +55,8 @@
 
     <ImageView
         android:id="@+id/imageView_increase_stock_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         android:layout_marginEnd="@dimen/spacing_6"
         android:contentDescription="@string/increase_number_image"
         app:layout_constraintBottom_toBottomOf="@+id/imageView_decrease_stock_icon"

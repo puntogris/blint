@@ -28,7 +28,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/generate_reports"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp" />
+        android:textSize="@dimen/text_lg" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_products_records"
@@ -55,7 +55,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/generate_lists"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp" />
+        android:textSize="@dimen/text_lg" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_products_list"

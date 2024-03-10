@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/product_description_card_camera_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         app:layout_constraintStart_toStartOf="@+id/space"
         app:layout_constraintTop_toTopOf="@+id/space"
         app:srcCompat="@drawable/ic_camera_circle"
@@ -116,8 +116,8 @@
 
     <ImageView
         android:id="@+id/button_open_scanner"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         android:layout_marginEnd="@dimen/spacing_6"
         android:contentDescription="@string/scan_image"
         app:layout_constraintBottom_toBottomOf="@+id/editText_product_barcode"

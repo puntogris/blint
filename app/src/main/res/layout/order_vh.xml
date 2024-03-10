@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_medium"
-        android:textSize="14sp"
+        android:textSize="@dimen/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/view_order_type_icon"
         app:layout_constraintTop_toBottomOf="@id/textView_order_number"

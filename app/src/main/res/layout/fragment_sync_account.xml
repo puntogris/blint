@@ -8,8 +8,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/view_animation"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/spacing_52"
+        android:layout_height="@dimen/spacing_52"
         app:layout_constraintBottom_toTopOf="@+id/textView_sync_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

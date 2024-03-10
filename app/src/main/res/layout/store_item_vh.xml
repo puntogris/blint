@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/spacing_6"
         android:layout_marginTop="@dimen/spacing_6"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_lg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/imageView_store_products_count_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         android:layout_marginTop="@dimen/spacing_4"
         app:layout_constraintStart_toStartOf="@+id/textView_store_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_store_name"
@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/imageView_store_traders_count_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/spacing_5"
+        android:layout_height="@dimen/spacing_5"
         android:layout_marginStart="@dimen/spacing_4"
         app:layout_constraintBottom_toBottomOf="@+id/textView_store_products_count"
         app:layout_constraintStart_toEndOf="@+id/textView_store_products_count"

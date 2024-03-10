@@ -8,10 +8,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_app_logo"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="100dp"
-        app:cardCornerRadius="15dp"
+        android:layout_width="@dimen/spacing_28"
+        android:layout_height="@dimen/spacing_28"
+        android:layout_marginTop="@dimen/spacing_24"
+        app:cardCornerRadius="@dimen/rounded_2xl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

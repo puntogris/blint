@@ -46,7 +46,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/product_trader"
         android:textColor="@color/color_on_background"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_lg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 

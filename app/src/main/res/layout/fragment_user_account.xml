@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/imageView_user_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/spacing_24"
+        android:layout_height="@dimen/spacing_24"
         android:layout_marginTop="@dimen/spacing_8"
         android:contentDescription="@string/profile_image"
         android:elevation="2dp"

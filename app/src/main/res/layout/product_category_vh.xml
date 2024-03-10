@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/list_item_checkable_selector"
-        android:drawablePadding="20dp"
+        android:drawablePadding="@dimen/spacing_5"
         android:foreground="?selectableItemBackground"
         android:paddingHorizontal="@dimen/spacing_6"
         android:paddingVertical="@dimen/spacing_4"
