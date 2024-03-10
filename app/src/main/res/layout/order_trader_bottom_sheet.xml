@@ -3,17 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.orders.create_order.NewOrderViewModel" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.orders.create_order.OrderTraderBottomSheet" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +10,7 @@
         tools:context=".feature_store.presentation.trader.ManageSuppliersFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/order_trader_toolbar"
+            android:id="@+id/toolbar"
             style="@style/Theme.Blint.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,11 +24,10 @@
             tools:ignore="RtlSymmetry">
 
             <EditText
-                android:id="@+id/order_trader_search"
+                android:id="@+id/editText_trader_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="100"
-                android:afterTextChanged="@{viewModel::setQuery}"
                 android:autofillHints="@string/auto_fill_hint_client_search"
                 android:background="@drawable/round_corners_17"
                 android:backgroundTint="@color/color_background_secondary"
@@ -54,7 +42,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/order_trader_recycler_view"
+            android:id="@+id/recyclerView_traders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

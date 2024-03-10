@@ -3,19 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="record"
-            type="com.puntogris.blint.feature_store.domain.model.order.Record" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/initial_record_divider1"
+            android:id="@+id/view_divider"
             android:layout_width="30dp"
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
@@ -26,7 +19,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/initial_record_title"
+            android:id="@+id/textView_initial_record_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -35,10 +28,10 @@
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_divider1" />
+            app:layout_constraintTop_toBottomOf="@+id/view_divider" />
 
         <TextView
-            android:id="@+id/initial_record_subtitle"
+            android:id="@+id/textView_initial_record_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -47,10 +40,10 @@
             android:text="@string/initial_record_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_title" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_initial_record_title" />
 
         <TextView
-            android:id="@+id/initial_record_product_name_label"
+            android:id="@+id/textView_product_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -60,20 +53,19 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_subtitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_initial_record_subtitle" />
 
         <TextView
-            android:id="@+id/initial_record_product_name"
+            android:id="@+id/textView_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{record.productName}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/initial_record_product_name_label"
-            app:layout_constraintStart_toEndOf="@+id/initial_record_product_name_label"
-            app:layout_constraintTop_toTopOf="@+id/initial_record_product_name_label" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_name_label"
+            app:layout_constraintStart_toEndOf="@+id/textView_product_name_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_name_label" />
 
         <View
-            android:id="@+id/initial_record_divider2"
+            android:id="@+id/view_divider_2"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -83,10 +75,10 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_product_name_label" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_name_label" />
 
         <TextView
-            android:id="@+id/initial_record_product_amount_label"
+            android:id="@+id/textView_product_amount_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -94,21 +86,20 @@
             android:text="@string/amount"
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/initial_record_product_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_divider2" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/view_divider_2" />
 
         <TextView
-            android:id="@+id/initial_record_product_amount"
+            android:id="@+id/textView_product_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(record.amount)}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/initial_record_product_amount_label"
-            app:layout_constraintStart_toEndOf="@+id/initial_record_product_amount_label"
-            app:layout_constraintTop_toTopOf="@+id/initial_record_product_amount_label" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_amount_label"
+            app:layout_constraintStart_toEndOf="@+id/textView_product_amount_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_amount_label" />
 
         <View
-            android:id="@+id/initial_record_divider3"
+            android:id="@+id/view_divider_3"
             style="@style/Theme.Blint.Divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -118,10 +109,10 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_product_amount_label" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_amount_label" />
 
         <TextView
-            android:id="@+id/initial_record_product_date_label"
+            android:id="@+id/textView_product_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -131,18 +122,17 @@
             android:textColor="@color/color_on_background"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/initial_record_product_amount_label"
-            app:layout_constraintTop_toBottomOf="@+id/initial_record_divider3" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_amount_label"
+            app:layout_constraintTop_toBottomOf="@+id/view_divider_3" />
 
         <TextView
-            android:id="@+id/initial_record_product_date"
-            dateFromTimestampWithTime="@{record.timestamp}"
+            android:id="@+id/textView_product_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/initial_record_product_date_label"
-            app:layout_constraintStart_toEndOf="@+id/initial_record_product_date_label"
-            app:layout_constraintTop_toTopOf="@+id/initial_record_product_date_label" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_date_label"
+            app:layout_constraintStart_toEndOf="@+id/textView_product_date_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_date_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

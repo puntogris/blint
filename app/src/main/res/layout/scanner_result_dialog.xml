@@ -3,31 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.scanner.ScannerResultBottomSheet" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.scanner.ScannerViewModel" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/scanner_result_product_found_group"
+            android:id="@+id/group_product_found"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.GONE : View.VISIBLE}"
-            app:constraint_referenced_ids="scanner_result_edit_product_stock_button,scanner_result_product_buy_price_label,scanner_result_product_sell_price_label,scanner_result_product_suggested_price_label,scanner_result_product_buy_price,scanner_result_product_sell_price,scanner_result_product_suggested_price,scanner_result_navigate_to_product_button,scanner_result_product_last_record_label,scanner_result_product_stock,scanner_result_product_stock_label,scanner_result_product_last_record,scanner_result_product_name,scanner_result_product_name_label,scanner_result_title"
+            app:constraint_referenced_ids="button_edit_product,textView_product_buy_price_label,textView_product_sell_price_label,textView_product_suggested_price_label,textView_product_buy_price,textView_product_sell_price,textView_product_suggested_price,button_open_product,textView_product_last_record_label,textView_product_stock,textView_product_stock_label,textView_product_last_record,textView_product_name,textView_product_name_label,textView_scanner_result_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,11 +20,10 @@
             tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/scanner_result_product_not_found_group"
+            android:id="@+id/group_product_not_found"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.scannedProduct.product.productId.isEmpty ? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="scanner_result_product_barcode_label,scanner_result_create_product_button,scanner_result_product_barcode,scanner_result_no_product_found_message"
+            app:constraint_referenced_ids="textView_product_barcode_label,button_create_product,textView_product_barcode,scanner_result_no_product_found_message"
             tools:visibility="gone" />
 
         <ImageView
@@ -54,7 +38,7 @@
             app:srcCompat="@drawable/divider_round_corners_horizontal" />
 
         <TextView
-            android:id="@+id/scanner_result_title"
+            android:id="@+id/textView_scanner_result_title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,48 +50,46 @@
             app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
 
         <TextView
-            android:id="@+id/scanner_result_product_name_label"
+            android:id="@+id/textView_product_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/name"
             android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_stock_label"
+            app:layout_constraintEnd_toStartOf="@+id/textView_product_stock_label"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_stock_label" />
+            app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_name"
+            android:id="@+id/textView_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.scannedProduct.product.name}"
-            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_name_label" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_name_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_stock_label"
+            android:id="@+id/textView_product_stock_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/stock"
             android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_last_record_label"
+            app:layout_constraintEnd_toStartOf="@+id/textView_product_last_record_label"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_title" />
+            app:layout_constraintStart_toEndOf="@+id/textView_product_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_scanner_result_title" />
 
         <TextView
-            android:id="@+id/scanner_result_product_stock"
+            android:id="@+id/textView_product_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.scannedProduct.product.stock)}"
-            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_stock_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_stock_label" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_stock_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_stock_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_last_record_label"
+            android:id="@+id/textView_product_last_record_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -115,16 +97,15 @@
             android:textColor="@color/color_on_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_stock_label"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_stock_label" />
+            app:layout_constraintStart_toEndOf="@+id/textView_product_stock_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_last_record"
-            dateFromTimestamp="@{viewModel.scannedProduct.product.lastRecordTimestamp}"
+            android:id="@+id/textView_product_last_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_last_record_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_last_record_label" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_last_record_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_last_record_label" />
 
         <TextView
             android:id="@+id/scanner_result_no_product_found_message"
@@ -141,7 +122,7 @@
             app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
 
         <TextView
-            android:id="@+id/scanner_result_product_barcode_label"
+            android:id="@+id/textView_product_barcode_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -153,127 +134,120 @@
             app:layout_constraintTop_toBottomOf="@+id/scanner_result_no_product_found_message" />
 
         <TextView
-            android:id="@+id/scanner_result_product_barcode"
+            android:id="@+id/textView_product_barcode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="24dp"
             android:singleLine="true"
-            android:text="@{viewModel.scannedProduct.product.barcode}"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_barcode_label"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_barcode_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_barcode_label"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_barcode_label"
+            app:layout_constraintStart_toEndOf="@+id/textView_product_barcode_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_barcode_label"
             tools:text="1234567890" />
 
         <TextView
-            android:id="@+id/scanner_result_product_buy_price_label"
+            android:id="@+id/textView_product_buy_price_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/buy_price"
             android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintEnd_toStartOf="@+id/textView_product_sell_price_label"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_name" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_name" />
 
         <TextView
-            android:id="@+id/scanner_result_product_buy_price"
-            priceOrDefault="@{viewModel.scannedProduct.product.buyPrice}"
+            android:id="@+id/textView_product_buy_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_buy_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_buy_price_label" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_buy_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_sell_price_label"
+            android:id="@+id/textView_product_sell_price_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sell_price"
             android:textColor="@color/color_on_background"
-            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_buy_price_label"
-            app:layout_constraintEnd_toStartOf="@+id/scanner_result_product_suggested_price_label"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_buy_price_label"
+            app:layout_constraintEnd_toStartOf="@+id/textView_product_suggested_price_label"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_buy_price_label"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_buy_price_label" />
+            app:layout_constraintStart_toEndOf="@+id/textView_product_buy_price_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_buy_price_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_sell_price"
-            priceOrDefault="@{viewModel.scannedProduct.product.sellPrice}"
+            android:id="@+id/textView_product_sell_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/scanner_result_product_sell_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_sell_price_label" />
+            app:layout_constraintStart_toStartOf="@+id/textView_product_sell_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_sell_price_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_suggested_price_label"
+            android:id="@+id/textView_product_suggested_price_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="@string/suggested_sell_price"
             android:textColor="@color/color_on_background"
-            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_product_sell_price_label"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_product_sell_price_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_product_sell_price_label"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_product_sell_price_label" />
+            app:layout_constraintStart_toEndOf="@+id/textView_product_sell_price_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_product_sell_price_label" />
 
         <TextView
-            android:id="@+id/scanner_result_product_suggested_price"
-            priceOrDefault="@{viewModel.scannedProduct.product.suggestedSellPrice}"
+            android:id="@+id/textView_product_suggested_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/scanner_result_product_suggested_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_suggested_price_label" />
+            app:layout_constraintEnd_toEndOf="@+id/textView_product_suggested_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_suggested_price_label" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scanner_result_edit_product_stock_button"
+            android:id="@+id/button_edit_product"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            android:onClickListener="@{() -> fragment.onCreateSimpleOrder()}"
             android:text="@string/action_edit_stock"
-            app:layout_constraintBottom_toBottomOf="@+id/scanner_result_navigate_to_product_button"
-            app:layout_constraintEnd_toStartOf="@+id/scanner_result_navigate_to_product_button"
+            app:layout_constraintBottom_toBottomOf="@+id/button_open_product"
+            app:layout_constraintEnd_toStartOf="@+id/button_open_product"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/scanner_result_navigate_to_product_button"
+            app:layout_constraintTop_toTopOf="@+id/button_open_product"
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scanner_result_navigate_to_product_button"
+            android:id="@+id/button_open_product"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:onClick="@{()->fragment.onNavigateToProductClicked()}"
             android:text="@string/go_to_product"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/scanner_result_edit_product_stock_button"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_buy_price" />
+            app:layout_constraintStart_toEndOf="@+id/button_edit_product"
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scanner_result_create_product_button"
+            android:id="@+id/button_create_product"
             style="@style/Theme.Blint.Button"
             android:layout_width="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{()-> fragment.onCreateNewProduct()}"
             android:text="@string/create_product_with_code"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_product_barcode_label" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_product_barcode_label" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

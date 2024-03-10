@@ -12,10 +12,13 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.setDateFromTimestamp
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,11 +29,27 @@ class EventInfoBottomSheet :
     private val args: EventInfoBottomSheetArgs by navArgs()
 
     override fun initializeViews() {
-        binding.fragment = this
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-
         setupEventStatusAdapter()
+        setupListeners()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.event.collectLatest {
+                binding.textViewEventMessage.text = it.content
+                binding.textViewEventDate.setDateFromTimestamp(it.timestamp)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        binding.imageViewDeleteEvent.setOnClickListener {
+            onDeleteEventButtonClicked()
+        }
+        binding.buttonSaveEvent.setOnClickListener {
+            onSaveButtonClicked()
+        }
     }
 
     private fun setupEventStatusAdapter() {
@@ -41,7 +60,7 @@ class EventInfoBottomSheet :
         } else {
             eventStatus[1]
         }
-        with(binding.eventInfoStatus) {
+        with(binding.editTextEventStatus) {
             setText(eventStatusText)
             setAdapter(adapter)
             setOnItemClickListener { _, _, i, _ ->

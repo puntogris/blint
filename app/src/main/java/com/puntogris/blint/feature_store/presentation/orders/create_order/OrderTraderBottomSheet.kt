@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -28,7 +29,6 @@ class OrderTraderBottomSheet :
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-
         bottomSheetDialog.setOnShowListener {
             bottomSheetDialog.findViewById<FrameLayout>(
                 com.google.android.material.R.id.design_bottom_sheet
@@ -44,16 +44,22 @@ class OrderTraderBottomSheet :
     }
 
     override fun initializeViews() {
-        binding.viewModel = viewModel
-        binding.fragment = this
-
         setupToolbar()
         subscribeUi()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.editTextTraderSearch.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.setQuery(editable)
+            }
+        }
     }
 
     private fun subscribeUi() {
         val adapter = ManageTradersAdapter { onTraderClicked(it) }
-        binding.orderTraderRecyclerView.adapter = adapter
+        binding.recyclerViewTraders.adapter = adapter
         viewModel.tradersLiveData.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
@@ -71,7 +77,7 @@ class OrderTraderBottomSheet :
     }
 
     private fun setupToolbar() {
-        with(binding.orderTraderToolbar) {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_menu_item_close) {
