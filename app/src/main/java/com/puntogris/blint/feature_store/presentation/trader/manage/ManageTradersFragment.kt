@@ -53,7 +53,7 @@ class ManageTradersFragment : Fragment(R.layout.fragment_manage_traders) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.manageTradersEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageTradersEmptyUi.root)
         }
     }
 

@@ -12,6 +12,10 @@ object Keys {
     const val SHOW_LOGIN_SCREEN_PREF = "show_login_screen_preference"
     const val APP_VERSION_PREF = "app_version_preference"
     const val TICKET_PREFERENCE = "ticket_preference"
+    const val ACCOUNT_PREFERENCE = "account_preference"
+    const val BACKUP_PREFERENCE = "backup_preference"
+    const val DELETE_ACCOUNT_PREFERENCE = "delete_account_preference"
+    const val ABOUT_PREFERENCE = "about_preference"
 
     // Navigation
     const val PRODUCT_BARCODE_KEY = "product_barcode_key"

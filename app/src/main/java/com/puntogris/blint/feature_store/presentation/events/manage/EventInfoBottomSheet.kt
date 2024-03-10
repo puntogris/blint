@@ -1,34 +1,65 @@
 package com.puntogris.blint.feature_store.presentation.events.manage
 
+import android.app.Dialog
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.maxkeppeler.sheets.info.InfoSheet
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.isDarkThemeOn
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.setDateFromTimestamp
 import com.puntogris.blint.common.utils.types.EventStatus
 import com.puntogris.blint.common.utils.types.Resource
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.EventInfoBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class EventInfoBottomSheet :
-    BaseBottomSheetFragment<EventInfoBottomSheetBinding>(R.layout.event_info_bottom_sheet) {
+class EventInfoBottomSheet : BottomSheetDialogFragment() {
+
+    private val binding by viewBinding(EventInfoBottomSheetBinding::bind)
 
     private val viewModel: ManageEventsViewModel by viewModels()
+
     private val args: EventInfoBottomSheetArgs by navArgs()
 
-    override fun initializeViews() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            window?.let {
+                it.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+                WindowInsetsControllerCompat(it, it.decorView).isAppearanceLightStatusBars =
+                    !isDarkThemeOn()
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.event_info_bottom_sheet, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupEventStatusAdapter()
         setupListeners()
         setupObservers()

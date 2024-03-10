@@ -1,118 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature_store.presentation.settings.UserAccountFragment">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.settings.PreferencesViewModel" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.settings.UserAccountFragment" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.settings.UserAccountFragment">
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:paddingLeft="@dimen/grid_1"
+        android:paddingRight="@dimen/grid_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+        app:title="@string/account_label" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/user_account_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:paddingLeft="@dimen/grid_1"
-            android:paddingRight="@dimen/grid_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/account_label" />
+    <ImageView
+        android:id="@+id/imageView_user_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/profile_image"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <ImageView
-            android:id="@+id/user_account_profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="32dp"
-            android:contentDescription="@string/profile_image"
-            android:elevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_toolbar"
-            app:userDataImage="@{String.valueOf(viewModel.currentUser.photoUrl)}" />
+    <TextView
+        android:id="@+id/textView_user_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/user_name"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_user_photo" />
 
-        <TextView
-            android:id="@+id/user_account_user_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/user_name"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_profile_image" />
+    <TextView
+        android:id="@+id/textView_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_user_name_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_user_name_label" />
 
-        <TextView
-            android:id="@+id/user_account_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.currentUser.name}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/user_account_user_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_user_name_label" />
+    <TextView
+        android:id="@+id/textView_user_email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/e_mail"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_user_name" />
 
-        <TextView
-            android:id="@+id/user_account_user_email_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/e_mail"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_user_name" />
+    <TextView
+        android:id="@+id/textView_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_user_email_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_user_email_label" />
 
-        <TextView
-            android:id="@+id/user_account_user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.currentUser.email}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/user_account_user_email_label"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_user_email_label" />
+    <TextView
+        android:id="@+id/textView_user_registration_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/creation_date"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_user_email"
+        app:layout_constraintTop_toBottomOf="@+id/textView_user_email" />
 
-        <TextView
-            android:id="@+id/user_account_user_registration_date_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/creation_date"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/user_account_user_email"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_user_email" />
+    <TextView
+        android:id="@+id/textView_user_registration_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView_user_registration_date_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_user_registration_date_label" />
 
-        <TextView
-            android:id="@+id/user_account_user_registration_date"
-            userCreationTimestamp="@{viewModel.currentUser.createdAt}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/user_account_user_registration_date_label"
-            app:layout_constraintTop_toBottomOf="@+id/user_account_user_registration_date_label" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

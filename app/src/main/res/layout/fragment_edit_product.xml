@@ -1,94 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <data>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Theme.Blint.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/grid_1"
+        android:paddingRight="@dimen/grid_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+        app:title="@string/product_label" />
 
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductViewModel" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductFragment" />
-    </data>
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_weight="100"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/edit_product_toolbar"
-            style="@style/Theme.Blint.Toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/grid_1"
-            android:paddingRight="@dimen/grid_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/product_label" />
+            android:layout_marginBottom="88dp"
+            android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="100"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <include
+                android:id="@+id/edit_product_description_card"
+                layout="@layout/edit_product_description_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
+            <include
+                android:id="@+id/edit_product_prices_card"
+                layout="@layout/edit_product_prices_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/edit_product_traders_categories_card"
+                layout="@layout/edit_product_traders_categories_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/edit_product_extras_card"
+                layout="@layout/edit_product_extras_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="88dp"
-                android:orientation="vertical">
+                android:layout_marginBottom="20dp" />
 
-                <include
-                    android:id="@+id/edit_product_description_card"
-                    layout="@layout/edit_product_description_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:fragment="@{fragment}"
-                    app:viewModel="@{viewModel}" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-                <include
-                    android:id="@+id/edit_product_prices_card"
-                    layout="@layout/edit_product_prices_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:fragment="@{fragment}"
-                    app:viewModel="@{viewModel}" />
-
-                <include
-                    android:id="@+id/edit_product_traders_categories_card"
-                    layout="@layout/edit_product_traders_categories_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:fragment="@{fragment}"
-                    app:viewModel="@{viewModel}" />
-
-                <include
-                    android:id="@+id/edit_product_extras_card"
-                    layout="@layout/edit_product_extras_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:fragment="@{fragment}"
-                    app:viewModel="@{viewModel}" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/edit_product_save_product_button"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:onClickListener="@{() -> fragment.onSaveButtonClicked()}"
-            android:text="@string/action_save" />
-    </LinearLayout>
-</layout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="@string/action_save" />
+</LinearLayout>

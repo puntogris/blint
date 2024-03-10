@@ -23,7 +23,8 @@ class OrderDebtSelectorDialog : DialogFragment() {
 
     override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         binding = DialogOrderDebtSelectorBinding.inflate(layoutInflater)
-        binding.dialog = this
+
+        setupListeners()
 
         return MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
             .setView(binding.root)
@@ -32,9 +33,18 @@ class OrderDebtSelectorDialog : DialogFragment() {
             .create()
     }
 
+    private fun setupListeners() {
+        binding.buttonNegative.setOnClickListener {
+            dismiss()
+        }
+        binding.buttonPositive.setOnClickListener {
+            onPositiveButtonClicked()
+        }
+    }
+
     fun onPositiveButtonClicked() {
         hideKeyboard()
-        val debt = binding.debtAmount.getFloat()
+        val debt = binding.editTextDebtAmout.getFloat()
         if (debt <= 0) {
             UiInterface.showSnackBar(getString(R.string.snack_debt_value_error))
         } else {

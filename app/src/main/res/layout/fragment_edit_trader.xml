@@ -1,60 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderViewModel" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.trader.create_edit.EditTraderFragment" />
-    </data>
-
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Theme.Blint.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+        app:title="@string/trader_label" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/edit_trader_toolbar"
-            style="@style/Theme.Blint.Toolbar"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:scrollbars="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/trader_label" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="88dp">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="100"
-            android:scrollbars="vertical">
+            <TextView
+                android:id="@+id/textView_trader_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:ems="5"
+                android:text="@string/name"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_name" />
 
-            <include
-                android:id="@+id/edit_trader_content_card"
-                layout="@layout/edit_trader_content_card"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/editText_trader_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_name_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords"
+                android:maxLength="20"
+                android:singleLine="true"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView_trader_contact_icon"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_name_label"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView_trader_contact_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/open_contact_image"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_name"
+                app:layout_constraintVertical_bias="0.476"
+                app:srcCompat="@drawable/ic_fi_rr_user_add" />
+
+            <View
+                android:id="@+id/edit_trader_divider1"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_trader_name" />
+
+            <TextView
+                android:id="@+id/textView_trader_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:text="@string/phone"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_phone"
+                app:layout_constraintStart_toStartOf="@+id/textView_trader_name_label"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_phone" />
+
+            <EditText
+                android:id="@+id/editText_trader_phone"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="88dp"
-                app:fragment="@{fragment}"
-                app:viewModel="@{viewModel}" />
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_phone_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_name"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_phone_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider1" />
 
-        </androidx.core.widget.NestedScrollView>
+            <View
+                android:id="@+id/edit_trader_divider2"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_trader_phone" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/edit_trader_save_trader_button"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:onClickListener="@{() -> fragment.onSaveButtonClicked()}"
-            android:text="@string/action_save" />
-    </LinearLayout>
-</layout>
+            <TextView
+                android:id="@+id/textView_trader_email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:text="@string/e_mail"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_email"
+                app:layout_constraintStart_toStartOf="@+id/textView_trader_phone_label"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_email" />
+
+            <EditText
+                android:id="@+id/editText_trader_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_email_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_phone"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_email_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider2" />
+
+            <View
+                android:id="@+id/edit_trader_divider3"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_trader_email" />
+
+            <TextView
+                android:id="@+id/textView_trader_address_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:text="@string/address"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_address"
+                app:layout_constraintStart_toStartOf="@+id/textView_trader_email_label"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_address" />
+
+            <EditText
+                android:id="@+id/editText_trader_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_address_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_email"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_address_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider3" />
+
+            <View
+                android:id="@+id/edit_trader_divider4"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_trader_address" />
+
+            <TextView
+                android:id="@+id/textView_trader_type_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="5"
+                android:text="@string/type"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView_trader_address_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider4" />
+
+            <TextView
+                android:id="@+id/edit_trader_type_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_type_hint"
+                android:textColor="?android:textColorHint"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_address"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_type_label"
+                app:layout_constraintTop_toTopOf="@+id/textView_trader_type_label" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_trader_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_type_hint">
+
+                <RadioButton
+                    android:id="@+id/other_trader_type_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trader_type_other" />
+
+                <RadioButton
+                    android:id="@+id/client_trader_type_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@string/trader_type_client" />
+
+                <RadioButton
+                    android:id="@+id/supplier_trader_type_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trader_type_supplier" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/edit_trader_divider5"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup_trader_type" />
+
+            <TextView
+                android:id="@+id/textView_trader_billing_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:ems="5"
+                android:text="@string/billing"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_billing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_billing" />
+
+            <EditText
+                android:id="@+id/editText_trader_billing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_billing_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_address"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_billing_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider5" />
+
+            <View
+                android:id="@+id/edit_trader_divider6"
+                style="@style/Theme.Blint.Divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_trader_billing" />
+
+            <TextView
+                android:id="@+id/textView_trader_notes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:text="@string/notes"
+                android:textColor="@color/color_on_background"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/editText_trader_notes"
+                app:layout_constraintStart_toStartOf="@+id/textView_trader_billing_label"
+                app:layout_constraintTop_toTopOf="@+id/editText_trader_notes" />
+
+            <EditText
+                android:id="@+id/editText_trader_notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/enter_notes_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editText_trader_billing"
+                app:layout_constraintStart_toEndOf="@+id/textView_trader_notes_label"
+                app:layout_constraintTop_toBottomOf="@+id/edit_trader_divider6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="@string/action_save" />
+</LinearLayout>

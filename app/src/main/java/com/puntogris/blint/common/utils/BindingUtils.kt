@@ -9,7 +9,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.db.williamchart.view.DonutChartView
@@ -27,14 +26,13 @@ import com.puntogris.blint.feature_store.domain.model.order.NewRecord
 import com.puntogris.blint.feature_store.domain.model.order.OrderWithRecords
 import com.puntogris.blint.feature_store.domain.model.product.Product
 import org.threeten.bp.OffsetDateTime
-import java.util.*
+import java.util.Date
 import kotlin.math.absoluteValue
 
 /*
-For some reason if we set the drawable inside glide it uses the theme of the phone, ignoring the
-one in the settings, displaying the wrong background color.
+ * For some reason if we set the drawable inside glide it uses the theme of the phone, ignoring the
+ * one in the settings, displaying the wrong background color.
  */
-@BindingAdapter("imageFullSize")
 fun ImageView.setImageFullSize(image: String) {
     if (image.isNotEmpty()) {
         GlideApp.with(context)
@@ -50,7 +48,6 @@ fun ImageView.setImageFullSize(image: String) {
     }
 }
 
-@BindingAdapter("profileImage")
 fun ImageView.setProfileImage(image: String?) {
     if (!image.isNullOrEmpty()) {
         GlideApp.with(context)
@@ -60,7 +57,6 @@ fun ImageView.setProfileImage(image: String?) {
     }
 }
 
-@BindingAdapter("productPrices")
 fun TextView.setProductPrices(product: Product) {
     text = context.getString(
         R.string.product_buy_sell_prices_template,
@@ -69,7 +65,6 @@ fun TextView.setProductPrices(product: Product) {
     )
 }
 
-@BindingAdapter("userDataImage")
 fun ImageView.setUserDataImage(image: String?) {
     Glide.with(context)
         .load(image ?: R.drawable.ic_baseline_account_circle_24)
@@ -77,29 +72,24 @@ fun ImageView.setUserDataImage(image: String?) {
         .into(this)
 }
 
-@BindingAdapter("userCreationTimestamp")
 fun TextView.setDateFromFirebaseUser(date: OffsetDateTime?) {
     if (date != null) {
         text = date.getDateWithTimeFormattedString()
     }
 }
 
-@BindingAdapter("capitalizeFirstChar")
 fun TextView.setCapitalizeFirstChar(text: String?) {
     this.text = text?.capitalizeFirstChar()
 }
 
-@BindingAdapter("capitalizeWord")
 fun TextView.setCapitalizeWord(text: String) {
     this.text = text.split(" ").joinToString(" ") { it.capitalizeFirstChar() }
 }
 
-@BindingAdapter("numberToMoneyString")
 fun TextView.setNumberToMoneyString(number: Float) {
     text = context.getString(R.string.amount_normal, number.toMoneyFormatted())
 }
 
-@BindingAdapter("totalOrderWithDetails")
 fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
     val total = order.order.total.toString()
     text = if (order.debt != null) {
@@ -109,17 +99,14 @@ fun TextView.setTotalOrderWithDetails(order: OrderWithRecords) {
     }
 }
 
-@BindingAdapter("dateFromTimestampWithTime")
 fun TextView.setDateFromTimestampWithTime(timestamp: OffsetDateTime) {
     text = timestamp.getDateWithTimeFormattedString()
 }
 
-@BindingAdapter("amountSymbolWithRecordType")
 fun TextView.setAmountSymbolWithRecordType(type: String) {
     text = if (type == IN || type == INITIAL) "+" else "-"
 }
 
-@BindingAdapter("recordTypeString")
 fun TextView.setRecordTypeString(type: String) {
     setText(
         if (type == IN || type == INITIAL) R.string.in_entry
@@ -127,20 +114,17 @@ fun TextView.setRecordTypeString(type: String) {
     )
 }
 
-@BindingAdapter("dateFromTimestamp")
 fun TextView.setDateFromTimestamp(timestamp: OffsetDateTime?) {
     timestamp?.let {
         text = it.getDateFormattedString()
     }
 }
 
-@BindingAdapter("recordType")
 fun View.setRecordType(type: String) {
     val color = if (type == IN || type == INITIAL) R.color.card6 else R.color.card1
     backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, color, null))
 }
 
-@BindingAdapter("externalChipName")
 fun Chip.setExternalChipName(name: String) {
     if (name.isNotEmpty()) {
         text = name.capitalizeFirstChar()
@@ -150,37 +134,31 @@ fun Chip.setExternalChipName(name: String) {
     }
 }
 
-@BindingAdapter("externalName")
 fun TextView.setExternalName(name: String) {
     text = if (name.isNotEmpty()) name.capitalizeFirstChar()
     else context.getString(R.string.enter_trader_hint)
 }
 
 
-@BindingAdapter("orderDebtOrDefault")
 fun TextView.setOrderDebtOrDefault(newOrder: NewOrder) {
     text = newOrder.newDebt?.amount?.let {
         context.getString(R.string.debt_of_template, it.toMoneyFormatted())
     } ?: context.getString(R.string.enter_debt_hint)
 }
 
-@BindingAdapter("eventStatus")
 fun TextView.setEventStatus(status: String) {
     setText(if (status == PENDING) R.string.pending else R.string.finished)
 }
 
-@BindingAdapter("eventStatusColor")
 fun View.setEventStatusColor(status: String) {
     val color = if (status == PENDING) R.color.card7 else R.color.card6
     backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, color, null))
 }
 
-@BindingAdapter("orderNumberTitle")
 fun TextView.setOrderNumberTitle(number: Int) {
     text = context.getString(R.string.order_number, number)
 }
 
-@BindingAdapter("debtColor")
 fun TextView.setDebtColor(amount: Float) {
     val (res, color) = if (amount >= 0) {
         R.string.amount_debt_positive to R.color.card6
@@ -191,7 +169,6 @@ fun TextView.setDebtColor(amount: Float) {
     setTextColor(ContextCompat.getColor(context, color))
 }
 
-@BindingAdapter("debtColorWithLimit")
 fun TextView.setDebtColorWithLimit(amount: Float) {
     val newAmount =
         if (amount > 1000000) (amount / 1000000).toMoneyFormatted() + "M." else amount.toMoneyFormatted()
@@ -204,7 +181,6 @@ fun TextView.setDebtColorWithLimit(amount: Float) {
     }
 }
 
-@BindingAdapter("productCategoriesChipGroup")
 fun ChipGroup.setProductCategoriesChip(categories: List<Category>) {
     categories.forEach {
         val chip = Chip(context).apply {
@@ -214,7 +190,6 @@ fun ChipGroup.setProductCategoriesChip(categories: List<Category>) {
     }
 }
 
-@BindingAdapter("productSuppliersChipGroup")
 fun ChipGroup.setProductSuppliersChips(suppliers: List<Trader>) {
     suppliers.forEach {
         val chip = Chip(context).apply {
@@ -232,7 +207,6 @@ fun TextView.setDateOrError(timeInMillis: Long) {
     }
 }
 
-@BindingAdapter("orderDebtSummary")
 fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
     val totalPaid = if (newOrder.newDebt != null) {
         newOrder.total - (newOrder.newDebt?.amount ?: 0F)
@@ -246,7 +220,6 @@ fun TextView.setOrderDebtSummary(newOrder: NewOrder) {
     )
 }
 
-@BindingAdapter("traderType")
 fun TextView.setTraderType(type: String) {
     val res = when (type) {
         Constants.CLIENT -> R.string.trader_type_client
@@ -256,7 +229,6 @@ fun TextView.setTraderType(type: String) {
     setText(res)
 }
 
-@BindingAdapter("selectedTraderType")
 fun RadioGroup.setSelectedTraderType(type: String) {
     val checkedId = when (type) {
         Constants.CLIENT -> R.id.client_trader_type_radio_button
@@ -266,17 +238,14 @@ fun RadioGroup.setSelectedTraderType(type: String) {
     check(checkedId)
 }
 
-@BindingAdapter("textOrDefault")
 fun TextView.setTextOrDefault(data: String?) {
     text = if (data.isNullOrEmpty()) "-" else data
 }
 
-@BindingAdapter("textOrDefault")
 fun TextView.setTextOrDefault(data: List<*>?) {
     if (data.isNullOrEmpty()) text = "-"
 }
 
-@BindingAdapter("priceOrDefault")
 fun TextView.setTextOrDefault(data: Number?) {
     text = if (data != null && data.toInt() != 0) context.getString(
         R.string.price_template,
@@ -284,12 +253,10 @@ fun TextView.setTextOrDefault(data: Number?) {
     ) else "-"
 }
 
-@BindingAdapter("numberIfNotZero")
 fun EditText.setNumberIfNotZero(data: Number) {
     if (data.toInt() != 0) setText(data.toString())
 }
 
-@BindingAdapter("trafficDonutChart")
 fun DonutChartView.setTrafficDonutChart(data: List<Traffic>?) {
 
     animation.duration = 1000L
@@ -307,7 +274,6 @@ fun DonutChartView.setTrafficDonutChart(data: List<Traffic>?) {
     animate(donutData)
 }
 
-@BindingAdapter("trafficRevenue")
 fun TextView.setTrafficRevenue(data: List<Traffic>?) {
     val revenue = data.takeIf { !it.isNullOrEmpty() }?.first()?.revenue() ?: 0F
 
@@ -317,12 +283,12 @@ fun TextView.setTrafficRevenue(data: List<Traffic>?) {
     text = context.getString(R.string.amount_normal, revenueString)
 }
 
-@BindingAdapter("compareTrafficRevenue")
 fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
     when {
         data.isNullOrEmpty() -> {
             setText(R.string.default_traffic_revenue_comparison)
         }
+
         data.size == 1 -> {
             val revenue = data.first().revenue()
             val percentage = if (revenue < 0) "- 100" else "+ 100"
@@ -332,6 +298,7 @@ fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
                 revenue.toMoneyFormatted()
             )
         }
+
         else -> {
             val firstRevenue = data[0].revenue()
             val secondRevenue = data[1].revenue()
@@ -348,7 +315,6 @@ fun TextView.setCompareTrafficRevenue(data: List<Traffic>?) {
     }
 }
 
-@BindingAdapter("trafficRevenuePercentage")
 fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
     val percentage = data.takeIf { !it.isNullOrEmpty() }?.first()?.let {
         (it.sales * 100 / (it.purchases + it.sales)).toInt()
@@ -356,18 +322,15 @@ fun TextView.setTrafficRevenuePercentage(data: List<Traffic>?) {
     text = context.getString(R.string.number_percentage, percentage)
 }
 
-@BindingAdapter("eventMessageOrDefault")
 fun TextView.setEventMessageOrDefault(message: String?) {
     text =
         if (message.isNullOrBlank()) context.getString(R.string.action_add_event_content) else message
 }
 
-@BindingAdapter("productRecordEntryPrice")
 fun EditText.setProductRecordEntryPrice(newRecord: NewRecord) {
     hint = "$${newRecord.productUnitPrice}"
 }
 
-@BindingAdapter("productRecordEntryStock")
 fun EditText.setProductRecordEntryStock(newRecord: NewRecord) {
     hint = "+${newRecord.currentStock}"
 }

@@ -38,7 +38,7 @@ class TraderRecordsFragment : Fragment(R.layout.fragment_trader_records) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.traderRecordsEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.traderRecordsEmptyUi.root)
         }
     }
 

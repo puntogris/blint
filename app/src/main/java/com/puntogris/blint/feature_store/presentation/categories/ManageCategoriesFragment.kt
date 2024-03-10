@@ -47,7 +47,7 @@ class ManageCategoriesFragment : Fragment(R.layout.fragment_manage_categories) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi.root)
         }
     }
 

@@ -39,7 +39,7 @@ class ProductRecordsFragment :
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.productRecordsEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.productRecordsEmptyUi.root)
         }
     }
 

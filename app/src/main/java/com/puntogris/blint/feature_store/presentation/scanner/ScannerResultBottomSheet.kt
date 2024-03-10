@@ -1,30 +1,61 @@
 package com.puntogris.blint.feature_store.presentation.scanner
 
+import android.app.Dialog
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.os.bundleOf
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.puntogris.blint.R
-import com.puntogris.blint.common.presentation.base.BaseBottomSheetFragment
 import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.isDarkThemeOn
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.setDateFromTimestamp
 import com.puntogris.blint.common.utils.setTextOrDefault
 import com.puntogris.blint.common.utils.showOrderPickerAndNavigate
+import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.ScannerResultDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ScannerResultBottomSheet :
-    BaseBottomSheetFragment<ScannerResultDialogBinding>(R.layout.scanner_result_dialog) {
+    BottomSheetDialogFragment() {
+
+    private val binding by viewBinding(ScannerResultDialogBinding::bind)
 
     private val viewModel: ScannerViewModel by viewModels()
 
     private var resumeCameraOnNavigationBack = true
 
-    override fun initializeViews() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            window?.let {
+                it.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+                WindowInsetsControllerCompat(it, it.decorView).isAppearanceLightStatusBars =
+                    !isDarkThemeOn()
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.scanner_result_dialog, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupListeners()
     }

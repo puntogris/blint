@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature_store.presentation.orders.create_order.PublishOrderFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/textView_publish_order_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/creating_order"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/view_animation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textView_publish_order_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_publish_order_title"
+        app:lottie_autoPlay="true" />
+
+    <TextView
+        android:id="@+id/textView_publish_order_subtitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".feature_store.presentation.orders.create_order.PublishOrderFragment">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/connecting_with_servers"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/button_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/textView_publish_order_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/creating_order"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_continue"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"
+        android:text="@string/action_finish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/view_animation"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView_publish_order_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_publish_order_title"
-            app:lottie_autoPlay="true" />
-
-        <TextView
-            android:id="@+id/textView_publish_order_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="96dp"
-            android:text="@string/connecting_with_servers"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/button_continue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_continue"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:enabled="false"
-            android:text="@string/action_finish"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

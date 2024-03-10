@@ -13,6 +13,10 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.puntogris.blint.BuildConfig
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Keys
+import com.puntogris.blint.common.utils.Keys.ABOUT_PREFERENCE
+import com.puntogris.blint.common.utils.Keys.ACCOUNT_PREFERENCE
+import com.puntogris.blint.common.utils.Keys.BACKUP_PREFERENCE
+import com.puntogris.blint.common.utils.Keys.DELETE_ACCOUNT_PREFERENCE
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.navigateAndClearStack
 import com.puntogris.blint.common.utils.onPreferenceChange
@@ -66,8 +70,23 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+
+        preferenceOnClick(ACCOUNT_PREFERENCE) {
+            findNavController().navigate(R.id.userAccountFragment)
+        }
+
+        preferenceOnClick(BACKUP_PREFERENCE) {
+            findNavController().navigate(R.id.backUpPreferences)
+        }
+
+        preferenceOnClick(DELETE_ACCOUNT_PREFERENCE) {
+            findNavController().navigate(R.id.deleteAccountFragment)
+        }
+
+        preferenceOnClick(ABOUT_PREFERENCE) {
+            findNavController().navigate(R.id.aboutPreferences)
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) = Unit
-
 }

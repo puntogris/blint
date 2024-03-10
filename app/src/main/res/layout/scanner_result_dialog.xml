@@ -1,253 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_product_found"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="button_edit_product,textView_product_buy_price_label,textView_product_sell_price_label,textView_product_suggested_price_label,textView_product_buy_price,textView_product_sell_price,textView_product_suggested_price,button_open_product,textView_product_last_record_label,textView_product_stock,textView_product_stock_label,textView_product_last_record,textView_product_name,textView_product_name_label,textView_scanner_result_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_product_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="textView_product_barcode_label,button_create_product,textView_product_barcode,scanner_result_no_product_found_message"
+        tools:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/scanner_result_divider"
+        android:layout_width="30dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/top_window_bar_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/divider_round_corners_horizontal" />
+
+    <TextView
+        android:id="@+id/textView_scanner_result_title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="16dp"
+        android:text="@string/information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_product_found"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="button_edit_product,textView_product_buy_price_label,textView_product_sell_price_label,textView_product_suggested_price_label,textView_product_buy_price,textView_product_sell_price,textView_product_suggested_price,button_open_product,textView_product_last_record_label,textView_product_stock,textView_product_stock_label,textView_product_last_record,textView_product_name,textView_product_name_label,textView_scanner_result_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+    <TextView
+        android:id="@+id/textView_product_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/name"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintEnd_toStartOf="@+id/textView_product_stock_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_product_not_found"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:constraint_referenced_ids="textView_product_barcode_label,button_create_product,textView_product_barcode,scanner_result_no_product_found_message"
-            tools:visibility="gone" />
+    <TextView
+        android:id="@+id/textView_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_product_name_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_name_label" />
 
-        <ImageView
-            android:id="@+id/scanner_result_divider"
-            android:layout_width="30dp"
-            android:layout_height="5dp"
-            android:layout_marginTop="24dp"
-            android:contentDescription="@string/top_window_bar_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/divider_round_corners_horizontal" />
+    <TextView
+        android:id="@+id/textView_product_stock_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/stock"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintEnd_toStartOf="@+id/textView_product_last_record_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_product_name_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_scanner_result_title" />
 
-        <TextView
-            android:id="@+id/textView_scanner_result_title"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/information"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
+    <TextView
+        android:id="@+id/textView_product_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_product_stock_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_stock_label" />
 
-        <TextView
-            android:id="@+id/textView_product_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@string/name"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/textView_product_stock_label"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
+    <TextView
+        android:id="@+id/textView_product_last_record_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/last_record"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_product_stock_label"
+        app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
 
-        <TextView
-            android:id="@+id/textView_product_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView_product_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_name_label" />
+    <TextView
+        android:id="@+id/textView_product_last_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_product_last_record_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_last_record_label" />
 
-        <TextView
-            android:id="@+id/textView_product_stock_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/stock"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/textView_product_last_record_label"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_product_name_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_scanner_result_title" />
+    <TextView
+        android:id="@+id/scanner_result_no_product_found_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/no_product_found_with_code"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
 
-        <TextView
-            android:id="@+id/textView_product_stock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView_product_stock_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_stock_label" />
+    <TextView
+        android:id="@+id/textView_product_barcode_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/code_with_dots"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanner_result_no_product_found_message" />
 
-        <TextView
-            android:id="@+id/textView_product_last_record_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="@string/last_record"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_product_stock_label"
-            app:layout_constraintTop_toTopOf="@+id/textView_product_stock_label" />
+    <TextView
+        android:id="@+id/textView_product_barcode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:singleLine="true"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_product_barcode_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_product_barcode_label"
+        app:layout_constraintTop_toTopOf="@+id/textView_product_barcode_label"
+        tools:text="1234567890" />
 
-        <TextView
-            android:id="@+id/textView_product_last_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView_product_last_record_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_last_record_label" />
+    <TextView
+        android:id="@+id/textView_product_buy_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/buy_price"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintEnd_toStartOf="@+id/textView_product_sell_price_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_name" />
 
-        <TextView
-            android:id="@+id/scanner_result_no_product_found_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/no_product_found_with_code"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_divider" />
+    <TextView
+        android:id="@+id/textView_product_buy_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_product_buy_price_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price_label" />
 
-        <TextView
-            android:id="@+id/textView_product_barcode_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/code_with_dots"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanner_result_no_product_found_message" />
+    <TextView
+        android:id="@+id/textView_product_sell_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sell_price"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_product_buy_price_label"
+        app:layout_constraintEnd_toStartOf="@+id/textView_product_suggested_price_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_product_buy_price_label"
+        app:layout_constraintTop_toTopOf="@+id/textView_product_buy_price_label" />
 
-        <TextView
-            android:id="@+id/textView_product_barcode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="24dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_product_barcode_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_product_barcode_label"
-            app:layout_constraintTop_toTopOf="@+id/textView_product_barcode_label"
-            tools:text="1234567890" />
+    <TextView
+        android:id="@+id/textView_product_sell_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textView_product_sell_price_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_sell_price_label" />
 
-        <TextView
-            android:id="@+id/textView_product_buy_price_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/buy_price"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintEnd_toStartOf="@+id/textView_product_sell_price_label"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_name" />
+    <TextView
+        android:id="@+id/textView_product_suggested_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/suggested_sell_price"
+        android:textColor="@color/color_on_background"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_product_sell_price_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_product_sell_price_label"
+        app:layout_constraintTop_toTopOf="@+id/textView_product_sell_price_label" />
 
-        <TextView
-            android:id="@+id/textView_product_buy_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView_product_buy_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price_label" />
+    <TextView
+        android:id="@+id/textView_product_suggested_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/textView_product_suggested_price_label"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_suggested_price_label" />
 
-        <TextView
-            android:id="@+id/textView_product_sell_price_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sell_price"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_product_buy_price_label"
-            app:layout_constraintEnd_toStartOf="@+id/textView_product_suggested_price_label"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_product_buy_price_label"
-            app:layout_constraintTop_toTopOf="@+id/textView_product_buy_price_label" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_edit_product"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/action_edit_stock"
+        app:layout_constraintBottom_toBottomOf="@+id/button_open_product"
+        app:layout_constraintEnd_toStartOf="@+id/button_open_product"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_open_product"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textView_product_sell_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/textView_product_sell_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_sell_price_label" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_open_product"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/go_to_product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_edit_product"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price" />
 
-        <TextView
-            android:id="@+id/textView_product_suggested_price_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="@string/suggested_sell_price"
-            android:textColor="@color/color_on_background"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_product_sell_price_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_product_sell_price_label"
-            app:layout_constraintTop_toTopOf="@+id/textView_product_sell_price_label" />
-
-        <TextView
-            android:id="@+id/textView_product_suggested_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/textView_product_suggested_price_label"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_suggested_price_label" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_edit_product"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/action_edit_stock"
-            app:layout_constraintBottom_toBottomOf="@+id/button_open_product"
-            app:layout_constraintEnd_toStartOf="@+id/button_open_product"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button_open_product"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_open_product"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/go_to_product"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_edit_product"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_buy_price" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_create_product"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/create_product_with_code"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_product_barcode_label" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_create_product"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/create_product_with_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_product_barcode_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>

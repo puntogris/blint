@@ -7,6 +7,8 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.BundleCompat
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -19,7 +21,12 @@ import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Keys
 import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getInt
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setImageFullSize
+import com.puntogris.blint.common.utils.setNumberIfNotZero
+import com.puntogris.blint.common.utils.setProductCategoriesChip
+import com.puntogris.blint.common.utils.setProductSuppliersChips
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.types.StringValidator
 import com.puntogris.blint.common.utils.viewBinding
@@ -27,6 +34,7 @@ import com.puntogris.blint.databinding.FragmentEditProductBinding
 import com.puntogris.blint.feature_store.domain.model.Category
 import com.puntogris.blint.feature_store.domain.model.Trader
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -40,14 +48,116 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        registerToolbarBackButton(binding.editProductToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupListeners()
+        setupObservers()
         setupResultListeners()
         setupGalleryLauncher()
         setupScannerLauncher()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.currentProduct.collectLatest {
+                binding.editProductDescriptionCard.editTextProductName.setText(it.product.name)
+
+                with(binding.editProductPricesCard) {
+                    groupInitialStockCard.isVisible = it.product.productId.isEmpty()
+                    editTextProductStock.setNumberIfNotZero(it.product.stock)
+                    editTextProductBuyPrice.setNumberIfNotZero(it.product.buyPrice)
+                    editTextProductSellPrice.setNumberIfNotZero(it.product.sellPrice)
+                    editTextProductSuggestedPrice.setNumberIfNotZero(it.product.suggestedSellPrice)
+                }
+                with(binding.editProductTradersCategoriesCard) {
+                    chipAddSupplier.setOnClickListener {
+                        navigateToProductSuppliers()
+                    }
+                    chipAddCateogies.setOnClickListener {
+                        navigateToProductCategories()
+                    }
+                    chipGroupCategories.setProductCategoriesChip(it.categories)
+                    chipGroupTraders.setProductSuppliersChips(it.traders)
+                }
+                with(binding.editProductExtrasCard) {
+                    editTextProductSku.setText(it.product.sku)
+                    editTextProductBrand.setText(it.product.brand)
+                    editTextProductNotes.setText(it.product.notes)
+                }
+            }
+        }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.productImage.collectLatest {
+                binding.editProductDescriptionCard.imageViewProductImage.setImageFullSize(it)
+            }
+        }
+        launchAndRepeatWithViewLifecycle {
+            viewModel.productBarcode.collectLatest {
+                binding.editProductDescriptionCard.editTextProductBarcode.setText(it)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        binding.buttonSave.setOnClickListener {
+            onSaveButtonClicked()
+        }
+        binding.editProductDescriptionCard.imageViewProductImage.setOnClickListener {
+            showImageOptions()
+        }
+        binding.editProductDescriptionCard.buttonOpenScanner.setOnClickListener {
+            showScannerOptions()
+        }
+        binding.editProductPricesCard.imageViewDecreaseStockIcon.setOnClickListener {
+            onDecreaseAmountButtonClicked()
+        }
+        binding.editProductPricesCard.imageViewIncreaseStockIcon.setOnClickListener {
+            onIncreaseAmountButtonClicked()
+        }
+        binding.editProductDescriptionCard.editTextProductName.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductName(editable)
+            }
+        }
+        binding.editProductDescriptionCard.editTextProductBarcode.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductBarcode(editable)
+            }
+        }
+        binding.editProductPricesCard.editTextProductStock.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductAmount(editable)
+            }
+        }
+        binding.editProductPricesCard.editTextProductBuyPrice.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductBuyPrice(editable)
+            }
+        }
+        binding.editProductPricesCard.editTextProductSellPrice.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductSellPrice(editable)
+            }
+        }
+        binding.editProductPricesCard.editTextProductSuggestedPrice.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductSuggestedPrice(editable)
+            }
+        }
+        binding.editProductExtrasCard.editTextProductSku.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductSku(editable)
+            }
+        }
+        binding.editProductExtrasCard.editTextProductBrand.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductBrand(editable)
+            }
+        }
+        binding.editProductExtrasCard.editTextProductNotes.doAfterTextChanged { editable ->
+            if (editable != null) {
+                viewModel.updateProductNotes(editable)
+            }
+        }
     }
 
     fun onSaveButtonClicked() {
@@ -126,13 +236,13 @@ class EditProductFragment : Fragment(R.layout.fragment_edit_product) {
     }
 
     fun onIncreaseAmountButtonClicked() {
-        binding.editProductPricesCard.productPricesCardProductStock.apply {
+        binding.editProductPricesCard.editTextProductStock.apply {
             setText(getInt().inc().toString())
         }
     }
 
     fun onDecreaseAmountButtonClicked() {
-        binding.editProductPricesCard.productPricesCardProductStock.apply {
+        binding.editProductPricesCard.editTextProductStock.apply {
             setText(getInt().dec().toString())
         }
     }

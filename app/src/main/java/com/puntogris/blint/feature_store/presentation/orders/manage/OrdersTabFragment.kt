@@ -38,7 +38,7 @@ class OrdersTabFragment : Fragment(R.layout.fragment_orders_tab) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.ordersTabEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.ordersTabEmptyUi.root)
         }
     }
 

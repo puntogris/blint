@@ -15,9 +15,14 @@ import com.maxkeppeler.sheets.options.OptionsSheet
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.Constants.WHATS_APP_PACKAGE
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
+import com.puntogris.blint.common.utils.setCapitalizeWord
+import com.puntogris.blint.common.utils.setTextOrDefault
+import com.puntogris.blint.common.utils.setTraderType
 import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentTraderDataBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class TraderDataFragment : Fragment(R.layout.fragment_trader_data) {
@@ -30,14 +35,36 @@ class TraderDataFragment : Fragment(R.layout.fragment_trader_data) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.let {
-            it.fragment = this
-            it.viewModel = viewModel
-            it.lifecycleOwner = viewLifecycleOwner
-        }
-
+        setupObservers()
+        setupListeners()
         setupContactPickerLauncher()
         setupContactPermissions()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.currentTrader.collectLatest {
+                binding.textViewTraderName.setCapitalizeWord(it.name)
+                binding.textViewTraderPhone.setTextOrDefault(it.phone)
+                binding.textViewTraderEmail.setTextOrDefault(it.email)
+                binding.textViewTraderAddress.setTextOrDefault(it.address)
+                binding.textViewTraderType.setTraderType(it.type)
+                binding.textViewTraderBilling.setTextOrDefault(it.billing)
+                binding.textViewTraderNotes.setTextOrDefault(it.notes)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        binding.imageViewTraderContactIcon.setOnClickListener {
+            onAddContactButtonClicked()
+        }
+        binding.imageViewTraderPhoneIcon.setOnClickListener {
+            onPhoneButtonClicked()
+        }
+        binding.imageViewTraderEmailIcon.setOnClickListener {
+            onEmailButtonClicked()
+        }
     }
 
     private fun setupContactPickerLauncher() {

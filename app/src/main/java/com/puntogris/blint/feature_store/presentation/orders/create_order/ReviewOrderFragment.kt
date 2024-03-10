@@ -7,10 +7,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.UiInterface
+import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setExternalName
+import com.puntogris.blint.common.utils.setNumberToMoneyString
+import com.puntogris.blint.common.utils.setOrderDebtOrDefault
+import com.puntogris.blint.common.utils.setOrderDebtSummary
 import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentReviewOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class ReviewOrderFragment : Fragment(R.layout.fragment_review_order) {
@@ -23,19 +29,33 @@ class ReviewOrderFragment : Fragment(R.layout.fragment_review_order) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        registerToolbarBackButton(binding.reviewOrderToolbar)
+        registerToolbarBackButton(binding.toolbar)
+        setupObservers()
+        setupListeners()
     }
 
-    fun navigateToPublishOrder() {
-        findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.newOrder.collectLatest {
+                binding.textViewOrderTotalDebtSummary.setOrderDebtSummary(it)
+                binding.textViewOrderTotal.setNumberToMoneyString(it.total)
+                binding.textViewOrderDebt.setOrderDebtOrDefault(it)
+                binding.textViewTraderName.setExternalName(it.traderName)
+                binding.textViewProductsCount.text = it.newRecords.size.toString()
+            }
+        }
     }
 
-    fun navigateToAddTrader() {
-        findNavController().navigate(R.id.orderTraderBottomSheet)
+    private fun setupListeners() {
+        binding.viewDebtButton.setOnClickListener {
+            navigateToAddDebt()
+        }
+        binding.viewTraderNameButton.setOnClickListener {
+            findNavController().navigate(R.id.orderTraderBottomSheet)
+        }
+        binding.buttonDone.setOnClickListener {
+            findNavController().navigate(R.id.action_reviewRecordFragment_to_publishOrderFragment)
+        }
     }
 
     fun navigateToAddDebt() {

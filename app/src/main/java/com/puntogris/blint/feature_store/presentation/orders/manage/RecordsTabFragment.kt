@@ -39,7 +39,7 @@ class RecordsTabFragment : Fragment(R.layout.fragment_records_tab) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.recordsTabEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.recordsTabEmptyUi.root)
         }
     }
 

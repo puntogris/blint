@@ -1,115 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.DeleteAccountFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Theme.Blint.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.account.DeleteAccountFragment">
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/grid_1"
+        android:paddingRight="@dimen/grid_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_fi_rr_angle_left"
+        app:title="@string/action_delete_account" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Theme.Blint.Toolbar"
+    <TextView
+        android:id="@+id/textView_delete_account_title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/safety_ask_data"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView_delete_account_requirement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/delete_account_email_required_alert"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_account_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:autofillHints="emailAddress"
+        android:hint="@string/account_email"
+        android:inputType="textEmailAddress"
+        app:helperText="@string/helper_text_obligatory"
+        app:helperTextEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/textVoew_delete_account_alert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_requirement"
+        app:layout_constraintVertical_bias="0.24000001">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_account_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/grid_1"
-            android:paddingRight="@dimen/grid_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_fi_rr_angle_left"
-            app:title="@string/action_delete_account" />
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
-        <TextView
-            android:id="@+id/textView_delete_account_title"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/safety_ask_data"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView_delete_account_requirement"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/delete_account_email_required_alert"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title" />
+    <TextView
+        android:id="@+id/textVoew_delete_account_alert"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="52dp"
+        android:text="@string/delete_account_danger_alert"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout_account_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:autofillHints="emailAddress"
-            android:hint="@string/account_email"
-            android:inputType="textEmailAddress"
-            app:helperText="@string/helper_text_obligatory"
-            app:helperTextEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/textVoew_delete_account_alert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_requirement"
-            app:layout_constraintVertical_bias="0.24000001">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/view_animation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title"
+        app:lottie_autoPlay="false"
+        app:lottie_rawRes="@raw/loading" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_account_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:singleLine="true" />
+    <Button
+        android:id="@+id/button_delete_account"
+        style="@style/Theme.Blint.Button"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/action_delete_account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textVoew_delete_account_alert"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="52dp"
-            android:text="@string/delete_account_danger_alert"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/view_animation"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/button_delete_account"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_delete_account_title"
-            app:lottie_autoPlay="false"
-            app:lottie_rawRes="@raw/loading" />
-
-        <Button
-            android:id="@+id/button_delete_account"
-            style="@style/Theme.Blint.Button"
-            android:layout_width="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/action_delete_account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

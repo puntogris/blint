@@ -1,314 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.trader.detail.TraderDataFragment" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.trader.detail.TraderViewModel" />
-    </data>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView_trader_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:ems="6"
+            android:text="@string/name"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/trader_data_name_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:ems="6"
-                android:text="@string/name"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView_trader_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_name_label"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_trader_contact_icon"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_name_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_name_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_name"
-                capitalizeWord="@{viewModel.currentTrader.name}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_name_label"
-                app:layout_constraintEnd_toStartOf="@+id/trader_data_contact_button"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_name_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_name_label"
-                tools:text="Text" />
+        <ImageView
+            android:id="@+id/imageView_trader_contact_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/open_contact_image"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_name_label"
+            app:srcCompat="@drawable/ic_fi_rr_user_add" />
 
-            <ImageView
-                android:id="@+id/trader_data_contact_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="24dp"
-                android:contentDescription="@string/open_contact_image"
-                android:onClick="@{()-> fragment.onAddContactButtonClicked()}"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_name_label"
-                app:srcCompat="@drawable/ic_fi_rr_user_add" />
+        <View
+            android:id="@+id/trader_data_divider1"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_name" />
 
-            <View
-                android:id="@+id/trader_data_divider1"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_name" />
+        <TextView
+            android:id="@+id/textView_trader_phone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/phone"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/trader_data_divider1" />
 
-            <TextView
-                android:id="@+id/trade_data_phone_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/phone"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/trader_data_name_label"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider1" />
+        <TextView
+            android:id="@+id/textView_trader_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_phone_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_phone_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_phone_label"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trade_data_phone"
-                textOrDefault="@{viewModel.currentTrader.phone}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trade_data_phone_label"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_name"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/trade_data_phone_label"
-                app:layout_constraintTop_toTopOf="@+id/trade_data_phone_label"
-                app:layout_constraintVertical_bias="1.0"
-                tools:text="Text" />
+        <ImageView
+            android:id="@+id/imageView_trader_phone_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/more_image"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_phone"
+            app:layout_constraintEnd_toEndOf="@+id/imageView_trader_contact_icon"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_phone_label"
+            app:srcCompat="@drawable/ic_fi_rr_menu_dots_vertical" />
 
-            <ImageView
-                android:id="@+id/trade_data_phone_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/more_image"
-                android:onClick="@{()-> fragment.onPhoneButtonClicked()}"
-                app:layout_constraintBottom_toBottomOf="@+id/trade_data_phone"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_contact_button"
-                app:layout_constraintTop_toTopOf="@+id/trade_data_phone_label"
-                app:srcCompat="@drawable/ic_fi_rr_menu_dots_vertical" />
+        <View
+            android:id="@+id/trader_data_divider2"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_phone" />
 
-            <View
-                android:id="@+id/trader_data_divider2"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trade_data_phone" />
+        <TextView
+            android:id="@+id/textView_trader_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/e_mail"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_phone_label"
+            app:layout_constraintTop_toBottomOf="@+id/trader_data_divider2" />
 
-            <TextView
-                android:id="@+id/trader_data_email_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/e_mail"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/trade_data_phone_label"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider2" />
+        <TextView
+            android:id="@+id/textView_trader_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_email_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_phone"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_email_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_email_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_email"
-                textOrDefault="@{viewModel.currentTrader.email}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_email_label"
-                app:layout_constraintEnd_toEndOf="@+id/trade_data_phone"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_email_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_email_label"
-                tools:text="Text" />
+        <ImageView
+            android:id="@+id/imageView_trader_email_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/email_image"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_email"
+            app:layout_constraintEnd_toEndOf="@+id/imageView_trader_phone_icon"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_email_label"
+            app:srcCompat="@drawable/ic_fi_rr_envelope" />
 
-            <ImageView
-                android:id="@+id/trader_data_email_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@string/email_image"
-                android:onClick="@{()-> fragment.onEmailButtonClicked()}"
-                android:textAlignment="textEnd"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_email"
-                app:layout_constraintEnd_toEndOf="@+id/trade_data_phone_button"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_email_label"
-                app:srcCompat="@drawable/ic_fi_rr_envelope" />
+        <View
+            android:id="@+id/trader_data_divider3"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_email" />
 
-            <View
-                android:id="@+id/trader_data_divider3"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_email" />
+        <TextView
+            android:id="@+id/textView_trader_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/address"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_email_label"
+            app:layout_constraintTop_toBottomOf="@+id/trader_data_divider3" />
 
-            <TextView
-                android:id="@+id/trader_data_address_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/address"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/trader_data_email_label"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider3" />
+        <TextView
+            android:id="@+id/textView_trader_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_address_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_email"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_address_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_address_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_address"
-                textOrDefault="@{viewModel.currentTrader.address}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_address_label"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_email"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_address_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_address_label"
-                tools:text="Text" />
+        <View
+            android:id="@+id/trader_data_divider4"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_address" />
 
-            <View
-                android:id="@+id/trader_data_divider4"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_address" />
+        <TextView
+            android:id="@+id/textView_trader_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/type"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_address_label"
+            app:layout_constraintTop_toBottomOf="@+id/trader_data_divider4" />
 
-            <TextView
-                android:id="@+id/trader_data_type_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/type"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/trader_data_address_label"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider4" />
+        <TextView
+            android:id="@+id/textView_trader_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_type_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_address"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_type_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_type_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_type"
-                traderType="@{viewModel.currentTrader.type}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_type_label"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_address"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_type_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_type_label"
-                tools:text="Text" />
+        <View
+            android:id="@+id/trader_data_divider5"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_type" />
 
-            <View
-                android:id="@+id/trader_data_divider5"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_type" />
+        <TextView
+            android:id="@+id/textView_trader_billing_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="6"
+            android:text="@string/billing"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_type_label"
+            app:layout_constraintTop_toBottomOf="@+id/trader_data_divider5" />
 
-            <TextView
-                android:id="@+id/trader_data_billing_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="6"
-                android:text="@string/billing"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/trader_data_type_label"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_divider5" />
+        <TextView
+            android:id="@+id/textView_trader_billing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_billing_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_type"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_billing_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_billing_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_billing"
-                textOrDefault="@{viewModel.currentTrader.billing}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_billing_label"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_type"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_billing_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_billing_label"
-                tools:text="Text" />
+        <View
+            android:id="@+id/divider20"
+            style="@style/Theme.Blint.Divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_trader_billing_label" />
 
-            <View
-                android:id="@+id/divider20"
-                style="@style/Theme.Blint.Divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trader_data_billing_label" />
+        <TextView
+            android:id="@+id/textView_trader_notes_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:ems="6"
+            android:text="@string/notes"
+            android:textColor="@color/color_on_background"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView_trader_billing_label"
+            app:layout_constraintTop_toBottomOf="@+id/divider20" />
 
-            <TextView
-                android:id="@+id/trader_data_notes_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:ems="6"
-                android:text="@string/notes"
-                android:textColor="@color/color_on_background"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/trader_data_billing_label"
-                app:layout_constraintTop_toBottomOf="@+id/divider20" />
+        <TextView
+            android:id="@+id/textView_trader_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_trader_notes_label"
+            app:layout_constraintEnd_toEndOf="@+id/textView_trader_billing"
+            app:layout_constraintStart_toEndOf="@+id/textView_trader_notes_label"
+            app:layout_constraintTop_toTopOf="@+id/textView_trader_notes_label"
+            tools:text="Text" />
 
-            <TextView
-                android:id="@+id/trader_data_notes"
-                textOrDefault="@{viewModel.currentTrader.notes}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/trader_data_notes_label"
-                app:layout_constraintEnd_toEndOf="@+id/trader_data_billing"
-                app:layout_constraintStart_toEndOf="@+id/trader_data_notes_label"
-                app:layout_constraintTop_toTopOf="@+id/trader_data_notes_label"
-                tools:text="Text" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</layout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

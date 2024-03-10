@@ -24,7 +24,8 @@ class UpdateDebtDialog : DialogFragment() {
 
     override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         binding = DialogUpdateDebtBinding.inflate(layoutInflater)
-        binding.dialog = this
+
+        setupListeners()
 
         return MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_rounded)
             .setView(binding.root)
@@ -33,14 +34,24 @@ class UpdateDebtDialog : DialogFragment() {
             .create()
     }
 
+    private fun setupListeners() {
+        binding.buttonNegative.setOnClickListener {
+            dismiss()
+        }
+        binding.buttonPositive.setOnClickListener {
+            onSaveDebtClicked()
+        }
+    }
+
     fun onSaveDebtClicked() {
-        val amount = binding.debtAmount.getFloat()
+        val amount = binding.editTextDebtAmount.getFloat()
 
         lifecycleScope.launch {
             when (viewModel.saveDebt(amount)) {
                 is Resource.Error -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_debt_error))
                 }
+
                 is Resource.Success -> {
                     UiInterface.showSnackBar(getString(R.string.snack_update_debt_success))
                     findNavController().navigateUp()

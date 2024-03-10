@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.puntogris.blint.R
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setDateFromTimestamp
 import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentStoreBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,12 +21,20 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.business = args.store
+        setupViews()
         setupToolbar()
     }
 
+    private fun setupViews() {
+        with(binding) {
+            textViewStoreDate.setDateFromTimestamp(args.store.createdAt)
+            textViewStoreName.text = args.store.name
+            textViewStoreAuthor.text = args.store.author
+        }
+    }
+
     private fun setupToolbar() {
-        with(binding.storeToolbar) {
+        with(binding.toolbar) {
             registerToolbarBackButton(this)
 
             setOnMenuItemClickListener {

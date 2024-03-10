@@ -10,7 +10,6 @@ import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.setDebtColor
 import com.puntogris.blint.common.utils.showEmptyUiOnEmptyAdapter
 import com.puntogris.blint.common.utils.viewBinding
-import com.puntogris.blint.databinding.FragmentGenerateReportBinding
 import com.puntogris.blint.databinding.FragmentTraderDebtBinding
 import com.puntogris.blint.feature_store.domain.model.order.Debt
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,6 @@ class TraderDebtFragment : Fragment(R.layout.fragment_trader_debt) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
 
         setupDebtsAdapter()
         setupObservers()
@@ -62,7 +60,7 @@ class TraderDebtFragment : Fragment(R.layout.fragment_trader_debt) {
                 }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.traderDebtEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.traderDebtEmptyUi.root)
         }
     }
 

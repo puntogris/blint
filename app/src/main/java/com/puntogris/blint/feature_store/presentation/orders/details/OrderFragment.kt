@@ -16,11 +16,16 @@ import com.puntogris.blint.common.utils.UiInterface
 import com.puntogris.blint.common.utils.getUriFromProvider
 import com.puntogris.blint.common.utils.launchAndRepeatWithViewLifecycle
 import com.puntogris.blint.common.utils.registerToolbarBackButton
+import com.puntogris.blint.common.utils.setDateFromTimestampWithTime
+import com.puntogris.blint.common.utils.setExternalChipName
+import com.puntogris.blint.common.utils.setRecordTypeString
+import com.puntogris.blint.common.utils.setTotalOrderWithDetails
 import com.puntogris.blint.common.utils.types.Resource
 import com.puntogris.blint.common.utils.viewBinding
 import com.puntogris.blint.databinding.FragmentOrderBinding
 import com.rajat.pdfviewer.PdfViewerActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class OrderFragment : Fragment(R.layout.fragment_order) {
@@ -32,18 +37,37 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fragment = this
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
 
         registerToolbarBackButton(binding.orderToolbar)
         setupOrderTableAdapter()
         setupMediaStorageLauncher()
+        setupListeners()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.orderWithRecords.collectLatest {
+                binding.chipOrderTrader.setExternalChipName(it.order.traderName)
+                binding.textViewOrderTotal.setTotalOrderWithDetails(it)
+                binding.textViewOrderDate.setDateFromTimestampWithTime(it.order.timestamp)
+                binding.textViewOrderType.setRecordTypeString(it.order.type)
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        binding.buttonGenerateInvoice.setOnClickListener {
+            onGenerateOrderReceiptClicked()
+        }
+        binding.chipOrderTrader.setOnClickListener {
+            onExternalChipClicked()
+        }
     }
 
     private fun setupOrderTableAdapter() {
         val adapter = OrdersRecordsAdapter()
-        binding.orderRecyclerView.adapter = adapter
+        binding.recyclerViewOrder.adapter = adapter
         subscribeUi(adapter)
     }
 

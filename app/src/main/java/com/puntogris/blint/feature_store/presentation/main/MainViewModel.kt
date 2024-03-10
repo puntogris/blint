@@ -1,7 +1,6 @@
 package com.puntogris.blint.feature_store.presentation.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import com.puntogris.blint.feature_store.data.data_source.local.SharedPreferences
 import com.puntogris.blint.feature_store.domain.repository.StoreRepository
 import com.puntogris.blint.feature_store.domain.repository.TrafficRepository
@@ -17,11 +16,11 @@ class MainViewModel @Inject constructor(
     storeRepository: StoreRepository
 ) : ViewModel() {
 
-    val user = userRepository.getUserFlow().asLiveData()
+    val user = userRepository.getUserFlow()
 
-    val currentBusiness = storeRepository.getCurrentStoreFlow().asLiveData()
+    val currentBusiness = storeRepository.getCurrentStoreFlow()
 
-    val lastTraffic = trafficRepository.getLastTrafficFlow(2).asLiveData()
+    val lastTraffic = trafficRepository.getLastTrafficFlow(2)
 
     fun showLoginScreen() = sharedPreferences.showLoginScreen()
 

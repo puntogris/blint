@@ -67,7 +67,7 @@ class ManageEventsFragment : Fragment(R.layout.fragment_manage_events) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.emptyUi.root)
         }
     }
 

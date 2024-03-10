@@ -48,7 +48,7 @@ android {
         ]
     }
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
     }
     namespace "com.puntogris.blint"
 }

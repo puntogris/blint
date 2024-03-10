@@ -1,186 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.main.HomeFragment" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.main.MainViewModel" />
-    </data>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/home_fragment_day_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/hello_message"
+            android:textColor="#869BB5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/color_primary"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/home_fragment_day_time"
+            app:layout_constraintTop_toBottomOf="@+id/home_fragment_day_time" />
+
+        <ImageView
+            android:id="@+id/imageView_user_photo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_user_name"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/home_fragment_day_time"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/home_fragment_store_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="22dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/color_on_primary"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_user_name">
 
-            <TextView
-                android:id="@+id/home_fragment_day_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/hello_message"
-                android:textColor="#869BB5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/home_fragment_user_name"
-                capitalizeFirstChar="@{viewModel.user.name}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/color_primary"
-                android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="@+id/home_fragment_day_time"
-                app:layout_constraintTop_toBottomOf="@+id/home_fragment_day_time" />
-
-            <ImageView
-                android:id="@+id/home_fragment_user_image"
-                profileImage="@{viewModel.user.photoUrl}"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/home_fragment_user_name"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/home_fragment_day_time"
-                tools:ignore="ContentDescription"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_fragment_store_card"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/color_on_primary"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_fragment_user_name">
+                android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/home_fragment_store_revenue_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/net_revenue"
+                    android:textColor="#869BB5"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView_store_name"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_store_name" />
 
-                    <TextView
-                        android:id="@+id/home_fragment_store_revenue_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/net_revenue"
-                        android:textColor="#869BB5"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="@+id/home_fragment_store_name"
-                        app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_name" />
+                <TextView
+                    android:id="@+id/textView_store_daily_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/color_primary"
+                    android:textSize="23sp"
+                    app:layout_constraintStart_toStartOf="@+id/home_fragment_store_revenue_label"
+                    app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_revenue_label"
+                    tools:text="$40.345,34" />
 
-                    <TextView
-                        android:id="@+id/home_fragment_store_daily_revenue"
-                        trafficRevenue="@{viewModel.lastTraffic}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/color_primary"
-                        android:textSize="23sp"
-                        app:layout_constraintStart_toStartOf="@+id/home_fragment_store_revenue_label"
-                        app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_revenue_label"
-                        tools:text="$40.345,34" />
+                <TextView
+                    android:id="@+id/textView_store_revenue_difference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:textColor="#FF9E2D"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView_store_daily_revenue"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_store_daily_revenue"
+                    tools:text="+ 38.43% ($5.009,33)" />
 
-                    <TextView
-                        android:id="@+id/home_fragment_store_revenue_difference"
-                        compareTrafficRevenue="@{viewModel.lastTraffic}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="24dp"
-                        android:textColor="#FF9E2D"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/home_fragment_store_daily_revenue"
-                        app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_daily_revenue"
-                        tools:text="+ 38.43% ($5.009,33)" />
+                <com.db.williamchart.view.DonutChartView
+                    android:id="@+id/donutChart_store_revenue"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="16dp"
+                    app:chart_donutBackgroundColor="@color/color_background"
+                    app:chart_donutRoundCorners="true"
+                    app:chart_donutThickness="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView_store_name" />
 
-                    <com.db.williamchart.view.DonutChartView
-                        android:id="@+id/home_fragment_store_revue_donut_chart"
-                        trafficDonutChart="@{viewModel.lastTraffic}"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginEnd="16dp"
-                        app:chart_donutBackgroundColor="@color/color_background"
-                        app:chart_donutRoundCorners="true"
-                        app:chart_donutThickness="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/home_fragment_store_name" />
+                <TextView
+                    android:id="@+id/textView_store_revenue_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/color_primary"
+                    android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/donutChart_store_revenue"
+                    app:layout_constraintEnd_toEndOf="@+id/donutChart_store_revenue"
+                    app:layout_constraintStart_toStartOf="@+id/donutChart_store_revenue"
+                    app:layout_constraintTop_toTopOf="@+id/donutChart_store_revenue"
+                    tools:text="81%" />
 
-                    <TextView
-                        android:id="@+id/home_fragment_store_revue_percentage"
-                        trafficRevenuePercentage="@{viewModel.lastTraffic}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/color_primary"
-                        android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/home_fragment_store_revue_donut_chart"
-                        app:layout_constraintEnd_toEndOf="@+id/home_fragment_store_revue_donut_chart"
-                        app:layout_constraintStart_toStartOf="@+id/home_fragment_store_revue_donut_chart"
-                        app:layout_constraintTop_toTopOf="@+id/home_fragment_store_revue_donut_chart"
-                        tools:text="81%" />
+                <TextView
+                    android:id="@+id/textView_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/color_primary"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/home_fragment_store_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@{viewModel.currentBusiness.name}"
-                        android:textColor="@color/color_primary"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/administration_label"
+            android:textColor="@color/color_primary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_user_name"
+            app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_card" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/administration_label"
-                android:textColor="@color/color_primary"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/home_fragment_user_name"
-                app:layout_constraintTop_toBottomOf="@+id/home_fragment_store_card" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_fragment_menu_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_fragment_menu_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?actionBarSize"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</layout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

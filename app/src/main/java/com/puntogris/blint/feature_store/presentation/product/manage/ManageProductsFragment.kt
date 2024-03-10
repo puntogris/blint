@@ -85,7 +85,7 @@ class ManageProductsFragment : Fragment(R.layout.fragment_manage_products) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.manageProductsEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageProductsEmptyUi.root)
         }
     }
 

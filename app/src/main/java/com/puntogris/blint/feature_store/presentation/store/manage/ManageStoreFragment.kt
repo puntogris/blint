@@ -44,7 +44,7 @@ class ManageStoreFragment : Fragment(R.layout.fragment_manage_store) {
         launchAndRepeatWithViewLifecycle {
             viewModel.storesFlow.collect { data ->
                 adapter.submitList(data)
-                binding.manageStoresEmptyUi.isVisible = data.isEmpty()
+                binding.manageStoresEmptyUi.root.isVisible = data.isEmpty()
             }
         }
     }

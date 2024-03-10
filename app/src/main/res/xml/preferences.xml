@@ -4,13 +4,11 @@
 
     <PreferenceCategory android:title="@string/account_label">
         <Preference
-            android:fragment="com.puntogris.blint.feature_store.presentation.settings.UserAccountFragment"
             android:key="account_preference"
             android:title="@string/my_account_pref"
             app:iconSpaceReserved="true" />
         <Preference
-            android:fragment="com.puntogris.blint.feature_store.presentation.settings.BackupPreferences"
-            android:key="backupPreferences"
+            android:key="backup_preference"
             android:title="@string/backup_pref"
             app:summary="@string/backup_summary_pref"
             app:iconSpaceReserved="true" />
@@ -23,7 +21,6 @@
             android:title="@string/themes_pref"
             app:iconSpaceReserved="true" />
         <Preference
-            android:fragment="com.puntogris.blint.feature_store.presentation.settings.DeleteAccountFragment"
             android:key="delete_account_preference"
             android:title="@string/action_delete"
             app:summary="@string/action_delete_account" />
@@ -51,7 +48,6 @@
 
     <PreferenceCategory android:title="App">
         <Preference
-            android:fragment="com.puntogris.blint.feature_store.presentation.settings.AboutPreferences"
             android:key="about_preference"
             android:title="@string/about_us_pref"
             app:iconSpaceReserved="true" />

@@ -1,94 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductFragment" />
-
-        <variable
-            name="viewModel"
-            type="com.puntogris.blint.feature_store.presentation.product.create_edit.EditProductViewModel" />
-    </data>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/traders_label"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp" />
 
-        <TextView
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup_traders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_add_supplier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/traders_label"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp" />
+            android:text="@string/add_traders"
+            app:chipIcon="@drawable/ic_baseline_add_24" />
+    </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/product_traders_categories_card_suppliers_chip_group"
-            productSuppliersChipGroup="@{viewModel.currentProduct.traders}"
+    <View
+        android:id="@+id/product_traders_categories_card_divider1"
+        style="@style/Theme.Blint.Divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/categories_label"
+        android:textColor="@color/color_on_background"
+        android:textSize="16sp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_add_cateogies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp">
+            android:text="@string/add_categories"
+            app:chipIcon="@drawable/ic_baseline_add_24" />
+    </com.google.android.material.chip.ChipGroup>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/product_traders_categories_card_add_supplier_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->fragment.navigateToProductSuppliers()}"
-                android:text="@string/add_traders"
-                app:chipIcon="@drawable/ic_baseline_add_24" />
-        </com.google.android.material.chip.ChipGroup>
+    <View
+        android:id="@+id/product_traders_categories_card_divider2"
+        style="@style/Theme.Blint.Divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:attr/listDivider" />
+</LinearLayout>
 
-        <View
-            android:id="@+id/product_traders_categories_card_divider1"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/categories_label"
-            android:textColor="@color/color_on_background"
-            android:textSize="16sp" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/product_traders_categories_card_categories_chip_group"
-            productCategoriesChipGroup="@{viewModel.currentProduct.categories}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/product_traders_categories_card_add_category_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->fragment.navigateToProductCategories()}"
-                android:text="@string/add_categories"
-                app:chipIcon="@drawable/ic_baseline_add_24" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <View
-            android:id="@+id/product_traders_categories_card_divider2"
-            style="@style/Theme.Blint.Divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider" />
-    </LinearLayout>
-</layout>

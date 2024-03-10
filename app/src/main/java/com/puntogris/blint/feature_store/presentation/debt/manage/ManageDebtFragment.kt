@@ -50,7 +50,7 @@ class ManageDebtFragment : Fragment(R.layout.fragment_manage_debt) {
             }
         }
         launchAndRepeatWithViewLifecycle {
-            showEmptyUiOnEmptyAdapter(adapter, binding.manageDebtEmptyUi)
+            showEmptyUiOnEmptyAdapter(adapter, binding.manageDebtEmptyUi.root)
         }
     }
 
