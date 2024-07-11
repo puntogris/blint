@@ -16,8 +16,8 @@ android {
         applicationId "com.puntogris.blint"
         minSdk 24
         compileSdk 34
-        targetSdk 33
-        versionCode 37
+        targetSdk 34
+        versionCode 38
         versionName "2.0.0"
         resConfigs "en", "es"
 
